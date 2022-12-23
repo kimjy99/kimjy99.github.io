@@ -24,6 +24,15 @@
         <a href="{{ post.url | relative_url }}" rel="permalink">{{ title }}</a>
       {% endif %}
     </h2>
+    
+    <p class="page__meta">
+      {% if post.last_modified_at %}
+        <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="{{ post.last_modified_at | date: "%Y-%m-%d" }}">{{ post.last_modified_at | date: "%Y년 %m월 %d일" }}</time>&emsp;
+      {% elsif post.date %}
+        <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y " }}</time>&emsp;
+      {% endif %}
+    </p>
+    
     {% include page__meta.html type=include.type %}
     {% if post.excerpt %}<p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>{% endif %}
   </article>
