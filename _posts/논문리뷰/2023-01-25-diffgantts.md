@@ -6,6 +6,7 @@ categories:
 tags:
   - Diffusion
   - GAN
+  - Text-to-Speech
   - Audio and Speech Processing
   - AI
 excerpt: "DiffGAN-TTS 논문 리뷰"
