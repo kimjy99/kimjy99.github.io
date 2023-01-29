@@ -1,4 +1,4 @@
-{% assign navigation = site.data.navigation[include.nav] %}
+<!-- {% assign navigation = site.data.navigation[include.nav] %}
 
 <nav class="nav__list">
   {% if page.sidebar.title %}<h3 class="nav__title" style="padding-left: 0;">{{ page.sidebar.title }}</h3>{% endif %}
@@ -22,5 +22,41 @@
         {% endif %}
       </li>
     {% endfor %}
+  </ul>
+</nav> -->
+
+<nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">{{ site.data.ui-text[site.locale].menu_label | default: "Toggle Menu" }}</label>
+  <ul class="nav__items" id="category_tag_menu">
+      <li>
+        <span class="nav__sub-title" v-on:click='togglec()'>Categories</span>
+        <ul v-show="flag_c">
+        {% assign sorted_categories = site.categories | sort%}
+        {% for category in sorted_categories %}
+           <li><a href="/categories/{{category[0] }}" class="">{{category[0]}} ({{category[1].size}})</a></li>
+        {% endfor %}
+        </ul>
+
+        <span class="nav__sub-title" v-on:click='togglet()'>tags</span>
+        <ul v-show="flag_t">
+        
+          {% assign tags_max = 0 %}
+          {% for tag in site.tags %}
+            {% if tag[1].size > tags_max %}
+              {% assign tags_max = tag[1].size %}
+            {% endif %}
+          {% endfor %}
+
+            {% for i in (1..tags_max) reversed %}
+              {% for tag in site.tags %}
+                {% if tag[1].size == i %}
+                  <li><a href="/tags/#{{tag[0] | slugify}}" class="">{{tag[0] | none }} ({{tag[1].size}})</a></li>
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+            
+        </ul>
+      </li>
   </ul>
 </nav>
