@@ -14,7 +14,7 @@ classes: wide
 ---
 
 > AAAI 2022. [[Paper](https://arxiv.org/abs/2105.02446)] [[Github](https://github.com/keonlee9420/DiffSinger)]  
-> Jinglin Liu1, Chengxi Li1, Yi Ren1, Feiyang Chen, Peng Liu, Zhou Zhao  
+> Jinglin Liu, Chengxi Li, Yi Ren, Feiyang Chen, Peng Liu, Zhou Zhao  
 > Zhejiang University  
 > 6 May 2021  
 
