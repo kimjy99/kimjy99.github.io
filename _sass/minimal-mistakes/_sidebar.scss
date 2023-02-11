@@ -69,6 +69,14 @@
       height: 20px;
     }
   }
+
+  -ms-overflow-style: none;  /* Internet Explorer */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Chrome, Safari, Opera, Edge */
+.sidebar::-webkit-scrollbar {
+  display: none;
 }
 
 .sidebar__right {
