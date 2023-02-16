@@ -1,5 +1,5 @@
 ---
-title: "[구현] Colab에서 DDPM 구현하기"
+title: "[구현] Colab에서 DDPM 구현하기 진행상황"
 last_modified_at: 2023-02-15
 categories:
   - 프로그래밍
@@ -7,7 +7,7 @@ tags:
   - Diffusion
   - Computer Vision
   - AI
-excerpt: "Colab에서 DDPM 구현하기"
+excerpt: "Colab에서 DDPM 구현하기 진행상황"
 use_math: true
 classes: wide
 ---
@@ -30,7 +30,7 @@ Loss는 0.02 정도까지 쭉 감소한 후 더 이상 줄어들지 않아 학�
 
 $T = 1000$으로 12장을 한 번 샘플링하는 데 6분 정도 걸린다. 샘플은 아래와 같다. 
 
-<center><img src='{{"/assets/img/ddpm-coding/ddpm-coding-fig1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/ddpm-coding/ddpm-coding-fig1.png" | relative_url}}' width="50%"></center>
 <br>
 특정 색이 너무 강조되어 나오고 있고, 얼굴 모양 자체도 이상하다. 아무래도 학습이 덜 진행된 것 같은 데 더 이상 loss가 떨어지지 않는다. 
 
@@ -57,7 +57,7 @@ Loss가 0.0023 정도까지 감소하였다. P2-weighting 가중치의 평균이
 
 샘플은 아래와 같다. 
 
-<center><img src='{{"/assets/img/ddpm-coding/ddpm-coding-fig2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/ddpm-coding/ddpm-coding-fig2.png" | relative_url}}' width="50%"></center>
 <br>
 U-Net 채널 수를 고려하면 나름 괜찮은 결과가 나온 것 같다. 
 
@@ -73,7 +73,7 @@ Learning rate가 절반이 되면 10,000 iteration 정도 loss가 소폭 감소�
 
 샘플은 아래와 같다. 
 
-<center><img src='{{"/assets/img/ddpm-coding/ddpm-coding-fig3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/ddpm-coding/ddpm-coding-fig3.png" | relative_url}}' width="50%"></center>
 <br>
 확실히 성능이 개선되었다. 이상한 샘플이 나오는 비율도 줄어든 것 같다. 어떤 논문에서 loss가 거의 줄어들지 않더라도 오래 학습하는 것이 성능 개선에 효과가 있다고 하던데 오래 학습하는 것이 효과가 있긴 한 것 같다.
 
