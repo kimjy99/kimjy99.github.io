@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰/Diffusion] Tackling the Generative Learning Trilemma with Denoising Diffusion GANs"
-last_modified_at: 2023-02-15
+last_modified_at: 2023-02-16
 categories:
   - 논문리뷰
 tags:
