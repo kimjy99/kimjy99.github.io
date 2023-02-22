@@ -36,6 +36,6 @@ classes: wide
 
 ### 3. 같은 latent vector에서 샘플링
 
-<center><img src='{{"/assets/img/ddpm-coding/same-latent.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/ddpm-coding/same-latent.png" | relative_url}}' width="60%"></center>
 <br>
 맨 왼쪽 위 샘플의 latent vector ($x_T$)에서 15번 더 샘플링한 결과이다. 괜찮은 샘플의 latent vector에서 샘플링하니까 전체적으로 결과가 괜찮게 나오는 것 같다. 
