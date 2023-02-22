@@ -131,6 +131,8 @@ $$
 이 공식은 $\lambda$가 컨디셔닝의 강도를 제어하는 기울기 가중치 역할을 하는 classifier-free conditional generation와도 유사하다. 주요 차이점은 전통적인 조건부 생성 모델은 조건 데이터에 맞추기 위해 종종 명시적 학습이 필요하다는 것이다. 따라서 샘플링 절차의 업데이트 프로세스는 조건을 변경할 필요가 없다. 반대로 unconditional한 학습 과정에 맞추려면 gradient-guided 방법의 조건부 입력은 reverse process가 진행됨에 따라 지속적인 교체가 필요하다. 결과적으로 조건부 입력에 적응하기 위해 추가 학습이 필요하지 않다. 
 
 ## Experiments
+<center><img src='{{"/assets/img/mmdiff/mmdiff-fig4.PNG" | relative_url}}' width="95%"></center>
+
 - 데이터셋: Landscape, AIST++
 - Implementation Details
   - Diffusion model: 샘플링을 가속하기 위하여 DPM-Solver를 사용. 공정한 평가를 위해 DPM-Solver의 설정을 따름. 
