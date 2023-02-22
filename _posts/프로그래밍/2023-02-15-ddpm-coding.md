@@ -1,5 +1,5 @@
 ---
-title: "[구현] Colab에서 DDPM 구현하기 진행상황"
+title: "[구현] Colab에서 DDPM 구현하기 - 진행상황"
 last_modified_at: 2023-02-15
 categories:
   - 프로그래밍
@@ -7,10 +7,12 @@ tags:
   - Diffusion
   - Computer Vision
   - AI
-excerpt: "Colab에서 DDPM 구현하기 진행상황"
+excerpt: "Colab에서 DDPM 구현하기 - 진행상황"
 use_math: true
 classes: wide
 ---
+
+> 다음 글: [다양한 결과 모음](https://kimjy99.github.io/프로그래밍/ddpm-coding-2/)
 
 ### 1월 22일
 첫 학습을 4일만에 종료하였다. 총 19시간 정도 학습하였다. 
