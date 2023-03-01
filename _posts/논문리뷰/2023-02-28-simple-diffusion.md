@@ -1,5 +1,5 @@
 ---
-title: "[논문리뷰/Diffusion] simple diffusion: End-to-end diffusion for high resolution images"
+title: "[논문리뷰] simple diffusion: End-to-end diffusion for high resolution images"
 last_modified_at: 2023-02-28
 categories:
   - 논문리뷰

@@ -1,5 +1,5 @@
 ---
-title: "[논문리뷰/Diffusion] DiffGAN-TTS: High-Fidelity and Efficient Text-to-Speech with Denoising Diffusion GANs"
+title: "[논문리뷰] DiffGAN-TTS: High-Fidelity and Efficient Text-to-Speech with Denoising Diffusion GANs"
 last_modified_at: 2023-01-25
 categories:
   - 논문리뷰

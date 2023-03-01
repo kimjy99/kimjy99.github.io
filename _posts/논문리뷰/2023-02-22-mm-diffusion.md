@@ -1,5 +1,5 @@
 ---
-title: "[논문리뷰/Diffusion] MM-Diffusion: Learning Multi-Modal Diffusion Models for Joint Audio and Video Generation"
+title: "[논문리뷰] MM-Diffusion: Learning Multi-Modal Diffusion Models for Joint Audio and Video Generation"
 last_modified_at: 2023-02-22
 categories:
   - 논문리뷰

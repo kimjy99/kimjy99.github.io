@@ -1,5 +1,5 @@
 ---
-title: "[논문리뷰/Diffusion] Conffusion: Confidence Intervals for Diffusion Models"
+title: "[논문리뷰] Conffusion: Confidence Intervals for Diffusion Models"
 last_modified_at: 2023-02-13
 categories:
   - 논문리뷰

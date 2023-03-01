@@ -1,5 +1,5 @@
 ---
-title: "[논문리뷰/Diffusion] DiffusionInst: Diffusion Model for Instance Segmentation"
+title: "[논문리뷰] DiffusionInst: Diffusion Model for Instance Segmentation"
 last_modified_at: 2023-02-17
 categories:
   - 논문리뷰

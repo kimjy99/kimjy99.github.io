@@ -1,5 +1,5 @@
 ---
-title: "[논문리뷰/Diffusion] Make-A-Video: Text-to-Video Generation without Text-Video Data"
+title: "[논문리뷰] Make-A-Video: Text-to-Video Generation without Text-Video Data"
 last_modified_at: 2023-02-23
 categories:
   - 논문리뷰

@@ -1,5 +1,5 @@
 ---
-title: "[논문리뷰/Diffusion] DiffSinger: Singing Voice Synthesis via Shallow Diffusion Mechanism"
+title: "[논문리뷰] DiffSinger: Singing Voice Synthesis via Shallow Diffusion Mechanism"
 last_modified_at: 2023-02-04
 categories:
   - 논문리뷰

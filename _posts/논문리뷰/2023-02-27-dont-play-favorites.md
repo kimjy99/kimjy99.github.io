@@ -1,5 +1,5 @@
 ---
-title: "[논문리뷰/Diffusion] Don’t Play Favorites: Minority Guidance for Diffusion Models"
+title: "[논문리뷰] Don’t Play Favorites: Minority Guidance for Diffusion Models"
 last_modified_at: 2023-02-27
 categories:
   - 논문리뷰
