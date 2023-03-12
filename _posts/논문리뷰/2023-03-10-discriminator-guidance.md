@@ -153,7 +153,7 @@ $$
 $$
 \begin{aligned}
 E_{\theta_\infty} &= \frac{1}{2} \int_0^T g^2 (t) \mathbb{E}_{p_r^t} [ \| \nabla \log p_r^t - s_{\theta_\infty} \|_2^2 ] dt \\
-E_{\theta_\infty} &= \frac{1}{2} \int_0^T g^2 (t) \mathbb{E}_{p_r^t} [ \| \nabla \log p_r^t - (s_{\theta_\infty} + c_\phi) \|_2^2 ] dt \\
+E_{\theta_\infty, \phi} &= \frac{1}{2} \int_0^T g^2 (t) \mathbb{E}_{p_r^t} [ \| \nabla \log p_r^t - (s_{\theta_\infty} + c_\phi) \|_2^2 ] dt \\
 &= \frac{1}{2} \int_0^T g^2 (t) \mathbb{E}_{p_r^t} [ \| c_{\theta_\infty} - c_\phi \|_2^2 ] dt
 \end{aligned}
 $$
@@ -206,7 +206,7 @@ $w_t^\textrm{DG}$와 $w_t^\textrm{CG}$는 시간 종속 가중치이다. 두 가
 
 <center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-algo2.PNG" | relative_url}}' width="50%"></center>
 <br>
-Algorithm 2는 guidance 테크닉의 샘플링 절차의 전체 디테일을 설명한다. 이 알고리즘은 아래 표의 해당 하이퍼파라미터를 사용하여 DDPM, DDIM, EDM의 샘플러를 줄인다. 본 논문의 sampler는 기본 샘플러 뒤에 G++를 붙여 표시한다.
+Algorithm 2는 guidance 테크닉의 샘플링 절차의 전체 디테일을 설명한다. 이 알고리즘은 아래 표의 해당 하이퍼파라미터를 사용하여 DDPM, DDIM, EDM의 sampler를 줄인다. 본 논문의 sampler는 기본 sampler 뒤에 G++를 붙여 표시한다.
 
 <center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-table1.PNG" | relative_url}}' width="40%"></center>
 
