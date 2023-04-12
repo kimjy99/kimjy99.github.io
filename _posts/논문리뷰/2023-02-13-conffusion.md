@@ -5,6 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - Diffusion
+  - Inpainting
   - Computer Vision
   - AI
 excerpt: "Conffusion 논문 리뷰"

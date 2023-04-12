@@ -5,6 +5,8 @@ categories:
   - 논문리뷰
 tags:
   - Diffusion
+  - Video Generation
+  - Audio Generation
   - Computer Vision
   - Audio and Speech Processing
   - AI

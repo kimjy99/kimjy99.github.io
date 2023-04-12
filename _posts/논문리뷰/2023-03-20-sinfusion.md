@@ -5,6 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - Diffusion
+  - Video Generation
   - Computer Vision
   - AI
 excerpt: "SinFusion 논문 리뷰"

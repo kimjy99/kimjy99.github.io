@@ -6,6 +6,7 @@ categories:
 tags:
   - Diffusion
   - GAN
+  - Image Generation
   - Computer Vision
   - AI
 excerpt: "Denoising Diffusion GAN 논문 리뷰"

@@ -5,6 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - Diffusion
+  - Text-to-3D
   - 3D Vision
   - AI
 excerpt: "DreamFusion 논문 리뷰"

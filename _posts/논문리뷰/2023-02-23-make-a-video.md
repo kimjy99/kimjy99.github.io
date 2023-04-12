@@ -5,6 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - Diffusion
+  - Video Generation
   - Text-to-Video
   - Computer Vision
   - AI

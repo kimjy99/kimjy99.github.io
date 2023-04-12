@@ -5,6 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - Diffusion
+  - Semantic Image Synthesis
   - Computer Vision
   - AI
 excerpt: "Semantic Diffusion Model 논문 리뷰"

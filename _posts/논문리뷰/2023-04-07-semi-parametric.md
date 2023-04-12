@@ -5,6 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - Diffusion
+  - Image Generation
   - Autoregressive
   - Computer Vision
   - AI

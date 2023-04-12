@@ -5,6 +5,8 @@ categories:
   - 논문리뷰
 tags:
   - Diffusion
+  - Image Generation
+  - Text-to-Image
   - Computer Vision
   - AI
 excerpt: "simple diffusion 논문 리뷰"
