@@ -10,6 +10,7 @@ tags:
   - Computer Vision
   - Audio and Speech Processing
   - AI
+  - Microsoft
 excerpt: "MM-Diffusion 논문 리뷰"
 use_math: true
 classes: wide

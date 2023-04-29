@@ -8,6 +8,7 @@ tags:
   - Music Generation
   - Audio and Speech Processing
   - AI
+  - Google
 excerpt: "Symbolic Music Generation with Diffusion Models 논문 리뷰"
 use_math: true
 classes: wide

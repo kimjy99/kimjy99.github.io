@@ -7,6 +7,7 @@ tags:
   - Diffusion
   - Reinforcement Learning
   - AI
+  - Microsoft
 excerpt: "Imitating Human Behaviour with Diffusion Models 논문 리뷰"
 use_math: true
 classes: wide

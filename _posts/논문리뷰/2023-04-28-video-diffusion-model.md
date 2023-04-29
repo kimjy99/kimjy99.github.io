@@ -8,6 +8,7 @@ tags:
   - Video Generation
   - Computer Vision
   - AI
+  - Google
 excerpt: "Video Diffusion Models 논문 리뷰"
 use_math: true
 classes: wide

@@ -8,6 +8,7 @@ tags:
   - Semantic Image Synthesis
   - Computer Vision
   - AI
+  - Microsoft
 excerpt: "Semantic Diffusion Model 논문 리뷰"
 use_math: true
 classes: wide

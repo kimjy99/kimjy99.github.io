@@ -8,6 +8,7 @@ tags:
   - Text-to-Image
   - Computer Vision
   - AI
+  - Google
 excerpt: "DreamBooth 논문 리뷰"
 use_math: true
 classes: wide
