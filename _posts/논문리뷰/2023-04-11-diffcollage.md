@@ -8,6 +8,7 @@ tags:
   - Image Generation
   - Computer Vision
   - AI
+  - NVIDIA
 excerpt: "DiffCollage 논문 리뷰"
 use_math: true
 classes: wide

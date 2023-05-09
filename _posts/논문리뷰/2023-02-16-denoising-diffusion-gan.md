@@ -9,6 +9,7 @@ tags:
   - Image Generation
   - Computer Vision
   - AI
+  - NVIDIA
 excerpt: "Denoising Diffusion GAN 논문 리뷰"
 use_math: true
 classes: wide
