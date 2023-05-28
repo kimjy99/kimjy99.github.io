@@ -19,7 +19,7 @@ classes: wide
 > 27 May 2022  
 
 ## Introduction
-대규모 autoregressive 언어 모델(LM)은 고품질 텍스트를 생성할 수 있지만 이러한 LM을 실제 애플리케이션에 안정적으로 적용하려면 텍스트 생성 프로세스를 제어할 수 있어야 하며, 원하는 요구 사항(ex. 주제, 구문 구조)을 충족하는 텍스트를 생성해야 한다. LM을 제어하기 위한 자연스러운 접근 방식은 (제어, 텍스트) 형식의 supervised 데이터를 사용하여 LM을 finetuning하는 것이다. 그러나 각 제어 task에 대한 LM 파라미터를 업데이트하는 것은 비용이 많이 들 수 있으며 여러 제어 구성을 허용하지 않는다. 이는 생성된 텍스트가 제어를 얼마나 잘 만족시키는지 측정하는 외부 classifier를 사용하여 LM을 고정하고 생성 프로세스를 조정하는 light-weight 및 modular plug-and-play 접근 방식에 동기를 부여한다. 그러나 고정된 autoregreesive LM을 조정하는 것은 어려운 것으로 나타났으며 기존의 성공은 단순한 속성 수준 제어(ex. 감정이나 주제)로 제한되었다.
+대규모 autoregressive 언어 모델(LM)은 고품질 텍스트를 생성할 수 있지만 이러한 LM을 실제 애플리케이션에 안정적으로 적용하려면 텍스트 생성 프로세스를 제어할 수 있어야 하며, 원하는 요구 사항(ex. 주제, 구문 구조)을 충족하는 텍스트를 생성해야 한다. LM을 제어하기 위한 자연스러운 접근 방식은 (제어, 텍스트) 형식의 supervised 데이터를 사용하여 LM을 finetuning하는 것이다. 그러나 각 제어 task에 대한 LM 파라미터를 업데이트하는 것은 비용이 많이 들 수 있으며 여러 제어 구성을 허용하지 않는다. 이는 생성된 텍스트가 제어를 얼마나 잘 만족시키는지 측정하는 외부 classifier를 사용하여 LM을 고정하고 생성 프로세스를 조정하는 light-weight 및 modular plug-and-play 접근 방식에 동기를 부여한다. 그러나 고정된 autoregressive LM을 조정하는 것은 어려운 것으로 나타났으며 기존의 성공은 단순한 속성 수준 제어(ex. 감정이나 주제)로 제한되었다.
 
 <center><img src='{{"/assets/img/diffusion-lm/diffusion-lm-fig1.PNG" | relative_url}}' width="70%"></center>
 <br>
@@ -29,7 +29,7 @@ classes: wide
 
 저자들은 위 그림과 같이 기울기 기반 방법을 사용하여 Diffusion-LM을 제어한다. 이 방법을 사용하면 목표 구조 및 의미 제어를 만족하는 출력으로 텍스트 생성 프로세스를 조정할 수 있다. Diffusion-LM의 연속적인 latent variable에 대한 기울기 업데이트를 반복적으로 수행하여 유창함과 제어 만족도의 균형을 맞춘다. 
 
-Diffusion-LM의 제어를 입증하기 위해 세분화된 속성(ex. semantic content)에서 복잡한 구조(ex. syntactic parse tree)에 이르는 6개의 제어 대상을 고려한다. 본 논문의 방법은 이전 plug-and-play 방법의 성공률을 거의 두 배로 늘리고 이러한 모든 classifier-guided control task에서 finetuning 오라클과 일치하거나 능가한다. 이러한 개별 제어 task 외에도 원하는 의미 콘텐츠와 구문 구조를 모두 포함하는 문장을 생성하기 위해 여러 classifier-guided control을 성공적으로 구성할 수 있음을 보여준다. 마지막으로 길이 제어 및 채우기와 같은 스팬 고정 제어를 고려한다. Diffusion-LM을 사용하면 classifier 없이 이러한 제어 task를 수행할 수 있으며, Diffusion-LM은 이전의 plug-and-play 방법보다 성능이 훨씬 뛰어나고 채우기 task를 위해 처음부터 학습된 autoregreesive LM과 동등하다. 
+Diffusion-LM의 제어를 입증하기 위해 세분화된 속성(ex. semantic content)에서 복잡한 구조(ex. syntactic parse tree)에 이르는 6개의 제어 대상을 고려한다. 본 논문의 방법은 이전 plug-and-play 방법의 성공률을 거의 두 배로 늘리고 이러한 모든 classifier-guided control task에서 finetuning 오라클과 일치하거나 능가한다. 이러한 개별 제어 task 외에도 원하는 의미 콘텐츠와 구문 구조를 모두 포함하는 문장을 생성하기 위해 여러 classifier-guided control을 성공적으로 구성할 수 있음을 보여준다. 마지막으로 길이 제어 및 채우기와 같은 스팬 고정 제어를 고려한다. Diffusion-LM을 사용하면 classifier 없이 이러한 제어 task를 수행할 수 있으며, Diffusion-LM은 이전의 plug-and-play 방법보다 성능이 훨씬 뛰어나고 채우기 task를 위해 처음부터 학습된 autoregressive LM과 동등하다. 
 
 ## Diffusion-LM: Continuous Diffusion Language Modeling
 Diffusion-LM을 구성하려면 표준 diffusion model에 대한 몇 가지 수정이 필요하다. 먼저 이산적인 텍스트를 연속적인 space에 매핑하는 embedding function을 정의해야 한다. 이를 해결하기 위해 임베딩 학습을 위한 end-to-end 학습 목적 함수를 제안한다. 둘째, embedding space의 벡터를 다시 단어로 매핑하는 반올림 방법이 필요하다. 이를 해결하기 위해 반올림을 용이하게 하는 학습 및 디코딩 시간 방법을 제안한다. 

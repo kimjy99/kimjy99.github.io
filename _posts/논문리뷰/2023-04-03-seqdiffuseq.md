@@ -23,7 +23,7 @@ classes: wide
 
 Diffusion model을 자연어 생성으로 확장하는 것은 쉬운 일이 아니다. 기존 diffusion model의 대부분은 연속적인 feature space에 적용되는 반면 텍스트는 개별 카테고리 토큰의 시퀀스이다. 최근 연구에서는 텍스트 생성을 위해 discrete space에서 카테고리형 diffusion model을 탐색했다. 단어 임베딩에 연속적인 diffusion model을 적용한 DiffusionLM과 같은 연구도 있다. 그러나 이러한 연구들은 unconditional하고 제어된 텍스트 생성에만 중점을 둔다. 
 
-본 논문에서는 sequence-to-sequence 텍스트 생성에 중점을 둔다. Sequence-to-sequence 생성은 기본 자연어 처리 세팅이며 대화, 기계 번역, 질문 생성과 같은 다양한 실제 downstream task를 다룬다. 최근에 연구자들은 autoregreesive (AR) 또는 non-autoregreesive Transformers에 의존하며 이러한 방법은 우수한 텍스트 생성 성능을 달성할 수 있다. Sequence-to-sequence 텍스트 생성을 위해 diffusion model을 적용한 DiffuSeq라는 최근 연구도 있다. DiffuSeq에서는 diffusion process를 정의하고 denoising function을 학습하기 위해 부분 noising이 있는 인코더 전용 트랜스포머를 사용한다. 
+본 논문에서는 sequence-to-sequence 텍스트 생성에 중점을 둔다. Sequence-to-sequence 생성은 기본 자연어 처리 세팅이며 대화, 기계 번역, 질문 생성과 같은 다양한 실제 downstream task를 다룬다. 최근에 연구자들은 autoregressive (AR) 또는 non-autoregressive Transformers에 의존하며 이러한 방법은 우수한 텍스트 생성 성능을 달성할 수 있다. Sequence-to-sequence 텍스트 생성을 위해 diffusion model을 적용한 DiffuSeq라는 최근 연구도 있다. DiffuSeq에서는 diffusion process를 정의하고 denoising function을 학습하기 위해 부분 noising이 있는 인코더 전용 트랜스포머를 사용한다. 
 
 또는 sequence-to-sequence 생성을 위해 인코더-디코더 트랜스포머 아키텍처를 사용한 diffusion model을 탐색한다. 인코더-디코더 아키텍처는 텍스트를 모델링하는 보다 유연한 방법일 수 있다. 본 논문은 DiffusionLM에서 제안한 연속적인 diffusion 프레임워크를 sequence-to-sequence task로 확장한 SeqDiffuSeq를 제안한다. 저자들은 SeqDiffuSeq에 self-conditioning 테크닉을 장착했다. Diffusion model의 경우 적절한 noise schedule이 잠재적으로 생성된 샘플 품질과 likelihood 모델링을 향상시킬 수 있다. 따라서 텍스트 생성을 위한 토큰 레벨의 noise schedule을 학습하는 기법도 제안한다.
 
@@ -79,7 +79,7 @@ $$
 #### Model $z_\theta^0$
 $z_\theta^0$를 모델링하기 위해 인코더-디코더 트랜스포머 아키텍처를 사용한다. 입력 시퀀스는 인코더에 의해 모델링되고 출력 시퀀스는 디코더에 의해 모델링된다. 이러한 설계는 DiffuSeq에서 $z_\theta^0$를 모델링하기 위한 인코더만 사용하는 선택과 다르다. 인코더-디코더 아키텍처를 사용하면 입력 시퀀스가 전체 reverse process 동안 인코더를 통해 하나의 forward 계산만 필요하기 때문에 inference (즉, reverse process) 중에 계산상의 편의성이 있다. Reverse process가 출력 시퀀스를 생성하는 데 수천 개의 timestep이 필요하다는 점을 고려하면 계산 리소스를 크게 절약할 수 있다. 
 
-Diffusion model은 시퀀스 레벨에서 샘플을 diffuse하고 denoise하므로 denoising process의 각 timestep에 대해 denoising function이 non-autoregreesive한 방식으로 시퀀스 예측을 생성한다. 이와 관련하여 저자들은 causal attention matrix 대신 full attention matrix가 있는 디코더를 사용한다. 
+Diffusion model은 시퀀스 레벨에서 샘플을 diffuse하고 denoise하므로 denoising process의 각 timestep에 대해 denoising function이 non-autoregressive한 방식으로 시퀀스 예측을 생성한다. 이와 관련하여 저자들은 causal attention matrix 대신 full attention matrix가 있는 디코더를 사용한다. 
 
 ### 2. Self-Conditioning
 Reverse process의 각 timestep $t-1$에서 denoising function $z_\theta^0 (z_t, w_x, t)$는 이전에 업데이트된 noisy한 $z_t$만을 기반으로 샘플을 생성하며, function의 예측 $$\hat{z}_0^t = z_\theta^0 (z_{t+1}, w_x, t+1)$$로 직접 컨디셔닝되지 않는다. 각 reverse process는 직전 step에서의 예측 정보를 제거한다. 
