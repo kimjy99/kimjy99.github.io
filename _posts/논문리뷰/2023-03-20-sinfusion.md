@@ -51,7 +51,7 @@ DM은 대규모 데이터셋에서 학습하기 때문에 이러한 모델은 �
 단일 이미지 또는 large crop에서 표준 DDPM을 직접 학습시키면 "overfitting"이 발생한다. 즉, 모델은 동일한 이미지 crop만 생성한다. 저자들은 DDPM에서 핵심 backbone network의 receptive field가 전체 입력 이미지이기 때문에 이러한 현상이 발생한다고 가정한다. 이를 위해 receptive field의 크기를 줄이기 위해 DDPM의 backbone UNet network를 수정한다. 글로벌한 receptive field가 있으므로 attention layer를 제거한다. 또한 receptive field가 너무 빠르게 커지는 downsampling 및 upsampling layer를 제거한다. 
 
 Attention layer를 제거하면 원치 않는 부작용이 발생하여 diffusion model의 성능이 저하된다. [ConvNext 논문](https://arxiv.org/abs/2201.03545)은 많은 vision task에서 attention mechanism과 일치하는 fully convolutional
-network를 제안했습니다. 이 아이디어에 영감을 받아 네트워크의 ResNet 블록을 ConvNext block으로 대체한다. 이 아키텍처 선택은 non-global receptive field를 유지하면서 attention layer의 기능을 대체하기 위한 것이다. 계산 시간을 단축할 수 있는 장점도 있다. 그런 다음 네트워크의 전체 receptive field는 네트워크의 ConvNext 블록 수에 따라 결정된다. ConvNext block의 수를 변경하면 출력 샘플의 다양성을 제어할 수 있다. Diffusion timestep $t$를 모델에 통합하는 데 사용되는 임베딩 네트워크($\phi$)를 포함한 backbone network의 나머지 부분은 DDPM과 유사하다. 
+network를 제안했다. 이 아이디어에 영감을 받아 네트워크의 ResNet 블록을 ConvNext block으로 대체한다. 이 아키텍처 선택은 non-global receptive field를 유지하면서 attention layer의 기능을 대체하기 위한 것이다. 계산 시간을 단축할 수 있는 장점도 있다. 그런 다음 네트워크의 전체 receptive field는 네트워크의 ConvNext 블록 수에 따라 결정된다. ConvNext block의 수를 변경하면 출력 샘플의 다양성을 제어할 수 있다. Diffusion timestep $t$를 모델에 통합하는 데 사용되는 임베딩 네트워크($\phi$)를 포함한 backbone network의 나머지 부분은 DDPM과 유사하다. 
 
 #### Loss
 각 학습 step에서 noisy한 이미지 crop $x_t$가 모델에 주어진다. 한편, 추가된 noise를 예측하는 DDPM과 다르게 본 논문의 모델은 깨끗한 이미지 crop $$\tilde{x}_{0, \theta}$$을 예측한다. 단일 이미지 DDPM의 loss는 다음과 같다.

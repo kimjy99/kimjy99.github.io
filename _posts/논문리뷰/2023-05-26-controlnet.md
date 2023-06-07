@@ -142,7 +142,7 @@ $$
 
 <center><img src='{{"/assets/img/controlnet/controlnet-fig3.PNG" | relative_url}}' width="85%"></center>
 <br>
-위 그림과 같이 ControlNet을 사용하여 U-net의 각 레벨을 제어한다. ControlNet을 연결하는 방법은 계산적으로 효율적이다. 원래 가중치가 잠겨 있기 때문에 학습을 위해 원래 인코더에 대한 기울기 계산이 필요하지 않다. 이렇게 하면 원본 모델에서 기울기 계산의 절반을 피할 수 있으므로 학습 속도가 빨라지고 GPU 메모리가 절약된니다. ControlNet으로 Stable Diffusion 모델을 학습하려면 GPU 메모리가 약 23% 더 필요하고 각 학습 iteration에서 34% 더 많은 시간이 필요하다. 
+위 그림과 같이 ControlNet을 사용하여 U-net의 각 레벨을 제어한다. ControlNet을 연결하는 방법은 계산적으로 효율적이다. 원래 가중치가 잠겨 있기 때문에 학습을 위해 원래 인코더에 대한 기울기 계산이 필요하지 않다. 이렇게 하면 원본 모델에서 기울기 계산의 절반을 피할 수 있으므로 학습 속도가 빨라지고 GPU 메모리가 절약된다. ControlNet으로 Stable Diffusion 모델을 학습하려면 GPU 메모리가 약 23% 더 필요하고 각 학습 iteration에서 34% 더 많은 시간이 필요하다. 
 
 구체적으로, ControlNet을 사용하여 Stable Diffusion의 12개 인코딩 블록과 1개 중간 블록의 trainable copy를 만든다. 12개의 블록은 각각 3개의 블록을 갖는 4개의 해상도 (64$\times$64, 32$\times$32, 16$\times$16, 8$\times$8)로 되어 있다. 출력은 U-net의 skip connection 12개와 중간 블록 1개에 추가된다. Stable Diffusion은 일반적인 U-net 구조이므로 이 ControlNet 아키텍처는 다른 diffusion model에서 사용할 수 있다.
 

@@ -123,7 +123,7 @@ Score function에서 패치 위치의 조건을 추가로 통합하고 단순화
 임의의 패치 크기와 함께 픽셀 수준의 좌표계는 일종의 data augmentation 방법으로 볼 수 있다. 예를 들어 해상도가 64$\times$64이고 패치 크기가 $s = 16$인 이미지의 경우 $(64 − 16 + 1)^2 = 2401$개의 다른 위치가 지정된 패치를 가질 수 있다. 따라서 저자들은 diffusion model을 패치 방식으로 학습하면 diffusion model의 데이터 효율성에 도움이 될 것이라고 생각하였다. 즉, patch diffusion을 사용하면 diffusion model이 작은 데이터셋에서 더 잘 수행될 수 있다.
 
 ### 4. Sampling
-좌표계와 UNet의 도움으로 reverse sampling을 쉽게 할 수 있다. 전체 이미지의 좌표를 계산 및 parameterize하고 각 reverse iteration에서 좌표 조건으로 마지막 step의 이미지 샘플과 함께 concat합니다. 각 reverse iteration에서 좌표 채널의 재구성 출력을 버린다.
+좌표계와 UNet의 도움으로 reverse sampling을 쉽게 할 수 있다. 전체 이미지의 좌표를 계산 및 parameterize하고 각 reverse iteration에서 좌표 조건으로 마지막 step의 이미지 샘플과 함께 concat한다. 각 reverse iteration에서 좌표 채널의 재구성 출력을 버린다.
 
 ### 5. Theoretical Interpretations
 두 가지 관점에서 patch diffusion에 대한 수학적 직관을 설명할 수 있다.
@@ -168,7 +168,7 @@ $$
 \end{equation}
 $$
 
-한편, 패치 분포는 확률 변수의 하위 집합에 대한 marginal distribution으로 간주할 수 있다. 패치 분포와 전체 크기 이미지 분포 간의 변환은 marginalization integral이며 간단하다. 가우시안 예제에서 패치 분포는 closed form을 가집니다. 
+한편, 패치 분포는 확률 변수의 하위 집합에 대한 marginal distribution으로 간주할 수 있다. 패치 분포와 전체 크기 이미지 분포 간의 변환은 marginalization integral이며 간단하다. 가우시안 예제에서 패치 분포는 closed form을 가진다. 
 
 $$
 \begin{equation}

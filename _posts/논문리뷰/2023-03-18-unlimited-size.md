@@ -60,7 +60,7 @@ OOD 문제는 랜덤하게 crop된 이미지로 diffusion model을 학습시켜 
 임의의 이미지 크기를 해결하기 위해 처리 크기가 고정된 diffusion model을 사용할 수 있는 방법은 무엇이 있을까? 간단한 해결책은 입력 이미지 $y$를 패치로 나누고 각 패치를 독립적으로 해결한 다음 결과를 연결하는 것이다. 그러나 이는 분명한 경계 아티팩트를 유발할 수 있다. 이는 각 패치가 독립적으로 해결되고 패치들의 연결이 고려되지 않기 때문이다. 
 
 ### 3. Mask-Shift Restoration
-많은 IR task 중 inpainting은 마스킹된 영역과 마스킹되지 않은 영역 간의 연결을 고려한 대표적인 작업입니다. DDNM과 [RePaint](https://kimjy99.github.io/논문리뷰/repaint)와 같은 zero-shot 방법은 inpainting 해결에 좋은 성능을 보여준다. 
+많은 IR task 중 inpainting은 마스킹된 영역과 마스킹되지 않은 영역 간의 연결을 고려한 대표적인 task다. DDNM과 [RePaint](https://kimjy99.github.io/논문리뷰/repaint)와 같은 zero-shot 방법은 inpainting 해결에 좋은 성능을 보여준다. 
 
 저자들의 통찰은 패치를 나눌 때 겹치는 영역을 남겨두고 다음 패치를 해결할 때 이러한 겹치는 영역을 추가 제약 조건으로 사용할 수 있다는 것이다. 멋진 점은 이 제약 조건을 코드 한 줄만 추가하면 기존의 zero-shot 방법에 통합할 수 있다는 것이다. 
 

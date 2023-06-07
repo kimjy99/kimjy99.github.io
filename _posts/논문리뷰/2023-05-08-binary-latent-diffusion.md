@@ -188,7 +188,7 @@ $$
 ### 2. Comparisons with Existing Methods
 <center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-fig5.PNG" | relative_url}}' width="70%"></center>
 <br>
-Latent space 이미지 표현의 다른 방벙에 비해 제안된 binary 표현을 채택하는 이점에 대해 간략하게 논의합니다. 위 그림에서 볼 수 있듯이 vector-quantized latent space는 각 이미지 패치를 이산적인 인덱스 또는 one-hot vector로 나타낸다. 그런 다음 one-hot vector는 학습된 코드북과 곱하여 이미지 패치의 feature 표현을 얻는다. 연속적인 latent space의 이미지 표현은 단순히 디코더 네트워크의 첫 번째 가중치 행렬을 학습된 코드북으로 취급하여 유사한 방식으로 해석할 수 있다. 
+Latent space 이미지 표현의 다른 방벙에 비해 제안된 binary 표현을 채택하는 이점에 대해 간략하게 논의한다. 위 그림에서 볼 수 있듯이 vector-quantized latent space는 각 이미지 패치를 이산적인 인덱스 또는 one-hot vector로 나타낸다. 그런 다음 one-hot vector는 학습된 코드북과 곱하여 이미지 패치의 feature 표현을 얻는다. 연속적인 latent space의 이미지 표현은 단순히 디코더 네트워크의 첫 번째 가중치 행렬을 학습된 코드북으로 취급하여 유사한 방식으로 해석할 수 있다. 
 
 이미지 패치의 실수 latent code는 코드북에서 벡터의 임의의 선형 결합을 수행하며 저차원 코드로도 다양한 feature space를 커버할 수 있어 효율성이 높다. Binary 표현을 사용하는 본 논문의 방법은 코드북을 구성하는 벡터를 binary로 제한함으로써 이 두 가지 방법 사이의 균형을 위해 노력한다. 한편으로 코드북의 binary 구성은 VQ 표현에 비해 훨씬 다양하고 유연한 feature 구성을 제공한다. 예를 들어, 소형 32비트 binary 벡터는 VQ 표현에 일반적으로 사용되는 1024개의 패턴보다 훨씬 큰 40억 개 이상의 패턴을 나타낼 수 있다. 이렇게 개선된 패턴 적용 범위는 더 높은 표현력을 허용하고 고품질의 VQ 표현으로는 거의 달성할 수 없는 고해상도 이미지 생성을 가능하게 한다. 반면에 binary 제한은 표현이 간결하게 유지되도록 보장한다. 8k비트 binary 표현은 131k비트 표현을 사용하는 latent diffusion model과 비슷한 성능을 보인다.
 

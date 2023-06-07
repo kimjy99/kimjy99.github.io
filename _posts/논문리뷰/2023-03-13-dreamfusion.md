@@ -133,7 +133,7 @@ $$\mathcal{L}_\textrm{SDS}$$의 모드 탐색 특성을 감안할 때 이 loss�
 샘플을 생성하기 위해 일반적인 연속 최적화 문제 내에서 diffusion model을 loss로 사용할 수 있는 방법을 설명했으므로 이제 텍스트에서 3D 에셋을 생성할 수 있는 특정 알고리즘을 구성할 것이다. Diffusion model의 경우 텍스트에서 이미지를 합성하도록 학습된 [Imagen](https://kimjy99.github.io/논문리뷰/imagen) 모델을 사용한다. 저자들은 64$\times$64 base model만 사용하고 이 사전 학습된 모델을 수정 없이 그대로 사용한다. 텍스트에서 scene을 합성하기 위해 NeRF와 유사한 모델을 임의의 가중치로 초기화한 다음 임의의 카메라 위치와 각도에서 해당 NeRF의 view를 반복적으로 렌더링한다. 이러한 렌더링을 Imagen을 감싸는 score distillation loss function에 대한 입력으로 사용한다. 이 접근 방식을 사용한 간단한 gradient descent은 결국 텍스트와 유사한 NeRF로 parameterize된 3D 모델을 생성한다. 이 접근 방식에 대한 개요는 위 그림과 같다.
 
 ### 1. Neural Rendering of a 3D Model
-NeRF는 volumetric raytracer와 MLP로 구성된 neural inverse rendering 기술이다. NeRF에서 이미지를 렌더링하는 것은 카메라의 projection 중심에서 이미지 평면의 픽셀 위치로 각 픽셀에 대한 광선(ray)을 캐스팅하여 수행된다. 각 광선을 따라 샘플링된 3D 포인트 $\mu$는 MLP를 통과하여 4개의 스칼라 값을 출력으로 생성합니다.
+NeRF는 volumetric raytracer와 MLP로 구성된 neural inverse rendering 기술이다. NeRF에서 이미지를 렌더링하는 것은 카메라의 projection 중심에서 이미지 평면의 픽셀 위치로 각 픽셀에 대한 광선(ray)을 캐스팅하여 수행된다. 각 광선을 따라 샘플링된 3D 포인트 $\mu$는 MLP를 통과하여 4개의 스칼라 값을 출력으로 생성한다.
 
 1. Volumetric density $\tau$: 해당 3D 좌표에서 scene geometry의 불투명도
 2. RGB 색상 $c$ 

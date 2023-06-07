@@ -62,7 +62,7 @@ $$
 
 <center><img src='{{"/assets/img/ddpm-segmentation/ddpm-segmentation-fig3.PNG" | relative_url}}' width="100%"></center>
 <br>
-또한 주석이 달린 데이터셋의 평균 면적을 기준으로 소형 semantic class와 대형 semantic class를 구분하여 고려한다. 그런 다음 서로 다른 UNet 블록과 diffusion step에서 이러한 클래스에 대한 평균 IoU를 독립적으로 평가한다. LSUN-Horse에 대한 결과는 위 그래프에 나와 있습니다. 예상대로 대형 객체에 대한 예측 성능은 reverse process에서 더 일찍 증가하기 시작한다. 더 얕은 블록은 더 작은 객체에 대해 더 많은 정보를 제공하는 반면, 더 깊은 블록은 더 큰 객체에 대해 더 많은 정보를 제공한다. 두 경우 모두 가장 구별되는 feature은 여전히 중간 블록에 해당한다.
+또한 주석이 달린 데이터셋의 평균 면적을 기준으로 소형 semantic class와 대형 semantic class를 구분하여 고려한다. 그런 다음 서로 다른 UNet 블록과 diffusion step에서 이러한 클래스에 대한 평균 IoU를 독립적으로 평가한다. LSUN-Horse에 대한 결과는 위 그래프에 나와 있다. 예상대로 대형 객체에 대한 예측 성능은 reverse process에서 더 일찍 증가하기 시작한다. 더 얕은 블록은 더 작은 객체에 대해 더 많은 정보를 제공하는 반면, 더 깊은 블록은 더 큰 객체에 대해 더 많은 정보를 제공한다. 두 경우 모두 가장 구별되는 feature은 여전히 중간 블록에 해당한다.
 
 <center><img src='{{"/assets/img/ddpm-segmentation/ddpm-segmentation-fig4.PNG" | relative_url}}' width="100%"></center>
 <br>

@@ -80,7 +80,7 @@ $$
 \end{equation}
 $$
 
-본 논문의 경우 score network $e_\theta (z_t, c_I, c_T)$에는 입력 이미지 $c_I$와 텍스트 명령 $c_T$라는 두 가지 컨디셔닝이 있다. 저자들은 두 컨디셔닝에 대해 classifier-free guidance를 활용하는 것이 유익한지 확인했습니다. [Compositional Visual Generation with Composable Diffusion Models 논문](https://arxiv.org/abs/2206.01714)은 조건부 diffusion model이 여러 다른 컨디셔닝 값에서 score 추정치를 구성할 수 있음을 보여주었다. 두 개의 별도 컨디셔닝 입력이 있는 모델에 동일한 개념을 적용한다. 학습하는 동안 5%의 예에 대해 $c_I = \emptyset_I$만, 5%의 예에 대해 $c_T = \emptyset_T$만, 그리고 5%의 예에 대해 $c_I = \emptyset_I$와 $c_T = \emptyset_T$를 랜덤하게 설정한다. 따라서 본 논문의 모델은 조건부 입력 둘 다 또는 둘 중 하나에 대해 conditional 또는 unconditional denoising이 가능하다. 
+본 논문의 경우 score network $e_\theta (z_t, c_I, c_T)$에는 입력 이미지 $c_I$와 텍스트 명령 $c_T$라는 두 가지 컨디셔닝이 있다. 저자들은 두 컨디셔닝에 대해 classifier-free guidance를 활용하는 것이 유익한지 확인했다. [Compositional Visual Generation with Composable Diffusion Models 논문](https://arxiv.org/abs/2206.01714)은 조건부 diffusion model이 여러 다른 컨디셔닝 값에서 score 추정치를 구성할 수 있음을 보여주었다. 두 개의 별도 컨디셔닝 입력이 있는 모델에 동일한 개념을 적용한다. 학습하는 동안 5%의 예에 대해 $c_I = \emptyset_I$만, 5%의 예에 대해 $c_T = \emptyset_T$만, 그리고 5%의 예에 대해 $c_I = \emptyset_I$와 $c_T = \emptyset_T$를 랜덤하게 설정한다. 따라서 본 논문의 모델은 조건부 입력 둘 다 또는 둘 중 하나에 대해 conditional 또는 unconditional denoising이 가능하다. 
 
 생성된 샘플이 입력 이미지와 얼마나 강하게 일치하는지와 편집 명령과 얼마나 강하게 일치하는지를 절충하도록 조정할 수 있는 두 가지 guidance scale인 $s_I$와 $s_T$를 도입한다. 수정된 score 추정치는 다음과 같다.
 

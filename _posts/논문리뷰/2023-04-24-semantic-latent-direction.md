@@ -220,7 +220,7 @@ GAN에서 $\mathcal{Z}$에서 $\mathcal{W}$로 매핑하는 대신 $\mathcal{X}$
 
 <center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig11.PNG" | relative_url}}' width="75%"></center>
 <br>
-위 그림은 그 효과를 보여줍니다. 속성을 다소 변경하지만 심각한 왜곡이나 얽힘을 수반한다. 반대로 본 논문의 방법은 이전 결과에서 볼 수 있듯이 적절한 조작으로 이어지는 기하학적 구조를 고려하여 $\mathcal{H}$의 변화가 가장 큰 방향을 찾는다. 
+위 그림은 그 효과를 보여준다. 속성을 다소 변경하지만 심각한 왜곡이나 얽힘을 수반한다. 반대로 본 논문의 방법은 이전 결과에서 볼 수 있듯이 적절한 조작으로 이어지는 기하학적 구조를 고려하여 $\mathcal{H}$의 변화가 가장 큰 방향을 찾는다. 
 
 ## Limitations
 Semantic latent direction이 일반적으로 disentanglement를 강제하기 위해 속성 주석을 사용하지 않더라도 disentangle한 속성을 전달한다는 것은 흥미롭다. 저자들은 U-Net에서 인코더의 Jacobian을 분해하면 자연스럽게 어느 정도 disentanglement가 발생한다고 가정하였다. U-Net에서 중간 feature space $\mathcal{H}$의 선형성을 기반으로 한다. 그러나 완벽한 disentanglement를 보장하는 것은 아니며 일부 direction이 얽혀 있다. 

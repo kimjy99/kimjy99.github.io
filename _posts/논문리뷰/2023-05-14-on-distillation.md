@@ -94,7 +94,7 @@ Guidance 가중치 $w$를 통합하기 위해 $w$로 컨디셔닝된 모델을 �
 ### 3. $N$-step deterministic and stochastic sampling
 <center><img src='{{"/assets/img/on-distillation/on-distillation-fig5.PNG" | relative_url}}' width="75%"></center>
 <br>
-모델 $$\hat{x}_{\eta_2}$$가 학습되면 지정된 guidance 강도 $w \in [w_\textrm{min}, w_\textrm{max}]$가 주어지면 DDIM 업데이트 규칙을 통해 샘플링을 수행할 수 있다. Distiil된 모델 $$\hat{x}_{\eta_2}$$가 주어지면 이 샘플링 절차는 initialization $z_1^w$가 주어지면 deterministic하다. 실제로 $N$-step stochastic sampling도 수행할 수 있다. 원래 step 길이의 2배(즉, $N/2$-step deterministic sampler와 동일)로 하나의 deterministic sampling step을 적용한 다음 원래 step 길이를 사용하여 한 step 역방향으로 stochastic step을 수행한니다. $z_1^w \sim \mathcal{N}(0,I)$에서 $t > 1/N$일 때 다음 업데이트 규칙을 사용한다.
+모델 $$\hat{x}_{\eta_2}$$가 학습되면 지정된 guidance 강도 $w \in [w_\textrm{min}, w_\textrm{max}]$가 주어지면 DDIM 업데이트 규칙을 통해 샘플링을 수행할 수 있다. Distiil된 모델 $$\hat{x}_{\eta_2}$$가 주어지면 이 샘플링 절차는 initialization $z_1^w$가 주어지면 deterministic하다. 실제로 $N$-step stochastic sampling도 수행할 수 있다. 원래 step 길이의 2배(즉, $N/2$-step deterministic sampler와 동일)로 하나의 deterministic sampling step을 적용한 다음 원래 step 길이를 사용하여 한 step 역방향으로 stochastic step을 수행한다. $z_1^w \sim \mathcal{N}(0,I)$에서 $t > 1/N$일 때 다음 업데이트 규칙을 사용한다.
 
 $$
 \begin{aligned}

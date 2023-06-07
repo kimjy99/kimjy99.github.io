@@ -69,7 +69,7 @@ $$\mathcal{L}_\textrm{perc}$$는 perceptual loss이고 $$\mathcal{L}_\textrm{ID}
 <br>
 위 그림은 DualStyleGAN $G$의 네트워크 디테일을 보여준다. Intrinsic style path와 generator network는 표준 StyleGAN을 형성하고 fine-tuning 중에 고정된 상태로 유지된다. Intrinsic style path는 단위 Gaussian noise $z \in \mathbb{R}^{1 \times 512}$, 예술적 초상화의 $z_i^{+}$, $E$로 임베딩된 실제 얼굴의 intrinsic style code $z^{+}$가 가능하다. 
 
-extrinsic style path는 단순히 예술적 초상화의 $z_e^{+}$를 extrinsic style code로 사용하며, 머리 색깔과 얼굴 모양과 같은 의미 있는 semantic 단서를 포착하는 style code이다. Extrinsic style code는 단위 Gaussian noise를 외부 스타일 분포에 매핑하여 샘플링 네트워크 $N$을 통해 샘플링할 수도 있다. 얼굴 이미지 $I$와 예술적인 초상화 이미지 $S$가 주어지면 예시 기반 style transfer은 $G(E(I), E(S), w)$에 의해 달성됩니다. 여기서 $w \in \mathbb{R}^{18}$은 두 path의 유연한 스타일 조합을 위한 가중치 벡터이며 기본적으로 1로 설정된다. 예술적 초상화 생성은 $G(z_1, N(z_2), w)$에 의해 실현된다. $w = 0$일 때 $G$는 얼굴 생성을 위한 표준 $g$, 즉 $G(z, \cdot, 0) \sim g(z)$로 저하된다.
+extrinsic style path는 단순히 예술적 초상화의 $z_e^{+}$를 extrinsic style code로 사용하며, 머리 색깔과 얼굴 모양과 같은 의미 있는 semantic 단서를 포착하는 style code이다. Extrinsic style code는 단위 Gaussian noise를 외부 스타일 분포에 매핑하여 샘플링 네트워크 $N$을 통해 샘플링할 수도 있다. 얼굴 이미지 $I$와 예술적인 초상화 이미지 $S$가 주어지면 예시 기반 style transfer은 $G(E(I), E(S), w)$에 의해 달성된다. 여기서 $w \in \mathbb{R}^{18}$은 두 path의 유연한 스타일 조합을 위한 가중치 벡터이며 기본적으로 1로 설정된다. 예술적 초상화 생성은 $G(z_1, N(z_2), w)$에 의해 실현된다. $w = 0$일 때 $G$는 얼굴 생성을 위한 표준 $g$, 즉 $G(z, \cdot, 0) \sim g(z)$로 저하된다.
 
 StyleGAN은 계층적 스타일 제어를 제공한다. 여기서 fine-resolution layer와 coarse-resolution layer는 낮은 레벨의 색상 스타일과 높은 레벨의 모양 스타일을 각각 모델링하여 extrinsic style path 설계에 영감을 준다. 
 

@@ -27,7 +27,7 @@ classes: wide
 본 논문에서는 높은 프레임 충실도, 강력한 시간적 일관성 및 깊은 언어 이해로 고화질 동영상을 생성할 수 있는 [video diffusion model](https://kimjy99.github.io/논문리뷰/video-diffusion-model)을 기반으로 하는 text-to-video 생성 시스템인 Imagen Video를 소개한다. Imagen Video는 초당 24프레임의 64프레임 128×128 동영상을 생성하는 이전 연구에서 초당 24프레임의 128프레임 1280×768 고화질 동영상을 생성하도록 확장된다. Imagen Video의 아키텍처는 간단하다. 고정된 T5 텍스트 인코더, 기본 video diffusion model, 인터리브된 공간 및 시간적 super-resolution (SR) diffusion model로 구성된다. 
 
 ## Imagen Video
-Imagen Video는 video diffusion model의 계단식 모델이며, 텍스트 조건부 동영상 생성, 공간적 SR, 시간적 SR을 수행하는 7개의 하위 모델로 구성됩니다. 전체 계단식 모델에서 Imagen Video는 초당 24프레임으로 128프레임($\approx$ 5.3초)의 고화질 1280$\times$768 동영상(약 1억 2600만 픽셀)을 생성한다. 
+Imagen Video는 video diffusion model의 계단식 모델이며, 텍스트 조건부 동영상 생성, 공간적 SR, 시간적 SR을 수행하는 7개의 하위 모델로 구성된다. 전체 계단식 모델에서 Imagen Video는 초당 24프레임으로 128프레임($\approx$ 5.3초)의 고화질 1280$\times$768 동영상(약 1억 2600만 픽셀)을 생성한다. 
 
 ### 1. Diffusion Models
 연속 시간에서의 diffusion model은 데이터 $x \sim p(x)$에서 시작하는 forward process $q(z \vert x)$를 따르는 latent $z = \{z_t \vert t \in [0, 1]\}$$를 갖는 생성 모델이다. Forward process는 Markovian 구조를 만족하는 Gaussian process이다. 

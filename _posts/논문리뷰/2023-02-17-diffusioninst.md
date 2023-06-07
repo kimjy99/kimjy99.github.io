@@ -81,7 +81,7 @@ $F_{mask}$는 FPN feature $$\{P_3, P_4, P_5\}$$로 이루어진 multi-scale fuse
 
 Diffusion process에서 instance mask를 나타내기 위해 필터를 사용하면 두 가지 이점이 있다. 하나는 전체 마스크에 대한 random noise를 직접 제거하는 것이므로 벡터보다 훨씬 더 복잡하다. DiffusionDet은 noise-to-box 세팅에서 놀라운 결과를 보여주었지만, noise-to-box의 성공으로 noise-to-filter 프로세스를 제안하는 것은 자연스럽다. 
 
-또 다른 이점은 광범위하게 사용되는 box-to-mask 예측 방식, 즉 RoI feature를 local mask로 디코딩하는 것을 global mask 예측을 위한 dynamic mask head로 대체한다는 것이다. Boundary box와 달리 instance box는 instance 가장자리에 대한 더 높은 요구 사항으로 인해 더 큰 receptive field가 필요하다. RoI feature는 일반적으로 instance 가장자리의 디테일이 모두 누락된 크기의 다운샘플링된 feature map에서 잘립니다. 이를 위해 마스크를 필터와 multi-scale feature의 조합으로 표현하면 만족스러운 instance segmentation 성능으로 DiffusionInst를 구축하는 데 도움이 될 수 있다. 
+또 다른 이점은 광범위하게 사용되는 box-to-mask 예측 방식, 즉 RoI feature를 local mask로 디코딩하는 것을 global mask 예측을 위한 dynamic mask head로 대체한다는 것이다. Boundary box와 달리 instance box는 instance 가장자리에 대한 더 높은 요구 사항으로 인해 더 큰 receptive field가 필요하다. RoI feature는 일반적으로 instance 가장자리의 디테일이 모두 누락된 크기의 다운샘플링된 feature map에서 잘린다. 이를 위해 마스크를 필터와 multi-scale feature의 조합으로 표현하면 만족스러운 instance segmentation 성능으로 DiffusionInst를 구축하는 데 도움이 될 수 있다. 
 
 ### 3. DiffusionInst
 위와 같은 CondInst의 마스크 표현 방법을 사용하면 DiffusionInst의 데이터 샘플을 instance segmentation을 위한 필터 $x_0 = \theta$로 간주할 수 있다. DiffusionInst의 전체 프레임워크는 아래 그림에 설명되어 있다. 

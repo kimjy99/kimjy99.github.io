@@ -115,7 +115,7 @@ $$
 
 $\mathcal{L}_s^i = M_i (\bar{\alpha}_s^i)$를 사용하면 inverse mapping $\bar{\alpha}_t^i = M_i^{-1} (\mathcal{L}_t^i)$를 유도할 수 있다. 그러면 $\mathcal{L}_t^i$에서 값을 고르게 취하여 noise schedule $\bar{\alpha}_t^i$를 샘플링할 수 있다. 따라서 서로 다른 timestep에 걸쳐 학습 loss를 고르게 분산시키는 최종 adaptive noise schedule $\bar{\alpha}_t^i$를 얻을 수 있다. 학습이 진행됨에 따라 학습 업데이트당 한 번씩 위에서 언급한 절차를 반복하여 학습된 noise schedule을 보정한다. 
 
-각 토큰 위치에서 padding token에 대한 학습 loss를 제외합니다. 더 큰 위치 인덱스에 있는 토큰의 경우 이러한 위치에 있는 대부분의 토큰은 다른 샘플에 대한 padding token이다. Padding token의 loss는 위치에 대한 noise schedule을 잘못 이끌 수 있다. 이는 padding token 생성이 단어 토큰 생성보다 훨씬 쉽기 때문이며 padding token은 더 긴 시퀀스의 생성 성능을 방해할 수 있다. 
+각 토큰 위치에서 padding token에 대한 학습 loss를 제외한다. 더 큰 위치 인덱스에 있는 토큰의 경우 이러한 위치에 있는 대부분의 토큰은 다른 샘플에 대한 padding token이다. Padding token의 loss는 위치에 대한 noise schedule을 잘못 이끌 수 있다. 이는 padding token 생성이 단어 토큰 생성보다 훨씬 쉽기 때문이며 padding token은 더 긴 시퀀스의 생성 성능을 방해할 수 있다. 
 
 ## Experiments
 - 데이터셋

@@ -95,7 +95,7 @@ $$
 
 여기서 $\delta$는 step size이며 본 논문에서는 0.1로 고정된다. $\epsilon'$은 또다른 Gaussian noise이다. Langevin step의 목적은 각 $z_s$의 주변 분포가 $x \sim p(x)$에서 시작한 forward process의 실제 주변 분포와 일치하도록 만드는 것이다. 
 
-조건부 생성 설정에서는 데이터 $x$가 컨디셔닝 신호 $c$와 함께 사용된다. $p(x \vert c)$에 맞게 diffusion model을 학습시키기 위해 필요한 유일한 수정은 모델에 $c$를 $$\tilde{x}_\theta (z_t, c)$$로 제공하는 것입니다. Clssifier-free guidance를 사용하여 이 설정에서 샘플 품질을 개선할 수 있다. 이 방법은 다음을 통해 구성된 조정된 모델 예측 $$\tilde{\epsilon}_\theta$$를 사용하여 샘플링한다.
+조건부 생성 설정에서는 데이터 $x$가 컨디셔닝 신호 $c$와 함께 사용된다. $p(x \vert c)$에 맞게 diffusion model을 학습시키기 위해 필요한 유일한 수정은 모델에 $c$를 $$\tilde{x}_\theta (z_t, c)$$로 제공하는 것이다. Clssifier-free guidance를 사용하여 이 설정에서 샘플 품질을 개선할 수 있다. 이 방법은 다음을 통해 구성된 조정된 모델 예측 $$\tilde{\epsilon}_\theta$$를 사용하여 샘플링한다.
 
 $$
 \begin{equation}
