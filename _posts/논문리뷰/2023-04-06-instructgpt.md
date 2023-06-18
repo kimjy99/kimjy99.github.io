@@ -5,6 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - RLHF
+  - Fine-Tuning
   - Reinforcement Learning
   - Natural Language Processing
   - AI

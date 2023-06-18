@@ -5,6 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - GAN
+  - Fine-Tuning
   - Image Translation
   - Computer Vision
   - AI

@@ -6,6 +6,7 @@ categories:
 tags:
   - GPT
   - Diffusion
+  - Fine-Tuning
   - Image Translation
   - Computer Vision
   - AI
