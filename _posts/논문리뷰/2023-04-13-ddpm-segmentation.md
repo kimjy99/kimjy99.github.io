@@ -5,7 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - Diffusion
-  - Semantic Segmentation
+  - Image Segmentation
   - Computer Vision
   - AI
 excerpt: "Label-Efficient Semantic Segmentation with Diffusion Models 논문 리뷰"

@@ -5,7 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - Diffusion
-  - Instance Segmentation
+  - Image Segmentation
   - Computer Vision
   - AI
 excerpt: "DiffusionInst 논문 리뷰"
