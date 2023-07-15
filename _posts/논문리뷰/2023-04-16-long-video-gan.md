@@ -35,7 +35,7 @@ classes: wide
 <br>
 위 그림의 (a)는 generator의 전체 디자인을 보여준다. 가우시안 분포에서 가져온 프레임당 8개의 스칼라 구성 요소로 구성된 가변 길이 temporal noise의 스트림으로 생성 프로세스를 seed한다. Temporal noise는 먼저 저해상도 generator에 의해 처리되어 $64^2$ 해상도의 RGB 프레임 시퀀스를 얻은 다음 별도의 super-resolution 네트워크에 의해 정제되어 $256^2$ 해상도의 최종 프레임을 생성한다. 저해상도 generator의 역할은 시간이 지남에 따라 강력한 표현력과 넓은 receptive field를 필요로 하는 동작 및 장면 구성의 주요 양상을 모델링하는 반면, super-resolution 네트워크는 나머지 디테일을 생성하는 보다 세분화된 작업을 담당한다. 
 
-이 2단계 디자인은 긴 동영상을 생성하는 측면에서 최대의 유연성을 제공한다. 특히, 저해상도 generator는 시간이 지남에 따라 fully convolutional되도록 디자인되었으므로 생성된 동영상의 지속 시간과 시간 오프셋은 각각 temporal noise를 shift하고 재구성하여 제어할 수 있다. 반면 super-resolution는 프레임 단위로 작동한다. 9개의 연속적인 저해상도 프레임의 짧은 시퀀스를 받고 단일 고해상도 프레임을 출력한다. 각 출력 프레임은 sliding window를 사용하여 독립적으로 처리된다. fully-convolutional과 프레임당 처리의 조합을 통해 임의 순서로 임의 프레임을 생성할 수 있으며, 이는 예를 들어 대화형 편집이나 실시간 재생에 매우 바람직하다. 
+이 2단계 디자인은 긴 동영상을 생성하는 측면에서 최대의 유연성을 제공한다. 특히, 저해상도 generator는 시간이 지남에 따라 fully convolutional되도록 디자인되었으므로 생성된 동영상의 지속 시간과 시간 오프셋은 각각 temporal noise를 shift하고 재구성하여 제어할 수 있다. 반면 super-resolution는 프레임 단위로 작동한다. 9개의 연속적인 저해상도 프레임의 짧은 시퀀스를 받고 단일 고해상도 프레임을 출력한다. 각 출력 프레임은 sliding window를 사용하여 독립적으로 처리된다. fully-convolutional과 프레임당 처리의 조합을 통해 임의 순서로 임의 프레임을 생성할 수 있으며, 이는 예를 들어 인터랙티브한 편집이나 실시간 재생에 매우 바람직하다. 
 
 저해상도 및 super-resolution 네트워크는 RGB bottleneck이 사이에 있는 모듈식이다. 이는 네트워크가 독립적으로 학습되고 inference 중에 다양한 조합으로 사용될 수 있기 때문에 실험을 크게 단순화한다. 
 

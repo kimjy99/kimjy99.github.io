@@ -28,7 +28,7 @@ GAN, 특히 StyleGAN은 이미지 합성의 표준이 되었다. 의미적으로
 
 유사한 시간-정확도 trade-off가 고전적인 inversion 접근법에서 관찰될 수 있다. 스펙트럼의 한쪽 끝에서 latent vector 최적화 접근 방식은 인상적인 재구성을 달성하지만 규모 면에서 비실용적이어서 이미지당 몇 분이 걸린다. 반면에 인코더 기반 접근 방식은 풍부한 데이터셋을 활용하여 이미지에서 latent 표현으로의 매핑을 학습한다. 이러한 접근 방식은 순식간에 작동하지만 일반적으로 재구성에 덜 충실하다. 
 
-본 논문에서는 PTI의 generator 튜닝 기술을 인코더 기반 접근 방식에 적용하여 대화형 애플리케이션 영역으로 가져오는 것을 목표로 한다. 주어진 입력 이미지에 대해 generator 가중치를 세분화하는 방법을 학습하는 hypernetwork를 도입하여 이를 수행한다. Hypernetwork는 각 StyleGAN의 convolution layer에 대해 가벼운 feature extractor (ex. ResNet)와 refinement block의 집합으로 구성된다. 각 refinement block은 해당 layer의 convolution filter 가중치에 대한 offset을 예측하는 작업을 담당한다. 
+본 논문에서는 PTI의 generator 튜닝 기술을 인코더 기반 접근 방식에 적용하여 인터랙티브한 애플리케이션 영역으로 가져오는 것을 목표로 한다. 주어진 입력 이미지에 대해 generator 가중치를 세분화하는 방법을 학습하는 hypernetwork를 도입하여 이를 수행한다. Hypernetwork는 각 StyleGAN의 convolution layer에 대해 가벼운 feature extractor (ex. ResNet)와 refinement block의 집합으로 구성된다. 각 refinement block은 해당 layer의 convolution filter 가중치에 대한 offset을 예측하는 작업을 담당한다. 
 
 이러한 네트워크를 설계하는 데 있어 주요 과제는 정제해야 하는 각 convolution block을 구성하는 파라미터의 수이다. 각 파라미터에 대한 offset을 단순하게 예측하려면 30억 개 이상의 파라미터가 있는 hypernetwork가 필요하다. 이러한 복잡성을 줄이기 위한 몇 가지 방법을 탐색한다.
 

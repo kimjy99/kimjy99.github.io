@@ -21,7 +21,7 @@ classes: wide
 ## Introduction
 Video Object Tracking (VOT)는 컴퓨터 비전에서 근본적인 task이며, 일반적인 장면에서 임의의 객체를 추적하는 것이 중요하다. VOT와 유사하게 Video Object Segmentation (VOS)는 동영상 시퀀스에서 타겟(관심 영역)을 배경에서 분리하는 것을 목표로 하며, 이는 보다 세밀한 객체 추적으로 볼 수 있다. 저자들은 현재 state-of-the-art 동영상 trackers/segmenter가 수동으로 주석을 단 대규모 데이터셋에서 학습되고 boundary box 또는 segmentation mask로 초기화된다는 것을 확인했다. 한편으로 엄청난 양의 라벨이 붙은 데이터 뒤에는 막대한 노동력이 숨어 있다. 더욱이, 현재 초기화 세팅, 특히 semi-supervised VOS는 모델 초기화를 위해 특정 객체 마스크 ground-truth가 필요하다. 노동 비용이 많이 드는 주석 및 초기화에서 연구원을 벗어나게 하는 방법은 매우 중요하다. 
 
-최근에는 image segmentation을 위한 대규모 foundation model인 [Segment-Anything Model (SAM)](https://kimjy99.github.io/논문리뷰/segment-anything)이 제안되었다. 유연한 프롬프트를 지원하고 마스크를 실시간으로 계산하므로 대화형 사용이 가능하다. 저자들은 SAM이 대화형 추적을 지원할 수 있는 다음과 같은 이점이 있다고 결론지었다. 
+최근에는 image segmentation을 위한 대규모 foundation model인 [Segment-Anything Model (SAM)](https://kimjy99.github.io/논문리뷰/segment-anything)이 제안되었다. 유연한 프롬프트를 지원하고 마스크를 실시간으로 계산하므로 상호 작용이 가능하다. 저자들은 SAM이 상호 작용하는 추적을 지원할 수 있는 다음과 같은 이점이 있다고 결론지었다. 
 
 1. **강력한 image segmentation 능력**: 1,100만 개의 이미지와 11억 개의 마스크에 대해 학습된 SAM은 고품질 마스크를 생성하고 일반 시나리오에서 zero-shot segmentation을 수행할 수 있다. 
 2. **다양한 종류의 프롬프트와의 높은 상호작용성**: 사용자에게 친숙한 점, 상자 또는 언어 입력 프롬프트를 통해 SAM은 특정 이미지 영역에 만족스러운 segmentation mask를 제공할 수 있다. 
@@ -32,7 +32,7 @@ Video Object Tracking (VOT)는 컴퓨터 비전에서 근본적인 task이며, �
 
 > 상호 작용 방식을 통해 동영상에서 고성능 tracking과 segmentation을 할 수 있는가?
 
-본 논문에서는 동영상에서 고성능 객체 tracking 및 segmentation을 위한 효율적인 툴킷을 개발하는 **Track-Anything** 프로젝트를 소개한다. 사용자 친화적인 인터페이스를 갖춘 **Track Anything Model (TAM)**은 단 한 번의 inference로 주어진 동영상의 모든 개체를 추적하고 분할할 수 있다. 세부적으로 TAM은 대규모 segmentation model인 SAM과 고급 VOS 모델인 XMem을 대화형 방식으로 통합한다. 먼저, 사용자는 SAM을 대화식으로 초기화할 수 있다. 즉, 개체를 클릭하여 대상 개체를 정의할 수 있다. 그런 다음 XMem은 시간적 및 공간적 correspondence에 따라 다음 프레임에서 객체의 마스크 예측을 제공하는 데 사용된다. 다음으로 SAM을 활용하여 보다 정확한 마스크 설명을 제공한다. Tracking 프로세스 중에 사용자는 tracking 실패를 발견하는 즉시 일시 중지하고 수정할 수 있다.
+본 논문에서는 동영상에서 고성능 객체 tracking 및 segmentation을 위한 효율적인 툴킷을 개발하는 **Track-Anything** 프로젝트를 소개한다. 사용자 친화적인 인터페이스를 갖춘 **Track Anything Model (TAM)**은 단 한 번의 inference로 주어진 동영상의 모든 개체를 추적하고 분할할 수 있다. 세부적으로 TAM은 대규모 segmentation model인 SAM과 고급 VOS 모델인 XMem을 상호 작용 방식으로 통합한다. 먼저, 사용자는 SAM을 상호 작용 방식으로 초기화할 수 있다. 즉, 개체를 클릭하여 대상 개체를 정의할 수 있다. 그런 다음 XMem은 시간적 및 공간적 correspondence에 따라 다음 프레임에서 객체의 마스크 예측을 제공하는 데 사용된다. 다음으로 SAM을 활용하여 보다 정확한 마스크 설명을 제공한다. Tracking 프로세스 중에 사용자는 tracking 실패를 발견하는 즉시 일시 중지하고 수정할 수 있다.
 
 ## Track Anything Task
 본 논문은 [Segment Anything](https://kimjy99.github.io/논문리뷰/segment-anything) task에서 영감을 받아 임의의 동영상에서 유연한 객체 tracking을 목표로 하는 Track Anything task를 제안한다. 여기서 타겟 객체가 사용자의 관심에 따라 어떤 방식으로든 유연하게 선택, 추가 또는 제거될 수 있음을 정의한다. 또한 동영상 길이와 유형은 동영상에 제한되지 않고 임의적일 수 있다. 이러한 설정을 통해 단일/다중 객체 tracking, 단기/장기 객체 tracking, unsupervised VOS, semi-supervised VOS, referring VOS, interactive VOS, long-term VOS 등 다양한 하위 task를 수행할 수 있다.
