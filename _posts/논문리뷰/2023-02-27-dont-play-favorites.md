@@ -25,7 +25,7 @@ classes: wide
 
 본 논문에서 diffusion model의 다수에 초점을 맞춘 측면에 대한 새로운 관점을 제공한다. 특히, 다양한 feature를 가진 샘플에 대한 diffusion model의 denoising을 조사하고 diffusion model의 재구성이 고유한 feature를 가진 샘플보다 공통적인 feature를 가진 샘플을 생성하는 것을 선호한다는 것을 보여준다. 놀랍게도 고유한 feature를 가진 샘플에 대해 perturbation이 발생하더라도 diffusion model이 종종 공통적인 feature를 갖춘 다수 샘플에 대한 재구성을 생성한다는 것을 발견했다. 이는 원래 인스턴스와 복원된 인스턴스 사이의 perceptual distance (ex. LPIPS)로 정의되는 **minority score**라고 하는 feature의 고유성을 설명하기 위한 새로운 metric을 제시하도록 한다. Tweedie’s formula에 의해 제공되는 one-shot 재구성으로 충분하므로 이 metric이 계산하기에 효율적이다. 
 
-저자들은 diffusion model의 내재적 선호도를 대부분의 feature에 적용하기 위한 샘플링 테크닉을 추가로 개발하였다. **Minority guidance**라고 하는 본 논문의 smapler는 샘플링 프로세스를 원하는 레벨의 minority score로 컨디셔닝한다. 보다 정확하게는 주어진 noisy한 입력에 대한 minority score를 예측하고 classifier guidance를 사용하여 기존 sampler에 통합하는 classifier를 구성한다. Minority guidance는 diffusion model을 높은 minority score로 컨디셔닝하여 소수 feature를 가진 샘플의 제어 가능한 생성을 가능하게 한다. 
+저자들은 diffusion model의 내재적 선호도를 대부분의 feature에 적용하기 위한 샘플링 테크닉을 추가로 개발하였다. **Minority guidance**라고 하는 본 논문의 sampler는 샘플링 프로세스를 원하는 레벨의 minority score로 컨디셔닝한다. 보다 정확하게는 주어진 noisy한 입력에 대한 minority score를 예측하고 classifier guidance를 사용하여 기존 sampler에 통합하는 classifier를 구성한다. Minority guidance는 diffusion model을 높은 minority score로 컨디셔닝하여 소수 feature를 가진 샘플의 제어 가능한 생성을 가능하게 한다. 
 
 ## Method
 본 논문은 데이터 매니폴드의 저밀도 영역에 있는 소수 샘플을 생성하는 데 특히 중점을 둔 프레임워크를 제시한다. 이를 위해 먼저 diffusion model의 denoising이 가능성 높은 다수 샘플에 편향되어 있음을 보여줌으로써 diffusion model이 소수 샘플 중심의 생성에서 어려움을 겪는 이유를 새로운 방향으로 밝힌다. 이를 고려하여 feature의 고유성을 설명하기 위한 척도를 제시하고 소수 샘플을 향한 diffusion model의 생성 과정을 guide할 수 있는 sampler를 개발한다. 
