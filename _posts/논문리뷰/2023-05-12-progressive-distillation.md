@@ -22,7 +22,7 @@ classes: wide
 ## Introduction
 Diffusion model의 주요 단점은 샘플링 속도이다. 강력한 컨디셔닝 설정(TTS, 이미지 super-resolution)이나 보조 classifier를 사용하여 샘플러를 guide하는 경우와 같이 샘플링이 비교적 적은 step으로 수행될 수 있는 경우에는 상황이 크게 다르다. 그러나 적은 컨디셔닝 정보가 사용 가능한 경우에서는 샘플링이 다소 어렵다. 이러한 설정의 예로는 unconditional한 이미지 생성 및 표준 클래스 조건부 이미지 생성이 있으며, 현재 다른 유형의 생성 모델의 캐싱 최적화에 적합하지 않은 네트워크 평가를 사용하여 수백 또는 수천 step을 필요로 한다.
 
-본 논문에서는 이전 연구들에서 가장 느린 설정을 나타내는 unconditional 및 클래스 조건부 이미지 생성에서 diffusion model의 샘플링 시간을 수십 배 줄인다. 사전 학습된 diffusion model에 대한 $N$-step DDIM sampler의 동작을 샘플 품질의 저하가 거의 없는 $N/2$ step의 새 모델로 distill하는 절차를 제시한다. **Progressive Distillation**라고 하는 이 distillation 절차를 반복하여 4 step으로 생성되는 모델을 생성하며, 여전히 수천 step을 사용하는 최신 모델과 경쟁력 있는 샘플 품질을 유지한다.
+본 논문에서는 이전 연구들에서 가장 느린 설정을 나타내는 unconditional 및 클래스 조건부 이미지 생성에서 diffusion model의 샘플링 시간을 수십 배 줄인다. 사전 학습된 diffusion model에 대한 $N$-step DDIM sampler의 동작을 샘플 품질의 저하가 거의 없는 $N/2$ step의 새 모델로 증류하는 절차를 제시한다. **Progressive Distillation**라고 하는 이 distillation 절차를 반복하여 4 step으로 생성되는 모델을 생성하며, 여전히 수천 step을 사용하는 최신 모델과 경쟁력 있는 샘플 품질을 유지한다.
 
 ## Background on Diffusion Models
 본 논문에서는 continuous time에서의 diffusion model을 고려한다. 학습 데이터는 $x \sim p(x)$로 나타낸다. Diffusion model은 latent 변수 $$z = \{z_t \vert t \in [0, 1]\}$$을 가지며, $\lambda_t = \log (\alpha_t^2 / \sigma_t^2)$인 $\alpha_t$, $\sigma_t$로 구성된 noise schedule에 의해 지정된다. $\lambda_t$는 SNR(신호 대 잡음 비)이며 $t$에 따라 단조 감소한다.
@@ -98,12 +98,12 @@ z_s &= \alpha_s \hat{x}_\theta (z_t) + \sigma_s \frac{z_t - \alpha_t \hat{x}_\th
 \end{aligned}
 $$
 
-$$\hat{x}_\theta (z_t)$$가 약간의 smoothness 조건을 충족하는 경우 probability flow ODE의 수치 적분에 의해 도입된 오차는 적분 step의 수가 무한대로 커짐에 따라 사라진다. 이는 실제로 수치 적분의 정확도와 모델에서 생성된 샘플의 품질 및 이러한 샘플을 생성하는 데 필요한 시간 사이의 trade-off로 이어진다. 지금까지의 연구에 있는 대부분의 모델은 최고 품질의 샘플을 생성하기 위해 수백 또는 수천 개의 통합 step이 필요했으며, 이는 생성 모델링의 많은 애플리케이션에서 사용할 수 없다. 따라서 여기서는 정확하지만 느린 ODE integrator를 여전히 매우 정확한 훨씬 더 빠른 모델로 distill하는 방법을 제안한다. 이 아이디어는 아래 그림에 시각화되어 있다. 
+$$\hat{x}_\theta (z_t)$$가 약간의 smoothness 조건을 충족하는 경우 probability flow ODE의 수치 적분에 의해 도입된 오차는 적분 step의 수가 무한대로 커짐에 따라 사라진다. 이는 실제로 수치 적분의 정확도와 모델에서 생성된 샘플의 품질 및 이러한 샘플을 생성하는 데 필요한 시간 사이의 trade-off로 이어진다. 지금까지의 연구에 있는 대부분의 모델은 최고 품질의 샘플을 생성하기 위해 수백 또는 수천 개의 통합 step이 필요했으며, 이는 생성 모델링의 많은 애플리케이션에서 사용할 수 없다. 따라서 여기서는 정확하지만 느린 ODE integrator를 여전히 매우 정확한 훨씬 더 빠른 모델로 증류하는 방법을 제안한다. 이 아이디어는 아래 그림에 시각화되어 있다. 
 
 <center><img src='{{"/assets/img/progressive-distillation/progressive-distillation-fig1.PNG" | relative_url}}' width="70%"></center>
 
 ## Progressive Distillation
-샘플링 시간에 diffusion model을 보다 효율적으로 만들기 위해 느린 teacher diffusion model을 더 빠른 student model로 distill하여 필요한 샘플링 step 수를 반복적으로 절반으로 줄이는 알고리즘인 progressive distillation을 제안한다. Progressive distillation의 구현은 원래 diffusion model을 학습하기 위한 구현과 매우 유사하다. Algorithm 1과 Algorithm 2는 progressive distillation의 상대적 변화를 <span style='color: #bfff00'>녹색</span>으로 강조 표시한 diffusion model 학습과 progressive distillation을 나란히 제시한다.
+샘플링 시간에 diffusion model을 보다 효율적으로 만들기 위해 느린 teacher diffusion model을 더 빠른 student model로 증류하여 필요한 샘플링 step 수를 반복적으로 절반으로 줄이는 알고리즘인 progressive distillation을 제안한다. Progressive distillation의 구현은 원래 diffusion model을 학습하기 위한 구현과 매우 유사하다. Algorithm 1과 Algorithm 2는 progressive distillation의 상대적 변화를 <span style='color: #bfff00'>녹색</span>으로 강조 표시한 diffusion model 학습과 progressive distillation을 나란히 제시한다.
 
 <center><img src='{{"/assets/img/progressive-distillation/progressive-distillation-algo.PNG" | relative_url}}' width="80%"></center>
 <br>
@@ -136,7 +136,7 @@ $$
 
 이는 log-SNR $\lambda_t = \log [\alpha_t^2 / \sigma_t^2]$에 대해 가중치 함수가 $w(\lambda_t) = \exp(\lambda_t)$로 제공되는 $x$-space에서 가중 재구성 loss로 동등하게 볼 수 있다.
 
-이 표준 사양은 원래 모델을 학습하는 데 적합하지만 distillation에는 적합하지 않다. 원래 diffusion model을 학습하고 progressive distillation을 시작할 때 모델이 광범위한 SNR $\alpha_t^2 / \sigma_t^2$에서 평가되지만, distillation이 진행됨에 따라 점점 더 낮아지는 SNR에서 평가하게 된다. SNR이 0이 되면 신경망 출력 $$\hat{\epsilon}_\theta (z_t)$$의 작은 변화가 $x$-space의 암시적 예측에 미치는 영향은 점점 더 증폭된다. 이는 $$\hat{x}_\theta (z_t) = \frac{1}{\alpha_t} (z_t - \sigma_t \hat{\epsilon}_\theta (z_t))$$가 $\alpha_t \rightarrow 0$으로 나누기 때문이다. 초기 실수의 영향은 반복적인 $z_t$의 클리핑에 의해 제한되고 이후 업데이트는 모든 실수를 수정할 수 있기 때문에 많은 step을 수행할 때 큰 문제가 되지 않지만, 샘플링 step의 수를 줄이면 점점 더 중요해진다. 결국 단일 샘플링 step까지 distill하면 모델에 대한 입력은 순수한 noise만 되며 이는 SNR이 0, 즉 $\alpha_t = 0, \sigma_t = 1$에 해당한다. 극단적인 경우 $\epsilon$-예측과 $x$-예측 사이의 연결이 완전히 끊어진다. 관찰된 데이터 $z_t = \epsilon$은 더 이상 $x$에 대해 정보를 제공하지 않으며 예측 $$\hat{\epsilon}_\theta (z_t)$$는 더 이상 암시적으로 $x$를 예측하지 않는다. 가중치 함수 $w(\lambda_t)$가 이 SNR에서 재구성 loss에 0의 가중치를 부여하게 된다.
+이 표준 사양은 원래 모델을 학습하는 데 적합하지만 distillation에는 적합하지 않다. 원래 diffusion model을 학습하고 progressive distillation을 시작할 때 모델이 광범위한 SNR $\alpha_t^2 / \sigma_t^2$에서 평가되지만, distillation이 진행됨에 따라 점점 더 낮아지는 SNR에서 평가하게 된다. SNR이 0이 되면 신경망 출력 $$\hat{\epsilon}_\theta (z_t)$$의 작은 변화가 $x$-space의 암시적 예측에 미치는 영향은 점점 더 증폭된다. 이는 $$\hat{x}_\theta (z_t) = \frac{1}{\alpha_t} (z_t - \sigma_t \hat{\epsilon}_\theta (z_t))$$가 $\alpha_t \rightarrow 0$으로 나누기 때문이다. 초기 실수의 영향은 반복적인 $z_t$의 클리핑에 의해 제한되고 이후 업데이트는 모든 실수를 수정할 수 있기 때문에 많은 step을 수행할 때 큰 문제가 되지 않지만, 샘플링 step의 수를 줄이면 점점 더 중요해진다. 결국 단일 샘플링 step까지 증류하면 모델에 대한 입력은 순수한 noise만 되며 이는 SNR이 0, 즉 $\alpha_t = 0, \sigma_t = 1$에 해당한다. 극단적인 경우 $\epsilon$-예측과 $x$-예측 사이의 연결이 완전히 끊어진다. 관찰된 데이터 $z_t = \epsilon$은 더 이상 $x$에 대해 정보를 제공하지 않으며 예측 $$\hat{\epsilon}_\theta (z_t)$$는 더 이상 암시적으로 $x$를 예측하지 않는다. 가중치 함수 $w(\lambda_t)$가 이 SNR에서 재구성 loss에 0의 가중치를 부여하게 된다.
 
 따라서 distillation이 작동하려면 암시적 예측 $$\hat{x}_\theta (z_t)$$가 $\lambda_t = \log[\alpha_t^2 / \sigma_t^2]$가 변함에 따라 안정적으로 유지되는 방식으로 diffusion model을 parameterize해야 한다. 저자들은 다음 옵션들을 시도했고 모두 progressive distillation과 잘 작동한다는 것을 알았다.
 
