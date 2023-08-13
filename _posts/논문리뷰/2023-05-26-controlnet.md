@@ -73,6 +73,7 @@ $$
 &\mathcal{Z}(\mathcal{F} (x + \mathcal{Z}(c; \Theta_{z1}); \Theta_c); \Theta_{z2}) = \mathcal{Z}(\mathcal{F} (x; \Theta_c); \Theta_{z2}) = 0
 \end{aligned}
 $$
+
 그리고 이는 다음과 같이 변환될 수 있다.
 
 $$
