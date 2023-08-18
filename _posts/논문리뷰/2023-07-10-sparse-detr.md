@@ -169,7 +169,7 @@ $$
 인코더 보조 loss는 감지 성능을 향상시킬 뿐만 아니라 인코더 레이어가 12개로 두 배가 됨에 따라 감지 성능을 지속적으로 향상시킨다. 더 많은 인코더 레이어를 쌓을수록 디코더 cross attention을 통해 전파되는 기울기가 사라지므로 보조 loss의 중간 기울기가 필요하다. 
 
 ### 4. Dynamic Sparsification for Inference Stage
-실제 애플리케이션의 다양한 하드웨어 조건에서 모델을 배포하려면 필요한 성능-계산 trade-off에 따라 다양한 규모로 모델을 재학습해야 하는 경우가 많다. 저자들은 고정된 sparsity로 학습된 모델이 inference 시 동적 sparsity에 잘 적응할 수 있는지 평가하여 Sparse DETR이 이러한 번거로움을 피할 수 있는지 확인하였다. 아래 그림은 DAM 기반 방법으로 Swin-T backbone과 30% 인코더 토큰을 사용하여 모델을 학습시켰을 때 inference 동안 다양한 $\rho$ 하에서의 성능을 보여준다다. 
+실제 애플리케이션의 다양한 하드웨어 조건에서 모델을 배포하려면 필요한 성능-계산 trade-off에 따라 다양한 규모로 모델을 재학습해야 하는 경우가 많다. 저자들은 고정된 sparsity로 학습된 모델이 inference 시 동적 sparsity에 잘 적응할 수 있는지 평가하여 Sparse DETR이 이러한 번거로움을 피할 수 있는지 확인하였다. 아래 그림은 DAM 기반 방법으로 Swin-T backbone과 30% 인코더 토큰을 사용하여 모델을 학습시켰을 때 inference 동안 다양한 $\rho$ 하에서의 성능을 보여준다. 
 
 <center><img src='{{"/assets/img/sparse-detr/sparse-detr-fig7.PNG" | relative_url}}' width="30%"></center>
 <br>
