@@ -6,6 +6,7 @@ categories:
 tags:
   - GAN
   - Autoregressive
+  - Talking Head
   - Video Generation
   - Computer Vision
   - AI

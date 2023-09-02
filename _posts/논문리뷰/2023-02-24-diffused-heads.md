@@ -4,6 +4,7 @@ last_modified_at: 2023-02-24
 categories:
   - 논문리뷰
 tags:
+  - Talking Head
   - Diffusion
   - Video Generation
   - Computer Vision
