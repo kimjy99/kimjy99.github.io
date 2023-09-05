@@ -14,7 +14,7 @@ use_math: true
 classes: wide
 ---
 
-> arXiv 2022. [[Paper](https://arxiv.org/abs/2210.03142)]  
+> CVPR 2023. [[Paper](https://arxiv.org/abs/2210.03142)]  
 > Chenlin Meng, Robin Rombach, Ruiqi Gao, Diederik P. Kingma, Stefano Ermon, Jonathan Ho, Tim Salimans  
 > Stanford University | Stability AI & LMU Munich | Google Research, Brain Team  
 > 6 Oct 2022  

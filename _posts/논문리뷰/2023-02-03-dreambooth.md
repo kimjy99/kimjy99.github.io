@@ -15,7 +15,7 @@ use_math: true
 classes: wide
 ---
 
-> CVPR 2022. [[Paper](https://arxiv.org/abs/2208.12242)] [[Page](https://dreambooth.github.io/)] [[Github](https://github.com/Victarry/stable-dreambooth)]  
+> CVPR 2023. [[Paper](https://arxiv.org/abs/2208.12242)] [[Page](https://dreambooth.github.io/)] [[Github](https://github.com/Victarry/stable-dreambooth)]  
 > Nataniel Ruiz, Yuanzhen Li, Varun Jampani, Yael Pritch, Michael Rubinstein, Kfir Aberman  
 > Google Research | Boston University  
 > 25 Aug 2022  
