@@ -7,6 +7,7 @@ tags:
   - Computer Vision
   - AI
   - Meta AI
+  - CVPR
 excerpt: "ImageBind 논문 리뷰"
 use_math: true
 classes: wide

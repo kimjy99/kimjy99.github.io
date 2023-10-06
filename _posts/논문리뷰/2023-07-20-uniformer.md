@@ -8,6 +8,7 @@ tags:
   - Video Classification
   - Computer Vision
   - AI
+  - ICLR
 excerpt: "UniFormer 논문 리뷰"
 use_math: true
 classes: wide

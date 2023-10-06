@@ -11,6 +11,7 @@ tags:
   - Computer Vision
   - AI
   - Microsoft
+  - ICCV
 excerpt: "Swin Transformer 논문 리뷰"
 use_math: true
 classes: wide

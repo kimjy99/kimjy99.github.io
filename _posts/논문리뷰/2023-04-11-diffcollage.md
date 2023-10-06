@@ -9,6 +9,7 @@ tags:
   - Computer Vision
   - AI
   - NVIDIA
+  - CVPR
 excerpt: "DiffCollage 논문 리뷰"
 use_math: true
 classes: wide

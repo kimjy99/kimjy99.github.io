@@ -6,6 +6,7 @@ categories:
 tags:
   - Computer Vision
   - AI
+  - CVPR
 excerpt: "InternImage 논문 리뷰"
 use_math: true
 classes: wide

@@ -8,6 +8,7 @@ tags:
   - Image Segmentation
   - Computer Vision
   - AI
+  - ICLR
 excerpt: "Label-Efficient Semantic Segmentation with Diffusion Models 논문 리뷰"
 use_math: true
 classes: wide

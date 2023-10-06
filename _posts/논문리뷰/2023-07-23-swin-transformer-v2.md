@@ -11,6 +11,7 @@ tags:
   - Computer Vision
   - AI
   - Microsoft
+  - CVPR
 excerpt: "Swin Transformer V2 논문 리뷰"
 use_math: true
 classes: wide

@@ -9,6 +9,7 @@ tags:
   - Audio and Speech Processing
   - AI
   - Microsoft
+  - ICLR
 excerpt: "FastSpeech 2 논문 리뷰"
 use_math: true
 classes: wide

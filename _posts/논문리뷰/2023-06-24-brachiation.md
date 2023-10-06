@@ -6,6 +6,7 @@ categories:
 tags:
   - Reinforcement Learning
   - AI
+  - SIGGRAPH
 excerpt: "Learning to Brachiate via Simplified Model Imitation 논문 리뷰"
 use_math: true
 classes: wide

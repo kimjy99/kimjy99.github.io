@@ -9,6 +9,7 @@ tags:
   - Computer Vision
   - AI
   - Google
+  - CVPR
 excerpt: "TryOnDiffusion 논문 리뷰"
 use_math: true
 classes: wide

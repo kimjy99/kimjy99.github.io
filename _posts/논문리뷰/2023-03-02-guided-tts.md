@@ -8,6 +8,7 @@ tags:
   - Text-to-Speech
   - Audio and Speech Processing
   - AI
+  - ICML
 excerpt: "Guided-TTS 논문 리뷰"
 use_math: true
 classes: wide

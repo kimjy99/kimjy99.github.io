@@ -8,6 +8,7 @@ tags:
   - Language Generation
   - Natural Language Processing
   - AI
+  - NeurIPS
 excerpt: "Diffusion-LM 논문 리뷰"
 use_math: true
 classes: wide

@@ -10,6 +10,7 @@ tags:
   - Video Generation
   - Computer Vision
   - AI
+  - SIGGRAPH
 excerpt: "Live Speech Portraits 논문 리뷰"
 use_math: true
 classes: wide

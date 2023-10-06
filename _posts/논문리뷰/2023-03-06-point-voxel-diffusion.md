@@ -7,6 +7,7 @@ tags:
   - Diffusion
   - 3D Vision
   - AI
+  - ICCV
 excerpt: "Point-Voxel Diffusion 논문 리뷰"
 use_math: true
 classes: wide

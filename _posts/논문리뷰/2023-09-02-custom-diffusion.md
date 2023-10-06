@@ -8,6 +8,7 @@ tags:
   - Image Translation
   - Computer Vision
   - AI
+  - CVPR
 excerpt: "Custom Diffusion 논문 리뷰"
 use_math: true
 classes: wide

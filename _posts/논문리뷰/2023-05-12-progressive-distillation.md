@@ -9,6 +9,7 @@ tags:
   - Computer Vision
   - AI
   - Google
+  - ICLR
 excerpt: "Progressive Distillation 논문 리뷰"
 use_math: true
 classes: wide

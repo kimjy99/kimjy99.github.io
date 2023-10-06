@@ -9,6 +9,7 @@ tags:
   - Computer Vision
   - AI
   - Google
+  - ECCV
 excerpt: "Token-Critic 논문 리뷰"
 use_math: true
 classes: wide

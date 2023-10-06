@@ -6,6 +6,7 @@ categories:
 tags:
   - 3D Vision
   - AI
+  - CVPR
 excerpt: "3D Highlighter 논문 리뷰"
 use_math: true
 classes: wide
