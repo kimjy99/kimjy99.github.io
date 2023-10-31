@@ -55,7 +55,7 @@
         {% endfor %}
 
         {% assign sum = site.categories['프로그래밍'] | size %}
-        <span class="nav__sub-title" v-on:click='togglec()'><a href="/categories/프로그래밍">💻 프로그래밍 ({{sum}})</a></span>
+        <span class="nav__sub-title" v-on:click='togglec()'><a href="/categories/프로그래밍">💻 구현 / 프로그래밍 ({{sum}})</a></span>
 
         {% assign sum = site.categories['공부'] | size %}
         <span class="nav__sub-title" v-on:click='togglec()'><a href="/categories/공부">📒 공부 ({{sum}})</a></span>
