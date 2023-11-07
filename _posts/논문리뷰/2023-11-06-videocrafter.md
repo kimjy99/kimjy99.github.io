@@ -1,5 +1,5 @@
 ---
-title: "[논문리뷰] VideoCrafter1: Open Diffusion Models for High-Quality Video Gener"
+title: "[논문리뷰] VideoCrafter1: Open Diffusion Models for High-Quality Video Generation"
 last_modified_at: 2023-11-06
 categories:
   - 논문리뷰
@@ -14,7 +14,7 @@ use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2310.16818)] [[Page](https://ailab-cvc.github.io/videocrafter/)] [[Github](https://github.com/AILab-CVC/VideoCrafter)]  
+> arXiv 2023. [[Paper](https://arxiv.org/abs/2310.19512)] [[Page](https://ailab-cvc.github.io/videocrafter/)] [[Github](https://github.com/AILab-CVC/VideoCrafter)]  
 > Haoxin Chen, Menghan Xia, Yingqing He, Yong Zhang, Xiaodong Cun, Shaoshu Yang, Jinbo Xing, Yaofang Liu, Qifeng Chen, Xintao Wang, Chao Weng, Ying Shan  
 > Tencent AI Lab | Hong Kong University of Science and Technology | Chinese Academy of Sciences | The Chinese University of Hong Kong | City University of Hong Kong  
 > 30 Oct 2023  
