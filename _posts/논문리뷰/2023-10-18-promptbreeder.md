@@ -24,7 +24,7 @@ classes: wide
 
 신경망의 프로그램은 가중치 행렬이다. 결과적으로 이 "프로그램"은 신경망 자체에 의해 자기 참조 방식으로 변경될 수 있다. 스스로를 개선하고 스스로 개선하는 방식을 개선하는 신경망은 AI의 개방형 자기 참조적 자체 개선을 향한 중요한 디딤돌이 될 수 있다. 그러나 자기 참조 가중치 행렬을 통한 자체 개선에는 모델의 모든 파라미터를 수정하는 추가 파라미터가 필요하므로 비용이 많이 든다. LLM의 행동과 능력은 제공하는 프롬프트에 의해 크게 영향을 받기 때문에 프롬프트를 LLM의 프로그램으로 유사하게 생각할 수 있다. 이러한 관점에서 Scratchpad 방법이나 Chain-of-Thought Prompting와 같은 프롬프트 전략을 변경하는 것은 LLM의 "프로그램"을 변경하는 것과 같다. 이 비유를 더 발전시키면 LLM 자체를 사용하여 프롬프트를 변경할 수 있을 뿐만 아니라 이러한 프롬프트를 변경하는 방식을 통해 LLM에 기반을 둔 완전히 자기 참조적인 자체 개선 시스템으로 이동할 수 있다. 
 
-본 논문에서는 LLM의 자기 참조적 자체 개선을 위한 **Promptbreeder (PB)**를 소개한다. Mutation-prompt (ex. task-prompt를 수정하기 위한 명령), thinking-style (ex. 일반 인지 휴리스틱에 대한 텍스트 설명), 도메인별 문제 설명의 시드 집합이 주어지면 PB는 task prompt들의 변형과 mutation-prompt들을 생성하며, LLM이 돌연변이 연산자 (mutation operator) 역할을 하도록 유도될 수 있다는 사실을 활용하여 프롬프팅한다. 학습 세트에서 측정된 진화된 task-prompt의 적합성을 기반으로 task-prompt와 관련 mutation-prompt로 구성된 진화 unit의 부분집합을 선택하여 미래 세대에 전달할 수 있다. 여러 세대의 PB에 걸쳐 현재 도메인에 적응하는 프롬프트를 관찰할 수 있다. 예를 들어, PB는 GSM8K에서 task-prompt를 다음과 같이 발전시켰습니다.
+본 논문에서는 LLM의 자기 참조적 자체 개선을 위한 **Promptbreeder (PB)**를 소개한다. Mutation-prompt (ex. task-prompt를 수정하기 위한 명령), thinking-style (ex. 일반 인지 휴리스틱에 대한 텍스트 설명), 도메인별 문제 설명의 시드 집합이 주어지면 PB는 task prompt들의 변형과 mutation-prompt들을 생성하며, LLM이 돌연변이 연산자 (mutation operator) 역할을 하도록 유도될 수 있다는 사실을 활용하여 프롬프팅한다. 학습 세트에서 측정된 진화된 task-prompt의 적합성을 기반으로 task-prompt와 관련 mutation-prompt로 구성된 진화 unit의 부분집합을 선택하여 미래 세대에 전달할 수 있다. 여러 세대의 PB에 걸쳐 현재 도메인에 적응하는 프롬프트를 관찰할 수 있다. 예를 들어, PB는 GSM8K에서 task-prompt를 다음과 같이 발전시켰다.
 
 > "Show all your working. II. You should use the correct mathematical notation and vocabulary, where appropriate. III. You should write your answer in full sentences and in words. IV. You should use examples to illustrate your points and prove your answers. V. Your workings out should be neat and legible"
 
@@ -39,7 +39,7 @@ Promptbreeder는 LLM을 사용하여 입력 텍스트의 변형을 생성할 수
 
 Promptbreeder는 진화 알고리즘 (evolutionary algorithm)에 따라 task-prompt를 생성한다. 이 알고리즘의 돌연변이 연산자(mutation operator)는 그 자체로 mutation-prompt $M$으로 컨디셔닝된 LLM이다. 즉, 돌연변이된 task-prompt $P^\prime$은 $P^\prime = \textrm{LLM}(M + P)$로 정의된다. 여기서 '+'는 문자열 concatenation에 해당한다. 
 
-Promptbreeder의 주요 자기 참조 메커니즘은 task-prompt뿐만 아니라 mutation-prompt에도 진화 알고리즘을 적용하는 것에서 비롯된다. 이 메타 레벨 알고리즘의 돌연변이 연산자는 다시 LLM이며, 이제 hyper-mutation-prompt $H$를 조건으로 합니다. 즉, $M^\prime = \textrm{LLM}(H + M)$을 통해 돌연변이된 mutation-prompt $M^\prime$을 얻는다.
+Promptbreeder의 주요 자기 참조 메커니즘은 task-prompt뿐만 아니라 mutation-prompt에도 진화 알고리즘을 적용하는 것에서 비롯된다. 이 메타 레벨 알고리즘의 돌연변이 연산자는 다시 LLM이며, 이제 hyper-mutation-prompt $H$를 조건으로 한다. 즉, $M^\prime = \textrm{LLM}(H + M)$을 통해 돌연변이된 mutation-prompt $M^\prime$을 얻는다.
 
 일련의 "thinking-style" $\mathcal{T}$와 초기 mutation-prompt의 집합 $\mathcal{M}$, 도메인별 문제 설명 $D$가 주어지면 Promptbreeder는 돌연변이된 task-prompt의 모집단을 초기화한다. 이는 task-prompt와 mutation-prompt가 1:1로 대응된다는 의미이다. 이 모집단을 발전시키기 위해 이진 토너먼트 유전자 알고리즘 프레임워크를 사용한다. 모집단에서 두 명의 구성원을 샘플링하고 적합도가 더 높은 구성원을 선택하여 돌연변이를 만들고 패자를 승자의 돌연변이 복사본으로 덮어쓴다. 
 
