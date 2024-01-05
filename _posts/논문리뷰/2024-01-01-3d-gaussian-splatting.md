@@ -4,6 +4,7 @@ last_modified_at: 2024-01-01
 categories:
   - 논문리뷰
 tags:
+  - Gaussian Splatting
   - 3D Vision
   - AI
 excerpt: "3D Gaussian Splatting 논문 리뷰"
@@ -103,6 +104,8 @@ Gaussian에 대한 적응형 제어는 빈 영역을 채워야 한다. 기하학
 
 첫 번째 경우에는 시스템의 총 부피와 Gaussian 수를 모두 늘려야 하는 필요성을 감지하고 처리하는 반면, 두 번째 경우에는 총 부피를 보존하지만 Gaussian 수를 늘린다. 다른 체적 표현과 마찬가지로 최적화는 입력 카메라에 가까운 floater들로 인해 정체될 수 있으며, 본 논문의 경우에는 Gaussian 밀도가 정당하지 않게 증가할 수 있다. Gaussian 수의 증가를 조절하는 효과적인 방법은 $N = 3000$회 반복마다 $\alpha$ 값을 0에 가깝게 설정하는 것이다. 그런 다음 최적화는 위에서 설명한 대로 $\epsilon_\alpha$보다 작은 $\alpha$의 Gaussian을 제거하는 방식을 사용하여 Gaussian에 대한 $\alpha$를 증가시킨다. Gaussian은 축소되거나 커질 수 있으며 다른 것드과 상당히 겹칠 수 있지만, world space에서 매우 큰 Gaussian과 view space에서 차지하는 공간이 큰 Gaussian을 주기적으로 제거한다. 이 전략을 사용하면 총 Gaussian 수를 전반적으로 효과적으로 제어할 수 있다. 모델의 Gaussian은 항상 유클리드 공간에서 기본 요소로 유지된다. 다른 방법과 달리 멀리 있거나 큰 Gaussian에 대한 공간 압축, 워핑 또는 투영 전략이 필요하지 않다.
 
+<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-algo1.PNG" | relative_url}}' width="52%"></center>
+
 ## Fast Differentiable Rasterizer for Gaussians
 본 논문의 목표는 대략적인 $\alpha$-blending을 허용하고 기울기를 받을 수 있는 splat 수에 대한 엄격한 제한을 피하기 위해 빠른 전체 렌더링과 빠른 정렬을 갖는 것이다. 
 
@@ -115,6 +118,8 @@ Gaussian을 정렬한 후 주어진 타일에 표시되는 첫 번째 및 마지
 Rasterization 중에는 $\alpha$의 채도가 유일한 중지 기준이다. 이전 연구들과 달리 기울기 업데이트를 받는 혼합된 기본 요소의 수를 제한하지 않는다. 저자들은 이 속성을 적용하여 장면별 하이퍼파라미터 튜닝에 의존하지 않고도 임의적이고 다양한 깊이의 복잡성이 있는 장면을 처리하고 정확하게 학습할 수 있도록 하였다. 따라서 backward pass 동안 forward pass에서 픽셀당 혼합된 포인트의 전체 시퀀스를 복구해야 한다. 한 가지 해결책은 글로벌 메모리에 픽셀당 혼합된 포인트의 임의의 긴 list를 저장하는 것이다. 대신에 저자들은 동적 메모리 관리 오버헤드를 피하기 위해 타일별 list를 다시 탐색하도록 선택하였다. Forward pass에서 정렬된 Gaussian의 array와 타일 range를 재사용할 수 있다. 기울기 계산을 용이하게 하기 위해 이제 뒤에서 앞으로 순회한다. 
 
 순회는 타일의 모든 픽셀에 영향을 준 마지막 지점부터 시작되며 공유 메모리에 포인트를 다시 로드하는 작업이 공동으로 수행된다. 또한 각 픽셀은 forward pass 중에 해당 색상에 기여한 마지막 포인트의 깊이보다 깊이가 낮거나 같은 경우에만 오버랩 테스트와 포인트 처리를 시작한다. 기울기 계산 시에는 원본 블렌딩 프로세스 중 각 step에서 누적된 불투명도 값이 필요하다. Backward pass에서 점진적으로 줄어드는 불투명도의 list를 순회하는 대신 forward pass가 끝날 때 누적된 총 불투명도만 저장하여 이러한 중간 불투명도를 복구할 수 있다. 특히 각 포인트는 forward 프로세스에서 최종 누적 불투명도 $\alpha$를 저장한다. 이를 뒤에서 앞으로 순회할 때 각 포인트의 $\alpha$로 나누어 기울기 계산에 필요한 계수를 얻는다. 
+
+<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-algo2.PNG" | relative_url}}' width="52%"></center>
 
 ## Experiments
 ### 1. Results and Evaluation
