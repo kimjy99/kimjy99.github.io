@@ -5,6 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - Gaussian Splatting
+  - Novel View Synthesis
   - 3D Vision
   - AI
   - NVIDIA
