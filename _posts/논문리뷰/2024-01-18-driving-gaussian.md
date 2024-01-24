@@ -188,7 +188,7 @@ $$
   - 계산 비용을 고려하여 LiDAR 포인트에 복셀 그리드 필터를 사용하여 기하학적 feature들을 잃지 않고 규모를 줄임
   - 대규모 장면에서 객체가 상대적으로 작다는 점을 고려하여 초기 포인트가 3000으로 설정된 동적 객체에 대해 무작위 초기화를 사용
   - iteration: 50,000
-  - 밀도 증가 임계값을 0.001로 설정하고 불투명도 간격을 900으로 재설정했습니다. 
+  - 밀도 증가 임계값을 0.001로 설정하고 불투명도 간격을 900으로 재설정
   - learning rate
     - Incremental Static 3D Gaussians: 3D-GS와 동일하게 유지
     - Composite Dynamic Gaussian Graph: $1.6 \times 10^{-3}$에서 $1.6 \times 10^{-6}$으로 exponentially decay
