@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] 2D-Guided 3D Gaussian Segmentation"
-last_modified_at: 2024-02-01
+last_modified_at: 2024-02-03
 categories:
   - 논문리뷰
 tags:
