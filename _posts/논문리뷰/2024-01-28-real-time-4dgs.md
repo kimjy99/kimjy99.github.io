@@ -19,7 +19,7 @@ classes: wide
 > Fudan University | University of Surrey  
 > 16 Oct 2023  
 
-<center><img src='{{"/assets/img/4d-gaussian-splatting/4d-gaussian-splatting-fig1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/real-time-4dgs/real-time-4dgs-fig1.PNG" | relative_url}}' width="80%"></center>
 
 ## Introduction
 2D 이미지에서 동적 장면을 모델링하고 사실적인 새로운 뷰를 실시간으로 렌더링하는 것은 컴퓨터 비전 및 그래픽에서 매우 중요하다. NeRF와 같은 최근의 혁신을 통해 사실적인 정적 장면 렌더링이 가능해졌지만 이러한 기술을 동적 장면에 적용하는 것은 여러 요인으로 인해 어렵다. 물체의 움직임은 재구성을 복잡하게 만들고 시간적 장면 역학은 상당한 복잡성을 추가한다. 더욱이 실제 애플리케이션은 동적 장면을 단안 동영상(monocular video)으로 캡처하는 경우가 많기 때문에 각 프레임에 대해 별도의 정적 장면 표현을 학습한 다음 이를 동적 장면 모델로 결합하는 것이 비현실적이다. 핵심 과제는 본질적인 상관관계를 유지하고 서로 다른 timestep에 걸쳐 관련 정보를 공유하는 동시에 관련되지 않은 시공간 위치 간의 간섭을 최소화하는 것이다.
@@ -31,7 +31,7 @@ classes: wide
 이러한 한계를 극복하기 위해 본 논문에서는 4D Gaussian 세트로 장면의 기본 시공간 4D 볼륨을 근사화하여 task를 재구성하였다. 특히, 4D rotation을 통해 Gaussian은 4D manifold에 맞추고 장면 고유 동작을 캡처할 수 있다. 또한 동적 장면에서 나타나는 외형의 시간적 진화를 모델링하기 위해 동적 장면에 대한 Spherical Harmonics를 일반화한 Spherindrical Harmonics를 도입하였다. 이 접근 방식은 다양한 조명 조건을 갖춘 복잡하고 동적인 장면에서 고해상도의 사실적인 새로운 뷰의 end-to-end 학습과 실시간 렌더링을 지원하는 최초의 모델이다. 또한 제안된 표현은 공간적, 시간적 차원 모두에서 해석 가능하고 확장성이 뛰어나며 적응성이 뛰어나다.
 
 ## Method
-<center><img src='{{"/assets/img/4d-gaussian-splatting/4d-gaussian-splatting-fig2.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/real-time-4dgs/real-time-4dgs-fig2.PNG" | relative_url}}' width="95%"></center>
 
 ### 1. Preliminary: 3D Gaussian Splatting
 [3D Gaussian Splatting](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)은 이방성 Gaussian을 사용하여 정적 3D 장면을 표현힌다. 잘 커스터마이징된 GPU 친화적인 rasterizer를 통해 이 표현을 통해 충실도가 높은 새로운 뷰를 실시간으로 합성할 수 있다.
@@ -189,19 +189,19 @@ $$
 ### 1. Results of Dynamic Novel View Synthesis
 다음은 Plenoptic Video 벤치마크에서 SOTA 방법들과 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/4d-gaussian-splatting/4d-gaussian-splatting-table1.PNG" | relative_url}}' width="73%"></center>
+<center><img src='{{"/assets/img/real-time-4dgs/real-time-4dgs-table1.PNG" | relative_url}}' width="73%"></center>
 <br>
-<center><img src='{{"/assets/img/4d-gaussian-splatting/4d-gaussian-splatting-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/real-time-4dgs/real-time-4dgs-fig3.PNG" | relative_url}}' width="100%"></center>
 <br>
 다음은 D-NeRF 데이터셋의 monocular dynamic scene에 대한 정량적 비교 결과이다. 
 
-<center><img src='{{"/assets/img/4d-gaussian-splatting/4d-gaussian-splatting-table2.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/real-time-4dgs/real-time-4dgs-table2.PNG" | relative_url}}' width="65%"></center>
 
 ### 2. Ablation and Analysis
 다음은 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/4d-gaussian-splatting/4d-gaussian-splatting-table3.PNG" | relative_url}}' width="58%"></center>
+<center><img src='{{"/assets/img/real-time-4dgs/real-time-4dgs-table3.PNG" | relative_url}}' width="58%"></center>
 <br>
 다음은 4D Gaussian의 역학을 시각화한 것이다. GT Flow는 VideoFlow로 추출되었다. 
 
-<center><img src='{{"/assets/img/4d-gaussian-splatting/4d-gaussian-splatting-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/real-time-4dgs/real-time-4dgs-fig4.PNG" | relative_url}}' width="100%"></center>
