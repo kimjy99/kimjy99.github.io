@@ -90,7 +90,7 @@ $$
 ### 2. Gaussian Clustering
 저자들은 실험 중에 3D semantic 정보를 학습하기 위한 유일한 가이드로 2D segmentation map을 사용하면 일부 3D Gaussian의 semantic 정보가 부정확해질 수 있음을 관찰했다. 이러한 부정확성은 모든 카테고리에 걸쳐 초기 균일 분포 상태에 근접한 3D Gaussian으로 나타나거나 제한된 수의 카테고리에서 유사한 확률을 나타낸다. 이 문제를 해결하고 물체가 공간에 지속적으로 분산된다는 점을 고려하여 각 3D Gaussian은 일반적으로 특정 proximity(근접성)에 위치한 다른 3D Gaussian과 동일한 카테고리 내에서 분류되어야 한다고 가정하였다.
 
-저자들은 semantic 정보의 부정확성을 해결하기 위해 KNN clustering 알고리즘을 참조하였다. 사전 학습된 semantic 정보가 있는 3D 장면의 경우 장면을 표현하는 데 사용되는 각 3D Gaussian의 object code $\mathbf{o}$를 처음에 검색한다. 그런 다음 이러한 code는 softmax 처리를 거쳐 다양한 카테고리에 걸쳐 각 3D Gaussian의 확률 분포를 추론한다. 확률의 최대값 $\max (sof tmax(o))$이 $\beta$ 보다 작은 3D Gaussian들이 선택된다. 마지막으로, 선택된 3D Gaussian의 객체 코드를 중심 좌표와 함께 클러스터링을 위해 KNN에 입력했습니다. 3D Gaussian 쿼리의 경우 주변 3D Gaussian과의 거리를 계산하고 거리가 가장 가까운 $k$개의 3D Gaussian을 선택하면 쿼리 Gaussian의 개체 코드는 이러한 3D Gaussian 개체 코드의 평균으로 설정됩니다.
+저자들은 semantic 정보의 부정확성을 해결하기 위해 KNN clustering 알고리즘을 참조하였다. 사전 학습된 semantic 정보가 있는 3D 장면의 경우 장면을 표현하는 데 사용되는 각 3D Gaussian의 object code $\mathbf{o}$를 처음에 검색한다. 그런 다음 이러한 code는 softmax 처리를 거쳐 다양한 카테고리에 걸쳐 각 3D Gaussian의 확률 분포를 추론한다. 확률의 최대값 $\max (sof tmax(o))$이 $\beta$ 보다 작은 3D Gaussian들이 선택된다. 마지막으로, 선택된 3D Gaussian의 객체 코드를 중심 좌표와 함께 클러스터링을 위해 KNN에 입력한다. 3D Gaussian 쿼리의 경우 주변 3D Gaussian과의 거리를 계산하고 거리가 가장 가까운 $k$개의 3D Gaussian을 선택하면 쿼리 Gaussian의 개체 코드는 이러한 3D Gaussian 개체 코드의 평균으로 설정된다.
 
 ### 3. Gaussian Filtering
 또한 저자들은 실험 과정에서 3차원 semantic 정보 학습과 Gaussian Clustering 이후 분할하려는 물체에 속하지 않는 일부 3D Gaussian이 잘못 분할되는 것을 발견했다. 저자들은 잘못 분할된 3D Gaussian이 분할된 3D Gaussian의 나머지 부분과 공간적으로 멀리 떨어져 있음을 관찰했다. 따라서 이 문제를 해결하기 위해 포인트 클라우드 segmentation에 사용된 것과 유사한 통계적 필터링 알고리즘을 사용하였다. 
