@@ -24,7 +24,7 @@ classes: wide
 
 <center><img src='{{"/assets/img/diffusion-lm/diffusion-lm-fig1.PNG" | relative_url}}' width="70%"></center>
 <br>
-본 논문은 보다 복잡한 제어를 다루기 위해 연속적인 diffusion에 기반한 새로운 언어 모델인 **Diffusion-LM**을 제안한다. Diffusion-LM은 일련의 Guassian noise vector로 시작하여 위 그림과 같이 단어에 해당하는 벡터로 점진적으로 denoise한다. 이러한 점진적인 denoising step은 연속적인 latent 표현의 계층(hierarchy)을 생성한다. 저자들은 이 계층적이고 연속적인 latent variable이 생성된 시퀀스의 syntactic parse tree를 제한하는 것과 같은 복잡한 제어 작업을 수행하기 위한 간단한 기울기 기반 방법을 가능하게 한다는 것을 발견했다. 
+본 논문은 보다 복잡한 제어를 다루기 위해 연속적인 diffusion에 기반한 새로운 언어 모델인 **Diffusion-LM**을 제안한다. Diffusion-LM은 일련의 Gaussian noise vector로 시작하여 위 그림과 같이 단어에 해당하는 벡터로 점진적으로 denoise한다. 이러한 점진적인 denoising step은 연속적인 latent 표현의 계층(hierarchy)을 생성한다. 저자들은 이 계층적이고 연속적인 latent variable이 생성된 시퀀스의 syntactic parse tree를 제한하는 것과 같은 복잡한 제어 작업을 수행하기 위한 간단한 기울기 기반 방법을 가능하게 한다는 것을 발견했다. 
 
 연속적인 diffusion model은 비전 및 오디오 도메인에서 매우 성공적이었지만 텍스트의 고유한 이산적인 특성으로 인해 텍스트에는 적용되지 않았다. Diffusion model을 텍스트에 적용하려면 표준 diffusion에 대한 몇 가지 수정이 필요하다. 표준 diffusion process에 embedding step와 rounding step을 추가하고, 임베딩을 학습하기 위한 학습 목적 함수를 설계하고, 반올림을 개선하는 기술을 제안한다.
 

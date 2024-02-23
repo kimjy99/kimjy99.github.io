@@ -19,7 +19,7 @@ classes: wide
 > 1 Jan 2024  
 
 ## Introduction
-최근 [3D Gaussian Splatting (3D-GS)](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)는 매우 빠른 렌더링 속도로 고품질 이미지를 생성하는 능력을 입증하면서 큰 주목을 받았다. NeRF의 시간이 많이 걸리는 볼륨 렌더링을 대체하여 미분 가능한 splatting 기반 rasterization으로 3D 장면을 표현하기 위해 수많은 컬러 3D Gaussian을 결합한다. 렌더링 프로세스에서는 3D Guassian point들을 2D 이미지 평면에 투영되며 이러한 가Gaussian들의 위치, 크기, 회전, 색상, 불투명도는 기울기 기반 최적화를 통해 조정되어 3D 장면을 더 잘 캡처한다. 3D-GS는 최신 그래픽 하드웨어의 볼륨 렌더링 기술보다 훨씬 효율적일 수 있는 rasterization을 활용하므로 신속한 실시간 렌더링이 가능하다.
+최근 [3D Gaussian Splatting (3D-GS)](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)는 매우 빠른 렌더링 속도로 고품질 이미지를 생성하는 능력을 입증하면서 큰 주목을 받았다. NeRF의 시간이 많이 걸리는 볼륨 렌더링을 대체하여 미분 가능한 splatting 기반 rasterization으로 3D 장면을 표현하기 위해 수많은 컬러 3D Gaussian을 결합한다. 렌더링 프로세스에서는 3D Gaussian point들을 2D 이미지 평면에 투영되며 이러한 가Gaussian들의 위치, 크기, 회전, 색상, 불투명도는 기울기 기반 최적화를 통해 조정되어 3D 장면을 더 잘 캡처한다. 3D-GS는 최신 그래픽 하드웨어의 볼륨 렌더링 기술보다 훨씬 효율적일 수 있는 rasterization을 활용하므로 신속한 실시간 렌더링이 가능하다.
 
 본 연구에서는 rasterization과 잘 정렬되어 실시간 렌더링이 가능한 3D-GS용 최초의 defocus deblurring 알고리즘인 **Deblurring 3D-GS**를 제안하였다. 이를 위해 3D Gaussian의 공분산 행렬을 수정하여 흐릿함을 모델링한다. 구체적으로 각 3D Gaussian의 공분산을 조작하여 장면 흐림을 모델링하는 작은 MLP를 사용한다. 흐릿함은 인접한 픽셀의 혼합을 기반으로 하는 현상이므로 Deblurring 3D-GS는 학습하는 동안 이러한 혼합을 시뮬레이션한다. 이를 위해 저자들은 MLP를 활용하여 3D Gaussian의 다양한 속성 변화를 학습하는 프레임워크를 설계했다. 이러한 작은 변형은 속성의 원래 값에 곱해지며 결과적으로 Gaussian의 업데이트된 모양이 결정된다. Inference 시에는 MLP 없이 3D-GS의 원래 구성 요소만 사용하여 장면을 렌더링한다. 따라서 3D-GS는 각 픽셀이 인근 픽셀과 섞이지 않기 때문에 선명한 이미지를 렌더링할 수 있다. 또한 inference 중에는 MLP가 활성화되지 않기 때문에 흐릿한 이미지에서 세밀하고 선명한 디테일을 재구성하면서 3D-GS와 유사한 실시간 렌더링이 가능하다.
 
