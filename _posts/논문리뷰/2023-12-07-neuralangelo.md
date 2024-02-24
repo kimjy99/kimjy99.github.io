@@ -5,6 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - 3D Vision
+  - Surface Reconstruction
   - AI
   - NVIDIA
   - CVPR
