@@ -147,7 +147,7 @@ Coarse-to-fine 최적화는 잘못된 로컬 최소값에 빠지는 것을 방�
 모든 해시 그리드가 최적화 시작부터 활성화되면 기하학적 디테일을 캡처하기 위해 fine한 해시 그리드는 먼저 큰 step 크기 $\epsilon$을 사용하여 coarse한 최적화에서 "unlearn"하고 더 작은 $\epsilon$을 사용하여 "relearn"해야 한다. 수렴 최적화로 인해 이러한 프로세스가 실패하면 기하학적 디테일이 손실된다. 따라서 초기의 coarse한 해시 그리드들만 활성화하고 $\epsilon$이 해당 공간 크기로 감소할 때 더 fine한 해시 그리드를 점진적으로 활성화한다. 따라서 디테일을 더 잘 포착하기 위해 재학습 과정을 피할 수 있다. 실제로 최종 결과를 지배하는 단일 해상도 feature를 피하기 위해 모든 파라미터에 대해 weight decay를 적용한다. 
 
 ### 4. Optimization
-재구성된 표면의 매끄러움을 더욱 장려하기 위해 SDF의 평균 곡률을 정규화하여 prior를 적용한다. 평균 곡률은 표면 정규 계산과 유사한 discrete Laplacian에서 계산된다. 그렇지 않으면 trilinear interpolation을 사용할 때 해시 인코딩의 2차 분석적 기울기는 모든 곳에서 0이다. 곡률 loss $$\mathcal{L}_\textrm{curv}$는 다음과 같이 정의된다.
+재구성된 표면의 매끄러움을 더욱 장려하기 위해 SDF의 평균 곡률을 정규화하여 prior를 적용한다. 평균 곡률은 표면 정규 계산과 유사한 discrete Laplacian에서 계산된다. 그렇지 않으면 trilinear interpolation을 사용할 때 해시 인코딩의 2차 분석적 기울기는 모든 곳에서 0이다. 곡률 loss $$\mathcal{L}_\textrm{curv}$$는 다음과 같이 정의된다.
 
 $$
 \begin{equation}
