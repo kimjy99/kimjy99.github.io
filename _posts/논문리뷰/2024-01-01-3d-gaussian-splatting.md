@@ -8,12 +8,13 @@ tags:
   - Novel View Synthesis
   - 3D Vision
   - AI
+  - SIGGRAPH
 excerpt: "3D Gaussian Splatting 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2308.04079)] [[Page](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/)] [[Github](https://github.com/graphdeco-inria/gaussian-splatting)]  
+> SIGGRAPH 2023. [[Paper](https://arxiv.org/abs/2308.04079)] [[Page](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/)] [[Github](https://github.com/graphdeco-inria/gaussian-splatting)]  
 > Bernhard Kerbl, Georgios Kopanas, Thomas Leimkühler, George Drettakis  
 > Inria | Max-Planck-Institut für Informatik  
 > 8 Aug 2023  
