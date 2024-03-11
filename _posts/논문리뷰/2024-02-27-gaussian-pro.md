@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> arXiv 2024. [[Paper](https://arxiv.org/abs/2402.14650)] [[Page](https://kcheng1021.github.io/gaussianpro.github.io/)]  
+> arXiv 2024. [[Paper](https://arxiv.org/abs/2402.14650)] [[Page](https://kcheng1021.github.io/gaussianpro.github.io/)] [[Github](https://github.com/kcheng1021/GaussianPro)]  
 > Kai Cheng, Xiaoxiao Long, Kaizhi Yang, Yao Yao, Wei Yin, Yuexin Ma, Wenping Wang, Xuejin Chen  
 > University of Science and Technology of China | The University of Hong Kong | Nanjing University | The University of Adelaide | ShanghaiTech University | Texas A&M University  
 > 22 Feb 2024  
