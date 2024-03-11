@@ -240,7 +240,7 @@ $$
 
 그러나 이러한 트릭은 DreamFusion에서 사용되는 DDPM 학습 공식에만 필요하다. 반면 본 논문이 사용하는 EDM의 경우 $\mathcal{F}$를 통한 적절한 역전파가 더 나은 결과를 가져온다. 따라서 본 논문의 경우 prior 정규화 항 $$\mathcal{L}_\textrm{prior} = \mathcal{L}_\textrm{diff}$$이다.
 
-이 loss를 계산하기 위해 diffusion model을 학습하는 동안과 동일한 절차를 사용한다. 랜덤 noise $\epsilon$와 nosie level $\sigma$를 샘플링하여 형상 맵에 적용한다. 그런 다음 diffusion model을 통해 전달하기 전에 무작위 서브 샘플링을 수행하여 $T_\theta$의 해상도를 줄인다. Denoiser의 가중치를 동결된 상태로 유지하면서 loss $$\mathcal{L}_\textrm{prior}$$를 형상 텍스처 $T_\theta$의 매개변수 $\theta$로 직접 역전파한다.
+이 loss를 계산하기 위해 diffusion model을 학습하는 동안과 동일한 절차를 사용한다. 랜덤 noise $\epsilon$와 noise level $\sigma$를 샘플링하여 형상 맵에 적용한다. 그런 다음 diffusion model을 통해 전달하기 전에 무작위 서브 샘플링을 수행하여 $T_\theta$의 해상도를 줄인다. Denoiser의 가중치를 동결된 상태로 유지하면서 loss $$\mathcal{L}_\textrm{prior}$$를 형상 텍스처 $T_\theta$의 매개변수 $\theta$로 직접 역전파한다.
 
 전반적으로 가닥 기반 재구성 단계의 최적화 목적 함수는 다음과 같다.
 

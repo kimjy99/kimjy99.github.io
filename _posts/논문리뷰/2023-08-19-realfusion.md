@@ -79,7 +79,7 @@ I_t = \sqrt{\vphantom{1} \bar{\alpha}_t} I + \sqrt{1 - \bar{\alpha}_t} \epsilon 
 \end{equation}
 $$
 
-그런 다음 noisy한 이미지 $I_t$과 nosie 레벨 $t$를 입력으로 취하고 noise 성분 $\epsilon$을 예측하려고 시도하는 denoising 신경망 $$\hat{\epsilon} = \Phi (I_t; t)$$를 학습한다.
+그런 다음 noisy한 이미지 $I_t$과 noise 레벨 $t$를 입력으로 취하고 noise 성분 $\epsilon$을 예측하려고 시도하는 denoising 신경망 $$\hat{\epsilon} = \Phi (I_t; t)$$를 학습한다.
 
 분포 $p(I)$에서 샘플을 추출하기 위해 샘플 $I_T \sim \mathcal{N} (0, I)$을 추출하는 것으로 시작한다. 그런 다음 지정된 샘플링 schedule에 따라 $\Phi$를 반복 적용하여 이미지의 noise를 점진적으로 제거하고 $p(I)$에서 샘플링된 $I_0$로 종료한다.
 

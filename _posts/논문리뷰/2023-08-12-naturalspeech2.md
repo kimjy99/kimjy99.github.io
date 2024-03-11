@@ -105,7 +105,7 @@ p(z_t \vert z_0) \sim \mathcal{N}(\rho (z_0, t), \Sigma_t) \\
 \end{equation}
 $$
 
-Reverse SDE는 다음과 같은 프로세스를 통해 Gaussian nosie를 데이터 $z_0$로 다시 변환한다.
+Reverse SDE는 다음과 같은 프로세스를 통해 Gaussian noise를 데이터 $z_0$로 다시 변환한다.
 
 $$
 \begin{equation}

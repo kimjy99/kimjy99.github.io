@@ -72,7 +72,7 @@ $$
 
 $z_\textrm{face}$는 입력 이미지 $x_0$의 인코딩된 높은 레벨의 feature이다. 이 목적 함수는 이미지의 유용한 정보가 semantic latent $z_\textrm{face}$에 충분히 포함되도록 하며 $\epsilon_\theta$의 denoising을 통해 찾는다. 
 
-두번째로, 얼굴 정보(identity와 모션)가 $x_T$로 누출되는 것을 방해하기 위해 regularization loss을 고안하지만 배경과 얼굴 정보 사이의 명확한 분해를 위해 가능한 한 $z_\textrm{face}$에 포함되어 있다. 만일 몇몇 얼굴 정보를 $z_\textrm{face}$에서 잃는다면, 잃은 정보는 nosie latent $x_T$에 의도치 않게 남게 된다. 이를 피하기 위해 서로 다른 두 Gaussian noise $\epsilon_1$과 $\epsilon_2$를 샘플링하여 서로 다른 noisy한 샘플 $x_{t,1}$과 $x_{t,2}$를 얻는다. 그런 다음 추정된 원본 이미지 $f_{\theta, 1}$과 $f_{\theta, 2}$ 사이의 거리를 배경 부분을 제외하고 최소화한다. 
+두번째로, 얼굴 정보(identity와 모션)가 $x_T$로 누출되는 것을 방해하기 위해 regularization loss을 고안하지만 배경과 얼굴 정보 사이의 명확한 분해를 위해 가능한 한 $z_\textrm{face}$에 포함되어 있다. 만일 몇몇 얼굴 정보를 $z_\textrm{face}$에서 잃는다면, 잃은 정보는 noise latent $x_T$에 의도치 않게 남게 된다. 이를 피하기 위해 서로 다른 두 Gaussian noise $\epsilon_1$과 $\epsilon_2$를 샘플링하여 서로 다른 noisy한 샘플 $x_{t,1}$과 $x_{t,2}$를 얻는다. 그런 다음 추정된 원본 이미지 $f_{\theta, 1}$과 $f_{\theta, 2}$ 사이의 거리를 배경 부분을 제외하고 최소화한다. 
 
 $$
 \begin{equation}

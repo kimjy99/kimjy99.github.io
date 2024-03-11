@@ -38,7 +38,7 @@ Diffusion probabilistic model (DPM)은 데이터 포인트에 noise를 점진적
 <br>
 직관적인 설명을 위해 DALL-E 2의 디코더를 사용하여 동일한 latent 임베딩을 조건으로 하는 이미지를 생성한다. 위 그림의 (a)에서와 같이 독립된 noise로부터 이미지를 생성하면 동일한 조건을 공유하더라도 그 내용이 많이 달라진다. 그러나 noised latent 변수가 동일한 base noise를 공유하는 경우 이미지 generator조차도 대략적으로 상관 관계가 있는 시퀀스를 합성할 수 있다 (위 그림의 (b) 참조). 따라서 동영상 생성 DPM의 denoising network 부담을 크게 경감할 수 있다.
 
-또한, 이 분해된 공식은 추가적인 이점을 제공한다. 첫째, 기본 nosie가 모든 프레임에서 공유되므로 하나의 프레임을 사전 학습된 대형 이미지 생성 DPM에 한 번의 forward pass로 공급하여 예측할 수 있다. 이러한 방식으로 사전 학습된 모델의 이미지 prior는 모든 프레임에서 효율적으로 공유될 수 있으므로 동영상 데이터 학습을 용이하게 할 수 있다. 둘째, base noise는 모든 동영상 프레임에서 공유되며 동영상 콘텐츠와 관련될 가능성이 높다. 이 속성을 사용하면 생성된 동영상의 콘텐츠 또는 동작을 더 잘 제어할 수 있다. 적절한 학습을 통해 VideoFusion은 base noise를 동영상 콘텐츠와 관련시키고 residual noise를 모션과 관련시키는 경향이 있다. VideoFusion은 다양한 데이터셋에서 SOTA 결과를 얻을 수 있고 텍스트 조건부 동영상 생성도 잘 지원할 수 있다.
+또한, 이 분해된 공식은 추가적인 이점을 제공한다. 첫째, 기본 noise가 모든 프레임에서 공유되므로 하나의 프레임을 사전 학습된 대형 이미지 생성 DPM에 한 번의 forward pass로 공급하여 예측할 수 있다. 이러한 방식으로 사전 학습된 모델의 이미지 prior는 모든 프레임에서 효율적으로 공유될 수 있으므로 동영상 데이터 학습을 용이하게 할 수 있다. 둘째, base noise는 모든 동영상 프레임에서 공유되며 동영상 콘텐츠와 관련될 가능성이 높다. 이 속성을 사용하면 생성된 동영상의 콘텐츠 또는 동작을 더 잘 제어할 수 있다. 적절한 학습을 통해 VideoFusion은 base noise를 동영상 콘텐츠와 관련시키고 residual noise를 모션과 관련시키는 경향이 있다. VideoFusion은 다양한 데이터셋에서 SOTA 결과를 얻을 수 있고 텍스트 조건부 동영상 생성도 잘 지원할 수 있다.
 
 ## Decomposed Diffusion Probabilistic Model
 ### 1. Standard Diffusion Process for Video Data
