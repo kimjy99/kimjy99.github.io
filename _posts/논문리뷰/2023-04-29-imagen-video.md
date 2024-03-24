@@ -137,7 +137,7 @@ $w > 0$의 경우 이 조정은 $c$에 대한 컨디셔닝 효과를 과도하�
 ### 7. Progressive Distillation with Guidance and Stochastic Samplers
 Progressive distillation은 diffusion model의 빠른 샘플링을 가능하게 한다. 이 방법은 학습된 deterministic DDIM sampler가 지각 품질을 크게 잃지 않고 샘플링 step이 훨씬 적은 diffusion model로 distill한다. Distillation이 반복될 때마다 $N$ step DDIM sampler가 $N/2$ step의 새 모델로 distill된다. 이 절차는 반복할 때마다 필요한 샘플링 step을 반으로 나누어 이 절차를 반복한다.
 
-[On distillation of guided diffusion models 논문](https://arxiv.org/abs/2210.03142)은 guidance를 통해 이 접근 방식을 sampler로 확장하고 distillation model과 함께 사용할 새로운 stochastic sampler를 제안하였다. 저자들은 이 접근 방식이 동영상 생성에도 매우 잘 작동함을 보여준다. 2단계 distillation 접근 방식을 사용하여 classifier free guidance로 DDIM sampler를 distill한다. 
+[On distillation of guided diffusion models 논문](https://kimjy99.github.io/논문리뷰/on-distillation)은 guidance를 통해 이 접근 방식을 sampler로 확장하고 distillation model과 함께 사용할 새로운 stochastic sampler를 제안하였다. 저자들은 이 접근 방식이 동영상 생성에도 매우 잘 작동함을 보여준다. 2단계 distillation 접근 방식을 사용하여 classifier free guidance로 DDIM sampler를 distill한다. 
 
 첫 번째 stage에서는 결합 계수가 guidance 가중치에 의해 결정되는 단일 differential model을 학습하며, 공동으로 학습된 conditional 및 unconditional diffusion model의 결합된 출력과 일치시킨다. 그런 다음 해당 단일 모델에 progressive distillation을 적용하여 두 번째 stage에서 더 적은 샘플링 step이 필요한 모델을 생성한다. Distillation 후 stochastic $N$-step sampler를 사용한다. 각 step에서 먼저 원래 step 크기의 두 배 (즉, $N/2$ step sampler와 동일한 step 크기)로 하나의 deterministic DDIM 업데이트를 적용한 다음 수행한다. 이 접근 방식을 사용하여 지각 품질의 눈에 띄는 손실 없이 모델당 단 8개의 샘플링 단계로 7개의 모든 video diffusion model을 distill할 수 있다. 
 
