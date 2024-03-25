@@ -6,7 +6,7 @@ categories:
 tags:
   - Diffusion
   - Text-to-Image
-  - Fine-tuning
+  - Fine-Tuning
   - Computer Vision
   - AI
   - Google
