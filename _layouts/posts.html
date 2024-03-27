@@ -1,10 +1,104 @@
 ---
 layout: archive
+classes: wide
 ---
+
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 
 {{ content }}
 
-<ul class="taxonomy__index">
+<input name="tags" placeholder="write some tags" value="">
+
+{% assign tagstr = site.data.tags | join: ',' %}
+
+<div style="float: right; margin-top: 10px;">
+  <span style="display: inline-block; font-size: 1.0em; font-style: bold;" name="num-posts"></span>
+  <span style="display: inline-block; font-size: 0.8em;"> 개의 게시글이 있습니다.</span>
+</div>
+
+{% for post in site.posts %}
+<div class="post-wrapper" {% if post.tags %} {% for tag in post.tags %} data-{{ tag | slugify }} {% endfor %} {% endif %}>
+  {% include archive-single.html type=entries_layout %}
+</div>
+{% endfor %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var selects = [];
+    var whitelist = '{{ tagstr }}'.split(',');
+    var input = document.querySelector('input[name=tags]');
+    var tagify = new Tagify(input, {
+      enforceWhitelist: true,
+      whitelist: whitelist,
+      maxTags: 10,
+      dropdown: {
+        maxItems: 30,
+        classname: "tags-look",
+        enabled: 0,
+        closeOnSelect: true
+      }
+    });
+
+    tagify.on('add', function(e) {
+      var currentTag = e.detail.data.value.toLowerCase().replaceAll(' ', '-');
+      selects.push(currentTag);
+      filter();
+    })
+
+    tagify.on('remove', function(e) {
+      var currentTag = e.detail.data.value.toLowerCase().replaceAll(' ', '-');
+      selects.splice(selects.indexOf(currentTag), 1);
+      filter();
+    })
+
+    const queryTag = getQuery().tags;
+    if (queryTag) {
+      tagify.addTags([findOriginal(queryTag)]);
+    }
+
+    function findOriginal(query) {
+      for (const key of whitelist) {
+        if (key.toLowerCase().replaceAll(' ', '-') == query) {
+          return key;
+        }
+      }
+      return null;
+    }
+
+    function getQuery() {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      return Object.fromEntries(urlParams.entries());
+    }
+
+    function filter() {
+      document.querySelectorAll('.post-wrapper').forEach(function(elem) {
+        elem.classList.remove('hidden');
+      });
+      selects.forEach(function(tagName) {
+        document.querySelectorAll('.post-wrapper').forEach(function(elem) {
+          if (!elem.hasAttribute('data-' + tagName)) {
+            elem.classList.add('hidden');
+          }
+        });
+      });
+      var num = 0;
+      document.querySelectorAll('.post-wrapper').forEach(function(elem) {
+        if (!elem.classList.contains('hidden')) {
+          num = num + 1;
+        }
+      });
+      document.querySelector('span[name=num-posts]').innerText = num;
+      console.log(selects);
+      console.log(tagify.value);
+    }
+  });
+</script>
+
+
+<!-- <ul class="taxonomy__index">
   {% assign postsInYear = site.posts | where_exp: "item", "item.hidden != true" | group_by_exp: 'post', 'post.date | date: "%Y"' %}
   {% for year in postsInYear %}
     <li>
@@ -27,4 +121,4 @@ layout: archive
     </div>
     <a href="#page-title" class="back-to-top">{{ site.data.ui-text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;</a>
   </section>
-{% endfor %}
+{% endfor %} -->
