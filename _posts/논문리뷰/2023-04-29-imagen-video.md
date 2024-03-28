@@ -87,7 +87,7 @@ Imagen과 유사하게, 입력 텍스트 프롬프트로 컨디셔닝하기 위�
 본 논문의 모델은 또한 spatial attention과 spatial convolution을 사용한다. Base model과 처음 두 개의 SSR 모델에는 spatial convolution 외에도 spatial attention이 있다. 이것이 샘플 충실도를 향상시키는 것으로 나타났다. 그러나 더 높은 해상도로 이동함에 따라 fully convolutional 아키텍처로 전환하여 1280$\times$768 해상도 데이터를 생성하기 위해 메모리 및 컴퓨팅 비용을 최소화한다. 파이프라인에서 가장 높은 해상도의 SSR 모델은 학습 시 메모리 효율성을 위해 임의의 저해상도 spatial crop에 대해 학습된 fully convolutional model이며, 저자들은 샘플링 시 모델이 전체 해상도로 쉽게 일반화됨을 발견했다. 
 
 ### 4. $v$-prediction
-[Progressive distillation 논문](https://arxiv.org/abs/2202.00512)을 따라 $v$-prediction parameterization
+[Progressive distillation 논문](https://kimjy99.github.io/논문리뷰/progressive-distillation)을 따라 $v$-prediction parameterization
 
 $$
 \begin{equation}
