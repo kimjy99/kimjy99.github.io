@@ -8,6 +8,7 @@ tags:
   - Singing Voice Synthesis
   - Audio and Speech Processing
   - AI
+  - AAAI
 excerpt: "DiffSinger 논문 리뷰"
 use_math: true
 classes: wide
