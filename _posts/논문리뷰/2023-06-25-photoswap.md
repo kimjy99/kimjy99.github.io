@@ -88,7 +88,7 @@ Algorithm 1은 전체 Photoswap 알고리즘의 pseudo code이다.
   - 개념 학습은 [DreamBooth](https://kimjy99.github.io/논문리뷰/dreambooth)를 주로 사용하여 Stable Diffusion 2.1을 fine-tuning하여 35개의 이미지에서 새로운 개념을 학습
   - Learning rate: $10^{-6}$
   - 학습 step: 80,000
-  - Optimizer: Adawm
+  - Optimizer: Adam
 
 ### 1. Personalized Subject Swapping Results
 다음은 다양한 개체와 이미지 도메인에 대한 Photoswap 결과이다.
