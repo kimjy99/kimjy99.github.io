@@ -55,7 +55,7 @@ $$
 
 여기서 $\varnothing$은 빈 텍스트 프롬프트를 나타낸다. 일반적으로 SDS loss에는 고품질 text-to-3D 생성을 위한 큰 CFG guidance 가중치가 필요하지만 이로 인해 over-saturation과 over-smoothing와 같은 부작용이 발생한다.
 
-최근 [ProlificDreamer](https://arxiv.org/abs/2305.16213)는 표준 CFG guidance 강도에 적합하고 부자연스러운 텍스처를 더 잘 해결하는 Variation Score Distillation (VSD) loss를 제안했다. 이 접근 방식은 단일 데이터 포인트를 찾는 대신 텍스트 프롬프트에 해당하는 솔루션을 확률 변수로 간주한다. 특히, VSD는 텍스트 $y$에 해당하는 3D 표현 $\mu(\theta \vert y)$의 분포 $q^\mu (x_0 \vert y)$를 최적화하며, $q^\mu (x_0 \vert y)$가 diffusion timestep $t = 0$에서 정의된 분포 $p(x_0 \vert y)$와 일치하도록 KL divergence를 사용한다. 
+최근 [ProlificDreamer](https://kimjy99.github.io/논문리뷰/prolificdreamer)는 표준 CFG guidance 강도에 적합하고 부자연스러운 텍스처를 더 잘 해결하는 Variation Score Distillation (VSD) loss를 제안했다. 이 접근 방식은 단일 데이터 포인트를 찾는 대신 텍스트 프롬프트에 해당하는 솔루션을 확률 변수로 간주한다. 특히, VSD는 텍스트 $y$에 해당하는 3D 표현 $\mu(\theta \vert y)$의 분포 $q^\mu (x_0 \vert y)$를 최적화하며, $q^\mu (x_0 \vert y)$가 diffusion timestep $t = 0$에서 정의된 분포 $p(x_0 \vert y)$와 일치하도록 KL divergence를 사용한다. 
 
 $$
 \begin{equation}
