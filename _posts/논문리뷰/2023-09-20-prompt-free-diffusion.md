@@ -8,12 +8,13 @@ tags:
   - Image Translation
   - Computer Vision
   - AI
+  - CVPR
 excerpt: "Prompt-Free Diffusion 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2305.16223)] [[Github](https://github.com/SHI-Labs/Prompt-Free-Diffusion)]  
+> CVPR 2024. [[Paper](https://arxiv.org/abs/2305.16223)] [[Github](https://github.com/SHI-Labs/Prompt-Free-Diffusion)]  
 > Xingqian Xu, Jiayi Guo, Zhangyang Wang, Gao Huang, Irfan Essa, Humphrey Shi  
 > SHI Labs | Tsinghua University | UT Austin | Georgia Tech | Picsart AI Research (PAIR)  
 > 25 May 2023  

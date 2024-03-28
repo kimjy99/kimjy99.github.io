@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2303.15403)] [[Page](https://curryjung.github.io/DiffStyle/)] [[Github](https://github.com/curryjung/DiffStyle_official)]  
+> arXiv 2023. [[Paper](https://arxiv.org/abs/2303.15403)] [[Page](https://curryjung.github.io/InjectFusion/)] [[Github](https://github.com/curryjung/InjectFusion_official)]  
 > Jaeseok Jeong, Mingi Kwon, Youngjung Uh  
 > Yonsei University  
 > 27 Mar 2023  

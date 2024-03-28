@@ -8,13 +8,13 @@ tags:
   - Novel View Synthesis
   - 3D Vision
   - AI
-  - Google
+  - CVPR
 excerpt: "Scaffold-GS 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2312.00109)] [[Page](https://city-super.github.io/scaffold-gs/)] [[Github](https://github.com/city-super/Scaffold-GS)]  
+> CVPR 2024. [[Paper](https://arxiv.org/abs/2312.00109)] [[Page](https://city-super.github.io/scaffold-gs/)] [[Github](https://github.com/city-super/Scaffold-GS)]  
 > Tao Lu, Mulin Yu, Linning Xu, Yuanbo Xiangli, Limin Wang, Dahua Lin, Bo Dai  
 > Shanghai Artificial Intelligence Laboratory | The Chinese University of Hong Kong | Nanjing University | Cornell University  
 > 30 Nov 2023  

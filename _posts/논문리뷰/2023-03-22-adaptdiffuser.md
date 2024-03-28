@@ -7,12 +7,13 @@ tags:
   - Diffusion
   - Reinforcement Learning
   - AI
+  - ICML
 excerpt: "AdaptDiffuser 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2302.01877)]  
+> ICML 2023 (Oral). [[Paper](https://arxiv.org/abs/2302.01877)] [[Page](https://adaptdiffuser.github.io/)] [[Github](https://github.com/Liang-ZX/adaptdiffuser)]  
 > Zhixuan Liang, Yao Mu, Mingyu Ding, Fei Ni, Masayoshi Tomizuka, Ping Luo  
 > Department of Computer Science, The University of Hong Kong | UC Berkeley | College of Intelligence and Computing, Tianjin University  
 > 3 Feb 2023  

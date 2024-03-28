@@ -7,12 +7,13 @@ tags:
   - Diffusion
   - Computer Vision
   - AI
+  - ICCV
 excerpt: "Versatile Diffusion 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2022. [[Paper](https://arxiv.org/abs/2211.08332)] [[Github](https://github.com/SHI-Labs/Versatile-Diffusion)]  
+> ICCV 2023. [[Paper](https://arxiv.org/abs/2211.08332)] [[Github](https://github.com/SHI-Labs/Versatile-Diffusion)]  
 > Xingqian Xu, Zhangyang Wang, Eric Zhang, Kai Wang, Humphrey Shi  
 > SHI Labs | UT Austin | Picsart AI Research  
 > 15 Nov 2022  

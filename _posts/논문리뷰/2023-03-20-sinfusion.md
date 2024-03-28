@@ -8,12 +8,13 @@ tags:
   - Video Generation
   - Computer Vision
   - AI
+  - ICML
 excerpt: "SinFusion 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2022. [[Paper](https://arxiv.org/abs/2211.11743)] [[Page](https://yanivnik.github.io/sinfusion/)]  
+> ICML 2023. [[Paper](https://arxiv.org/abs/2211.11743)] [[Page](https://yanivnik.github.io/sinfusion/)] [[Github](https://github.com/yanivnik/sinfusion-code)]  
 > JYaniv Nikankin, Niv Haim, Michal Irani  
 > Weizmann Institute of Science, Rehovot, Israel  
 > 21 Nov 2022  

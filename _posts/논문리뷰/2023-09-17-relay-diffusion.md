@@ -8,12 +8,13 @@ tags:
   - Image Generation
   - Computer Vision
   - AI
+  - ICLR
 excerpt: "Relay Diffusion 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2309.03350)] [[Github](https://github.com/THUDM/RelayDiffusion)]  
+> ICLR 2024 (Spotlight). [[Paper](https://arxiv.org/abs/2309.03350)] [[Github](https://github.com/THUDM/RelayDiffusion)]  
 > Jiayan Teng, Wendi Zheng, Ming Ding, Wenyi Hong, Jianqiao Wangni, Zhuoyi Yang, Jie Tang  
 > Tsinghua University | Zhipu AI  
 > 4 Sep 2023  

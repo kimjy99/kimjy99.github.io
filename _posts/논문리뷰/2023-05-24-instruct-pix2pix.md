@@ -10,12 +10,13 @@ tags:
   - Image Translation
   - Computer Vision
   - AI
+  - CVPR
 excerpt: "InstructPix2Pix 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2211.09800)] [[Page](https://www.timothybrooks.com/instruct-pix2pix/)] [[Github](https://github.com/timothybrooks/instruct-pix2pix)]  
+> CVPR 2023 (Highlight). [[Paper](https://arxiv.org/abs/2211.09800)] [[Page](https://www.timothybrooks.com/instruct-pix2pix/)] [[Github](https://github.com/timothybrooks/instruct-pix2pix)]  
 > Tim Brooks, Aleksander Holynski, Alexei A. Efros  
 > University of California, Berkeley  
 > 12 Apr 2023  

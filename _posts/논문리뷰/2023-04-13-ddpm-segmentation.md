@@ -14,7 +14,7 @@ use_math: true
 classes: wide
 ---
 
-> ICLR 2022. [[Paper](https://arxiv.org/abs/2112.03126)] [[Github](https://github.com/yandex-research/ddpm-segmentation)]  
+> ICLR 2022. [[Paper](https://arxiv.org/abs/2112.03126)] [[Page](https://yandex-research.github.io/ddpm-segmentation/)] [[Github](https://github.com/yandex-research/ddpm-segmentation)]  
 > Dmitry Baranchuk, Ivan Rubachev, Andrey Voynov, Valentin Khrulkov, Artem Babenko  
 > Yandex Research  
 > 6 Dec 2021  

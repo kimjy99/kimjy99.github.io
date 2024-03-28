@@ -8,12 +8,13 @@ tags:
   - Text-to-Video
   - Computer Vision
   - AI
+  - ICCV
 excerpt: "Tune-A-Video 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2022. [[Paper](https://arxiv.org/abs/2212.11565)] [[Page](https://tuneavideo.github.io/)] [[Github](https://github.com/showlab/Tune-A-Video)]  
+> ICCV 2023. [[Paper](https://arxiv.org/abs/2212.11565)] [[Page](https://tuneavideo.github.io/)] [[Github](https://github.com/showlab/Tune-A-Video)]  
 > Jay Zhangjie Wu, Yixiao Ge, Xintao Wang, Weixian Lei, Yuchao Gu, Yufei Shi, Wynne Hsu, Ying Shan, Xiaohu Qie, Mike Zheng Shou  
 > National University of Singapore | ARC Lab | Tencent PCG | National University of Singapore  
 > 22 Dec 2022  

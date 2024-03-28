@@ -7,12 +7,13 @@ tags:
   - Diffusion
   - Computer Vision
   - AI
+  - ICCV
 excerpt: "Neural Haircut 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2306.05872)] [[Page](https://samsunglabs.github.io/NeuralHaircut/)] [[Github](https://github.com/SamsungLabs/NeuralHaircut)]  
+> ICCV 2023 (Oral). [[Paper](https://arxiv.org/abs/2306.05872)] [[Page](https://samsunglabs.github.io/NeuralHaircut/)] [[Github](https://github.com/SamsungLabs/NeuralHaircut)]  
 > Vanessa Sklyarova, Jenya Chelishev, Andreea Dogaru, Igor Medvedev, Victor Lempitsky, Egor Zakharov  
 > Samsung AI Center | Rockstar Games | FAU Erlangen-Nurnberg | Cinemersive Labs  
 > 9 Jun 2023  

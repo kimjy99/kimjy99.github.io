@@ -14,7 +14,7 @@ use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2304.14404)] [[Page](https://tsaishien-chen.github.io/MCDiff/)]  
+> arXiv 2023. [[Paper](https://arxiv.org/abs/2304.12526)] [[Github](https://github.com/Zhendong-Wang/Patch-Diffusion)]  
 > Zhendong Wang, Yifan Jiang, Huangjie Zheng, Peihao Wang, Pengcheng He, Zhangyang Wang, Weizhu Chen, Mingyuan Zhou  
 > The University of Texas at Austin | Microsoft Azure AI  
 > 26 Apr 2023  

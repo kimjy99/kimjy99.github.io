@@ -8,12 +8,13 @@ tags:
   - Text-to-Image
   - Computer Vision
   - AI
+  - NeurIPS
 excerpt: "SnapFusion 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2306.00980)]  
+> NeurIPS 2023. [[Paper](https://arxiv.org/abs/2306.00980)] [[Page](https://snap-research.github.io/SnapFusion/)]  
 > Yanyu Li, Huan Wang, Qing Jin, Ju Hu, Pavlo Chemerys, Yun Fu, Yanzhi Wang, Sergey Tulyakov, Jian Ren  
 > Snap Inc. | Northeastern University  
 > 1 Jun 2023  

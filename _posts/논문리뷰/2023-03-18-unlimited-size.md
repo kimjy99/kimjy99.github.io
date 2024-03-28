@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> arXiv 2022. [[Paper](https://arxiv.org/abs/2303.00354)]  
+> arXiv 2022. [[Paper](https://arxiv.org/abs/2303.00354)] [[Github](https://github.com/wyhuai/DDNM/tree/main/hq_demo)]  
 > Yinhuai Wang, Jiwen Yu, Runyi Yu, Jian Zhang  
 > Peking University Shenzhen Graduate School, Peng Cheng Laboratory  
 > 1 Mar 2023  

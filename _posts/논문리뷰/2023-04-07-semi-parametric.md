@@ -9,12 +9,13 @@ tags:
   - Autoregressive
   - Computer Vision
   - AI
+  - NeurIPS
 excerpt: "Semi-Parametric Neural Image Synthesis 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2022. [[Paper](https://arxiv.org/abs/2204.11824)]  
+> NeurIPS 2022. [[Paper](https://arxiv.org/abs/2204.11824)]  
 > Andreas Blattmann, Robin Rombach, Kaan Oktay, Jonas Müller, Björn Ommer  
 > LMU Munich, MCML & IWR, Heidelberg University  
 > 25 Apr 2022  

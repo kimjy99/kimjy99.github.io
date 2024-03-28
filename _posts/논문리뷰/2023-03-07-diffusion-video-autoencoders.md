@@ -8,12 +8,13 @@ tags:
   - Video Generation
   - Computer Vision
   - AI
+  - CVPR
 excerpt: "Diffusion Video Autoencoders 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2022. [[Paper](https://arxiv.org/abs/2212.02802)]  
+> CVPR 2023. [[Paper](https://arxiv.org/abs/2212.02802)] [[Page](https://diff-video-ae.github.io/)] [[Github](https://github.com/man805/Diffusion-Video-Autoencoders)]  
 > Gyeongman Kim, Hajin Shim, Hyunsu Kim, Yunjey Choi, Junho Kim, Eunho Yang  
 > KAIST | NAVER AI Lab | AITRICS  
 > 6 Dec 2022  

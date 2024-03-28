@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2308.06721)] [[Github](https://github.com/tencent-ailab/IP-Adapter)] [[Page](https://ip-adapter.github.io/)]  
+> arXiv 2023. [[Paper](https://arxiv.org/abs/2308.06721)] [[Page](https://ip-adapter.github.io/)] [[Github](https://github.com/tencent-ailab/IP-Adapter)]  
 > Hu Ye, Jun Zhang, Sibo Liu, Xiao Han, Wei Yang  
 > Tencent AI Lab  
 > 13 Aug 2023  

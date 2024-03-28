@@ -9,12 +9,13 @@ tags:
   - Computer Vision
   - AI
   - Microsoft
+  - NeurIPS
 excerpt: "Uni-ControlNet 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2305.16322)] [[Page](https://shihaozhaozsh.github.io/unicontrolnet/)] [[Github](https://github.com/ShihaoZhaoZSH/Uni-ControlNet)]  
+> NeurIPS 2023. [[Paper](https://arxiv.org/abs/2305.16322)] [[Page](https://shihaozhaozsh.github.io/unicontrolnet/)] [[Github](https://github.com/ShihaoZhaoZSH/Uni-ControlNet)]  
 > Shihao Zhao, Dongdong Chen, Yen-Chun Chen, Jianmin Bao, Shaozhe Hao, Lu Yuan, Kwan-Yee K. Wong  
 > University of Hong Kong | Microsoft  
 > 25 May 2023  

@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2302.13700)]  
+> ICASSP 2023. [[Paper](https://arxiv.org/abs/2302.13700)] [[Page](https://facetts.github.io/)] [[Github](https://github.com/naver-ai/facetts)]  
 > Jiyoung Lee, Joon Son Chung, Soo-Whan Chung  
 > NAVER AI Lab | KAIST | NAVER Cloud  
 > 27 Feb 2023  

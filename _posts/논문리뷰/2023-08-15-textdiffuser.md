@@ -9,12 +9,13 @@ tags:
   - Computer Vision
   - AI
   - Microsoft
+  - NeurIPS
 excerpt: "TextDiffuser 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arxiv 2023. [[Paper](https://arxiv.org/abs/2305.10855)] [[Github](https://github.com/microsoft/unilm/tree/master/textdiffuser)]  
+> NeurIPS 2023. [[Paper](https://arxiv.org/abs/2305.10855)] [[Github](https://github.com/microsoft/unilm/tree/master/textdiffuser)]  
 > Jingye Chen, Yupan Huang, Tengchao Lv, Lei Cui, Qifeng Chen, Furu Wei  
 > HKUST | Sun Yat-sen University | Microsoft Research  
 > 18 May 2023  

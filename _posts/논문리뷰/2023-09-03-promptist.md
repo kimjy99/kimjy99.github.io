@@ -10,12 +10,13 @@ tags:
   - Reinforcement Learning
   - AI
   - Microsoft
+  - NeurIPS
 excerpt: "Promptist 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2022. [[Paper](https://arxiv.org/abs/2212.09611)] [[Github](https://github.com/microsoft/LMOps)]  
+> NeurIPS 2023. [[Paper](https://arxiv.org/abs/2212.09611)] [[Github](https://github.com/microsoft/LMOps)]  
 > Yaru Hao, Zewen Chi, Li Dong, Furu Wei  
 > Microsoft Research  
 > 19 Dec 2022  

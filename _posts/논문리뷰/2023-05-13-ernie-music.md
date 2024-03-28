@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2302.04456)]  
+> AACL 2023. [[Paper](https://arxiv.org/abs/2302.04456)]  
 > Pengfei Zhu, Chao Pang, Shuohuan Wang, Yekun Chai, Yu Sun, Hao Tian, Hua Wu  
 > Baidu Inc.  
 > 9 Feb 2023  

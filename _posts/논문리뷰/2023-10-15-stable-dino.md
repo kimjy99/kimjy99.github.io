@@ -8,12 +8,13 @@ tags:
   - Object Detection
   - Computer Vision
   - AI
+  - ICCV
 excerpt: "Stable-DINO 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2304.04742)] [[Page](https://github.com/IDEA-Research/Stable-DINO)]  
+> ICCV 2023. [[Paper](https://arxiv.org/abs/2304.04742)] [[Page](https://github.com/IDEA-Research/Stable-DINO)]  
 > Shilong Liu, Tianhe Ren, Jiayu Chen, Zhaoyang Zeng, Hao Zhang, Feng Li, Hongyang Li, Jun Huang, Hang Su, Jun Zhu, Lei Zhang  
 > Tsinghua University | International Digital Economy Academy (IDEA) | Alibaba Group | The Hong Kong University of Science and Technology | South China University of Technology  
 > 10 Apr 2023  

@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2310.02596)] [[Page](https://sweetdreamer3d.github.io/)] [[Github](https://github.com/wyysf-98/SweetDreamer)]  
+> arXiv 2023. [[Paper](https://arxiv.org/abs/2310.02596)] [[Page](https://sweetdreamer3d.github.io/)]  
 > Weiyu Li, Rui Chen, Xuelin Chen, Ping Tan  
 > HKUST | Light Illusions | South China University of Technology | Tencent AI Lab  
 > 4 Oct 2023  

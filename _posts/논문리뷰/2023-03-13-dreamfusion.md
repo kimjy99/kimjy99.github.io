@@ -14,7 +14,7 @@ use_math: true
 classes: wide
 ---
 
-> arXiv 2022. [[Paper](https://arxiv.org/abs/2209.14988)] [[Github](https://dreamfusion3d.github.io/)]  
+> arXiv 2022. [[Paper](https://arxiv.org/abs/2209.14988)] [[Page](https://dreamfusion3d.github.io/)]  
 > Ben Poole, Ajay Jain, Jonathan T. Barron, Ben Mildenhall  
 > Google Research | UC Berkeley  
 > 29 Sep 2022  

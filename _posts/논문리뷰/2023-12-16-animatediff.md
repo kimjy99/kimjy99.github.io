@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2307.04725)] [[Page](https://animatediff.github.io/)]  
+> arXiv 2023. [[Paper](https://arxiv.org/abs/2307.04725)] [[Page](https://animatediff.github.io/)] [[Github](https://github.com/guoyww/animatediff/)]  
 > Yuwei Guo, Ceyuan Yang, Anyi Rao, Yaohui Wang, Yu Qiao, Dahua Lin, Bo Dai  
 > Shanghai AI Laboratory | The Chinese University of Hong Kong | Stanford University  
 > 10 Jul 2023  

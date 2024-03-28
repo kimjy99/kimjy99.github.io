@@ -8,12 +8,13 @@ tags:
   - Image-to-3D
   - 3D Vision
   - AI
+  - ICLR
 excerpt: "DreamCraft3D 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2310.16818)] [[Page](https://mrtornado24.github.io/DreamCraft3D/)] [[Github](https://github.com/deepseek-ai/DreamCraft3D)]  
+> ICLR 2024. [[Paper](https://arxiv.org/abs/2310.16818)] [[Page](https://mrtornado24.github.io/DreamCraft3D/)] [[Github](https://github.com/deepseek-ai/DreamCraft3D)]  
 > Jingxiang Sun, Bo Zhang, Ruizhi Shao, Lizhen Wang, Wen Liu, Zhenda Xie, Yebin Liu  
 > Tsinghua University | DeepSeek AI  
 > 25 Oct 2023  

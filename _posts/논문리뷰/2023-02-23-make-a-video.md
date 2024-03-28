@@ -15,7 +15,7 @@ use_math: true
 classes: wide
 ---
 
-> arXiv 2022. [[Paper](https://arxiv.org/abs/2209.14792)]  
+> arXiv 2022. [[Paper](https://arxiv.org/abs/2209.14792)] [[Page](https://makeavideo.studio/)]  
 > Uriel Singer, Adam Polyak, Thomas Hayes, Xi Yin, Jie An, Songyang Zhang, Qiyuan Hu, Harry Yang, Oron Ashual, Oran Gafni, Devi Parikh, Sonal Gupta, Yaniv Taigman  
 > Meta AI  
 > 29 Sep 2022  

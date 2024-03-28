@@ -11,12 +11,13 @@ tags:
   - Audio and Speech Processing
   - AI
   - Microsoft
+  - CVPR
 excerpt: "MM-Diffusion 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2022. [[Paper](https://arxiv.org/abs/2212.09478)] [[Github](https://github.com/researchmm/MM-Diffusion)]  
+> CVPR 2023. [[Paper](https://arxiv.org/abs/2212.09478)] [[Github](https://github.com/researchmm/MM-Diffusion)]  
 > Ludan Ruan, Yiyang Ma, Huan Yang, Huiguo He, Bei Liu, Jianlong Fu, Nicholas Jing Yuan, Qin Jin, Baining Guo  
 > Renmin University of China | Peking University | Microsoft Research  
 > 19 Dec 2022  

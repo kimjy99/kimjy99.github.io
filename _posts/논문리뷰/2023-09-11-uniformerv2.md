@@ -7,12 +7,13 @@ tags:
   - ViT
   - Computer Vision
   - AI
+  - ICCV
 excerpt: "UniFormerV2 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2022. [[Paper](https://arxiv.org/abs/2111.15121)] [[Github](https://github.com/OpenGVLab/UniFormerV2)]  
+> ICCV 2023. [[Paper](https://arxiv.org/abs/2111.15121)] [[Github](https://github.com/OpenGVLab/UniFormerV2)]  
 > Kunchang Li, Yali Wang, Yinan He, Yizhuo Li, Yi Wang, Limin Wang, Yu Qiao  
 > Chinese Academy of Sciences | University of Chinese Academy of Sciences | Shanghai AI Laboratory | The University of Hong Kong | Nanjing University  
 > 17 Nov 2022  

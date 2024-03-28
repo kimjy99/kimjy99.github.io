@@ -15,7 +15,7 @@ classes: wide
 
 > arXiv 2023. [[Paper](https://arxiv.org/abs/2311.13398)] [[Page](https://robot0321.github.io/DepthRegGS/)]  
 > Jaeyoung Chung, Jeongtaek Oh, Kyoung Mu Lee  
-> Computer Vision Lab, Seoul National University  
+> Seoul National University  
 > 22 Nov 2023  
 
 <center><img src='{{"/assets/img/depth-reg-gs/depth-reg-gs-fig1.PNG" | relative_url}}' width="60%"></center>

@@ -8,12 +8,13 @@ tags:
   - Text-to-3D
   - 3D Vision
   - AI
+  - NeurIPS
 excerpt: "ProlificDreamer 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2305.16213)] [[Page](https://ml.cs.tsinghua.edu.cn/prolificdreamer/)]  
+> NeurIPS 2023 (Spotlight). [[Paper](https://arxiv.org/abs/2305.16213)] [[Page](https://ml.cs.tsinghua.edu.cn/prolificdreamer/)]  
 > Zhengyi Wang, Cheng Lu, Yikai Wang, Fan Bao, Chongxuan Li, Hang Su, Jun Zhu  
 > Tsinghua University | Renmin University of China | ShengShu  
 > 25 May 2023  

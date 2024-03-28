@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2306.00950)]  
+> arXiv 2023. [[Paper](https://arxiv.org/abs/2306.00950)] [[Page](https://differential-diffusion.github.io/)] [[Github](https://github.com/exx8/differential-diffusion)]  
 > Eran Levin, Ohad Fried  
 > Tel Aviv University | Reichman University  
 > 1 Jun 2023  

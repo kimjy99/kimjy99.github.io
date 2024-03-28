@@ -8,14 +8,15 @@ tags:
   - Image Generation
   - Computer Vision
   - AI
+  - ICML
 excerpt: "Discriminator Guidance 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2022. [[Paper](https://arxiv.org/abs/2211.17091)]  
+> ICML 2023 (Oral). [[Paper](https://arxiv.org/abs/2211.17091)] [[Github](https://github.com/alsdudrla10/DG)]  
 > Dongjun Kim, Yeongmin Kim, Wanmo Kang, Il-Chul Moon  
-> Department of Industrial and Systems Engineering, KAIST | NAVER Cloud  
+> KAIST | NAVER Cloud  
 > 28 Nov 2022  
 
 <center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-fig1.PNG" | relative_url}}' width="100%"></center>

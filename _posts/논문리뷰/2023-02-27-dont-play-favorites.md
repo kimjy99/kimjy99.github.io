@@ -8,14 +8,15 @@ tags:
   - Image Generation
   - Computer Vision
   - AI
+  - ICLR
 excerpt: "Don’t Play Favorites 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2301.12334)]  
+> ICLR 2024. [[Paper](https://arxiv.org/abs/2301.12334)] [[Github](https://github.com/soobin-um/minority-guidance)]  
 > Soobin Um, Jong Chul Ye  
-> Graduate School of AI, KAIST  
+> KAIST  
 > 29 Jan 2023  
 
 ## Introduction

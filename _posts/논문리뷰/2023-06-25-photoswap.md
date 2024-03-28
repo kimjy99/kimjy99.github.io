@@ -9,12 +9,13 @@ tags:
   - Image Translation
   - Computer Vision
   - AI
+  - NeurIPS
 excerpt: "Photoswap 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2305.18286)] [[Page](https://photoswap.github.io/)]  
+> NeurIPS 2023. [[Paper](https://arxiv.org/abs/2305.18286)] [[Page](https://photoswap.github.io/)]  
 > Jing Gu, Yilin Wang, Nanxuan Zhao, Tsu-Jui Fu, Wei Xiong, Qing Liu, Zhifei Zhang, He Zhang, Jianming Zhang, HyunJoon Jung, Xin Eric Wang  
 > University of California, Santa Cruz | Adobe  
 > 29 May 2023  

@@ -16,7 +16,7 @@ use_math: true
 classes: wide
 ---
 
-> ICLR 2022 (Spotlight). [[Paper](https://arxiv.org/abs/2112.07804)] [[Page](https://nvlabs.github.io/denoising-diffusion-gan/)]  
+> ICLR 2022 (Spotlight). [[Paper](https://arxiv.org/abs/2112.07804)] [[Page](https://nvlabs.github.io/denoising-diffusion-gan/)] [[Github](https://github.com/NVlabs/denoising-diffusion-gan)]  
 > Zhisheng Xiao, Karsten Kreis, Arash Vahdat  
 > The University of Chicago | NVIDIA  
 > 15 Dec 2021  
