@@ -6,6 +6,7 @@ categories:
 tags:
   - Diffusion
   - Text-to-Image
+  - Distillation
   - Computer Vision
   - AI
 excerpt: "Latent Consistency Model (LCM) 논문 리뷰"

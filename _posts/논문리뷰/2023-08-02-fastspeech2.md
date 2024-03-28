@@ -6,6 +6,7 @@ categories:
 tags:
   - Transformer
   - Text-to-Speech
+  - Distillation
   - Audio and Speech Processing
   - AI
   - Microsoft

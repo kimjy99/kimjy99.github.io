@@ -6,6 +6,7 @@ categories:
 tags:
   - Fine-Tuning
   - Computer Vision
+  - Distillation
   - AI
   - Microsoft
 excerpt: "Feature Distillation 논문 리뷰"

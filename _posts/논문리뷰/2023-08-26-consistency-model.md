@@ -6,6 +6,7 @@ categories:
 tags:
   - Diffusion
   - Image Generation
+  - Distillation
   - Computer Vision
   - AI
   - OpenAI
