@@ -30,13 +30,11 @@
   <label for="ac-toc">{{ site.data.ui-text[site.locale].menu_label | default: "Toggle Menu" }}</label>
   <ul class="nav__items" id="category_tag_menu">
       <li>
-        {% assign sum = site.posts | size %}
-        <span class="nav__sub-title" v-on:click='togglec()'>📂 전체 글 수 {{sum}} 개</span>
+        <span class="nav__sub-title" v-on:click='togglec()'>📂 전체 글 수 {{ site.posts.size }} 개</span>
       </li>
       <li>
-        {% assign sum = site.categories['논문리뷰'] | size %}
-        <span class="nav__sub-title" v-on:click='togglec()'><a href="/categories/논문리뷰">📝 논문리뷰 ({{sum}})</a></span>
-        {% assign fav_tags = "Computer Vision/CV, Audio and Speech Processing/ASP, Natural Language Processing/NLP, Reinforcement Learning/RL, 3D Vision/3DV" | split: ", " %}
+        <span class="nav__sub-title" v-on:click='togglec()'><a href="/categories/논문리뷰">📝 논문리뷰 ({{ site.categories['논문리뷰'].size }})</a></span>
+        {% assign fav_tags = "Computer Vision/CV, 3D Vision/3DV, Audio and Speech Processing/ASP, Natural Language Processing/NLP, Reinforcement Learning/RL" | split: ", " %}
         {% for fav_tag in fav_tags %}
           {% assign sep = fav_tag | split: "/" %}
           <ul v-show="flag_c">
@@ -54,14 +52,9 @@
           </ul>
         {% endfor %}
 
-        {% assign sum = site.categories['프로그래밍'] | size %}
-        <span class="nav__sub-title" v-on:click='togglec()'><a href="/categories/프로그래밍">💻 구현 / 프로그래밍 ({{sum}})</a></span>
-
-        {% assign sum = site.categories['공부'] | size %}
-        <span class="nav__sub-title" v-on:click='togglec()'><a href="/categories/공부">📒 공부 ({{sum}})</a></span>
-
-        {% assign sum = site.categories['AI소식'] | size %}
-        <span class="nav__sub-title" v-on:click='togglec()'><a href="/categories/AI소식">🔥 AI소식 ({{sum}})</a></span>
+        <span class="nav__sub-title" v-on:click='togglec()'><a href="/categories/프로그래밍">💻 구현 / 프로그래밍 ({{ site.categories['프로그래밍'].size }})</a></span>
+        <span class="nav__sub-title" v-on:click='togglec()'><a href="/categories/공부">📒 공부 ({{ site.categories['공부'].size }})</a></span>
+        <span class="nav__sub-title" v-on:click='togglec()'><a href="/categories/AI소식">🔥 AI소식 ({{ site.categories['AI소식'].size }})</a></span>
 
         <!-- <span class="nav__sub-title" v-on:click='togglet()'>tags</span>
         <ul v-show="flag_t">
