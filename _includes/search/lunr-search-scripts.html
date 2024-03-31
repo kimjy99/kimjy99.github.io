@@ -5,6 +5,12 @@
 {% else %}
   {% assign lang = "en" %}
 {% endcase %}
-<script src="{{ '/assets/js/lunr/lunr.min.js' | relative_url }}"></script>
+
+{% assign lunr-cdn = "https://cdn.jsdelivr.net/gh/kimjy99/kimjy99.github.io@master/assets/js/lunr/" %}
+<script src="{{ lunr-cdn | append: 'lunr.min.js' }}"></script>
+<script src="{{ lunr-cdn | append: 'lunr-store.js' }}"></script>
+<script src="{{ lunr-cdn | append: 'lunr-' | append: lang | append: '.js' }}"></script>
+
+<!-- <script src="{{ '/assets/js/lunr/lunr.min.js' | relative_url }}"></script>
 <script src="{{ '/assets/js/lunr/lunr-store.js' | relative_url }}"></script>
-<script src="{{ '/assets/js/lunr/lunr-' | append: lang | append: '.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/lunr/lunr-' | append: lang | append: '.js' | relative_url }}"></script> -->
