@@ -14,7 +14,7 @@ classes: wide
 {% assign tagstr = site.data.tags | join: ',' %}
 
 <div style="float: right; margin-top: 10px;">
-  <span style="display: inline-block; font-size: 1.0em; font-style: bold;" name="num-posts"></span>
+  <span style="display: inline-block; font-size: 1.0em; font-style: bold;" name="num-posts">{{ site.posts.size }}</span>
   <span style="display: inline-block; font-size: 0.8em;"> 개의 게시글이 있습니다.</span>
 </div>
 
