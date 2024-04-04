@@ -9,7 +9,7 @@ tags:
   - Novel View Synthesis
   - AI
   - CVPR
-excerpt: "VastGaussian 논문 리뷰"
+excerpt: "VastGaussian 논문 리뷰 (CVPR 2024)"
 use_math: true
 classes: wide
 ---

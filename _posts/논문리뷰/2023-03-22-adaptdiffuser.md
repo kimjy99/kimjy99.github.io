@@ -8,7 +8,7 @@ tags:
   - Reinforcement Learning
   - AI
   - ICML
-excerpt: "AdaptDiffuser 논문 리뷰"
+excerpt: "AdaptDiffuser 논문 리뷰 (ICML 2023 Oral)"
 use_math: true
 classes: wide
 ---

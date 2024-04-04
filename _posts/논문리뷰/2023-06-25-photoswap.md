@@ -10,7 +10,7 @@ tags:
   - Computer Vision
   - AI
   - NeurIPS
-excerpt: "Photoswap 논문 리뷰"
+excerpt: "Photoswap 논문 리뷰 (NeurIPS 2023)"
 use_math: true
 classes: wide
 ---

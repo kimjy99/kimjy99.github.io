@@ -9,7 +9,7 @@ tags:
   - Computer Vision
   - AI
   - ICLR
-excerpt: "Deformable DETR 논문 리뷰"
+excerpt: "Deformable DETR 논문 리뷰 (ICLR 2021)"
 use_math: true
 classes: wide
 ---

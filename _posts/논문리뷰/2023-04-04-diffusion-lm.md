@@ -9,7 +9,7 @@ tags:
   - Natural Language Processing
   - AI
   - NeurIPS
-excerpt: "Diffusion-LM 논문 리뷰"
+excerpt: "Diffusion-LM 논문 리뷰 (NeurIPS 2022)"
 use_math: true
 classes: wide
 ---

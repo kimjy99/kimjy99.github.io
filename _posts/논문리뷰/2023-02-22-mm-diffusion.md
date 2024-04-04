@@ -12,7 +12,7 @@ tags:
   - AI
   - Microsoft
   - CVPR
-excerpt: "MM-Diffusion 논문 리뷰"
+excerpt: "MM-Diffusion 논문 리뷰 (CVPR 2023)"
 use_math: true
 classes: wide
 ---

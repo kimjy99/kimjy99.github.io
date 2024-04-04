@@ -7,7 +7,7 @@ tags:
   - Salient Object Detection
   - Computer Vision
   - AI
-excerpt: "InSPyReNet 논문 리뷰"
+excerpt: "InSPyReNet 논문 리뷰 (ACCV 2022)"
 use_math: true
 classes: wide
 ---

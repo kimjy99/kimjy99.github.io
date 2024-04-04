@@ -11,7 +11,7 @@ tags:
   - Computer Vision
   - AI
   - SIGGRAPH
-excerpt: "Live Speech Portraits 논문 리뷰"
+excerpt: "Live Speech Portraits 논문 리뷰 (SIGGRAPH Asia 2021)"
 use_math: true
 classes: wide
 ---

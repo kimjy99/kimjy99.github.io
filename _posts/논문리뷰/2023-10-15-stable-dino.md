@@ -9,7 +9,7 @@ tags:
   - Computer Vision
   - AI
   - ICCV
-excerpt: "Stable-DINO 논문 리뷰"
+excerpt: "Stable-DINO 논문 리뷰 (ICCV 2023)"
 use_math: true
 classes: wide
 ---

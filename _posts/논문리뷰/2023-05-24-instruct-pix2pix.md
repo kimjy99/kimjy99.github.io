@@ -11,7 +11,7 @@ tags:
   - Computer Vision
   - AI
   - CVPR
-excerpt: "InstructPix2Pix 논문 리뷰"
+excerpt: "InstructPix2Pix 논문 리뷰 (CVPR 2023 Highlight)"
 use_math: true
 classes: wide
 ---

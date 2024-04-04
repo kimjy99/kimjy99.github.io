@@ -8,7 +8,7 @@ tags:
   - AI
   - Meta AI
   - CVPR
-excerpt: "ImageBind 논문 리뷰"
+excerpt: "ImageBind 논문 리뷰 (CVPR 2023)"
 use_math: true
 classes: wide
 ---

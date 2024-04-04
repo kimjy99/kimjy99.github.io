@@ -9,7 +9,7 @@ tags:
   - Computer Vision
   - AI
   - ICLR
-excerpt: "Is synthetic data from generative models ready for image recognition? 논문 리뷰"
+excerpt: "Is synthetic data from generative models ready for image recognition? 논문 리뷰 (ICLR 2023)"
 use_math: true
 classes: wide
 ---

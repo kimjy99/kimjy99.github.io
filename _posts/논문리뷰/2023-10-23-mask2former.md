@@ -10,7 +10,7 @@ tags:
   - AI
   - Meta AI
   - CVPR
-excerpt: "Mask2Former 논문 리뷰"
+excerpt: "Mask2Former 논문 리뷰 (CVPR 2022)"
 use_math: true
 classes: wide
 ---

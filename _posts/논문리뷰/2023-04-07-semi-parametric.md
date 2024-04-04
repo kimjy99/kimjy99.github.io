@@ -10,7 +10,7 @@ tags:
   - Computer Vision
   - AI
   - NeurIPS
-excerpt: "Semi-Parametric Neural Image Synthesis 논문 리뷰"
+excerpt: "Semi-Parametric Neural Image Synthesis 논문 리뷰 (NeurIPS 2022)"
 use_math: true
 classes: wide
 ---

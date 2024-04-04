@@ -9,7 +9,7 @@ tags:
   - AI
   - Google
   - CVPR
-excerpt: "Proper Reuse of Image Classification Features Improves Object Detection 논문 리뷰"
+excerpt: "Proper Reuse of Image Classification Features Improves Object Detection 논문 리뷰 (CVPR 2022)"
 use_math: true
 classes: wide
 ---

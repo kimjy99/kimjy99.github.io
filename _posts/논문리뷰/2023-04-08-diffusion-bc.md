@@ -9,7 +9,7 @@ tags:
   - AI
   - Microsoft
   - ICLR
-excerpt: "Imitating Human Behaviour with Diffusion Models 논문 리뷰"
+excerpt: "Imitating Human Behaviour with Diffusion Models 논문 리뷰 (ICLR 2023)"
 use_math: true
 classes: wide
 ---

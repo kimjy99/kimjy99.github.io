@@ -9,7 +9,7 @@ tags:
   - Computer Vision
   - AI
   - ICLR
-excerpt: "Label-Efficient Semantic Segmentation with Diffusion Models 논문 리뷰"
+excerpt: "Label-Efficient Semantic Segmentation with Diffusion Models 논문 리뷰 (ICLR 2022)"
 use_math: true
 classes: wide
 ---

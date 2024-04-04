@@ -11,7 +11,7 @@ tags:
   - AI
   - Google
   - CVPR
-excerpt: "PyramidAT 논문 리뷰"
+excerpt: "PyramidAT 논문 리뷰 (CVPR 2022)"
 use_math: true
 classes: wide
 ---

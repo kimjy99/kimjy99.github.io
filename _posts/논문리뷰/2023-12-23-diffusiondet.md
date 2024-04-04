@@ -9,7 +9,7 @@ tags:
   - Computer Vision
   - AI
   - ICCV
-excerpt: "DiffusionDet 논문 리뷰"
+excerpt: "DiffusionDet 논문 리뷰 (ICCV 2023 Oral)"
 use_math: true
 classes: wide
 ---

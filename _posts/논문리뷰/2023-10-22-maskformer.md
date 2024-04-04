@@ -10,7 +10,7 @@ tags:
   - AI
   - Meta AI
   - NeurIPS
-excerpt: "MaskFormer 논문 리뷰"
+excerpt: "MaskFormer 논문 리뷰 (NeurIPS 2021)"
 use_math: true
 classes: wide
 ---

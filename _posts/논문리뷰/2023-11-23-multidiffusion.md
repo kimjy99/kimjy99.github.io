@@ -9,7 +9,7 @@ tags:
   - Computer Vision
   - AI
   - ICML
-excerpt: "MultiDiffusion 논문 리뷰"
+excerpt: "MultiDiffusion 논문 리뷰 (ICML 2023)"
 use_math: true
 classes: wide
 ---

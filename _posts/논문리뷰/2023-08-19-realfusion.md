@@ -8,7 +8,7 @@ tags:
   - 3D Vision
   - AI
   - CVPR
-excerpt: "RealFusion 논문 리뷰"
+excerpt: "RealFusion 논문 리뷰 (CVPR 2023)"
 use_math: true
 classes: wide
 ---

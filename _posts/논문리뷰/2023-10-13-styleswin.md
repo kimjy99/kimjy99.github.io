@@ -11,7 +11,7 @@ tags:
   - AI
   - Microsoft
   - CVPR
-excerpt: "StyleSwin 논문 리뷰"
+excerpt: "StyleSwin 논문 리뷰 (CVPR 2022)"
 use_math: true
 classes: wide
 ---

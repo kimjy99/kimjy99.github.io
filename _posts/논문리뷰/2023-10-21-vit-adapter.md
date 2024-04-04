@@ -8,7 +8,7 @@ tags:
   - Computer Vision
   - AI
   - ICLR
-excerpt: "ViT-Adapter 논문 리뷰"
+excerpt: "ViT-Adapter 논문 리뷰 (ICLR 2023)"
 use_math: true
 classes: wide
 ---

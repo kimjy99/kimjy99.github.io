@@ -8,7 +8,7 @@ tags:
   - Computer Vision
   - AI
   - ICCV
-excerpt: "Versatile Diffusion 논문 리뷰"
+excerpt: "Versatile Diffusion 논문 리뷰 (ICCV 2023)"
 use_math: true
 classes: wide
 ---

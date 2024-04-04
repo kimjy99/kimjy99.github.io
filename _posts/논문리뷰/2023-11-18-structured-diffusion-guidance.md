@@ -10,7 +10,7 @@ tags:
   - AI
   - Google
   - ICLR
-excerpt: "Structured Diffusion Guidance 논문 리뷰"
+excerpt: "Structured Diffusion Guidance 논문 리뷰 (ICLR 2023)"
 use_math: true
 classes: wide
 ---

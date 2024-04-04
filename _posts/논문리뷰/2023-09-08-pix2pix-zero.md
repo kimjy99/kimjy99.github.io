@@ -9,7 +9,7 @@ tags:
   - Computer Vision
   - AI
   - SIGGRAPH
-excerpt: "pix2pix-zero 논문 리뷰"
+excerpt: "pix2pix-zero 논문 리뷰 (SIGGRAPH 2023)"
 use_math: true
 classes: wide
 ---

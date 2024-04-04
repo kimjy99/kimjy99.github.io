@@ -11,7 +11,7 @@ tags:
   - AI
   - Microsoft
   - NeurIPS
-excerpt: "Promptist 논문 리뷰"
+excerpt: "Promptist 논문 리뷰 (NeurIPS 2023)"
 use_math: true
 classes: wide
 ---

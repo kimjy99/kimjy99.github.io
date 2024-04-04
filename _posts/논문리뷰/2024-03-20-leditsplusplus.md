@@ -8,7 +8,7 @@ tags:
   - Image-to-Image Translation
   - Computer Vision
   - AI
-excerpt: "LEDITS++ 논문 리뷰"
+excerpt: "LEDITS++ 논문 리뷰 (CVPR 2024)"
 use_math: true
 classes: wide
 ---

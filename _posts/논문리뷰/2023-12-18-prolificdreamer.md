@@ -9,7 +9,7 @@ tags:
   - 3D Vision
   - AI
   - NeurIPS
-excerpt: "ProlificDreamer 논문 리뷰"
+excerpt: "ProlificDreamer 논문 리뷰 (NeurIPS 2023 Spotlight)"
 use_math: true
 classes: wide
 ---

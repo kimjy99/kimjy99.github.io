@@ -9,7 +9,7 @@ tags:
   - Computer Vision
   - AI
   - ICLR
-excerpt: "Relay Diffusion 논문 리뷰"
+excerpt: "Relay Diffusion 논문 리뷰 (ICLR 2024 Spotlight)"
 use_math: true
 classes: wide
 ---

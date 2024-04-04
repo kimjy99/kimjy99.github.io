@@ -9,7 +9,7 @@ tags:
   - Computer Vision
   - AI
   - Microsoft
-excerpt: "TSRFormer 논문 리뷰"
+excerpt: "TSRFormer 논문 리뷰 (ACM MultiMedia 2022)"
 use_math: true
 classes: wide
 ---

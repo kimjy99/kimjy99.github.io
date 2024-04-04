@@ -8,7 +8,7 @@ tags:
   - Text-to-Speech
   - Audio and Speech Processing
   - AI
-excerpt: "Imaginary Voice 논문 리뷰"
+excerpt: "Imaginary Voice 논문 리뷰 (ICASSP 2023)"
 use_math: true
 classes: wide
 ---

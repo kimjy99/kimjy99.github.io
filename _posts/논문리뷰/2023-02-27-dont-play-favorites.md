@@ -9,7 +9,7 @@ tags:
   - Computer Vision
   - AI
   - ICLR
-excerpt: "Don’t Play Favorites 논문 리뷰"
+excerpt: "Don’t Play Favorites 논문 리뷰 (ICLR 2024)"
 use_math: true
 classes: wide
 ---

@@ -11,7 +11,7 @@ tags:
   - AI
   - Google
   - SIGGRAPH
-excerpt: "Break-A-Scene 논문 리뷰"
+excerpt: "Break-A-Scene 논문 리뷰 (SIGGRAPH Asia 2023)"
 use_math: true
 classes: wide
 ---

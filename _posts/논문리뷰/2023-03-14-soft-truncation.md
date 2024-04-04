@@ -9,7 +9,7 @@ tags:
   - Computer Vision
   - AI
   - ICML
-excerpt: "Soft Truncation 논문 리뷰"
+excerpt: "Soft Truncation 논문 리뷰 (ICML 2022)"
 use_math: true
 classes: wide
 ---

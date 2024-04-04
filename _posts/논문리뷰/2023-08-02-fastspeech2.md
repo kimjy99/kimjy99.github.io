@@ -11,7 +11,7 @@ tags:
   - AI
   - Microsoft
   - ICLR
-excerpt: "FastSpeech 2 논문 리뷰"
+excerpt: "FastSpeech 2 논문 리뷰 (ICLR 2021)"
 use_math: true
 classes: wide
 ---

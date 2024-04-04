@@ -11,7 +11,7 @@ tags:
   - AI
   - NVIDIA
   - ICLR
-excerpt: "Denoising Diffusion GAN 논문 리뷰"
+excerpt: "Denoising Diffusion GAN 논문 리뷰 (ICLR 2022 Spotlight)"
 use_math: true
 classes: wide
 ---

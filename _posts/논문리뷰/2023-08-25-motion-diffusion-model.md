@@ -9,7 +9,7 @@ tags:
   - Computer Vision
   - AI
   - ICLR
-excerpt: "Motion Diffusion Model 논문 리뷰"
+excerpt: "Motion Diffusion Model 논문 리뷰 (ICLR 2023)"
 use_math: true
 classes: wide
 ---

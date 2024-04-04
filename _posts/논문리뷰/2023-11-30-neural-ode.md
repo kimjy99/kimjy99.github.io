@@ -7,7 +7,7 @@ tags:
   - Computer Vision
   - AI
   - NeurIPS
-excerpt: "Neural ODE 논문 리뷰"
+excerpt: "Neural ODE 논문 리뷰 (NeurIPS 2018)"
 use_math: true
 classes: wide
 ---

@@ -12,7 +12,7 @@ tags:
   - AI
   - Microsoft
   - ICCV
-excerpt: "Swin Transformer 논문 리뷰"
+excerpt: "Swin Transformer 논문 리뷰 (ICCV 2021)"
 use_math: true
 classes: wide
 ---

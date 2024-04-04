@@ -9,7 +9,7 @@ tags:
   - Computer Vision
   - AI
   - ICML
-excerpt: "Discriminator Guidance 논문 리뷰"
+excerpt: "Discriminator Guidance 논문 리뷰 (ICML 2023 Oral)"
 use_math: true
 classes: wide
 ---

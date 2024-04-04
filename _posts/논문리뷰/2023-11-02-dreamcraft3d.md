@@ -9,7 +9,7 @@ tags:
   - 3D Vision
   - AI
   - ICLR
-excerpt: "DreamCraft3D 논문 리뷰"
+excerpt: "DreamCraft3D 논문 리뷰 (ICLR 2024)"
 use_math: true
 classes: wide
 ---

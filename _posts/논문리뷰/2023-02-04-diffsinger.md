@@ -9,7 +9,7 @@ tags:
   - Audio and Speech Processing
   - AI
   - AAAI
-excerpt: "DiffSinger 논문 리뷰"
+excerpt: "DiffSinger 논문 리뷰 (AAAI 2022)"
 use_math: true
 classes: wide
 ---

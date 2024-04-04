@@ -11,7 +11,7 @@ tags:
   - AI
   - Google
   - ICLR
-excerpt: "Progressive Distillation 논문 리뷰"
+excerpt: "Progressive Distillation 논문 리뷰 (ICLR 2022)"
 use_math: true
 classes: wide
 ---

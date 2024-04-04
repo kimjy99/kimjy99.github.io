@@ -10,7 +10,7 @@ tags:
   - AI
   - NVIDIA
   - NeurIPS
-excerpt: "LongVideoGAN 논문 리뷰"
+excerpt: "LongVideoGAN 논문 리뷰 (NeurIPS 2022)"
 use_math: true
 classes: wide
 ---

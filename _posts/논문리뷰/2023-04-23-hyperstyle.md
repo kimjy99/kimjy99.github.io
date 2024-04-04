@@ -10,7 +10,7 @@ tags:
   - Computer Vision
   - AI
   - CVPR
-excerpt: "HyperStyle 논문 리뷰"
+excerpt: "HyperStyle 논문 리뷰 (CVPR 2022)"
 use_math: true
 classes: wide
 ---

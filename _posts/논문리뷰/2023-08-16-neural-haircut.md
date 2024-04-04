@@ -8,7 +8,7 @@ tags:
   - Computer Vision
   - AI
   - ICCV
-excerpt: "Neural Haircut 논문 리뷰"
+excerpt: "Neural Haircut 논문 리뷰 (ICCV 2023 Oral)"
 use_math: true
 classes: wide
 ---

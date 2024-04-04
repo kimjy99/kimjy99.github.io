@@ -9,7 +9,7 @@ tags:
   - AI
   - Microsoft
   - ICLR
-excerpt: "PriorGrad 논문 리뷰"
+excerpt: "PriorGrad 논문 리뷰 (ICLR 2022)"
 use_math: true
 classes: wide
 ---

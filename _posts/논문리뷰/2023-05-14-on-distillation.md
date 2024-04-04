@@ -10,7 +10,7 @@ tags:
   - AI
   - Google
   - CVPR
-excerpt: "On Distillation of Guided Diffusion Models 논문 리뷰"
+excerpt: "On Distillation of Guided Diffusion Models 논문 리뷰 (CVPR 2023)"
 use_math: true
 classes: wide
 ---
