@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> NeurIPS 2023 (spotlight). [[Paper](https://arxiv.org/abs/2307.01097)] [[Page](https://mvdiffusion.github.io/)] [[Github](https://github.com/Tangshitao/MVDiffusion)]  
+> NeurIPS 2023 (Spotlight). [[Paper](https://arxiv.org/abs/2307.01097)] [[Page](https://mvdiffusion.github.io/)] [[Github](https://github.com/Tangshitao/MVDiffusion)]  
 > Shitao Tang, Fuyang Zhang, Jiacheng Chen, Peng Wang, Yasutaka Furukawa  
 > Simon Fraser University | Bytedance  
 > 3 Jul 2023  
