@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> ISCA SSW 2023. [[Paper](https://arxiv.org/abs/2306.06814)] [[Page](https://jisang93.github.io/hiddensinger-demo/)]  
+> arXiv 2023. [[Paper](https://arxiv.org/abs/2306.06814)] [[Page](https://jisang93.github.io/hiddensinger-demo/)]  
 > Ji-Sang Hwang, Sang-Hoon Lee, Seong-Whan Lee  
 > Korea University  
 > 12 Jun 2023  
