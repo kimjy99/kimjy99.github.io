@@ -9,12 +9,13 @@ tags:
   - Natural Language Processing
   - AI
   - Microsoft
+  - NeurIPS
 excerpt: "AR-Diffusion 논문 리뷰"
 use_math: true
 classes: wide
 ---
 
-> NIPS 2023. [[Paper](https://arxiv.org/abs/2305.09515)] [[Github](https://github.com/microsoft/ProphetNet/tree/master/AR-diffusion)]  
+> NeurIPS 2023. [[Paper](https://arxiv.org/abs/2305.09515)] [[Github](https://github.com/microsoft/ProphetNet/tree/master/AR-diffusion)]  
 > Tong Wu, Zhihao Fan, Xiao Liu, Yeyun Gong, Yelong Shen, Jian Jiao, Hai-Tao Zheng, Juntao Li, Zhongyu Wei, Jian Guo, Nan Duan, Weizhu Chen  
 > Tsinghua University | Fudan University | Microsoft Research Asia | Microsoft | Soochow University | IDEA Research  
 > 16 May 2023  
