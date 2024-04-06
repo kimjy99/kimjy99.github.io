@@ -1,16 +1,21 @@
-{% assign lang = site.locale | slice: 0,2 | default: "en" %}
-{% case lang %}
-{% when "gr" %}
-  {% assign lang = "gr" %}
-{% else %}
-  {% assign lang = "en" %}
-{% endcase %}
+<script src="{{ '/assets/js/simple-jekyll-search.min.js' | relative_url }}"></script>
+<!-- <script src="https://cdn.jsdelivr.net/gh/kimjy99/kimjy99.github.io@master/assets/js/simple-jekyll-search.min.js"></script> -->
 
-{% assign lunr-cdn = "https://cdn.jsdelivr.net/gh/kimjy99/kimjy99.github.io@master/assets/js/lunr/" %}
-<script src="{{ lunr-cdn | append: 'lunr.min.js' }}"></script>
-<script src="{{ lunr-cdn | append: 'lunr-store.js' }}"></script>
-<script src="{{ lunr-cdn | append: 'lunr-' | append: lang | append: '.js' }}"></script>
-
-<!-- <script src="{{ '/assets/js/lunr/lunr.min.js' | relative_url }}"></script>
-<script src="{{ '/assets/js/lunr/lunr-store.js' | relative_url }}"></script>
-<script src="{{ '/assets/js/lunr/lunr-' | append: lang | append: '.js' | relative_url }}"></script> -->
+<script type="text/javascript">
+var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('search'),
+      resultsContainer: document.getElementById('results'),
+      json: '/search.json',
+      limit: 10,
+      searchResultTemplate: `
+        <div class="list__item">
+          <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+            <h2 class="archive__item-title" itemprop="headline">
+              <a href="{url}" rel="permalink">{title}</a>
+            </h2>
+            <p class="archive__item-excerpt" itemprop="description">{excerpt}</p>
+          </article>
+        </div>
+      `
+});
+</script>
