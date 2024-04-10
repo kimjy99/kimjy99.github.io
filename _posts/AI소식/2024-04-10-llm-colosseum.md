@@ -5,7 +5,7 @@ categories:
   - AI소식
 tags:
   - AI
-excerpt: "GPT4Free"
+excerpt: "LLM Colosseum"
 use_math: true
 classes: wide
 ---
