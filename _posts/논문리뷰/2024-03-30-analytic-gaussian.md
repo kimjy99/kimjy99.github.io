@@ -27,7 +27,7 @@ classes: wide
 
 세부 사항을 살펴보면 3DGS는 이미지 공간에서 α 혼합 2D 가우시안 세트로 연속 신호를 나타내고 픽셀 셰이딩은 각 픽셀 영역 내에서 신호 응답을 통합하는 프로세스라는 것을 알 수 있다. 3DGS의 아티팩트는 잘못된 응답을 검색하는 Gaussian의 제한된 샘플링 대역폭으로 인해 발생하며, 특히 픽셀 공간이 크게 변경되는 경우 더욱 그렇다. 이 문제를 완화하기 위해 샘플링 대역폭을 늘리거나 (ex. 슈퍼 샘플링을 통해) 사전 필터링 기술을 사용할 수 있다. 예를 들어, [Mip-Splatting](https://arxiv.org/abs/2311.16493)은 사전 필터링 기술을 사용하고 2D 및 3D Gaussian의 고주파 성분을 정규화하여 안티앨리어싱을 달성하는 하이브리드 필터링 메커니즘을 제안하였다. Mip-Splatting은 3DGS에서 대부분의 앨리어싱을 극복하지만 디테일을 캡처하는 데 제한이 있고 지나치게 스무딩된 결과를 합성한다. 결과적으로 픽셀 window 영역 내에서 Gaussian 신호의 적분을 사용하는 것은 안티앨리어싱과 디테일 캡처 모두에 중요하다. 
 
-본 논문에서는 3DGS의 픽셀 셰이딩을 다시 살펴보고 안티앨리어싱을 위한 Gaussian 신호의 픽셀 window에서의 적분에 대한 분석적 근사치를 도입하였다. 3DGS의 discrete한 샘플링과 Mip-Splatting의 사전 필터링 대신 각 픽셀 영역 내의 적분을 분석적으로 근사한다. 본 논문의 방법을 **Analytic-Splatting**이라고 부른다. 픽셀 window를 2D Gaussian low-pass filter로 근사화하는 Mip-Splatting과 비교하여 제안한 방법은 Gaussian 신호의 고주파 성분을 억제하지 않으며 고품질 디테일을 더 잘 보존할 수 있다. Analytic-Splatting은 3DGS와 기타 방법에 존재하는 앨리어싱을 제거하는 동시에 더 나은 충실도로 더 많은 디테일을 합성하는 것으로 나타났다. 
+본 논문에서는 3DGS의 픽셀 셰이딩을 다시 살펴보고 안티앨리어싱을 위한 Gaussian 신호의 픽셀 window에서의 적분에 대한 해석적 근사치를 도입하였다. 3DGS의 discrete한 샘플링과 Mip-Splatting의 사전 필터링 대신 각 픽셀 영역 내의 적분을 해석적으로 근사한다. 본 논문의 방법을 **Analytic-Splatting**이라고 부른다. 픽셀 window를 2D Gaussian low-pass filter로 근사화하는 Mip-Splatting과 비교하여 제안한 방법은 Gaussian 신호의 고주파 성분을 억제하지 않으며 고품질 디테일을 더 잘 보존할 수 있다. Analytic-Splatting은 3DGS와 기타 방법에 존재하는 앨리어싱을 제거하는 동시에 더 나은 충실도로 더 많은 디테일을 합성하는 것으로 나타났다. 
 
 ## Preliminary
 3DGS는 3D 장면을 점들의 집합 $$\{\textbf{p}_i\}_{i=1}^N$$로 명시적으로 나타낸다. 임의의 포인트 $$\textbf{p} \in \{\textbf{p}_i\}_{i=1}^N$$이 주어지면 3DGS는 이를 평균 벡터 $\boldsymbol{\mu}$와 공분산 행렬 $\boldsymbol{\Sigma}$를 사용하여 3D Gaussian 신호로 모델링한다.
@@ -85,19 +85,19 @@ g^\textrm{2D} (\textbf{u} \vert \hat{\boldsymbol{\mu}}, \hat{\boldsymbol{\Sigma}
 \end{equation}
 $$
 
-위 식에 표시된 것처럼 3DGS가 해당 Gaussian 값을 계산할 때 각 픽셀을 격리된 하나의 점으로 처리한다는 점은 주목할 가치가 있다. 이 근사 방식은 상대적으로 일관된 거리에서 장면 콘텐츠를 캡처하기 위해 이미지를 학습하고 테스트할 때 효과적으로 작동한다. 그러나 초점 거리 또는 카메라 거리 조정으로 인해 픽셀 공간이 변경되면 3DGS 렌더링은 확대 중에 관찰되는 얇은 Gaussian과 같은 상당한 아티팩트를 나타낸다. 결과적으로 픽셀을 window 영역으로 정의하고 해당 영역을 계산하는 것이 중요하다. 이 영역 내에서 Gaussian 신호를 통합하여 계산해야 한다. 직관적이지만 시간이 많이 걸리는 슈퍼 샘플링을 사용하는 것보다 Gaussian 신호가 연속 함수라는 점을 고려하면 문제를 보다 분석적으로 해결하는 것이 좋다.
+위 식에 표시된 것처럼 3DGS가 해당 Gaussian 값을 계산할 때 각 픽셀을 격리된 하나의 점으로 처리한다는 점은 주목할 가치가 있다. 이 근사 방식은 상대적으로 일관된 거리에서 장면 콘텐츠를 캡처하기 위해 이미지를 학습하고 테스트할 때 효과적으로 작동한다. 그러나 초점 거리 또는 카메라 거리 조정으로 인해 픽셀 공간이 변경되면 3DGS 렌더링은 확대 중에 관찰되는 얇은 Gaussian과 같은 상당한 아티팩트를 나타낸다. 결과적으로 픽셀을 window 영역으로 정의하고 해당 영역을 계산하는 것이 중요하다. 이 영역 내에서 Gaussian 신호를 통합하여 계산해야 한다. 직관적이지만 시간이 많이 걸리는 슈퍼 샘플링을 사용하는 것보다 Gaussian 신호가 연속 함수라는 점을 고려하면 문제를 보다 해석적으로 해결하는 것이 좋다.
 
 ## Methods
-앞서 3DGS가 각 픽셀의 window 영역을 무시하고 픽셀 중심에 해당하는 Gaussian 값만 간주한다는 것을 관찰했다. 이 접근 방식은 서로 다른 해상도에서 픽셀 공간의 변동으로 인해 필연적으로 아티팩트를 생성한다. 본 논문은 픽셀의 신호를 정확하게 설명하여 이 문제를 해결하기 위해 픽셀 window 영역 내에서 2D Gaussian 신호의 분석적 근사치를 도출하였다. 이후에 유도된 적분을 적용하여 3DGS 프레임워크에서 $g^\textrm{2D}$를 대체하였다.
+앞서 3DGS가 각 픽셀의 window 영역을 무시하고 픽셀 중심에 해당하는 Gaussian 값만 간주한다는 것을 관찰했다. 이 접근 방식은 서로 다른 해상도에서 픽셀 공간의 변동으로 인해 필연적으로 아티팩트를 생성한다. 본 논문은 픽셀의 신호를 정확하게 설명하여 이 문제를 해결하기 위해 픽셀 window 영역 내에서 2D Gaussian 신호의 해석적 근사치를 도출하였다. 이후에 유도된 적분을 적용하여 3DGS 프레임워크에서 $g^\textrm{2D}$를 대체하였다.
 
 ### 1. Revisit One-dimensional Gaussian Signal Response
 <center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig2.PNG" | relative_url}}' width="100%"></center>
 <br>
 먼저 이해를 돕기 위해 window 영역 내 1D Gaussian 신호의 통합 응답 예제를 다시 살펴보자. 신호 $g(x)$와 window 영역이 주어지면 위의 (a)에 표시된 대로 이 도메인 내에서 신호 $$\mathcal{I}_g = \int_{x_1}^{x_2} g(x)dx$$를 통합하여 응답을 얻는 것을 목표로 한다. 알 수 없는 신호의 경우, (b)와 (c)에서 설명된대로 window 영역 내의 몬테카를로 샘플링은 적분을 근사화하는 실행 가능한 접근 방식이며, 근사 결과는 샘플 수 $N$이 증가할수록 더 정확해진다. 그럼에도 불구하고 샘플 수를 늘리면 (즉, 슈퍼 샘플링) 계산 부담이 크게 늘어난다. 
 
-다행스럽게도 3DGS 프레임워크의 목표는 window 영역 내에서 Gaussian 신호의 응답을 얻는 것이다. Gaussian 신호가 연속적인 실수 값 함수라는 점을 고려하면 (b)나 (c)같은 수치적 적분(numerical integration)에 비해 더 정확한 Gaussianu 정적분에 대한 분석적 근사치를 도출하는 것이 당연하다. 예를 들어, Mip-Splatting에서는 window 영역을 Gaussian kernel $g_w$로 처리하고, (d)와 같이 Gaussian kernel로 Gaussian 신호를 convolution한 후 샘플링 결과로 적분을 근사화한다. 이 사전 필터링은 Gaussian 신호의 convolution 특성을 사용하지만, 이 근사는 Gaussian 신호 $g$가 주로 고주파 성분으로 구성되는 경우, 즉 표준편차 $\sigma$가 작은 경우에 큰 차이를 생긴다.
+다행스럽게도 3DGS 프레임워크의 목표는 window 영역 내에서 Gaussian 신호의 응답을 얻는 것이다. Gaussian 신호가 연속적인 실수 값 함수라는 점을 고려하면 (b)나 (c)같은 수치적 적분(numerical integration)에 비해 더 정확한 Gaussianu 정적분에 대한 해석적 근사치를 도출하는 것이 당연하다. 예를 들어, Mip-Splatting에서는 window 영역을 Gaussian kernel $g_w$로 처리하고, (d)와 같이 Gaussian kernel로 Gaussian 신호를 convolution한 후 샘플링 결과로 적분을 근사화한다. 이 사전 필터링은 Gaussian 신호의 convolution 특성을 사용하지만, 이 근사는 Gaussian 신호 $g$가 주로 고주파 성분으로 구성되는 경우, 즉 표준편차 $\sigma$가 작은 경우에 큰 차이를 생긴다.
 
-이러한 단점을 극복하기 위해 window 영역 내 적분을 분석적으로 계산해야 한다. 특히, $[x_1, x_2]$ 내의 정적분을 계산하는 문제는 미적분의 기본 정리 1을 적용하여 두 개의 이상 적분을 빼는 것으로 단순화될 수 있다. $G(x)$를 다음과 같이 정의된 표준 Gaussian 분포 $g(x)$의 누적 분포 함수(CDF)로 설정한다.
+이러한 단점을 극복하기 위해 window 영역 내 적분을 해석적으로 계산해야 한다. 특히, $[x_1, x_2]$ 내의 정적분을 계산하는 문제는 미적분의 기본 정리 1을 적용하여 두 개의 이상 적분을 빼는 것으로 단순화될 수 있다. $G(x)$를 다음과 같이 정의된 표준 Gaussian 분포 $g(x)$의 누적 분포 함수(CDF)로 설정한다.
 
 $$
 \begin{equation}
