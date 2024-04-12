@@ -47,27 +47,27 @@ LLM에 입력되는 프롬프트는 다음과 같다.
 > - Fireball  
 > - Move closer  
 
-position_prompt는 적과 멀리 있는지 가까이 있는지를 알려주며, 멀리 있다면 적의 위치와 함께 적에게 이동하라는 명령이 주어지고, 가까이 있다면 공격하라는 명령이 주어진다. 
+`position_prompt`는 적과 멀리 있는지 가까이 있는지를 알려주며, 멀리 있다면 적의 위치와 함께 적에게 이동하라는 명령이 주어지고, 가까이 있다면 공격하라는 명령이 주어진다. 
 
 > <pre>You are very far from the opponent. Move closer to the opponent. Your opponent is on the left.  
 > You are very far from the opponent. Move closer to the opponent. Your opponent is on the right.  
 > You are close to the opponent. You should attack him.  
 
-power_prompt는 사용 가능한 슈퍼콤보를 알려준다. 
+`power_prompt`는 사용 가능한 슈퍼콤보를 알려준다. 
 
 > <pre>You can now use a powerfull move. The names of the powerful moves are: Megafireball, Super attack 2.  
 > You can now only use very powerfull moves. The names of the very powerful moves are: Super attack 3, Super attack 4  
 
-last_action_prompt는 플레이어와 적의 마지막 동작을 알려준다. 
+`last_action_prompt`는 플레이어와 적의 마지막 동작을 알려준다. 
 
 > <pre>Your last action was {str_act_own}. The opponent's last action was {str_act_opp}.
 
-score_prompt는 reward에 따라 이기고 있는지 지고 있는지를 알려준다. 
+`score_prompt`는 reward에 따라 이기고 있는지 지고 있는지를 알려준다. 
 
 > <pre>You are winning. Keep attacking the opponent.  
 > You are losing. Continue to attack the opponent but don't get hit.  
 
-move_list는 사용 가능한 동작들을 알려준다. 
+`move_list`는 사용 가능한 동작들을 알려준다. 
 
 ### 별도 테스트
 추가로, Amazon의 Banjo Obayomi가 진행한 별도의 테스트에서는 14개의 LLM이 314번의 매치를 진행했고 Anthropic의 Claude 3 Haiku가 우승하였다고 한다 (ELO 1613). 
