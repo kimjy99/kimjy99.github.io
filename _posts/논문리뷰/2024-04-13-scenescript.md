@@ -9,6 +9,7 @@ tags:
   - Object Detection
   - Natural Language Processing
   - AI
+  - Meta AI
 excerpt: "SceneScript 논문 리뷰"
 use_math: true
 classes: wide
