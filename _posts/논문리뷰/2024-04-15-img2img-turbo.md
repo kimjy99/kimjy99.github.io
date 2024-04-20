@@ -6,6 +6,7 @@ categories:
 tags:
   - Diffusion
   - Computer Vision
+  - Low-Rank Adaptation
   - Image-to-Image Translation
   - Fine-Tuning
   - AI
