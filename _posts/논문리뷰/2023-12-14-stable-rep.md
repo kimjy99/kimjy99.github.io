@@ -5,6 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - Diffusion
+  - Contrastive Learning
   - Computer Vision
   - AI
   - Google

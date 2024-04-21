@@ -5,6 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - Fine-Tuning
+  - Contrastive Learning
   - Computer Vision
   - Distillation
   - AI
