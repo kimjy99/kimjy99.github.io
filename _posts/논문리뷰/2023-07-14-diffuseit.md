@@ -166,7 +166,7 @@ $$
 
 여기서 $d_\textrm{trg}$는 타겟 텍스트 프롬프트이고, $E_I$와 $E_T$는 각각 CLIP의 이미지 인코더와 텍스트 인코더를 뜻한다. 이 loss가 diffusion model에게 텍스트 guidance를 줄 수 있음에도 불구하고 결과 이미지의 품질이 좋지 않다.
 
-대신 $d_\textrm{trg}$, $d_\textrm{src}, $x_\textrm{src}$ 측면에서 출력 이미지의 CLIP 임베딩을 타겟 벡터와 일치시키는 input-aware directional CLIP loss를 사용할 것을 제안한다. 보다 구체적으로 CLIP 기반 semantic loss은 다음과 같이 설명된다.
+대신 $d_\textrm{trg}$, $d_\textrm{src}$, $x_\textrm{src}$ 측면에서 출력 이미지의 CLIP 임베딩을 타겟 벡터와 일치시키는 input-aware directional CLIP loss를 사용할 것을 제안한다. 보다 구체적으로 CLIP 기반 semantic loss은 다음과 같이 설명된다.
 
 $$
 \begin{equation}
