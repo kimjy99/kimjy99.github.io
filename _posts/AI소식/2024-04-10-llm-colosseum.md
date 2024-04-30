@@ -1,6 +1,6 @@
 ---
 title: "[AI소식] LLM Colosseum"
-last_modified_at: 2023-04-10
+last_modified_at: 2024-04-10
 categories:
   - AI소식
 tags:
