@@ -10,7 +10,7 @@ tags:
   - AI
   - Microsoft
   - CVPR
-excerpt: "Segment and Caption Anything (SCA) 논문 리뷰"
+excerpt: "Segment and Caption Anything (SCA) 논문 리뷰 (CVPR 2024)"
 use_math: true
 classes: wide
 ---
