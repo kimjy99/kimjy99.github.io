@@ -1,6 +1,6 @@
 ---
 title: "[AI소식] gpt2-chatbot"
-last_modified_at: 2024-05-07
+last_modified_at: 2024-05-14
 categories:
   - AI소식
 tags:
@@ -17,7 +17,13 @@ LLM 리더보드인 [LMSYS](https://chat.lmsys.org/)에 **gpt2-chatbot**이라�
 
 이와 관련하여 OpenAI CEO인 샘 올트먼이 [트윗](https://x.com/sama/status/1785107943664566556)을 게시했다. 
 
-<center><a href="https://x.com/sama/status/1785107943664566556"><img src='{{"/assets/img/gpt2-chatbot/gpt2-chatbot-fig1.PNG" | relative_url}}' width="45%"></a></center>
+<center><blockquote class="twitter-tweet" width="45%"><p lang="en" dir="ltr">i do have a soft spot for gpt2</p>&mdash; Sam Altman (@sama) <a href="https://twitter.com/sama/status/1785107943664566556?ref_src=twsrc%5Etfw">April 30, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></center>
+<br>
+그리고 5월 14일 **GPT-4o**가 출시되었으며, OpenAI 연구원인 William Fedus가 [트윗](https://x.com/LiamFedus/status/1790064963966370209)을 통해 **gpt2-chatbot는 GPT-4o**임을 밝혔다.
+
+<center><blockquote class="twitter-tweet" width="45%"><p lang="en" dir="ltr">GPT-4o is our new state-of-the-art frontier model. We’ve been testing a version on the LMSys arena as im-also-a-good-gpt2-chatbot 🙂. Here’s how it’s been doing. <a href="https://t.co/xEE2bYQbRk">pic.twitter.com/xEE2bYQbRk</a></p>&mdash; William Fedus (@LiamFedus) <a href="https://twitter.com/LiamFedus/status/1790064963966370209?ref_src=twsrc%5Etfw">May 13, 2024</a></blockquote></center>
+<br>
+또한 LMSYS Arena에서의 테스트 결과(ELO)를 함께 공개하였는데, 기존 1위였던 GPT 4 Turbo의 1253점보다 57점을 앞선 1310점을 기록하며 **새로운 SOTA**가 되었다. 
 
 ### 성능 및 특징
 누군가가 [rentry](https://rentry.org/gpt2)에 관련 내용과 LMSYS의 여러 결과들을 정리해 두었다. 
@@ -33,8 +39,8 @@ LLM 리더보드인 [LMSYS](https://chat.lmsys.org/)에 **gpt2-chatbot**이라�
 - Anthropic, Meta, Mistral, Google 등의 모델들은 동일한 프롬프트에 대해 gpt2-chatbot과 다른 출력을 일관되게 출력한다. 
 - 수정된 CoT(Chain-of-Thought)와 같은 기술의 영향을 많이 받는 것으로 보인다. 
 
-### 추측
-gpt2-chatbot의 정체에 대한 여러 추측들이 나오고 있다. 
+### GPT-4o 출시 전 추측들
+gpt2-chatbot이 공개된 이후 정체를 둘러싼 여러 추측들이 나오고 있다. 
 
 1. GPT-4.5의 초기 버전
   - 5월 2일, 샘 올트먼이 하버드 행사에서 gpt2-chatbot이 GPT-4.5가 아니라고 언급했다는 [기사](https://www.axios.com/2024/05/02/mystery-chatbot-openai-gpt2)가 나왔다. 이 기사에는 해당 진술의 출처나 샘 올트먼이 언급한 직접적인 내용이 제공되지 않았다. [Rentry](https://rentry.org/gpt2)의 저자가 해당 주장의 출처와 관련하여 Axios에 연락했지만 아직 답변을 받지 못했다고 한다. 
@@ -47,22 +53,15 @@ gpt2-chatbot의 정체에 대한 여러 추측들이 나오고 있다.
   -  5월 3일, Microsoft 연구원인 Sébastien Bubeck이 TikZ로 그린 유니콘을 [트윗](https://twitter.com/SebastienBubeck/status/1786108589700177954)했다. 해당 유니콘은 gpt2-chatbot의 벤치마크 테스트로 일반적으로 사용되는 `Draw a unicorn in TiKZ`라는 프롬프트의 결과이다. 
   - ChatGPT 공식 트위터 계정이 해당 트윗에 [답장](https://twitter.com/ChatGPTapp/status/1786290886017794280)을 했다. 
 
-<center><img src='{{"/assets/img/gpt2-chatbot/gpt2-chatbot-fig5.PNG" | relative_url}}' width="60%"></center>
+<center><blockquote class="twitter-tweet" width="45%"><p lang="en" dir="ltr">the perfect TikZ unicorn is one of the top criteria for AGI</p>&mdash; ChatGPT (@ChatGPTapp) <a href="https://twitter.com/ChatGPTapp/status/1786290886017794280?ref_src=twsrc%5Etfw">May 3, 2024</a></blockquote></center>
 
 ### 예시
-아래는 [rentry](https://rentry.org/gpt2)에 있는 Claude 3 Opus와의 비교 예시이다. 
+아래는 [rentry](https://rentry.org/gpt2)에 있는 Claude 3 Opus와의 비교 예시이다. (왼쪽: Claude 3 Opus / 오른쪽: gpt2-chatbot)
 
-<center><img src='{{"/assets/img/gpt2-chatbot/gpt2-chatbot-fig2.PNG" | relative_url}}' width="100%"></center>
-<br>
-프롬프트는 `Generate a level-3 Sierpinski triangle in ASCII.`이며, Claude 3 Opus보다 더 정확하고 자세한 결과를 보인다. 
-
-### Updates
-5월 5일, 샘 올트먼이 `im-a-good-gpt2-chatbot`이라는 새 [트윗](https://twitter.com/sama/status/1787222050589028528)을 게시했다. 또한 해당 게시글의 댓글에 `you-are-not-a-good-user`라는 [답글](https://twitter.com/sama/status/1787223078554177750)을 달았다. 
-
-<center><div style="display: flex; align-items: start; justify-content: center; width: 65%">
-  <a href="https://twitter.com/sama/status/1787222050589028528"><img src='{{"/assets/img/gpt2-chatbot/gpt2-chatbot-fig3.PNG" | relative_url}}' width="100%"></a>
-  &nbsp;
-  <a href="https://twitter.com/sama/status/1787223078554177750"><img src='{{"/assets/img/gpt2-chatbot/gpt2-chatbot-fig4.PNG" | relative_url}}' width="100%"></a>
+<center><div style="overflow-x: auto; width: 65%;">
+  <div style="width: 200%;">
+    <img src='{{"/assets/img/gpt2-chatbot/gpt2-chatbot-fig1.PNG" | relative_url}}' width="100%">
+  </div>
 </div></center>
 <br>
-아마도 5월 9일에 열리는 [사내 이벤트](https://beebom.com/openai-search-engine-report/)에 대하여 관심을 끌기 위한 의도일 확률이 높다고 한다.
+프롬프트는 `Generate a level-3 Sierpinski triangle in ASCII.`이며, Claude 3 Opus보다 더 정확하고 자세한 결과를 보인다. 
