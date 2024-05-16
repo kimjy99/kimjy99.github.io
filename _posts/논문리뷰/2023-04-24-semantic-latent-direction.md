@@ -5,7 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - Diffusion
-  - Image Translation
+  - Image-to-Image Translation
   - Computer Vision
   - AI
 excerpt: "Unsupervised Discovery of Semantic Latent Directions in Diffusion Models 논문 리뷰"

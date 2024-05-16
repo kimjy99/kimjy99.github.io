@@ -6,7 +6,7 @@ categories:
 tags:
   - GAN Inversion
   - GAN
-  - Image Translation
+  - Image-to-Image Translation
   - Computer Vision
   - AI
   - CVPR

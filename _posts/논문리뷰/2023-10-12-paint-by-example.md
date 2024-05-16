@@ -5,7 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - Diffusion
-  - Image Translation
+  - Image-to-Image Translation
   - Computer Vision
   - AI
   - Microsoft

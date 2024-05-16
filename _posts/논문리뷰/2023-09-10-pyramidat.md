@@ -6,7 +6,7 @@ categories:
 tags:
   - ViT
   - Text-To-Image
-  - Image Translation
+  - Image-to-Image Translation
   - Computer Vision
   - AI
   - Google

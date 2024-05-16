@@ -6,7 +6,7 @@ categories:
 tags:
   - GAN
   - Diffusion
-  - Image Translation
+  - Image-to-Image Translation
   - Computer Vision
   - AI
   - CVPR

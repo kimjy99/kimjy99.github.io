@@ -6,7 +6,7 @@ categories:
 tags:
   - Diffusion
   - Contrastive Learning
-  - Image Translation
+  - Image-to-Image Translation
   - Computer Vision
   - AI
   - ICLR

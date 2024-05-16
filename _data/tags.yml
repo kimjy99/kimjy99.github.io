@@ -29,7 +29,7 @@
 - INTERSPEECH
 - AAAI
 - Image Generation
-- Image Translation
+- Image-to-Image Translation
 - Image Segmentation
 - Text-to-Image
 - Novel View Synthesis
@@ -42,7 +42,6 @@
 - Vector Quantization
 - Image Restoration
 - Voice Conversion
-- Image-to-Image Translation
 - Text-to-Video
 - Talking Head
 - GAN Inversion
