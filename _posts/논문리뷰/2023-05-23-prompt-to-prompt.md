@@ -6,7 +6,7 @@ categories:
 tags:
   - GPT
   - Diffusion
-  - Image-to-Image Translation
+  - Image Editing
   - Computer Vision
   - AI
   - Google

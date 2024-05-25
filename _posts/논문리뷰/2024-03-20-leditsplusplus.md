@@ -5,7 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - Diffusion
-  - Image-to-Image Translation
+  - Image Editing
   - Computer Vision
   - AI
 excerpt: "LEDITS++ 논문 리뷰 (CVPR 2024)"

@@ -5,7 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - Diffusion
-  - Image-to-Image Translation
+  - Image Editing
   - Computer Vision
   - AI
 excerpt: "DragDiffusion 논문 리뷰"

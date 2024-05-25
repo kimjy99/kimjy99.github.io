@@ -7,7 +7,7 @@ tags:
   - GPT
   - Diffusion
   - Fine-Tuning
-  - Image-to-Image Translation
+  - Image Editing
   - Computer Vision
   - AI
   - CVPR
