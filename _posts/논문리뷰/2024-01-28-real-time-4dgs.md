@@ -34,7 +34,7 @@ classes: wide
 <center><img src='{{"/assets/img/real-time-4dgs/real-time-4dgs-fig2.PNG" | relative_url}}' width="95%"></center>
 
 ### 1. Preliminary: 3D Gaussian Splatting
-[3D Gaussian Splatting](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)은 이방성 Gaussian을 사용하여 정적 3D 장면을 표현힌다. 잘 커스터마이징된 GPU 친화적인 rasterizer를 통해 이 표현을 통해 충실도가 높은 새로운 뷰를 실시간으로 합성할 수 있다.
+[3D Gaussian Splatting](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)은 이방성 Gaussian을 사용하여 정적 3D 장면을 표현한다. 잘 커스터마이징된 GPU 친화적인 rasterizer를 통해 이 표현을 통해 충실도가 높은 새로운 뷰를 실시간으로 합성할 수 있다.
 
 #### Representation of 3D Gaussians
 3D Gaussian Splatting에서는 장면이 3D Gaussian cloud로 표현된다. 각 Gaussian는 이론적으로 무한한 범위와 정규화되지 않은 Gaussian 함수로 정의된 주어진 공간적 위치 $x \in \mathbb{R}^3$에 대한 영향을 갖는다.

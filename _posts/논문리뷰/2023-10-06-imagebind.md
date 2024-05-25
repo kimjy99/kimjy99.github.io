@@ -37,7 +37,7 @@ classes: wide
 ### 1. Binding modalities with images
 ImageBind는 modality 쌍 $(\mathcal{I}, \mathcal{M})$을 사용하여 하나의 공동 임베딩을 학습한다. 여기서 $\mathcal{I}$는 이미지를 나타내고 $\mathcal{M}$은 또 다른 modality이다. 광범위한 semantic 개념에 걸친 (이미지, 텍스트) 쌍이 있는 대규모 웹 데이터셋을 사용한다. 또한 오디오, 깊이, 열화상, 관성 측정 장치 (IMU)와 같은 다른 modality를 이미지와 함께 자연스럽고 self-supervised 방식으로 페어링한다.
 
-관찰이 정렬된 modality 쌍 $(\mathcal{I}, \mathcal{M})$을 고려하자. 이미지 $$I_i$$와 다른 modality $M_i$에서의 해당 관찰이 주어지면 정규화된 임베딩으로 인코딩힌다. 
+관찰이 정렬된 modality 쌍 $(\mathcal{I}, \mathcal{M})$을 고려하자. 이미지 $$I_i$$와 다른 modality $M_i$에서의 해당 관찰이 주어지면 정규화된 임베딩으로 인코딩한다. 
 
 $$
 \begin{equation}

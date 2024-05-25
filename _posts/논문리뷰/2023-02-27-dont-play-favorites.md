@@ -29,7 +29,7 @@ classes: wide
 저자들은 diffusion model의 내재적 선호도를 대부분의 feature에 적용하기 위한 샘플링 테크닉을 추가로 개발하였다. **Minority guidance**라고 하는 본 논문의 sampler는 샘플링 프로세스를 원하는 레벨의 minority score로 컨디셔닝한다. 보다 정확하게는 주어진 noisy한 입력에 대한 minority score를 예측하고 classifier guidance를 사용하여 기존 sampler에 통합하는 classifier를 구성한다. Minority guidance는 diffusion model을 높은 minority score로 컨디셔닝하여 소수 feature를 가진 샘플의 제어 가능한 생성을 가능하게 한다. 
 
 ## Method
-본 논문은 데이터 매니폴드의 저밀도 영역에 있는 소수 샘플을 생성하는 데 특히 중점을 둔 프레임워크를 제시한다. 이를 위해 먼저 diffusion model의 denoising이 가능성 높은 다수 샘플에 편향되어 있음을 보여줌으로써 diffusion model이 소수 샘플 중심의 생성에서 어려움을 겪는 이유를 새로운 방향으로 밝힌다. 이를 고려하여 feature의 고유성을 설명하기 위한 척도를 제시하고 소수 샘플을 향한 diffusion model의 생성 과정을 guide할 수 있는 sampler를 개발한다. 
+본 논문은 데이터 매니폴드의 저밀도 영역에 있는 소수 샘플을 생성하는 데 특히 중점을 둔 프레임워크를 제시한다. 이를 위해 먼저 diffusion model의 denoising이 가능성 높은 다수 샘플에 편향되어 있음을 보여줌으로써 diffusion model이 소수 샘플 중심의 생성에서 어려움을 겪는 이유를 새로운 방향으로 밝한다. 이를 고려하여 feature의 고유성을 설명하기 위한 척도를 제시하고 소수 샘플을 향한 diffusion model의 생성 과정을 guide할 수 있는 sampler를 개발한다. 
 
 ### 1. Diffusion models play favorites with majorities
 저자들은 denoising diffusion model이 고유한 정도가 다른 샘플들에 대해 어떻게 작동하는지 조사하는 것으로 시작한다. 데이터 분포에서 추출한 두 개의 개별 샘플 $x_0^M , x_0^m \sim q(x_0)$를 고려하며, 여기서 $x_0^M$이 CelebA의 정면 얼굴과 같이 일반적으로 관찰되는 속성을 포함하는 다수 샘플이고 $x_0^m$은 CelebA의 측면 얼굴과 같은 새로운 feature로 구성된 소수 샘플로 가정한다. $x_t^M$과 $x_t^m$을 각각 얻기 위해 DDPM forward process를 사용한다. 그런 다음 denoising score matching (DSM)으로 $q(x_0)$에서 학습된 score 모델 $s_\theta (x_t, t)$을 사용하여 noisy한 샘플을 one-shot으로 재구성한다.
