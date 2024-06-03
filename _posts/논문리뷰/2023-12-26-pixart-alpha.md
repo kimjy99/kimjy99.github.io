@@ -31,7 +31,7 @@ classes: wide
 
 1. **학습 전략 분해**: 복잡한 text-to-image 생성 task를 이미지의 픽셀 분포 학습, 텍스트-이미지 정렬 학습, 이미지의 미적 품질 향상이라는 세 가지 간소화된 하위 task로 분해한다. 첫 번째 하위 task에서는 T2I 모델을 저비용 클래스 조건부 모델로 초기화하여 학습 비용을 크게 줄이는 것을 제안하였다. 두 번째 및 세 번째 하위 task의 경우 사전 학습과 fine-tuning으로 구성된 학습 패러다임을 제안하였다. 즉, 정보 밀도가 풍부한 텍스트-이미지 쌍 데이터에 대한 사전 학습을 수행한 다음 우수한 미적 품질을 갖춘 데이터로 fine-tuning하여 학습 효율성을 높인다.
 2. **효율적인 T2I Transformer**: [Diffusion Transformer (DiT)](https://kimjy99.github.io/논문리뷰/dit)를 기반으로 cross-attention 모듈을 통합하여 텍스트 조건을 주입하고 계산 집약적인 클래스 조건부 분기를 간소화하여 효율성을 향상시킨다. 또한 조정된 text-to-image 모델이 원래 클래스 조건부 모델의 파라미터를 직접 로드할 수 있도록 하는 reparameterization 기술을 도입하였다. 결과적으로 이미지 분포에 대해 ImageNet에서 배운 사전 지식을 활용하여 T2I Transformer에 대한 합리적인 초기화를 제공하고 학습을 가속화할 수 있다.
-3. **정보가 풍부한 데이터**: LAION과 같은 기존 텍스트-이미지 쌍 데이터셋은 텍스트 캡션의 정보 제공 콘텐츠 부족과 심각한 롱테일 효과 등 여러 단점이 드러났다. 이러한 결함으로 인해 T2I 모델의 학습 효율성이 크게 저하되고 안정적인 텍스트-이미지 정렬을 학습하기 위해 수백만 번의 iteration이 발생한다. 이 문제를 해결하기 위해 저자들은 SOTA 비전-언어 모델(LLaVA)을 활용하여 [SAM](https://kimjy99.github.io/논문리뷰/segment-anything)에 캡션을 생성하는 자동 라벨링 파이프라인을 제안하였다. SAM 데이터셋은 풍부하고 다양한 객체 컬렉션으로 인해 유리하며, 텍스트-이미지 정렬 학습에 더 적합한 정보 밀도가 높은 텍스트-이미지 쌍을 생성하는 데 이상적인 리소스이다.
+3. **정보가 풍부한 데이터**: LAION과 같은 기존 텍스트-이미지 쌍 데이터셋은 텍스트 캡션의 정보 제공 콘텐츠 부족과 심각한 롱테일 효과 등 여러 단점이 드러났다. 이러한 결함으로 인해 T2I 모델의 학습 효율성이 크게 저하되고 안정적인 텍스트-이미지 정렬을 학습하기 위해 수백만 번의 iteration이 발생한다. 이 문제를 해결하기 위해 저자들은 SOTA 비전-언어 모델([LLaVA](https://kimjy99.github.io/논문리뷰/llava))을 활용하여 [SAM](https://kimjy99.github.io/논문리뷰/segment-anything)에 캡션을 생성하는 자동 라벨링 파이프라인을 제안하였다. SAM 데이터셋은 풍부하고 다양한 객체 컬렉션으로 인해 유리하며, 텍스트-이미지 정렬 학습에 더 적합한 정보 밀도가 높은 텍스트-이미지 쌍을 생성하는 데 이상적인 리소스이다.
 
 <center><img src='{{"/assets/img/pixart-alpha/pixart-alpha-fig2.PNG" | relative_url}}' width="90%"></center>
 <br>
@@ -88,7 +88,7 @@ Multi-head cross-attention layer를 DiT 블록에 통합한다. 모델이 언어
 Timestep 정보를 위한 글로벌 MLP와 레이어별 임베딩, 텍스트 정보 처리를 위한 cross-attention layer를 통합하면 모델의 생성 능력을 유지하면서 크기를 효과적으로 줄일 수 있다. 
 
 ### 4. 데이터셋 구성
-LAION 데이터셋의 캡션은 텍스트-이미지 정렬 불량, 설명 부족, 빈번하지 않은 어휘 등 다양한 문제를 가지고 있다. 저자들은 정보 밀도가 높은 캡션을 생성하기 위해 SOTA 비전-언어 모델 LLaVA를 활용하였다. "Describe this image and its style in a very detailed manner"라는 프롬프트를 사용하여 캡션의 품질을 크게 향상시켰다.
+LAION 데이터셋의 캡션은 텍스트-이미지 정렬 불량, 설명 부족, 빈번하지 않은 어휘 등 다양한 문제를 가지고 있다. 저자들은 정보 밀도가 높은 캡션을 생성하기 위해 SOTA 비전-언어 모델 [LLaVA](https://kimjy99.github.io/논문리뷰/llava)를 활용하였다. "Describe this image and its style in a very detailed manner"라는 프롬프트를 사용하여 캡션의 품질을 크게 향상시켰다.
 
 그러나 LAION 데이터셋은 주로 쇼핑 웹사이트의 단순한 제품 미리보기로 구성되어 있어 객체 조합의 다양성을 추구하는 text-to-image 생성 학습에는 적합하지 않다. 따라서 저자들은 원래 segmentation task에 사용되었지만 다양한 객체가 풍부한 이미지를 제공하는 [SAM](https://kimjy99.github.io/논문리뷰/segment-anything) 데이터셋을 활용하기로 결정했다. 저자들은 SAM에 LLaVA를 적용하여 높은 개념 밀도를 특징으로 하는 고품질 텍스트-이미지 쌍을 성공적으로 획득했다.
 
