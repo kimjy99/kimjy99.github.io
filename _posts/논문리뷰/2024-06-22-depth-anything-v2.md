@@ -41,7 +41,7 @@ Depth Anything은 discriminative model을 기반으로 하며 Marigold는 생성
 
 MDE는 discriminative task이므로 본 논문에서는 Depth Anything V1의 강점을 유지하고 약점을 수정하는 것을 목표로 한다. 가장 중요한 부분은 여전히 ​​데이터이다. 레이블이 없는 대규모 데이터를 활용하여 데이터 확장 속도를 높이고 데이터 범위를 늘리는 V1의 데이터 중심 동기와 동일하다. 
 
-본 논뭉느 세 가지 주요 질문에 답을 하였다. 
+본 논문은 세 가지 주요 질문에 답을 하였다. 
 
 - **Q1**: MiDaS나 Depth Anything의 coarse한 깊이는 discriminative model 자체에서 나오는 것인지? 디테일을 위해서는 반드시 diffusion 기반의 모델링 방식을 채택해야 하는가?  
 **A1**: 효율적인 discriminative model은 매우 미세한 디테일도 생성할 수 있다. 가장 중요한 수정 사항은 레이블이 있는 모든 실제 이미지를 정확한 합성 이미지로 바꾸는 것이다. 
