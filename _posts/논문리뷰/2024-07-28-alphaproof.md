@@ -39,7 +39,7 @@ AlphaProof는 형식적 언어인 [Lean](https://lean-lang.org/)에서 수학적
 ## AlphaGeometry 2
 AlphaGeometry 2는 [AlphaGeometry](https://deepmind.google/discover/blog/alphageometry-an-olympiad-level-ai-system-for-geometry/)를 상당히 개선한 버전이다. 언어 모델은 [Gemini](https://deepmind.google/technologies/gemini/)를 기반으로 하고 AlphaGeometry보다 훨씬 더 많은 합성 데이터로 처음부터 학습하였다. 이를 통해 모델은 훨씬 더 어려운 기하학 문제를 해결하는 데 도움이 되었다. 
 
-AlphaGeometry 2는 이전 버전보다 두 자릿수 더 빠른 심볼릭 엔진을 사용합니다. 새로운 문제가 제시되면 새로운 knowledge-sharing 메커니즘을 사용하여 다양한 search tree의 고급 조합을 통해 더 복잡한 문제를 해결할 수 있다.
+AlphaGeometry 2는 이전 버전보다 두 자릿수 더 빠른 심볼릭 엔진을 사용한다. 새로운 문제가 제시되면 새로운 knowledge-sharing 메커니즘을 사용하여 다양한 search tree의 고급 조합을 통해 더 복잡한 문제를 해결할 수 있다.
 
 올해 IMO 이전에 AlphaGeometry 2는 지난 25년 동안의 모든 IMO 기하학 문제의 83%를 풀었는데, 이는 AlphaGeometry가 달성한 53%의 비율과 비교된다. IMO 2024의 경우 AlphaGeometry 2는 형식화된 후 19초 이내에 문제 4를 풀었다. 
 

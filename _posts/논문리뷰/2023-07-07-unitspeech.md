@@ -72,7 +72,7 @@ X_{t - \frac{1}{N}} = X_t + \frac{\beta_t}{N} \bigg( \frac{1}{2} X_t + s_\theta 
 \end{equation}
 $$
 
-사전 훈련된 TTS 모델은 $$L_\textrm{grad}$$ 외에도 GlowTTS에서 제안한 monotonic alignment search (MAS)을 사용하여 텍스트 인코더의 출력을 mel-spectrogram과 정렬한다. 또한 encoder loss $$L_\textrm{enc} = \textrm{MSE}(c_y, X_0)$$를 사용하여 정렬된 텍스트 인코더 출력 $c_y$와 mel-spectrogram $X_0$ 사이의 거리를 최소화한다. Speaker ID로 텍스트 인코더 출력을 분리하기 위해 텍스트 인코더에 $e_S$를 포함하는 speaker를 제공하지 않고 spekaer에 독립적인 표현 $c_y$와 $X_0$ 사이의 거리를 최소화한다.
+사전 학습된 TTS 모델은 $$L_\textrm{grad}$$ 외에도 GlowTTS에서 제안한 monotonic alignment search (MAS)을 사용하여 텍스트 인코더의 출력을 mel-spectrogram과 정렬한다. 또한 encoder loss $$L_\textrm{enc} = \textrm{MSE}(c_y, X_0)$$를 사용하여 정렬된 텍스트 인코더 출력 $c_y$와 mel-spectrogram $X_0$ 사이의 거리를 최소화한다. Speaker ID로 텍스트 인코더 출력을 분리하기 위해 텍스트 인코더에 $e_S$를 포함하는 speaker를 제공하지 않고 spekaer에 독립적인 표현 $c_y$와 $X_0$ 사이의 거리를 최소화한다.
 
 ### 2. Unit Encoder Training
 최소한의 전사되지 않은 레퍼런스 데이터가 주어지면 고품질 적응을 위해 사전 학습된 TTS 모델을 fine-tuning하는 것을 목표로 하지만 사전 학습된 TTS 모델만으로는 구조적으로 그렇게 하기가 어렵다. 사전 학습된 TTS 모델은 전사된 음성 데이터를 사용한 학습으로만 제한되는 반면, 현실에서 음성 데이터의 대부분은 전사되지 않은 데이터이다. 이 문제에 대한 해결책으로 unit encoder와 사전 학습된 TTS 모델을 결합하여 적응을 위한 생성 능력을 확장한다.

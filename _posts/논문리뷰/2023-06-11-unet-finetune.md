@@ -50,7 +50,7 @@ Input position은 어댑터의 입력이 들어오는 곳이고 output position�
 <br>
 Function form은 어댑터가 입력을 출력으로 전송하는 방법을 설명한다. Transformer 블록과 residual block에 각각 어댑터의 function form을 제시하며 (위 그림 참조), 둘 다 다운샘플링 연산자, activation function, 업샘플링 연산자, scaling factor로 구성된다. 다운샘플링 연산자는 입력의 차원을 줄이고 업샘플링 연산자는 차원을 늘려 출력이 입력과 동일한 차원을 갖도록 한다. 원래 네트워크에 영향을 미치는 강도를 제어하기 위해 출력에 scaling factor $s$를 더 곱한다.
 
-구체적으로 Transformer 블록 어댑터는 각각 다운샘플링 연산자와 업샘플링 연산자로 low-rank matrix $W_\textrm{down}$과 $W_\textrm{up}$을 사용하고 residual block 어댑터는 다운샘플링 연산자와 업샘플링 연산자로 각각 3×3 convolution layer $$\textrm{Conv}_\textrm{down}$$과 $$\textrm{Conv}_\textrm{up}$$을 사용한다. 이러한 convolution layer는 공간 크기를 변경하지 않고 채널 수만 변경한다. 또한 residual block 어댑터는 group normalization 연산자로 입력을 처리한다.
+구체적으로 Transformer 블록 어댑터는 각각 다운샘플링 연산자와 업샘플링 연산자로 low-rank matrix $W_\textrm{down}$과 $W_\textrm{up}$을 사용하고 residual block 어댑터는 다운샘플링 연산자와 업샘플링 연산자로 각각 3$\times$3 convolution layer $$\textrm{Conv}_\textrm{down}$$과 $$\textrm{Conv}_\textrm{up}$$을 사용한다. 이러한 convolution layer는 공간 크기를 변경하지 않고 채널 수만 변경한다. 또한 residual block 어댑터는 group normalization 연산자로 입력을 처리한다.
 
 디자인 선택에 다양한 activation function과 scaling factor를 포함한다. Activation function에는 ReLU, Sigmoid, SiLU, ID 연산자가 포함되며 scaling factor에는 0.5, 1.0, 2.0, 4.0이 포함된다.
 

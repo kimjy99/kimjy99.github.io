@@ -36,7 +36,7 @@ classes: wide
 ## A Feature Distillation Method
 <center><img src='{{"/assets/img/feature-distillation/feature-distillation-fig1a.PNG" | relative_url}}' width="50%"></center>
 <br>
-본 논문은 이미 사전 훈련된 모델에서 지식을 추출하는 동시에 fine-tuning에 더 친숙한 새로운 표현을 얻는 것이 목표이다. 위 그림에 설명된 것처럼 feature distillation 방법을 통해 이를 달성한다. 이 방법에서는 이미 사전 학습된 모델이 teacher 역할을 하고 새 모델이 student 역할을 한다. 본 논문은 이 방법을 일반적이고 효과적으로 만들기 위해 다음과 같은 디자인을 고려하였다.
+본 논문은 이미 사전 학습된 모델에서 지식을 추출하는 동시에 fine-tuning에 더 친숙한 새로운 표현을 얻는 것이 목표이다. 위 그림에 설명된 것처럼 feature distillation 방법을 통해 이를 달성한다. 이 방법에서는 이미 사전 학습된 모델이 teacher 역할을 하고 새 모델이 student 역할을 한다. 본 논문은 이 방법을 일반적이고 효과적으로 만들기 위해 다음과 같은 디자인을 고려하였다.
 
 #### 일반화되도록 feature map을 증류
 대부분의 이전 distillation 연구처럼 logit을 증류하는 대신 사전 학습된 모델의 출력 feature map을 distillation 타겟으로 채택한다. Feature map을 distillation 타겟으로 사용하면 logit 출력이 없을 수 있는 사전 학습된 모델로 작업할 수 있다. 보다 일반적인 것 외에도 feature map을 추출하는 것은 logit이나 축소된 단일 feature 벡터를 사용하는 것보다 더 높은 fine-tuning 정확도를 보여준다.

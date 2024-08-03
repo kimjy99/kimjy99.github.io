@@ -24,7 +24,7 @@ classes: wide
 ## Introduction
 본 논문은 텍스트에서 동영상을 생성하는 것을 목표로 한다. 동영상 생성에 대한 이전 연구들은 제한된 데이터셋에서 학습된 autoregressive model, autoregressive prior을 사용하는 laten-varient model, 보다 최근에는 non-autoregressive latent-variable 접근 방식에 중점을 두었다. Diffusion model은 중간 해상도의 동영상 생성 가능성도 보여주었다. 
 
-본 논문에서는 높은 프레임 충실도, 강력한 시간적 일관성 및 깊은 언어 이해로 고화질 동영상을 생성할 수 있는 [video diffusion model](https://kimjy99.github.io/논문리뷰/video-diffusion-model)을 기반으로 하는 text-to-video 생성 시스템인 Imagen Video를 소개한다. Imagen Video는 초당 24프레임의 64프레임 128×128 동영상을 생성하는 이전 연구에서 초당 24프레임의 128프레임 1280×768 고화질 동영상을 생성하도록 확장된다. Imagen Video의 아키텍처는 간단하다. 고정된 T5 텍스트 인코더, 기본 video diffusion model, 인터리브된 공간 및 시간적 super-resolution (SR) diffusion model로 구성된다. 
+본 논문에서는 높은 프레임 충실도, 강력한 시간적 일관성 및 깊은 언어 이해로 고화질 동영상을 생성할 수 있는 [video diffusion model](https://kimjy99.github.io/논문리뷰/video-diffusion-model)을 기반으로 하는 text-to-video 생성 시스템인 Imagen Video를 소개한다. Imagen Video는 초당 24프레임의 64프레임 128$\times$128 동영상을 생성하는 이전 연구에서 초당 24프레임의 128프레임 1280$\times$768 고화질 동영상을 생성하도록 확장된다. Imagen Video의 아키텍처는 간단하다. 고정된 T5 텍스트 인코더, 기본 video diffusion model, 인터리브된 공간 및 시간적 super-resolution (SR) diffusion model로 구성된다. 
 
 ## Imagen Video
 Imagen Video는 video diffusion model의 계단식 모델이며, 텍스트 조건부 동영상 생성, 공간적 SR, 시간적 SR을 수행하는 7개의 하위 모델로 구성된다. 전체 계단식 모델에서 Imagen Video는 초당 24프레임으로 128프레임($\approx$ 5.3초)의 고화질 1280$\times$768 동영상(약 1억 2600만 픽셀)을 생성한다. 

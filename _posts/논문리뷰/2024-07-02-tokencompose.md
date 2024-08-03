@@ -28,7 +28,7 @@ classes: wide
 
 그러나 diffusion model을 학습시키는 데 사용되는 텍스트인 캡션과 생성에 사용되는 텍스트인 프롬프트 간에는 자연스러운 불일치가 존재한다. 캡션은 일반적으로 실제 이미지를 충실하게 설명하는 반면, 프롬프트는 실제 이미지의 시각적 장면과 일치하지 않는 이미지 feature를 캡슐화할 수 있다. 조건부 텍스트에 대한 세분화된 목적 함수가 없으면 T2I diffusion model이 프롬프트에 있는 임의의 구성으로 일반화되지 못하는 경우가 많다. 이는 T2I LDM의 denoising 목적 함수가 텍스트 프롬프트에 대한 noise를 예측하는 데에만 최적화되어 텍스트 조건을 denoising 기능 최적화를 촉진하는 용도로만 남겨두기 때문일 수 있다. 
 
-Diffusion model은 조건부 텍스트의 토큰 수준에서 작동하는 목적 함수를 부과함으로써 텍스트의 각 토큰이 이미지의 맥락에서 무엇을 의미하는지를 개별적으로 학습한다. 결과적으로 inference 중에 단어, 구문 등의 다양한 조합을 합성하는 것이 더 나을 수 있다. 그러나 해당 텍스트 토큰에 대해 인간이 segmentation map과 같은 ground-truth 레이블을 얻는 것은 비용이 많이 든다. 특히 대규모 생성 모델을 훈련하는 데 사용되는 텍스트-이미지 쌍의 경우 더욱 그렇다. 최근 vision foundation model인 Grounding DINO나 [Segment Anything (SAM)](segment-anything-model) 덕분에 텍스트 토큰에 대한 segmentation map을 자동으로 쉽게 얻을 수 있다. 
+Diffusion model은 조건부 텍스트의 토큰 수준에서 작동하는 목적 함수를 부과함으로써 텍스트의 각 토큰이 이미지의 맥락에서 무엇을 의미하는지를 개별적으로 학습한다. 결과적으로 inference 중에 단어, 구문 등의 다양한 조합을 합성하는 것이 더 나을 수 있다. 그러나 해당 텍스트 토큰에 대해 인간이 segmentation map과 같은 ground-truth 레이블을 얻는 것은 비용이 많이 든다. 특히 대규모 생성 모델을 학습시키는 데 사용되는 텍스트-이미지 쌍의 경우 더욱 그렇다. 최근 vision foundation model인 Grounding DINO나 [Segment Anything (SAM)](segment-anything-model) 덕분에 텍스트 토큰에 대한 segmentation map을 자동으로 쉽게 얻을 수 있다. 
 
 본 논문은 이미지 이해를 위해 사전 학습된 foundation model을 활용하여 T2I 생성 모델에 토큰 수준 supervision을 제공하는 새로운 알고리즘인 **TokenCompose**를 개발하여 합성 문제를 완화하려고 하였다. 학습 중 해당 이미지에 대한 segmentation 기반 목적 함수를 사용하여 T2I 모델의 텍스트 프롬프트에서 각 명사 토큰을 보강하였다. 이를 통해 모델이 개체 정확도, 다중 카테고리 인스턴스 합성, 향상된 포토리얼리즘의 상당한 개선을 나타낼 수 있으며 생성된 이미지에 대한 추가 inference 비용이 없다. 추가로 저자들은 하나의 이미지에서 여러 카테고리의 인스턴스를 합성하는 T2I 생성 모델의 기능을 검사하는 **MultiGen** 벤치마크도 제시하였다. 
 

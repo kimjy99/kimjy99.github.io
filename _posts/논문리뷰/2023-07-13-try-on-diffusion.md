@@ -31,7 +31,7 @@ classes: wide
 
 TryOnDiffusion은 cross attention을 통해 통신하는 두 개의 하위 UNet으로 구성된 **Parallel-UNet**이라는 새로운 아키텍처를 기반으로 한다. 두 가지 핵심 디자인 요소는 암시적 워핑과 순차적 방식이 아닌 단일 패스에서의 워핑과 블렌딩의 조합이다. 타겟 인물과 원본 의상 사이의 암시적 워핑은 장거리 대응을 설정할 수 있는 여러 피라미드 레벨에서 feature에 대한 cross attention을 통해 달성된다. 장거리 대응은 특히 심한 가려짐과 극단적인 포즈 차이에서 잘 수행된다. 또한 동일한 네트워크를 사용하여 워핑과 블렌딩을 수행하면 두 프로세스가 색상 픽셀 레벨이 아닌 feature 레벨에서 정보를 교환할 수 있으며 이는 perceptual loss와 style loss에 필수적인 것이다.
 
-1024$\times$1024 해상도에서 고품질 결과를 생성하기 위해 Imagen을 따르고 cascaded diffusion model을 만든다. 특히 Parallel-UNet 기반 diffusion은 12$\times$×128과 256$\times$256 해상도에 사용돤다. 그런 다음 256$\times$256 결과는 super-resolution diffusion network에 공급되어 최종 1024$\times$1024 이미지를 생성한다.
+1024$\times$1024 해상도에서 고품질 결과를 생성하기 위해 Imagen을 따르고 cascaded diffusion model을 만든다. 특히 Parallel-UNet 기반 diffusion은 12$\times$128과 256$\times$256 해상도에 사용돤다. 그런 다음 256$\times$256 결과는 super-resolution diffusion network에 공급되어 최종 1024$\times$1024 이미지를 생성한다.
 
 ## Method
 <center><img src='{{"/assets/img/try-on-diffusion/try-on-diffusion-fig2.PNG" | relative_url}}' width="100%"></center>

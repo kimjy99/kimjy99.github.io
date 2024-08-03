@@ -59,7 +59,7 @@ $$
 
 여기서 $f$는 동영상 업샘플러이고, $$\hat{I}_{1 \ldots T}$$는 업샘플링된 동영상이다. 입력 3D 표현의 coarse한 수준으로 인해 렌더링 충실도에 한계가 생기므로 초기 렌더링 해상도가 충분히 높아야 한다. 
 
-본 논문의 프레임워크는 사전 훈련된 SOTA 동영상 업샘플러를 쉽게 통합할 수 있다. 본 논문에서는 VideoGigaGAN을 사용한다. 심각한 도메인 편향이 있는 입력 표현을 처리하는 경우 추가적인 fine-tuning이 필요하다. 예를 들어 확대 후 줄무늬 또는 얼룩 같은 아티팩트가 있는 경우 Gaussian Splats의 렌더링은 SOTA 동영상 업샘플러의 augmentation과 다른 degradation을 따른다. 
+본 논문의 프레임워크는 사전 학습된 SOTA 동영상 업샘플러를 쉽게 통합할 수 있다. 본 논문에서는 VideoGigaGAN을 사용한다. 심각한 도메인 편향이 있는 입력 표현을 처리하는 경우 추가적인 fine-tuning이 필요하다. 예를 들어 확대 후 줄무늬 또는 얼룩 같은 아티팩트가 있는 경우 Gaussian Splats의 렌더링은 SOTA 동영상 업샘플러의 augmentation과 다른 degradation을 따른다. 
 
 동영상 업샘플러를 fine-tuning하려면 모델링하려는 특정 degradation을 묘사하는 저해상도 및 고해상도 동영상 쌍이 필요하다. 이를 위해 다양한 3D 물체와 장면을 묘사하는 MVImgNet 데이터셋을 사용한다. 먼저, 저해상도 이미지셋을 얻기 위해 데이터셋의 원본 이미지를 64$\times$64 해상도로 다운샘플링한다. 그런 다음 저해상도 Gaussian Splat을 이러한 이미지에 적용한다. 동영상 업샘플러에 대한 입력으로 데이터셋에서 제공한 원래 카메라 궤적에서 최적화된 저해상도 Gaussian을 렌더링한다. 256$\times$256로 resize된 데이터셋의 원본 동영상를 GT로 사용한다. Charbonnier regression loss, LPIPS loss, GAN loss를 사용하여 모델을 fine-tuning한다. 
 

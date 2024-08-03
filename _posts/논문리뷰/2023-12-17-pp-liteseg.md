@@ -95,7 +95,7 @@ $$
 ### 3. Simple Pyramid Pooling Module
 <center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-fig5.PNG" | relative_url}}' width="60%"></center>
 <br>
-본 논문은 위 그림과 같이 Simple Pyramid Pooling Module (SPPM)을 제안하였다. 먼저 Pyramid Pooling Module (PPM)을 활용하여 입력 feature를 융합한다. PPM에는 세 가지 global-average-pooling 연산이 있으며 bin 크기가 각각 1$\times$1, 2$\times2, 4$\times$4이다. 그 후 출력 feature 뒤에는 convolution과 업샘플링 연산이 이어진다. Convolution 연산의 경우 커널 크기는 1×1이고 출력 채널은 입력 채널보다 작다. 마지막으로 업샘플링된 feature들을 더하고 convolution 연산을 적용하여 개선된 feature를 생성한다. 원래 PPM과 비교하여 SPPM은 중간 채널과 출력 채널을 줄이고 short-cut을 제거하며 concatenate 연산을 합연산으로 대체한다. 결과적으로 SPPM은 실시간 모델에 더 효율적이고 적합하다.
+본 논문은 위 그림과 같이 Simple Pyramid Pooling Module (SPPM)을 제안하였다. 먼저 Pyramid Pooling Module (PPM)을 활용하여 입력 feature를 융합한다. PPM에는 세 가지 global-average-pooling 연산이 있으며 bin 크기가 각각 1$\times$1, 2$\times2, 4$\times$4이다. 그 후 출력 feature 뒤에는 convolution과 업샘플링 연산이 이어진다. Convolution 연산의 경우 커널 크기는 1$\times$1이고 출력 채널은 입력 채널보다 작다. 마지막으로 업샘플링된 feature들을 더하고 convolution 연산을 적용하여 개선된 feature를 생성한다. 원래 PPM과 비교하여 SPPM은 중간 채널과 출력 채널을 줄이고 short-cut을 제거하며 concatenate 연산을 합연산으로 대체한다. 결과적으로 SPPM은 실시간 모델에 더 효율적이고 적합하다.
 
 ### 4. Network Architecture
 <center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-fig2.PNG" | relative_url}}' width="85%"></center>

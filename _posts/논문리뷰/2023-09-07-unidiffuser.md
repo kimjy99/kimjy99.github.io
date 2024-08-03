@@ -150,7 +150,7 @@ $$
 ### 2. Transformer as Joint Noise Prediction Network
 임베딩에서 공동 noise 예측 네트워크를 학습시킨다. 다양한 modality의 입력을 처리하기 위해 UniDiffuser에서 transformer 기반 backbone을 사용하는 것은 자연스럽다. 특히 조건부 diffusion model을 위해 최근에 제안된 transformer인 U-ViT를 채택한다. 원래 U-ViT는 데이터, 조건, timestep을 포함한 모든 입력을 토큰으로 처리하고 얕은 레이어와 깊은 레이어 사이에 긴 skip connection을 사용하는 것이 특징이다. 
 
-UniDiffuser에서는 두 가지 데이터 modality와 해당 timestep을 토큰으로 처리하여 U-ViT를 약간 수정한다. 또한 저자들은 원래 U-ViT의 pre-layer normalization가 mixed precision로 훈련될 때 쉽게 overflow를 유발한다는 것을 경험적으로 발견했다. 간단한 해결책은 post-layer normalization을 사용하고 긴 skip connection을 연결한 후 레이어 정규화를 추가하여 UniDiffuser의 학습을 안정화하는 것이다. 아래 그림은 backbone을 설명한다.
+UniDiffuser에서는 두 가지 데이터 modality와 해당 timestep을 토큰으로 처리하여 U-ViT를 약간 수정한다. 또한 저자들은 원래 U-ViT의 pre-layer normalization가 mixed precision로 학습될 때 쉽게 overflow를 유발한다는 것을 경험적으로 발견했다. 간단한 해결책은 post-layer normalization을 사용하고 긴 skip connection을 연결한 후 레이어 정규화를 추가하여 UniDiffuser의 학습을 안정화하는 것이다. 아래 그림은 backbone을 설명한다.
 
 <center><img src='{{"/assets/img/unidiffuser/unidiffuser-fig4b.PNG" | relative_url}}' width="65%"></center>
 

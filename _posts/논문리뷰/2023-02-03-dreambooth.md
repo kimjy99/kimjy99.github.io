@@ -73,7 +73,7 @@ $P$를 $f$로 토큰화하면 고정된 길이의 벡터 $f(P)$를 얻는다. �
 <br>
 이를 달성하기 위한 첫 번째 작업은 피사체 인스턴스를 모델의 출력 도메인에 이식하고 피사체를 고유 식별자로 바인딩하는 것이다. 중요한 문제는 피사체를 보여주는 작은 이미지들을 finetuning하면 주어진 이미지에 overfitting되는 경향이 있다는 것이다. 또한 language drift는 언어 모델에서 흔히 발생하는 문제이며 text-to-image diffusion model에서도 나타난다. 모델은 동일한 클래스의 다른 주제를 생성하는 방법을 잊고 다양성과 해당 클래스에 속하는 인스턴스의 자연스러운 변형에 대한 지식을 잃는다. 이를 위해 저자들은 diffusion model이 주제와 동일한 클래스의 다양한 인스턴스를 계속 생성하도록 장려하여 overfitting을 완화하고 language drift를 방지하는 **autogenous class-specific prior preservation loss**를 제시한다.
 
-디테일의 보존을 강화하려면 모델의 super-resolution 부분도 finetuning해야 한다. 그러나 naive한 방식으로 대상 인스턴스를 생성하도록 finetuning된 경우 인스턴스의 중요한 디테일들을 복제할 수 없다. 저자들은 주제의 디테일을 더 잘 보존하기 위해 이러한 SR 모듈을 학습시키고 테스트할 수 있는 통찰력을 제공하여 재맥락화(recontextualization)에서 전례 없는 성능을 달성하였다. 제자들이 제안한 학습 절차의 자세한 스케치는 아래 그림에 나와 있다. 본 논문에서는 사전 훈련된 Imagen 모델을 기본 모델로 사용한다.
+디테일의 보존을 강화하려면 모델의 super-resolution 부분도 finetuning해야 한다. 그러나 naive한 방식으로 대상 인스턴스를 생성하도록 finetuning된 경우 인스턴스의 중요한 디테일들을 복제할 수 없다. 저자들은 주제의 디테일을 더 잘 보존하기 위해 이러한 SR 모듈을 학습시키고 테스트할 수 있는 통찰력을 제공하여 재맥락화(recontextualization)에서 전례 없는 성능을 달성하였다. 제자들이 제안한 학습 절차의 자세한 스케치는 아래 그림에 나와 있다. 본 논문에서는 사전 학습된 Imagen 모델을 기본 모델로 사용한다.
 
 <center><img src='{{"/assets/img/dreambooth/dreambooth-fig4.PNG" | relative_url}}' width="90%"></center>
 

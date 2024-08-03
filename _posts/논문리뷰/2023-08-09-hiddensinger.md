@@ -37,7 +37,7 @@ Singing voice synthesis(SVS) 시스템은 악보에서 고품질의 노래 음�
 HiddenSinger는 오디오 품질 측면에서 이전 SVS 모델을 능가한다. 또한, 제안된 unsupervised 가창 음성 학습 프레임워크인 **HiddenSinger-U**를 사용하여 페어링되지 않은 데이터로 표현되는 speaker에 대해서도 고품질의 가창 음성을 합성할 수 있다.
 
 ## HiddenSinger
-본 논문에서는 고품질의 노래 음성 오디오를 위해 뉴럴 오디오 코덱과 latent diffusion을 이용한 SVS 시스템을 제안한다. 고충실도 오디오 생성과 계산 효율성을 위해 residual vector quantization (RVQ)를 사용하는 오디오 오토인코더를 도입한다. 또한 latent generator에서 [LDM](https://kimjy99.github.io/논문리뷰/ldm)을 채택하여 오디오 오토인코더에 의해 오디오로 변환되는 악보에 따라 latent 표현을 생성한다. 또한 HiddenSinger를 악보 없이 모델을 훈련할 수 있는 HiddenSinger-U로 확장한다. 
+본 논문에서는 고품질의 노래 음성 오디오를 위해 뉴럴 오디오 코덱과 latent diffusion을 이용한 SVS 시스템을 제안한다. 고충실도 오디오 생성과 계산 효율성을 위해 residual vector quantization (RVQ)를 사용하는 오디오 오토인코더를 도입한다. 또한 latent generator에서 [LDM](https://kimjy99.github.io/논문리뷰/ldm)을 채택하여 오디오 오토인코더에 의해 오디오로 변환되는 악보에 따라 latent 표현을 생성한다. 또한 HiddenSinger를 악보 없이 모델을 학습시킬 수 있는 HiddenSinger-U로 확장한다. 
 
 ### 1. Audio Autoencoder
 <center><img src='{{"/assets/img/hiddensinger/hiddensinger-fig2a.PNG" | relative_url}}' width="80%"></center>
@@ -50,7 +50,7 @@ HiddenSinger는 오디오 품질 측면에서 이전 SVS 모델을 능가한다.
 #### RVQ 블록
 <center><img src='{{"/assets/img/hiddensinger/hiddensinger-fig2b.PNG" | relative_url}}' width="65%"></center>
 <br>
-위 그림에 표시된 것처럼 첫 번째 vector quantizer는 latent 표현 $z_0$를 코드북에서 가장 가까운 항목으로 discretize한다. 그런 다음 residual이 계산된다. 다음 quantizer는 두 번째 코드북과 함께 사용되며, 이 과정은 quantizer의 수 $C$만큼 반복된다. Quantizer의 수는 계산 비용과 코딩 효율성 간의 균형과 관련이 있다. 각 quantizer에 대한 코드북을 학습하기 위해 [Soundstream](https://arxiv.org/abs/2107.03312)에 설명된 훈련 절차를 따른다. 또한 코드북 학습을 안정화하기 위해 다음과 같은 commitment loss를 적용한다. 가중치가 낮은 commitment loss는 학습 중에 RVQ 블록을 수렴하는 데 도움이 된다.
+위 그림에 표시된 것처럼 첫 번째 vector quantizer는 latent 표현 $z_0$를 코드북에서 가장 가까운 항목으로 discretize한다. 그런 다음 residual이 계산된다. 다음 quantizer는 두 번째 코드북과 함께 사용되며, 이 과정은 quantizer의 수 $C$만큼 반복된다. Quantizer의 수는 계산 비용과 코딩 효율성 간의 균형과 관련이 있다. 각 quantizer에 대한 코드북을 학습하기 위해 [Soundstream](https://arxiv.org/abs/2107.03312)에 설명된 학습 절차를 따른다. 또한 코드북 학습을 안정화하기 위해 다음과 같은 commitment loss를 적용한다. 가중치가 낮은 commitment loss는 학습 중에 RVQ 블록을 수렴하는 데 도움이 된다.
 
 $$
 \begin{equation}
