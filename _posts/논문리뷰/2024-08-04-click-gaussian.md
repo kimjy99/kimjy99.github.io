@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Click-Gaussian: Interactive Segmentation to Any 3D Gaussians"
-last_modified_at: 2024-08-02
+last_modified_at: 2024-08-04
 categories:
   - 논문리뷰
 tags:
