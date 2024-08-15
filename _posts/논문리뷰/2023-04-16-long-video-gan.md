@@ -48,7 +48,7 @@ classes: wide
 <br>
 위 그림은 저해상도 generator의 아키텍처를 보여준다. 주요 목표는 시간적 latent 표현, 시간적 스타일 변조, 시공간 convolution 및 시간적 upsample의 신중한 설계를 포함하여 시간 축을 가장 중요한 축으로 만드는 것이다. 이러한 메커니즘을 통해 generator는 방대한 시간적 receptive field(5k 프레임)에 걸쳐 여러 시간 스케일에서 시간적 상관 관계를 나타낼 수 있다. 
 
-우리는 StyleGAN3와 유사한 스타일 기반 디자인을 사용한다. Temporal noise 입력을 기본 합성 경로에서 각 레이어의 동작을 변조하는 데 사용되는 일련의 중간 latent $$\{w_t\}$$로 매핑한다. 각 중간 latent는 특정 프레임과 연관되지만 기본 경로에 나타나는 계층적 3D convolution을 통해 여러 프레임의 장면 구성 및 시간적 동작에 상당한 영향을 미칠 수 있다. 
+저자들은 StyleGAN3와 유사한 스타일 기반 디자인을 사용하였다. Temporal noise 입력을 기본 합성 경로에서 각 레이어의 동작을 변조하는 데 사용되는 일련의 중간 latent $$\{w_t\}$$로 매핑한다. 각 중간 latent는 특정 프레임과 연관되지만 기본 경로에 나타나는 계층적 3D convolution을 통해 여러 프레임의 장면 구성 및 시간적 동작에 상당한 영향을 미칠 수 있다. 
 
 스타일 기반 디자인의 이점을 최대한 활용하려면 날씨 변화 또는 지속적인 개체와 같은 장기적인 시간적 상관 관계를 중간 latent에서 캡처하는 것이 중요하다. 이를 위해 먼저 일련의 temporal lowpass filter를 사용하여 temporal noise 입력을 풍부하게 한 다음 프레임 단위로 fully-connected mapping network를 통해 전달하는 방식을 채택한다. Lowpass filtering의 목표는 mapping network에 다양한 시간 스케일에 걸쳐 충분한 장기 컨텍스트를 제공하는 것이다. 구체적으로, temporal noise $z(t) \in \mathbb{R}^8$의 스트림이 주어지면 해당하는 풍부한 표현 $z'(t) \in \mathbb{R}^{128 \times 8}$을 $z_{i,j}' = f_i \ast z_j$로 계산한다. 여기서 $$\{f_i\}$$는 시간 범위가 100 ~ 5000프레임인 128개의 lowpass filter 집합이며, $\ast$는 시간에 대한 convolution을 나타낸다. 
 

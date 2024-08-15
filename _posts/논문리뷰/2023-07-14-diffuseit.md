@@ -203,7 +203,7 @@ $$
 \end{equation}
 $$
 
-구체적으로, 우리는 현재 시간과 이전 시간의 denoise된 출력 사이의 거리를 최대화하여 다음 step 샘플이 이전 step과 다른 semantic을 갖도록 한다. Pixel-wise 거리 또는 perceptual 거리를 최대화하기 위한 대안을 생각할 수 있지만 이러한 경우 콘텐츠 구조가 크게 손상된다. 그에 반해 제안한 loss는 semantic 모양만 제어할 수 있기 때문에 이미지 품질 측면에서 장점이 있다.
+구체적으로, 현재 시간과 이전 시간의 denoise된 출력 사이의 거리를 최대화하여 다음 step 샘플이 이전 step과 다른 semantic을 갖도록 한다. Pixel-wise 거리 또는 perceptual 거리를 최대화하기 위한 대안을 생각할 수 있지만 이러한 경우 콘텐츠 구조가 크게 손상된다. 그에 반해 제안한 loss는 semantic 모양만 제어할 수 있기 때문에 이미지 품질 측면에서 장점이 있다.
 
 #### Resampling Strategy
 CCDF 가속 전략에서 볼 수 있듯이 더 나은 초기화는 inverse problem에 대한 가속된 reverse diffusion으로 이어진다. 경험적으로 image translation 문제에서 reverse diffusion에 대한 timestep $T$에서 좋은 시작점을 찾는 것이 전체 이미지 품질에 영향을 미친다. 구체적으로, 초기 추정치 $x_T$가 충분히 좋도록 가이드하기 위해, 다음 step을 위한 기울기가 loss에 의해 쉽게 영향 받는 $x_T$를 찾기 위해 

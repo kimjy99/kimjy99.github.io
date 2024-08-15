@@ -45,7 +45,7 @@ Novel view synthesis는 캡처된 장면에서 새로운 시점의 이미지를 
 ### 2. Hybrid Geometric Representation
 본 논문은 3D Gaussian을 뷰에 따른 2D depth map 및 normal map과 결합한 하이브리드 기하학적 표현을 제안하였다. 여기서 2D 표현은 Gaussian의 densification을 지원하는 데 활용된다. 
 
-3D Gaussian의 discrete하고 불규칙한 토폴로지로 인해 로컬한 표면에서 인접한 Gaussian을 검색하는 것과 같이 형상의 연결성을 인식하는 것이 어렵다. 결과적으로 Gaussian densification을 가이드하는 현재의 형상을 인식하기가 어렵다. 저자들은 고전적인 multi-view stereo(MVS) 방법에서 영감을 받아 3D Gaussian을 구조화된 2D 이미지 공간에 매핑하여 이 문제를 해결할 것을 제안하였다. 이 매핑을 통해 우리는 Gaussian의 이웃을 효율적으로 결정하고 그들 사이에 기하학적 정보를 전파할 수 있다. 특히, Gaussian이 3D 공간에서 동일한 로컬 평면에 위치하는 경우 2D projection도 인접한 영역에 있어야 하며 유사한 기하학적 특성(ex. 깊이, normal)을 나타내야 한다.
+3D Gaussian의 discrete하고 불규칙한 토폴로지로 인해 로컬한 표면에서 인접한 Gaussian을 검색하는 것과 같이 형상의 연결성을 인식하는 것이 어렵다. 결과적으로 Gaussian densification을 가이드하는 현재의 형상을 인식하기가 어렵다. 저자들은 고전적인 multi-view stereo(MVS) 방법에서 영감을 받아 3D Gaussian을 구조화된 2D 이미지 공간에 매핑하여 이 문제를 해결할 것을 제안하였다. 이 매핑을 통해 Gaussian의 이웃을 효율적으로 결정하고 그들 사이에 기하학적 정보를 전파할 수 있다. 특히, Gaussian이 3D 공간에서 동일한 로컬 평면에 위치하는 경우 2D projection도 인접한 영역에 있어야 하며 유사한 기하학적 특성(ex. 깊이, normal)을 나타내야 한다.
 
 #### Gaussian의 깊이 값
 Camera extrinsics이 $[\mathbf{W}, \mathbf{t}] \in \mathbb{R}^{3 \times 4}$인 각 시점에 대해 Gaussian $G_i$의 중심 $$\boldsymbol{\mu}_i$$는 카메라 좌표계에 $$\boldsymbol{\mu}_i^\prime$$로 projection될 수 있다.

@@ -91,7 +91,7 @@ $$
 $$
 
 #### Point Clouds with Lifted Features
-이미지 feature를 사용하여 포인트 클라우드를 강화할 수 있다. 원래의 시퀀스와 연관된 궤적에서 우리는 $M$개의 키프레임 $$\textbf{I}_i$$를 샘플링하고 각각에 대한 이미지 feature $$\textbf{F}_i$$를 계산한다. 그런 다음 각 포인트를 키프레임 카메라들에 투영하고 해당 픽셀 위치에서 feature 벡터를 검색한다. 
+이미지 feature를 사용하여 포인트 클라우드를 강화할 수 있다. 원래의 시퀀스와 연관된 궤적에서 $M$개의 키프레임 $$\textbf{I}_i$$를 샘플링하고 각각에 대한 이미지 feature $$\textbf{F}_i$$를 계산한다. 그런 다음 각 포인트를 키프레임 카메라들에 투영하고 해당 픽셀 위치에서 feature 벡터를 검색한다. 
 
 $$
 \begin{equation}

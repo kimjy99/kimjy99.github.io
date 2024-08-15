@@ -83,7 +83,7 @@ $$
 
 저자들은 $\alpha$에 sigmoid activation function를 사용하여 $[0, 1)$에서 제한하고 부드러운 기울기를 얻었으며, 비슷한 이유로 공분산의 스케일에 대한 exponential activation function를 사용했다.
 
-초기 공분산 행렬은 가장 가까운 세 점까지의 거리 평균과 동일한 축을 갖는 등방성 Gaussian으로 추정된다. 우리는 [Plenoxels](https://arxiv.org/abs/2112.05131)와 유사한 표준 exponential decay 스케줄링 기술을 사용하지만 위치에만 적용된다. Loss function은 D-SSIM 항과 결합된 $$\mathcal{L}_1$$이다. 
+초기 공분산 행렬은 가장 가까운 세 점까지의 거리 평균과 동일한 축을 갖는 등방성 Gaussian으로 추정된다. [Plenoxels](https://arxiv.org/abs/2112.05131)와 유사한 표준 exponential decay 스케줄링 기술을 사용하지만 위치에만 적용된다. Loss function은 D-SSIM 항과 결합된 $$\mathcal{L}_1$$이다. 
 
 $$
 \begin{equation}

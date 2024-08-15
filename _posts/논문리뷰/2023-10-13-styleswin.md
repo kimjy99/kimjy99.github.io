@@ -57,7 +57,7 @@ $$
 
 여기서 W-MSA와 SW-MSA는 각각 일반 window와 shifted window 분할 하에서의 window 기반 MSA를 나타내고 LN은 layer normalization을 나타낸다. 이러한 block-wise attention는 이미지 크기에 대한 선형 계산 복잡도를 유도하기 때문에 네트워크는 미세 구조가 이러한 유능한 transformer로 모델링될 수 있는 고해상도 생성으로 확장 가능하다.
 
-Discriminator는 adversarial training의 안정성에 심각한 영향을 미치기 때문에 우리는 convolution 기반 discriminator를 직접 사용한다. 실험에서 저자들은 이 기본 아키텍처에서 단순히 convolution을 transformer 블록으로 교체하면 향상된 모델 용량으로 인해 보다 안정적인 학습을 얻을 수 있음을 발견했다. 그러나 이러한 순진한 아키텍처는 transformer 기반 GAN을 SOTA와 경쟁하게 만들 수 없다. 
+Discriminator는 adversarial training의 안정성에 심각한 영향을 미치기 때문에 convolution 기반 discriminator를 직접 사용한다. 실험에서 저자들은 이 기본 아키텍처에서 단순히 convolution을 transformer 블록으로 교체하면 향상된 모델 용량으로 인해 보다 안정적인 학습을 얻을 수 있음을 발견했다. 그러나 이러한 순진한 아키텍처는 transformer 기반 GAN을 SOTA와 경쟁하게 만들 수 없다. 
 
 #### Style injection
 <center><img src='{{"/assets/img/styleswin/styleswin-fig2b.PNG" | relative_url}}' width="55%"></center>

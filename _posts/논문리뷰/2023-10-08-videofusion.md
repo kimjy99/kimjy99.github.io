@@ -87,7 +87,7 @@ z_t^i = \sqrt{\lambda^i} \underbrace{(\sqrt{\hat{\alpha}_t} x^0 + \sqrt{1 - \hat
 \end{equation}
 $$
 
-위 식에서 알 수 있듯이 diffusion process는 $x^0$의 diffusion과 $\Delta x^i$의 diffusion의 두 부분으로 분해될 수 있다. 이전 방법에서는 $x^0$가 연속 프레임에서 공유되지만 각 프레임에서 서로 다른 값으로 독립적으로 noise가 발생하므로 denoising의 어려움이 증가할 수 있다. 본 논문은 이 문제를 해결하기 위해 우리는 $b_t^i = b_t$가 되도록 $i = 1, 2, \ldots, N$에 대해 $b_t^i$를 공유할 것을 제안한다. 이러한 방식으로 다른 프레임의 $x^0$는 동일한 값으로 noise된다. 그리고 동영상 클립 $x$의 프레임은 
+위 식에서 알 수 있듯이 diffusion process는 $x^0$의 diffusion과 $\Delta x^i$의 diffusion의 두 부분으로 분해될 수 있다. 이전 방법에서는 $x^0$가 연속 프레임에서 공유되지만 각 프레임에서 서로 다른 값으로 독립적으로 noise가 발생하므로 denoising의 어려움이 증가할 수 있다. 본 논문은 이 문제를 해결하기 위해 $b_t^i = b_t$가 되도록 $i = 1, 2, \ldots, N$에 대해 $b_t^i$를 공유할 것을 제안한다. 이러한 방식으로 다른 프레임의 $x^0$는 동일한 값으로 noise된다. 그리고 동영상 클립 $x$의 프레임은 
 
 $$
 \begin{equation}

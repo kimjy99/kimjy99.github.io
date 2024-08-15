@@ -77,7 +77,7 @@ $$
 
 $$\mathcal{L}_\textrm{rec}$$는 L1 차이와 LPIPS의 조합으로 나타낸다.
 
-**Adversarial loss.** 출력이 타겟 도메인과 일치하도록 장려하기 위해 두 도메인 모두에 대해 adversarial loss를 사용한다. 우리는 해당 도메인에 대해 번환된 이미지와 실제 이미지를 분류하는 것을 목표로 하는 두 개의 discriminator인 $$\mathcal{D}_X$$와 $$\mathcal{D}_Y$$를 사용한다. 두 discriminator 모두 [Vision-Aided GAN](https://arxiv.org/abs/2112.09130)의 권장 사항에 따라 CLIP 모델을 backbone으로 사용한다. Adversarial loss는 다음과 같이 정의된다.
+**Adversarial loss.** 출력이 타겟 도메인과 일치하도록 장려하기 위해 두 도메인 모두에 대해 adversarial loss를 사용한다. 해당 도메인에 대해 번환된 이미지와 실제 이미지를 분류하는 것을 목표로 하는 두 개의 discriminator인 $$\mathcal{D}_X$$와 $$\mathcal{D}_Y$$를 사용한다. 두 discriminator 모두 [Vision-Aided GAN](https://arxiv.org/abs/2112.09130)의 권장 사항에 따라 CLIP 모델을 backbone으로 사용한다. Adversarial loss는 다음과 같이 정의된다.
 
 $$
 \begin{aligned}

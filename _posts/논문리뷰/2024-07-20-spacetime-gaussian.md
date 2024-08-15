@@ -36,7 +36,7 @@ classes: wide
 ### 1. Spacetime Gaussians
 <center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-fig2a.PNG" | relative_url}}' width="57%"></center>
 <br>
-본 논문은 4D 동역학을 표현하기 위해 3D Gaussian과 시간 성분을 결합하여 나타나고 사라지는 콘텐츠와 모션/변형을 모델링하는 **Spacetime Gaussians (STG)**를 제안하였다. 구체적으로, 시간적 불투명도를 인코딩하기 위해 temporal radial basis function를 도입하였다. 이는 나타나거나 사라지는 장면 콘텐츠를 효과적으로 모델링할 수 있다. 한편, 우리는 3D 가우시안의 위치와 회전에 대한 시간 조건 파라메트릭 함수를 활용하여 장면의 모션과 변형을 모델링한다. 시공간 지점 $(\textbf{x}, t)$에서의 STG의 불투명도는 다음과 같다. 
+본 논문은 4D 동역학을 표현하기 위해 3D Gaussian과 시간 성분을 결합하여 나타나고 사라지는 콘텐츠와 모션/변형을 모델링하는 **Spacetime Gaussians (STG)**를 제안하였다. 구체적으로, 시간적 불투명도를 인코딩하기 위해 temporal radial basis function를 도입하였다. 이는 나타나거나 사라지는 장면 콘텐츠를 효과적으로 모델링할 수 있다. 한편, 시간을 조건으로 하는 3D Gaussian의 위치와 회전에 대한 파라메트릭 함수를 활용하여 장면의 모션과 변형을 모델링한다. 시공간 지점 $(\textbf{x}, t)$에서의 STG의 불투명도는 다음과 같다. 
 
 $$
 \begin{equation}

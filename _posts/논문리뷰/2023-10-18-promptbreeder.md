@@ -35,7 +35,7 @@ classes: wide
 
 <center><img src='{{"/assets/img/promptbreeder/promptbreeder-fig1.PNG" | relative_url}}' width="100%"></center>
 <br>
-Promptbreeder는 LLM을 사용하여 입력 텍스트의 변형을 생성할 수 있다는 관찰을 활용한다. 위 그림은 Promptbreeder의 개요를 제공한다. 본 논문은 진화하는 task-prompt에 관심이 있다. Task-prompt $P$는 추가 입력 $Q$에 앞서 LLM의 컨텍스트를 컨디셔닝하는 데 사용되는 문자열로, $P$가 없을 때 $Q$가 제시된 경우보다 더 나은 응답을 보장하기 위한 것이다. 진화된 각 task의 적합성을 평가하려면 -즉시, 우리는 현재 도메인의 전체 학습 세트에서 100개의 Q&A 쌍 batch를 샘플링한다. 
+Promptbreeder는 LLM을 사용하여 입력 텍스트의 변형을 생성할 수 있다는 관찰을 활용한다. 위 그림은 Promptbreeder의 개요를 제공한다. 본 논문은 진화하는 task-prompt에 관심이 있다. Task-prompt $P$는 추가 입력 $Q$에 앞서 LLM의 컨텍스트를 컨디셔닝하는 데 사용되는 문자열로, $P$가 없을 때 $Q$가 제시된 경우보다 더 나은 응답을 보장하기 위한 것이다. 진화된 각 task-prompt의 적합성을 평가하기 위해 현재 도메인의 전체 학습 세트에서 100개의 Q&A 쌍 batch를 샘플링한다. 
 
 Promptbreeder는 진화 알고리즘 (evolutionary algorithm)에 따라 task-prompt를 생성한다. 이 알고리즘의 돌연변이 연산자(mutation operator)는 그 자체로 mutation-prompt $M$으로 컨디셔닝된 LLM이다. 즉, 돌연변이된 task-prompt $P^\prime$은 $P^\prime = \textrm{LLM}(M + P)$로 정의된다. 여기서 '+'는 문자열 concatenation에 해당한다. 
 

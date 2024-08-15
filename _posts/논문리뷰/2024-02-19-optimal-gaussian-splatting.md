@@ -29,7 +29,7 @@ NeRF와 유사하게 3D-GS에 대한 입력은 SfM으로 보정된 카메라와 
 
 안타깝게도 Gaussian은 convolution이나 affine transformation을 통해 Gaussian 속성을 유지함에도 불구하고 projection transformation을 거친 후에 반드시 그러한 특성을 유지하지 못할 수도 있다. 따라서 3D-GS는 local affine approximation을 채택하며, 특히 테일러 전개의 처음 두 항으로 projection 함수를 근사화한다. 그럼에도 불구하고 이러한 근사는 오차를 발생시키며, 렌더링된 이미지에서 아티팩트를 유발할 수 있다. 본 논문에서는 테일러 전개의 나머지 항을 분석하여 3D-GS의 오차와 Gaussian 평균 사이의 관계를 활용한다. 또한 오차 함수의 극한값을 결정하여 오차가 최소화되는 상황을 식별하였다.
 
-저자들은 오차 함수에 대한 극한분석을 바탕으로 Optimal Projection을 제안하였다. 구체적으로, 우리는 Gaussian 평균에서 카메라 중심 방향을 따라 projection한다. 여기서 projection 평면은 Gaussian 평균과 카메라 중심을 연결하는 선에 접한다. 저자들은 다양한 데이터셋에서 제안된 projection을 $z = 1$ 평면에 3D Gaussian을 projection하는 간단한 접근 방식과 비교하였으며, 결과적으로 오차가 감소하여 실시간으로 사실적인 렌더링이 가능함을 보여주었다. 
+저자들은 오차 함수에 대한 극한분석을 바탕으로 Optimal Projection을 제안하였다. 구체적으로, Gaussian 평균에서 카메라 중심 방향을 따라 projection한다. 여기서 projection 평면은 Gaussian 평균과 카메라 중심을 연결하는 선에 접한다. 저자들은 다양한 데이터셋에서 제안된 projection을 $z = 1$ 평면에 3D Gaussian을 projection하는 간단한 접근 방식과 비교하였으며, 결과적으로 오차가 감소하여 실시간으로 사실적인 렌더링이 가능함을 보여주었다. 
 
 ## Preliminaries
 월드 좌표계에는 평균이 $\boldsymbol{\mu}$이고 공분산 행렬이 $\boldsymbol{\Sigma}$인 3D Gaussian $G$가 있으면 다음과 같이 표현된다.

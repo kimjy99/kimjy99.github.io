@@ -94,7 +94,7 @@ Step 2와 Step 3는 계속해서 반복할 수 있다. 새로운 RM을 학습시
 사전 학습된 GPT-3 언어 모델에서 시작한다. GPT-3는 인터넷 데이터의 광범위한 분포에 대해 학습되었고 광범위한 downstream task에 적응할 수 있지만 특성화되지 않은 동작이 있다. GPT-3에서 시작하여 세 가지 테크닉으로 모델을 학습시킨다.
 
 #### Supervised fine-tuning (SFT)
-우리는 지도 학습을 사용하여 레이블러 시연으로 GPT-3를 fine-tuning한다. Cosine learning rate decay와 residual dropout 0.2를 사용하여 16 epoch 동안 학습시켰다. Validation set의 RM 점수를 기반으로 최종 SFT 모델 선택을 수행한다. 저자들은 SFT 모델이 1 epoch 이후 validation loss에 대해 overfit되었음을 발견했다. 그러나 이러한 과적합에도 불구하고 더 많은 epoch에 대한 학습이 RM 점수와 인간 선호도 등급 모두에 도움이 된다는 것을 발견했다.
+Supervised learning을 사용하여 레이블러 시연으로 GPT-3를 fine-tuning한다. Cosine learning rate decay와 residual dropout 0.2를 사용하여 16 epoch 동안 학습시켰다. Validation set의 RM 점수를 기반으로 최종 SFT 모델 선택을 수행한다. 저자들은 SFT 모델이 1 epoch 이후 validation loss에 대해 overfit되었음을 발견했다. 그러나 이러한 과적합에도 불구하고 더 많은 epoch에 대한 학습이 RM 점수와 인간 선호도 등급 모두에 도움이 된다는 것을 발견했다.
 
 #### Reward modeling (RM)
 최종 unembedding layer가 제거된 SFT 모델에서 시작하여 프롬프트와 응답을 받아 스칼라 reward를 출력하도록 모델을 학습시켰다. 본 논문에서는 많은 컴퓨팅을 절약하기 위해 6B RM만 사용하는데, 저자들은 175B RM 학습이 불안정할 수 있으므로 강화학습 동안 value function으로 사용하기에 적합하지 않음을 발견했다. 

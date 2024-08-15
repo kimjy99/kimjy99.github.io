@@ -69,7 +69,7 @@ highlighted [region]."으로 설계한다. Differentiable rendering을 사용하
 
 시점 예측 단계에서 mesh의 360도 view를 렌더링하고 타겟 텍스트 프롬프트에 대한 CLIP 유사도를 측정한다. CLIP 유사도가 가장 높은 렌더가 될 기본 view를 선택한다. 저자들은 바람직한 하이라이트 결과를 생성 가능한 많은 시점이 존재한다는 것을 발견했다. 
 
-각 view $\psi$에 대해 우리는 2D 이미지 $I_\psi$를 렌더링하고 이전 연구들에서 수행한 것처럼 임의의 시점의 2D augmentation $\phi$를 적용한다. 그런 다음 $E_I$로 표시되는 CLIP의 이미지 인코더를 사용하여 각 augmentation 이미지를 CLIP 임베딩 공간 (\mathbb{R}^{768})으로 인코딩한다. 최종 집계 이미지 표현 $e_I$는 모든 view에 대한 평균 CLIP 인코딩이다.
+각 view $\psi$에 대해 2D 이미지 $I_\psi$를 렌더링하고 이전 연구들에서 수행한 것처럼 임의의 시점의 2D augmentation $\phi$를 적용한다. 그런 다음 $E_I$로 표시되는 CLIP의 이미지 인코더를 사용하여 각 augmentation 이미지를 CLIP 임베딩 공간 (\mathbb{R}^{768})으로 인코딩한다. 최종 집계 이미지 표현 $e_I$는 모든 view에 대한 평균 CLIP 인코딩이다.
 
 $$
 \begin{equation}
