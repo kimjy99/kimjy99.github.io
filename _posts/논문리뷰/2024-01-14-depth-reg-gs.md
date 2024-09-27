@@ -8,12 +8,12 @@ tags:
   - Novel View Synthesis
   - 3D Vision
   - AI
-excerpt: "Depth-Regularized Optimization for 3D Gaussian Splatting 논문 리뷰"
+excerpt: "Depth-Regularized Optimization for 3D Gaussian Splatting 논문 리뷰 (CVPRW 2024)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2311.13398)] [[Page](https://robot0321.github.io/DepthRegGS/)]  
+> CVPRW 2024. [[Paper](https://arxiv.org/abs/2311.13398)] [[Page](https://robot0321.github.io/DepthRegGS/)]  
 > Jaeyoung Chung, Jeongtaek Oh, Kyoung Mu Lee  
 > Seoul National University  
 > 22 Nov 2023  

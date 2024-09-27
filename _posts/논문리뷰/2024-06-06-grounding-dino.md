@@ -9,12 +9,13 @@ tags:
   - Computer Vision
   - AI
   - Microsoft
-excerpt: "Grounding DINO 논문 리뷰"
+  - ECCV
+excerpt: "Grounding DINO 논문 리뷰 (ECCV 2024)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2303.05499)] [[Github](https://github.com/IDEA-Research/GroundingDINO)]  
+> ECCV 2024. [[Paper](https://arxiv.org/abs/2303.05499)] [[Github](https://github.com/IDEA-Research/GroundingDINO)]  
 > Shilong Liu, Zhaoyang Zeng, Tianhe Ren, Feng Li, Hao Zhang, Jie Yang, Chunyuan Li, Jianwei Yang, Hang Su, Jun Zhu, Lei Zhang  
 > BNRist Center | IDEA | HKUST | The Chinese University of Hong Kong | Microsoft Research  
 > 9 Mar 2023  

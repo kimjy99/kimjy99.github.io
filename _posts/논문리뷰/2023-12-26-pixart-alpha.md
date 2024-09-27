@@ -8,12 +8,13 @@ tags:
   - Text-to-Image
   - Computer Vision
   - AI
-excerpt: "PixArt-α 논문 리뷰"
+  - ICLR
+excerpt: "PixArt-α 논문 리뷰 (ICLR 2024 Spotlight)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2310.00426)] [[Page](https://pixart-alpha.github.io/)] [[Github](https://github.com/PixArt-alpha/PixArt-alpha)] [[Demo](https://huggingface.co/PixArt-alpha)]  
+> ICLR 2024. [[Paper](https://arxiv.org/abs/2310.00426)] [[Page](https://pixart-alpha.github.io/)] [[Github](https://github.com/PixArt-alpha/PixArt-alpha)] [[Demo](https://huggingface.co/PixArt-alpha)]  
 > Junsong Chen, Jincheng Yu, Chongjian Ge, Lewei Yao, Enze Xie, Yue Wu, Zhongdao Wang, James Kwok, Ping Luo, Huchuan Lu, Zhenguo Li  
 > Huawei Noah’s Ark Lab | Dalian University of Technology | HKU | HKUST  
 > 30 Sep 2023  

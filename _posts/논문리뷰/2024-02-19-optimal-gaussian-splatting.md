@@ -8,12 +8,12 @@ tags:
   - 3D Vision
   - Novel View Synthesis
   - AI
-excerpt: "Optimal Gaussian Splatting 논문 리뷰"
+excerpt: "Optimal Gaussian Splatting 논문 리뷰 (ECCV 2024)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2024. [[Paper](https://arxiv.org/abs/2402.00752)]  
+> ECCV 2024. [[Paper](https://arxiv.org/abs/2402.00752)]  
 > Letian Huang, Jiayang Bai, Jie Guo, Yanwen Guo  
 > Nanjing University  
 > 1 Feb 2024  

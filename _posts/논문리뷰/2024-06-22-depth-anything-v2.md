@@ -7,12 +7,13 @@ tags:
   - Monocular Depth Estimation
   - Computer Vision
   - AI
-excerpt: "Depth Anything V2 논문 리뷰"
+  - NeurIPS
+excerpt: "Depth Anything V2 논문 리뷰 (NeurIPS 2024)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2024. [[Paper](https://arxiv.org/abs/2406.09414)] [[Page](https://depth-anything-v2.github.io/)] [[Github](https://github.com/DepthAnything/Depth-Anything-V2)]  
+> NeurIPS 2024. [[Paper](https://arxiv.org/abs/2406.09414)] [[Page](https://depth-anything-v2.github.io/)] [[Github](https://github.com/DepthAnything/Depth-Anything-V2)]  
 > Lihe Yang, Bingyi Kang, Zilong Huang, Zhen Zhao, Xiaogang Xu, Jiashi Feng, Hengshuang Zhao  
 > HKU | TikTok  
 > 13 Jun 2024  

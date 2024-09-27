@@ -8,12 +8,13 @@ tags:
   - Text-to-Video
   - Computer Vision
   - AI
-excerpt: "StyleCrafter 논문 리뷰"
+  - SIGGRAPH
+excerpt: "StyleCrafter 논문 리뷰 (SIGGRAPH Asia 2024)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2312.00330)] [[Page](https://gongyeliu.github.io/StyleCrafter.github.io/)] [[Github](https://github.com/GongyeLiu/StyleCrafter)]  
+> SIGGRAPH Asia 2024. [[Paper](https://arxiv.org/abs/2312.00330)] [[Page](https://gongyeliu.github.io/StyleCrafter.github.io/)] [[Github](https://github.com/GongyeLiu/StyleCrafter)]  
 > Gongye Liu, Menghan Xia, Yong Zhang, Haoxin Chen, Jinbo Xing, Xintao Wang, Yujiu Yang, Ying Shan  
 > Tsinghua University | Tencent AI Lab | CUHK  
 > 1 Dec 2023  

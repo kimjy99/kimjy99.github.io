@@ -9,12 +9,13 @@ tags:
   - 3D Vision
   - AI
   - Google
-excerpt: "DrivingGaussian 논문 리뷰"
+  - CVPR
+excerpt: "DrivingGaussian 논문 리뷰 (CVPR 2024)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2312.07920)] [[Page](https://pkuvdig.github.io/DrivingGaussian/)]  
+> CVPR 2024. [[Paper](https://arxiv.org/abs/2312.07920)] [[Page](https://pkuvdig.github.io/DrivingGaussian/)]  
 > Xiaoyu Zhou, Zhiwei Lin, Xiaojun Shan, Yongtao Wang, Deqing Sun, Ming-Hsuan Yang  
 > Peking University | Google Research | University of California  
 > 13 Dec 2023  

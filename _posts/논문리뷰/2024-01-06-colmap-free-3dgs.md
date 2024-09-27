@@ -9,12 +9,13 @@ tags:
   - 3D Vision
   - AI
   - NVIDIA
-excerpt: "COLMAP-Free 3D Gaussian Splatting 논문 리뷰"
+  - CVPR
+excerpt: "COLMAP-Free 3D Gaussian Splatting 논문 리뷰 (CVPR 2024 Highlight)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2312.07504)] [[Page](https://oasisyang.github.io/colmap-free-3dgs/)]  
+> CVPR 2024. [[Paper](https://arxiv.org/abs/2312.07504)] [[Page](https://oasisyang.github.io/colmap-free-3dgs/)]  
 > Yang Fu, Sifei Liu, Amey Kulkarni, Jan Kautz, Alexei A. Efros, Xiaolong Wang  
 > UC San Deigo | NVIDIA | UC Berkeley  
 > 12 Dec 2023  

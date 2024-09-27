@@ -8,12 +8,13 @@ tags:
   - Text-to-3D
   - 3D Vision
   - AI
-excerpt: "SweetDreamer 논문 리뷰"
+  - ICLR
+excerpt: "SweetDreamer 논문 리뷰 (ICLR 2024)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2310.02596)] [[Page](https://sweetdreamer3d.github.io/)]  
+> ICLR 2024. [[Paper](https://arxiv.org/abs/2310.02596)] [[Page](https://sweetdreamer3d.github.io/)]  
 > Weiyu Li, Rui Chen, Xuelin Chen, Ping Tan  
 > HKUST | Light Illusions | South China University of Technology | Tencent AI Lab  
 > 4 Oct 2023  

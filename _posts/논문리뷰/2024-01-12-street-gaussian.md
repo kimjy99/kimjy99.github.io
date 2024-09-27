@@ -8,12 +8,13 @@ tags:
   - Novel View Synthesis
   - 3D Vision
   - AI
-excerpt: "Street Gaussians 논문 리뷰"
+  - ECCV
+excerpt: "Street Gaussians 논문 리뷰 (ECCV 2024)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2024. [[Paper](https://arxiv.org/abs/2401.01339)] [[Page](https://zju3dv.github.io/street_gaussians/)]  
+> ECCV 2024. [[Paper](https://arxiv.org/abs/2401.01339)] [[Page](https://zju3dv.github.io/street_gaussians/)]  
 > Yunzhi Yan, Haotong Lin, Chenxu Zhou, Weijie Wang, Haiyang Sun, Kun Zhan, Xianpeng Lang, Xiaowei Zhou, Sida Peng  
 > Zhejiang University | Li Auto  
 > 2 Jan 2024  
