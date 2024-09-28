@@ -67,7 +67,7 @@ SoundStorm은 컨디셔닝 신호를 나타내는 이산 토큰 시퀀스를 입
 마스킹된 토큰 시퀀스가 주어지면 ground-truth 토큰을 타겟으로 하는 cross-entropy loss로 모델을 학습한다. 여기서 loss는 $q$번째 RVQ level 내에서 마스킹된 토큰에 대해서만 계산된다. 
 
 ### 3. Iterative Parallel Decoding
-컨디셔닝 신호가 주어지면 우리의 디코딩 체계는 프롬프트를 제외한 모든 SoundStream 토큰을 마스킹하여 시작한다. 그런 다음 level $1, \ldots, q$에 대한 모든 토큰이 샘플링된 경우에만 level $q+1$로 진행하면서 coarse -to-fine 방식으로 level별로 RVQ 토큰 샘플링을 진행한다. RVQ level 내에서 MaskGIT의 신뢰도 기반 샘플링 체계를 사용한다. 즉, 여러 forward pass를 수행하고 각 iteration $i$에서 마스킹된 위치에 대한 후보를 샘플링하고 신뢰도 점수를 기반으로 이들의 $p_i$를 유지한다. 여기서 $p_i$는 cosine schedule을 따른다. MaskGIT와 다르게 각 RVQ level 내의 마지막 iteration에 대한 신뢰도 기반 샘플링 대신 greedy 디코딩을 사용하면 인지된 오디오 품질이 개선된다. 
+컨디셔닝 신호가 주어지면 디코딩 체계는 프롬프트를 제외한 모든 SoundStream 토큰을 마스킹하여 시작한다. 그런 다음 level $1, \ldots, q$에 대한 모든 토큰이 샘플링된 경우에만 level $q+1$로 진행하면서 coarse -to-fine 방식으로 level별로 RVQ 토큰 샘플링을 진행한다. RVQ level 내에서 MaskGIT의 신뢰도 기반 샘플링 체계를 사용한다. 즉, 여러 forward pass를 수행하고 각 iteration $i$에서 마스킹된 위치에 대한 후보를 샘플링하고 신뢰도 점수를 기반으로 이들의 $p_i$를 유지한다. 여기서 $p_i$는 cosine schedule을 따른다. MaskGIT와 다르게 각 RVQ level 내의 마지막 iteration에 대한 신뢰도 기반 샘플링 대신 greedy 디코딩을 사용하면 인지된 오디오 품질이 개선된다. 
 
 RVQ 디코딩을 level별로 수행하면 finer level에서 조건부 독립 가정을 활용할 수 있다. 즉, 로컬의 세밀한 음향 디테일을 나타내기 때문에 여러 개의 finer 토큰을 병렬로 샘플링할 수 있다. 이는 디코딩 중에 finer RVQ level로 진행함에 따라 forward pass 수를 크게 줄일 수 있음을 의미한다.
 

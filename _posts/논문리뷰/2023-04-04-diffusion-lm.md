@@ -134,7 +134,7 @@ $$
 
 ## Decoding and Controllable Generation with Diffusion-LM
 ### 1. Controllable Text Generation
-제어에 대한 우리의 접근 방식은 Bayesian 공식에서 영감을 받았지만 이산적인 텍스트에서 직접 제어를 수행하는 대신 Diffusion-LM에서 정의한 연속적인 latent variable 시퀀스 $x0:T$에 대한 제어를 수행하고 반올림 step을 적용하여 이러한 latent들을 텍스트로 변환한다. 
+제어에 대한 본 논문의 접근 방식은 Bayesian 공식에서 영감을 받았지만 이산적인 텍스트에서 직접 제어를 수행하는 대신 Diffusion-LM에서 정의한 연속적인 latent variable 시퀀스 $x0:T$에 대한 제어를 수행하고 반올림 step을 적용하여 이러한 latent들을 텍스트로 변환한다. 
 
 $x0:T$를 제어하는 것은 사후 확률 분포 $p (x_{0:T} \vert c) = \prod_{t=1}^T p(x_{t-1} \vert x_t, c)$에서 디코딩하는 것과 동등하며, 각 diffusion step에서 이 joint inference problem을 제어 문제의 시퀀스로 분해한다. 
 
