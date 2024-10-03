@@ -5,7 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - Diffusion
-  - Low-Rank Adaptation
+  - LoRA
   - Image Segmentation
   - Computer Vision
   - AI
