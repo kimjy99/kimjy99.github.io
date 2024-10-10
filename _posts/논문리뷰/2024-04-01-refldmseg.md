@@ -44,7 +44,7 @@ In-context learning은 비전 및 NLP를 위한 cross-task modeling에 대한 �
 
 먼저, 간단하지만 효과적인 instruction 추출 전략을 제안하였다. 이러한 방식으로 얻은 instruction은 효과적인 guidance를 제공할 수 있으며, 잘못된 instruction에 대한 robustness를 가진다. 다음으로 binary segmentation mask와 3채널 이미지를 정렬하기 위해 pseudo masking modeling을 통해 새로운 output alignment 타겟을 설계하였다. 그런 다음 Ref LDM-Seg-f와 Ref LDM-Seg-n이라는 두 가지 메타 아키텍처를 제안하였다. 둘은 입력 공식, denoising step, 최적화 목표가 다르다. 특히 픽셀 space와 latent space에서 Ref LDM-Seg-f에 대한 두 가지 최적화 목표를 각각 설계하였다. 
 
-실험들은 output alignment의 중요성을 보여준다. 저자들은 주로 데이터보다는 아키텍처의 영향에 중점을 두었다. 따라서 few-Shot 학습 데이터셋보다 크지만 foundation model보다는 훨씬 작은 일정량의 학습 데이터를 유지하려고 하였다. 이를 위해 마지막으로 image semantic segmentation, video object segmentation, video semantic segmentation로 구성된 크기가 제한되어 있는 in-context segmentation 벤치마크를 제안하였다. 
+실험들은 output alignment의 중요성을 보여준다. 저자들은 주로 데이터보다는 아키텍처의 영향에 중점을 두었다. 따라서 few-shot 학습 데이터셋보다 크지만 foundation model보다는 훨씬 작은 일정량의 학습 데이터를 유지하려고 하였다. 이를 위해 마지막으로 image semantic segmentation, video object segmentation, video semantic segmentation로 구성된 크기가 제한되어 있는 in-context segmentation 벤치마크를 제안하였다. 
 
 ## Method
 LDM은 생성 task를 위해 설계되었다. Segmentation에 LDM을 적용하는 대부분의 연구에는 중간 feature 또는 불완전한 분할 결과를 처리하기 위한 후속 신경망이 필요하다. 그러나 생성 모델로서 이러한 설계를 채택한다고 해서 LDM의 생성 잠재력이 실현되는 것은 아니다. 이를 위해 저자들은 이러한 잠재력을 탐색하기 위해 최소한의 변경을 적용한 기본 모델로 Stable Diffusion을 선택했다. 

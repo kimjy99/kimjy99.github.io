@@ -106,7 +106,7 @@ $$
 \end{equation}
 $$
 
-실제로 사전 학습된 모델 $\epsilon_\textrm{pretrain} (x_t, t, y)$의 작은 U-Net 또는 [LoRA](https://kimjy99.github.io/논문리뷰/lora)로 $\epsilon_\phi$를 parameterize하고 추가 카메라 파라미터 $c$를 네트워크의 조건 임베딩에 더한다. 대부분의 경우 LoRA를 사용하면 얻은 샘플의 충실도가 크게 향상될 수 있으며, 이는 LoRA가 효율적인 few-Shot fine-Tuning을 위해 설계되었으며 $\epsilon_\textrm{pretrain}$의 사전 정보를 활용할 수 있기 때문이다. 
+실제로 사전 학습된 모델 $\epsilon_\textrm{pretrain} (x_t, t, y)$의 작은 U-Net 또는 [LoRA](https://kimjy99.github.io/논문리뷰/lora)로 $\epsilon_\phi$를 parameterize하고 추가 카메라 파라미터 $c$를 네트워크의 조건 임베딩에 더한다. 대부분의 경우 LoRA를 사용하면 얻은 샘플의 충실도가 크게 향상될 수 있으며, 이는 LoRA가 효율적인 few-shot fine-Tuning을 위해 설계되었으며 $\epsilon_\textrm{pretrain}$의 사전 정보를 활용할 수 있기 때문이다. 
 
 각 ODE 시간 $\tau$에서 $\epsilon_\phi$가 현재 분포 $q_t^{\mu_\tau}$와 일치하는지 확인해야 한다. 따라서 $\epsilon_\phi$와 $\theta^{(i)}$를 교대로 최적화하고 각 입자 $\theta^{(i)}$는 
 
