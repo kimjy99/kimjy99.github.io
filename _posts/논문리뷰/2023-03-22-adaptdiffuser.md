@@ -109,7 +109,7 @@ $$
 \end{equation}
 $$
 
-따라서, reward-to-go를 최대화하는 것이 목표인 task의 경우 $\mathcal{O}_t$로 timestep $t$에서의 궤적의 최적성을 나타낸다. 그리고 $\mathcal{O}_t$는 $p(\mathcal{O}_t = 1) = \exp (\gamma^t \mathcal{R}(s_t, a_t))$인 베르누이 분포를 따른다. $p(\mathcal{O}_{1:T} \vert \tau^i)$가 특정 Lipschitz 조건을 만족하면, reverse diffusion process의 조건부 transition 확률은 다음과 같이 근사될 수 있다. 
+따라서, reward-to-go를 최대화하는 것이 목표인 task의 경우 $$\mathcal{O}_t$$로 timestep $t$에서의 궤적의 최적성을 나타낸다. 그리고 $$\mathcal{O}_t$$는 $$p(\mathcal{O}_t = 1) = \exp (\gamma^t \mathcal{R}(s_t, a_t))$$인 베르누이 분포를 따른다. $$p(\mathcal{O}_{1:T} \vert \tau^i)$$가 특정 Lipschitz 조건을 만족하면, reverse diffusion process의 조건부 transition 확률은 다음과 같이 근사될 수 있다. 
 
 $$
 \begin{equation}
