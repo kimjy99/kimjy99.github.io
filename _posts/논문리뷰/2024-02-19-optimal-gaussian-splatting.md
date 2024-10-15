@@ -86,7 +86,7 @@ $$
 \end{aligned}
 $$
 
-여기서 $$\frac{\partial \phi}{\partial \textbf{x}^\prime} (\boldsymbol{\mu}^\prime) = $\textbf{J}$$는 projective transformation의 affine approximation의 Jacobian이다. 테일러 전개의 나머지 항을 무시하여 이 local affine approximation을 적용하면 $z = 1$ 평면에 projection된 2D Gaussian $G_\textrm{2D}$를 얻을 수 있다. 
+여기서 $$\frac{\partial \phi}{\partial \textbf{x}^\prime} (\boldsymbol{\mu}^\prime) = \textbf{J}$$는 projective transformation의 affine approximation의 Jacobian이다. 테일러 전개의 나머지 항을 무시하여 이 local affine approximation을 적용하면 $z = 1$ 평면에 projection된 2D Gaussian $G_\textrm{2D}$를 얻을 수 있다. 
 
 $$
 \begin{aligned}
