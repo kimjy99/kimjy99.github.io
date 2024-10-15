@@ -5,6 +5,7 @@ categories:
   - AI소식
 tags:
   - NLP
+  - LLM
   - AI
 excerpt: "gpt2-chatbot"
 use_math: true

@@ -8,6 +8,7 @@ tags:
   - Fine-Tuning
   - Reinforcement Learning
   - NLP
+  - LLM
   - AI
   - OpenAI
 excerpt: "InstructGPT (RLHF) 논문 리뷰"

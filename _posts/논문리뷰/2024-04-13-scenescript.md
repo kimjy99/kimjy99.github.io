@@ -8,6 +8,7 @@ tags:
   - 3D Vision
   - Object Detection
   - NLP
+  - LLM
   - AI
   - Meta AI
 excerpt: "SceneScript 논문 리뷰"

@@ -5,6 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - NLP
+  - LLM
   - AI
   - Google
 excerpt: "Promptbreeder 논문 리뷰"

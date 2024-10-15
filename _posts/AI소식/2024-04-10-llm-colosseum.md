@@ -5,6 +5,7 @@ categories:
   - AI소식
 tags:
   - NLP
+  - LLM
   - AI
 excerpt: "LLM Colosseum"
 use_math: true
