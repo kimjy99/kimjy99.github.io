@@ -6,7 +6,7 @@ categories:
 tags:
   - Diffusion
   - Text Generation
-  - Natural Language Processing
+  - NLP
   - AI
   - Microsoft
   - NeurIPS

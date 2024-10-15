@@ -4,7 +4,7 @@ last_modified_at: 2024-05-14
 categories:
   - AI소식
 tags:
-  - Natural Language Processing
+  - NLP
   - AI
 excerpt: "gpt2-chatbot"
 use_math: true

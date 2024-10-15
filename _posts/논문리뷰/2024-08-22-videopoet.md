@@ -7,7 +7,7 @@ tags:
   - Text-to-Video
   - Image-to-Video
   - Inpainting
-  - Natural Language Processing
+  - NLP
   - Large Multimodal Model
   - Computer Vision
   - AI

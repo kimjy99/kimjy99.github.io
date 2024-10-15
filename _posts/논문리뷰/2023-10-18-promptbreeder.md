@@ -4,7 +4,7 @@ last_modified_at: 2023-10-18
 categories:
   - 논문리뷰
 tags:
-  - Natural Language Processing
+  - NLP
   - AI
   - Google
 excerpt: "Promptbreeder 논문 리뷰"

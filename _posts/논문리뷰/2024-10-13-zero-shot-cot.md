@@ -4,7 +4,7 @@ last_modified_at: 2024-10-13
 categories:
   - 논문리뷰
 tags:
-  - Natural Language Processing
+  - NLP
   - AI
   - Google
   - NeurIPS

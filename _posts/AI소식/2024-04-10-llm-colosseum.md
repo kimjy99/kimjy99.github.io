@@ -4,7 +4,7 @@ last_modified_at: 2024-04-10
 categories:
   - AI소식
 tags:
-  - Natural Language Processing
+  - NLP
   - AI
 excerpt: "LLM Colosseum"
 use_math: true

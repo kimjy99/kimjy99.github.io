@@ -6,7 +6,7 @@ categories:
 tags:
   - Diffusion
   - Language Generation
-  - Natural Language Processing
+  - NLP
   - AI
 excerpt: "SeqDiffuSeq 논문 리뷰"
 use_math: true

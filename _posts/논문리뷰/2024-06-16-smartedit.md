@@ -7,7 +7,7 @@ tags:
   - Large Multimodal Model
   - Diffusion
   - Image Editing
-  - Natural Language Processing
+  - NLP
   - Computer Vision
   - AI
   - CVPR

@@ -6,7 +6,7 @@ categories:
 tags:
   - Gaussian Splatting
   - Novel View Synthesis
-  - Natural Language Processing
+  - NLP
   - 3D Vision
   - AI
   - CVPR

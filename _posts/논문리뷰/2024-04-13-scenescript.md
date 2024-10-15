@@ -7,7 +7,7 @@ tags:
   - Transformer
   - 3D Vision
   - Object Detection
-  - Natural Language Processing
+  - NLP
   - AI
   - Meta AI
 excerpt: "SceneScript 논문 리뷰"

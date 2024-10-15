@@ -6,7 +6,7 @@ categories:
 tags:
   - Diffusion
   - Language Generation
-  - Natural Language Processing
+  - NLP
   - AI
   - NeurIPS
 excerpt: "Diffusion-LM 논문 리뷰 (NeurIPS 2022)"
