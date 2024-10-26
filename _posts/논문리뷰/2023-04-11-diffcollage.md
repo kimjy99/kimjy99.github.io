@@ -153,7 +153,7 @@ $$
 
 <center><img src='{{"/assets/img/diffcollage/diffcollage-fig5.PNG" | relative_url}}' width="60%"></center>
 <br>
-다음은 실제 이미지를 연결한 이미지이다. 64$\times$64 크기의 실제 이미지 $x^{(0)}과 $x^{(n)}$이 주어지면 DiffCollage는 1024$\times$10752 이미지를 생성할 수 있다. 
+다음은 실제 이미지를 연결한 이미지이다. 64$\times$64 크기의 실제 이미지 $x^{(0)}$과 $x^{(N)}$이 주어지면 DiffCollage는 1024$\times$10752 이미지를 생성할 수 있다. 
 
 <center><img src='{{"/assets/img/diffcollage/diffcollage-fig6.PNG" | relative_url}}' width="100%"></center>
 <br>
