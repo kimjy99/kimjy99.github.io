@@ -193,7 +193,7 @@ $$
 
 <center><img src='{{"/assets/img/depth-any-video/depth-any-video-fig6.PNG" | relative_url}}' width="95%"></center>
 <br>
-다음은 VAE에 대한 ablation study 결과이다. 
+다음은 VAE에 대한 ablation study 결과이다. (a)는 GT 깊이이고, (b)와 (c)는 각각 CogVideoX와 SVD를 사용한 결과이다. 
 
 <center><img src='{{"/assets/img/depth-any-video/depth-any-video-fig7.PNG" | relative_url}}' width="78%"></center>
 <span style="display: block; margin: 1px 0;"></span>
