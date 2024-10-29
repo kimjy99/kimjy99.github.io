@@ -130,7 +130,7 @@ Multi-instance segmentation로의 이러한 전환은 두 가지 주요 고려 �
 
 $$
 \begin{aligned}
-P_i &= \underset{n}{\arg \max} A_n, \quad n \in \{0, 1\} \\
+P_i &= \underset{n}{\arg \max} A_n, \quad n \in \{0, t\} \\
 \textrm{where} \; A_t &= \sum_{v,j,k} \alpha_i T_i \mathbb{I} (M_{jk}^v, t), \\
 A_0 &= A_\textrm{others} = \sum_{e \ne t} \sum_{v,j,k} \alpha_i T_i \mathbb{I} (M_{jk}^v, e)
 \end{aligned}
@@ -141,7 +141,7 @@ $$
 ### 3. Depth-guided Novel View Mask Rendering
 <center><img src='{{"/assets/img/flashsplat/flashsplat-fig3.PNG" | relative_url}}' width="95%"></center>
 <br>
-위의 공식은 dense한 최적화의 필요성을 회피하므로, 마스크된 2D 뷰의 약 10%만을 사용하여 robust한 분할 결과를 얻을 수 있다. 또한 FlashSplat은 이전에 보지 못한 뷰에 대한 2D 마스크 $$\hat{M}^v$$를 생성하는 기능을 제공한다. Binary segmentation에서 새로운 뷰 마스크 렌더링의 경우, 단순히 Pi = 1인 전경 Gaussian을 렌더링하여 각 픽셀에 대한 누적 알파 값 $\rho_{jk}$를 생성한 다음, 미리 정의된 threshold $\tau$를 사용하여 2D 마스크를 얻을 수 있다. 
+위의 공식은 dense한 최적화의 필요성을 회피하므로, 마스크된 2D 뷰의 약 10%만을 사용하여 robust한 분할 결과를 얻을 수 있다. 또한 FlashSplat은 이전에 보지 못한 뷰에 대한 2D 마스크 $$\hat{M}^v$$를 생성하는 기능을 제공한다. Binary segmentation에서 새로운 뷰 마스크 렌더링의 경우, 단순히 $P_i = 1$인 전경 Gaussian을 렌더링하여 각 픽셀에 대한 누적 알파 값 $\rho_{jk}$를 생성한 다음, 미리 정의된 threshold $\tau$를 사용하여 2D 마스크를 얻을 수 있다. 
 
 $$
 \begin{equation}
