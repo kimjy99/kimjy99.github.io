@@ -176,7 +176,8 @@ Backbone으로 [diffusion transformer (DiT)](https://kimjy99.github.io/논문리
 ## Experiments
 - Inference 속도
   - next-token prediction을 사용하므로 시퀀스의 길이에 따라 inference 시간이 달라짐
-  - flash-attention과 KV cache를 적용한 A100 GPU에서 초당 약 100 개의 토큰 생성
+  - flash-attention과 KV cache를 적용
+  - A100 GPU에서 초당 약 100 개의 토큰 생성
   - 면이 1,000개인 메쉬를 생성하는 데 45초 소요 (2,000개는 90초, 4,000개는 3분)
 
 ### 1. Qualitative Results
