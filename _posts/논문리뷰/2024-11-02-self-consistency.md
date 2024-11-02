@@ -45,7 +45,7 @@ Self-consistency는 완전히 unsupervised이고, 사전 학습된 언어 모델
 
 본 논문은 **self-consistency**를 제안함으로써 이 직관을 활용하였다. 먼저, 언어 모델은 수동으로 작성된 chain-of-thought (CoT) 예시들로 프롬프팅된다. 그 후, 언어 모델의 디코더에서 일련의 후보 출력을 샘플링하여 다양한 추론 경로 후보들을 생성한다. Self-consistency는 temperature sampling, top-k sampling, nucleus sampling 등 대부분의 기존 샘플링 알고리즘과 호환된다. 마지막으로, 샘플링된 추론 경로를 marginalize out하여 생성된 답변들 중 가장 일관성 있는 답변을 선택하여 답변을 집계한다. 
 
-구체적으로, 생성된 답변들 $$\{a_i\}_{i=1}^m$가 고정된 답변 집합 $\mathbb{A}$에서 나온다고 가정하자. 프롬프트와 질문이 주어졌을 때, self-consistency는 추가적인 latent variable $r_i$를 도입하는데, 이는 $i$번째 출력에서 추론 경로를 나타내는 토큰들의 시퀀스이다. 그런 다음 $(r_i, a_i)$으로 결합하며, 여기서 추론 경로 $r_i$는 선택 사항이고 최종 답변 $a_i$에 도달하기 위해 사용된다. 
+구체적으로, 생성된 답변들 $$\{a_i\}_{i=1}^m$$가 고정된 답변 집합 $\mathbb{A}$에서 나온다고 가정하자. 프롬프트와 질문이 주어졌을 때, self-consistency는 추가적인 latent variable $r_i$를 도입하는데, 이는 $i$번째 출력에서 추론 경로를 나타내는 토큰들의 시퀀스이다. 그런 다음 $(r_i, a_i)$으로 결합하며, 여기서 추론 경로 $r_i$는 선택 사항이고 최종 답변 $a_i$에 도달하기 위해 사용된다. 
 
 예를 들어, 위 그림의 출력 3을 보면, `"She eats 3 for breakfast ... So she has 9 eggs * $2 = $18"`은 $r_i$가 되고, 마지막 문장에서의 답변 `"The answer is $18"`의 18이 $a_i$로 파싱된다. 이러한 파싱 절차는 task에 따라 다르며, 산술적 추론의 경우 `"The answer is"` 이후에 나오는 첫번째 수를 파싱하게 된다. 
 
