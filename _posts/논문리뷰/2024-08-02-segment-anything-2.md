@@ -5,6 +5,8 @@ categories:
   - 논문리뷰
 tags:
   - Image Segmentation
+  - Video Object Segmentation
+  - Visual Object Tracking
   - Computer Vision
   - AI
   - Meta AI

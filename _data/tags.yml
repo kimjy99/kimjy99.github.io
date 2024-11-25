@@ -85,9 +85,11 @@
 - Implicit Neural Representation
 - Image Recognition
 - Video Recognition
+- Video Object Segmentation
 - Stereo Depth Estimation
 - Monocular Depth Estimation
 - Video Understanding
+- Visual Object Tracking
 - Multiple Object Tracking
 - Style Transfer
 - 3D Motion Tracking
