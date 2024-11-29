@@ -21,7 +21,7 @@ classes: wide
 > Meta Reality Labs | Simon Fraser University  
 > 19 Mar 2024  
 
-<center><img src='{{"/assets/img/scenescript/scenescript-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/scenescript/scenescript-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 수년에 걸쳐 연구자들은 복잡한 실제 장면을 충실도 있게 표현하는 것을 목표로 메쉬, 복셀 그리드, 포인트 클라우드, 암시적 표현과 같은 다양한 장면 표현들을 탐색해 왔다. 각각의 장면 표현들은 장점과 한계점을 가지기 때문에 다양한 task에 적용하기 어렵다. 본 논문에서는 보다 효율적이고 다재다능한 구조화된 언어 커맨드를 기반으로 하는 새로운 장면 표현을 제안하였다. 
@@ -48,7 +48,7 @@ classes: wide
 
 이러한 세 가지 주요 레이아웃 엔터티를 나타내는 것 외에도 개체를 bounding box로 공동으로 추론하는 것을 목표로 한다. 따라서 네 번째 커맨드인 `make_bbox`를 도입한다. `make_bbox`의 간단한 parameterization은 -z 방향을 가리키는 3D bounding box를 나타낸다. 커맨드들과 파라미터에 대한 요약은 아래 표에 나와 있다. 
 
-<center><img src='{{"/assets/img/scenescript/scenescript-table1.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/scenescript/scenescript-table1.webp" | relative_url}}' width="65%"></center>
 <br>
 실내 환경에서 구조와 객체를 캡처하기 위한 네 가지 커맨드만 설명했지만 중요한 점은 이 텍스트 기반 parameterization은 상태나 기타 기능적 측면을 포함하도록 쉽게 확장될 수 있다. 예를 들어 `make_door` 커맨드에 `open_degree`와 같은 파라미터를 포함하여 문 상태를 나타낼 수도 있다. 
 
@@ -56,14 +56,14 @@ classes: wide
 하나의 장면은 제안된 구조화된 언어 커맨드의 시퀀스로 설명할 수 있다. 시퀀스에는 특별한 순서가 필요하지 않으며 임의의 길이를 갖는다. 이 정의에서 간단한 해석기를 통해 커맨드를 파싱하여 3D 장면을 쉽게 얻을 수 있다.
 
 ### 3. Training Dataset
-<center><img src='{{"/assets/img/scenescript/scenescript-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/scenescript/scenescript-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 저자들은 구조화된 언어 커맨드를 기반으로 실용적인 실내 장면 재구성을 위해 **Aria Synthetic Environments (ASE)**라는 새로운 데이터셋을 공개적으로 출시했다. 이는 ground-truth 커맨드 시퀀스와 연결된 장면의 다수의 학습 쌍으로 구성된다.
 
 Transformer 학습에는 막대한 양의 데이터가 필요하기 때문에 10만 개의 합성 장면을 생성했는데 이는 실제 데이터로는 불가능하다. 각 합성 장면에는 평면도 모델, 완전한 3D 장면, 시뮬레이션된 에이전트 궤적, 이 궤적의 사실적인 렌더링이 함께 제공된다. 
 
 ## Network Architecture
-<center><img src='{{"/assets/img/scenescript/scenescript-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/scenescript/scenescript-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문의 아키텍처는 동영상 시퀀스를 사용하고 토큰화된 형식으로 SceneScript 언어를 반환하는 간단한 인코더-디코더 아키텍처이다. 
 
@@ -145,14 +145,14 @@ Tokenization의 목표는 구조화된 언어 커맨드 시퀀스와 Transformer
 ### 1. Layout Estimation
 다음은 Aria Synthetic Environments에서 기존 방법들과 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/scenescript/scenescript-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/scenescript/scenescript-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
-<center><img src='{{"/assets/img/scenescript/scenescript-table2.PNG" | relative_url}}' width="67%"></center>
+<center><img src='{{"/assets/img/scenescript/scenescript-table2.webp" | relative_url}}' width="67%"></center>
 
 ### 2. Object Detection
 다음은 3D Object Detection 성능을 SOTA 방법들과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/scenescript/scenescript-table3.PNG" | relative_url}}' width="87%"></center>
+<center><img src='{{"/assets/img/scenescript/scenescript-table3.webp" | relative_url}}' width="87%"></center>
 
 ### 3. Extending the SceneScript Structured Language
 저자들은 primitives (직육면체, 원통)들을 설명하기 위해 `make_prim`이라는 커맨드를 추가했다. 
@@ -165,8 +165,8 @@ Tokenization의 목표는 구조화된 언어 커맨드 시퀀스와 Transformer
 
 다음은 (왼쪽) `make_prim` 학습 쌍을 생성하기 위해 사용된 분해된 메쉬들과 (오른쪽) Aria Synthetic Environments에서의 장면 재구성 예시이다. 
 
-<center><img src='{{"/assets/img/scenescript/scenescript-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/scenescript/scenescript-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 실제 장면들에서의 장면 재구성 예시이다. 
 
-<center><img src='{{"/assets/img/scenescript/scenescript-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/scenescript/scenescript-fig6.webp" | relative_url}}' width="100%"></center>

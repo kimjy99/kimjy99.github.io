@@ -22,7 +22,7 @@ CLIP의 최근 발전으로 이미지와 텍스트 모두에서 semantic하게 �
 
 CLIP은 전체 이미지의 내용을 캡처하지만, 보다 정밀한 이해와 제어 가능한 콘텐츠 생성을 위해서는 관심 영역에 초점을 맞추는 것도 중요하다. 관심 영역은 인간 상호작용 또는 인식 모델을 통해 점, 마스크 또는 상자로 지정할 수 있다.
 
-<center><img src='{{"/assets/img/alpha-clip/alpha-clip-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/alpha-clip/alpha-clip-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 기존 방법들은 두 가지 기본 전략을 사용하여 영역 중심의 CLIP feature를 획득하려고 시도했다. 첫 번째 방법은 관심 영역을 별개의 패치로 자르거나 이미지, feature, attention mask의 관련 없는 부분에 마스킹하여 관련 없는 영역을 제외하는 것이다. 그러나 이 방식은 정확한 이미지 이해 및 추론에 중요한 글로벌 정보를 방해하고 생략한다. 두 번째 방법은 CLIP에 공급된 이미지에서 원이나 마스크 윤곽으로 관심 영역을 강조하는 것이다. 사용자 친화적이지만 이미지의 원본 내용을 변경하므로 바람직하지 않은 결과가 발생한다. 
 
@@ -35,11 +35,11 @@ Alpha-CLIP은 2D 및 3D 인식부터 생성까지 다양한 도메인에 plug-an
 3. **2D 생성**: Alpha-CLIP은 dffusion model과 통합되면 image variation task에서 BLIP-Diffusion의 제어 가능성을 향상시킨다. 또한, 피사체 중심 생성을 위해 복잡한 이미지에서 피사체를 추출할 수 있다. 
 4. **3D 생성**: Alpha-CLIP은 3D 생성에도 능숙하다. [Point-E](https://kimjy99.github.io/논문리뷰/point-e)와 함께 사용하여 3D 생성 품질을 향상시킬 수 있다. 또한 [PureCLIPNeRF](https://arxiv.org/abs/2209.15172)와 함께 활용하여 우수한 3D 생성을 최적화할 수 있다. 
 
-<center><img src='{{"/assets/img/alpha-clip/alpha-clip-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/alpha-clip/alpha-clip-table1.webp" | relative_url}}' width="100%"></center>
 
 ## Method
 ### 1. RGBA Region-Text Pair Generation
-<center><img src='{{"/assets/img/alpha-clip/alpha-clip-fig3a.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/alpha-clip/alpha-clip-fig3a.webp" | relative_url}}' width="80%"></center>
 <br>
 저자들은 추가 알파 채널 입력으로 CLIP 모델을 fine-tuning하기 위해 먼저 수백만 개의 RGBA 영역-텍스트 쌍을 생성하는 데이터 생성 파이프라인을 설계하였다. 파이프라인은 grounding data 파이프라인과 classification data 파이프라인으로 구성된다. 
 
@@ -58,7 +58,7 @@ Alpha-CLIP은 2D 및 3D 인식부터 생성까지 다양한 도메인에 plug-an
 7. 세분화된 ImageNet 클래스 레이블을 BLIP-2에서 생성된 이미지별 캡션과 병합하여 수백만 개의 RGBA 영역-텍스트 쌍을 생성한다. 
 
 ### 2. Alpha-CLIP
-<center><img src='{{"/assets/img/alpha-clip/alpha-clip-fig3b.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/alpha-clip/alpha-clip-fig3b.webp" | relative_url}}' width="50%"></center>
 
 ##### 모델 구조
 저자들은 Alpha-CLIP은 CLIP의 사전 지식을 보존하기 위해 CLIP 이미지 인코더를 세밀하게 수정하였다. CLIP 이미지 인코더의 ViT 구조에서는 첫 번째 레이어의 이미지에 RGB 컨볼루션이 적용된다. RGB Conv layer와 평행한 추가 Alpha Conv layer를 도입하여 CLIP 이미지 인코더가 추가 알파 채널을 입력으로 받아들일 수 있도록 한다. 알파 채널 입력의 범위는 $[0, 1]$로 설정되며, 1은 전경을 나타내고 0은 배경을 나타낸다. Alpha Conv 커널 가중치를 0으로 초기화하여 학습 초기에는 Alpha-CLIP이 알파 채널을 입력으로 무시하도록 한다. 
@@ -70,37 +70,37 @@ Alpha-CLIP은 2D 및 3D 인식부터 생성까지 다양한 도메인에 plug-an
 ### 1. Alpha-CLIP in Image Recognition
 다음은 ImageNet-S에서 zero-shot classification 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/alpha-clip/alpha-clip-table2.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/alpha-clip/alpha-clip-table2.webp" | relative_url}}' width="52%"></center>
 <br>
 다음은 다양한 알파 맵을 사용하였을 때의 zero-shot classification 성능을 비교한 표이다. (ImageNet-S)
 
-<center><img src='{{"/assets/img/alpha-clip/alpha-clip-table3.PNG" | relative_url}}' width="43%"></center>
+<center><img src='{{"/assets/img/alpha-clip/alpha-clip-table3.webp" | relative_url}}' width="43%"></center>
 <br>
 다음은 zero-shot REC 성능을 SOTA 방법들과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/alpha-clip/alpha-clip-table4.PNG" | relative_url}}' width="62%"></center>
+<center><img src='{{"/assets/img/alpha-clip/alpha-clip-table4.webp" | relative_url}}' width="62%"></center>
 <br>
 다음은 OV-LVIS에서 open-vocabulary detection 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/alpha-clip/alpha-clip-table5.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/alpha-clip/alpha-clip-table5.webp" | relative_url}}' width="40%"></center>
 
 ### 2. Alpha-CLIP in LMM
 다음은 [BLIP-2](https://arxiv.org/abs/2301.12597)에 Alpha-CLIP을 적용한 결과이다. 왼쪽은 CLIP의 결과이고 가운데와 오른쪽은 Alpha-CLIP의 결과이다. 
 
-<center><img src='{{"/assets/img/alpha-clip/alpha-clip-fig4a.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/alpha-clip/alpha-clip-fig4a.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 [LLaVA-1.5](https://kimjy99.github.io/논문리뷰/llava-1.5)에 Alpha-CLIP을 적용한 결과이다. 
 
-<center><img src='{{"/assets/img/alpha-clip/alpha-clip-fig4b.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/alpha-clip/alpha-clip-fig4b.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 Alpha-CLIP을 적용한 LLaVA의 영역 수준 captioning 성능을 기존 방법들과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/alpha-clip/alpha-clip-table6.PNG" | relative_url}}' width="54%"></center>
+<center><img src='{{"/assets/img/alpha-clip/alpha-clip-table6.webp" | relative_url}}' width="54%"></center>
 
 ### 3. Alpha-CLIP in 3D Object Generation.
 다음은 [Point-E](https://kimjy99.github.io/논문리뷰/point-e)와 [PureCLIPNeRF](https://arxiv.org/abs/2209.15172)에 Alpha-CLIP을 적용한 결과이다. BackAug는 background augmentation이다. 
 
-<center><img src='{{"/assets/img/alpha-clip/alpha-clip-fig5.PNG" | relative_url}}' width="67%"></center>
+<center><img src='{{"/assets/img/alpha-clip/alpha-clip-fig5.webp" | relative_url}}' width="67%"></center>
 
 ## Limitation
 1. 여러 물체에 집중하거나 서로 다른 물체 간의 관계를 모델링하는 능력을 제한되어 있다. 

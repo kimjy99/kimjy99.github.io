@@ -19,7 +19,7 @@ classes: wide
 > Salesforce AI | Stanford University  
 > 21 Nov 2023  
 
-<center><img src='{{"/assets/img/diffusion-dpo/diffusion-dpo-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffusion-dpo/diffusion-dpo-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 Text-to-image (T2I) diffusion model은 일반적으로 방대한 텍스트-이미지 쌍의 데이터셋에 diffusion 목적 함수를 적용하여 하나의 단계로 학습된다. 이는 두 단계로 학습을 받는 LLM과 대조된다. 첫 번째 사전 학습 단계에서는 대규모 데이터에 대해 학습된다. 두 번째 정렬(alignment) 단계에서는 인간의 선호도에 더 잘 맞도록 fine-tuning된다. 정렬은 일반적으로 선호도 데이터를 사용하는 supervised fine-tuning (SFT)이나 [Reinforcement Learning from Human Feedback (RLHF)](https://kimjy99.github.io/논문리뷰/)을 사용하여 수행된다. 
@@ -167,7 +167,7 @@ $$
 
 이 loss는 아래의 loss 그래프에서 볼 수 있듯이 $\epsilon_\theta$가 $x_t^l$보다 $x_t^w$의 denoising에서 더 많이 향상되도록 장려한다. 
 
-<center><img src='{{"/assets/img/diffusion-dpo/diffusion-dpo-fig2.PNG" | relative_url}}' width="43%"></center>
+<center><img src='{{"/assets/img/diffusion-dpo/diffusion-dpo-fig2.webp" | relative_url}}' width="43%"></center>
 
 ## Experiments
 - 데이터셋: Pick-a-Pic
@@ -181,27 +181,27 @@ $$
 ### 1. Primary Results: Aligning Diffusion Models
 다음은 (왼쪽) PartiPrompts과 (오른쪽) HPSv2 데이터셋에 대하여 SDXL과 DPO-SDXL이 생성된 이미지들과 인간 평가자의 선호도이다. 
 
-<center><img src='{{"/assets/img/diffusion-dpo/diffusion-dpo-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffusion-dpo/diffusion-dpo-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 SDXL Base + Refiner와 DPO-SDXL이 생성된 이미지들과 인간 평가자의 선호도이다. 
 
-<center><img src='{{"/assets/img/diffusion-dpo/diffusion-dpo-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffusion-dpo/diffusion-dpo-fig4.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Image-to-Image Editing
 다음은 SDEdit를 사용하여 image-to-image translation task에 대한 결과를 비교한 것이다. (프롬프트: "A fantasy landscape, trending on artstation", "High-resolution rendering of a crowded colorful sci-fi city")
 
-<center><img src='{{"/assets/img/diffusion-dpo/diffusion-dpo-fig5.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/diffusion-dpo/diffusion-dpo-fig5.webp" | relative_url}}' width="70%"></center>
 
 ### 3. Learning from AI Feedback
 다음은 다양한 점수 네트워크의 선호도에 따라 조정된 SD1.5를 서로 평가한 그래프이다. 
 
-<center><img src='{{"/assets/img/diffusion-dpo/diffusion-dpo-fig6.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/diffusion-dpo/diffusion-dpo-fig6.webp" | relative_url}}' width="60%"></center>
 
 ### 4. Analysis
 다음은 Pick-a-Pic (v2) validation set에서의 선호도 정확도를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/diffusion-dpo/diffusion-dpo-table2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/diffusion-dpo/diffusion-dpo-table2.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 Dreamlike과 SDXL의 성능 증가를 나타낸 그래프이다. $y_l$과 $y_w$는 각각 승리 샘플과 패배 샘플의 Pickscore이다. 
 
-<center><img src='{{"/assets/img/diffusion-dpo/diffusion-dpo-fig7.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/diffusion-dpo/diffusion-dpo-fig7.webp" | relative_url}}' width="50%"></center>

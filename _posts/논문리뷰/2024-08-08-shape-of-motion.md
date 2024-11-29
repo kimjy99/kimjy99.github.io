@@ -20,7 +20,7 @@ classes: wide
 > UC Berkeley | Google Research  
 > 18 Jul 2024  
 
-<center><img src='{{"/assets/img/shape-of-motion/shape-of-motion-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/shape-of-motion/shape-of-motion-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 최근 몇 년 동안 정적인 3D 장면 모델링에서 인상적인 진전이 있었지만, 특히 하나의 동영상에서 복잡하고 동적인 3D 장면의 형상과 모션을 복구하는 것은 여전히 ​​열린 문제로 남아 있다. 여러 동적 재구성 및 novel view synthesis (NVS) 접근법이 이 문제를 해결하려고 시도했다. 그러나 대부분의 방법은 동기화된 멀티뷰 동영상 또는 추가 LIDAR/깊이 센서에 의존한다. 최근의 monocular 접근 방식은 일반 동적 동영상에서 작동할 수 있지만 일반적으로 짧은 거리의 scene flow 또는 deformation field로 3D 장면 모션을 모델링하므로 동영상에 지속되는 3D 모션 궤적을 캡처하지 못한다. 
@@ -30,7 +30,7 @@ classes: wide
 저자들은 이 두 가지 통찰력에 기반으로 동적 장면을 지속적인 3D Gaussian 세트로 표현하고 공유된 $$\mathbb{SE}(3)$$ motion base들로 동영상 전체의 모션을 표현하였다. 연속되는 프레임 간의 3D correspondence를 계산하는 기존 scene flow와 달리 본 논문의 표현은 전체 동영상에 대한 지속적인 3D 궤적을 복구하여 지속적인 3D tracking을 가능하게 한다. 생성된 3D 궤적은 3D 공간과 시간을 통해 각 포인트의 움직임을 추적하는 기하학적 패턴을 캡처하므로 본 논문의 방법을 **Shape of Motion**이라 부른다. 
 
 ## Method
-<center><img src='{{"/assets/img/shape-of-motion/shape-of-motion-fig2.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/shape-of-motion/shape-of-motion-fig2.webp" | relative_url}}' width="85%"></center>
 <br>
 - 목표: 전체 동적 장면의 형상과 장면의 모든 포인트의 전체 길이 3D 모션 궤적을 복구
 - 입력
@@ -165,29 +165,29 @@ $$\hat{\textbf{X}}_t$$와 $$\hat{\textbf{X}}_{t^\prime}$$은 시간 $t$ 및 $t^\
 ### 1. Evaluation on iPhone Dataset
 다음은 iPhone 데이터셋에서 3D tracking 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/shape-of-motion/shape-of-motion-table1.PNG" | relative_url}}' width="73%"></center>
+<center><img src='{{"/assets/img/shape-of-motion/shape-of-motion-table1.webp" | relative_url}}' width="73%"></center>
 <br>
 다음은 iPhone 데이터셋에서 NVS를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/shape-of-motion/shape-of-motion-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/shape-of-motion/shape-of-motion-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 PCA 이후의 모션 계수와 depth map 예측의 예시들이다. 
 
-<center><img src='{{"/assets/img/shape-of-motion/shape-of-motion-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/shape-of-motion/shape-of-motion-fig5.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Evaluation on the Kubric dataset
 다음은 Kubric 데이터셋에서 3D tracking을 평가한 표이다. 
 
-<center><img src='{{"/assets/img/shape-of-motion/shape-of-motion-table2.PNG" | relative_url}}' width="35%"></center>
+<center><img src='{{"/assets/img/shape-of-motion/shape-of-motion-table2.webp" | relative_url}}' width="35%"></center>
 <br>
 다음은 최적화된 모션 계수의 처음 3개 PCA 성분을 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/shape-of-motion/shape-of-motion-fig6.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/shape-of-motion/shape-of-motion-fig6.webp" | relative_url}}' width="45%"></center>
 
 ### 3. Ablation studies
 다음은 iPhone 데이터셋에서의 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/shape-of-motion/shape-of-motion-table3.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/shape-of-motion/shape-of-motion-table3.webp" | relative_url}}' width="75%"></center>
 
 ## Limitations
 1. 대부분의 이전 monocular 동적 NVS 방법과 유사하게 여전히 ​​장면별 test-time 최적화가 필요하다. 

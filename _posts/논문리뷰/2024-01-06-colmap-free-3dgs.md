@@ -20,7 +20,7 @@ classes: wide
 > UC San Deigo | NVIDIA | UC Berkeley  
 > 12 Dec 2023  
 
-<center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 사실적인 장면 재구성 및 뷰 합성 분야는 NeRF의 등장으로 크게 발전했다. NeRF 학습에 중요한 초기화 단계는 먼저 각 입력 이미지에 대한 카메라 포즈를 준비하는 것이다. 이는 일반적으로 Structure-from-Motion (SfM) 라이브러리 COLMAP을 실행하여 수행된다. 그러나 이 전처리는 시간이 많이 걸릴 뿐만 아니라 feature 추출 오차에 대한 민감성과 텍스처가 없거나 반복적인 영역을 처리하는 데 어려움이 있기 때문에 실패할 수도 있다.
@@ -35,7 +35,7 @@ classes: wide
 2. 프레임 $t-1$과 $t$ 사이의 relative pose를 얻으면 첫 번째 프레임과 프레임 $t$ 사이의 relative pose를 추론할 수 있다. 이를 통해 현재 프레임 정보를 global 3D Gaussian 집합으로 집계할 수 있으며, 여기서 현재 및 모든 이전 프레임과 카메라 포즈로 최적화를 수행한다. 
 
 ## Method
-<center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문의 목표는 camera intrinsic과 함께 포즈가 지정되지 않은 일련의 이미지가 주어지면 카메라 포즈를 복구하고 사진처럼 사실적인 장면을 재구성하는 것이다. 이를 위해 3D Gaussian Splatting(3DGS)과 카메라 포즈를 동시에 최적화하는 CF-3DGS를 제안하였다. 
 
@@ -104,41 +104,41 @@ $$
 ### 1. Comparing with Pose-Unknown Methods
 다음은 Tanks and Temples에서의 새로운 뷰 합성 결과를 정량적으로 비교한 것이다. 
 
-<center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-table1.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Tanks and Temples에서의 새로운 뷰 합성 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Tanks and Temples에서의 pose estimation를 정량적으로 비교한 표이다. 
 
-<center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-table2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-table2.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Results on Scenes with Large Camera Motions
 다음은 CO3D V2에서의 새로운 뷰 합성 결과를 정량적으로 비교한 표이다. 
 
-<center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-table3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-table3.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 CO3D V2에서의 pose estimation를 정량적으로 비교한 표이다. 
 
-<center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-table4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-table4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 CO3D V2에서의 새로운 뷰 합성 및 pose estimation 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-fig4.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Ablation Study
 다음은 점진적인 성장에 대한 ablation 결과이다. (Tanks and Temples)
 
-<center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-table5.PNG" | relative_url}}' width="54%"></center>
+<center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-table5.webp" | relative_url}}' width="54%"></center>
 <br>
 다음은 depth loss에 대한 ablation 결과이다. (Tanks and Temples)
 
-<center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-table6.PNG" | relative_url}}' width="54%"></center>
+<center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-table6.webp" | relative_url}}' width="54%"></center>
 <br>
 다음은 COLMAP 포즈로 학습된 3DGS 비교한 표이다. 
 
-<center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-table7.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-table7.webp" | relative_url}}' width="45%"></center>
 
 ## Limitations
 본 논문이 제안하는 방법은 카메라 포즈와 3DGS를 순차적인 방식으로 공동으로 최적화하므로 주로 동영상 스트림이나 정렬된 이미지 컬렉션에만 적용할 수 있다. 

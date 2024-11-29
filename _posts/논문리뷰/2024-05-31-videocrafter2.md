@@ -19,7 +19,7 @@ classes: wide
 > Tencent AI Lab  
 > 17 Jan 2024  
 
-<center><img src='{{"/assets/img/videocrafter2/videocrafter2-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/videocrafter2/videocrafter2-fig1.webp" | relative_url}}' width="100%"></center>
 
 > [VideoCrafter1](https://kimjy99.github.io/논문리뷰/videocrafter)의 후속 논문
 
@@ -76,7 +76,7 @@ $M_F^\prime$은 'F-Spa-LORA', $M_P^\prime$은 'P-Spa-LORA'라는 이름을 사�
 - LORA: finetuning을 위해 LORA를 사용
 - DIR: LORA 없이 직접 finetuning
 
-<center><img src='{{"/assets/img/videocrafter2/videocrafter2-fig2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/videocrafter2/videocrafter2-fig2.webp" | relative_url}}' width="50%"></center>
 <br>
 두 결과 모델의 합성된 동영상을 비교하면 다음과 같은 관찰 결과가 나타난다. 
 
@@ -96,7 +96,7 @@ $$
 
 아래 그림에서 볼 수 있듯이 $$M_P^{\prime \prime}$$ (P-Temp-LORA)의 화질이 $$M_F^{\prime \prime}$$ (F-Temp-LORA)보다 우수하다. 그러나 동영상의 전경과 배경이 더 흔들리고, 즉 시간적 일관성이 나빠진다. F-Temp-LORA의 사진이 개선되었으나 워터마크가 여전히 남아있다. 모션은 base model에 가깝고 P-Temp-LORA보다 훨씬 좋다. 이러한 관찰은 공간적 섭동에서 얻은 결론을 뒷받침한다. 
 
-<center><img src='{{"/assets/img/videocrafter2/videocrafter2-fig3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/videocrafter2/videocrafter2-fig3.webp" | relative_url}}' width="50%"></center>
 
 ### 2. Data-level Disentanglement of Appearance and Motion
 다양성이 높은 대규모의 고품질 동영상 데이터셋을 얻는 것은 매우 어려우며 WebVid-10M과 같은 저화질 동영상 데이터셋과 JDB와 같은 고품질 이미지 데이터셋만 사용할 수 있다. 따라서 저자들은 고품질 동영상을 사용하지 않고도 고품질 동영상 모델을 학습시킬 수 있는 가능성을 모색하였다. 저자들은 데이터 레벨에서 모션과 외형을 분리할 것을 제안하였다. 즉, 저품질의 동영상으로 모션을 학습시키고 고품질 이미지로 화질과 미적인 부분을 finetuning하는 것이다. 핵심은 동영상 모델을 학습시키는 방법과 이를 이미지로 finetuning하는 방법에 있다. 
@@ -121,7 +121,7 @@ $$
 
 $M_F^A$ (F-Spa&Temp-LORA)는 첫 번째 전략에 따라 얻어지고, $M_F^B$, $M_F^C$, $M_F^D$는 두 번째 전략을 통해 얻어진다. $M_F^B$ (F-Spa-DIR)와 $M_F^C$ (F-TempDIR)는 각각 공간 모듈과 시간 모듈을 직접 finetuning하며, $M_F^D$ (F-Spa&Temp-DIR)는 모든 모듈을 직접 finetuning한다. 
 
-<center><img src='{{"/assets/img/videocrafter2/videocrafter2-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/videocrafter2/videocrafter2-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 생성된 네 가지 모델의 동영상을 비교한 관찰 결과는 다음과 같다. 
 
@@ -136,7 +136,7 @@ $M_F^A$ (F-Spa&Temp-LORA)는 첫 번째 전략에 따라 얻어지고, $M_F^B$, 
 
 합성된 이미지의 유효성을 검증하기 위해 두 번째 finetuning 단계의 이미지 데이터로 JDB와 LAION-aesthetics V2를 사용한다. LAION-aesthetics V2는 웹에서 수집한 이미지로 구성되어 있고, JDB는 Midjourney에서 합성한 이미지로 구성되어 있다. 
 
-<center><img src='{{"/assets/img/videocrafter2/videocrafter2-fig5.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/videocrafter2/videocrafter2-fig5.webp" | relative_url}}' width="50%"></center>
 <br>
 F-Spa-DIR-LAION과 F-Spa-DIR은 각각 LAION-aesthetics V2와 JDB를 이미지 데이터로 사용한 것이다. JDB로 학습된 모델이 훨씬 더 나은 개념 합성 능력을 가지고 있다. 
 
@@ -158,21 +158,21 @@ F-Spa-DIR-LAION과 F-Spa-DIR은 각각 LAION-aesthetics V2와 JDB를 이미지 �
 ### 1. Comparison with State-of-the-Art T2V Models
 다음은 EvalCrafter 벤치마크에서 SOTA T2V 모델들과 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/videocrafter2/videocrafter2-table1.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/videocrafter2/videocrafter2-table1.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 다른 T2V 모델들과 생성 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/videocrafter2/videocrafter2-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/videocrafter2/videocrafter2-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 다른 T2V 모델들과 인간 선호도를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/videocrafter2/videocrafter2-table2.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/videocrafter2/videocrafter2-table2.webp" | relative_url}}' width="55%"></center>
 
 ### 2. Strategy Evaluation
 다음은 섭동된 T2V 모델들의 시각적 품질을 평가한 표이다. 
 
-<center><img src='{{"/assets/img/videocrafter2/videocrafter2-table3.PNG" | relative_url}}' width="53%"></center>
+<center><img src='{{"/assets/img/videocrafter2/videocrafter2-table3.webp" | relative_url}}' width="53%"></center>
 <br>
 다음은 섭동된 T2V 모델들의 모션 품질에 대한 user study 결과이다. 
 
-<center><img src='{{"/assets/img/videocrafter2/videocrafter2-table4.PNG" | relative_url}}' width="53%"></center>
+<center><img src='{{"/assets/img/videocrafter2/videocrafter2-table4.webp" | relative_url}}' width="53%"></center>

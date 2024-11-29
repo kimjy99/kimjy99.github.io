@@ -21,7 +21,7 @@ classes: wide
 ## Introduction
 Transformer는 최근 몇 년 동안 상당한 관심을 모았으며, Transformer가 LLM의 사실상 표준으로 부상했다. Transformer의 핵심은 attention 메커니즘으로, softmax 함수를 사용하여 시퀀스에서 다양한 토큰의 중요성을 평가한다. 그러나 최근 연구에 따르면 LLM은 컨텍스트에서 핵심 정보를 정확하게 검색하는 데 어려움을 겪는다.
 
-<center><img src='{{"/assets/img/diff-transformer/diff-transformer-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diff-transformer/diff-transformer-fig1.webp" | relative_url}}' width="100%"></center>
 <br>
 위 그림은 Transformer에 의해 컨텍스트의 각 부분에 할당한 정규화된 attention score를 시각화한 것이다. Task는 문서 더미의 중간에 포함된 답을 검색하는 것이다. Transformer는 정답에 attention score의 작은 비율만 할당하는 경향이 있고, 관련 없는 컨텍스트에 불균형하게 집중하는 경향이 있음을 알 수 있다. 이 문제는 관련 없는 컨텍스트에 할당된 무시할 수 없는 attention score에서 발생하며, 궁극적으로 정답을 압도한다. 이러한 관계 없는 score를 **attention noise**라고 부른다.
 
@@ -43,7 +43,7 @@ Transformer와 비교하여 Diff Transformer는 다음과 같은 이점이 있�
 각 레이어는 두 개의 모듈, 즉 differential attention 모듈과 feed-forward network 모듈로 구성된다. Transformer와 비교할 때 주요 차이점은 레이아웃을 동일하게 유지하면서 기존 softmax attention을 differential attention으로 대체한다는 것이다. 또한 저자들은 LLaMA를 따라 pre-RMSNorm과 SwiGLU를 채택하였다. 
 
 ### 1. Differential Attention
-<center><img src='{{"/assets/img/diff-transformer/diff-transformer-fig2.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/diff-transformer/diff-transformer-fig2.webp" | relative_url}}' width="80%"></center>
 <br>
 Differential attention 메커니즘은 query, key, value 벡터를 출력에 매핑한다. Query 벡터와 key 벡터를 사용하여 attention score를 계산한 다음 value 벡터의 가중 합을 계산한다. 중요한 디자인은 softmax 함수 쌍을 사용하여 attention score의 noise를 상쇄시킨다는 것이다. 
 
@@ -113,61 +113,61 @@ $$
 ### 1. Language Modeling Evaluation
 다음은 Transformer를 사용한 언어 모델들과 Eval Harness 정확도를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/diff-transformer/diff-transformer-table1.PNG" | relative_url}}' width="88%"></center>
+<center><img src='{{"/assets/img/diff-transformer/diff-transformer-table1.webp" | relative_url}}' width="88%"></center>
 
 ### 2. Scalability Compared with Transformer
 다음은 파라미터 수와 학습 토큰 수에 따른 언어 모델링 loss를 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/diff-transformer/diff-transformer-fig3.PNG" | relative_url}}' width="84%"></center>
+<center><img src='{{"/assets/img/diff-transformer/diff-transformer-fig3.webp" | relative_url}}' width="84%"></center>
 
 ### 3. Long-Context Evaluation
 다음은 시퀀스 위치에 따른 negative log-likelihood (NLL) 누적 평균을 비교한 그래프이다. (낮을수록 좋음)
 
-<center><img src='{{"/assets/img/diff-transformer/diff-transformer-fig4.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/diff-transformer/diff-transformer-fig4.webp" | relative_url}}' width="40%"></center>
 
 ### 4. Key Information Retrieval
 - **Multi-needle retrieval**: 컨텍스트에 $N$개의 숫자-도시 쌍을 넣어두고 $R$개의 도시를 검색하는 task
 
 다음은 4K 길이의 컨텍스트에 대한 multi-needle retrieval의 평균 정확도를 비교한 표이다. (3B 모델로 평가)
 
-<center><img src='{{"/assets/img/diff-transformer/diff-transformer-table2.PNG" | relative_url}}' width="35%"></center>
+<center><img src='{{"/assets/img/diff-transformer/diff-transformer-table2.webp" | relative_url}}' width="35%"></center>
 <br>
 다음은 8K에서 64K 길이의 컨텍스트에 대한 multi-needle retrieval의 평균 정확도를 비교한 표이다. (3B 모델로 평가)
 
-<center><img src='{{"/assets/img/diff-transformer/diff-transformer-fig5.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/diff-transformer/diff-transformer-fig5.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 정보 검색 task에서 답변과 noise 컨텍스트에 할당된 attention score를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/diff-transformer/diff-transformer-table3.PNG" | relative_url}}' width="68%"></center>
+<center><img src='{{"/assets/img/diff-transformer/diff-transformer-table3.webp" | relative_url}}' width="68%"></center>
 
 ### 5. In-Context Learning
 다음은 many-shot in-context learning 정확도를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/diff-transformer/diff-transformer-fig6.PNG" | relative_url}}' width="74%"></center>
+<center><img src='{{"/assets/img/diff-transformer/diff-transformer-fig6.webp" | relative_url}}' width="74%"></center>
 <br>
 다음은 TREC 데이터셋에서 in-context learning의 robustness를 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/diff-transformer/diff-transformer-fig7.PNG" | relative_url}}' width="78%"></center>
+<center><img src='{{"/assets/img/diff-transformer/diff-transformer-fig7.webp" | relative_url}}' width="78%"></center>
 
 ### 6. Contextual Hallucination Evaluation
 다음은 (a) 텍스트 요약 데이터셋들과 (b) QA 데이터셋들에서 hallucination을 비교한 표이다. 
 
 <div style="display: flex; align-items: start; justify-content: center">
-  <img src='{{"/assets/img/diff-transformer/diff-transformer-table4a.PNG" | relative_url}}' width="34%">
+  <img src='{{"/assets/img/diff-transformer/diff-transformer-table4a.webp" | relative_url}}' width="34%">
   &nbsp;&nbsp;&nbsp;
-  <img src='{{"/assets/img/diff-transformer/diff-transformer-table4b.PNG" | relative_url}}' width="36%">
+  <img src='{{"/assets/img/diff-transformer/diff-transformer-table4b.webp" | relative_url}}' width="36%">
 </div>
 
 ### 7. Activation Outliers Analysis
 다음은 attention logit과 hidden state의 activation 최대값을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/diff-transformer/diff-transformer-table5.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/diff-transformer/diff-transformer-table5.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 HellaSwag 데이터셋에서 zero-shot 정확도를 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/diff-transformer/diff-transformer-fig8.PNG" | relative_url}}' width="37%"></center>
+<center><img src='{{"/assets/img/diff-transformer/diff-transformer-fig8.webp" | relative_url}}' width="37%"></center>
 
 ### 8. Ablation Studies
 다음은 1.4B 모델에 대한 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/diff-transformer/diff-transformer-table6.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/diff-transformer/diff-transformer-table6.webp" | relative_url}}' width="55%"></center>

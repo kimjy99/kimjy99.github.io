@@ -21,7 +21,7 @@ classes: wide
 
 <center><div style="overflow-x: auto; width: 85%;">
   <div style="width: 182%;">
-    <img src='{{"/assets/img/freecustom/freecustom-fig1.PNG" | relative_url}}' width="100%">
+    <img src='{{"/assets/img/freecustom/freecustom-fig1.webp" | relative_url}}' width="100%">
   </div>
 </div></center>
 
@@ -35,7 +35,7 @@ classes: wide
 ## Method
 <center><div style="overflow-x: auto; width: 100%;">
   <div style="width: 170%;">
-    <img src='{{"/assets/img/freecustom/freecustom-fig4.PNG" | relative_url}}' width="100%">
+    <img src='{{"/assets/img/freecustom/freecustom-fig4.webp" | relative_url}}' width="100%">
   </div>
 </div></center>
 
@@ -102,7 +102,7 @@ $$
 
 저자들은 이 모델이 $\textbf{w}$의 값에 지나치게 민감하지 않다는 것을 발견했다. $\textbf{w}$에 2와 3 사이의 값을 일관되게 할당하면 다양한 시나리오에서 뛰어난 성능을 얻을 수 있다. MRSA에 개념별 가중 마스크를 통합함으로써 모델은 원하는 feature에 더 선택적으로 주의를 기울이고 관련 없는 정보의 영향을 억제하도록 장려된다. 이러한 개선을 통해 의도된 개념과 더 긴밀하게 일치하는 향상된 생성 결과가 도출된다. 
 
-<center><img src='{{"/assets/img/freecustom/freecustom-fig5.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/freecustom/freecustom-fig5.webp" | relative_url}}' width="85%"></center>
 
 ### 3. Selective MRSA Replacement
 실험 결과에 따르면 모든 7개 기본 블록의 self-attention 모듈을 MRSA 모듈로 간단히 대체하면 부자연스러운 생성, 개념적 일관성 손실, 텍스트 불일치가 발생한다. 이전 연구에 따르면 U-Net의 레이어에 있는 query feature는 레이아웃 제어 및 semantic 정보 수집 기능이 있다. 따라서 [MasaCtrl](https://arxiv.org/abs/2304.08465)과 유사한 전략을 채택하여 선택된 블록 세트, 특히 U-Net의 더 깊은 블록 $\Psi$에서만 self-attention 모듈을 MRSA 모듈로 대체한다. 
@@ -110,7 +110,7 @@ $$
 저자들은 경험적 관찰을 통해 $\Psi = [5, 6]$로 설정하여 더 우수한 결과를 얻었다. 이러한 결과는 생성된 이미지의 자연스럽고 사실적인 모양을 개선할 뿐만 아니라 주어진 개념의 정체성을 효과적으로 보존할 수 있는 능력을 보여준다. 
 
 ### 4. Preparing Images with Context Interaction
-<center><img src='{{"/assets/img/freecustom/freecustom-fig6.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/freecustom/freecustom-fig6.webp" | relative_url}}' width="80%"></center>
 <br>
 이미지에서 각 개념의 컨텍스트 상호 작용이 여러 개념을 합성하는 데 중요하다. 예를 들어 입력 이미지에 "모자 쓰기"라는 컨텍스트가 제공되면 모자 개념은 잘 보존된다. 그러나 입력 이미지에 그냥 모자만 있으면 생성된 이미지가 손상된다. 
 
@@ -120,42 +120,42 @@ $$
 ### 1. Comparison with Existing Methods
 다음은 단일 개념 커스터마이징을 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/freecustom/freecustom-fig7.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/freecustom/freecustom-fig7.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 다중 개념 커스터마이징을 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/freecustom/freecustom-fig8.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/freecustom/freecustom-fig8.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 이미지 유사도 (DINOv2, CLIP-I), 이미지-텍스트 정렬 (CLIP-T, CLIP-T-L), 이미지 품질 (CLIP-IQA)을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/freecustom/freecustom-table1.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/freecustom/freecustom-table1.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 전처리 시간과 inference 시간을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/freecustom/freecustom-table2.PNG" | relative_url}}' width="62%"></center>
+<center><img src='{{"/assets/img/freecustom/freecustom-table2.webp" | relative_url}}' width="62%"></center>
 <br>
 다음은 user study 결과이다. 
 
-<center><img src='{{"/assets/img/freecustom/freecustom-table3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/freecustom/freecustom-table3.webp" | relative_url}}' width="60%"></center>
 
 ### 2. Ablation Studies
 다음은 가중치 마스크에 대한 ablation 결과로, attention map을 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/freecustom/freecustom-fig9.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/freecustom/freecustom-fig9.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 MRSA를 적용한 블록에 따른 생성 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/freecustom/freecustom-fig10.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/freecustom/freecustom-fig10.webp" | relative_url}}' width="100%"></center>
 
 ### 3. More Applications
 다음은 입력 이미지와 비슷한 외형과 재료로 다른 물체를 생성한 예시이다. 
 
-<center><img src='{{"/assets/img/freecustom/freecustom-fig11.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/freecustom/freecustom-fig11.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 기존 방법들과 결합한 예시이다. 
 
-<center><img src='{{"/assets/img/freecustom/freecustom-fig12.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/freecustom/freecustom-fig12.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 다른 base model에 본 논문의 방법을 적용한 예시이다. 
 
-<center><img src='{{"/assets/img/freecustom/freecustom-fig13.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/freecustom/freecustom-fig13.webp" | relative_url}}' width="100%"></center>

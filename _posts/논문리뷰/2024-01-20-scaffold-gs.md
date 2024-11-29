@@ -19,7 +19,7 @@ classes: wide
 > Shanghai Artificial Intelligence Laboratory | The Chinese University of Hong Kong | Nanjing University | Cornell University  
 > 30 Nov 2023  
 
-<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 최근에 [3D Gaussian Splatting(3D-GS)](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting/)이 SOTA 렌더링 품질과 속도를 달성했다. Structure from Motion (SfM)에서 파생된 포인트 클라우드에서 초기화된 이 방법은 장면을 표현하기 위해 3D Gaussian 집합을 최적화한다. 3D-GS는 볼류메트릭 표현에서 발견되는 고유한 연속성을 유지하는 동시에 3D Gaussian을 2D 이미지 평면에 스플래팅하여 신속한 rasterization을 촉진하였다. 
@@ -31,7 +31,7 @@ classes: wide
 Scaffold-GS는 3D-GS와 동등하거나 심지어 이를 능가하는 렌더링 품질을 제공한다. Inference 시 Gaussian 예측을 view frustum 내의 앵커로 제한하고 불투명도를 기반으로 사소한 Gaussian들을 필터링한다. 결과적으로 계산 오버헤드가 거의 없이 3D-GS와 비슷한 속도로 렌더링할 수 있다. 또한 각 장면에 대해 앵커 포인트와 MLP predictor들만 저장하면 되므로 스토리지 요구 사항이 크게 줄어든다.
 
 ## Methods
-<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-fig2.webp" | relative_url}}' width="100%"></center>
 
 ### 1. Scaffold-GS
 #### Anchor Point Initialization
@@ -88,7 +88,7 @@ Gaussian 속성들의 예측은 즉석에서 수행된다. 즉, frustum 내에 �
 
 ### 2. Anchor Points Refinement
 #### Growing Operation
-<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-fig3.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-fig3.webp" | relative_url}}' width="55%"></center>
 <br>
 Gaussain들은 SfM 포인트에서 초기화되는 앵커 포인트에 밀접하게 연결되어 있으므로 모델링 능력은 로컬한 영역으로 제한된다. 이로 인해 특히 텍스처가 없고 관찰이 잘 안되는 영역에서 앵커 포인트의 초기 배치가 어려워진다. 따라서 저자들은 Gaussian이 중요하다고 생각하는 새로운 앵커를 성장시키는 오차 기반 앵커 성장 정책을 제안하였다. 중요한 영역을 결정하기 위해 먼저 크기 $\epsilon_g$의 복셀을 구성하여 Gaussian들을 공간적으로 quantize한다. 각 복셀에 대해 $N$번의 학습 iteration에 대해 포함된 Gaussian들 평균 기울기 $\nabla_g$를 계산한다. 그런 다음 $\nabla_g > \tau_g$인 복셀은 중요한 것으로 간주된다. 여기서 $\tau_g$는 미리 정의된 threshold이다. 그러면 앵커 포인트가 설정되지 않은 경우 새 앵커 포인트가 해당 복셀의 중심에 배치된다. 위 그림은 이러한 연산을 보여준다. 실제로 저자들은 공간을 다중 해상도 복셀 그리드로 quantize하여 새로운 앵커가 여러 세분성으로 추가될 수 있도록 하였다. 
 
@@ -129,52 +129,52 @@ $N_\textrm{ng}$는 장면의 Gaussian 수를 나타내고 $\textrm{Prod}(\cdot)$
 #### Comparisons
 다음은 현실 세계의 데이터셋에서 이전 방법들과 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-table1.PNG" | relative_url}}' width="83%"></center>
+<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-table1.webp" | relative_url}}' width="83%"></center>
 <br>
 다음은 현실 세계의 데이터셋에서 이전 방법들과 렌더링 속도와 저장 용량을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-table2.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-table2.webp" | relative_url}}' width="57%"></center>
 <br>
 다음은 다양한 데이터셋에서 Scaffold-GS와 3D-GS의 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-fig4.webp" | relative_url}}' width="100%"></center>
 
 #### Multi-scale Scene Contents
 다음은 large-scale scene에서 Scaffold-GS와 3D-GS의 성능 및 저장 용량을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-table3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-table3.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 BungeeNeRF의 multi-scale scene에서 Scaffold-GS와 3D-GS의 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-fig5.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-fig5.webp" | relative_url}}' width="90%"></center>
 
 #### Feature Analysis
 다음은 앵커 feature를 3개로 클러스터링한 결과이다. 
 
-<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-fig6.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-fig6.webp" | relative_url}}' width="80%"></center>
 
 #### View Adaptability
 다음은 다양한 위치에서 관찰된 하나의 Gaussian의 디코딩된 속성을 시각화한 것이다. 각 포인트는 공간의 시점에 해당한다. 포인트의 색상은 이 뷰에 대해 디코딩된 속성의 강도를 나타낸다. 
 
-<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-fig7.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-fig7.webp" | relative_url}}' width="70%"></center>
 
 #### Selection Process by Opacity
 다음은 무작위로 초기화된 포인트의 앵커 포인트(왼쪽)와 현재 뷰에 대해 활성화된 Gaussian들(오른쪽)이다. 
 
-<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-fig8.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-fig8.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 학습 가능한 오프셋 수 $k$에 따른 활성화된 Gaussian들의 수를 나타낸 그래프이다. $k$가 다르더라도 비슷한 수로 수렴하는 것을 볼 수 있다. 
 
-<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-fig9.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-fig9.webp" | relative_url}}' width="60%"></center>
 
 ### 2. Ablation Studies
 다음은 필터링에 대한 ablation study 결과이다. Filter 1은 view frustum에 의한 필터링이고, Filter 2는 불투명도 기반 필터링이다. 
 
-<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-table4.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-table4.webp" | relative_url}}' width="42%"></center>
 <br>
 다음은 anchor refinement에 대한 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-table5.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/scaffold-gs/scaffold-gs-table5.webp" | relative_url}}' width="47%"></center>
 
 ## Limitations
 초기 포인트가 충실도 높은 결과에 중요한 역할을 한다. SfM 포인트 클라우드에서 프레임워크를 초기화하는 것은 신속하고 실행 가능한 솔루션이지만, 텍스처가 없는 대규모 영역이 지배적인 시나리오에서는 최선이 아닐 수 있다. 앵커 포인트 개선 전략으로 이 문제를 어느 정도 해결할 수 있음에도 불구하고 여전히 극도로 sparse한 포인트로 인해 어려움을 겪고 있다. 

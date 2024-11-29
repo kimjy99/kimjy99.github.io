@@ -37,7 +37,7 @@ Self-consistency는 완전히 unsupervised이고, 사전 학습된 언어 모델
 저자들은 다양한 스케일 가진 4가지 언어 모델에 대한 광범위한 산술적 추론 및 상식적 추론 task에서 self-consistency를 평가하였다. Self-consistency는 4가지 언어 모델 모두에서 CoT-prompting보다 현저한 차이로 개선되었다. 특히 PaLM-540B 또는 GPT-3와 함께 사용할 때 GSM8K, SVAMP, AQuA, StrategyQA, ARCchallenge에서 새로운 SOTA를 달성하였다. 또한, self-consistency는 CoT를 추가하면 성능이 저하되는 NLP task에서도 성능을 높일 수 있음을 보여주었으며, 샘플링 전략 및 불완전한 프롬프트에 견고함을 보여주었다. 
 
 ## Self-Consistency over Diverse Reasoning Paths
-<center><img src='{{"/assets/img/self-consistency/self-consistency-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/self-consistency/self-consistency-fig1.webp" | relative_url}}' width="100%"></center>
 <br>
 인간의 두드러진 측면은 사람들이 각각 다르게 생각한다는 것이다. 의도적인 사고가 필요한 문제에서는 문제를 공격하는 여러 가지 방법이 있을 가능성이 있다고 가정하는 것은 당연하다. 본 논문은 언어 모델의 디코더에서 샘플링을 통해 언어 모델에서 이러한 프로세스를 시뮬레이션할 수 있다고 제안하였다. 
 
@@ -57,7 +57,7 @@ $$
 \end{equation}
 $$
 
-<center><img src='{{"/assets/img/self-consistency/self-consistency-table1.PNG" | relative_url}}' width="77%"></center>
+<center><img src='{{"/assets/img/self-consistency/self-consistency-table1.webp" | relative_url}}' width="77%"></center>
 <br>
 위 표는 다양한 답변 집계 전략을 사용하여 추론 task들에 대한 테스트 정확도를 비교한 것이다. 다수결 외에도, 각 $(r_i, a_i$)을 $$P (r_i, a_i \; \vert \; \textrm{prompt}, \textrm{question})$$으로 가중치를 부여해 답변을 집계할 수 있다. $$P (r_i, a_i \; \vert \; \textrm{prompt}, \textrm{question})$$를 계산할 때, 모델이 주어진 (프롬프트, 질문)에 대하여 $(r_i, a_i)$를 생성할 정규화되지 않은 확률을 취하거나, 다음과 같이 출력 길이에 따라 조건부 확률을 정규화할 수 있다. 
 
@@ -92,47 +92,47 @@ $$
 ### 1. Main results
 다음은 산술적 추론에 대하여 CoT-prompting과 self-consistency를 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/self-consistency/self-consistency-table2.PNG" | relative_url}}' width="78%"></center>
+<center><img src='{{"/assets/img/self-consistency/self-consistency-table2.webp" | relative_url}}' width="78%"></center>
 <br>
 다음은 상식적 추론과 기호적 추론에 대하여 CoT-prompting과 self-consistency를 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/self-consistency/self-consistency-table3.PNG" | relative_url}}' width="78%"></center>
+<center><img src='{{"/assets/img/self-consistency/self-consistency-table3.webp" | relative_url}}' width="78%"></center>
 <br>
 다음은 샘플링된 추론 경로 수에 따른 self-consistency의 정확도를 CoT-prompting과 비교한 그래프이다. (LaMDA-137B)
 
-<center><img src='{{"/assets/img/self-consistency/self-consistency-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/self-consistency/self-consistency-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 greedy decoding으로 인한 오류를 복구하는 데 self-consistency가 도움이 되는 예시이다. 
 
-<center><img src='{{"/assets/img/self-consistency/self-consistency-table4.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/self-consistency/self-consistency-table4.webp" | relative_url}}' width="95%"></center>
 
 ### 2. Self-consistency helps when chain-of-thought hurts performance
 다음은 일반 NLP task에서 self-consistency를 일반 프롬프팅, CoT-prompting과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/self-consistency/self-consistency-table5.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/self-consistency/self-consistency-table5.webp" | relative_url}}' width="75%"></center>
 
 ### 3. Compare to other existing approaches
 생성 품질을 개선하기 위해 일반적으로 사용되는 접근 방식 중 하나는 sample-and-rank이다. Sample-and-rank는 여러 시퀀스가 ​​디코더에서 샘플링된 다음 각 시퀀스의 로그 확률에 따라 순위가 매겨진다. 다음은 sample-and-rank와 self-consistency를 비교한 그래프이다. (GPT-3 code-davinci-001)
 
-<center><img src='{{"/assets/img/self-consistency/self-consistency-fig3.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/self-consistency/self-consistency-fig3.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 beam search decoding을 사용하는 self-consistency와 비교한 결과이다. (UL2-20B)
 
-<center><img src='{{"/assets/img/self-consistency/self-consistency-table6.PNG" | relative_url}}' width="78%"></center>
+<center><img src='{{"/assets/img/self-consistency/self-consistency-table6.webp" | relative_url}}' width="78%"></center>
 <br>
 다음은 앙상블 기반 방법들과 비교한 결과이다. (LaMDA-137B)
 
-<center><img src='{{"/assets/img/self-consistency/self-consistency-table7.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/self-consistency/self-consistency-table7.webp" | relative_url}}' width="75%"></center>
 
 ### 4. Additional studies
 다음은 (왼쪽) 샘플링 전략과 (오른쪽) 모델 크기에 따른 GSM8K 정확도를 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/self-consistency/self-consistency-fig4.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/self-consistency/self-consistency-fig4.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 GSM8K에서 불완전한 프롬프트, 방정식 프롬프트, zero-shot CoT에 self-consistency를 적용한 결과이다. 
 
-<center><img src='{{"/assets/img/self-consistency/self-consistency-table8.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/self-consistency/self-consistency-table8.webp" | relative_url}}' width="48%"></center>
 <br>
 다음은 일관성 (최종 집계된 답변과 일치하는 답변의 비율)과 정확도 사이의 높은 상관관계를 보여주는 그래프이다. 
 
-<center><img src='{{"/assets/img/self-consistency/self-consistency-fig5.PNG" | relative_url}}' width="30%"></center> 
+<center><img src='{{"/assets/img/self-consistency/self-consistency-fig5.webp" | relative_url}}' width="30%"></center> 

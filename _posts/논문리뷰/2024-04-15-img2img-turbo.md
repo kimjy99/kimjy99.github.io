@@ -20,7 +20,7 @@ classes: wide
 > Carnegie Mellon University | Adobe Research  
 > 18 Mar 2024  
 
-<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 조건부 diffusion model을 사용하면 사용자가 공간적 컨디셔닝 및 텍스트 프롬프트를 기반으로 이미지를 생성할 수 있으므로 장면 레이아웃, 사용자 스케치, 인간 포즈에 대한 정확한 사용자 제어가 필요한 다양한 이미지 합성 애플리케이션이 가능해진다. 이러한 모델들은 엄청난 성공에도 불구하고 두 가지 주요 과제에 직면해 있다.
@@ -41,12 +41,12 @@ classes: wide
 본 논문의 아키텍처는 CycleGAN이나 pix2pix와 같은 조건부 GAN 목적 함수를 위한 plug-and-play model 역할을 하므로 다목적아다. 본 논문은 text-to-image 모델을 사용하여 one-step image translation을 달성한 최초의 논문이다.
 
 ## Method
-<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-fig2.webp" | relative_url}}' width="100%"></center>
 
 ### 1. Adding Conditioning Input
 Text-to-image 모델을 image translation 모델로 변환하려면 먼저 입력 이미지 $x$를 모델에 통합하는 효과적인 방법을 찾아야 한다.
 
-<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 **Noise와 조건부 입력 간의 충돌.** 조건부 입력을 diffusion model에 통합하기 위한 일반적인 전략 중 하나는 추가 어댑터 branch를 도입하는 것이다. 즉, Stable Diffusion 인코더의 가중치를 사용하거나 가벼운 네트워크를 랜덤 초기화하여 또다른 인코더인 조건 인코더(Condition Encoder)를 초기화한다. 조건 인코더는 입력 이미지 $x$를 가져와서 residual connection을 통해 사전 학습된 Stable Diffusion 모델에 대한 여러 해상도의 feature map을 출력한다. 이 방법은 diffusion model 제어에 있어 놀라운 결과를 가져왔다. 그럼에도 불구하고 위 그림에서 볼 수 있듯이 두 개의 인코더를 사용하여 noise map과 입력 이미지를 처리하는 것은 one-step 모델의 맥락에서 문제가 발생한다. Multi-step 모델과 달리 one-step 모델의 noise map은 생성된 이미지의 레이아웃과 포즈를 직접 제어하며 종종 입력 이미지의 구조와 모순된다. 따라서 디코더는 각각 별개의 구조를 나타내는 두 residual feature를 받으므로 학습 과정이 더욱 어려워진다. 
 
@@ -55,7 +55,7 @@ Text-to-image 모델을 image translation 모델로 변환하려면 먼저 입�
 ### 2. Preserving Input Details
 물체가 여러 개이거나 복잡한 장면에서 [latent diffusion model (LDM)](https://kimjy99.github.io/논문리뷰/ldm) 사용을 방해하는 주요 문제는 디테일이 손실된다는 것이다. 
 
-<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 **디테일이 손실되는 이유.** LDM의 이미지 인코더는 입력 이미지의 가로 세로를 8배로 압축하는 동시에 채널 수를 3에서 4로 늘린다. 이 디자인은 diffusion model의 학습 및 inference 속도를 높인다. 그러나 입력 이미지의 세밀한 디테일을 보존해야 하는 image translation task에는 적합하지 않을 수 있다. 이 문제를 위 그림에서 설명한다. 입력된 주간 운전 이미지(왼쪽)를 skip connection을 사용하지 않는 아키텍처(가운데)를 사용하여 야간 운전 이미지로 변환하면 텍스트, 거리 표지판, 멀리 있는 자동차 등 세밀한 디테일은 유지되지 않는다. 반면 skip connection을 통합하는 아키텍처를 사용하면 (오른쪽) 이러한 복잡한 디테일을 훨씬 더 잘 유지하는 이미지가 생성된다.
 
@@ -126,35 +126,35 @@ $\gamma = 0$은 사전 학습된 모델의 stochastic한 동작에 해당하며,
 ### 1. Comparison to Unpaired Methods
 다음은 256$\times$256 CycleGAN 데이터셋에서 다른 방법들과 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
-<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-table1.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-table1.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 512$\times$512 운전 데이터셋에서 다른 방법들과 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
-<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-table2.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-table2.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 사람의 선호도를 평가한 표이다. 
 
-<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-table3.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-table3.webp" | relative_url}}' width="65%"></center>
 
 ### 2. Ablation Study
 다음은 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-table4.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-table4.webp" | relative_url}}' width="80%"></center>
 <br>
-<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-fig7.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Extensions
 다음은 쌍을 이루는 edge-to-image task (512$\times$512)에 대한 비교 결과이다. 
 
-<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-fig8.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 다양한 출력을 생성하는 예시이다. 
 
-<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-fig9.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/img2img-turbo/img2img-turbo-fig9.webp" | relative_url}}' width="100%"></center>
 
 ## Limitations
 1. Backbone 모델인 SD-Turbo는 [classifier-free guidance](https://kimjy99.github.io/논문리뷰/cfdg)를 사용하지 않기 때문에 guidance의 강도를 지정할 수 없다. 

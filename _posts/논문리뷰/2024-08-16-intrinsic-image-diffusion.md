@@ -18,7 +18,7 @@ classes: wide
 > Technical University of Munich | MIT EECS  
 > 19 Dec 2023  
 
-<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 Intrinsic image decomposition는 하나의 이미지에서 기하학적 속성, 재료 속성, 조명 속성을 예측하는 것을 목표로 한다. 그러나 근본적인 어려움은 조명과 재료의 복잡한 상호 작용의 결과로만 물체의 시각적 외형을 관찰할 수 있다는 사실에서 비롯되며, 이는 분해를 본질적으로 모호하게 만든다. 
@@ -46,7 +46,7 @@ Intrinsic image decomposition는 하나의 이미지에서 기하학적 속성, 
 재료는 albedo, roughness, metallic 속성으로 구성된 물리 기반 GGX microfacet BRDF로 표현된다. BRDF 파라미터는 이미지로 생성하는데, 채널 R은 roughness이고, G는 metallic이며, B는 항상 0이다. Latent를 얻기 위해 BRDF 속성과 albedo를 각각 4$\times$64$\times$64로 인코딩한다. 
 
 ### 2. Training
-<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문의 목표는 학습된 prior를 활용하여 재료 추정에 맞게 조정하는 것이다. 이를 위해 합성 데이터로 사전 학습된 텍스트 조건부 Stable Diffusion (SD) V2를 fine-tuning한다. SD V2와 마찬가지로 사전 학습된 고정 인코더 $\mathcal{E}$와 디코더 $\mathcal{D}$를 사용한 latent diffusion 아키텍처를 따른다. 
 
@@ -69,7 +69,7 @@ $$
 Inference 시에는 일반 diffusion process를 사용한다. 예측된 material feature를 albedo feature와 BRDF feature로 분할하고 각각 디코딩하여 albedo, roughness, metallic을 얻는다. 한 이미지에 대한 가능한 여러 솔루션을 샘플링한다. 
 
 ### 4. Lighting optimization
-<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-fig5.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-fig5.webp" | relative_url}}' width="90%"></center>
 <br>
 높은 충실도의 일관된 재료 예측을 바탕으로 장면의 조명을 최적화하며, 하이브리드 조명 표현을 사용한다. 글로벌 및 아웃 오브 뷰 조명 효과의 경우 Spherical Gaussian (SG)으로 parameterize된 사전 통합 환경 조명을 사용한다. 그러나 실내 장면은 종종 물체 근처에 여러 개의 광원이 있고, emission profile이 서로 다르고 색상이 다양하여 공간적으로 다양한 조명 표현이 필요하기 때문에 이러한 표현만으로는 충분하지 않다. 제어 가능하면서도 표현력이 풍부한 표현을 위해 추가로 $$N_\textrm{light}$$개의 point light를 사용한다. 
 
@@ -109,40 +109,40 @@ $$
 ### 1. Synthetic results
 다음은 InteriorVerse에서 예측된 albedo의 품질을 다른 방법들과 비교한 것이다. 
 
-<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-fig3.webp" | relative_url}}' width="100%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-table1.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-table1.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 하나의 장면에 대한 예시 샘플들과 샘플 100개에 대한 분산을 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-fig4.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-fig4.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 InteriorVerse에서 예측된 roughness와 metallic의 품질을 다른 방법들과 비교한 것이다. 
 
-<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-table2.PNG" | relative_url}}' width="41%"></center>
+<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-table2.webp" | relative_url}}' width="41%"></center>
 
 ### 2. Real-world results
 다음은 현실 데이터셋인 [IIW](https://labelmaterial.s3.amazonaws.com/release/siggraph2014-intrinsic.pdf)와 [ScanNet++](https://arxiv.org/abs/2308.11417)에 대한 결과이다. 
 
-<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-fig6.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-fig6.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 IIW에 대한 WHDR metric과 user-study로 평가한 Perceptual Quality (PQ)이다. 
 
-<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-table3.PNG" | relative_url}}' width="36%"></center>
+<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-table3.webp" | relative_url}}' width="36%"></center>
 <br>
 다음은 WHDR metric과 출력 albedo를 비교한 것이다. WHDR metric은 더 부드러운 결과를 선호하는 경향이 있으므로, 고주파 디테일에 대한 최적의 평가를 제공하지 못한다. 
 
-<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-fig7.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-fig7.webp" | relative_url}}' width="85%"></center>
 <br>
 다음은 이미지 재구성 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-fig8.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-fig8.webp" | relative_url}}' width="85%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-table4.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-table4.webp" | relative_url}}' width="47%"></center>
 
 ### 3. Ablations
 다음은 사전 학습된 prior 사용에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-fig9.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-fig9.webp" | relative_url}}' width="85%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-table5.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-table5.webp" | relative_url}}' width="70%"></center>

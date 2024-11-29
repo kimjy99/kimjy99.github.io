@@ -16,7 +16,7 @@ classes: wide
 > Google DeepMind  
 > 25 Jul 2024  
 
-<center><img src='{{"/assets/img/alphaproof/alphaproof-fig1.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/alphaproof/alphaproof-fig1.webp" | relative_url}}' width="55%"></center>
 
 ## Introduction
 고급 수학적 추론을 갖춘 인공 일반 지능(AGI)은 과학과 기술의 새로운 지평을 열 잠재력이 있다. 현재의 AI 시스템은 추론 기술과 학습 데이터의 한계로 인해 여전히 일반적인 수학 문제를 해결하는 데 어려움을 겪고 있다. Google DeepMind는 형식적 수학 추론을 위한 새로운 강화 학습 기반 시스템인 **AlphaProof**와 기하 풀이 시스템의 개선된 버전인 **AlphaGeometry 2**를 공개하였다. 이 시스템들은 올해의 국제 수학 올림피아드(IMO)에서 6개 문제 중 4개를 해결하여 처음으로 IMO에서 은메달리스트와 동일한 수준을 달성했다. 
@@ -26,7 +26,7 @@ classes: wide
 문제는 총 6개이고 각각 최대 7점을 얻을 수 있으며, 총점은 42점이다. DeepMind의 시스템은 최종 점수 28점을 달성하였으며, 해결한 각 문제에서 완벽한 점수를 받았다. 이는 은메달 부문의 최고 ​​점수와 같다. 올해 금메달 기준은 29점에서 시작하며, 609명의 참가자 중 58명이 달성했다. 
 
 ## AlphaProof
-<center><img src='{{"/assets/img/alphaproof/alphaproof-fig2.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/alphaproof/alphaproof-fig2.webp" | relative_url}}' width="80%"></center>
 <br>
 AlphaProof는 형식적 언어인 [Lean](https://lean-lang.org/)에서 수학적 명제를 증명하도록 스스로를 학습시키는 시스템이다. 사전 학습된 언어 모델을 AlphaZero 강화 학습 알고리즘과 결합한다. AlphaZero는 이전에 체스, 쇼기, 바둑 게임을 마스터하는 방법을 스스로 학습했다. 
 
@@ -43,6 +43,6 @@ AlphaGeometry 2는 이전 버전보다 두 자릿수 더 빠른 심볼릭 엔진
 
 올해 IMO 이전에 AlphaGeometry 2는 지난 25년 동안의 모든 IMO 기하학 문제의 83%를 풀었는데, 이는 AlphaGeometry가 달성한 53%의 비율과 비교된다. IMO 2024의 경우 AlphaGeometry 2는 형식화된 후 19초 이내에 문제 4를 풀었다. 
 
-<center><img src='{{"/assets/img/alphaproof/alphaproof-fig3.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/alphaproof/alphaproof-fig3.webp" | relative_url}}' width="47%"></center>
 <br>
 위 그림은 ∠KIL과 ∠XPY의 합이 180°임을 증명하는 문제 4이다. AlphaGeometry 2는 ∠AEB = 90°가 되도록 선 BI에 있는 점 E를 구성하는 것을 제안했다. 점 E는 결론을 증명하는 데 필요한 ABE ~ YBI, ALE ~ IPC와 같은 여러 닮은 삼각형 쌍들을 생성한다. 

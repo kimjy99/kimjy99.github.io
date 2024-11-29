@@ -21,12 +21,12 @@ classes: wide
 > Tencent ARC Lab | The Chinese University of Hong Kong | University of Macau | Tencent AI Lab | Shenzhen Institute of Advanced Technology | Shanghai Artificial Intelligence Laboratory | Tsinghua University  
 > 11 Dec 2023  
 
-<center><img src='{{"/assets/img/smartedit/smartedit-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/smartedit/smartedit-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 Text-to-Image (T2I) 합성은 diffusion model 덕분에 최근 몇 년간 상당한 발전을 이루었다. 이러한 방법을 통해 자연어 설명과 일치할 뿐만 아니라 인간의 선호도에도 부합하는 이미지 생성이 가능해지며 이 분야에서 상당한 도약을 이루었다. [InstructPix2Pix](https://kimjy99.github.io/논문리뷰/instruct-pix2pix)로 대표되는 명령 기반 이미지 편집 방법은 사전 학습된 T2I diffusion model을 prior로 활용한다. 이를 통해 자연어 명령을 통해 편리하고 손쉽게 이미지를 수정할 수 있다. 
 
-<center><img src='{{"/assets/img/smartedit/smartedit-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/smartedit/smartedit-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 기존 명령 기반 이미지 편집 방법은 간단한 명령을 효과적으로 처리할 수 있지만 모델에 보다 강력한 이해 및 추론 능력이 필요한 복잡한 시나리오를 처리할 때는 종종 부족하다. 복잡한 시나리오에는 두 가지 일반적인 유형이 있다. 첫 번째는 원본 이미지에 여러 물체가 있고 명령이 특정 속성 (ex. 위치, 크기, 색상, 거울 안/밖)을 통해 이러한 물체 중 하나만 수정하는 경우이다. 다른 하나는 편집 대상을 식별하기 위해 세상에 대한 지식이 필요한 경우이다. 
 
@@ -44,7 +44,7 @@ SmartEdit은 기존 명령 기반 편집 방법의 범위를 뛰어넘어 복잡
 
 ## Method
 ### 1. The Framework of SmartEdit
-<center><img src='{{"/assets/img/smartedit/smartedit-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/smartedit/smartedit-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문의 목표는 이미지 $x$와 $(s_1, \ldots, s_T)$로 tokenize된 명령 $c$가 주어지면 $c$를 기반으로 타겟 이미지 $y$를 얻는 것다. 이미지 $x$는 먼저 이미지 인코더와 FC layer에 의해 처리되어 $v_\mu (x)$가 생성된다. 그런 다음 $v_\mu (x)$는 토큰 임베딩 $(s_1, \ldots, s_T)$과 함께 LLM으로 전송된다. LLM의 출력은 discrete한 토큰이므로 후속 모듈의 입력으로 사용할 수 없다. 따라서 discrete한 토큰에 해당하는 hidden state를 다음 모듈의 입력으로 사용한다.
 
@@ -78,7 +78,7 @@ L_\textrm{diffusion} = \mathbb{E}_{\mathcal{E}(y), \mathcal{E}(x), c_T, \epsilon
 $$
 
 ### 2. Bidirectional Interaction Module
-<center><img src='{{"/assets/img/smartedit/smartedit-fig4.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/smartedit/smartedit-fig4.webp" | relative_url}}' width="47%"></center>
 <br>
 BIM의 디자인은 위 그림과 같다. 여기에는 self-attention block, 두 개의 cross-attention block, MLP layer가 포함된다. BIM의 입력은 QFormer의 출력 $f$와 이미지 인코더의 출력 $v$이다. $f$와 $v$ 사이의 양방향 상호작용 후에 BIM은 $f^\prime$와 $v^\prime$를 출력한다. 
 
@@ -124,28 +124,28 @@ SmartEdit 학습 시에 [InstructPix2Pix](https://kimjy99.github.io/논문리뷰
 ### 1. Comparison with State-of-the-Art Methods
 다음은 Reason-Edit에서 기존 방법들과 비교한 결과들이다. 
 
-<center><img src='{{"/assets/img/smartedit/smartedit-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/smartedit/smartedit-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
-<center><img src='{{"/assets/img/smartedit/smartedit-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/smartedit/smartedit-table1.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Ablation Study on BIM
 다음은 BIM 모듈에 대한 ablation 결과들이다. 
 
-<center><img src='{{"/assets/img/smartedit/smartedit-fig6.PNG" | relative_url}}' width="76%"></center>
+<center><img src='{{"/assets/img/smartedit/smartedit-fig6.webp" | relative_url}}' width="76%"></center>
 <br>
 <center><div style="overflow-x: auto; width: 100%;">
   <div style="width: 115%;">
-    <img src='{{"/assets/img/smartedit/smartedit-table2.PNG" | relative_url}}' width="100%">
+    <img src='{{"/assets/img/smartedit/smartedit-table2.webp" | relative_url}}' width="100%">
   </div>
 </div></center>
 
 ### 3. Ablation Study on Dataset Usage
 다음은 여러 데이터셋을 사용한 공동 학습에 대한 ablation 결과들이다. 
 
-<center><img src='{{"/assets/img/smartedit/smartedit-fig7.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/smartedit/smartedit-fig7.webp" | relative_url}}' width="90%"></center>
 <br>
 <center><div style="overflow-x: auto; width: 100%;">
   <div style="width: 130%;">
-    <img src='{{"/assets/img/smartedit/smartedit-table3.PNG" | relative_url}}' width="100%">
+    <img src='{{"/assets/img/smartedit/smartedit-table3.webp" | relative_url}}' width="100%">
   </div>
 </div></center>

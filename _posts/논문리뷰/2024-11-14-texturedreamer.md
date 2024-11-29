@@ -19,7 +19,7 @@ classes: wide
 > University of California, San Diego | University of Maryland, College Park | Meta  
 > 17 Jan 2024  
 
-<center><img src='{{"/assets/img/texturedreamer/texturedreamer-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/texturedreamer/texturedreamer-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 최근 몇 년 동안 3D reconstruction과 생성 모델의 발전으로 인해 3D 콘텐츠 제작에 있어 놀라운 진전이 이루어졌지만, 고품질 텍스처를 만드는 것은 상대적으로 연구가 부족하며, 사실적인 텍스처를 제작하는 것은 굉장히 어렵고 전문가의 노력이 필요했다. 
@@ -73,7 +73,7 @@ VSD는 생성된 3D 콘텐츠의 시각적 품질과 다양성을 크게 개선�
 ### 2. Personalized Geometry-aware Score Distillation (PGSD)
 <center><div style="overflow-x: auto; width: 90%;">
   <div style="width: 150%;">
-    <img src='{{"/assets/img/texturedreamer/texturedreamer-fig3.PNG" | relative_url}}' width="100%">
+    <img src='{{"/assets/img/texturedreamer/texturedreamer-fig3.webp" | relative_url}}' width="100%">
   </div>
 </div></center>
 
@@ -137,41 +137,41 @@ $c_\rho$는 카메라 인코더 $\rho$로 임베딩된 카메라 extrinsic이고
 ### 1. Image-guided texture transfer
 다음은 같은 카테고리의 물체로 텍스처를 전송한 예시들이다. 
 
-<center><img src='{{"/assets/img/texturedreamer/texturedreamer-fig4.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/texturedreamer/texturedreamer-fig4.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 다른 카테고리의 물체로 텍스처를 전송한 예시들이다. 
 
-<center><img src='{{"/assets/img/texturedreamer/texturedreamer-fig5.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/texturedreamer/texturedreamer-fig5.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 relighting한 예시들이다. 
 
-<center><img src='{{"/assets/img/texturedreamer/texturedreamer-fig6.PNG" | relative_url}}' width="68%"></center>
+<center><img src='{{"/assets/img/texturedreamer/texturedreamer-fig6.webp" | relative_url}}' width="68%"></center>
 <br>
 다음은 다른 방법들과 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/texturedreamer/texturedreamer-fig7.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/texturedreamer/texturedreamer-fig7.webp" | relative_url}}' width="95%"></center>
 <span style="display: block; margin: 1px 0;"></span>
 <div style="display: flex; align-items: end; justify-content: center">
-  <img src='{{"/assets/img/texturedreamer/texturedreamer-table1.PNG" | relative_url}}' width="44%">
+  <img src='{{"/assets/img/texturedreamer/texturedreamer-table1.webp" | relative_url}}' width="44%">
   &nbsp;&nbsp;&nbsp;
-  <img src='{{"/assets/img/texturedreamer/texturedreamer-table2.PNG" | relative_url}}' width="30%">
+  <img src='{{"/assets/img/texturedreamer/texturedreamer-table2.webp" | relative_url}}' width="30%">
 </div>
 <br>
 다음은 합성된 텍스처의 다양성을 보여주는 예시이다. 
 
-<center><img src='{{"/assets/img/texturedreamer/texturedreamer-fig8.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/texturedreamer/texturedreamer-fig8.webp" | relative_url}}' width="70%"></center>
 
 ### 2. Ablation Studies
 다음은 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/texturedreamer/texturedreamer-fig10.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/texturedreamer/texturedreamer-fig10.webp" | relative_url}}' width="100%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/texturedreamer/texturedreamer-table3.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/texturedreamer/texturedreamer-table3.webp" | relative_url}}' width="40%"></center>
 <br>
 ControlNet을 사용하지 않거나 ControlNet로 depth를 주입하면 CLIP similarity가 더 높지만, 전송 결과는 타겟 모양을 무시하고 형상을 추론하지 않고 텍스처를 직접 그리는 경향이 있다.
 
 ## Limitations
-<center><img src='{{"/assets/img/texturedreamer/texturedreamer-fig9.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/texturedreamer/texturedreamer-fig9.webp" | relative_url}}' width="60%"></center>
 <br>
 1. 특수하고 반복되지 않는 텍스처를 전송할 수 없다. 
 2. 입력 이미지에 강한 specular highlight가 있는 경우 텍스처에 조명을 베이킹하는 경향이 있다. 

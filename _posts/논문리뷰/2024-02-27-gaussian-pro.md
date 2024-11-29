@@ -18,7 +18,7 @@ classes: wide
 > University of Science and Technology of China | The University of Hong Kong | Nanjing University | The University of Adelaide | ShanghaiTech University | Texas A&M University  
 > 22 Feb 2024  
 
-<center><img src='{{"/assets/img/gaussian-pro/gaussian-pro-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/gaussian-pro/gaussian-pro-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 Novel view synthesis는 캡처된 장면에서 새로운 시점의 이미지를 생성하는 것을 목표로 하는 컴퓨터 비전 및 컴퓨터 그래픽스에서 중요하지만 어려운 작업이다. 최근 [NeRF](https://kimjy99.github.io/논문리뷰/nerf)는 이 task를 크게 향상시켜 3D 장면, 텍스처 및 조명을 명시적으로 모델링하지 않고도 충실도가 높은 렌더링을 달성했다. 그러나 다양한 노력이 있었음에도 불구하고 무거운 볼륨 렌더링 방식으로 인해 NeRF는 여전히 렌더링 속도가 느린 문제를 겪고 있다.
@@ -71,7 +71,7 @@ $$
 현재 시점에서의 2D depth map과 normal map은 알파 블렌딩을 기반으로 렌더링되며, 속성 색상 $$\mathbf{c}_i$$를 Gaussian의 깊이 $z_i$와 normal $\mathbf{n}_i$로 대체하여 계산한다.
 
 ### 3. Progressive Gaussian Propagation
-<center><img src='{{"/assets/img/gaussian-pro/gaussian-pro-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/gaussian-pro/gaussian-pro-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문은 잘 모델링된 영역에서 덜 모델링된 영역으로 정확한 형상을 전파하여 새로운 Gaussian을 생성할 수 있는 progressive gaussian propagation 전략을 도입하였다. 위 그림에서 볼 수 있듯이 렌더링된 depth map과 normal map을 사용하여 패치 매칭으로 이웃 픽셀의 깊이와 normal 정보를 현재 픽셀로 전파한다. 이는 새로운 깊이와 normal을 생성하며, 이를 propagated depth와 proopagated normal이라 부른다. 더 많은 Gaussian이 필요한 픽셀을 선택하고 propagated depth와 propagated norma을 활용하여 새로운 Gaussian을 초기화하기 위해 기하학적 필터링 및 선택 연산을 추가로 수행한다.
 
@@ -90,7 +90,7 @@ $$
 3D 로컬 평면을 정의한 후 propagation을 위해 각 픽셀의 이웃을 선택해야 한다. [ACMH](https://arxiv.org/abs/1904.08103)에 정의된 체커보드 패턴을 따라 인접 픽셀을 선택한다. 픽셀의 propagation의 설명을 위해 가장 가까운 4개의 픽셀을 사용한다고 하자. 각 픽셀에 대해 평면 후보들의 집합 $$\{(d_{k_l}, \mathbf{n}_{k_l}) \, \vert \, l \in \{0, 1, 2, 3, 4\}\}$$는 propagation을 통해 획득된다. 여기서 $k_l$은 픽셀 $p$와 그에 인접한 4개의 픽셀의 인덱스이다. 
 
 #### Patch Matching
-<center><img src='{{"/assets/img/gaussian-pro/gaussian-pro-fig3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/gaussian-pro/gaussian-pro-fig3.webp" | relative_url}}' width="50%"></center>
 <br>
 평면 후보를 얻은 후, 패치 매칭을 통해 각 픽셀에 대한 최적의 평면을 결정한다. 좌표가 $\mathbf{p}$인 픽셀 $p$의 경우 각 평면 후보 $(d_{k_l}, \mathbf{n}_{k_l})$를 기반으로 homography transformation $\mathbf{H}$가 수행되며, 이는 다음과 같이 이웃 프레임에서 $\mathbf{p}$를 $\mathbf{p}^\prime$으로 워프시킨다.
 
@@ -114,7 +114,7 @@ $$
 전파된 결과의 불가피한 오차로 인해 [COLMAP의 multi-view geometric consistency check](https://demuc.de/papers/schoenberger2016mvs.pdf)를 통해 부정확한 깊이와 normal을 필터링하고 필터링된 depth map과 normal map을 얻는다. 마지막으로 필터링된 깊이와 렌더링된 깊이 사이의 상대적 차이를 계산한다. Threshold $\sigma$보다 큰 차이가 있는 영역의 경우 기존 Gaussian이 이러한 영역을 정확하게 모델링하지 못하는 것으로 간주한다. 따라서 이 영역의 픽셀을 3D 공간으로 다시 projection하고 3DGS와 동일한 초기화를 사용하여 3D Gaussian으로 초기화한다. 그런 다음 이러한 Gaussian은 추가 최적화를 위해 기존 Gaussian에 추가된다.
 
 #### Plane Constraint Optimization
-<center><img src='{{"/assets/img/gaussian-pro/gaussian-pro-fig4.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/gaussian-pro/gaussian-pro-fig4.webp" | relative_url}}' width="60%"></center>
 <br>
 원래 3DGS에서 최적화는 기하학적 제약 조건을 통합하지 않고 이미지 재구성 loss에만 의존한다. 결과적으로 최적화된 Gaussian 모양은 실제 표면 형상에서 크게 벗어날 수 있다. 이러한 편차는 새로운 시점에서 볼 때 렌더링 품질 저하로 이어지며, 특히 시야가 제한된 대규모 장면의 경우 더욱 그렇다. 위 그림에서 볼 수 있듯이 3DGS의 Gaussian 모양은 도로의 기하학적 구조와 크게 다르므로 새로운 시점에서 볼 때 심각한 렌더링 아티팩트가 발생한다. 저자들은 Gaussian의 모양이 실제 표면과 매우 유사하도록 장려하는 평면 제약 조건을 제안하였다. 특히 앞서 구한 propagated 2D normal map은 장면의 평면 방향을 나타낸다. L1 loss와 angular loss를 사용하여 Gaussian의 렌더링된 normal과 propagated normal 간의 일관성을 명시적으로 적용한다. 
 
@@ -166,25 +166,25 @@ $$
 ### 1. Quantative and Qualitative Results
 다음은 Waymo와 MipNeRF360 데이터셋에서의 결과를 기존 방법들과 비교한 것이다. 
 
-<center><img src='{{"/assets/img/gaussian-pro/gaussian-pro-table1.PNG" | relative_url}}' width="87%"></center>
+<center><img src='{{"/assets/img/gaussian-pro/gaussian-pro-table1.webp" | relative_url}}' width="87%"></center>
 <br>
-<center><img src='{{"/assets/img/gaussian-pro/gaussian-pro-fig5.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/gaussian-pro/gaussian-pro-fig5.webp" | relative_url}}' width="70%"></center>
 
 ### 2. Ablation Study
 다음은 progressive propagation 전략과 평면 제약 조건에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/gaussian-pro/gaussian-pro-table2.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/gaussian-pro/gaussian-pro-table2.webp" | relative_url}}' width="42%"></center>
 <br>
-<center><img src='{{"/assets/img/gaussian-pro/gaussian-pro-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/gaussian-pro/gaussian-pro-fig7.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 여러 학습 뷰 비율에 따른 결과를 3DGS와 비교한 표이다. 
 
-<center><img src='{{"/assets/img/gaussian-pro/gaussian-pro-table3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/gaussian-pro/gaussian-pro-table3.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 MipNeRF360 데이터셋의 Room scene의 Gaussian을 시각화한 것으로, GaussianPro가 noisy한 Gaussian을 덜 포함하고 더 컴팩트한 것을 볼 수 있다. 
 
-<center><img src='{{"/assets/img/gaussian-pro/gaussian-pro-fig6.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/gaussian-pro/gaussian-pro-fig6.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 초기화 전략에 따른 성능과 효율성을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/gaussian-pro/gaussian-pro-table4.PNG" | relative_url}}' width="64%"></center>
+<center><img src='{{"/assets/img/gaussian-pro/gaussian-pro-table4.webp" | relative_url}}' width="64%"></center>

@@ -19,14 +19,14 @@ classes: wide
 > Beihang University | Macquarie University | RIKEN AIP | The University of Tokyo  
 > 24 Nov 2023  
 
-<center><img src='{{"/assets/img/demofusion/demofusion-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/demofusion/demofusion-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 생성형 AI 모델을 사용한 고해상도 이미지를 생성은 놀라운 잠재력을 보여주었다. 그러나 이러한 능력은 점점 더 중앙 집중화되고 있다. 고해상도 이미지 생성 모델을 학습시키려면 개인과 교육 기관이 감당할 수 없는 하드웨어, 데이터, 에너지에 대한 상당한 자본 투자가 필요하다. 예를 들어, $512^2$ 해상도에서 Stable Diffusion 1.5를 학습시키려면 256개의 A100 GPU에서 20일 이상의 학습이 필요하다. 이미지 해상도에 따라 이미지 생성 모델을 학습시키는 데 필요한 투자가 급격히 증가하기 때문에 모델의 이미지 합성 품질이 향상됨에 따라 중앙 집중화 추세가 가속화되고 있다. 
 
 본 논문에서는 SDXL, Midjourney, DALL-E 등의 고해상도 이미지 합성의 한계를 $1024^2$에서 $4096^2$ 이상으로 확장하는 **DemoFusion**을 도입하여 이러한 추세를 뒤집었다. DemoFusion은 추가 학습이 필요하지 않으며 RTX 3090 GPU 1개에서 실행된다. 
 
-<center><img src='{{"/assets/img/demofusion/demofusion-fig2.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/demofusion/demofusion-fig2.webp" | relative_url}}' width="75%"></center>
 <br>
 구체적으로 $1024^2$의 이미지를 생성할 수 있는 SDXL 모델부터 시작하였다. DemoFusion은 생성 해상도를 4배, 16배, 또는 그 이상 증가시킬 수 있는 SDXL의 plug-and-play extension이며, 추가 학습 없이 몇 줄의 간단한 코드만으로 가능하다. 위 그림의 (a)와 같이 SDXL에 더 높은 해상도의 이미지를 생성하라는 프롬프트를 직접 사용하면 좋은 생성에 실패한다. 그러나 저자들은 text-to-image LDM이 학습 과정에서 crop된 사진을 많이 접한다는 것을 관찰했다. 이렇게 crop된 사진은 학습 세트에 본질적으로 존재하거나 data augmentation을 위해 의도적으로 crop된 것이다. 결과적으로 (b)에서 볼 수 있듯이 SDXL과 같은 모델은 물체의 로컬한 부분에 초점을 맞춘 출력을 생성하는 경우가 있다. 즉, 기존 LDM에는 이미 고해상도 이미지를 생성할 수 있는 충분한 prior가 포함되어 있으며, 여러 개의 고해상도 패치를 완전한 장면에 융합할 수만 있다면 그 능력을 사용할 수 있다. 
 
@@ -44,7 +44,7 @@ Inference를 수정하는 이 세 가지 기술은 사전 학습된 SDXL에서 �
 
 ## Method
 ### 1. Progressive Upscaling
-<center><img src='{{"/assets/img/demofusion/demofusion-fig3a.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/demofusion/demofusion-fig3a.webp" | relative_url}}' width="100%"></center>
 <br>
 낮은 해상도에서 높은 해상도까지 이미지를 점진적으로 생성하는 것은 잘 정립된 개념이다. 처음에는 낮은 해상도에서 semantic하게 일관된 전체 구조를 합성한 다음, 로컬한 디테일을 추가하기 위해 해상도를 높이면 모델은 일관적이면서도 풍부한 이미지를 생성할 수 있다. 본 논문에서는 LDM에 맞춘 새로운 progressive upscaling 생성 프로세스를 제시하였다. 
 
@@ -94,7 +94,7 @@ $$
 기본적으로 이전 단계의 결과를 활용하여 denoising process의 초기 단계에서 생성된 이미지의 글로벌 구조를 가이드한다. 또한 noise residual의 영향을 점진적으로 줄여 로컬한 denoising 경로들을 통해 이후 단계에서 더 세밀한 디테일을 보다 효과적으로 최적화할 수 있다. 
 
 ### 3. Dilated Sampling
-<center><img src='{{"/assets/img/demofusion/demofusion-fig3b.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/demofusion/demofusion-fig3b.webp" | relative_url}}' width="65%"></center>
 <br>
 추가로 dilated sampling을 도입하여 각 denoising 경로에 더 많은 글로벌 컨텍스트를 제공한다. Receptive field를 확장하기 위해 convolutional kernel을 확장하는 기술은 다양한 dense prediction task에서 일반적이다. 본 논문에서는 convolutional kernel을 확장하는 대신 latent 표현 내에서 샘플링을 직접 확장한다. 그 후 dilated sampling을 통해 파생된 글로벌 denoising 경로는 MultiDiffusion의 로컬 denoising 경로와 유사하게 처리된다. 
 
@@ -138,11 +138,11 @@ $$
 ### 1. Comparison
 다음은 다른 방법들과 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/demofusion/demofusion-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/demofusion/demofusion-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 <center><div style="overflow-x: auto; width: 100%;">
   <div style="width: 150%;">
-    <img src='{{"/assets/img/demofusion/demofusion-table1.PNG" | relative_url}}' width="100%">
+    <img src='{{"/assets/img/demofusion/demofusion-table1.webp" | relative_url}}' width="100%">
   </div>
 </div></center>
 
@@ -151,12 +151,12 @@ $$
 
 <center><div style="overflow-x: auto; width: 80%;">
   <div style="width: 200%;">
-    <img src='{{"/assets/img/demofusion/demofusion-fig5.PNG" | relative_url}}' width="100%">
+    <img src='{{"/assets/img/demofusion/demofusion-fig5.webp" | relative_url}}' width="100%">
   </div>
 </div></center>
 
 ## Limitations
-<center><img src='{{"/assets/img/demofusion/demofusion-fig7.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/demofusion/demofusion-fig7.webp" | relative_url}}' width="80%"></center>
 
 1. MultiDiffusion 스타일의 inference 특성상 denoising 경로가 겹쳐서 높은 계산량이 필요하며, progressive upscaling으로 인해 inference 시간이 더 길어진다.
 2. DemoFusion의 성능은 기본 LDM과 직접적인 상관관계가 있다. 

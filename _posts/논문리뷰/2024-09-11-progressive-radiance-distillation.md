@@ -18,7 +18,7 @@ classes: wide
 > Zhejiang University  
 > 14 Aug 2024  
 
-<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 Inverse rendering은 관찰된 이미지를 조명 조건, 재료 속성, 형상과 같은 물리 기반 성분으로 분해하기 위해 렌더링 방정식을 푼다. 그러나 회귀 문제로 해석할 경우 렌더링 방정식은 상당한 수학적 모호성을 가진다. 빛과 재료는 항상 동일한 적분에 나타나고 무한히 많은 조합이 동일한 픽셀 색상을 생성할 수 있으므로 분해하기 어려울 수 있다. 이러한 모호성으로 인해 빛-재료 가정의 근사 오차에 모델 파라미터가 영향을 받아 새 이미지를 합성할 때 눈에 띄는 아티팩트가 발생할 수 있다. 
@@ -78,11 +78,11 @@ $$
 $c_x$, $r_x$, $m_x$는 모두 shading 파라미터로 구현된다. $L(\omega_i)$는 environment map으로 구현된다. $$I_\textrm{diff}$$ 적분은 [SH triple product](https://www.ppsloan.org/publications/StupidSH36.pdf)로 근사화되며, 이 때 $L(\omega_i)$는 SH로 projection된다. $V$는 regular grid ($120^3$)에서 미리 계산되며, 각 셀은 splatting된 불투명도 cubemap을 projection하여 SH 계수들을 계산한다. $V$는 초기화 시에 한 번만 계산되고 학습 중에 고정된다. Geometry 파라미터를 fine-tuning하는 동안 shading에 집중하고 학습하는 동안 visibility 변화는 최소화된다. Visibility 근사값은 저주파이므로 specular 항에서 제외한다. Specular 성분은 사전 필터링된 환경 조명을 사용하여 split-sum 프로세스로 계산된다. (자세한 수식은 논문의 Appendix 참조)
 
 ### 2. Training
-<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig1.webp" | relative_url}}' width="100%"></center>
 <br>
 학습은 네 단계로 나뉜다. 각 단계는 고정된 수의 epoch 동안 독립적으로 loss를 최소화한다. 모든 학습된 파라미터는 모든 단계에서 공유되지만 각 단계는 일부 파라미터를 고정할 수 있다. 모든 단계는 원래 3DGS와 동일한 이미지 loss 항 $$\mathcal{L}_\textrm{rgb}$$를 최종 radiance $$I(x, \omega_o)$$에 대해 정의하여 사용한다. 
 
-<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig2.webp" | relative_url}}' width="60%"></center>
 
 ##### Stage 1: Pre-training
 이 단계에서는 $\alpha_x = 0$으로 고정하고 $$I_\textrm{raw}$$만 학습시킨다. 이 단계는 3DGS와 동일하다. 
@@ -168,59 +168,59 @@ $$
 #### Novel view synthesis
 다음은 novel views synthesis 성능을 기존 방법들과 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig3.webp" | relative_url}}' width="100%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-table1.webp" | relative_url}}' width="100%"></center>
 
 #### Decomposition
 다음은 normal과 조명 재구성 품질을 각각 MAE°와 LPIPS로 기존 방법들과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-table2.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-table2.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 위에서부터 normal, environment map, albedo를 기존 방법들과 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig4.webp" | relative_url}}' width="100%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig5.webp" | relative_url}}' width="100%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 분해 결과를 기존 방법들과 비교한 것이다. 
 
-<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig7.webp" | relative_url}}' width="100%"></center>
 
 #### Relighting
 다음은 relighting 결과를 기존 방법들과 비교한 것이다. 
 
-<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig8.webp" | relative_url}}' width="100%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-table3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-table3.webp" | relative_url}}' width="100%"></center>
 
 #### Efficiency
 다음은 평균 학습 시간과 렌더링 FPS를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-table4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-table4.webp" | relative_url}}' width="100%"></center>
 <br>
 
 ### 2. Ablation Study
 다음은 학습이 진행됨에 따른 전체 렌더링, diffuse 성분, specular 성분에 대한 L1 error를 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig9.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig9.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig10.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig10.webp" | relative_url}}' width="65%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-table5.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-table5.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 원래 NDR과 본 논문의 최적화 방법을 사용한 NDR (NDR-PRD)을 비교한 결과이다. (표는 PSNR을 비교)
 
-<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig11.PNG" | relative_url}}' width="63%"></center>
+<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig11.webp" | relative_url}}' width="63%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-table6.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-table6.webp" | relative_url}}' width="57%"></center>
 
 ## Limitations
-<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig12.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/progressive-radiance-distillation/progressive-radiance-distillation-fig12.webp" | relative_url}}' width="55%"></center>
 <br>
 1. 간접 조명을 명시적으로 처리할 수 없다. 이는 specular inter-reflection이 있는 표면에서 잘못된 normal을 초래하고, 부정확한 relighting 결과로 이어진다. 
 2. 3-order SH를 사용하여 그리드 포인트에서 visibility를 압축하는데, 이는 diffuse 표면의 부드러운 그림자에 더 적합하다. 

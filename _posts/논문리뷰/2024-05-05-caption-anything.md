@@ -17,10 +17,10 @@ classes: wide
 > SUSTech VIP Lab  
 > 4 May 2023  
 
-<center><img src='{{"/assets/img/caption-anything/caption-anything-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/caption-anything/caption-anything-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
-<center><img src='{{"/assets/img/caption-anything/caption-anything-fig2.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/caption-anything/caption-anything-fig2.webp" | relative_url}}' width="90%"></center>
 <br>
 Controllable Image Captioning (CIC)는 언어 출력을 사용자 의도에 맞추는 유망한 연구 방향이다. 다양한 제어 신호를 이미지 캡션 모델에 통합하기 위한 방법들이 제안되었지만 두 가지 주요 요인에 의해 적용 가능성이 제한되었다. 
 
@@ -34,7 +34,7 @@ Controllable Image Captioning (CIC)는 언어 출력을 사용자 의도에 맞�
 CAT는 다양한 visual control을 통해 관심 있는 object를 선택하여 선호하는 스타일로 캡션을 생성할 수 있다. 또한 추가 OCR 및 VQA 도구를 통합함으로써 object 중심 채팅과 이미지 단락 캡션이라는 두 가지 멀티모달 애플리케이션으로 쉽게 확장될 수 있다. 전자는 사용자가 특정 object에 대해 채팅할 수 있게 하여 관심 있는 object에 대한 더 깊은 이해를 촉진한다. 후자는 별개의 foundation model에서 비롯된 다양한 영역의 지식을 효과적으로 통합하여 상세하고 논리적으로 일관된 설명을 생성할 수 있다. 
 
 ## Method
-<center><img src='{{"/assets/img/caption-anything/caption-anything-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/caption-anything/caption-anything-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 현재 이미지 캡션 시스템의 사용자 중심 상호 작용을 향상시키기 위해 다양한 멀티모달 제어 신호를 사용하여 이미지 captioner를 수용할 수 있는 foundation model 확대 전략을 사용한다. CAT는 segmenter, captioner, text refiner로 구성되어 있다. 위 그림에서 볼 수 있듯이 segmenter는 먼저 대화형 visual control (ex. 점, 상자, 궤적)을 사용하고 픽셀 레벨 마스크를 통해 사용자 관심 영역을 나타낸다. 이후, captioner는 원본 이미지와 제공된 마스크를 기반으로 특정 영역과 관련된 설명을 생성한다. 저자들은 captioner가 사용자가 관심 있는 object에 집중할 수 있도록 하기 위해 단계별 inference를 통한 visual chain-of-thought을 설계했다. 마지막으로, text refiner는 사용자 정의 language control을 통합하여 설명을 구체화하고 이를 통해 사용자 기본 설정에 따라 언어 스타일을 조정한다. 
 
@@ -60,28 +60,28 @@ CAT는 ChatGPT를 활용하여 이미지의 dense한 캡션과 장면 텍스트�
 #### Visual Controls
 다음은 점을 visual control로 하여 생성된 캡션들을 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/caption-anything/caption-anything-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/caption-anything/caption-anything-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 궤적과 박스를 visual control로 하여 생성된 캡션들을 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/caption-anything/caption-anything-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/caption-anything/caption-anything-fig5.webp" | relative_url}}' width="100%"></center>
 
 #### Language Controls
 다음은 language control로 생성된 캡션들을 시각화한 것이다. (위: 언어, 아래: 감정 & 사실성)
 
-<center><img src='{{"/assets/img/caption-anything/caption-anything-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/caption-anything/caption-anything-fig6.webp" | relative_url}}' width="100%"></center>
 
 #### Object-Centric Chatting
 다음은 object-centric chatting의 예시이다. 
 
-<center><img src='{{"/assets/img/caption-anything/caption-anything-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/caption-anything/caption-anything-fig7.webp" | relative_url}}' width="100%"></center>
 
 #### Visual Chain-of-Thought
 다음은 visual chain-of-thought의 예시이다. 
 
-<center><img src='{{"/assets/img/caption-anything/caption-anything-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/caption-anything/caption-anything-fig8.webp" | relative_url}}' width="100%"></center>
 
 #### Caption Everything in a Paragraph
 다음은 image paragraph captioning의 예시이다. 
 
-<center><img src='{{"/assets/img/caption-anything/caption-anything-fig9.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/caption-anything/caption-anything-fig9.webp" | relative_url}}' width="100%"></center>

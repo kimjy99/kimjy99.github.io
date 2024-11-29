@@ -20,7 +20,7 @@ classes: wide
 > University of California | University of Texas at Austin | DEVCOM ARL  
 > 6 Dec 2023  
 
-<center><img src='{{"/assets/img/feature-3dgs/feature-3dgs-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/feature-3dgs/feature-3dgs-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 [NeRF](https://kimjy99.github.io/논문리뷰/nerf)는 렌더링 방정식을 사용하여 2D 이미지에서 supervise되는 3D field를 implicit하게 표현하도록 학습한다. 이러한 방법은 novel view synthesis에 큰 가능성을 보여주었다. 그러나 implicit function은 모든 3D 위치에 로컬한 radiance 정보를 저장하도록 설계되었기 때문에 3D field에 포함되는 정보는 다운스트림 애플리케이션의 관점에서 제한된다. 
@@ -84,26 +84,26 @@ Score가 낮은 Gaussian들을 필터링 하고 색상 $c(x)$와 불투명도 $\
 ### 1. Novel view semantic segmentation
 다음은 Replica 데이터셋에서의 렌더링 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/feature-3dgs/feature-3dgs-table1.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/feature-3dgs/feature-3dgs-table1.webp" | relative_url}}' width="57%"></center>
 <br>
 다음은 Replica 데이터셋에서의 semantic segmentation 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/feature-3dgs/feature-3dgs-table2.PNG" | relative_url}}' width="43%"></center>
+<center><img src='{{"/assets/img/feature-3dgs/feature-3dgs-table2.webp" | relative_url}}' width="43%"></center>
 <br>
 다음은 Replica 데이터셋과 LLFF 데이터셋에서 novel view semantic segmentation 결과를 비교한 것이다. (LSeg)
 
-<center><img src='{{"/assets/img/feature-3dgs/feature-3dgs-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/feature-3dgs/feature-3dgs-fig3.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Segment Anything from Any View
 다음은 (a) SAM 인코더-디코더 모듈을 novel view 렌더링 이미지에 적용한 결과와 (b) 렌더링된 feature를 직접 디코딩하여 얻은 SAM segmentation 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/feature-3dgs/feature-3dgs-fig4.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/feature-3dgs/feature-3dgs-fig4.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 NeRF-DFF와 novel view segmentation 결과를 비교한 것이다. (SAM)
 
-<center><img src='{{"/assets/img/feature-3dgs/feature-3dgs-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/feature-3dgs/feature-3dgs-fig5.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Language-guided Editing
 다음은 NeRF-DFF와 언어 기반 편집 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/feature-3dgs/feature-3dgs-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/feature-3dgs/feature-3dgs-fig6.webp" | relative_url}}' width="100%"></center>

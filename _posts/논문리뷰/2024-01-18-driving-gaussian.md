@@ -20,7 +20,7 @@ classes: wide
 > Peking University | Google Research | University of California  
 > 13 Dec 2023  
 
-<center><img src='{{"/assets/img/driving-gaussian/driving-gaussian-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/driving-gaussian/driving-gaussian-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## 1. Introduction
 차량에 장착된 sparse한 센서 데이터에서 복잡한 3D 장면을 재구성하는 것은 어려운 일이며, 특히 차량이 고속으로 이동할 때 더욱 그렇다. 왼쪽 전면 카메라가 포착한 장면의 가장자리에 차량이 나타나 전면 카메라 시야의 중앙으로 빠르게 이동하고, 다음 프레임에서 먼 점으로 줄어드는 장면을 상상해보자. 이러한 운전 장면의 경우 차량과 동적 객체가 모두 상대적으로 빠른 속도로 움직이므로 장면 구성에 심각한 문제가 발생한다. 정적인 배경과 동적인 사물은 제한된 시야를 통해 빠르게 변화하며 표현된다. 또한 다중 카메라 세팅에서는 외부 뷰, 최소한의 겹침, 다양한 방향에서 나오는 빛의 변화로 인해 훨씬 더 어려워진다. 복잡한 형상, 다양한 광학적 저하, 시공간적 불일치 역시 이러한 360도 대규모 운전 장면을 모델링하는 데 중요한 과제를 제기한다.
@@ -33,12 +33,12 @@ classes: wide
 
 ## Method
 ### 1. Composite Gaussian Splatting
-<center><img src='{{"/assets/img/driving-gaussian/driving-gaussian-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/driving-gaussian/driving-gaussian-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 3D-GS는 순수한 정적 장면에서는 잘 작동하지만 대규모 정적 배경과 여러 동적 객체가 포함된 혼합 장면에서는 상당한 제한이 있다. 위 그림에서 볼 수 있듯이, 본 논문은 무한한 정적 배경과 동적 객체에 대해 Composite Gaussian Splatting을 사용하여 주변의 대규모 운전 장면을 표현하는 것을 목표로 하였다. 
 
 #### Incremental Static 3D Gaussians
-<center><img src='{{"/assets/img/driving-gaussian/driving-gaussian-fig3.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/driving-gaussian/driving-gaussian-fig3.webp" | relative_url}}' width="90%"></center>
 <br>
 운전 장면의 정적인 배경은 대규모, 장기간, 다중 카메라 변환을 통한 차량 움직임의 변화로 인해 어려움을 겪는다. 차량이 움직일 때 정적 배경은 빈번하게 시간적 이동과 변화를 겪는다. 원근법에 인해 현재에서 멀리 떨어진 timestep에서 먼 거리의 장면을 성급하게 통합하면 스케일 혼란이 발생하여 아티팩트와 흐릿함이 발생할 수 있다. 이 문제를 해결하기 위해 저자들은 위 그림과 같이 차량의 움직임으로 인한 관점 변화와 인접 프레임 간의 시간적 관계를 활용하여 Incremental Static 3D Gaussian을 도입하여 3D-GS를 향상시킨다.
 
@@ -198,30 +198,30 @@ $$
 ### 1. Results and Comparisons
 다음은 nuScenes에서 기존 SOTA 방법들과 전체적인 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/driving-gaussian/driving-gaussian-table1.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/driving-gaussian/driving-gaussian-table1.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 nuScenes에서 재구성 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/driving-gaussian/driving-gaussian-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/driving-gaussian/driving-gaussian-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 KITTI-360에서 기존 SOTA 방법들과 전체적인 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/driving-gaussian/driving-gaussian-table2.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/driving-gaussian/driving-gaussian-table2.webp" | relative_url}}' width="47%"></center>
 
 ### 2. Ablation Study
 다음은 초기화 방법에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/driving-gaussian/driving-gaussian-table3.PNG" | relative_url}}' width="37%"></center>
+<center><img src='{{"/assets/img/driving-gaussian/driving-gaussian-table3.webp" | relative_url}}' width="37%"></center>
 <br>
 다음은 KITTI-360에서 초기화 방법에 따른 결과를 시각적으로 비교한 것이다. 
 
-<center><img src='{{"/assets/img/driving-gaussian/driving-gaussian-fig5.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/driving-gaussian/driving-gaussian-fig5.webp" | relative_url}}' width="65%"></center>
 <br>
 다음은 각 모듈에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/driving-gaussian/driving-gaussian-table4.PNG" | relative_url}}' width="35%"></center>
+<center><img src='{{"/assets/img/driving-gaussian/driving-gaussian-table4.webp" | relative_url}}' width="35%"></center>
 
 ### 3. Corner Case Simulation
 다음은 코너 케이스 시뮬레이션의 예시이다. 
 
-<center><img src='{{"/assets/img/driving-gaussian/driving-gaussian-fig6.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/driving-gaussian/driving-gaussian-fig6.webp" | relative_url}}' width="95%"></center>

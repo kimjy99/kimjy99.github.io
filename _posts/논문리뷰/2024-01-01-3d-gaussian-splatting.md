@@ -19,7 +19,7 @@ classes: wide
 > Inria | Max-Planck-Institut für Informatik  
 > 8 Aug 2023  
 
-<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 메쉬와 포인트는 명시적이며 빠른 GPU/CUDA 기반 rasterization에 적합하기 때문에 가장 일반적인 3D 장면 표현이다. 대조적으로, 최근 NeRF는 연속적인 장면 표현을 기반으로 하며 일반적으로 캡처된 장면의 새로운 뷰 합성을 위해 volumetric ray-marching을 사용하여 MLP를 최적화한다. 마찬가지로, 현재까지 가장 효율적인 radiance field 솔루션은 복셀이나 해시 그리드 또는 포인트에 저장된 값을 보간하여 연속 표현을 기반으로 구축된다. 이러한 방법들의 특성은 최적화에 도움이 되지만, 렌더링에 필요한 확률론적 샘플링에는 비용이 많이 들고 잡음이 발생할 수 있다. 본 논문은 두 세계의 장점을 결합한 새로운 접근 방식을 소개하였다. 3D Gaussian 표현을 통해 SOTA 시각적 품질과 경쟁력 있는 학습 시간으로 최적화할 수 있으며, 타일 기반 splatting 솔루션은 1080p 해상도에서의 SOTA 품질의 실시간 렌더링을 보장한다. 
@@ -35,7 +35,7 @@ classes: wide
 3D Gaussian Splatting은 멀티뷰 캡처에서 3D Gaussian을 최적화하고 이전의 암시적 radiance field 접근 방식의 최고 품질과 동일하거나 더 나은 품질을 달성할 수 있다. 또한 가장 빠른 방법과 유사한 학습 속도와 품질을 달성할 수 있으며 중요한 것은 새로운 뷰 합성을 위한 고품질의 최초 실시간 렌더링을 제공한다는 것이다. 
 
 ## Differentiable 3D Gaussian Splatting
-<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문의 목표는 법선이 없는 sparse한 SfM 점 집합에서 시작하여 고품질의 새로운 뷰를 합성하는 장면 표현을 최적화하는 것이다. 이를 위해서는 미분 가능한 체적 표현의 속성을 상속하는 동시에 매우 빠른 렌더링이 가능하도록 구조화되지 않고 명시적인 기본 요소가 필요하다. 저자들은 미분 가능하고 2D splat으로 쉽게 투영할 수 있는 3D Gaussian을 선택하여 렌더링을 위한 빠른 $\alpha$-블렌딩이 가능하도록 하였다. 
 
@@ -71,7 +71,7 @@ $$
 
 두 요소를 독립적으로 최적화할 수 있도록 스케일링을 위한 3D 벡터 $s$와 회전을 나타내는 quaternion $q$를 별도로 저장한다. 이들은 각각의 행렬로 간단하게 변환되고 결합될 수 있으며, $q$를 정규화하여 유효한 단위 quaternion을 얻을 수 있다. 학습 중 자동 미분으로 인한 상당한 오버헤드를 피하기 위해 모든 파라미터에 대한 기울기를 명시적으로 도출한다. 최적화에 적합한 이방성 공분산 표현을 통해 3D Gaussian을 최적화하여 캡처된 장면의 다양한 모양의 기하학적 구조에 적응할 수 있으므로 상당히 컴팩트한 표현이 가능해진다. 그림 3은 그러한 케이스들을 보여준다. 
 
-<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig3.webp" | relative_url}}' width="60%"></center>
 
 ## Optimization with Adaptive Density Control of 3D Gaussians
 본 논문의 접근 방식의 핵심은 프리뷰 합성을 위해 장면을 정확하게 표현하는 dense한 3D Gaussian 집합을 생성하는 최적화 단계이다. 위치 $p$, $\alpha$, 공분산 $\Sigma$ 외에도 각 Gaussian의 색상 $c$를 나타내는 SH 계수를 최적화하여 뷰에 따른 장면의 모양을 올바르게 캡처한다. 이러한 파라미터의 최적화는 장면을 더 잘 표현하기 위해 Gaussian의 밀도를 제어하는 단계와 인터리브된다.
@@ -98,7 +98,7 @@ SfM의 초기 sparse한 포인트 집합에서 시작한 다음 Gaussian 수와 
 
 Gaussian에 대한 적응형 제어는 빈 영역을 채워야 한다. 기하학적 feature가 누락된 영역 ("under-reconstruction")에 초점을 맞추지만 Gaussian이 장면에서 넓은 영역을 덮는 영역 ("over-reconstruction")에도 중점을 둔다. 둘 다 큰 view space 위치 기울기를 가지고 있다. 직관적으로 이는 아직 잘 재구성되지 않은 영역에 해당하고 최적화에서는 이를 수정하기 위해 Gaussian을 이동하려고 하기 때문일 가능성이 높다. 두 경우 모두 densification을 위한 좋은 후보이므로 저자들은 테스트에서 0.0002로 설정한 threshold $$\tau_\textrm{pos}$$ 이상의 view space 위치 기울기의 평균 크기를 사용하여 Gaussian을 densify한다. 
 
-<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig4.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig4.webp" | relative_url}}' width="60%"></center>
 <br>
 재구성되지 않은 영역에 있는 작은 Gaussian의 경우 생성해야 하는 새로운 형상을 처리해야 한다. 이를 위해 동일한 크기의 복사본을 만들고 이를 위치 기울기 방향으로 이동하여 Gaussian을 복제하는 것이 좋다. 
 
@@ -106,7 +106,7 @@ Gaussian에 대한 적응형 제어는 빈 영역을 채워야 한다. 기하학
 
 첫 번째 경우에는 시스템의 총 부피와 Gaussian 수를 모두 늘려야 하는 필요성을 감지하고 처리하는 반면, 두 번째 경우에는 총 부피를 보존하지만 Gaussian 수를 늘린다. 다른 체적 표현과 마찬가지로 최적화는 입력 카메라에 가까운 floater들로 인해 정체될 수 있으며, 본 논문의 경우에는 Gaussian 밀도가 정당하지 않게 증가할 수 있다. Gaussian 수의 증가를 조절하는 효과적인 방법은 $N = 3000$회 반복마다 $\alpha$ 값을 0에 가깝게 설정하는 것이다. 그런 다음 최적화는 위에서 설명한 대로 $\epsilon_\alpha$보다 작은 $\alpha$의 Gaussian을 제거하는 방식을 사용하여 Gaussian에 대한 $\alpha$를 증가시킨다. Gaussian은 축소되거나 커질 수 있으며 다른 것드과 상당히 겹칠 수 있지만, world space에서 매우 큰 Gaussian과 view space에서 차지하는 공간이 큰 Gaussian을 주기적으로 제거한다. 이 전략을 사용하면 총 Gaussian 수를 전반적으로 효과적으로 제어할 수 있다. 모델의 Gaussian은 항상 유클리드 공간에서 기본 요소로 유지된다. 다른 방법과 달리 멀리 있거나 큰 Gaussian에 대한 공간 압축, 워핑 또는 투영 전략이 필요하지 않다.
 
-<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-algo1.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-algo1.webp" | relative_url}}' width="52%"></center>
 
 ## Fast Differentiable Rasterizer for Gaussians
 본 논문의 목표는 대략적인 $\alpha$-blending을 허용하고 기울기를 받을 수 있는 splat 수에 대한 엄격한 제한을 피하기 위해 빠른 전체 렌더링과 빠른 정렬을 갖는 것이다. 
@@ -121,53 +121,53 @@ Rasterization 중에는 $\alpha$의 채도가 유일한 중지 기준이다. 이
 
 순회는 타일의 모든 픽셀에 영향을 준 마지막 지점부터 시작되며 공유 메모리에 포인트를 다시 로드하는 작업이 공동으로 수행된다. 또한 각 픽셀은 forward pass 중에 해당 색상에 기여한 마지막 포인트의 깊이보다 깊이가 낮거나 같은 경우에만 오버랩 테스트와 포인트 처리를 시작한다. 기울기 계산 시에는 원본 블렌딩 프로세스 중 각 step에서 누적된 불투명도 값이 필요하다. Backward pass에서 점진적으로 줄어드는 불투명도의 list를 순회하는 대신 forward pass가 끝날 때 누적된 총 불투명도만 저장하여 이러한 중간 불투명도를 복구할 수 있다. 특히 각 포인트는 forward 프로세스에서 최종 누적 불투명도 $\alpha$를 저장한다. 이를 뒤에서 앞으로 순회할 때 각 포인트의 $\alpha$로 나누어 기울기 계산에 필요한 계수를 얻는다. 
 
-<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-algo2.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-algo2.webp" | relative_url}}' width="52%"></center>
 
 ## Experiments
 ### 1. Results and Evaluation
 다음은 이전 연구들과 본 논문의 방법을 정량적으로 비교한 표이다. 
 
-<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-table1.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 iteration에 따른 시각적 결과들이다. 
 
-<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig6.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig6.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 이전 연구들과 본 논문의 방법을 시각적으로 비교한 것이다. 
 
-<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Synthetic NeRF에서의 PSNR 점수이다. 
 
-<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-table2.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-table2.webp" | relative_url}}' width="70%"></center>
 <br>
 
 ### 2. Ablations
 다음은 ablation study의 PSNR 점수이다. 
 
-<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-table3.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-table3.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 SfM으로 초기화하는 것에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig7.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig7.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 densification 전략에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig8.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig8.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 기울기를 받는 포인트의 수에 대한 ablation 결과이다. 왼쪽은 기울기를 받는 Gaussian을 10개로 제한한 것이고 오른쪽은 본 논문의 방법이다. 
 
-<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig9.PNG" | relative_url}}' width="83%"></center>
+<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig9.webp" | relative_url}}' width="83%"></center>
 <br>
 다음은 Gaussian 이방성을 비활성화하고 장면을 학습한 결과와 활성화하고 장면을 학습한 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig10.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig10.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Limitations
-<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig11.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig11.webp" | relative_url}}' width="85%"></center>
 <br>
 다른 방법들과 마찬가지로 장면이 잘 관찰되지 않는 지역에는 아티팩트가 있다. 위 그림은 아티팩트를 비교한 것으로, 왼쪽은 Mip-NeRF360, 오른쪽은 본 논문의 방법이다. 
 
-<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig12.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/3d-gaussian-splatting/3d-gaussian-splatting-fig12.webp" | relative_url}}' width="85%"></center>
 <br>
 또한 학습 중에 본 뷰와 거의 겹치지 않는 뷰에서 아티팩트를 생성할 수 있다. 왼쪽은 Mip-NeRF360, 오른쪽은 본 논문의 방법이다. 

@@ -19,7 +19,7 @@ classes: wide
 > National University of Singapore  
 > 28 May 2024  
 
-<center><img src='{{"/assets/img/freesplat/freesplat-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/freesplat/freesplat-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 최근 [3D Gaussian Splatting (3DGS)](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)은 여러 시점에서 3D 장면을 사실적으로 재구성하기 위한 효율적인 표현으로 제안되었다. 3D Gaussian의 명시적 표현은 텍스처가 많은 영역에서 밀도가 높아지도록 최적화되며, rasterization 기반 볼륨 렌더링은 비용이 많이 드는 ray marching 방식을 피한다. 결과적으로 3DGS는 새로운 시점에서 고품질 이미지를 실시간으로 렌더링할 수 있었다. 그럼에도 불구하고 3DGS는 일반화가 부족하고 장면별 최적화가 필요하다. 
@@ -35,7 +35,7 @@ Low-cost Cross-View Aggregation에서는 저비용 feature 추출 및 매칭을 
 그런 다음, PTF는 점진적 Gaussian 퓨전을 사용한 픽셀별 정렬을 통해 멀티뷰에서 local Gaussian triplet을 적응적으로 퓨전하고 겹치는 영역에서 Gaussian 중복성을 방지한다. 추가로, 효율적인 feature 추출 및 매칭을 통해 특정 개수의 뷰를 가진 일반화 가능한 3DGS를 풀어내고 긴 시퀀스에 대해 모델을 학습시키는 Free-View Training (FVT) 전략을 제안하였다.
 
 ## Method
-<center><img src='{{"/assets/img/freesplat/freesplat-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/freesplat/freesplat-fig2.webp" | relative_url}}' width="100%"></center>
 
 ### 1. Overview
 RGB 이미지 시퀀스가 ​​주어지면, 근처 뷰 간에 cost volume을 적응적으로 구축하고, depth map을 예측하여 2D feature map을 3D Gaussian triplet으로 unprojection한다. 그런 다음 Pixel-wise Triplet Fusion (PTF) 모듈로 global Gaussian triplet을 local Gaussian triplet과 점진적으로 정렬하여 latent feature space에서 중복된 3D Gaussian을 융합하고 디코딩하기 전에 cross-view Gaussian feature를 집계할 수 있다. FreeSplat은 cost volume을 통해 cross-view feature를 효율적으로 교환하고, cross-view alignment와 adaptive fusion을 통해 뷰별 3D Gaussian을 점진적으로 집계할 수 있다.
@@ -169,26 +169,26 @@ $$
 ### 1. Results on ScanNet
 다음은 ScanNet에서의 뷰 보간 결과이다. 
 
-<center><img src='{{"/assets/img/freesplat/freesplat-table1.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/freesplat/freesplat-table1.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 긴 시퀀스에서의 재구성 결과이다. 
 
-<center><img src='{{"/assets/img/freesplat/freesplat-table2.PNG" | relative_url}}' width="77%"></center>
+<center><img src='{{"/assets/img/freesplat/freesplat-table2.webp" | relative_url}}' width="77%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/freesplat/freesplat-table2.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/freesplat/freesplat-table2.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 ScanNet에서의 깊이 렌더링 결과이다. 
 
-<center><img src='{{"/assets/img/freesplat/freesplat-table3.PNG" | relative_url}}' width="77%"></center>
+<center><img src='{{"/assets/img/freesplat/freesplat-table3.webp" | relative_url}}' width="77%"></center>
 
 ### 2. Zero-Shot Transfer Results on Replica
 다음은 Replica에서의 zero-shot transfer 결과이다. 
 
-<center><img src='{{"/assets/img/freesplat/freesplat-table4.PNG" | relative_url}}' width="77%"></center>
+<center><img src='{{"/assets/img/freesplat/freesplat-table4.webp" | relative_url}}' width="77%"></center>
 
 ### 3. Ablation Study
 다음은 ScanNet에서의 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/freesplat/freesplat-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/freesplat/freesplat-fig4.webp" | relative_url}}' width="100%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/freesplat/freesplat-table5.PNG" | relative_url}}' width="78%"></center>
+<center><img src='{{"/assets/img/freesplat/freesplat-table5.webp" | relative_url}}' width="78%"></center>

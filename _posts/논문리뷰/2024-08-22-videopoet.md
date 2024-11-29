@@ -23,7 +23,7 @@ classes: wide
 > Google DeepMind  
 > 21 Dec 2023  
 
-<center><img src='{{"/assets/img/videopoet/videopoet-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/videopoet/videopoet-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 동영상 생성에 LLM을 사용하는 것의 주목할 만한 이점은 기존 LLM 프레임워크를 쉽게 통합할 수 있다는 것다. 이 통합을 통해 LLM 인프라를 재사용할 수 있으며, 수년간 LLM을 위해 개발한 최적화를 활용할 수 있다. 여기에는 모델 스케일링, 학습 및 inference 인프라, 하드웨어를 위한 학습 레시피의 최적화가 포함된다. 이는 동일한 모델에서 다양한 task를 인코딩하는 데 있어서의 유연성과 결합된다. 
@@ -37,7 +37,7 @@ VideoPoet은 충실도가 높고 큰 모션을 가진 동영상을 생성하는 
 또한 VideoPoet은 zero-shot 동영상 생성이 가능하다. 여기서 "zero-shot"은 학습 데이터 분포에서 벗어나는 새로운 텍스트, 이미지, 동영상 입력을 처리함을 의미한다. 나아가 VideoPoet은 학습에 포함되지 않은 새로운 task를 처리할 수 있다. 예를 들어, VideoPoet는 task를 순차적으로 연결하여 새로운 편집 task를 수행할 수 있다. 
 
 ## Model Overview
-<center><img src='{{"/assets/img/videopoet/videopoet-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/videopoet/videopoet-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 VideoPoet은 세 가지 구성요소로 구성된다. 
 
@@ -72,7 +72,7 @@ SoundStream tokenizer는 2.125초의 오디오를 임베딩하여 4단계의 res
 
 저자들은 효율적이고 고품질의 동영상 업샘플링을 위해 언어 모델의 token space에서 작동하는 커스텀 [MAGVIT](https://kimjy99.github.io/논문리뷰/magvit)를 개발했다. Self-attention layer의 시퀀스 길이의 제곱에 비례하는 메모리를 완화하기 위해 windowed local attention이 통합되었다. 
 
-<center><img src='{{"/assets/img/videopoet/videopoet-fig3.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/videopoet/videopoet-fig3.webp" | relative_url}}' width="45%"></center>
 <br>
 구체적으로, SR transformer는 세 개의 transformer layer block으로 구성되며, 각 레이어는 공간적 수직 공간적 수평, 시간 축 중 하나에 맞춰진 local window에서 self-attention을 수행한다. Cross-attention layer는 저해상도(LR) 토큰 시퀀스에 attention되고 local window로 나뉘며, self-attention layer의 window와 동일한 모양이다. 모든 block에는 텍스트 임베딩에 대한 cross-attention도 포함된다. 커스텀 MAGVIT의 아키텍처는 위 그림과 같다. 
 
@@ -123,29 +123,29 @@ Video stylization의 경우, 학습 시에는 주어진 optical flow, 깊이, �
 ### 1. Pretraining Task Analysis
 다음은 300M 모델에 대한 사전 학습 task 분석 결과이다. 상단 행은 일부 데이터로 학습된 300M 모델이며, 하단 행은 전체 데이터에서 학습된 8B 모델이다. 
 
-<center><img src='{{"/assets/img/videopoet/videopoet-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/videopoet/videopoet-table1.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Comparison with the State-of-the-Art
 다음은 zero-shot text-to-video 성능을 기존 SOTA와 비교한 표이다. 
 
-<center><img src='{{"/assets/img/videopoet/videopoet-table2.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/videopoet/videopoet-table2.webp" | relative_url}}' width="48%"></center>
 <br>
 다음은 text-to-video 생성에 대한 인간 평가 결과이다. 
 
-<center><img src='{{"/assets/img/videopoet/videopoet-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/videopoet/videopoet-fig4.webp" | relative_url}}' width="100%"></center>
 
 ### 3. LLM’s Diverse Capabilities in Video Generation
 다음은 10초 길이의 동영상 생성 예시이다. 
 
-<center><img src='{{"/assets/img/videopoet/videopoet-fig5.PNG" | relative_url}}' width="83%"></center>
+<center><img src='{{"/assets/img/videopoet/videopoet-fig5.webp" | relative_url}}' width="83%"></center>
 <br>
 다음은 정지 이미지를 애니메이션으로 변환한 예시이다. 
 
-<center><img src='{{"/assets/img/videopoet/videopoet-fig6.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/videopoet/videopoet-fig6.webp" | relative_url}}' width="65%"></center>
 <br>
 다음은 task chaining을 통한 zero-shot 동영상 편집의 예시이다. 
 
-<center><img src='{{"/assets/img/videopoet/videopoet-fig7.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/videopoet/videopoet-fig7.webp" | relative_url}}' width="65%"></center>
 
 ## Limitations
 1. 압축된 토큰으로부터 RGB 프레임을 재구성하기 때문에 생성 모델의 시각적 충실도에 상한이 있다. 

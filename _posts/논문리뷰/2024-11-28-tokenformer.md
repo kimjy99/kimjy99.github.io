@@ -18,7 +18,7 @@ classes: wide
 > Max Planck Institute for Informatics | Google | Peking University  
 > 30 Oct 2024  
 
-<center><img src='{{"/assets/img/tokenformer/tokenformer-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/tokenformer/tokenformer-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 Transformer는 일반적으로 하나의 토큰을 처리하는 데 필요한 계산을 두 가지 뚜렷한 부분으로 나눈다. 
@@ -68,7 +68,7 @@ $$
 Pattention layer는 토큰과 파라미터 간의 상호작용을 관리하기 위해 cross-attention 메커니즘을 사용하여 attention 메커니즘의 적응성 특성을 완전히 보존한다. Transformer 모델의 self-attention이 가변 길이의 시퀀스를 처리하는 방식과 유사하게, Pattention layer는 feature projection에 사용된 입력 및 출력 채널 차원과 무관하게 유연한 수의 파라미터를 처리하도록 설계되었다. 이를 통해 네트워크 파라미터를 파라미터 토큰 축을 따라 원활하게 확장하여 사전 학습된 가중치를 효과적으로 재사용하고 자연스럽게 점진적으로 모델을 스케일링할 수 있다.
 
 #### Overall Architecture
-<center><img src='{{"/assets/img/tokenformer/tokenformer-fig2.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/tokenformer/tokenformer-fig2.webp" | relative_url}}' width="95%"></center>
 <br>
 위 그림은 Tokenformer의 아키텍처를 보여준다. 입력 토큰 $$X_\textrm{in} \in \mathbb{R}^{T \times d}$$이 주어지면 pre-norm transformer의 디자인을 따르고 Tokenformer layer의 출력에 대한 계산은 다음과 같이 표현된다.
 
@@ -141,27 +141,27 @@ $$
 ### 1. Progressive Model Scaling
 다음은 Transformer와 스케일링 비용을 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/tokenformer/tokenformer-fig34.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/tokenformer/tokenformer-fig34.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Benchmarking of Model Expressiveness
 다음은 Transformer 기반의 언어 모델과 zero-shot 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/tokenformer/tokenformer-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/tokenformer/tokenformer-table1.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 ViT와 ImageNet-1K classification 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/tokenformer/tokenformer-table2.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/tokenformer/tokenformer-table2.webp" | relative_url}}' width="52%"></center>
 
 ### 3. Comparison with Standard Transformer
 다음은 FLOPS와 텍스트 길이 사이의 관계를 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/tokenformer/tokenformer-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/tokenformer/tokenformer-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 (왼쪽) loss curve와 (오른쪽) incremental model scaling의 성능을 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/tokenformer/tokenformer-fig67.PNG" | relative_url}}' width="88%"></center>
+<center><img src='{{"/assets/img/tokenformer/tokenformer-fig67.webp" | relative_url}}' width="88%"></center>
 
 ### 4. Ablation Study
 다음은 (왼쪽) softmax와 (오른쪽) layer normalization에 대한 ablation 결과이다. (ImageNet classification)
 
-<center><img src='{{"/assets/img/tokenformer/tokenformer-table45.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/tokenformer/tokenformer-table45.webp" | relative_url}}' width="80%"></center>

@@ -19,7 +19,7 @@ classes: wide
 > Tsinghua University | Huawei Noah's Ark Lab | Chinese Academy of Sciences  
 > 27 Feb 2024  
 
-<center><img src='{{"/assets/img/vastgaussian/vastgaussian-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/vastgaussian/vastgaussian-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 대규모 장면 재구성은 자율 주행, 항공 측량, VR 등 사실적인 시각적 품질과 실시간 렌더링이 필요한 다양한 애플리케이션에 필수적이다. NeRF를 대규모 장면으로 확장하면 디테일이 부족하고 렌더링 속도가 느리다. 최근 [3D Gaussian Splatting (3DGS)](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)는 시각적 품질과 렌더링 속도 측면에서 인상적인 성능을 제공하여 1080p 해상도에서 사진처럼 사실적인 실시간 렌더링을 가능하게 하는 유망한 접근 방식으로 떠오르고 있다. 그러나 3DGS는 소규모 및 물체 중심 장면에 중점을 둔다. 대규모 환경에 적용할 경우 몇 가지 확장성 문제가 있다. 
@@ -28,7 +28,7 @@ classes: wide
 2. 전체 대규모 장면을 전체적으로 최적화하려면 충분한 iteration이 필요하다. 이는 시간이 많이 걸리고 적절한 정규화가 없으면 불안정할 수 있다. 
 3. 아래 그림과 같이 대규모 장면에서 조명은 일반적으로 고르지 않으며 캡처된 이미지에 눈에 띄는 외형 변화가 있다. 3DGS는 다양한 뷰 간의 이러한 차이를 보상하기 위해 불투명도가 낮은 대규모 3D Gaussian을 생성하는 경향이 있다. 예를 들어, 노출이 높은 이미지에서는 카메라 가까이 밝은 얼룩이 나타나는 경향이 있고, 노출이 낮은 이미지에서는 어두운 얼룩이 나타나는 경향이 있다. 이 얼룩은 새로운 시점에서 관찰할 때 공중에 떠다니는 불쾌한 floater로 변한다.
 
-<center><img src='{{"/assets/img/vastgaussian/vastgaussian-fig2.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/vastgaussian/vastgaussian-fig2.webp" | relative_url}}' width="85%"></center>
 <br>
 본 논문은 이러한 문제를 해결하기 위해 3D Gaussian Splatting을 기반으로 한 대규모 장면 재구성을 위한 **Vast 3D Gaussian (VastGaussian)**을 제안하였다. 분할 정복(divide-and-conquer) 방식으로 대규모 장면을 재구성한다. 대규모 장면을 여러 셀로 분할하고 각 셀을 독립적으로 최적화한 다음 최종적으로 전체 장면으로 병합한다. 공간 규모가 더 작고 데이터 크기가 더 작기 때문에 이러한 셀을 최적화하는 것이 더 쉽다. 자연스럽고 단순한 분할 전략은 학습 데이터를 위치에 따라 지리적으로 분포시키는 것이다. 이로 인해 몇몇 공통된 카메라로 인해 인접한 두 셀 사이에 경계 아티팩트가 발생할 수 있으며 충분한 supervision 없이는 공중에 floater가 생성될 수 있다. 
 
@@ -51,7 +51,7 @@ $$
 
 ## Method
 ### 1. Progressive Data Partitioning
-<center><img src='{{"/assets/img/vastgaussian/vastgaussian-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/vastgaussian/vastgaussian-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 대규모 장면을 여러 셀로 분할하고 포인트 클라우드 $\textbf{P}$의 일부를 할당하고 $\textbf{V}$를 이러한 셀에 할당하여 최적화한다. 이러한 각 셀에는 더 적은 수의 3D Gaussian이 포함되어 있어 메모리 용량이 낮은 최적화에 더 적합하고 병렬로 최적화할 때 학습 시간이 덜 필요하다. 점진적인 데이터 분할 전략의 파이프라인은 위 그림에 나와 있다.
 
@@ -72,7 +72,7 @@ $$\Omega_{ij}$$를 계산하는 방법이 다르면 카메라 선택도 달라�
 $j$번째 셀의 카메라 세트 $$\textbf{V}_j$$에 관련성 높은 카메라를 추가한 후 (d)와 같이 $$\textbf{V}_j$$의 모든 뷰에 포함되는 점을 $$\textbf{P}_j$$에 추가한다. 새로 선택된 포인트는 이 셀의 최적화를 위해 더 나은 초기화를 제공할 수 있다. (g)에서 볼 수 있듯이 $j$번째 셀 외부의 일부 물체는 $$\textbf{V}_j$$의 일부 뷰에 의해 캡처될 수 있으며 적절한 초기화가 없으면 깊이 모호성으로 인해 잘못된 위치에 새로운 3D Gaussian이 생성된다. 그러나 초기화를 위해 물체의 포인트를 추가하면 $j$번째 셀에서 floater를 생성하는 대신 올바른 위치의 새로운 3D Gaussian을 이러한 학습 뷰에 맞게 쉽게 생성할 수 있다. 셀 외부에서 생성된 3D Gaussian은 셀 최적화 후에 제거된다.
 
 ### 2. Decoupled Appearance Modeling
-<center><img src='{{"/assets/img/vastgaussian/vastgaussian-fig4.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/vastgaussian/vastgaussian-fig4.webp" | relative_url}}' width="65%"></center>
 <br>
 고르지 못한 조명에서 촬영된 이미지에는 명백한 외형 변화가 있으며, 3DGS는 다양한 뷰에서 이러한 변화를 보상하기 위해 floater를 생성하는 경향이 있다.
 
@@ -114,33 +114,33 @@ $$\mathcal{L}_\textrm{D-SSIM}$$은 주로 구조적 차이점에 페널티를 �
 ### 1. Result Analysis
 다음은 이전 방법들과 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/vastgaussian/vastgaussian-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/vastgaussian/vastgaussian-table1.webp" | relative_url}}' width="100%"></center>
 <br>
-<center><img src='{{"/assets/img/vastgaussian/vastgaussian-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/vastgaussian/vastgaussian-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 학습 시간과 학습 시 사용하는 VRAM, 렌더링 속도를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/vastgaussian/vastgaussian-table2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/vastgaussian/vastgaussian-table2.webp" | relative_url}}' width="60%"></center>
 
 ### 2. Ablation Study
 다음은 visibility 기반 카메라 선택(VisCam)과 coverage 기반 카메라 선택(CovPoint)에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/vastgaussian/vastgaussian-fig6.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/vastgaussian/vastgaussian-fig6.webp" | relative_url}}' width="65%"></center>
 <br>
-<center><img src='{{"/assets/img/vastgaussian/vastgaussian-table3.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/vastgaussian/vastgaussian-table3.webp" | relative_url}}' width="45%"></center>
 <br>
 다음은 visibility 기반 카메라 선택(VisCam)에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/vastgaussian/vastgaussian-fig7.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/vastgaussian/vastgaussian-fig7.webp" | relative_url}}' width="65%"></center>
 <br>
 다음은 airspace-aware visibility 계산에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/vastgaussian/vastgaussian-fig8.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/vastgaussian/vastgaussian-fig8.webp" | relative_url}}' width="65%"></center>
 <br>
 
 다음은 셀 개수에 대한 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/vastgaussian/vastgaussian-table4.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/vastgaussian/vastgaussian-table4.webp" | relative_url}}' width="40%"></center>
 
 ## Limitation
 1. 모든 형태의 공간 분할에 적용될 수 있지만 장면 레이아웃, 셀 개수, 학습 카메라 분포를 고려해야 하는 최적의 분할 솔루션을 제공하지는 않는다. 

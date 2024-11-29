@@ -18,7 +18,7 @@ classes: wide
 > Seoul National University  
 > 22 Nov 2023  
 
-<center><img src='{{"/assets/img/depth-reg-gs/depth-reg-gs-fig1.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/depth-reg-gs/depth-reg-gs-fig1.webp" | relative_url}}' width="60%"></center>
 
 ## Introduction
 이미지로부터 3차원 공간을 재구성하는 것은 컴퓨터 비전 분야에서 오랫동안 어려운 과제였다. 최근에는 사실적인 novel view synthesis의 타당성을 보여줌으로써 이미지로부터 완전한 3D 공간을 재구성하는 연구를 촉발시켰다. 최근 주목할 만한 개발 중에서 [3D Gaussian Splatter (3DGS)](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)는 고품질, 빠른 재구성 속도, 실시간 렌더링 지원의 조합으로 두각을 나타냈다. 3DGS는 장면의 모든 부분을 표현하기 위해 불투명도가 있는 Gaussian spherical harmonic splat들을 기본 요소로 사용한다. 여러 이미지를 동시에 만족시키기 위해 splat에 제약 조건을 부과하여 splat이 일관된 형상을 구성하도록 가이드한다.
@@ -32,7 +32,7 @@ classes: wide
 본 논문에서는 사전 학습된 monocular depth estimation model의 prior와 smoothness 제약 조건을 활용하여 몇 개의 RGB 이미지를 사용하여 3D 장면을 표현하는 방법을 제안하였다. 추정된 깊이의 스케일과 오프셋을 sparse한 COLMAP 포인트에 적용하여 스케일 모호성을 해결한다. 조정된 깊이를 기하학적 가이드로 사용하여 색상 기반 최적화를 지원하고 floater 아티팩트를 줄이고 기하학적 조건을 만족시킨다. 저자들은 수정된 깊이조차도 장면을 기하학적 최적해로 가이드하는 데 도움이 된다는 것을 관찰했다. Depth-guide loss가 증가하기 시작할 때 최적화 프로세스가 중지되는 early stop 전략을 통합하여 overfitting 문제를 방지한다. 또한 안정성을 높이기 위해 smoothness 제약 조건을 적용하여 인접한 3D 포인트가 비슷한 깊이를 갖도록 보장한다. 
 
 ## Method
-<center><img src='{{"/assets/img/depth-reg-gs/depth-reg-gs-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/depth-reg-gs/depth-reg-gs-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문의 방법은 작은 이미지셋 $$\{I_i\}_{i=0}^{k-1}, I_i \in [0, 1]^{H \times W \times 3}$$에서 최적화를 용이하게 한다. 전처리로 SfM(ex. COLMAP) 파이프라인을 실행하고 카메라 포즈 $R_i \in \mathbb{R}^{3 \times 3}$와 $t_i \in \mathbb{R}^3$, intrinsic parameter $K_i \in \mathbb{R}^{3 \times 3}$, 포인트 클라우드 $P \in \mathbb{R}^{n \times 3}$을 얻는다. 이러한 정보를 사용하면 보이는 모든 점을 픽셀 공간에 투영하여 각 이미지에 대한 sparse한 깊이 맵을 쉽게 얻을 수 있다.
 
@@ -132,22 +132,22 @@ $$
 ### 1. Experiment results
 다음은 NeRF-LLFF에서의 비교 결과이다. 
 
-<center><img src='{{"/assets/img/depth-reg-gs/depth-reg-gs-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/depth-reg-gs/depth-reg-gs-table1.webp" | relative_url}}' width="100%"></center>
 <br>
-<center><img src='{{"/assets/img/depth-reg-gs/depth-reg-gs-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/depth-reg-gs/depth-reg-gs-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 디테일한 비교이다. (a)는 입력 뷰, (b)는 3DGS, (c)는 본 논문의 방법, (d)는 ground truth이다. 
 
-<center><img src='{{"/assets/img/depth-reg-gs/depth-reg-gs-fig4.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/depth-reg-gs/depth-reg-gs-fig4.webp" | relative_url}}' width="70%"></center>
 
 ### 2. Ablations
 다음은 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/depth-reg-gs/depth-reg-gs-table2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/depth-reg-gs/depth-reg-gs-table2.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 기존 초기화 방법들과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/depth-reg-gs/depth-reg-gs-table3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/depth-reg-gs/depth-reg-gs-table3.webp" | relative_url}}' width="60%"></center>
 
 ## Limitation
 1. Monocular depth estimation model의 추정 성능에 크게 의존한다. 또한 이 모델의 깊이 추정 성능은 학습된 데이터 도메인에 따라 달라질 수 있으며 결과적으로 Gaussian splatting 최적화 성능에 영향을 미칠 수 있다.

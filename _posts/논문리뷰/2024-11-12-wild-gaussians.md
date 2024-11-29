@@ -19,7 +19,7 @@ classes: wide
 > CTU in Prague | ETH Zurich  
 > 11 Jul 2024  
 
-<center><img src='{{"/assets/img/wild-gaussians/wild-gaussians-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/wild-gaussians/wild-gaussians-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 학습 뷰에서만 장면 표현을 학습하면 형상과 view-dependent한 효과 사이에 모호성이 발생한다. NeRF와 3DGS는 일관된 조명과 장면을 가리는 물체가 거의 없는 제어된 설정에서는 잘 작동하지만 일반적으로 다양한 조건과 가리는 부분이 큰 경우에서는 실패한다. 그러나 실제로는 환경을 제어하지 않고 이미지를 캡처한다. 환경 조건 변화 (ex. 낮과 밤의 변화) 외에도 이러한 이미지에는 일반적으로 자동차와 같은 장면을 가리는 물체가 포함되어 있으며, 재구성 프로세스 중에 이를 처리해야 한다. 
@@ -27,7 +27,7 @@ classes: wide
 본 논문은 문제를 해결하기 위해 학습 가능한 외형 임베딩으로 Gaussian을 향상시키고 작은 MLP를 사용하여 이미지와 외형 임베딩을 통합하여 기본 색상의 affine transformation을 예측하였다. 이 MLP는 학습 중이나 새 이미지의 외형을 캡처할 때만 필요하다. 이 단계 후에 외형을 표준 3DGS로 다시 베이킹하여 3DGS 표현의 편집 가능성과 유연성을 유지하면서 빠른 렌더링을 보장한다. 장면을 가리는 물체들을 robust하게 처리하기 위해 [DINOv2](https://kimjy99.github.io/논문리뷰/dinov2) feature에 기반한 loss를 갖는 불확실성 예측기를 도입하여 학습 중에 이러한 물체들을 효과적으로 제거한다. 
 
 ## Method
-<center><img src='{{"/assets/img/wild-gaussians/wild-gaussians-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/wild-gaussians/wild-gaussians-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문은 3DGS 기반 접근 방식이 제어되지 않는 장면 캡처를 처리할 수 있도록 하기 위해 두 가지 핵심 구성 요소를 제안하였다. 
 
@@ -95,7 +95,7 @@ $$
 \end{equation}
 $$
 
-<center><img src='{{"/assets/img/wild-gaussians/wild-gaussians-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/wild-gaussians/wild-gaussians-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 [NeRF On-the-go](https://kimjy99.github.io/논문리뷰/nerf-on-the-go)에서는 MSE를 약간 수정된 DSSIM으로 대체하였다. DSSIM은 MSE와 다른 분포를 가지고 있지만, 안정적인 학습으로 이어질 수 있다. 하지만, 위 그림에서 볼 수 있듯이 MSE와 DSSIM은 모두 외형 변화에 강하지 않다. 이로 인해 이러한 MSE 기반 및 SSIM 기반 방법은 외형이 다른 영역이 최적화 프로세스에서 무시되므로 올바른 외형을 학습할 수 없다. 
 
@@ -147,29 +147,29 @@ $$
 ### 1. Comparison
 다음은 NeRF On-the-go 데이터셋에 대한 비교 결과이다. 
 
-<center><img src='{{"/assets/img/wild-gaussians/wild-gaussians-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/wild-gaussians/wild-gaussians-fig4.webp" | relative_url}}' width="100%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/wild-gaussians/wild-gaussians-table1.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/wild-gaussians/wild-gaussians-table1.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 Photo Tourism 데이터셋에 대한 비교 결과이다. 
 
-<center><img src='{{"/assets/img/wild-gaussians/wild-gaussians-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/wild-gaussians/wild-gaussians-fig5.webp" | relative_url}}' width="100%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/wild-gaussians/wild-gaussians-table2.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/wild-gaussians/wild-gaussians-table2.webp" | relative_url}}' width="70%"></center>
 
 ### 2. Ablation Studies & Analysis
 다음은 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/wild-gaussians/wild-gaussians-table3.PNG" | relative_url}}' width="83%"></center>
+<center><img src='{{"/assets/img/wild-gaussians/wild-gaussians-table3.webp" | relative_url}}' width="83%"></center>
 
 ### 3. Analysis
 다음은 t-SNE로 외형 임베딩을 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/wild-gaussians/wild-gaussians-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/wild-gaussians/wild-gaussians-fig7.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 외형을 보간한 예시이다. 
 
-<center><img src='{{"/assets/img/wild-gaussians/wild-gaussians-fig6.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/wild-gaussians/wild-gaussians-fig6.webp" | relative_url}}' width="60%"></center>
 
 ## Limitations
 1. 조명이나 반사에 의해 생기는 물체의 하이라이트를 캡처할 수 없다. 

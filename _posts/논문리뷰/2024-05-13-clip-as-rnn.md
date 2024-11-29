@@ -18,12 +18,12 @@ classes: wide
 > University of Oxford | Google Research  
 > 12 Dec 2023  
 
-<center><img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 다양한 연구들에서는 CLIP과 같은 인터넷 규모의 이미지-텍스트 쌍에 대해 학습된 비전-언어 모델(VLM)을 사용하여 임의의 텍스트 쿼리에 의해 이미지의 모든 개념을 분할하는 방법을 모색했다. 몇몇 연구에서는 사전 학습된 VLM을 bounding box나 마스크에 대해 학습된 segmenter와 통합했다. 이러한 방법들은 공통 카테고리를 사용하는 segmentation 벤치마크에서 우수한 성능을 보이지만 더 넓은 어휘를 처리하는 능력은 fine-tuning에 사용되는 데이터셋의 작은 카테고리 목록으로 인해 방해를 받는다. 예를 들어 Pepsi나 Coca Cola와 같은 개념을 인식하지 못한다. 
 
-<center><img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-fig2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-fig2.webp" | relative_url}}' width="60%"></center>
 <br>
 Bounding box나 마스크 주석은 비용이 많이 들기 때문에 기존 연구들은 이미지 수준 주석만 사용하여 VLM과 보조 segmentation 모듈을 fine-tuning하려고 하였다. 이로 인해 복잡한 fine-tuning 파이프라인이 발생하게 된다. 게다가 이미지 수준 레이블은 좋지 못한 마스크 품질을 갖는 경우가 많다. 
 
@@ -33,7 +33,7 @@ Bounding box나 마스크 주석은 비용이 많이 들기 때문에 기존 연
 
 ## Method
 ### 1. Overview
-<center><img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 위와 같은 학습 없는 프레임워크는 모든 timestep에서 고정된 가중치의 segmenter를 공유하여 반복적인 방식으로 작동한다. $t$번째 timestep에서 segmenter는 이미지 $x_t \in \mathbb{R}^{3 \times H \times W}$와 이전 step의 텍스트 쿼리 집합 $h_{t−1}$을 입력으로 받는다. 그런 다음 $N_{t−1}$개의 입력 텍스트 쿼리에 해당하는 마스크 집합 $y_t \in [0, 1]^{N_{t-1} \times H \times W}$와 후속 step에 대한 업데이트된 텍스트 쿼리 $h_t$를 출력한다. Image segmentation의 경우 모든 timestep은 동일한 $x_t$를 공유한다. 
 
@@ -63,7 +63,7 @@ $$
 
 Algorithm 1은 PyTorch 스타일의 pseudo-code이다. 
 
-<center><img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-algo1.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-algo1.webp" | relative_url}}' width="55%"></center>
 
 ### 2. The Two-stage Segmenter
 Mask proposal generator가 먼저 각 텍스트 쿼리에 대한 마스크를 예측한 다음 mask classifier가 관련 마스크와의 정렬 정도에 따라 관련 없는 텍스트 쿼리를 필터링한다. CLIP의 지식을 완전히 보존하기 위해 proposal generator와 classifier 모두에 사전 학습된 CLIP 모델의 고정된 가중치를 사용한다. 
@@ -108,34 +108,34 @@ $\textrm{NULL}$은 필터링되어 제거되었음을 의미하며 다음 step�
 ### 1. Zero-shot Semantic Segmentation
 다음은 SOTA zero-shot semantic segmentation 방법들과 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-table1.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Ablation Studies
 다음은 recurrent 아키텍처 적용과 CAM 방법들에 대한 효과를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-table2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-table2.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 CLIP backbone에 대한 효과를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-table3.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-table3.webp" | relative_url}}' width="48%"></center>
 <br>
 다음은 (왼쪽) 비주얼 프롬프트와 (오른쪽) 배경 쿼리에 대한 효과를 비교한 표이다. (Pascal VOC)
 
 <div style="display: flex; align-items: start; justify-content: center">
-  <img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-table4.PNG" | relative_url}}' width="49%">
+  <img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-table4.webp" | relative_url}}' width="49%">
   &nbsp;
-  <img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-table6.PNG" | relative_url}}' width="49%">
+  <img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-table6.webp" | relative_url}}' width="49%">
 </div>
 <br>
 다음은 여러 hyperparameter들에 대한 효과를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-table5.PNG" | relative_url}}' width="37%"></center>
+<center><img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-table5.webp" | relative_url}}' width="37%"></center>
 
 ### 3. Referring Segmentation
 다음은 SOTA 방법들과 referring image segmentation 성능을 mIoU로 비교한 표이다. 
 
-<center><img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-table7.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-table7.webp" | relative_url}}' width="57%"></center>
 <br>
 다음은 Ref-DAVIS 2017에서의 결과이다. $\mathcal{J}$는 영역 유사도, $\mathcal{F}$는 윤곽 정확도, $\mathcal{J} \& \mathcal{F}$는 평균 점수이다. 
 
-<center><img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-table8.PNG" | relative_url}}' width="19%"></center>
+<center><img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-table8.webp" | relative_url}}' width="19%"></center>

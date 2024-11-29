@@ -18,7 +18,7 @@ classes: wide
 > Nanjing University  
 > 1 Feb 2024  
 
-<center><img src='{{"/assets/img/optimal-gaussian-splatting/optimal-gaussian-splatting-fig1.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/optimal-gaussian-splatting/optimal-gaussian-splatting-fig1.webp" | relative_url}}' width="85%"></center>
 
 ## Introduction
 Novel view synthesis는 알려진 카메라 파라미터를 사용하여 일련의 이미지를 보간하여 3D 장면 또는 물체의 새로운 뷰를 생성하는 것을 목표로 한다. 이 분야에서는 MLP를 기반으로 한 [NeRF](https://kimjy99.github.io/논문리뷰/nerf)의 출현으로 상당한 발전이 이루어졌다. 그러나 NeRF는 MLP에 의존하므로 학습 및 렌더링 시간이 길어지고 여전히 실시간 렌더링이 상당히 어렵다. 결과적으로 많은 방법이 가속을 위해 보조 데이터 구조에 의존한다. 그러나 장면의 implicit한 표현과 광선을 따른 dense한 포인트 샘플링으로 인해 여전히 실시간 성능을 달성하는 데 어려움을 겪고 있다. 
@@ -136,7 +136,7 @@ $$
 \end{aligned}
 $$
 
-<center><img src='{{"/assets/img/optimal-gaussian-splatting/optimal-gaussian-splatting-fig3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/optimal-gaussian-splatting/optimal-gaussian-splatting-fig3.webp" | relative_url}}' width="50%"></center>
 <br>
 단순화된 오차 함수 $\epsilon$는 위 그림에 표시된 대로 3개의 단위 벡터 또는 단위 구의 3개 점 $\textbf{x}^\prime$, $$\textbf{x}_0$$, $\boldsymbol{\mu}^\prime$를 포함한다. 세 점의 구면 좌표는 다음과 같다.
 
@@ -185,7 +185,7 @@ $$
 
 그러므로 $(0, 0)$은 오차 함수의 극점이며, 저자들이 확인한 결과 이 점은 최소점이다. 
 
-<center><img src='{{"/assets/img/optimal-gaussian-splatting/optimal-gaussian-splatting-fig2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/optimal-gaussian-splatting/optimal-gaussian-splatting-fig2.webp" | relative_url}}' width="60%"></center>
 <br>
 위 그림은 오차 함수를 시각화한 것이다. (a)를 보면 오차 함수는 오목 함수이며 $(0, 0)$에서 최소값을 얻는다. (b)를 보면 원점에 가까운 대부분의 영역에서 함수 값이 크게 다르지 않다. 그러나 함수가 적분 한계에 가까워 지면 함수값이 급격히 증가하여 최대값과 최소값 사이에 상당한 차이가 발생한다.
 
@@ -261,6 +261,6 @@ $\textbf{J}^\mu$와 $\textbf{J}$는 모두 rank가 2인 행렬이다. 따라서 
 ## Experiments
 다음은 여러 데이터셋에서 다른 방법들과 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/optimal-gaussian-splatting/optimal-gaussian-splatting-table1.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/optimal-gaussian-splatting/optimal-gaussian-splatting-table1.webp" | relative_url}}' width="70%"></center>
 <br>
-<center><img src='{{"/assets/img/optimal-gaussian-splatting/optimal-gaussian-splatting-fig5.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/optimal-gaussian-splatting/optimal-gaussian-splatting-fig5.webp" | relative_url}}' width="95%"></center>

@@ -19,7 +19,7 @@ classes: wide
 > Georgia Institute of Technology | Adobe Inc.  
 > 21 May 2023  
 
-<center><img src='{{"/assets/img/personalized-residuals/personalized-residuals-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/personalized-residuals/personalized-residuals-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 대규모 text-to-image (T2I) diffusion model은 입력 텍스트를 따르는 고품질 이미지를 생성한다. 그러나 이러한 모델들은 본질적으로 특정 개념의 identity에 대한 정보를 인코딩하지 않으므로 생성된 이미지에 나타날 특정 인스턴스를 지정하는 제어가 제한된다. 최근에는 이를 해결하기 위해 새로운 환경과 스타일에서 특정 개념을 생성할 수 있도록 모델을 개인화하는 방법들이 제안되었다.
@@ -43,7 +43,7 @@ classes: wide
 2. **Localized attention-guided (LAG) sampling**: Attention map을 활용하여 residual이 적용되는 위치를 파악하고 기본 diffusion model과 personalized residual을 모두 활용하여 이미지를 효율적으로 생성할 수 있도록 한다. 
 
 ### 1. Learning residuals for capturing identity
-<center><img src='{{"/assets/img/personalized-residuals/personalized-residuals-fig2a.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/personalized-residuals/personalized-residuals-fig2a.webp" | relative_url}}' width="65%"></center>
 <br>
 몇 개의 레퍼런스 이미지만 사용하여 개념을 학습하는 경우가 많기 때문에 생성 모델의 가중치를 직접 fine-tuning하면 학습된 언어 prior의 불필요한 부분을 쉽게 overfitting하거나 덮어쓸 수 있다. 대신 본 논문에서는 [LoRA](https://kimjy99.github.io/논문리뷰/lora) 기반 접근 방식을 사용할 것을 제안하였다. 따라서 inference 시 학습된 residual을 적용하지 않음으로써 원래 모델의 전체 생성 능력을 복구할 수 있다. 
 
@@ -73,7 +73,7 @@ $$
 Diffusion model의 가중치를 직접 업데이트하는 개인화 방식은 새로운 개념으로 기존 prior의 일부를 덮어쓸 수 있으므로 학습 중에 정규화 이미지를 통해 prior 보존이 명시적으로 필요하다. 본 논문의 방법은 diffusion model을 직접 업데이트하지 않기 때문에 이 문제를 완전히 방지하고 효과적인 정규화 이미지들을 결정할 필요가 없다. 또한 LoRA의 사용은 학습 가능한 파라미터의 수를 줄여서 본 논문의 방법을 더 간단하고 효율적으로 만든다. 
 
 ### 2. Localized attention-guided sampling
-<center><img src='{{"/assets/img/personalized-residuals/personalized-residuals-fig2b.PNG" | relative_url}}' width="62%"></center>
+<center><img src='{{"/assets/img/personalized-residuals/personalized-residuals-fig2b.webp" | relative_url}}' width="62%"></center>
 <br>
 본 논문에서는 새로 학습된 개념과 diffusion model의 원래 prior를 더 잘 결합하기 위해 새로운 **localized attention-guided (LAG) sampling** 방법을 도입하였다. Diffusion model의 모든 trasnformer block에는 텍스트 토큰과 이미지 영역 간의 대응을 학습하는 것을 목표로 하는 cross-attention layer가 있다. 각 cross-attention layer는 프롬프트의 각 토큰 $y_i$에 대해 attention map $A_{y_i}$를 계산하여 토큰이 생성된 이미지에 영향을 미치는 위치를 나타낸다. 
 
@@ -120,37 +120,37 @@ LAG 샘플링은 object mask나 특정 학습이 필요없으며, 두 layer의 f
 ### 1. Results
 다음은 기존 방법들과 생성 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/personalized-residuals/personalized-residuals-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/personalized-residuals/personalized-residuals-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 CLIP 및 DINO feature들의 유사도로 텍스트-이미지 정렬을 평가한 표이다. 
 
-<center><img src='{{"/assets/img/personalized-residuals/personalized-residuals-table1.PNG" | relative_url}}' width="62%"></center>
+<center><img src='{{"/assets/img/personalized-residuals/personalized-residuals-table1.webp" | relative_url}}' width="62%"></center>
 <br>
 다음은 인간 선호도 평가 결과이다. 
 
-<center><img src='{{"/assets/img/personalized-residuals/personalized-residuals-table2.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/personalized-residuals/personalized-residuals-table2.webp" | relative_url}}' width="57%"></center>
 <br>
 다음은 WordNet macro class를 사용하였을 때의 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/personalized-residuals/personalized-residuals-table4.PNG" | relative_url}}' width="67%"></center>
+<center><img src='{{"/assets/img/personalized-residuals/personalized-residuals-table4.webp" | relative_url}}' width="67%"></center>
 
 ### 2. Ablation studies
 다음은 LAG 샘플링 유무에 따른 생성 결과를 비교한 것이다 (동일한 noise map에서 시작). 왼쪽은 LAG 샘플링을 사용했을 때 더 좋은 결과를 생성하는 예시이고, 오른쪽은 LAG 샘플링을 사용하지 않았을 때 더 좋은 결과를 생성하는 예시이다. 
 
 <center><div style="overflow-x: auto; width: 70%;">
   <div style="width: 200%;">
-    <img src='{{"/assets/img/personalized-residuals/personalized-residuals-fig4.PNG" | relative_url}}' width="100%">
+    <img src='{{"/assets/img/personalized-residuals/personalized-residuals-fig4.webp" | relative_url}}' width="100%">
   </div>
 </div></center>
 <br>
 다음은 residual에 대한 두 가지 다른 목적 함수를 사용하고 다양한 학습 설정으로 본 논문의 방법을 평가한 표이다. 
 
-<center><img src='{{"/assets/img/personalized-residuals/personalized-residuals-table3.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/personalized-residuals/personalized-residuals-table3.webp" | relative_url}}' width="57%"></center>
 <br>
 다음은 residual의 rank $r_i$에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/personalized-residuals/personalized-residuals-table5.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/personalized-residuals/personalized-residuals-table5.webp" | relative_url}}' width="47%"></center>
 <br>
 다음은 프롬프트 타입에 따른 LAG 샘플링의 효과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/personalized-residuals/personalized-residuals-fig5.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/personalized-residuals/personalized-residuals-fig5.webp" | relative_url}}' width="55%"></center>

@@ -19,7 +19,7 @@ classes: wide
 > OPPO US Research Center | Portland State University  
 > 28 Dec 2023  
 
-<center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 정적 장면에서의 성공에도 불구하고 [NeRF](https://kimjy99.github.io/논문리뷰/nerf)나 [3D Gaussian Splatting (3DGS)](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)를 동적 장면에 직접 적용하는 것은 모델 크기 및 학습 시간의 오버헤드로 인해 어렵다. SOTA 동적 뷰 합성 방법은 단일 모델에서 여러 프레임이 표현되는 접근 방식을 채택하였다. 
@@ -34,7 +34,7 @@ classes: wide
 
 ## Method
 ### 1. Spacetime Gaussians
-<center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-fig2a.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-fig2a.webp" | relative_url}}' width="57%"></center>
 <br>
 본 논문은 4D 동역학을 표현하기 위해 3D Gaussian과 시간 성분을 결합하여 나타나고 사라지는 콘텐츠와 모션/변형을 모델링하는 **Spacetime Gaussians (STG)**를 제안하였다. 구체적으로, 시간적 불투명도를 인코딩하기 위해 temporal radial basis function를 도입하였다. 이는 나타나거나 사라지는 장면 콘텐츠를 효과적으로 모델링할 수 있다. 한편, 시간을 조건으로 하는 3D Gaussian의 위치와 회전에 대한 파라메트릭 함수를 활용하여 장면의 모션과 변형을 모델링한다. 시공간 지점 $(\textbf{x}, t)$에서의 STG의 불투명도는 다음과 같다. 
 
@@ -78,7 +78,7 @@ $$
 Scaling matrix $S_i$는 시간에 독립적으로 둔다. 
 
 ### 2. Splatted Feature Rendering
-<center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-fig2b.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-fig2b.webp" | relative_url}}' width="48%"></center>
 <br>
 뷰와 시간에 따른 radiance를 정확하고 간결하게 인코딩하기 위해 각 STG에 spherical harmonics (SH) 계수 대신 feature를 저장한다. 구체적으로 각 STG의 feature $$\textbf{f}_i (t) \in \mathbb{R}^9$$는 세 부분으로 구성된다.
 
@@ -110,7 +110,7 @@ MLP $\Phi$와 각 STG의 파라미터 $$(\sigma_i^s, s_i^\tau, \mu_i^\tau, \{b_{
 [3DGS](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)와 마찬가지로 미분 가능한 스플래팅과 기울기 기반 역전파를 통해 이러한 파라미터를 최적화하고 중간에 density control을 진행한다. 렌더링된 이미지를 GT 이미지와 비교하는 렌더링 loss를 사용한다. 렌더링 loss는 L1 항과 D-SSIM 항으로 구성된다. 
 
 ### 4. Guided Sampling of Gaussians
-<center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 저자들은 initialization 시 Gaussian이 희박한 영역의 렌더링 품질이 높게 수렴되기 어렵다는 것을 관찰했다. 특히 이러한 영역이 카메라에서 멀리 떨어져 있는 경우 더욱 그렇다. 따라서 학습 오차와 coarse한 깊이를 guidance로 새로운 Gaussian을 샘플링하는 전략을 추가로 도입하였다.
 
@@ -127,23 +127,23 @@ MLP $\Phi$와 각 STG의 파라미터 $$(\sigma_i^s, s_i^\tau, \mu_i^\tau, \{b_{
   - 50 프레임 시퀀스를 학습시키는 데 NVIDIA A6000 GPU 1개에서 40 ~ 60분 소요
 
 ### 1. Neural 3D Video Dataset
-<center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
-<center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-table1.PNG" | relative_url}}' width="61%"></center>
+<center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-table1.webp" | relative_url}}' width="61%"></center>
 
 ### 2. Google Immersive Dataset
-<center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
-<center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-table2.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-table2.webp" | relative_url}}' width="48%"></center>
 
 ### 3. Technicolor Dataset
-<center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-table3.PNG" | relative_url}}' width="53%"></center>
+<center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-table3.webp" | relative_url}}' width="53%"></center>
 
 ### 4. Ablation Study
 다음은 구성 요소에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-table4.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-table4.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 SfM 포인트 클라우드가 initialization에 사용되는 프레임 수에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-table5.PNG" | relative_url}}' width="43%"></center>
+<center><img src='{{"/assets/img/spacetime-gaussian/spacetime-gaussian-table5.webp" | relative_url}}' width="43%"></center>

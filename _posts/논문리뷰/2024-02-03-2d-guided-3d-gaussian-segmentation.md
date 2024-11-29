@@ -26,7 +26,7 @@ classes: wide
 본 논문은 앞서 언급한 문제를 고려하여 사전 학습된 2D segmentation 모델을 활용하여 3D Gaussian segmentation을 가이드할 것을 제안하였다. 서로 다른 카테고리에 걸쳐 각 픽셀에 확률 분포 벡터를 할당하는 2D segmentation 접근 방식에서 영감을 받아 먼저 각 3D Gaussian에 object code를 할당하여 Gaussian의 카테고리형 확률 분포를 나타낸다. 이어서, 주어진 포즈에서 2D segmentation map과 렌더링된 segmentation map 간의 오차를 최소화하여 각 3D Gaussian의 분류를 가이드하는 알고리즘을 사용한다. 마지막으로 KNN clustering을 사용하여 3D Gaussian의 semantic 모호성을 해결하고 통계적 필터링을 사용하여 잘못 분할된 3D Gaussian들을 제거한다. 
 
 ## Method
-<center><img src='{{"/assets/img/2d-guided-3d-gaussian-segmentation/2d-guided-3d-gaussian-segmentation-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/2d-guided-3d-gaussian-segmentation/2d-guided-3d-gaussian-segmentation-fig1.webp" | relative_url}}' width="100%"></center>
 <br>
 3D Gaussian 표현, 장면 렌더링 이미지, 카메라 파라미터를 사용하여 잘 학습된 장면이 주어지면 처음에는 렌더링된 이미지를 분할하기 위해 대화형 2D segmentation 모델을 사용한다. 그런 다음 획득된 2D segmentation map은 3D Gaussian에 추가된 semantic(object code)의 학습을 용이하게 하기 위한 guidance로 사용된다. 마지막으로 KNN clustering을 사용하여 특정 3D Gaussian의 semantic 모호성 문제를 해결하고, 선택적인 통계적 필터링을 사용하면 잘못 분할된 3D Gaussian들을 제거하는 데 도움이 될 수 있다. 파이프라인은 위 그림에 나와 있다.
 
@@ -108,13 +108,13 @@ $$
 ### 1. Result
 다음은 본 논문의 방법의 정성적 결과들이다. 
 
-<center><img src='{{"/assets/img/2d-guided-3d-gaussian-segmentation/2d-guided-3d-gaussian-segmentation-fig2.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/2d-guided-3d-gaussian-segmentation/2d-guided-3d-gaussian-segmentation-fig2.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 ISRF과 본 논문의 방법을 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/2d-guided-3d-gaussian-segmentation/2d-guided-3d-gaussian-segmentation-fig3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/2d-guided-3d-gaussian-segmentation/2d-guided-3d-gaussian-segmentation-fig3.webp" | relative_url}}' width="60%"></center>
 
 ### 2. Ablations
 다음은 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/2d-guided-3d-gaussian-segmentation/2d-guided-3d-gaussian-segmentation-fig4.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/2d-guided-3d-gaussian-segmentation/2d-guided-3d-gaussian-segmentation-fig4.webp" | relative_url}}' width="65%"></center>

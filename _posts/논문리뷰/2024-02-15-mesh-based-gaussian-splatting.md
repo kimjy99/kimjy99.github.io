@@ -18,7 +18,7 @@ classes: wide
 >  Beijing Key Laboratory of Mobile Computing and Pervasive Device | University of Chinese Academy of Sciences | Chinese Academy of Sciences | City University of Hong Kong | Cardiff University  
 > 7 Feb 2024  
 
-<center><img src='{{"/assets/img/mesh-based-gaussian-splatting/mesh-based-gaussian-splatting-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/mesh-based-gaussian-splatting/mesh-based-gaussian-splatting-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 최근 몇 년 동안 NeRF, SDF와 같은 implicit한 표현은 몇 개의 멀티뷰 이미지만으로 매우 사실적인 외형과 복잡한 형상을 재구성할 수 있기 때문에 많은 주목을 받았다. 그러나 implicit한 표현에는 느린 렌더링 속도와 같은 본질적인 단점이 있어 실제 응용에 대한 적용 가능성이 제한된다. 장점을 유지하면서 이러한 단점을 극복하기 위해 3DGS(3D Gaussian Splatting)가 제안되었다. 3DGS는 Structure from Motion (SFM) 포인트를 사용하여 초기화한 다음 Gaussian의 공간 분포를 학습한다. 이는 NeRF에서 사용하는 연속적인 표현과 달리 명시적인 개별 3D 장면 표현을 자연스럽게 제공한다. 3DGS는 학습 비용이 적고 미분 가능한 rasterization을 기반으로 고품질의 실시간 렌더링을 달성할 수 있다.
@@ -32,7 +32,7 @@ classes: wide
 저자들은 공개 데이터셋과 자체 캡처한 장면에 대한 광범위한 실험을 통해 메쉬 기반 GS가 유망한 렌더링 속도(단일 NVIDIA RTX 4090 GPU에서 평균 65FPS)를 유지하면서 기존 기술에 비해 더 나은 novel view synthesis(NVS)를 달성한다는 것을 입증했다. 본 논문의 방법은 Gaussian splatting의 대규모 deformation이 가능하여 기존 방법보다 성능이 뛰어나다. 
 
 ## Methodology
-<center><img src='{{"/assets/img/mesh-based-gaussian-splatting/mesh-based-gaussian-splatting-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/mesh-based-gaussian-splatting/mesh-based-gaussian-splatting-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 멀티뷰 이미지 모음이 주어지면 장면의 형상과 모양을 기존 접근 방식(ex. [NeuS2](https://arxiv.org/abs/2212.05231))으로 추출된 explicit한 메쉬와 결합된 Gaussian으로 표현한다. 본 논문의 목표는 3DGS의 실시간 deformation을 가능하게 하는 것이다. 사실적이고 상호작용적인 deformation을 위해 explicit한 메쉬를 토폴로지 guidance로 도입하고 메쉬 기반 Gaussian 학습을 사용하여 파라미터와 Gaussian 함수의 성장 프로세스를 제한함으로써 3D Gaussian과 기하학적 형태 간의 상관관계를 보장하는 것이다. Gaussian 학습 후 GS와 메쉬의 바인딩 덕분에 사용자가 제어하는 변형된 메쉬의 deformation gradient가 Gaussian 파라미터에 적용된다. 또한 deformation 과정에서 Gaussian의 극심한 이방성을 제거하기 위해 Gaussian 모양의 정규화를 설계했다. 저자들은 이를 실시간 deformation을 위한 인터랙티브한 도구에 통합하여 사용자 제어에 따라 효율적으로 사실적인 새로운 뷰 렌더링을 가능하게 하였다. 파이프라인의 개요는 위 그림에 나와 있다. 
 
@@ -117,31 +117,31 @@ $$
 ### 1. Comparisons & Evaluations
 다음은 NeRF-Synthetic 데이터셋에서의 NVS 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/mesh-based-gaussian-splatting/mesh-based-gaussian-splatting-table1.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/mesh-based-gaussian-splatting/mesh-based-gaussian-splatting-table1.webp" | relative_url}}' width="45%"></center>
 <br>
 다음은 기존 방법들과 deformation 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/mesh-based-gaussian-splatting/mesh-based-gaussian-splatting-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/mesh-based-gaussian-splatting/mesh-based-gaussian-splatting-fig3.webp" | relative_url}}' width="100%"></center>
 
 ### 2. More Deformation Results
 다음은 deformation 결과들이다. 
 
-<center><img src='{{"/assets/img/mesh-based-gaussian-splatting/mesh-based-gaussian-splatting-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/mesh-based-gaussian-splatting/mesh-based-gaussian-splatting-fig4.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Ablations
 다음은 Face Split과 정규화 $L_r$에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/mesh-based-gaussian-splatting/mesh-based-gaussian-splatting-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/mesh-based-gaussian-splatting/mesh-based-gaussian-splatting-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Normal Guidance에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/mesh-based-gaussian-splatting/mesh-based-gaussian-splatting-table2.PNG" | relative_url}}' width="88%"></center>
+<center><img src='{{"/assets/img/mesh-based-gaussian-splatting/mesh-based-gaussian-splatting-table2.webp" | relative_url}}' width="88%"></center>
 <br>
-<center><img src='{{"/assets/img/mesh-based-gaussian-splatting/mesh-based-gaussian-splatting-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/mesh-based-gaussian-splatting/mesh-based-gaussian-splatting-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 메쉬 해상도에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/mesh-based-gaussian-splatting/mesh-based-gaussian-splatting-fig7.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/mesh-based-gaussian-splatting/mesh-based-gaussian-splatting-fig7.webp" | relative_url}}' width="90%"></center>
 
 ## Limitations
 1. 시각적 외형과 그림자는 편집할 수 없다. 

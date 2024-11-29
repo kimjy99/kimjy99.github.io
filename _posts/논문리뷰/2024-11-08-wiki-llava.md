@@ -18,7 +18,7 @@ classes: wide
 > University of Modena and Reggio Emilia | University of Pisa | IIT-CNR  
 > 23 Apr 2024  
 
-<center><img src='{{"/assets/img/wiki-llava/wiki-llava-fig1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/wiki-llava/wiki-llava-fig1.webp" | relative_url}}' width="50%"></center>
 
 ## Introduction
 최근 LLM을 비전 및 언어 컨텍스트로 확장한 Large Multimodal Model (LMM)이 등장했다. LMM은 vision-to-language adapter를 통해 비전 feature를 LLM backbone에 융합함으로써 정교한 시각적 설명이 필요한 task에 대한 광범위한 일반화가 가능해졌다. 
@@ -30,7 +30,7 @@ LMM은 비전 feature를 텍스트 feature와 정렬하는 작은 어댑터를 �
 본 논문은 외부 소스의 검색 기능을 활용한 최초의 LMM이며, 실험 결과는 외부 소스에서 검색하는 것의 이점과 모델 설계의 적절성을 보여준다. 
 
 ## Method
-<center><img src='{{"/assets/img/wiki-llava/wiki-llava-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/wiki-llava/wiki-llava-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문의 목표는 LMM이 이미지 콘텐츠와 사전 학습된 지식만으로는 해결할 수 없는 복잡하고 구체적인 질문에 답할 수 있는 능력을 갖추는 것이다. 이를 위해 외부 지식을 LLaVA 모델에 통합하는 **Wiki-LLaVA**를 제안하였다. 저자들은 모델의 디자인을 크게 변경하지 않는 대신, 검색 정보를 추가 입력 컨텍스트로 통합하여 모델의 능력을 보강하였다. 
 
@@ -107,20 +107,20 @@ $$
 
 다음은 검색 결과이다. 
 
-<center><img src='{{"/assets/img/wiki-llava/wiki-llava-table1.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/wiki-llava/wiki-llava-table1.webp" | relative_url}}' width="48%"></center>
 <br>
 다음은 Encyclopedic-VQA test set과 InfoSeek validation set에 대한 정확도를 비교한 표이다. <span style='background-color: #faf0bf'>노란색</span>은 CLIP 모델로 검색을 수행한 결과이고, <span style='background-color: #e6e6e6'>회색</span>은 GT 문서를 사용한 것이다. $k$는 검색된 문서의 수이고, $n$은 각 문서에서 검색된 청크의 수이다. 
 
-<center><img src='{{"/assets/img/wiki-llava/wiki-llava-table2.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/wiki-llava/wiki-llava-table2.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 Encyclopedic-VQA와 InfoSeek에 대하여 [LLaVA-1.5](https://kimjy99.github.io/논문리뷰/llava-1.5)와 비교한 예시이다. 
 
-<center><img src='{{"/assets/img/wiki-llava/wiki-llava-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/wiki-llava/wiki-llava-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 fine-tuning 중에 LLaVA-Instruct 데이터셋 사용 여부에 따른 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/wiki-llava/wiki-llava-table3.PNG" | relative_url}}' width="51%"></center>
+<center><img src='{{"/assets/img/wiki-llava/wiki-llava-table3.webp" | relative_url}}' width="51%"></center>
 <br>
 다음은 [LLaVA-1.5](https://kimjy99.github.io/논문리뷰/llava-1.5)에 대하여 원래의 성능이 보존되었는지를 분석한 표이다. 
 
-<center><img src='{{"/assets/img/wiki-llava/wiki-llava-table4.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/wiki-llava/wiki-llava-table4.webp" | relative_url}}' width="55%"></center>

@@ -18,7 +18,7 @@ classes: wide
 > Shanghai AI Laboratory | Zhejiang University | The University of Sydney  
 > 14 Oct 2024  
 
-<center><img src='{{"/assets/img/depth-any-video/depth-any-video-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/depth-any-video/depth-any-video-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 기존 동영상 깊이 추정의 주요 한계점은 실제 환경의 복잡성을 포착하는 다양하고 대규모의 동영상 깊이 데이터가 부족하다는 것이다. 기존 데이터셋은 종종 규모, 다양성, 장면 변화 측면에서 제한되어 모델이 다양한 시나리오에서 효과적으로 일반화하기 어렵다. 
@@ -39,7 +39,7 @@ classes: wide
 2. **깊이 보간 모듈**: 키프레임에서 얻은 글로벌하게 일관된 깊이 추정치들을 조건으로 중간 프레임을 생성함으로써 제한된 계산 제약 하에서 긴 동영상을 고해상도로 일관되게 생성한다. 또한 inference 효율성과 유연성을 더욱 개선하기 위해 [flow-matching](https://arxiv.org/abs/2210.02747)과 [rotary position encoding (RoPE)](https://kimjy99.github.io/논문리뷰/roformer)을 도입하여 파이프라인을 개선하였다.
 
 ## Synthetic Data Workflow
-<center><img src='{{"/assets/img/depth-any-video/depth-any-video-table1.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/depth-any-video/depth-any-video-table1.webp" | relative_url}}' width="65%"></center>
 
 ##### 실시간 데이터 수집
 깊이 데이터의 한계점을 해결하기 위해, 저자들은 약 40,000개의 동영상 클립으로 구성된 대규모 합성 데이터셋 **DA-V**를 수집하였다. 이 데이터셋의 상당 부분은 최신 합성 엔진에서 만들어졌으며, 정확한 깊이 정보로 사실적인 환경을 생성하는 합성 엔진의 능력을 활용하였다. 저자들은 다양한 장면 조건을 포함하도록 신중하게 선택된 다양한 가상 환경에서 깊이 데이터를 추출하였다. DA-V는 광범위한 사실적인 장면을 포함하는 가장 큰 합성 동영상 데이터셋이다.
@@ -49,7 +49,7 @@ classes: wide
 
 ## Generative Video Depth Model
 ### 1. Model Design
-<center><img src='{{"/assets/img/depth-any-video/depth-any-video-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/depth-any-video/depth-any-video-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 Depth Any Video는 video foundation model인 [Stable Video Diffusion (SVD)](https://arxiv.org/abs/2311.15127)을 기반으로 하며 monocular video depth estimation을 generative denoising process로 재구성하였다. 
 
@@ -127,7 +127,7 @@ $$
 다양한 길이의 동영상을 학습하기 위해 직관적인 방법은 batch당 하나의 샘플만 사용하는 것이다. Batch 내의 모든 데이터는 일관된 모양을 유지해야 하기 때문이다. 그러나 이렇게 하면 짧은 동영상의 경우 메모리 사용이 비효율적으로 발생한다. 이를 해결하기 위해 먼저 유사한 해상도로 동영상을 그룹화하고 고정된 크기로 자른다. 그런 다음 각 batch에 대해 동일한 그룹에서 예시들을 샘플링하고 동일한 frame dropout 파라미터 $K$를 적용한다. Video packing은 저해상도 및 짧은 길이의 동영상에 대한 batch size를 늘려 학습 효율성을 개선한다. 
 
 ### 3. Long Video Inference
-<center><img src='{{"/assets/img/depth-any-video/depth-any-video-fig3.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/depth-any-video/depth-any-video-fig3.webp" | relative_url}}' width="48%"></center>
 <br>
 학습된 모델을 사용하면 하나의 80GB A100 GPU에서 한 번의 forward pass로 960$\times$540 해상도에서 최대 32개의 프레임을 처리할 수 있다. 더 긴 고해상도 동영상을 처리하기 위해 [NVDS](https://arxiv.org/abs/2307.08695)는 sliding window를 적용하여 짧은 세그먼트를 독립적으로 처리하고 결과를 concat하였다. 그러나 이렇게 하면 window 간에 시간적 불일치와 깜빡임 아티팩트가 발생한다. 
 
@@ -168,36 +168,36 @@ $$
 ### 1. Zero-shot Depth Estimation
 다음은 단일 프레임, 즉 이미지에 대한 깊이 추정 성능을 비교한 결과이다.  
 
-<center><img src='{{"/assets/img/depth-any-video/depth-any-video-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/depth-any-video/depth-any-video-fig4.webp" | relative_url}}' width="100%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/depth-any-video/depth-any-video-table2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/depth-any-video/depth-any-video-table2.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 ScanNet++ 데이터셋에서 시간적 일관성과 공간적 정확도를 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/depth-any-video/depth-any-video-table3.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/depth-any-video/depth-any-video-table3.webp" | relative_url}}' width="47%"></center>
 <br>
 다음은 ScanNet 데이터셋에서 성능과 inference 효율성을 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/depth-any-video/depth-any-video-table4.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/depth-any-video/depth-any-video-table4.webp" | relative_url}}' width="57%"></center>
 <br>
 다음은 실제 동영상에서의 깊이 추정 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/depth-any-video/depth-any-video-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/depth-any-video/depth-any-video-fig5.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Ablation Studies
 다음은 각 구성 요소에 대한 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/depth-any-video/depth-any-video-table5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/depth-any-video/depth-any-video-table5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 hyper-parameter들에 대한 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/depth-any-video/depth-any-video-fig6.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/depth-any-video/depth-any-video-fig6.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 VAE에 대한 ablation study 결과이다. (a)는 GT 깊이이고, (b)와 (c)는 각각 CogVideoX와 SVD를 사용한 결과이다. 
 
-<center><img src='{{"/assets/img/depth-any-video/depth-any-video-fig7.PNG" | relative_url}}' width="78%"></center>
+<center><img src='{{"/assets/img/depth-any-video/depth-any-video-fig7.webp" | relative_url}}' width="78%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/depth-any-video/depth-any-video-table6.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/depth-any-video/depth-any-video-table6.webp" | relative_url}}' width="48%"></center>
 
 ## Limitations
 1. 거울과 같은 반사에 대한 깊이 추정에 어려움을 겪는다.

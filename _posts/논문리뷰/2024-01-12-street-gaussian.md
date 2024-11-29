@@ -19,7 +19,7 @@ classes: wide
 > Zhejiang University | Li Auto  
 > 2 Jan 2024  
 
-<center><img src='{{"/assets/img/street-gaussian/street-gaussian-fig1.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/street-gaussian/street-gaussian-fig1.webp" | relative_url}}' width="70%"></center>
 
 ## Introduction
 이미지에서 동적 3D 거리를 모델링하는 것은 도시 시뮬레이션, 자율 주행, 게임 등 중요한 응용 분야가 많다. 예를 들어, 도시 거리의 디지털 복사본을 자율주행 자동차의 시뮬레이션 환경으로 활용해 학습 및 테스트 비용을 절감할 수 있다. 이러한 애플리케이션을 사용하려면 캡처된 데이터에서 3D 거리 모델을 효율적으로 재구성하고 고품질의 새로운 뷰를 실시간으로 렌더링해야 한다.
@@ -33,7 +33,7 @@ NeRF를 사용하여 거리 장면을 재구성하려는 몇 가지 방법이 �
 저자들은 제안된 장면 표현을 기반으로 추적된 포즈 최적화 전략을 추가로 개발하였다. 최적화 가능한 포즈 입력은 렌더링된 동영상과 입력 동영상 간의 더 나은 정렬을 보장한다. 본 논문의 방법은 명시적 표현에 의한 더 나은 기울기 전파 덕분에 기존 추적기의 포즈만 활용하면서 실제 포즈로 달성한 결과와 비슷한 결과를 얻을 수 있다.
 
 ## Method
-<center><img src='{{"/assets/img/street-gaussian/street-gaussian-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/street-gaussian/street-gaussian-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문의 목표는 도시의 거리 장면에서 움직이는 차량에서 캡처한 일련의 이미지를 바탕으로 입력 timestep과 시점에 대해 사실적인 이미지를 생성할 수 있는 모델을 개발하는 것이다. 저자들은 동적인 거리 장면을 표현하기 위해 특별히 설계된 **Street Gaussian**이라는 새로운 장면 표현을 제안하였다. 위 그림에서 볼 수 있듯이 동적 도시 거리 장면을 포인트 클라우드의 집합으로 표현하며, 각각은 정적 배경 또는 움직이는 차량에 해당한다. 명시적인 포인트 기반 표현을 통해 별도의 모델을 쉽게 구성할 수 있어 실시간 렌더링은 물론 편집 애플리케이션을 위한 전경 객체를 분리하는 것도 가능하다. 제안된 장면 표현은 추적된 차량 포즈 최적화 전략으로 기존 추적기로 추적된 차량 포즈와 함께 RGB 이미지만을 사용하여 효과적으로 학습될 수 있다.
 
@@ -150,42 +150,42 @@ $$
 ### 1. Comparisons with the State-of-the-art
 다음은 Waymo에서의 결과를 정량적으로 비교한 표이다. 
 
-<center><img src='{{"/assets/img/street-gaussian/street-gaussian-table1.PNG" | relative_url}}' width="46%"></center>
+<center><img src='{{"/assets/img/street-gaussian/street-gaussian-table1.webp" | relative_url}}' width="46%"></center>
 <br>
 다음은 KITTI와 VKITTI2에서의 결과를 정량적으로 비교한 표이다. 
 
-<center><img src='{{"/assets/img/street-gaussian/street-gaussian-table2.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/street-gaussian/street-gaussian-table2.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 Waymo에서의 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/street-gaussian/street-gaussian-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/street-gaussian/street-gaussian-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 KITTI에서의 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/street-gaussian/street-gaussian-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/street-gaussian/street-gaussian-fig5.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Ablations and Analysis
 다음은 Waymo에서의 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/street-gaussian/street-gaussian-table3.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/street-gaussian/street-gaussian-table3.webp" | relative_url}}' width="48%"></center>
 <br>
-<center><img src='{{"/assets/img/street-gaussian/street-gaussian-fig6.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/street-gaussian/street-gaussian-fig6.webp" | relative_url}}' width="65%"></center>
 <br>
 다음은 4D SH 모델에 대한 ablation study 결과이다. (Waymo)
 
-<center><img src='{{"/assets/img/street-gaussian/street-gaussian-fig3.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/street-gaussian/street-gaussian-fig3.webp" | relative_url}}' width="65%"></center>
 
 ### 3. Applications
 다음은 KITTI에서의 객체 분리 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/street-gaussian/street-gaussian-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/street-gaussian/street-gaussian-fig7.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Waymo에서의 장면 편집 결과이다. 
 
-<center><img src='{{"/assets/img/street-gaussian/street-gaussian-fig8.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/street-gaussian/street-gaussian-fig8.webp" | relative_url}}' width="65%"></center>
 <br>
 다음은 KITTI에서의 semantic segmentation 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/street-gaussian/street-gaussian-fig9.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/street-gaussian/street-gaussian-fig9.webp" | relative_url}}' width="80%"></center>
 <br>
-<center><img src='{{"/assets/img/street-gaussian/street-gaussian-table4.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/street-gaussian/street-gaussian-table4.webp" | relative_url}}' width="45%"></center>

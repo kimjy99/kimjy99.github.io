@@ -18,7 +18,7 @@ classes: wide
 > ETH Zurich | Tampere University | Aalto University | Spectacular AI  
 > 26 Mar 2024  
 
-<center><img src='{{"/assets/img/dn-splatter/dn-splatter-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dn-splatter/dn-splatter-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 [3D Gaussian Splatting (3DGS)](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)은 최적화 가능한 여러 미분 가능한 3D Gaussian들로 장면을 표현한다. 이 명시적인 표현을 통해 크고 복잡한 장면의 실시간 렌더링이 가능하다. 장면 모양과 형상이 Gaussian의 위치, 모양, 색상 속성으로 직접 표현되므로 상호 운용성이 더 높은 장면 표현을 제공한다. 그러나 최적화 중에 3D 및 표면 제약이 부족하여 아티팩트와 모호함이 발생할 가능성이 높다. 장면에는 수백만 개의 Gaussian이 포함되는 경우가 많으며 해당 속성들은 photometric loss들만을 직접 수정된다. 따라서 메쉬 표현으로 변환될 수 있는 시각적, 기하학적으로 더 부드럽고 더 그럴듯한 3D 재구성을 생성하는 더 나은 정규화 기술을 탐색하는 데 거의 초점이 맞춰지지 않았다.
@@ -86,7 +86,7 @@ $$
 $$
 
 #### Monocular normals
-<center><img src='{{"/assets/img/dn-splatter/dn-splatter-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dn-splatter/dn-splatter-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 [Relightable 3D Gaussian](https://kimjy99.github.io/논문리뷰/relightable-3d-gaussian)에서는 렌더링된 깊이의 gradient를 구해 ground-truth normal map으로 사용하였다. 하지만, depth map에 잡음이 있으므로 이 방법은 아티팩트를 만든다. 이 방법 대신 [Omnidata](https://arxiv.org/abs/2110.04994)에서 얻은 더 부드러운 normal map $N$을 사용한다. 
 
@@ -129,42 +129,42 @@ $$\mathcal{L}_\textrm{rgb}$$는 3DGS에서 사용하는 photometric loss이고, 
 ### 1. Mesh Evaluation
 다음은 Replica와 ScanNet++ 데이터셋에서 메쉬 재구성 결과를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/dn-splatter/dn-splatter-table1a.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/dn-splatter/dn-splatter-table1a.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 MuSHRoom 데이터셋에서 메쉬 재구성 결과를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/dn-splatter/dn-splatter-table1b.PNG" | relative_url}}' width="83%"></center>
+<center><img src='{{"/assets/img/dn-splatter/dn-splatter-table1b.webp" | relative_url}}' width="83%"></center>
 <br>
 다음은 ScanNet++ 데이터셋에서 메쉬 재구성 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/dn-splatter/dn-splatter-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dn-splatter/dn-splatter-fig4.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Depth Estimation and Novel View Synthesis
 다음은 다른 방법들과 렌더링된 깊이 및 RGB 이미지를 비교한 것이다. (MuSHRoom)
 
-<center><img src='{{"/assets/img/dn-splatter/dn-splatter-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dn-splatter/dn-splatter-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 MuSHRoom 데이터셋에서 깊이 추정 및 렌더링 품질을 비교한 표이다. 위는 학습 시퀀스의 매 10 프레임을 test split으로 구성한 것이고 아래는 학습 시퀀스와 겹치지 않는 카메라 궤적에서 test split을 구성한 것이다. 
 
-<center><img src='{{"/assets/img/dn-splatter/dn-splatter-table2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dn-splatter/dn-splatter-table2.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 ScanNet++ 데이터셋에서 깊이 추정 및 렌더링 품질을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/dn-splatter/dn-splatter-table3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dn-splatter/dn-splatter-table3.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Ablation Studies
 다음은 depth loss에 대한 ablation 결과이다. (ScanNet++)
 
-<center><img src='{{"/assets/img/dn-splatter/dn-splatter-table4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dn-splatter/dn-splatter-table4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 monocular depth supervision에 대한 ablation 결과이다. (Tanks & Temples - Courtroom)
 
-<center><img src='{{"/assets/img/dn-splatter/dn-splatter-table5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dn-splatter/dn-splatter-table5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 메쉬 추출 방법에 대한 ablation 결과이다. Density 0.1~0.5는 [SuGaR](https://kimjy99.github.io/논문리뷰/sugar)의 방법을 사용한 것이다. (Replica)
 
-<center><img src='{{"/assets/img/dn-splatter/dn-splatter-table6.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dn-splatter/dn-splatter-table6.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 normal supervision 전략에 대한 ablation 결과이다. (Replica)
 
-<center><img src='{{"/assets/img/dn-splatter/dn-splatter-table7.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/dn-splatter/dn-splatter-table7.webp" | relative_url}}' width="60%"></center>

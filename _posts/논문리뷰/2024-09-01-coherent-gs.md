@@ -20,7 +20,7 @@ classes: wide
 > Texas A&M University | Meta Reality Labs | LMU Munich  
 > 28 Mar 2024  
 
-<center><img src='{{"/assets/img/coherent-gs/coherent-gs-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/coherent-gs/coherent-gs-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 [3D Gaussian Splatting (3DGS)](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)은 sparse한 학습 이미지 집합이 주어지면 좋은 표현을 생성하는 데 어려움을 겪는다. 이러한 경우 표현은 학습 뷰에 심하게 overfitting되고 새로운 뷰에서 거의 랜덤한 덩어리들의 모음으로 나타난다. 
@@ -32,12 +32,12 @@ classes: wide
 최적화를 돕기 위해 기존 monocular depth 예측 모델을 사용하여 Gaussian의 위치를 ​​초기화한다. 이러한 모델은 고품질 깊이 추정치를 제공하지만 monocular depth는 상대적이며 뷰 전체에서 일관성이 없다. 깊이 기반 초기화는 Gaussian을 world-space에서 적절하게 배치하는 반면, 정규화된 최적화는 특히 위치에 대한 업데이트가 일관되고 매끄럽도록 장려한다. 추가로, Gaussian이 3D 공간에서 자유롭게 움직이는 것을 방지하기 때문에 가려진 영역을 쉽게 식별하고 인페인팅하여 고품질 텍스처와 형상으로 채울 수 있다. 
 
 ## Method
-<center><img src='{{"/assets/img/coherent-gs/coherent-gs-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/coherent-gs/coherent-gs-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 $N$개의 이미지 (ex. 3개 또는 4개)가 주어지면, 본 논문의 목표는 정적 장면의 3D Gaussian 표현을 재구성하는 것이다. 핵심 아이디어는 최적화 중에 3D Gaussian에 일관성(coherency)을 도입하는 것이다. 즉, Gaussian의 위치가 업데이트되면 최적화 중에 이웃 Gaussian도 비슷한 영향을 받아야 한다. 이러한 일관성을 통해 최적화를 더욱 제한하고 입력 이미지에 대한 overfitting을 방지할 수 있다. 
 
 ### 1. Coherent 3D Gaussian Optimization
-<center><img src='{{"/assets/img/coherent-gs/coherent-gs-fig3.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/coherent-gs/coherent-gs-fig3.webp" | relative_url}}' width="80%"></center>
 <br>
 3D에서 자유롭게 움직이는 Gaussian 입자에 일관성을 도입하는 것은 어려운 일이다. 주요 아이디어는 2D 이미지 도메인에서 보다 구조화된 형태로 표현을 변환하는 것이다. 이를 위해 모든 입력 이미지의 각 픽셀에 하나의 Gaussian을 할당한다. 또한 각 픽셀에서 Gaussian의 움직임을 카메라 중심과 해당 픽셀을 연결하는 광선으로 제한한다. 이 표현에서 각 Gaussian의 위치는 스칼라 깊이 값을 사용하여 제어할 수 있다. 구체적으로, 각 픽셀에서 초기 깊이 추정치가 주어지면 다음과 같이 residual depth를 통해 각 Gaussian의 위치를 ​​업데이트한다. 
 
@@ -83,7 +83,7 @@ $$
 여기서 $$\lambda_s$$는 0으로 초기화되고 최적화가 끝날 때까지 점진적으로 증가하여 1에 도달한다. 
 
 ### 2. Additional Regularization
-<center><img src='{{"/assets/img/coherent-gs/coherent-gs-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/coherent-gs/coherent-gs-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 문제를 더욱 제한하기 위해 flow 기반 정규화 항을 사용한다. 핵심 아이디어는 두 입력 이미지의 대응되는 2D 포인트가 동일한 3D 포인트에서 나온다는 것이다. 따라서 두 이미지의 해당 픽셀의 Gaussian 위치가 유사하도록 강제한다. 
 
@@ -111,7 +111,7 @@ Gaussian의 불투명도 $\alpha$와 위치 $\mathbf{x}$는 디코더 파라미�
 3DGS는 각 픽셀의 중심만 샘플링하여 목적 함수를 최적화하지만, 이 전략은 sparse한 입력의 경우 Gaussian은 각 픽셀의 중심 색상과 일치하도록 변형되어 나머지 영역은 덮이지 않는다. 결과적으로 새로운 뷰에서 볼 때 표면은 반투명하게 보인다. 이 문제를 해결하기 위해 각 픽셀 내에서 여러 샘플에서 최적화를 수행한다. 다중 샘플링은 Gaussian이 각 픽셀을 적절히 덮도록 보장하여 이미지가 상당히 향상된다. 
 
 ### 3. 3D Gaussian Initialization
-<center><img src='{{"/assets/img/coherent-gs/coherent-gs-fig5.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/coherent-gs/coherent-gs-fig5.webp" | relative_url}}' width="90%"></center>
 <br>
 정규화된 최적화 파이프라인을 용이하게 하기 위해 적절한 초기화가 필요하다. 특히, 최적화에는 초기 깊이 추정치 $D^\textrm{init}$이 필요하며, [Depth Anything](https://kimjy99.github.io/논문리뷰/depth-anything)을 사용하여 이를 수행한다. Depth Anything은 고품질 depth map을 생성하지만 추정된 깊이는 상대적이며 종종 서로 다른 뷰에서 일관되지 않는다. 따라서 Depth Anything을 사용하여 초기화를 수행하면 위 그림의 왼쪽과 같이 다른 뷰에서 동일한 표면에 해당하는 Gaussian이 상당한 정렬 오차를 보여 최적화 프로세스를 방해한다. 
 
@@ -133,7 +133,7 @@ D^\textrm{init} = s \cdot D^m + o
 \end{equation}
 $$
 
-<center><img src='{{"/assets/img/coherent-gs/coherent-gs-fig6.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/coherent-gs/coherent-gs-fig6.webp" | relative_url}}' width="40%"></center>
 <br>
 3DGS를 따라 공분산 행렬을 rotation matrix와 scale matrix로 표현한다. Rotation matrix는 항등 행렬로 초기화된다. Scale matrix의 경우, Gaussian을 구로 취급하며, 각 Gaussian이 해당 픽셀을 적절히 커버하도록 초기 깊이에 따라 scale을 계산한다. 
 
@@ -156,25 +156,25 @@ $$
 ### 1. Comparisons
 다음은 LLFF 데이터셋에서 2~4개의 입력 뷰에 대한 재구성 결과를 기존 방법들과 비교한 것이다. (정성적 비교는 입력 뷰 3개)
 
-<center><img src='{{"/assets/img/coherent-gs/coherent-gs-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/coherent-gs/coherent-gs-fig7.webp" | relative_url}}' width="100%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/coherent-gs/coherent-gs-table1.PNG" | relative_url}}' width="56%"></center>
+<center><img src='{{"/assets/img/coherent-gs/coherent-gs-table1.webp" | relative_url}}' width="56%"></center>
 <br>
 다음은 NVS-RGBD 데이터셋에서 2~3개의 입력 뷰에 대한 재구성 결과를 기존 방법들과 비교한 것이다. (정성적 비교는 입력 뷰 3개)
 
-<center><img src='{{"/assets/img/coherent-gs/coherent-gs-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/coherent-gs/coherent-gs-fig8.webp" | relative_url}}' width="100%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/coherent-gs/coherent-gs-table2.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/coherent-gs/coherent-gs-table2.webp" | relative_url}}' width="70%"></center>
 
 ### 2. Ablations
 다음은 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/coherent-gs/coherent-gs-fig9.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/coherent-gs/coherent-gs-fig9.webp" | relative_url}}' width="100%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/coherent-gs/coherent-gs-table3.PNG" | relative_url}}' width="35%"></center>
+<center><img src='{{"/assets/img/coherent-gs/coherent-gs-table3.webp" | relative_url}}' width="35%"></center>
 
 ## Limitations
-<center><img src='{{"/assets/img/coherent-gs/coherent-gs-fig10.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/coherent-gs/coherent-gs-fig10.webp" | relative_url}}' width="100%"></center>
 <br>
 1. 각 픽셀에 Gaussian 1개를 할당하기 때문에 투명한 물체가 있는 장면을 처리하는 데 어려움이 있다. 
 2. Monocular depth에 의존하기 때문에 깊이가 매우 부정확하면 합리적인 결과를 생성하지 못할 수도 있다. 

@@ -18,7 +18,7 @@ classes: wide
 > Zhipu AI | Tsinghua University  
 > 12 Aug 2024  
 
-<center><img src='{{"/assets/img/cogvideox/cogvideox-fig1.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/cogvideox/cogvideox-fig1.webp" | relative_url}}' width="65%"></center>
 
 ## Introduction
 Diffusion model의 backbone으로 Transformers를 사용함으로써, 즉 [Diffusion Transformers (DiT)](https://kimjy99.github.io/논문리뷰/dit)를 사용함으로써 text-to-video 생성은 획기적인 수준에 도달했다. 
@@ -42,7 +42,7 @@ DiT의 이러한 빠른 발전에도 불구하고, 장기적으로 일관된 동
 CogVideoX는 초당 8프레임으로 6초 분량의 720×480 동영상을 생성할 수 있다. 
 
 ## The CogVideoX Architecture
-<center><img src='{{"/assets/img/cogvideox/cogvideox-fig2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/cogvideox/cogvideox-fig2.webp" | relative_url}}' width="60%"></center>
 
 1. 동영상과 텍스트 입력이 주어지면, **3D causal VAE**로 동영상을 latent space로 압축한다.
 2. Latent 데이터는 patchify되어 긴 시퀀스 $z_\textrm{vision}$로 펼쳐진다. 
@@ -55,11 +55,11 @@ CogVideoX는 초당 8프레임으로 6초 분량의 720×480 동영상을 생성
 ### 1. 3D Causal VAE
 동영상은 공간 정보뿐만 아니라 상당한 시간 정보도 포함하며, 일반적으로 이미지보다 훨씬 더 많은 데이터 볼륨을 생성한다. 저자들은 동영상 데이터 모델링의 계산적 과제를 해결하기 위해 [MAGVIT-v2](https://kimjy99.github.io/논문리뷰/magvit-v2)의 3D VAE를 기반으로 하는 동영상 압축 모듈을 구현하였다. 아이디어는 3D convolution을 통합하여 공간적, 시간적으로 동영상을 압축하는 것이다. 이를 통해 이미지 VAE와 비교했을 때 동영상 재구성의 품질과 연속성이 크게 향상되어 더 높은 압축률을 달성하는 데 도움이 된다. 
 
-<center><img src='{{"/assets/img/cogvideox/cogvideox-fig3a.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/cogvideox/cogvideox-fig3a.webp" | relative_url}}' width="52%"></center>
 <br>
 위 그림은 3D VAE의 구조이며, 인코더, 디코더, latent space regularizer로 구성된다. Gaussian latent space는 KL regularizer에 의해 제한된다. 인코더와 디코더는 대칭적으로 배열된 4개의 stage로 구성되어 있으며, 각각 ResNet block들의 스택으로 2배 다운샘플링 및 업샘플링을 수행한다. 인코더의 처음 두 다운샘플링과 디코더의 마지막 두 업샘플링은 시공간 차원에 모두 적용되는 반면, 인코더의 마지막 다운샘플링과 디코더의 첫 번째 업샘플링느 공간 차원에만 적용된다. 이를 통해 3D VAE는 시간 차원에서 4배, 공간 차원에서 8$\times$8 압축을 달성할 수 있다. 
 
-<center><img src='{{"/assets/img/cogvideox/cogvideox-fig3b.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/cogvideox/cogvideox-fig3b.webp" | relative_url}}' width="47%"></center>
 <br>
 위 그림에 표시된 것처럼 모든 padding을 convolution space의 시작 부분에 두는 temporally causal convolution을 채택한다. 이렇게 하면 미래 정보가 현재 또는 과거 예측에 영향을 미치지 않는다. 프레임 수가 많은 동영상을 처리하면 과도한 GPU 메모리 사용이 발생하므로 3D convolution에 대해 시간 차원에서 context parallelism (CP)을 적용하여 여러 장치에 계산을 분산한다. Convolution의 인과적 특성으로 인해 각 rank는 단순히 길이가 $k-1$인 세그먼트를 다음 rank로 보낸다. ($k$는 temporal kernel size)
 
@@ -70,19 +70,19 @@ CogVideoX는 초당 8프레임으로 6초 분량의 720×480 동영상을 생성
 3D causal VAE는 $T \times H \times W \times C$ 모양의 동영상 latent 벡터를 인코딩한다. 그런 다음 이 latent 벡터를 공간 차원에 따라 patchify하여 길이가 $T \cdot \frac{H}{p} \cdot \frac{W}{p}$인 시퀀스 $z_\textrm{vision}$을 생성한다. 이미지와 동영상의 공동 학습을 위해 시간 차원을 따라 patchify하지 않는다. 
 
 ##### 3D-RoPE
-<center><img src='{{"/assets/img/cogvideox/cogvideox-fig4ab.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/cogvideox/cogvideox-fig4ab.webp" | relative_url}}' width="100%"></center>
 <br>
 [Rotary Position Embedding (RoPE)](https://kimjy99.github.io/논문리뷰/roformer)은 LLM에서 토큰 간 관계를 효과적으로 포착하는 것으로 입증된 상대적 위치 인코딩으로, 특히 긴 시퀀스를 모델링하는 데 탁월하다. 동영상 데이터에 RoPE를 사용하기 RoPE를 3D-RoPE로 확장한다. 동영상 텐서의 각 latent는 3D 좌표 $(x, y, t)$로 표현할 수 있다. 좌표의 각 차원에 1D-RoPE를 독립적으로 적용한 다음 채널 차원을 따라 concat하여 최종 3D-RoPE 인코딩을 얻는다.
 
 ##### Expert Transformer Block
-<center><img src='{{"/assets/img/cogvideox/cogvideox-fig4c.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/cogvideox/cogvideox-fig4c.webp" | relative_url}}' width="50%"></center>
 <br>
 시각적 정보와 semantic 정보를 더 잘 정렬하기 위해 입력 단계에서 텍스트와 동영상의 임베딩을 concat한다. 그러나 이 두 모달리티의 feature space는 상당히 다르며 임베딩의 스케일도 다를 수 있다. 동일한 시퀀스 내에서 더 잘 처리하기 위해 Expert Adaptive Layernorm을 사용하여 각 모달리티를 독립적으로 처리한다. 
 
 DiT에 따라 diffusion process의 timestep $t$를 변조 모듈의 입력으로 사용한다. 그런 다음 Vison Expert AdaLN과 Text Expert AdaLN은 이 변조 메커니즘을 각각 vision hidden state와 text hidden state에 적용한다. 이 전략은 추가 파라미터를 최소화하면서 두 feature space의 정렬을 촉진한다. 
 
 ##### 3D Full Attention
-<center><img src='{{"/assets/img/cogvideox/cogvideox-fig5.PNG" | relative_url}}' width="72%"></center>
+<center><img src='{{"/assets/img/cogvideox/cogvideox-fig5.webp" | relative_url}}' width="72%"></center>
 <br>
 이전 연구에서는 종종 분리된 spatial attention과 temporal attention을 사용하여 계산 복잡도를 줄이고 text-to-image 모델에서 fine-tuning을 용이하게 했다. 그러나 위 그림에서 볼 수 있듯이 이러한 분리된 attention은 광범위한 암시적 시각 정보 전송을 요구하여 학습 복잡도를 크게 증가시키고 크게 움직이는 물체의 일관성을 유지하기 어렵게 만든다. 
 
@@ -92,7 +92,7 @@ DiT에 따라 diffusion process의 timestep $t$를 변조 모듈의 입력으로
 학습 중에 이미지와 동영상을 혼합하여 각 이미지를 단일 프레임 동영상으로 취급한다. 또한, 해상도 관점에서 점진적 학습을 사용한다. Diffusion 설정의 경우, [LDM](https://kimjy99.github.io/논문리뷰/ldm)에서 사용되는 noise schedule을 따르는 [v-prediction](https://kimjy99.github.io/논문리뷰/progressive-distillation)과 [zero SNR](https://arxiv.org/abs/2305.08891)을 채택한다. 또한 학습 안정성에 도움이 되는  Explicit Timestep Sampling 방법을 사용한다. 
 
 ### 1. Frame Pack
-<center><img src='{{"/assets/img/cogvideox/cogvideox-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/cogvideox/cogvideox-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 이전 동영상 학습 방법은 종종 고정된 수의 프레임을 가진 이미지와 동영상의 공동 학습을 포함한다. 그러나 이 접근 방식은 일반적으로 두 가지 문제로 이어진다. 
 
@@ -105,7 +105,7 @@ DiT에 따라 diffusion process의 timestep $t$를 변조 모듈의 입력으로
 CogVideoX의 학습 파이프라인은 저해상도 학습, 고해상도 학습, 고품질 동영상 fine-tuning의 세 단계로 나뉜다. 이미지와 마찬가지로 인터넷의 동영상에는 일반적으로 상당한 양의 저해상도 동영상이 포함된다. 점진적 학습은 다양한 해상도의 동영상을 효과적으로 활용할 수 있다. 또한, 처음에 저해상도로 학습시키면 모델에 coarse한 모델링 능력을 제공한 다음 고해상도 학습을 통해 디테일을 포착하는 능력을 향상시킬 수 있다. 직접적인 고해상도 학습과 비교했을 때, 점진적 학습은 전체 학습 시간을 줄이는 데 도움이 될 수도 있다. 
 
 ##### Extrapolation of Position Code
-<center><img src='{{"/assets/img/cogvideox/cogvideox-fig7.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/cogvideox/cogvideox-fig7.webp" | relative_url}}' width="90%"></center>
 <br>
 저해상도 위치 인코딩을 고해상도로 조정할 때, 저자들은 interpolation과 extrapolation이라는 두 가지 다른 방법을 고려하였다. 위 그림은 두 가지 방법의 효과를 보여준다. Interpolation은 글로벌 정보를 더 효과적으로 보존하는 반면, extrapolation은 로컬한 디테일을 더 잘 유지한다. RoPE가 상대적 위치 인코딩이라는 점을 감안할 때, 저자들은 픽셀 간의 상대적 위치를 유지하기 위해 extrapolation을 선택했다. 
 
@@ -113,7 +113,7 @@ CogVideoX의 학습 파이프라인은 저해상도 학습, 고해상도 학습,
 필터링된 사전 학습 데이터에는 여전히 자막, 워터마크, 낮은 비트레이트 동영상과 같은 일정 비율의 더러운 데이터가 포함되어 있다. 저자들은 최종 단계의 fine-tuning을 위해 전체 데이터셋의 20%를 차지하는 더 높은 품질의 동영상 데이터 부분집합을 선택했다. 이 단계에서는 생성된 자막과 워터마크를 효과적으로 제거하고 시각적 품질을 약간 개선했다. 그러나 모델의 semantic 능력이 약간 저하되었다. 
 
 ### 3. Explicit Uniform Sampling
-<center><img src='{{"/assets/img/cogvideox/cogvideox-fig4d.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/cogvideox/cogvideox-fig4d.webp" | relative_url}}' width="50%"></center>
 <br>
 [DDPM](https://kimjy99.github.io/논문리뷰/ddpm)에서는 loss를 다음과 같이 정의한다. 
 
@@ -152,7 +152,7 @@ $$
 또한, 모든 학습 동영상의 optical flow 점수와 이미지 미적 점수를 계산하고, 학습 중에 threshold 범위를 동적으로 조정하여 생성된 동영상의 유동성과 미적 품질을 보장한다.
 
 ##### 동영상 캡션
-<center><img src='{{"/assets/img/cogvideox/cogvideox-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/cogvideox/cogvideox-fig8.webp" | relative_url}}' width="100%"></center>
 <br>
 일반적으로 대부분의 동영상 데이터에는 텍스트 설명이 제공되지 않으므로 동영상 데이터를 텍스트 설명으로 변환하여 text-to-video 모델에 필수적인 학습 데이터를 제공해야 한다. 현재 Panda70M, COCO Caption, WebVid와 같은 일부 동영상 캡션 데이터셋이 있지만, 캡션은 일반적으로 매우 짧고 동영상의 콘텐츠를 포괄적으로 설명하지 못한다. 
 
@@ -167,7 +167,7 @@ $$
 
 ## Empirical Evaluation
 ### 1. Automated Metric Evaluation
-<center><img src='{{"/assets/img/cogvideox/cogvideox-table1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/cogvideox/cogvideox-table1.webp" | relative_url}}' width="80%"></center>
 
 ### 2. Human Evaluation
-<center><img src='{{"/assets/img/cogvideox/cogvideox-table2.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/cogvideox/cogvideox-table2.webp" | relative_url}}' width="57%"></center>

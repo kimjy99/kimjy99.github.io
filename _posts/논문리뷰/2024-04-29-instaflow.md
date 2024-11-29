@@ -21,7 +21,7 @@ classes: wide
 > University of Texas at Austin | Helixon Research  
 > 12 Sep 2023  
 
-<center><img src='{{"/assets/img/instaflow/instaflow-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/instaflow/instaflow-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 최신 text-to-image (T2I) 생성 모델은 인상적인 생성 품질에도 불구하고 과도한 inference 시간과 계산 소비로 인해 어려움을 겪는 경우가 많다. 이는 모델의 대부분이 autoregressive 모델이거나 diffusion model이라는 사실에 기인할 수 있다. 예를 들어 Stable Diffusion (SD)은 괜찮은 이미지를 생성하는 데 20 step 이상이 필요하다. 결과적으로 이전 연구들은 필요한 샘플링 step을 줄이고 inference를 가속화하기 위해 knowledge distillation을 사용하였다. 이러한 방법은 작은 step에서는 어려움을 겪는다. 특히, one-step diffusion model은 아직 개발되지 않았다. 
@@ -29,7 +29,7 @@ classes: wide
 본 논문에서는 SD에서 파생된 새로운 one-step 생성 모델을 제시하였다. 저자들은 SD의 간단한 distillation이 완전한 실패로 이어진다는 것을 관찰했다. 주요 문제는 noise와 이미지의 좋지 못한 결합에서 비롯되며, 이는 distillation 프로세스를 크게 방해한다. 이 문제를 해결하기 위해 몇 개 또는 하나의 Euler step으로 수정 가능한 직선 flow model을 학습하는 [Rectified Flow](https://arxiv.org/abs/2209.14577)를 활용한다. Rectified flow는 잠재적으로 곡선인 flow model과 데이터 분포를 매칭시키는 것에서 시작된다. 그런 다음 flow의 궤적을 직선화하기 위해 고유한 [Reflow](https://arxiv.org/abs/2209.03003) 절차를 사용하여 noise 분포와 이미지 분포 사이의 전송 비용을 줄인다. 이러한 커플링의 개선으로 인해 distillation이 크게 촉진된다. 본 논문에서는 대규모 T2I 모델을 1-flow로 취하고 reflow를 통해 이를 직선화하는 데 중점을 두었다. 
 
 ## Methods
-<center><img src='{{"/assets/img/instaflow/instaflow-fig3.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/instaflow/instaflow-fig3.webp" | relative_url}}' width="65%"></center>
 
 ### 1. Rectified Flow and Reflow
 Rectified Flow는 생성 모델링 및 도메인 전송을 위한 통합 ODE 기반 프레임워크이다. 이는 $\mathbb{R}^d$의 두 분포 $\pi_0$와 $\pi_1$ 사이의 매핑 $T$를 학습하기 위한 접근 방식이다. 이미지 생성에서 $\pi_0$는 일반적으로 Gaussian 분포이고 $\pi_1$은 이미지 분포이다. 
@@ -69,7 +69,7 @@ $$
 직선 궤적은 빠른 inference에 중요한 역할을 한다. 
 
 #### 직선 flow는 빠른 생성을 가능하게 한다. 
-<center><img src='{{"/assets/img/instaflow/instaflow-fig4.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/instaflow/instaflow-fig4.webp" | relative_url}}' width="45%"></center>
 <br>
 실제로 ODE는 수치적 방법을 사용하여 근사화해야 한다. 가장 일반적인 접근법은 forward Euler method이다.
 
@@ -146,46 +146,46 @@ $$
 ## Preliminary Results: Reflow is the Key to Improve Distillation
 다음은 (왼쪽) MS COCO 2017에서의 inference 시간과 FID를 비교한 그래프와 (오른쪽) 동일한 랜덤 noise와 텍스트 프롬프트로 생성된 이미지들이다. 
 
-<center><img src='{{"/assets/img/instaflow/instaflow-fig5.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/instaflow/instaflow-fig5.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 MS COCO 2017와 MS COCO 2014에서 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/instaflow/instaflow-table1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/instaflow/instaflow-table1.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 rectified flow의 직선화 효과를 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/instaflow/instaflow-fig6.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/instaflow/instaflow-fig6.webp" | relative_url}}' width="57%"></center>
 <br>
 다음은 SD와 2-Rectified Flow의 생성 결과를 비교한 것이다. $N$은 inference step의 수이다. 
 
-<center><img src='{{"/assets/img/instaflow/instaflow-fig7.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/instaflow/instaflow-fig7.webp" | relative_url}}' width="50%"></center>
 
 ## InstaFlow: Scaling Up for Better One-Step Generation
 다음은 InstaFlow-0.9B에서 one-step으로 생성한 결과들이다. 
 
 <center><div style="overflow-x: auto; width: 77%;">
   <div style="width: 200%;">
-    <img src='{{"/assets/img/instaflow/instaflow-fig8.PNG" | relative_url}}' width="100%">
+    <img src='{{"/assets/img/instaflow/instaflow-fig8.webp" | relative_url}}' width="100%">
   </div>
 </div></center>
 <br>
 다음은 (왼쪽) MS COCO 2017와 (오른쪽) MS COCO 2014에서 성능을 비교한 표이다. 
 
 <div style="display: flex; align-items: start; justify-content: center">
-  <img src='{{"/assets/img/instaflow/instaflow-table2a.PNG" | relative_url}}' width="39%">
+  <img src='{{"/assets/img/instaflow/instaflow-table2a.webp" | relative_url}}' width="39%">
   &nbsp;
-  <img src='{{"/assets/img/instaflow/instaflow-table2b.PNG" | relative_url}}' width="58%">
+  <img src='{{"/assets/img/instaflow/instaflow-table2b.webp" | relative_url}}' width="58%">
 </div>
 <br>
 다음은 (왼쪽) SD 1.5-DPM Solver와 2-Rectified Flow의 성능을 비교한 그래프와 (오른쪽) 2-Rectified Flow의 guidance scale에 따른 trade-off 그래프이다. 
 
-<center><img src='{{"/assets/img/instaflow/instaflow-fig9.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/instaflow/instaflow-fig9.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 SDXL-Refiner로 one-step model을 개선시킨 결과를 개선 전과 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/instaflow/instaflow-fig10.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/instaflow/instaflow-fig10.webp" | relative_url}}' width="90%"></center>
 
 ## Limitations
 다음은 failure case의 예시이다. InstaFlow는 텍스트 프롬프트의 복잡한 구성으로 인해 문제가 발생할 수 있다. 
 
-<center><img src='{{"/assets/img/instaflow/instaflow-fig11.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/instaflow/instaflow-fig11.webp" | relative_url}}' width="47%"></center>

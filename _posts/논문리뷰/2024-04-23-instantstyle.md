@@ -19,7 +19,7 @@ classes: wide
 > InstantX Team  
 > 3 Apr 2024  
 
-<center><img src='{{"/assets/img/instantstyle/instantstyle-fig1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/instantstyle/instantstyle-fig1.webp" | relative_url}}' width="80%"></center>
 
 ## Introduction
 Diffusion 기반 text-to-image 생성 모델은 색상, 소재, 분위기, 디자인, 구조와 같은 다양한 요소를 포함하는 스타일의 특성이 불확실하기 때문에 style transfer는 여전히 어려운 task로 남아 있다. 스타일의 다면적인 속성으로 인해 stylize된 데이터셋을 수집하고, 스타일을 정확하게 표현하고, style transfer 성공 여부를 평가하기가 어렵다. 
@@ -40,28 +40,28 @@ Tuning-free 방법은 몇 가지 과제에 직면해 있다. Adapter-free 접근
 
 ## Methods
 ### 1. Motivations
-<center><img src='{{"/assets/img/instantstyle/instantstyle-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/instantstyle/instantstyle-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 **스타일의 정의가 아직 결정되지 않았다.** 스타일 일관성을 측정하는 metric이 부족하다. 여기서 핵심은 스타일에 통일된 정의가 부족하다는 것이다. 다양한 장면에서 스타일의 의미는 크게 다르다. 위 그림은 이미지 스타일의 다양성을 보여준다. 스타일은 일반적으로 하나의 요소가 아니라 여러 복잡한 요소의 조합이다. 이는 스타일의 정의를 상대적으로 주관적인 문제로 만들고 동일한 스타일에 대한 여러 가지 합리적인 해석을 통해 고유하지 않게 만든다.
 
 그 결과 대규모로 동일한 스타일의 페어링에 대한 데이터를 수집하는 것이 어렵거나 심지어 불가능하다. 대규모 언어 모델을 사용하여 스타일 설명을 생성한 다음 Midjourney와 같은 text-to-image 생성 모델을 사용하여 특정 스타일의 이미지를 생성한 일부 이전 연구들이 있었다. 그러나 여기에는 몇 가지 문제가 있다. 첫째, 원래 생성된 데이터에는 잡음이 상당히 많고, 세분화된 스타일을 구별하기 어렵기 때문에 정리가 상당히 어렵다. 둘째, 세밀한 스타일 중 다수는 텍스트를 통해 명확하게 설명할 수 없기 때문에 스타일 수가 제한되는 경우가 많고 스타일 유형은 Midjourney의 능력에 따라 제한되어 다양성이 제한될 수 있다.
 
-<center><img src='{{"/assets/img/instantstyle/instantstyle-fig3.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/instantstyle/instantstyle-fig3.webp" | relative_url}}' width="90%"></center>
 <br>
 **Inversion에 의한 스타일 열화.** Inversion 기반 방법에서는 입력 레퍼런스 이미지와 텍스트 설명이 주어지면 이미지에 대해 DDIM inversion 기법을 사용하여 $x_T$부터 $x_0$까지의 반전된 궤적을 얻고 근사를 통해 이미지를 latent noise 표현으로 변환한다. 그런 다음 $x_T$와 새로운 프롬프트들에서 시작하여 정렬된 스타일을 사용하여 새 콘텐츠를 생성한다. 그러나 위 그림에서 볼 수 있듯이 실제 이미지에 대한 DDIM inversion은 local linearization 가정에 의존하기 때문에 불안정하며, 이로 인해 오차가 전파되어 잘못된 이미지 재구성과 콘텐츠 손실이 발생한다. Inversion 결과는 텍스처, 재료 등과 같은 세밀한 스타일 정보를 많이 잃게 된다. 이 경우 스타일을 잃은 이미지를 guidance 조건으로 사용하는 것은 분명히 style transfer를 효과적으로 달성할 수 없다. 또한 inversion process는 생성 속도가 매우 느리다. 
 
-<center><img src='{{"/assets/img/instantstyle/instantstyle-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/instantstyle/instantstyle-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 **스타일 강도와 콘텐츠 유실 간의 균형.** 스타일 조건 주입에도 균형이 있다. 이미지 조건의 강도가 너무 높으면 콘텐츠가 유실될 수 있고, 강도가 너무 낮으면 스타일이 뚜렷하지 않을 수 있다. 그 핵심 이유는 이미지의 콘텐츠와 스타일이 결합되어 있고 스타일의 불확실한 속성으로 인해 둘을 분리하기 어려운 경우가 많기 때문이다. 따라서 일반적으로 스타일 강도와 텍스트 제어 가능성의 균형을 맞추기 위해 각 레퍼런스 이미지에 대해 세심한 가중치 조정이 필요하다.
 
 ### 2. Observations
-<center><img src='{{"/assets/img/instantstyle/instantstyle-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/instantstyle/instantstyle-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 **Adapter의 능력이 과소평가되었다.** 흥미롭게도 저자들은 대부분의 이전 연구들에서 IP-Adapter의 style transfer 능력에 대한 평가가 편향되어 있음을 발견했다. 그 중 일부는 고정된 파라미터를 사용하여 IP-Adapter의 텍스트 제어 기능이 약하다고 주장하는 반면 다른 연구들은 콘텐츠 유실 문제를 강조하였다. 이는 앞서 설명한 대로 적절한 강도가 설정되지 않은 것에 기인할 수 있다. 
 
 IP-Adapter는 K와 V의 두 세트를 사용하여 cross-attention의 텍스트와 이미지를 처리하고 최종적으로 선형적으로 가중치를 적용하므로 강도가 너무 높으면 필연적으로 텍스트의 제어 능력이 저하된다. 동시에 이미지의 콘텐츠와 스타일이 분리되지 않아 콘텐츠 유실 문제도 발생한다. 이를 수행하는 가장 간단하고 효과적인 방법은 더 낮은 강도를 사용하는 것이다. 그러나 가중치 조정이 매우 까다롭고 항상 작동하는 것은 아니다. 
 
-<center><img src='{{"/assets/img/instantstyle/instantstyle-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/instantstyle/instantstyle-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 **CLIP의 임베딩들은 서로 뺄 수 있다.** 원래 CLIP 모델은 약하게 정렬된 대규모 텍스트-이미지 쌍에 대해 학습된 contrastive loss를 사용하여 공유된 embedding space 내에서 이미지와 텍스트 모달리티를 통합하는 것을 목표로 했다. 이전 adapter 기반 방법의 대부분은 사전 학습된 CLIP 이미지 인코더 모델을 사용하여 주어진 이미지에서 이미지 feature를 추출하였다. 이 중 CLIP 이미지 인코더의 글로벌 이미지 임베딩은 이미지의 전체적인 콘텐츠와 스타일을 포착할 수 있어 널리 활용되고 있다. 
 
@@ -69,7 +69,7 @@ IP-Adapter는 K와 V의 두 세트를 사용하여 cross-attention의 텍스트�
 
 **블록들의 영향은 동일하지 않다.** CNN에 많은 연구에 따르면 얕은 convolution layer는 모양, 색상 등과 같은 낮은 레벨의 표현을 학습하는 반면, 상위 레벨 레이어는 semantic 정보에 중점을 둔다. Diffusion 기반 모델에도 동일한 논리가 존재한다. 텍스트 조건과 마찬가지로 이미지 조건도 일반적으로 cross-attention layer를 통해 주입되어 생성을 가이드한다. 
 
-<center><img src='{{"/assets/img/instantstyle/instantstyle-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/instantstyle/instantstyle-fig7.webp" | relative_url}}' width="100%"></center>
 <br>
 저자들은 서로 다른 attention layer가 스타일 정보를 다르게 포착한다는 것을 발견했다. 저자들은 위 그림과 같은 실험에서 스타일 보존에 중요한 역할을 하는 두 개의 특수 레이어가 있음을 발견했다. 
 
@@ -77,7 +77,7 @@ IP-Adapter는 K와 V의 두 세트를 사용하여 cross-attention의 텍스트�
 2. **down_blocks.2.attentions.1**: 4번째 블록, 공간 레이아웃을 찾아냄
 
 ### 3. Methodology
-<center><img src='{{"/assets/img/instantstyle/instantstyle-fig8.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/instantstyle/instantstyle-fig8.webp" | relative_url}}' width="70%"></center>
 <br>
 **이미지에서 콘텐츠를 분리.** 불확실한 스타일 속성에 비해 콘텐츠는 일반적으로 텍스트로 표현될 수 있으므로 CLIP의 텍스트 인코더를 사용하여 콘텐츠 텍스트의 특성을 콘텐츠 표현으로 추출할 수 있다. 동시에 CLIP의 이미지 인코더를 사용하여 레퍼런스 이미지의 feature를 추출한다. 이미지 feature에서 콘텐츠 텍스트 feature를 빼면 스타일과 콘텐츠를 명시적으로 분리할 수 있으므로 CLIP의 이점을 누릴 수 있다. 이 전략은 간단하지만 콘텐츠 유실을 완화하는 데 매우 효과적이다. 
 
@@ -93,27 +93,27 @@ IP-Adapter는 K와 V의 두 세트를 사용하여 cross-attention의 텍스트�
 
 <div style="overflow-x: auto; width: 100%;">
   <div style="width: 200%;">
-    <img src='{{"/assets/img/instantstyle/instantstyle-fig9.PNG" | relative_url}}' width="100%">
+    <img src='{{"/assets/img/instantstyle/instantstyle-fig9.webp" | relative_url}}' width="100%">
     <br>
-    <img src='{{"/assets/img/instantstyle/instantstyle-fig10.PNG" | relative_url}}' width="100%">
+    <img src='{{"/assets/img/instantstyle/instantstyle-fig10.webp" | relative_url}}' width="100%">
   </div>
 </div>
 <br>
 다음은 이미지 기반 stylization 결과이다. 
 
-<center><img src='{{"/assets/img/instantstyle/instantstyle-fig11.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/instantstyle/instantstyle-fig11.webp" | relative_url}}' width="95%"></center>
 
 ### 2. Comparison to Previous Methods
 다음은 기존 방법들과 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/instantstyle/instantstyle-fig12.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/instantstyle/instantstyle-fig12.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Ablation Study
 다음은 CLIP 임베딩들을 서로 빼는 것의 효과를 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/instantstyle/instantstyle-fig13.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/instantstyle/instantstyle-fig13.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 전략의 효과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/instantstyle/instantstyle-fig14.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/instantstyle/instantstyle-fig14.webp" | relative_url}}' width="95%"></center>
 

@@ -18,7 +18,7 @@ classes: wide
 > National Taiwan University | Snap Inc.  
 > 13 Jun 2024  
 
-<center><img src='{{"/assets/img/robust-sam/robust-sam-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/robust-sam/robust-sam-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 [Segment Anything Model (SAM)](https://kimjy99.github.io/논문리뷰/segment-anything)은 인상적인 zero-shot segmentation 능력을 보여주었지만, 복잡하고 어려운 시나리오에서, 특히 화질이 저하된 이미지에 대한 robustness는 여전히 해결해야 할 문제이다. 저조도, 노이즈, 블러, 약천후, 압축 손실 등, 여러 degradation에 SAM이 생성하는 segmentation mask의 품질이 크게 영향을 받는다. 
@@ -37,7 +37,7 @@ classes: wide
 ### 1. Model Overview
 <center><div style="overflow-x: auto; width: 100%;">
   <div style="width: 150%;">
-    <img src='{{"/assets/img/robust-sam/robust-sam-fig2.PNG" | relative_url}}' width="100%">
+    <img src='{{"/assets/img/robust-sam/robust-sam-fig2.webp" | relative_url}}' width="100%">
   </div>
 </div></center>
 <br>
@@ -56,7 +56,7 @@ Degradation augmentation은 15가지 유형의 degradation과 identity 매핑을
 Inference 시에는 RobustSAM만 segmentation mask를 생성하는 데 사용된다. 
 
 ### 2. Anti-Degradation Mask Feature Generation
-<center><img src='{{"/assets/img/robust-sam/robust-sam-fig3a.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/robust-sam/robust-sam-fig3a.webp" | relative_url}}' width="100%"></center>
 <br>
 입력 feature는 먼저 Instance Normalization (IN)에 의해 처리된다. IN의 목적은 이미지 degradation과 관련된 정보를 표준화하는 것이며, 핵심 콘텐츠를 보존하면서 스타일 속성을 제거한다. 이 단계는 개별 이미지 왜곡의 영향을 완화하고 다양한 degradation 조건에서 콘텐츠의 안정성을 보장하는 데 필수적이다. 이와 병행하여 [URIE](https://arxiv.org/abs/2007.08979)에서 영감을 받아 Batch Normalization (BN)을 적용하는 또 다른 branch를 포함한다. BN은 IN 프로세스로 인해 발생하는 잠재적인 디테일 손실을 해결하기 때문에 중요하다. 
 
@@ -75,7 +75,7 @@ $$
 $$\mathcal{L}_\textrm{MFC}$$의 각 부분을 최소화함으로써 정제된 feature가 깨끗한 이미지에서 추출된 feature와 일관성을 유지하도록 보장하고, 이를 통해 다양한 degradation에서도 feature의 robustness와 일관성을 보장한다. 
 
 ### 3. Anti-Degradation Output Token Generation
-<center><img src='{{"/assets/img/robust-sam/robust-sam-fig3b.PNG" | relative_url}}' width="11%"></center>
+<center><img src='{{"/assets/img/robust-sam/robust-sam-fig3b.webp" | relative_url}}' width="11%"></center>
 <br>
 AOTG 모듈은 마스크별 ROT $$T_\textrm{RO}$$을 정제하여 degradation 관련 정보를 제거하는 데 전념한다. 기존 mask feature와 달리 $$T_\textrm{RO}$$는 주로 분류 경계의 명확성을 보장하는 기능을 하므로 텍스처 정보가 덜 포함된다. 따라서 degradation에 민감한 정보를 필터링하는 데 가벼운 모듈을 사용하면 충분하며, IN과 MLP를 사용한다. 이 전략은 모델이 degradation의 영향을 받는 입력에서 robust한 마스크 정보를 복구할 수 있도록 하는 동시에 계산 효율성을 유지하는 것을 목표로 한다. 정제된 토큰 $$\hat{T}_\textrm{RO}$$는 원래 SAM이 깨끗한 이미지에서 추출한 출력 토큰 $$T_\textrm{OC}$$와 비교하여 **Token Consistency Loss** $$\mathcal{L}_\textrm{TC}$$를 계산한다. 
 
@@ -123,41 +123,41 @@ $$
   - epoch: 40
   - Nvidia A100 8개에서 30시간 소요
 
-<center><img src='{{"/assets/img/robust-sam/robust-sam-table1.PNG" | relative_url}}' width="54%"></center>
+<center><img src='{{"/assets/img/robust-sam/robust-sam-table1.webp" | relative_url}}' width="54%"></center>
 
 ### 1. Performance Evaluation
 다음은 (왼쪽) MSRA10k와 (오른쪽) LVIS의 test set에 대한 segmentation 성능을 비교한 표이다. 
 
 <div style="display: flex; align-items: start; justify-content: center">
-  <img src='{{"/assets/img/robust-sam/robust-sam-table2.PNG" | relative_url}}' width="49.5%">
+  <img src='{{"/assets/img/robust-sam/robust-sam-table2.webp" | relative_url}}' width="49.5%">
   &nbsp;
-  <img src='{{"/assets/img/robust-sam/robust-sam-table3.PNG" | relative_url}}' width="49.5%">
+  <img src='{{"/assets/img/robust-sam/robust-sam-table3.webp" | relative_url}}' width="49.5%">
 </div>
 <br>
 다음은 NDD20, STREETS, FSS-1000에 대한 zero-shot segmentation 성능을 비교한 표이다. (포인트 프롬프트)
 
-<center><img src='{{"/assets/img/robust-sam/robust-sam-table4.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/robust-sam/robust-sam-table4.webp" | relative_url}}' width="52%"></center>
 <br>
 다음은 COCO에 대한 zero-shot segmentation 성능을 비교한 표이다. (Bounding box 프롬프트)
 
-<center><img src='{{"/assets/img/robust-sam/robust-sam-table5.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/robust-sam/robust-sam-table5.webp" | relative_url}}' width="40%"></center>
 <br>
 다음은 BDD-100k와 LIS에 대한 zero-shot segmentation 성능을 비교한 표이다. (포인트 프롬프트)
 
-<center><img src='{{"/assets/img/robust-sam/robust-sam-table6.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/robust-sam/robust-sam-table6.webp" | relative_url}}' width="40%"></center>
 <br>
 다음은 zero-shot segmentation 예시이다. 
 
-<center><img src='{{"/assets/img/robust-sam/robust-sam-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/robust-sam/robust-sam-fig4.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Ablation Study
 다음은 제안된 모듈들에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/robust-sam/robust-sam-table7.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/robust-sam/robust-sam-table7.webp" | relative_url}}' width="40%"></center>
 
 ### 3. Improving SAM-prior Tasks
 다음은 SAM과 RobustSAM을 prior로 사용하여 dehazing 및 deblurring task에 적용한 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/robust-sam/robust-sam-fig5.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/robust-sam/robust-sam-fig5.webp" | relative_url}}' width="60%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/robust-sam/robust-sam-table8.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/robust-sam/robust-sam-table8.webp" | relative_url}}' width="40%"></center>

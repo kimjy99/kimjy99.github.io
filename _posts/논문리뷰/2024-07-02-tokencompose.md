@@ -19,7 +19,7 @@ classes: wide
 > Princeton University | Tsinghua University | University of California, San Diego  
 > 6 Dec 2023  
 
-<center><img src='{{"/assets/img/tokencompose/tokencompose-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/tokencompose/tokencompose-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 최근 text-to-image (T2I) diffusion model의 엄청난 발전에도 불구하고 텍스트 프롬프트와 생성된 이미지 콘텐츠 사이에는 여전히 일관성 문제가 존재한다. 특히 현실에서 일반적으로 동시에 나타나지 않는 카테고리가 텍스트 프롬프트에 포함되면 모델의 합성 능력이 떨어지며, 개체가 이미지에 나타나지 않거나 합성 결과가 보기에 좋지 않을 수 있다. 
@@ -33,7 +33,7 @@ Diffusion model은 조건부 텍스트의 토큰 수준에서 작동하는 목�
 본 논문은 이미지 이해를 위해 사전 학습된 foundation model을 활용하여 T2I 생성 모델에 토큰 수준 supervision을 제공하는 새로운 알고리즘인 **TokenCompose**를 개발하여 합성 문제를 완화하려고 하였다. 학습 중 해당 이미지에 대한 segmentation 기반 목적 함수를 사용하여 T2I 모델의 텍스트 프롬프트에서 각 명사 토큰을 보강하였다. 이를 통해 모델이 개체 정확도, 다중 카테고리 인스턴스 합성, 향상된 포토리얼리즘의 상당한 개선을 나타낼 수 있으며 생성된 이미지에 대한 추가 inference 비용이 없다. 추가로 저자들은 하나의 이미지에서 여러 카테고리의 인스턴스를 합성하는 T2I 생성 모델의 기능을 검사하는 **MultiGen** 벤치마크도 제시하였다. 
 
 ## Method
-<center><img src='{{"/assets/img/tokencompose/tokencompose-fig3.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/tokencompose/tokencompose-fig3.webp" | relative_url}}' width="65%"></center>
 
 ### 1. Token-level Attention Loss
 길이가 $L_{\tau_\theta (y)}$인 텍스트 임베딩으로 변환되는 텍스트 프롬프트를 생각해 보자. Denoising 목적 함수인 $$\mathcal{L}_\textrm{LDM}$$은 noise를 예측하여 latent 이미지를 재구성하도록 함수를 최적화하기만 하므로 각 토큰의 임베딩 $e_i$와 noisy한 이미지 latent $z_t$는 명시적으로 최적화되지 않는다. 이로 인해 LDM에서 토큰 수준의 이해가 부족해지며, 이는 토큰 임베딩 $K \in \mathbb{R}^{H \times L_{\tau_\theta (y)} \times d_k}$과 noisy image latent $Q \in \mathbb{R}^{H \times L_{z_t} \times d_k}$ 사이의 multi-head cross-attention map의 activation을 통해 시각화될 수 있다. 각 cross-attention layer $m \in M$에 대한 cross-attention map $\mathcal{A} \in \mathbb{R}^{L_{z_t} \times L_{\tau_\theta (y)}}$는 다음과 같이 계산된다.
@@ -78,7 +78,7 @@ $$
 
 전체 학습 파이프라인은 아래와 같다.
 
-<center><img src='{{"/assets/img/tokencompose/tokencompose-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/tokencompose/tokencompose-fig2.webp" | relative_url}}' width="100%"></center>
 
 ## Experiments
 - 구현 디테일
@@ -95,38 +95,38 @@ $$
 
 <div style="overflow-x: auto; width: 100%;">
   <div style="width: 120%;">
-    <img src='{{"/assets/img/tokencompose/tokencompose-table1.PNG" | relative_url}}' width="100%">
+    <img src='{{"/assets/img/tokencompose/tokencompose-table1.webp" | relative_url}}' width="100%">
   </div>
 </div>
 <br>
 <div style="overflow-x: auto; width: 100%;">
   <div style="width: 145%;">
-    <img src='{{"/assets/img/tokencompose/tokencompose-fig5.PNG" | relative_url}}' width="100%">
+    <img src='{{"/assets/img/tokencompose/tokencompose-fig5.webp" | relative_url}}' width="100%">
   </div>
 </div>
 
 ### 2. Generalization
 다음은 모델 일반화 능력을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/tokencompose/tokencompose-table3.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/tokencompose/tokencompose-table3.webp" | relative_url}}' width="65%"></center>
 
 ### 3. Knowledge Transfer
 다음은 segmentation model로부터의 knowledge transfer
 
-<center><img src='{{"/assets/img/tokencompose/tokencompose-table4.PNG" | relative_url}}' width="22%"></center>
+<center><img src='{{"/assets/img/tokencompose/tokencompose-table4.webp" | relative_url}}' width="22%"></center>
 
 ### 4. Downstream Metrics
 다음은 downstream metric에 대한 성능 개선을 보여주는 표이다. 
 
-<center><img src='{{"/assets/img/tokencompose/tokencompose-table5.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/tokencompose/tokencompose-table5.webp" | relative_url}}' width="60%"></center>
 
 ## Ablations
 다음은 ablation 결과이다.
 
-<center><img src='{{"/assets/img/tokencompose/tokencompose-fig4.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/tokencompose/tokencompose-fig4.webp" | relative_url}}' width="75%"></center>
 <br>
 <div style="overflow-x: auto; width: 100%;">
   <div style="width: 130%;">
-    <img src='{{"/assets/img/tokencompose/tokencompose-table2.PNG" | relative_url}}' width="100%">
+    <img src='{{"/assets/img/tokencompose/tokencompose-table2.webp" | relative_url}}' width="100%">
   </div>
 </div>

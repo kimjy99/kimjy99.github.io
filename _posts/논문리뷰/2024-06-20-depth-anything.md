@@ -18,7 +18,7 @@ classes: wide
 > HKU | TikTok | CUHK | ZJU  
 > 19 Jan 2024  
 
-<center><img src='{{"/assets/img/depth-anything/depth-anything-fig1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/depth-anything/depth-anything-fig1.webp" | relative_url}}' width="80%"></center>
 
 ## Introduction
 본 논문의 목표는 어떤 상황에서도 모든 이미지에 대해 고품질 깊이 정보를 생성할 수 있는 monocular depth estimation (MDE)를 위한 foundation model을 구축하는 것이다. 저자들은 데이터셋 확장의 관점에서 이 목표에 접근하였다. 일반적으로 깊이 데이터셋은 주로 센서, 스테레오 매칭, SfM에서 깊이 데이터를 획득하여 생성되는데, 이는 비용이 많이 들고 시간이 많이 걸리며 특정 상황에서는 다루기 어렵다. 
@@ -60,7 +60,7 @@ $$
 
 저자들은 강력한 MDE 모델을 얻기 위해 6개의 공개 데이터셋에서 150만 개의 레이블이 있는 이미지를 수집하였다. 
 
-<center><img src='{{"/assets/img/depth-anything/depth-anything-table1a.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/depth-anything/depth-anything-table1a.webp" | relative_url}}' width="48%"></center>
 <br>
 획득하기 쉽고 다양한 레이블이 없는 이미지는 데이터 범위를 이해하고 모델 일반화 능력과 견고성(robustness)을 크게 향상시킨다. 
 
@@ -71,7 +71,7 @@ $$
 
 저자들은 8개의 대규모 공개 데이터셋을 선택하였다. 여기에는 총 6,200만 개 이상의 이미지가 포함되어 있다. 
 
-<center><img src='{{"/assets/img/depth-anything/depth-anything-table1b.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/depth-anything/depth-anything-table1b.webp" | relative_url}}' width="48%"></center>
 <br>
 MDE teacher model $T$가 주어지면 레이블이 없는 $$\mathcal{D}^u$$에 대해 깊이를 예측하여 pseudo-label이 있는 $$\hat{\mathcal{D}^u}$$를 얻는다. 
 
@@ -159,52 +159,52 @@ Feature alignment의 또 다른 핵심 포인트는 DINOv2와 같은 semantic �
 ### 1. Zero-Shot Relative Depth Estimation
 다음은 zero-shot relative depth 추정 결과를 MiDaS v3.1과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/depth-anything/depth-anything-table2.PNG" | relative_url}}' width="97%"></center>
+<center><img src='{{"/assets/img/depth-anything/depth-anything-table2.webp" | relative_url}}' width="97%"></center>
 
 ### 2. Fine-tuned to Metric Depth Estimation
 다음은 (왼쪽) NYUv2와 (오른쪽) KITTI애서 fine-tuning 후 평가한 표이다. 
 
 <div style="display: flex; align-items: start; justify-content: center">
-  <img src='{{"/assets/img/depth-anything/depth-anything-table3.PNG" | relative_url}}' width="49%">
+  <img src='{{"/assets/img/depth-anything/depth-anything-table3.webp" | relative_url}}' width="49%">
   &nbsp;
-  <img src='{{"/assets/img/depth-anything/depth-anything-table4.PNG" | relative_url}}' width="49%">
+  <img src='{{"/assets/img/depth-anything/depth-anything-table4.webp" | relative_url}}' width="49%">
 </div>
 <br>
 다음은 zero-shot metric depth 추정 결과를 ZoeDepth와 비교한 표이다. 
 
-<center><img src='{{"/assets/img/depth-anything/depth-anything-table5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/depth-anything/depth-anything-table5.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Fine-tuned to Semantic Segmentation
 다음은 사전 학습된 MDE 인코더를 semantic segmentation을 위해 (왼쪽) Cityscapes와 (오른쪽) ADE20K로 전송한 결과이다. 
 
 <div style="display: flex; align-items: start; justify-content: center">
-  <img src='{{"/assets/img/depth-anything/depth-anything-table7.PNG" | relative_url}}' width="47%">
+  <img src='{{"/assets/img/depth-anything/depth-anything-table7.webp" | relative_url}}' width="47%">
   &nbsp;&nbsp;
-  <img src='{{"/assets/img/depth-anything/depth-anything-table8.PNG" | relative_url}}' width="47%">
+  <img src='{{"/assets/img/depth-anything/depth-anything-table8.webp" | relative_url}}' width="47%">
 </div>
 
 ### 4. Ablation Studies
 다음은 학습에 사용한 레이블이 있는 데이터셋에 따른 처음 보는 데이터셋에 대한 zero-shot transfer 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/depth-anything/depth-anything-table6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/depth-anything/depth-anything-table6.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 ablation 결과이다 (AbsRel). $\mathcal{S}$는 student model 학습 시 강한 perturbation을 사용하는 것을 뜻한다. 
 
-<center><img src='{{"/assets/img/depth-anything/depth-anything-table9.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/depth-anything/depth-anything-table9.webp" | relative_url}}' width="48%"></center>
 <br>
 다음은 본 논문의 인코더를 (왼쪽) MiDaS, (오른쪽) DINOv2와 downstream fine-tuning 성능으로 비교한 결과이다. 
 
 <div style="display: flex; align-items: start; justify-content: center">
-  <img src='{{"/assets/img/depth-anything/depth-anything-table10.PNG" | relative_url}}' width="48%">
+  <img src='{{"/assets/img/depth-anything/depth-anything-table10.webp" | relative_url}}' width="48%">
   &nbsp;&nbsp;
-  <img src='{{"/assets/img/depth-anything/depth-anything-table11.PNG" | relative_url}}' width="48%">
+  <img src='{{"/assets/img/depth-anything/depth-anything-table11.webp" | relative_url}}' width="48%">
 </div>
 
 ### 5. Qualitative Results
 다음은 처음 보는 데이터에 대한 깊이 예측 결과이다. 
 
-<center><img src='{{"/assets/img/depth-anything/depth-anything-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/depth-anything/depth-anything-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 MiDaS와 깊이 예측 결과를 비교한 것이다. 또한 [ControlNet](https://kimjy99.github.io/논문리뷰/controlnet)을 사용하여 예측된 깊이로부터 새로운 이미지를 합성한 결과이다. 
 
-<center><img src='{{"/assets/img/depth-anything/depth-anything-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/depth-anything/depth-anything-fig4.webp" | relative_url}}' width="100%"></center>

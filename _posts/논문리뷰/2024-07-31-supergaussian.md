@@ -19,7 +19,7 @@ classes: wide
 > University of Illinois at Urbana Champaign | Adobe Research | University College London  
 > 2 Jun 2024  
 
-<center><img src='{{"/assets/img/supergaussian/supergaussian-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/supergaussian/supergaussian-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 현재 방법들로 생성된 3D 모델은 이미지나 동영상에 대한 SOTA 생성 모델이 달성하는 디테일과 정확성이 여전히 부족하다. 여러 가지 문제로 인해 이러한 제한이 발생한다. 
@@ -37,7 +37,7 @@ classes: wide
 ### 1. Overview
 본 논문의 목표는 coarse한 3D 표현이 주어지면 super-resolution을 수행하여 3D 표현의 충실도를 높이고 더 많은 로컬 디테일을 캡처하는 것이다. 3D 콘텐츠가 다양한 시점에서 3D 장면을 묘사하는 동영상으로 표현될 수 있다는 관찰을 바탕으로, 3D 업샘플링을 위해 기존 동영상 업샘플링 prior를 활용한다. 
 
-<center><img src='{{"/assets/img/supergaussian/supergaussian-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/supergaussian/supergaussian-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 SuperGaussian은 두 가지 주요 단계로 구성된다. 먼저, 해상도를 높이고 선명한 결과를 얻기 위해 coarse한 3D 표현에서 렌더링된 동영상을 업샘플링한다. 그런 다음 3D 재구성을 수행하여 일관된 3D 표현을 생성한다. 대규모 동영상 데이터셋에서 학습된 동영상 업샘플러의 prior를 활용하는 것 외에도 도메인별 저해상도 동영상에 대한 fine-tuning을 수행한다. 따라서 SuperGaussian은 다양한 3D 캡처 및 생성 프로세스로 인해 발생하는 복잡한 성능 저하를 처리할 수 있다. 각 구성 요소는 고도로 모듈화되어 있으며 다른 SOTA 방법으로 쉽게 대체될 수 있다.
 
@@ -81,47 +81,47 @@ $$
 ### 1. Comparison
 다음은 MVImgNet에서 저해상도 Gaussian Splatting은 업샘플링한 결과이다. 
 
-<center><img src='{{"/assets/img/supergaussian/supergaussian-table2.PNG" | relative_url}}' width="53%"></center>
+<center><img src='{{"/assets/img/supergaussian/supergaussian-table2.webp" | relative_url}}' width="53%"></center>
 <br>
-<center><img src='{{"/assets/img/supergaussian/supergaussian-fig3.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/supergaussian/supergaussian-fig3.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 Blender 합성 데이터셋에 대한 결과이다. 
 
-<center><img src='{{"/assets/img/supergaussian/supergaussian-table3.PNG" | relative_url}}' width="43%"></center>
+<center><img src='{{"/assets/img/supergaussian/supergaussian-table3.webp" | relative_url}}' width="43%"></center>
 <br>
-<center><img src='{{"/assets/img/supergaussian/supergaussian-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/supergaussian/supergaussian-fig4.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Ablation Studies
 다음은 업샘플링 prior에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/supergaussian/supergaussian-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/supergaussian/supergaussian-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 다양한 degradation에 대한 finetuning의 효과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/supergaussian/supergaussian-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/supergaussian/supergaussian-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 궤적 샘플링에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/supergaussian/supergaussian-fig7.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/supergaussian/supergaussian-fig7.webp" | relative_url}}' width="95%"></center>
 <br>
-<center><img src='{{"/assets/img/supergaussian/supergaussian-fig8.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/supergaussian/supergaussian-fig8.webp" | relative_url}}' width="90%"></center>
 
 ### 3. Additional Results
 다음은 현실 scene에 대한 3D Gaussian splat을 업샘플링한 결과이다. 
 
-<center><img src='{{"/assets/img/supergaussian/supergaussian-fig9.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/supergaussian/supergaussian-fig9.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 indoor scene에 대한 결과이다. 
 
-<center><img src='{{"/assets/img/supergaussian/supergaussian-fig10.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/supergaussian/supergaussian-fig10.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 [Instant3D](https://arxiv.org/abs/2311.06214)로 생성한 text-to-3D 결과를 업샘플링한 예시이다. 
 
-<center><img src='{{"/assets/img/supergaussian/supergaussian-fig11.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/supergaussian/supergaussian-fig11.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 multi-level 3D 업샘플링 예시이다. 
 
-<center><img src='{{"/assets/img/supergaussian/supergaussian-fig12.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/supergaussian/supergaussian-fig12.webp" | relative_url}}' width="90%"></center>
 
 ## Limitations
 1. 사전 학습된 동영상 모델을 사용하기 때문에 일반화 및 추론 속도를 향상시킬 수 없다. 

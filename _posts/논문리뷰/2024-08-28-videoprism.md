@@ -19,7 +19,7 @@ classes: wide
 > Google  
 > 20 Feb 2024  
 
-<center><img src='{{"/assets/img/videoprism/videoprism-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/videoprism/videoprism-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 동영상은 다양한 도메인에 걸쳐 있는 현실 경험의 풍부하고 역동적인 아카이브이다. Video foundation model은 이 광대한 코퍼스 내에서 새로운 통찰력을 끌어낼 엄청난 잠재력을 가지고 있다. 이전 연구들은 일반적인 동영상 이해를 향해 큰 진전을 이루었지만 video foundation model을 구축하는 것은 여전히 ​​어렵다. 기존 모델들은 종종 외관 중심 추론과 모션 중심 추론의 균형을 맞추는 데 어려움을 겪으며 많은 벤치마크에서 task에 맞춰진 전문 모델보다 뒤처진다. 
@@ -41,11 +41,11 @@ NLP에서는 masked language modeling이 성공을 거두었지만, 컴퓨터 �
 
 특히 사전 학습은 동영상의 텍스트 설명과 contextual self-supervision이라는 두 가지 supervision 신호를 사용하여 VideoPrism이 외관 중심 task와 모션 중심 task에서 모두 잘 작동하도록 한다. 
 
-<center><img src='{{"/assets/img/videoprism/videoprism-fig2.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/videoprism/videoprism-fig2.webp" | relative_url}}' width="55%"></center>
 
 ## Approach
 ### 1. Pretraining data
-<center><img src='{{"/assets/img/videoprism/videoprism-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/videoprism/videoprism-table1.webp" | relative_url}}' width="100%"></center>
 <br>
 사전 학습 데이터는 고품질의 수동 레이블이 있는 3,600만 개의 클립 (Anonymous-Corpus #1)과, 잡음이 있는 병렬 텍스트가 있는 5.82억 개의 클립 (WTS-70M ~ Anonymous-Corpus #3)으로 구성되어 있다. 
 
@@ -57,7 +57,7 @@ VideoPrism 모델 아키텍처는 ViT를 기반으로 하며, [ViViT](https://ar
 본 논문에서는 VideoPrism-g와 VideoPrism-B의 두 가지 모델 구성을 실험하였다. VideoPrism-g는 공간 인코더에 10억 개의 파라미터가 있는 ViT-giant 네트워크이고, VideoPrism-B는 ViT-Base 네트워크를 사용하는 더 작은 모델이다. 
 
 ### 3. Training algorithm
-<center><img src='{{"/assets/img/videoprism/videoprism-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/videoprism/videoprism-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문의 목표는 동영상-텍스트 쌍과 큐레이팅한 동영상 전용 데이터를 모두 활용하여 VideoPrism을 확장 가능하게 학습시키고, VideoPrism을 동영상에서 외관과 모션 semantic을 모두 캡처할 수 있는 동영상 인코더로 만드는 것이다. 대규모 사전 학습 데이터의 텍스트는 대부분의 동영상에서 매우 잡음이 많기 때문에 동영상-텍스트에만 의존하기보다는 동영상 전용 모달리티를 사용한다. VideoPrism의 학습 파이프라인은 동영상-텍스트 contrastive training과 masked video modeling의 두 단계로 구성된다. 
 
@@ -84,35 +84,35 @@ Stage 1 모델로 Stage 2 모델을 초기화할 때 발생하는 한 가지 문
 ### 1. Classification and spatiotemporal localization
 다음은 VideoGLUE 벤치마크에서 기존 foundation model과 비교한 표이다. Video classification (VC)은 top-1 accuracy를 비교하였으며, temporal localization (TAL)과 spatiotemporal localization (STAL)은 mean average precision (mAP)를 비교하였다. (A)는 외관 중심, (M)은 모션 중심, (ML)은 multi-label을 뜻한다. 
 
-<center><img src='{{"/assets/img/videoprism/videoprism-table2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/videoprism/videoprism-table2.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Zero-shot video-text retrieval and classification
 다음은 zero-shot 동영상-텍스트 검색 성능을 비교한 표이다. Recall@1 (R@1)과 Recall@5 (R@5)를 비교하였다. 
 
-<center><img src='{{"/assets/img/videoprism/videoprism-table3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/videoprism/videoprism-table3.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 zero-shot video classification 성능을 SOTA와 비교한 표이다. 
 
-<center><img src='{{"/assets/img/videoprism/videoprism-table4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/videoprism/videoprism-table4.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Zero-shot video captioning and QA
 다음은 zero-shot video captioning 성능을 SOTA와 비교한 표이다. 모든 벤치마크에서 CIDEr를 비교하였다. 
 
-<center><img src='{{"/assets/img/videoprism/videoprism-table5.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/videoprism/videoprism-table5.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 zero-shot video QA 성능을 SOTA와 비교한 표이다. NExT-QA는 WUPS index를 비교하였고, 나머지는 top-1 accuracy를 비교하였다. 
 
-<center><img src='{{"/assets/img/videoprism/videoprism-table6.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/videoprism/videoprism-table6.webp" | relative_url}}' width="55%"></center>
 
 ### 4. CV for science tasks
 다음은 과학 벤치마크에서 SOTA와 비교한 표이다. KABR는 macro-accuracy를 비교하였고, 나머지는 mAP를 비교하였다. 
 
-<center><img src='{{"/assets/img/videoprism/videoprism-table7.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/videoprism/videoprism-table7.webp" | relative_url}}' width="85%"></center>
 
 ### 5. Ablation study
 다음은 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/videoprism/videoprism-fig4.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/videoprism/videoprism-fig4.webp" | relative_url}}' width="50%"></center>
 
 ## Limitations
 1. 사전 학습의 일부로 잡음이 있는 텍스트가 있는 동영상 데이터를 활용한다. 이 잡음이 있는 텍스트는 잠재적으로 불완전하고 편향되어 모델 성능에 영향을 미칠 수 있다. 

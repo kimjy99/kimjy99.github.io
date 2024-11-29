@@ -18,7 +18,7 @@ classes: wide
 > ShanghaiTech University | The University of Hong Kong | Tencent America | Texas A&M University  
 > 29 Nov 2023  
 
-<center><img src='{{"/assets/img/gaussianshader/gaussianshader-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/gaussianshader/gaussianshader-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 [3D Gaussian Splatting](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)은 3D Gaussian 표현과 타일 기반 splatting 기술을 결합하여 고품질 3D 장면 모델링과 실시간 렌더링을 달성함으로써 실제 애플리케이션에서 뉴럴 렌더링 기술을 사용할 수 있게 되었다. 그러나 반사면이 있는 장면에서는 성능 저하가 발생한다. 이는 3D Gaussian Splatting이 모양 속성을 명시적으로 모델링하지 않아 중요한 뷰에 따른 변경 사항, 특히 specular highlight를 캡처하지 못하기 때문이다. 이러한 제약은 특히 눈에 띄는 반사 특성을 특징으로 하는 다양한 재료에 대하여 사실적인 렌더링을 달성하는 데 상당한 장애가 된다.
@@ -32,7 +32,7 @@ Shading function 계산의 또 다른 과제는 개별 3D Gaussian sphere에서 
 3D Gaussian Splatting을 기반으로 구축된 GaussianShader는 반사 표면과 같은 다양한 재질을 수용하면서 실시간 렌더링 속도를 유지한다. 이전 연구들과 비교하여 GaussianShader는 일반 장면과 반사 표면 모두에서 효율성과 강력한 성능 사이의 균형을 잘 유지한다. 
 
 ## Method
-<center><img src='{{"/assets/img/gaussianshader/gaussianshader-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/gaussianshader/gaussianshader-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 방법의 개요는 위 그림에 나와 있다. 본 논문의 접근 방식은 공분산 $\Sigma$, 불투명도 $\alpha$, 위치 $p$를 포함한 모양 속성을 포함하는 3D Gaussian sphere를 채택하는 것으로 시작된다. 반사에 대한 표현 능력을 향상시키기 위해 diffuse color, roughness(거칠기), specular tint, normal, residual color을 포함한 일련의 shading 속성이 필요한 shading function을 사용하여 이러한 Gaussian sphere의 모양을 계산한다. 이어서, 직접 조명(direct lighting)을 모델링하기 위해 미분 가능한 환경 조명 맵을 사용한다. Shading 프로세스는 정확한 법선 추정에 크게 의존한다. 
 
@@ -52,7 +52,7 @@ $$
 Diffuse color $$\mathbf{c}_d$$는 보는 방향에 따라 변하지 않는 이 Gaussian sphere의 일관된 색상이다. $\mathbf{s} \odot L_s (\omega_o, \mathbf{n}, \rho)$는 표면 고유 색상 $s$와 직접 반사광 $L_s$ 사이의 상호 작용을 설명한다. 이 항을 사용하면 렌더링 시 대부분의 반사를 표현할 수 있다. 간접광의 산란 및 반사와 같이 위의 직접광 반사로 설명할 수 없는 일부 반사가 여전히 있기 때문에 이러한 복잡한 반사를 설명하기 위해 residual color 항 $$\mathbf{c}_r (\omega_o)$$을 추가한다. 이와 달리 Ref-NeRF는 residual color 항 없이 shading function을 채택하므로 복잡한 반사를 처리하는 데 어려움을 겪는다. $$\mathbf{c}_r (\omega_o)$$는 SH 함수로 parameterize된다. $$\mathbf{c}_d$$, $\mathbf{s}$, $\rho$, $$\mathbf{c}_r (\omega_o)$$의 SH 계수는 모두 이 Gaussian sphere와 관련된 학습 가능한 파라미터이다. 
 
 ### 2. Specular Light
-<center><img src='{{"/assets/img/gaussianshader/gaussianshader-fig3.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/gaussianshader/gaussianshader-fig3.webp" | relative_url}}' width="42%"></center>
 <br>
 위 그림과 같이 specular GGX Normal Distribution Function $D$와 들어오는 radiance를 통합하여 반사광 $L_s$를 계산한다.
 
@@ -78,7 +78,7 @@ $$
 Gaussian sphere에 대한 법선 추정은 어렵다. Gaussian sphere는 개별 엔터티의 모음으로, 각각은 연속적인 표면이나 정의된 가장자리 없이 공간의 로컬한 점을 나타낸다. 이러한 이산적인 구조로 인해 일반적으로 연속적인 표면이 필요한 법선을 직접 계산하는 것이 본질적으로 어렵다. 저자들은 Gaussian의 가장 짧은 축 방향이 근사 법선 역할을 할 수 있다는 것을 관찰했으며 여기에 예측된 normal residual을 추가로 연관시켰다.
 
 #### Shortest axis direction
-<center><img src='{{"/assets/img/gaussianshader/gaussianshader-fig4.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/gaussianshader/gaussianshader-fig4.webp" | relative_url}}' width="60%"></center>
 <br>
 저자들은 실험에서 위 그림과 같이 최적화 과정에서 3D Gaussian sphere의 종횡비, 특히 가장 긴 축, 중간 축, 가장 짧은 축의 비율이 점차 증가한다는 흥미로운 관찰을 했다. 즉, Gaussian sphere가 점점 납작해지고 평면에 가까워진다. 이러한 관찰은 $\mathbf{v}$로 표시되는 이 평탄화된 Gaussian sphere의 법선으로 가장 짧은 축을 선택하도록 영감을 주었다.
 
@@ -103,7 +103,7 @@ $$
 $$
 
 #### Normal-geometry consistency
-<center><img src='{{"/assets/img/gaussianshader/gaussianshader-fig5.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/gaussianshader/gaussianshader-fig5.webp" | relative_url}}' width="65%"></center>
 <br>
 위의 가장 짧은 축 방향과 normal residual은 각 Gaussian sphere에 별도로 정의된다. 그러나 눈에 띄는 문제는 법선이 로컬 영역의 모든 Gaussian sphere와 연관되어 있다고 가정되는 로컬 형상의 기울기를 드러낸다는 것이다. 앞서 언급한 normal residual을 학습시키기 위해 단순히 color loss를 적용하면 로컬 형상과 추정된 법선 사이에 불일치가 발생한다. 주된 이유는 모든 Gaussian sphere가 이웃 Gaussian sphere에 의한 로컬한 형상을 알지 못한 채 개별적으로 normal residual을 학습하기 때문이다. 따라서 법선-형상 일관성을 보장하기 위해 로컬 영역의 여러 Gaussian sphere를 해당 법선과 연관시켜야 한다. 간단한 해결책은 공간에서 $K$개의 이웃을 검색하고 모든 이웃 sphere로부터 대략적인 법선을 추정하는 것이다. 그러나 이러한 KNN 검색은 모든 Gaussian sphere가 최적화 프로세스에서 동적으로 움직이기 때문에 학습 중에 비용이 매우 많이 든다. 대신, 저자들은 다음과 같이 법선-형상 일관성을 보장하는 간단하면서도 효과적인 방법을 제안하였다. 
 
@@ -145,24 +145,24 @@ $$
 
 ### 1. Comparisons
 #### NeRF Synthetic dataset
-<center><img src='{{"/assets/img/gaussianshader/gaussianshader-table1.PNG" | relative_url}}' width="82%"></center>
+<center><img src='{{"/assets/img/gaussianshader/gaussianshader-table1.webp" | relative_url}}' width="82%"></center>
 <br>
-<center><img src='{{"/assets/img/gaussianshader/gaussianshader-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/gaussianshader/gaussianshader-fig8.webp" | relative_url}}' width="100%"></center>
 
 #### Shiny Blender dataset
-<center><img src='{{"/assets/img/gaussianshader/gaussianshader-table2.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/gaussianshader/gaussianshader-table2.webp" | relative_url}}' width="70%"></center>
 <br>
-<center><img src='{{"/assets/img/gaussianshader/gaussianshader-fig7.PNG" | relative_url}}' width="73%"></center>
+<center><img src='{{"/assets/img/gaussianshader/gaussianshader-fig7.webp" | relative_url}}' width="73%"></center>
 <br>
-<center><img src='{{"/assets/img/gaussianshader/gaussianshader-fig9.PNG" | relative_url}}' width="61%"></center>
+<center><img src='{{"/assets/img/gaussianshader/gaussianshader-fig9.webp" | relative_url}}' width="61%"></center>
 <br>
-<center><img src='{{"/assets/img/gaussianshader/gaussianshader-table3.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/gaussianshader/gaussianshader-table3.webp" | relative_url}}' width="47%"></center>
 
 #### Tanks and Temples dataset
-<center><img src='{{"/assets/img/gaussianshader/gaussianshader-fig10.PNG" | relative_url}}' width="53%"></center>
+<center><img src='{{"/assets/img/gaussianshader/gaussianshader-fig10.webp" | relative_url}}' width="53%"></center>
 
 #### Glossy Synthetic dataset
-<center><img src='{{"/assets/img/gaussianshader/gaussianshader-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/gaussianshader/gaussianshader-fig6.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Ablation Study
-<center><img src='{{"/assets/img/gaussianshader/gaussianshader-table4.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/gaussianshader/gaussianshader-table4.webp" | relative_url}}' width="40%"></center>

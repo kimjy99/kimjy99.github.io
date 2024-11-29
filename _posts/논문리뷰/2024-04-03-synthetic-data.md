@@ -64,19 +64,19 @@ CLIP 모델은 사전 학습을 위한 대규모 비전-언어 데이터셋 덕�
 ##### 주요 결과
 다음은 여러 데이터셋의 테스트셋 top-1 accuracy이다. (o: object-level. s: scene-level. f: fine-grained. t: textures. si: satellite images. r: robustness.)
 
-<center><img src='{{"/assets/img/synthetic-data/synthetic-data-table1.PNG" | relative_url}}' width="78%"></center>
+<center><img src='{{"/assets/img/synthetic-data/synthetic-data-table1.webp" | relative_url}}' width="78%"></center>
 <br>
 다음은 Language Enhancement (**LE**), CLIP-based Filtering (**CF**), Soft-target Cross-Entropy (**SCE**)에 대한 ablation 결과이다.  
 
-<center><img src='{{"/assets/img/synthetic-data/synthetic-data-table2.PNG" | relative_url}}' width="83%"></center>
+<center><img src='{{"/assets/img/synthetic-data/synthetic-data-table2.webp" | relative_url}}' width="83%"></center>
 <br>
 다음은 파라미터 튜닝 비율에 따른 정확도를 비교한 표이다. (EuroSAT)
 
-<center><img src='{{"/assets/img/synthetic-data/synthetic-data-table3.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/synthetic-data/synthetic-data-table3.webp" | relative_url}}' width="85%"></center>
 <br>
 다음은 카테고리별 실제 데이터의 학습 이미지 수에 따른 정확도를 비교한 표이다. (CIFAR-100)
 
-<center><img src='{{"/assets/img/synthetic-data/synthetic-data-table4.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/synthetic-data/synthetic-data-table4.webp" | relative_url}}' width="75%"></center>
 <br>
 카테고리당 95개의 이미지(총 9.500개)로 학습시키면 5만개의 합성 데이터와 비슷한 성능을 얻을 수 있다. 이는 다운스트림 task를 해결할 때 합성 데이터가 실제 데이터만큼 효율적이고 효과적이지 않다는 것을 나타낸다. 실제 데이터와 비슷한 성능을 얻으려면 약 5배 더 많은 데이터가 필요하다. 합성 데이터의 양을 더 늘려도 다운스트림 classification task에 대한 성능 향상이 더 이상 없다. 
 
@@ -102,19 +102,19 @@ Zero-shot task를 위한 합성 데이터의 경험을 바탕으로 zero-shot �
 #### 주요 결과
 다음은 SUN397과 EuroSAT에 대한 few-shot image recognition 결과이다. **CT w. init**는 classifier 가중치를 CLIP 텍스트 임베딩으로 초기화한 모델이며, **CT w. Syn**는 실제/합성 데이터의 혼합 학습, Real Guidance, batch normalization 고정 전략을 모두 사용한 모델이다. 
 
-<center><img src='{{"/assets/img/synthetic-data/synthetic-data-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/synthetic-data/synthetic-data-fig1.webp" | relative_url}}' width="100%"></center>
 <br>
 합성 데이터와 few-shot 실제 데이터라는 두 부분의 데이터가 있기 때문에 각 부분을 순서대로 학습하거나 혼합하여 학습할 수 있다. 다음은 이에 대한 비교 결과이다. (EuroSAT)
 
-<center><img src='{{"/assets/img/synthetic-data/synthetic-data-table7.PNG" | relative_url}}' width="30%"></center>
+<center><img src='{{"/assets/img/synthetic-data/synthetic-data-table7.webp" | relative_url}}' width="30%"></center>
 <br>
 다음은 기본 전략(**B**), Real Filtering(**RF**), Real Guidance(**RG**)에 대한 ablation 결과이다. (EuroSAT, 16-shot)
 
-<center><img src='{{"/assets/img/synthetic-data/synthetic-data-table5.PNG" | relative_url}}' width="17%"></center>
+<center><img src='{{"/assets/img/synthetic-data/synthetic-data-table5.webp" | relative_url}}' width="17%"></center>
 <br>
 다음은 batch normalization (BN)을 고정하였을 때의 결과이다. (EuroSAT, 16-shot)
 
-<center><img src='{{"/assets/img/synthetic-data/synthetic-data-table6.PNG" | relative_url}}' width="26%"></center>
+<center><img src='{{"/assets/img/synthetic-data/synthetic-data-table6.webp" | relative_url}}' width="26%"></center>
 
 #### 결론
 1. 합성 데이터는 few-shot 학습을 촉진할 수 있으며 실제 데이터 shot이 증가함에 따라 합성 데이터의 긍정적인 영향은 점차 줄어든다. 
@@ -138,20 +138,20 @@ Zero-shot task를 위한 합성 데이터의 경험을 바탕으로 zero-shot �
 ##### Downstream-aware에서의 결과
 다음은 CIFAR-100에 대한 downstream-aware supervised pre-training 결과이다. 
 
-<center><img src='{{"/assets/img/synthetic-data/synthetic-data-table8.PNG" | relative_url}}' width="39%"></center>
+<center><img src='{{"/assets/img/synthetic-data/synthetic-data-table8.webp" | relative_url}}' width="39%"></center>
 
 ##### Downstream-agnostic에서의 결과
 다음은 CIFAR-100에 대한 downstream-agnostic supervised pre-training 결과이다. 
 
-<center><img src='{{"/assets/img/synthetic-data/synthetic-data-table9.PNG" | relative_url}}' width="39%"></center>
+<center><img src='{{"/assets/img/synthetic-data/synthetic-data-table9.webp" | relative_url}}' width="39%"></center>
 <br>
 다음은 PASCAL VOC에서의 object detection에 대한 downstream-agnostic supervised pre-training 결과이다. 
 
-<center><img src='{{"/assets/img/synthetic-data/synthetic-data-table10.PNG" | relative_url}}' width="39%"></center>
+<center><img src='{{"/assets/img/synthetic-data/synthetic-data-table10.webp" | relative_url}}' width="39%"></center>
 <br>
 다음은 PASCAL VOC에서의 object detection에 대한 downstream-agnostic self-supervised pre-training (Moco v2) 결과이다. 
 
-<center><img src='{{"/assets/img/synthetic-data/synthetic-data-table11.PNG" | relative_url}}' width="39%"></center>
+<center><img src='{{"/assets/img/synthetic-data/synthetic-data-table11.webp" | relative_url}}' width="39%"></center>
 
 #### 결론
 1. 데이터 양은 합성 사전 학습에 긍정적인 영향을 미친다. 합성 데이터 크기를 늘리면 성능이 향상될 수 있지만 데이터 양이 증가함에 따라 점차 포화 상태가 된다. 

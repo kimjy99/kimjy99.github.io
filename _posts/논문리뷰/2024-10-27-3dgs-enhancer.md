@@ -19,7 +19,7 @@ classes: wide
 > Clemson University  
 > 21 Oct 2024  
 
-<center><img src='{{"/assets/img/3dgs-enhancer/3dgs-enhancer-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/3dgs-enhancer/3dgs-enhancer-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 최근 [3D Gaussian Splatting (3DGS)](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)은 매우 효율적인 렌더링 파이프라인으로 사실적인 렌더링을 생성하는 데 뛰어난 성능을 보였다. 그러나 기존 시점들에서 멀리 떨어진 고품질의 새로운 뷰를 렌더링하는 것은 여전히 ​​매우 어려운데, 이는 샘플링이 부족한 영역에 정보가 부족하기 때문이다. 위 그림에서 볼 수 있듯이 입력 뷰가 세 개뿐인 경우 눈에 띄는 타원체와 속이 빈 아티팩트가 나타난다. 실제로 이러한 일반적인 저품질 렌더링 결과로 인해 3DGS를 개선하는 것이 필수적이다.
@@ -37,7 +37,7 @@ Novel view synthesis (NVS)의 렌더링 품질을 개선하는 것을 목표로 
 3DGS 모델은 이러한 향상된 뷰에 의해 fine-tuning되어 렌더링 성능이 향상된다. 3DGS-Enhancer는 궤적이 없어 sparse한 뷰에서 바인딩되지 않은 장면을 재구성하고 두 개의 알려진 뷰 사이의 보이지 않는 영역에 대한 자연스러운 3D 표현을 생성할 수 있다. 단일 이미지에서 object-level의 3DGS 모델을 생성하기 위해 video LDM을 활용했던 것과 달리, 3DGS-Enhancer는 기존 3DGS 모델을 향상시키는 데 중점을 두므로 더 일반화된 장면에 적용할 수 있다.
 
 ## Method
-<center><img src='{{"/assets/img/3dgs-enhancer/3dgs-enhancer-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/3dgs-enhancer/3dgs-enhancer-fig2.webp" | relative_url}}' width="100%"></center>
 
 - 입력: 카메라 포즈가 $$\{p_1^\textrm{ref}, \ldots, p_{N_\textrm{ref}}^\textrm{ref}\}$$인 레퍼런스 이미지 $$\{I_1^\textrm{ref}, \ldots, I_{N_\textrm{ref}}^\textrm{ref}\}$$
 - 목표: 새로운 뷰에서 3DGS 모델로 렌더링된 이미지 $$\{I_1, \ldots, I_{N_\textrm{new}}\}$$를 향상시키는 것
@@ -98,7 +98,7 @@ NVS에서 두 ​​이미지 뷰에 노이즈가 있는 경우 두 뷰 사이�
 이러한 추론에 따라 새로운 뷰에서 레퍼런스 뷰까지의 거리를 0과 1 사이로 정규화한다. 시점이 레퍼런스 뷰에서 멀수록 신뢰도가 높아진다.
 
 ##### Pixel level confidence
-<center><img src='{{"/assets/img/3dgs-enhancer/3dgs-enhancer-fig3.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/3dgs-enhancer/3dgs-enhancer-fig3.webp" | relative_url}}' width="90%"></center>
 <br>
 위 그림에서 볼 수 있듯이, 잘 재구성된 영역은 일반적으로 매우 작은 볼륨을 가진 Gaussian으로 표현된다. 저자들은 이 관찰을 바탕으로 픽셀 수준 신뢰도를 계산하는 방법을 제안하였다. 
 
@@ -138,26 +138,26 @@ $$
 ### 1. Comparison with State-of-the-Arts
 다음은 DL3DV test set에서의 결과이다. 
 
-<center><img src='{{"/assets/img/3dgs-enhancer/3dgs-enhancer-fig4.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/3dgs-enhancer/3dgs-enhancer-fig4.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 Mip-NeRF360 데이터셋에서의 결과이다. 
 
-<center><img src='{{"/assets/img/3dgs-enhancer/3dgs-enhancer-fig5.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/3dgs-enhancer/3dgs-enhancer-fig5.webp" | relative_url}}' width="90%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/3dgs-enhancer/3dgs-enhancer-table2.PNG" | relative_url}}' width="68%"></center>
+<center><img src='{{"/assets/img/3dgs-enhancer/3dgs-enhancer-table2.webp" | relative_url}}' width="68%"></center>
 
 ### 2. Ablation Study
 다음은 3DGS-Enhancer의 4가지 모듈들에 대한 ablation 결과이다. (입력 뷰가 3, 6, 9, 12개인 경우의 평균)
 
-<center><img src='{{"/assets/img/3dgs-enhancer/3dgs-enhancer-table3.PNG" | relative_url}}' width="78%"></center>
+<center><img src='{{"/assets/img/3dgs-enhancer/3dgs-enhancer-table3.webp" | relative_url}}' width="78%"></center>
 <br>
 다음은 video diffusion model 구성 요소에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/3dgs-enhancer/3dgs-enhancer-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/3dgs-enhancer/3dgs-enhancer-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 STD와 색상 보정 모듈에 대한 ablation 결과이다. (DL3DV test set, 9-view setting)
 
-<center><img src='{{"/assets/img/3dgs-enhancer/3dgs-enhancer-table4.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/3dgs-enhancer/3dgs-enhancer-table4.webp" | relative_url}}' width="70%"></center>
 
 ## Limitation
 연속적인 interpolation을 위해 인접한 뷰에 의존하므로 단일 뷰 3D 모델 생성에 쉽게 적용할 수 없다. 

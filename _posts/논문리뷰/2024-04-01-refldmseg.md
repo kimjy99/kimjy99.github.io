@@ -22,15 +22,15 @@ classes: wide
 ## Introduction
 In-context learning은 비전 및 NLP를 위한 cross-task modeling에 대한 새로운 관점을 제공하였다. 이를 통해 모델은 프롬프트에 따라 학습하고 예측할 수 있다. GPT3는 in-context learning을 먼저 정의하였으며, 이는 컨텍스트로 제공된 일부 입력-출력 쌍을 조건으로 처음 보는 task를 추론하는 것으로 해석된다. 여러 연구들에서는 프롬프트가 비전 task의 입력-출력인 비전의 in-context learning도 탐구하였다. 
 
-<center><img src='{{"/assets/img/refldmseg/refldmseg-fig1ab.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/refldmseg/refldmseg-fig1ab.webp" | relative_url}}' width="85%"></center>
 <br>
 이는 segmentation 분야에서 few-shot segmentation(FSS)와 동일한 역할을 한다. 대부분의 접근 방식은 쿼리 이미지와 지원 이미지 (in-context learning을 위한 시각적 프롬프트) 간의 거리를 계산한다. FSS의 데이터 볼륨 및 카테고리에 대한 엄격한 제약을 극복하고 다양한 task에 걸쳐 일반화를 가능하게 하기 위해 최근 여러 연구들에서는 in-context segmentation으로 확장하고 마스크 일반화 task(b)로 공식화했다. 이는 마스크 디코딩을 통해 이미지 마스크를 직접 생성한다는 점에서 일치 또는 프로토타입 기반 discriminative model들(a)과 근본적으로 다르다. 그러나 이러한 접근 방식에는 그러한 쌍을 학습하기 위해 항상 대규모 데이터셋이 필요하다. 
 
-<center><img src='{{"/assets/img/refldmseg/refldmseg-fig2a.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/refldmseg/refldmseg-fig2a.webp" | relative_url}}' width="80%"></center>
 <br>
 가장 최근에는 [latent diffusion model (LDM)](https://kimjy99.github.io/논문리뷰/ldm)이 생성 task에 대한 큰 잠재력을 보여주었다. 여러 연구들이 조건부 이미지 콘텐츠 제작에 탁월한 성능을 보여주고 있다. LDM은 처음에는 생성을 위해 제안되었지만 이를 perceptual task에 사용하려는 시도가 몇 가지 있었다. 위 그림은 LDM 기반 segmentation을 위한 주류 파이프라인을 보여준다. 일반적으로 semantic guidance를 위한 텍스트 프롬프트와 LDM을 지원하는 추가 신경망에 의존한다. 그러나 전자는 실제 시나리오에서 항상 사용 가능한 것은 아니며 후자는 LDM의 자체 segmentation 능력을 탐색하는 데 방해가 된다. 이러한 보조 구성 요소에 의존하면 해당 구성 요소가 없을 때 모델 성능이 저하될 수 있다. 저자들은 LDM을 feature 추출기로 채택하는 기본 모델을 설계하고 이 가설을 테스트하였다. 또한, [latent diffusion segmentation](https://arxiv.org/abs/2401.10227)은 이러한 추가 설계 없이 segmentation 프로세스를 모델링하면 in-context segmentation 능력이 부족하다는 것을 보였다. 저자들은 in-context segmentation이 LDM의 생성 잠재력을 완전히 탐색할 수 있는 이미지 마스크 생성 프로세스로 공식화될 수 있는지 여부를 논의하였다. 
 
-<center><img src='{{"/assets/img/refldmseg/refldmseg-fig1c.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/refldmseg/refldmseg-fig1c.webp" | relative_url}}' width="50%"></center>
 <br>
 본 논문에서는 처음으로 위 그림과 같이 in-context segmentation을 위한 diffusion model의 잠재력을 탐구하였다. 본 논문은 다음과 같은 새로운 질문에 답하는 것을 목표로 한다. 
 
@@ -38,7 +38,7 @@ In-context learning은 비전 및 NLP를 위한 cross-task modeling에 대한 �
 2. In-context segmentation에 가장 적합한 LDM의 메타 아키텍처는 무엇인가
 3. In-context instruction과 output alignment가 LDM 성능에 어떤 영향을 미치는가
 
-<center><img src='{{"/assets/img/refldmseg/refldmseg-fig2b.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/refldmseg/refldmseg-fig2b.webp" | relative_url}}' width="45%"></center>
 <br>
 본 논문은 위의 질문을 해결하기 위해 위 그림과 같이 최소한의 LDM 기반 in-context segmentation 프레임워크인 **Ref LDM-Seg**를 제안하였다. Ref LDM-Seg는 후속 신경망 없이 guidance를 위해 시각적 프롬프트에 의존한다. 저자들은 instruction 추출, output alignment, 메타 아키텍처라는 세 가지 중요한 요소를 분석하였다. 
 
@@ -112,7 +112,7 @@ PM_a^{-} &= \tilde{PM}_a - I_i / \alpha \\
 $$
 
 #### Meta-architectures
-<center><img src='{{"/assets/img/refldmseg/refldmseg-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/refldmseg/refldmseg-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 저자들은 위 그림에서 볼 수 있듯이 Ref LDM-Seg-f와 Ref LDM-Seg-n이라는 두 가지 대표적인 메타 아키텍처를 탐색하였다. 둘 사이의 차이점은 주로 최적화 목표와 denoising timestep에 있다. 
 
@@ -173,7 +173,7 @@ $$
 여기서 $\gamma_q$와 $\gamma_\tau$는 각각 쿼리와 in-context instruction의 guidance를 제어한다. 
 
 ## Experiments
-<center><img src='{{"/assets/img/refldmseg/refldmseg-table1.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/refldmseg/refldmseg-table1.webp" | relative_url}}' width="45%"></center>
 
 - 데이터셋: PASCAL, COCO, DAVIS-16, VSPW
 - 구현 디테일
@@ -189,58 +189,58 @@ $$
 ### 1. Study on Framework Design
 다음은 메타 아키텍처와 LoRA에 대한 효과를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/refldmseg/refldmseg-table2a.PNG" | relative_url}}' width="38%"></center>
+<center><img src='{{"/assets/img/refldmseg/refldmseg-table2a.webp" | relative_url}}' width="38%"></center>
 <br>
 다음은 output alignment에 대한 효과를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/refldmseg/refldmseg-table2b.PNG" | relative_url}}' width="23%"></center>
+<center><img src='{{"/assets/img/refldmseg/refldmseg-table2b.webp" | relative_url}}' width="23%"></center>
 <br>
 다음은 최적화 공간에 대한 효과를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/refldmseg/refldmseg-table2c.PNG" | relative_url}}' width="28%"></center>
+<center><img src='{{"/assets/img/refldmseg/refldmseg-table2c.webp" | relative_url}}' width="28%"></center>
 <br>
 다음은 LoRA rank에 대한 효과를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/refldmseg/refldmseg-table2d.PNG" | relative_url}}' width="16%"></center>
+<center><img src='{{"/assets/img/refldmseg/refldmseg-table2d.webp" | relative_url}}' width="16%"></center>
 
 ### 2. Study on Various Datasets
 다음은 여러 timestep에 대한 Ref LDM-Seg-n의 출력을 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/refldmseg/refldmseg-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/refldmseg/refldmseg-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 여러 instruction을 조합하여 사용한 결과이다. (Ref LDM-Seg-f)
 
-<center><img src='{{"/assets/img/refldmseg/refldmseg-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/refldmseg/refldmseg-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 결합된 데이터셋에 대한 성능을 비교한 표이다. (Ref LDM-Seg-f)
 
-<center><img src='{{"/assets/img/refldmseg/refldmseg-table3a.PNG" | relative_url}}' width="36%"></center>
+<center><img src='{{"/assets/img/refldmseg/refldmseg-table3a.webp" | relative_url}}' width="36%"></center>
 <br>
 다음은 out-of-domain 데이터셋인 FSS1000에서의 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/refldmseg/refldmseg-table3b.PNG" | relative_url}}' width="20%"></center>
+<center><img src='{{"/assets/img/refldmseg/refldmseg-table3b.webp" | relative_url}}' width="20%"></center>
 <br>
 다음은 instruction 수에 따른 mIoU를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/refldmseg/refldmseg-table3c.PNG" | relative_url}}' width="24%"></center>
+<center><img src='{{"/assets/img/refldmseg/refldmseg-table3c.webp" | relative_url}}' width="24%"></center>
 <br>
 다음은 사전 학습된 가중치에 따른 효과를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/refldmseg/refldmseg-table3d.PNG" | relative_url}}' width="31%"></center>
+<center><img src='{{"/assets/img/refldmseg/refldmseg-table3d.webp" | relative_url}}' width="31%"></center>
 
 ### 3. Comparison with Previous Methods
 다음은 다른 방법들과 segmentation 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/refldmseg/refldmseg-table4.PNG" | relative_url}}' width="84%"></center>
+<center><img src='{{"/assets/img/refldmseg/refldmseg-table4.webp" | relative_url}}' width="84%"></center>
 <br>
 다음은 COCO 데이터셋에서 segmentation 결과를 시각화한 것이다. (Ref LDM-Seg-f)
 
-<center><img src='{{"/assets/img/refldmseg/refldmseg-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/refldmseg/refldmseg-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 VSPW 데이터셋에서 segmentation 결과를 시각화한 것이다. (Ref LDM-Seg-f)
 
-<center><img src='{{"/assets/img/refldmseg/refldmseg-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/refldmseg/refldmseg-fig7.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 COCO-20i 데이터셋에서 1-shot segmentation 성능(mIoU)을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/refldmseg/refldmseg-table5.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/refldmseg/refldmseg-table5.webp" | relative_url}}' width="47%"></center>

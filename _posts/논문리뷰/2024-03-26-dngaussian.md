@@ -19,12 +19,12 @@ classes: wide
 > Beihang University | Chinese Academy of Sciences | Griffith University | RIKEN AIP | The University of Tokyo  
 > 11 Mar 2024  
 
-<center><img src='{{"/assets/img/dngaussian/dngaussian-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dngaussian/dngaussian-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 Sparse한 입력을 사용한 novel view synthesis는 radiance fields에 대한 문제를 가지고 있다. [NeRF](https://kimjy99.github.io/논문리뷰/nerf)의 최근 발전은 소수의 입력 뷰에서 사실적인 외관과 정확한 형상을 재구성하는 데 탁월했다. 그러나 대부분의 sparse-view NeRF는 낮은 처리 속도와 상당한 메모리 소비로 구현되므로 실제 적용을 제한하는 높은 시간과 계산 비용이 발생한다. 일부 방법은 그리드 기반 backbone을 사용하여 더 빠른 inference 속도를 달성하지만 종종 trade-off로 인해 높은 학습 비용이 발생하거나 렌더링 품질이 저하된다.
 
-<center><img src='{{"/assets/img/dngaussian/dngaussian-fig2.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/dngaussian/dngaussian-fig2.webp" | relative_url}}' width="80%"></center>
 <br>
 최근 [3D Gaussian Splatting](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)은 3D Gaussian을 사용하여 구조화되지 않은 3D Gaussian radiance field를 도입하여 dense한 입력 뷰에서 학습할 때 신속하고 고품질이며 저비용으로 novel view synthesis에서 놀라운 성공을 거두었다. Sparse한 입력만으로도 일부 명확하고 상세한 로컬 feature들을 재구성하는 놀라운 능력을 부분적으로 유지할 수 있다. 그럼에도 불구하고, 위 그림에서 볼 수 있듯이 뷰 제약 조건의 감소로 인해 장면 형상의 상당 부분이 잘못 학습되어 새로운 뷰 합성이 실패하게 된다. 본 논문은 이전의 깊이 정규화된 sparse-view NeRF의 성공에서 영감을 받아 사전 학습된 monocular depth estimator에서 얻은 깊이 정보를 사용하여 잘못 학습된 형상의 Gaussian을 수정하는 Depth Normalization Regularized Sparse-view 3D Gaussian Radiance Fields (**DNGaussian**)를 도입하여 few-shot novel view synthesis을 위한 더 높은 품질과 효율성을 추구하였다.
 
@@ -35,7 +35,7 @@ Sparse한 입력을 사용한 novel view synthesis는 radiance fields에 대한 
 제안된 두 기술을 통합한 DNGaussian은 LLFF, Blender 및 DTU 데이터셋의 여러 sparse-view 설정에서 SOTA 방법에 비해 경쟁력 있는 품질과 뛰어난 디테일로 뷰를 합성한다. 이러한 이점은 상당히 낮은 메모리 비용, 학습 시간 25배 감소, 3000배 이상 빠른 렌더링 속도로 더욱 강화된다. 또한 DNGaussian은 복잡한 장면, 광범위한 뷰, 다양한 재료에 맞는 보편적인 능력을 보여주었다. 
 
 ## Method
-<center><img src='{{"/assets/img/dngaussian/dngaussian-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dngaussian/dngaussian-fig3.webp" | relative_url}}' width="100%"></center>
 
 ### 1. Depth Regularization for Gaussians
 유사한 깊이 계산을 공유함에도 불구하고 NeRF에 대한 기존 깊이 정규화는 큰 차이로 인해 3D Gaussian로 전환할 수 없다. 먼저, 추가 파라미터에서 색상과 깊이 사이의 목표 충돌이 발생한다. 또한 연속적인 NeRF에 대한 이전 정규화는 밀도에만 초점을 맞추므로 discrete하고 유연한 Gaussian에서는 제대로 작동하지 않는다. 
@@ -73,7 +73,7 @@ $$
 Hard 및 Soft Depth Regularization를 모두 사용하여 가장 가까운 Gaussian이 불투명도가 높은 적절한 위치에 머물도록 제한하여 완전한 표면을 구성한다.
 
 ### 2. Global-Local Depth Normalization
-<center><img src='{{"/assets/img/dngaussian/dngaussian-fig4.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/dngaussian/dngaussian-fig4.webp" | relative_url}}' width="70%"></center>
 <br>
 이전의 depth-supervised neural field는 일반적으로 depth map의 소스 스케일에 depth loss를 구축하였다. 이러한 유형의 정렬은 넓은 지역의 통계를 기반으로 고정된 스케일을 통해 모든 loss를 측정한다. 결과적으로, 특히 색상 재구성이나 광범위한 심도 변화와 같은 다중 목표를 처리할 때 작은 오차를 간과하게 될 수 있다. 이러한 간과는 이전 NeRF 기반 연구들에서는 그다지 중요하지 않을 수 있지만 Gaussian field에서는 더 큰 문제를 일으킬 수 있다.
 
@@ -149,31 +149,31 @@ $$
 ### 1. Comparison
 다음은 다른 방법들과 LLFF 및 DTU에서 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/dngaussian/dngaussian-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dngaussian/dngaussian-table1.webp" | relative_url}}' width="100%"></center>
 <br>
-<center><img src='{{"/assets/img/dngaussian/dngaussian-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dngaussian/dngaussian-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
-<center><img src='{{"/assets/img/dngaussian/dngaussian-fig6.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/dngaussian/dngaussian-fig6.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 다른 방법들과 Blender에서 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/dngaussian/dngaussian-table2.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/dngaussian/dngaussian-table2.webp" | relative_url}}' width="55%"></center>
 <br>
-<center><img src='{{"/assets/img/dngaussian/dngaussian-fig7.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/dngaussian/dngaussian-fig7.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 효율성을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/dngaussian/dngaussian-table3.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/dngaussian/dngaussian-table3.webp" | relative_url}}' width="65%"></center>
 
 ### 2. Ablation Study
 다음은 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/dngaussian/dngaussian-table4.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/dngaussian/dngaussian-table4.webp" | relative_url}}' width="65%"></center>
 <br>
-<center><img src='{{"/assets/img/dngaussian/dngaussian-fig8.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/dngaussian/dngaussian-fig8.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 파라미터 고정에 대한 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/dngaussian/dngaussian-table5.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/dngaussian/dngaussian-table5.webp" | relative_url}}' width="55%"></center>
 <br>
-<center><img src='{{"/assets/img/dngaussian/dngaussian-fig9.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dngaussian/dngaussian-fig9.webp" | relative_url}}' width="90%"></center>

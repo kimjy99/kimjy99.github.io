@@ -20,7 +20,7 @@ classes: wide
 > ETH Zurich | Microsoft | MPI for Intelligent Systems  
 > 29 May 2024  
 
-<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 [NeRF](https://kimjy99.github.io/논문리뷰/nerf) 모델을 학습시키려면 카메라 포즈가 주어진 RGB 이미지 세트가 필요하고 초점 거리, 노출, 화이트 밸런스와 같은 카메라 설정을 수동으로 조정해야 한다. 또한 NeRF는 움직이는 물체, 그림자 또는 기타 동적 요소와 같은 방해 요소 없이 캡처 프로세스 중에 장면이 완전히 정적이어야 한다. 
@@ -40,7 +40,7 @@ classes: wide
 NeRF On-the-go는 작은 물체가 있는 좁은 실내 장면에서부터 복잡하고 대규모의 거리 장면에 이르기까지 광범위한 시나리오에서 robustness를 보여주며, 다양한 수준의 방해물을 효과적으로 처리할 수 있다. 특히, On-the-go 모듈은 RobustNeRF와 비교했을 때 NeRF 학습을 최대 10배까지 상당히 가속화할 수 있다. 이러한 효율성은 최신 NeRF 프레임워크와의 간단한 통합과 결합되어 NeRF On-the-go를 역동적인 실제 환경에서 NeRF 학습을 향상시키는 데 접근 가능하고 강력한 도구로 만든다. 
 
 ## Method
-<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-fig2.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-fig2.webp" | relative_url}}' width="65%"></center>
 
 ### 1. Uncertainty Prediction with DINOv2 Features
 본 논문의 목표는 여러 이미지에 나타나는 방해 요소를 효과적으로 식별하고 제거하는 것이다. 이를 위해 뷰 전체에서 시공간적 일관성을 유지할 수 있는 것으로 나타난 [DINOv2](https://kimjy99.github.io/논문리뷰/dinov2) feature를 활용한다. 
@@ -133,7 +133,7 @@ $$
 그러나 $\ell_2$ loss를 사용할 때 문제가 발생한다. 특히 방해 요소와 배경의 색상이 가까우면 해당 영역의 불확실성 예측도 낮을 것이다. 이는 불확실성 기반 방해 요소 제거의 효과를 방해하고 렌더링된 이미지에 구름 아티팩트를 만든다. 
 
 ##### 불확실성 학습을 강화하기 위한 SSIM 기반 loss
-<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-fig3.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-fig3.webp" | relative_url}}' width="65%"></center>
 <br>
 SSIM은 휘도, 대비, 구조적 유사도로 구성된다. 이러한 구성 요소들은 장면 요소들을 구별하는 데 중요한 로컬한 구조 및 대비 차이를 포착한다. SSIM은 이 세 가지 요소를 함께 통합하여 방해 요소를 감지하는 데 효과적이다. SSIM loss는 다음과 같다. 
 
@@ -184,14 +184,14 @@ $$
 추가로 NeRF 학습을 위해 [Mip-NeRF 360](https://kimjy99.github.io/논문리뷰/mipnerf360)의 interval loss와 distortion loss도 사용한다. 
 
 ### 4. Dilated Patch Sampling
-<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-fig4.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-fig4.webp" | relative_url}}' width="50%"></center>
 <br>
 [RobustNeRF](https://arxiv.org/abs/2302.00833)는 패치 기반 광선 샘플링 (b)이 랜덤 샘플링 (a)보다 효과적임을 입증했다. 그러나 이 접근 방식에는 주로 샘플링된 패치의 크기가 작기 때문에 (ex. 16$\times$16) 한계가 있다. 특히 GPU 메모리의 제약으로 인해 batch size가 작은 경우 이 작은 컨텍스트는 방해 요소를 제거하기 위한 네트워크의 학습 용량을 제한하여 최적화 안정성과 수렴 속도에 영향을 미칠 수 있다. 
 
 이 문제를 해결하기 위해 dilated patch sampling (c)을 활용한다. 이 전략은 dilated patch에서 광선을 샘플링한다. 패치 크기를 확대함으로써 각 학습 iteration에서 사용 가능한 컨텍스트 정보의 양을 크게 늘릴 수 있다. 
 
 ## Experiments
-<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-fig5.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-fig5.webp" | relative_url}}' width="75%"></center>
 <br>
 저자들은 RobustNeRF 데이터셋과 함께 자체 제작한 **On-the-go 데이터셋**을 사용하였다. 위는 학습 이미지의 예시들이다. 
 
@@ -200,49 +200,49 @@ $$
 
 <center><div style="overflow-x: auto; width: 100%;">
   <div style="width: 130%;">
-    <img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-fig6.PNG" | relative_url}}' width="100%">
+    <img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-fig6.webp" | relative_url}}' width="100%">
   </div>
 </div></center>
 <span style="display: block; margin: 1px 0;"></span>
 <center><div style="overflow-x: auto; width: 100%;">
   <div style="width: 118%;">
-    <img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-table1.PNG" | relative_url}}' width="100%">
+    <img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-table1.webp" | relative_url}}' width="100%">
   </div>
 </div></center>
 <br>
 다음은 RobustNeRF 데이터셋에 대한 novel view synthesis (NVS) 성능을 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-table2a.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-table2a.webp" | relative_url}}' width="75%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-table2b.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-table2b.webp" | relative_url}}' width="50%"></center>
 
 ### 2. Ablation Study
 다음은 patch dilation rate에 대한 ablation 결과이다. 
 
 <div style="display: flex; align-items: start; justify-content: center">
-  <img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-table3b.PNG" | relative_url}}' width="18%">
+  <img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-table3b.webp" | relative_url}}' width="18%">
   &nbsp;&nbsp;
-  <img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-table3a.PNG" | relative_url}}' width="33%">
+  <img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-table3a.webp" | relative_url}}' width="33%">
 </div>
 <br>
 다음은 loss function에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-table4b.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-table4b.webp" | relative_url}}' width="70%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-table4a.PNG" | relative_url}}' width="43%"></center>
+<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-table4a.webp" | relative_url}}' width="43%"></center>
 
 ### 3. Analysis
 다음은 RobustNeRF와 수렴 속도를 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-fig7.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-fig7.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 정적 장면에 대한 성능을 비교한 것이다. 
 
-<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-fig8.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-fig8.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 큰 방해 요소를 다루는 예시들이다.
 
-<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-fig9.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/nerf-on-the-go/nerf-on-the-go-fig9.webp" | relative_url}}' width="75%"></center>
 
 ## Limitation
 창문이나 금속과 같은 반사되는 표면과 같이 강한 view-dependent 효과가 있는 영역에 대한 정확한 불확실성을 예측하는 데 어려움을 겪는다. 

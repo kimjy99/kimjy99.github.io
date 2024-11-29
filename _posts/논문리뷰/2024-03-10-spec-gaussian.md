@@ -18,7 +18,7 @@ classes: wide
 > Zhejiang University | The University of Hong Kong | ByteDance Inc.  
 > 24 Feb 2024  
 
-<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 AR/VR, 3D 콘텐츠 제작, 예술 작품 제작과 같은 다양한 응용 분야에서는 이미지 컬렉션의 고품질 재구성과 사실적인 렌더링이 매우 중요하다. 고전적인 방법은 메쉬나 점과 같은 기본 표현을 사용하고 최신 GPU에 최적화된 rasterization 파이프라인을 활용하여 실시간으로 렌더링한다. 대조적으로, [NeRF](https://kimjy99.github.io/논문리뷰/nerf)는 implicit한 표현을 활용하여 연속적인 장면 표현을 제공하고 볼륨 렌더링을 사용하여 렌더링 결과를 생성한다. 이 접근 방식을 사용하면 장면 디테일을 강화하고 장면 형상을 보다 효과적으로 재구성할 수 있다.
@@ -36,7 +36,7 @@ AR/VR, 3D 콘텐츠 제작, 예술 작품 제작과 같은 다양한 응용 분�
 Spec-Gaussian은 이러한 디자인들을 결합함으로써 Gaussian의 효율성을 유지하면서 specular highlight와 비등방성에 대한 고품질 결과를 렌더링할 수 있다. 또한 Spec-Gaussian은 3D-GS에 specular highlight를 모델링할 수 있는 능력을 부여할 뿐만 아니라 일반적인 벤치마크에서 SOTA 결과를 달성하였다. 
 
 ## Method
-<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문의 방법의 개요는 위 그림에 설명되어 있다. 모델에 대한 입력은 SfM에서 얻은 sparse한 포인트 클라우드와 포즈를 아는 정적 장면의 이미지 집합이다. 본 논문의 방법의 핵심은 3D Gaussian의 모양을 모델링할 때 SH를 대체하기 위해 ASG appearance field를 사용하는 것이다. 저자들은 ASG에 의해 도입된 저장공간 및 렌더링 속도의 압력을 줄이기 위해 sparse한 앵커 Gaussian을 사용하는 하이브리드 Gaussian 모델을 설계하였다. 마지막으로, 실제 장면에서 floater를 줄이기 위한 간단하면서도 효과적인 coarse-to-fine 학습 전략을 도입하였다.
 
@@ -155,7 +155,7 @@ $$
 불필요한 앵커를 제거하기 위해 100 iteration마다 연관된 neural Gaussian의 불투명도 값을 누적한다 ($\bar{\sigma}$). 앵커 Gaussian이 만족스러운 수준의 불투명도를 갖는 neural Gaussian을 생성하지 못하면 ($\bar{\sigma} < \tau_o$) 앵커를 제거한다. 
 
 ### 4. Coarse-to-fine Training
-<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-fig3.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-fig3.webp" | relative_url}}' width="70%"></center>
 <br>
 많은 실제 시나리오에서 3D-GS가 학습 데이터에 overfitting되는 경향이 있어 새로운 시점에서 이미지를 렌더링할 때 수많은 floater가 출현한다. 실제 데이터셋의 일반적인 문제는 카메라 포즈 추정의 부정확성이며, 특히 대규모 장면에서 두드러진다. Scaffold-GS는 3D-GS를 고정하여 형상에 sparse한 복셀 제약 조건을 적용하여 계층적 3D-GS 표현을 생성한다. 이러한 계층적 접근 방식은 복잡한 형상을 모델링하는 3D-GS의 능력을 향상시키지만 overfitting 문제를 해결하지 못하고 많은 경우 장면 배경의 floater 존재를 악화시킨다.
 
@@ -199,36 +199,36 @@ $$
 #### Synthetic Bounded Scenes
 다음은 NeRF 데이터셋에 대한 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
-<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-table2.PNG" | relative_url}}' width="53%"></center>
+<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-table2.webp" | relative_url}}' width="53%"></center>
 <br>
 다음은 anisotropic 데이터셋에 대한 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-fig7.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-fig7.webp" | relative_url}}' width="95%"></center>
 <br>
-<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-table4.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-table4.webp" | relative_url}}' width="52%"></center>
 <br>
 다음은 NSVF 데이터셋에 대한 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-fig8.webp" | relative_url}}' width="100%"></center>
 <br>
-<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-table3.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-table3.webp" | relative_url}}' width="55%"></center>
 
 #### Real-world Unbounded Scenes
 다음은 현실 데이터셋에 대한 결과를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-table1.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Mip-NeRF 360 데이터셋에 대한 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-fig6.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Ablation Study
 다음은 ASG feature decoupling MLP에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-fig5.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-fig5.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 coarse-to-fine 학습 메커니즘에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-fig10.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/spec-gaussian/spec-gaussian-fig10.webp" | relative_url}}' width="100%"></center>

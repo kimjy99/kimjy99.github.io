@@ -86,7 +86,7 @@ $$
 직관적으로, 이 최적 할당은 렌더링 중에 개별 3D Gaussian의 기여를 집계하도록 한다. 모든 주어진 마스크에서 전경에 상당히 기여하는 Gaussian은 $P_i = 1$로 전경에 할당되고, 반대로 배경에 주로 기여하는 Gaussian은 $P_i = 0$으로 배경에 할당된다. 또한, 목적 함수 $\mathcal{F}$의 간단한 선형 결합 형태 덕분에 각 3D Gaussian에 동시에 최적의 레이블을 할당할 수 있다. 
 
 ##### 노이즈 감소를 위한 정규화된 ILP
-<center><img src='{{"/assets/img/flashsplat/flashsplat-fig2.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/flashsplat/flashsplat-fig2.webp" | relative_url}}' width="90%"></center>
 <br>
 실제로, 주어진 2D 마스크 세트 $$\{M^v\}$$는 일반적으로 학습된 2D 비전 모델에 의해 예측되며, 이는 특정 영역에 노이즈를 도입할 가능성이 높다. 제공된 2D 마스크의 이러한 특성은 노이즈가 많은 3D segmentation 결과로 이어질 수 있다. 
 
@@ -119,7 +119,7 @@ $$
 ### 2. From Binary to Scene Segmentation
 3D 장면의 다양한 뷰에 걸쳐 수많은 인스턴스가 존재한다. 이러한 장면 내에서 여러 물체를 분할하려면 위의 방법에 따라 binary segmentation을 여러 번 실행해야 하며, 이는 본질적으로 장면 분할의 속도를 늦춘다. 따라서 보다 효율적으로 해결하기 위해 방법론을 장면 분할로 확장한다.
 
-<center><img src='{{"/assets/img/flashsplat/flashsplat-fig1.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/flashsplat/flashsplat-fig1.webp" | relative_url}}' width="40%"></center>
 <br>
 Multi-instance segmentation로의 이러한 전환은 두 가지 주요 고려 사항에서 비롯된다. 
 
@@ -139,7 +139,7 @@ $$
 이 공식을 사용하면 집합 $$\{A_e\}$$를 한 번만 누적한 다음 이 집합에 대해 argmax를 수행하여 각 물체 $e$에 대한 Gaussian 부분집합 $$\{G_i\}_e$$를 얻을 수 있다. 결과적으로 물체의 ID를 지정하여 3D Gaussian의 부분집합을 선택적으로 제거하거나 수정할 수 있다. 또한 $\gamma < 0$일 때 다른 인스턴스의 부분집합이 겹칠 수 있으며, 이는 3D-GS의 고유한 비배타적 특성을 반영한 것이다. 
 
 ### 3. Depth-guided Novel View Mask Rendering
-<center><img src='{{"/assets/img/flashsplat/flashsplat-fig3.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/flashsplat/flashsplat-fig3.webp" | relative_url}}' width="95%"></center>
 <br>
 위의 공식은 dense한 최적화의 필요성을 회피하므로, 마스크된 2D 뷰의 약 10%만을 사용하여 robust한 분할 결과를 얻을 수 있다. 또한 FlashSplat은 이전에 보지 못한 뷰에 대한 2D 마스크 $$\hat{M}^v$$를 생성하는 기능을 제공한다. Binary segmentation에서 새로운 뷰 마스크 렌더링의 경우, 단순히 $P_i = 1$인 전경 Gaussian을 렌더링하여 각 픽셀에 대한 누적 알파 값 $\rho_{jk}$를 생성한 다음, 미리 정의된 threshold $\tau$를 사용하여 2D 마스크를 얻을 수 있다. 
 
@@ -155,28 +155,28 @@ $$
 ### 1. 3D segmentation results
 다음은 3D segmentation의 예시이다. 
 
-<center><img src='{{"/assets/img/flashsplat/flashsplat-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/flashsplat/flashsplat-fig4.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Object Inpainting
 다음은 물체 제거 후 inpainting한 예시이다. 
 
-<center><img src='{{"/assets/img/flashsplat/flashsplat-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/flashsplat/flashsplat-fig5.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Quantitative comparison
 다음은 NVOS 데이터셋에서 정량적으로 비교한 표이다. 
 
-<center><img src='{{"/assets/img/flashsplat/flashsplat-table1.PNG" | relative_url}}' width="37%"></center>
+<center><img src='{{"/assets/img/flashsplat/flashsplat-table1.webp" | relative_url}}' width="37%"></center>
 
 ### 4. Computation cost
 다음은 계산 비용을 비교한 표이다. (Figurines 장면)
 
-<center><img src='{{"/assets/img/flashsplat/flashsplat-table2.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/flashsplat/flashsplat-table2.webp" | relative_url}}' width="65%"></center>
 
 ### 5. Ablation study
 다음은 [SAM](https://kimjy99.github.io/논문리뷰/segment-anything)에서 예측한 2D 마스크와 이를 이용한 FlashSplat의 3D segmentation 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/flashsplat/flashsplat-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/flashsplat/flashsplat-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 더 적은 마스크를 사용한 3D segmentation 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/flashsplat/flashsplat-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/flashsplat/flashsplat-fig7.webp" | relative_url}}' width="100%"></center>

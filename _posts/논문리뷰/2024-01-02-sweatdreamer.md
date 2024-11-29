@@ -38,7 +38,7 @@ classes: wide
 마지막으로 중요한 점은 AGP가 일반적으로 다른 방법들이 부족한 높은 호환성을 보유하고 있다는 것이다. AGP는 매우 일반적이며 다양한 3D 표현을 사용하여 다양한 SOTA 파이프라인에 원활하게 통합될 수 있으며, 처음 보는 형상 및 외형 측면에서 높은 일반화 가능성을 확보하는 동시에 멀티뷰 불일치를 크게 완화할 수 있다. AGP는 3D 일관성 비율이 85% 이상이며 새로운 SOTA를 달성하였다.
 
 ## Method
-<center><img src='{{"/assets/img/sweatdreamer/sweatdreamer-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/sweatdreamer/sweatdreamer-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 앞서 언급한 바와 같이 멀티뷰나 3D 불일치 문제는 3D에서 기하학적 구조가 잘못 배치되어 나타나는 기하학적 불일치 문제와 잘못된 시각적 외형 모델링과 관련된 외형 불일치 문제라는 두 가지 관점에서 분류할 수 있다. 기하학적 불일치가 대부분의 3D 불일치 결과의 주요 원인이므로 본 논문의 목표는 2D prior에 일반화 능력을 유지하면서 일관된 3D 기하학적 구조를 생성할 수 있는 능력을 갖추는 것이다. 결과적으로 생성된 일관적인 기하학적 구조는 text-to-3D 파이프라인에서 복잡한 기하학적 디테일과 시각적 외형을 모델링하는 데 중요한 역할을 한다. 
 
@@ -85,7 +85,7 @@ $$
 위 그림은 AGP를 이 두 가지 방법에 통합하는 시스템 파이프라인이다. 
 
 #### DMTet-based Pipeline
-<center><img src='{{"/assets/img/sweatdreamer/sweatdreamer-fig3a.PNG" | relative_url}}' width="78%"></center>
+<center><img src='{{"/assets/img/sweatdreamer/sweatdreamer-fig3a.webp" | relative_url}}' width="78%"></center>
 <br>
 저자들은 AGP를 DMTet 기반 파이프라인인 Fantasia3D에 통합하였다. 필요한 것은 원래 파이프라인에서 형상 모델링을 supervise하기 위해 AGP를 통합하기 위한 추가 병렬 분기이다. AGP의 원활한 통합을 통해 원래 파이프라인에서처럼 신중하게 설계된 초기화 외형 필요 없이 고품질 및 뷰 일관성이 있는 결과를 쉽게 얻을 수 있다.
 
@@ -100,7 +100,7 @@ $$
 여기서 첫 번째 항은 원래 diffusion model에서 파생된 geometry SDS loss이고, 두 번째 항은 AGP에서 파생된 SDS loss이다. 여기서 $\lambda^\textrm{ori}$와 $\lambda^\textrm{align}$은 두 항의 균형을 맞추기 위한 가중치이다. 이 통합은 대략적인 형상 모델링 단계와 세밀한 형상 모델링 단계에서만 구현되고 외형 모델링 단계는 그대로 유지된다.
 
 #### NeRF-based Pipeline
-<center><img src='{{"/assets/img/sweatdreamer/sweatdreamer-fig3b.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/sweatdreamer/sweatdreamer-fig3b.webp" | relative_url}}' width="60%"></center>
 <br>
 NeRF는 text-to-3D의 3D 표현을 위한 또 다른 일반적인 선택이다. 기존의 이산적인 메쉬에 비해 최적화에 더 친숙하고 뛰어난 사실성을 위해 볼륨 렌더링과 결합할 수도 있기 때문이다. 구체적으로 저자들은 NeRF를 3D 표현으로 사용하고 이를 NeRF 기반 파이프라인인 DreamFusion을 기반으로 하였다. 특히, 3D 장면은 환경 맵 모델링을 위한 추가 MLP가 포함된 [Instant-NGP](https://arxiv.org/abs/2201.05989)로 표현되므로 낮은 컴퓨팅 비용으로 풍부한 디테일의 모델링이 가능하다. 그런 다음 3D 개체/장면을 볼륨 렌더링하여 RGB 이미지를 얻고 이를 Stable Diffusion에 공급하여 SDS loss를 계산할 수 있다.
 
@@ -117,19 +117,19 @@ $$
 ## Text-to-3D Generation
 다음은 다양한 텍스트 프롬프트로부터 생성한 다양한 고품질 3D 결과들이다. 
 
-<center><img src='{{"/assets/img/sweatdreamer/sweatdreamer-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/sweatdreamer/sweatdreamer-fig1.webp" | relative_url}}' width="100%"></center>
 
 #### Quantitative Evaluation
 다음은 여러 모델들과 3D 일관성 비율에 대하여 정량적으로 비교한 결과이다.
 
-<center><img src='{{"/assets/img/sweatdreamer/sweatdreamer-table1.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/sweatdreamer/sweatdreamer-table1.webp" | relative_url}}' width="85%"></center>
 
 #### Qualitative Evaluation
 다음은 여러 모델들과 시각적으로 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/sweatdreamer/sweatdreamer-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/sweatdreamer/sweatdreamer-fig4.webp" | relative_url}}' width="100%"></center>
 
 #### User Study
 다음은 user study 결과이다. 
 
-<center><img src='{{"/assets/img/sweatdreamer/sweatdreamer-fig5.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/sweatdreamer/sweatdreamer-fig5.webp" | relative_url}}' width="47%"></center>

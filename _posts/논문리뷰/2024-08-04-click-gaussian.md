@@ -19,7 +19,7 @@ classes: wide
 > LG Electronics | Seoul National University  
 > 16 Jul 2024  
 
-<center><img src='{{"/assets/img/click-gaussian/click-gaussian-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/click-gaussian/click-gaussian-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 최근에는 렌더링 효율성 향상, 재구성 품질 향상 등 [3DGS](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)의 장점을 활용하여 3DGS 기반의 다양한 segmentation 방법이 제안되었다. 일부 방법들은 [Segment Anything Model (SAM)](https://kimjy99.github.io/논문리뷰/segment-anything)과 같은 foundation model의 semantic 표현에 맞춰 3D Gaussian의 feature field를 학습시켰다. 이 접근 방식을 사용하면 3D feature field를 통해 3D 장면을 명시적으로 분할할 수 있다. 그러나 이 방법은 장면에서 구별 가능한 feature field를 학습하는 데 어려움을 겪으며 명확한 segmentation을 위해서는 광범위한 후처리가 필요하다. 시간이 많이 걸리는 후처리는 3DGS의 효율성 이점을 크게 방해한다. 
@@ -33,7 +33,7 @@ classes: wide
 이 프로세스의 중요한 장애물은 다양한 뷰에서 2D 마스크의 불일치로 인해 일관되고 구별 가능한 semantic feature의 학습을 방해한다는 것이다. 이 문제를 해결하기 위해 학습 뷰 전반에 걸쳐 global feature 후보를 체계적으로 집계하여 3D feature field의 개발을 일관되게 알리는 새로운 전략인 **Global Feature-guided Learning (GFL)**을 도입한다. GFL은 feature 학습의 견고성과 신뢰성을 향상시켜 개별 2D segmentation mask에 존재하는 고유한 모호성의 영향을 완화한다. 
 
 ## Methods
-<center><img src='{{"/assets/img/click-gaussian/click-gaussian-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/click-gaussian/click-gaussian-fig2.webp" | relative_url}}' width="100%"></center>
 
 ### 1. Feature Fields of Click-Gaussian
 Click-Gaussian은 장면의 각 3D Gaussian에 segmentation을 위한 추가 feature를 장착하여 작동한다. 구체적으로, 3D Gaussian $g_i$가 주어지면 각 Gaussian은 3D segmentation을 위해 $D$차원 feature 벡터 $$\textbf{f}_i \in \mathbb{R}^D$$가 추가되어 $$\tilde{g}_i = g_i \cup \{\textbf{f}_i\}$$가 된다. 
@@ -198,30 +198,30 @@ $$
 ### 1. Comparisons
 다음은 LERF-Mask 데이터셋에서 baseline들과 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/click-gaussian/click-gaussian-table1.PNG" | relative_url}}' width="72%"></center>
+<center><img src='{{"/assets/img/click-gaussian/click-gaussian-table1.webp" | relative_url}}' width="72%"></center>
 <br>
-<center><img src='{{"/assets/img/click-gaussian/click-gaussian-fig3.PNG" | relative_url}}' width="93%"></center>
+<center><img src='{{"/assets/img/click-gaussian/click-gaussian-fig3.webp" | relative_url}}' width="93%"></center>
 <br>
 다음은 [Gau-Group](https://arxiv.org/abs/2312.00732), [GARField](https://arxiv.org/abs/2401.09419), [SAGA](https://kimjy99.github.io/논문리뷰/saga)와의 비교 결과이다. 
 
-<center><img src='{{"/assets/img/click-gaussian/click-gaussian-fig4.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/click-gaussian/click-gaussian-fig4.webp" | relative_url}}' width="90%"></center>
 <br>
-<center><img src='{{"/assets/img/click-gaussian/click-gaussian-fig6.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/click-gaussian/click-gaussian-fig6.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 새로운 시점에서 모든 것을 분할한 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/click-gaussian/click-gaussian-fig5.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/click-gaussian/click-gaussian-fig5.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 SPIn-NeRF 데이터셋에서 baseline들과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/click-gaussian/click-gaussian-table2.PNG" | relative_url}}' width="49%"></center>
+<center><img src='{{"/assets/img/click-gaussian/click-gaussian-table2.webp" | relative_url}}' width="49%"></center>
 
 ### 2. Ablation Study
 다음은 각 구성 요소들에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/click-gaussian/click-gaussian-table3.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/click-gaussian/click-gaussian-table3.webp" | relative_url}}' width="70%"></center>
 
 ### 3. Versatile Applications
 다음은 다양한 편집 예시이다. 텍스트 기반 편집은 CLIP 기반 편집 방법들을 사용하였으며, 'flower'를 'stained glass flower'로 편집하였다. 
 
-<center><img src='{{"/assets/img/click-gaussian/click-gaussian-fig7.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/click-gaussian/click-gaussian-fig7.webp" | relative_url}}' width="90%"></center>

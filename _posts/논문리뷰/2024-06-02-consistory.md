@@ -19,7 +19,7 @@ classes: wide
 > NVIDIA | Tel Aviv University  
 > 5 Feb 2024  
 
-<center><img src='{{"/assets/img/consistory/consistory-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/consistory/consistory-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 대규모 text-to-image (T2I) diffusion model을 사용하면 상상력이 풍부한 장면을 만들 수 있지만 확률론적 특성으로 인해 일관된 주제를 묘사하려고 할 때 문제가 발생한다. 일관된 이미지 생성 분야에서 현재 접근 방식은 T2I 모델이 주어진 이미지 세트에서 특정 주제를 표현하기 위해 새로운 단어를 학습하는 프로세스인 개인화(personalization)에 주로 의존한다. 그러나 이러한 개인화 기반 방법에는 몇 가지 단점이 있다. 
@@ -44,7 +44,7 @@ classes: wide
 본 논문의 목표는 다양한 프롬프트에 걸쳐 일관된 주제를 묘사하는 일련의 이미지를 생성하는 것이다. ConsiStory는 denoising 중에 T2I 모델의 내부 activation을 더 잘 조정하여 목표를 달성하였다. 중요한 점은 추가 학습 없이 inference 기반 메커니즘을 통해서만 일관성을 강화하는 것을 목표로 한다는 것이다. 
 
 ### 1. Subject-driven self-attention
-<center><img src='{{"/assets/img/consistory/consistory-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/consistory/consistory-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 일관성을 높이기 위한 간단한 아이디어는 한 이미지의 query가 batch에 있는 다른 이미지의 key와 value에도 attention할 수 있도록 self-attention을 확장하는 것이다. 이를 통해 반복되는 개체가 자연스럽게 서로 연결되어 이미지 전반에 걸쳐 feature를 공유할 수 있다. 
 
@@ -95,7 +95,7 @@ Query feature 혼합을 사용하면 일관성이 없는 샘플링에서 다양�
 Attention dropout은 공유된 key와 value에 모델이 덜 의존하여 지나친 일관성을 피하도록 한다. 
 
 ### 3. Feature injection
-<center><img src='{{"/assets/img/consistory/consistory-fig3.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/consistory/consistory-fig3.webp" | relative_url}}' width="65%"></center>
 <br>
 공유 attention 메커니즘은 주제의 일관성을 눈에 띄게 향상시키지만 세밀한 시각적 feature 때문에 어려움을 겪을 수 있으며, 이로 인해 주제의 identity가 손상될 수 있다. 따라서 새로운 이미지 간 feature 주입 메커니즘을 통해 일관성을 더욱 향상시킨다. 
 
@@ -140,39 +140,39 @@ $$
 ### 1. Qualitative Results
 다음은 [IP-Adapter](https://kimjy99.github.io/논문리뷰/ip-adapter), [Textual Inversion (TI)](https://kimjy99.github.io/논문리뷰/textual-inversion), [DreamBooth-LORA (DB-LORA)](https://github.com/cloneofsimo/lora)와 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/consistory/consistory-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/consistory/consistory-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 다양한 초기 noise 입력에 따른 결과들이다. 
 
-<center><img src='{{"/assets/img/consistory/consistory-fig5.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/consistory/consistory-fig5.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 여러 주제로 일관되게 생성한 결과를 DB-LORA와 비교한 것이다. 
 
-<center><img src='{{"/assets/img/consistory/consistory-fig6.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/consistory/consistory-fig6.webp" | relative_url}}' width="85%"></center>
 
 ### 2. Quantitative evaluation
 다음은 여러 방법들의 주제 일관성과 텍스트 유사도를 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/consistory/consistory-fig7.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/consistory/consistory-fig7.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 user study 결과이다. 
 
-<center><img src='{{"/assets/img/consistory/consistory-fig8.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/consistory/consistory-fig8.webp" | relative_url}}' width="50%"></center>
 
 ### 3. Ablation study
 다음은 구성 요소들에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/consistory/consistory-fig9.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/consistory/consistory-fig9.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 주제 마스킹에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/consistory/consistory-fig10.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/consistory/consistory-fig10.webp" | relative_url}}' width="90%"></center>
 
 ### 4. Extended Applications
 다음은 ConsiStory에 [ControlNet](https://kimjy99.github.io/논문리뷰/controlnet)을 통합한 결과이다. 
 
-<center><img src='{{"/assets/img/consistory/consistory-fig11.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/consistory/consistory-fig11.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 두 주제를 [Edit Friendly DDPM-Inversion](https://kimjy99.github.io/논문리뷰/ddpm-inversion)으로 반전한 후 앵커로 사용하여 학습 없는 개인화를 최초로 선보인 결과이다. 
 
-<center><img src='{{"/assets/img/consistory/consistory-fig12.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/consistory/consistory-fig12.webp" | relative_url}}' width="85%"></center>

@@ -19,7 +19,7 @@ classes: wide
 > The University of Tokyo | Google Research  
 > 24 May 2022  
 
-<center><img src='{{"/assets/img/zero-shot-cot/zero-shot-cot-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/zero-shot-cot/zero-shot-cot-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 언어 모델의 크기를 확장하는 것은 최근 NLP 혁명의 핵심 요소였다. LLM의 성공은 in-context few-shot 또는 zero-shot 학습에 기인한다. 몇 가지 예(few-shot) 또는 task를 설명하는 명령(zero-shot)에 모델을 간단히 컨디셔닝하여 다양한 task를 해결할 수 있다. 언어 모델을 컨디셔닝하는 방법을 "prompting"이라고 하며, 수동 또는 자동으로 프롬프트를 설계하는 것이 NLP에서 화제가 되었다.
@@ -40,7 +40,7 @@ Zero-shot-CoT는 신중하게 만들어진 task별 단계별 예제를 사용한
 > multi-hop 추론: 답에 도달하기 위해 다양한 맥락 간의 논리적 연결을 만드는 능력
 
 ### 1. Two-stage prompting
-<center><img src='{{"/assets/img/zero-shot-cot/zero-shot-cot-fig2.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/zero-shot-cot/zero-shot-cot-fig2.webp" | relative_url}}' width="90%"></center>
 <br>
 Zero-shot-CoT는 개념적으로 간단하지만, 추론과 답변을 추출하기 위해 두 번 prompting을 사용한다. 반면, zero-shot baseline은 이미 "The answer is" 형태의 prompting을 사용하여 올바른 형식으로 답변을 추출한다. [CoT](https://kimjy99.github.io/논문리뷰/cot)는 few-shot 예시 답변을 이러한 형식으로 끝내도록 명시적으로 설계하여 이러한 답변 추출 prompting이 필요하지 않다. 요약하자면, CoT는 task별로 특정 답변 형식을 사용하여 몇 가지 prompting 예시를 신중하게 설계해야 하는 반면, Zero-shot-CoT는 prompting engineering이 덜 필요하지만 LLM을 두 번 prompting해야 한다.
 
@@ -67,24 +67,24 @@ answer (arabic numerals) is"을 사용한다. 마지막으로 언어 모델에 p
 ### 1. Results
 다음은 Zero-shot-CoT와 zero-shot prompting을 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/zero-shot-cot/zero-shot-cot-table1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/zero-shot-cot/zero-shot-cot-table1.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 다른 baseline들과 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/zero-shot-cot/zero-shot-cot-table2.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/zero-shot-cot/zero-shot-cot-table2.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 모델 크기에 따른 성능을 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/zero-shot-cot/zero-shot-cot-fig3.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/zero-shot-cot/zero-shot-cot-fig3.webp" | relative_url}}' width="85%"></center>
 <br>
 다음은 CommonsenseQA에서 Zero-Shot-CoT가 오답을 생성한 예시들이다. 
 
-<center><img src='{{"/assets/img/zero-shot-cot/zero-shot-cot-table3.PNG" | relative_url}}' width="78%"></center>
+<center><img src='{{"/assets/img/zero-shot-cot/zero-shot-cot-table3.webp" | relative_url}}' width="78%"></center>
 <br>
 다음은 템플릿에 따른 Zero-shot-CoT의 성능을 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/zero-shot-cot/zero-shot-cot-table4.PNG" | relative_url}}' width="68%"></center>
+<center><img src='{{"/assets/img/zero-shot-cot/zero-shot-cot-table4.webp" | relative_url}}' width="68%"></center>
 <br>
 다음은 few-shot 예제에 따른 성능을 비교한 결과이다. †는 CommonsenseQA를 위한 few-shot 예제를 사용한 경우이다. 
 
-<center><img src='{{"/assets/img/zero-shot-cot/zero-shot-cot-table5.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/zero-shot-cot/zero-shot-cot-table5.webp" | relative_url}}' width="65%"></center>

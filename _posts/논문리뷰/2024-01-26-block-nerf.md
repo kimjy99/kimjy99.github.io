@@ -20,7 +20,7 @@ classes: wide
 > UC Berkeley | Waymo | Google Research  
 > 10 Feb 2022  
 
-<center><img src='{{"/assets/img/block-nerf/block-nerf-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/block-nerf/block-nerf-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 NeRF와 같은 뉴럴 렌더링의 최근 발전으로 포즈를 아는 카메라 이미지셋을 바탕으로 사실적인 재구성과 novel view synthesis가 가능해졌다. 이전 연구들은 소규모 및 물체 중심 재구성에 초점을 맞추는 경향이 있었다. 일부 방법들은 하나의 방이나 건물 크기의 장면을 처리하지만 일반적으로 여전히 제한적이며 순전히 도시 규모 환경으로 확장되지 않았다. 대규모 환경에 이러한 방법을 적용하면 일반적으로 제한된 모델 용량으로 인해 상당한 아티팩트가 발생하고 시각적 충실도가 낮아진다. 
@@ -42,18 +42,18 @@ NeRF와 같은 뉴럴 렌더링의 최근 발전으로 포즈를 아는 카메�
 전체 환경이 하나 이상의 Block-NeRF에 포함되는 한 다른 배치도 가능하다. 예를 들어, 일부 실험에서는 하나의 거리 세그먼트를 따라 균일한 거리에 블록을 배치하고 블록 크기를 Block-NeRF Origin 주변의 구형으로 정의하였다. 
 
 ### 2. Training Individual Block-NeRFs
-<center><img src='{{"/assets/img/block-nerf/block-nerf-fig3.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/block-nerf/block-nerf-fig3.webp" | relative_url}}' width="55%"></center>
 
 #### Appearance Embeddings
 데이터의 서로 다른 부분이 서로 다른 환경 조건에서 캡처될 수 있다는 점을 고려하여 위 그림과 같이 NeRF-W를 따르고 Generative Latent Optimization을 사용하여 이미지별 외형 임베딩 벡터를 최적화한다. 이를 통해 NeRF는 날씨와 조명 등 여러 외형 변경 조건을 설명할 수 있다. 학습 데이터에서 관찰된 다양한 조건(ex. 흐린 하늘과 맑은 하늘, 낮과 밤) 사이를 interpolation하기 위해 이러한 외형 임베딩을 추가로 조작할 수 있다. 다양한 모양으로 렌더링하는 예시는 아래 그림에서 볼 수 있다. 이러한 임베딩에 대한 테스트 시간 최적화를 사용하여 인접한 Block-NeRF의 외형을 일치시킨다. 이는 여러 렌더링을 결합할 때 중요하다.
 
-<center><img src='{{"/assets/img/block-nerf/block-nerf-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/block-nerf/block-nerf-fig4.webp" | relative_url}}' width="100%"></center>
 
 #### Learned Pose Refinement
 카메라 포즈가 제공된다고 가정하지만 추가 정렬을 위해 정규화된 포즈 오프셋을 학습하는 것이 유리하다. 포즈 개선은 이전 NeRF 기반 모델에서 탐구되었다. 이러한 오프셋은 세그먼트별로 학습되며 translation 및 rotation 성분을 모두 포함한다. 저자들은 NeRF 자체와 함께 이러한 오프셋을 최적화하여 학습 초기 단계에서 오프셋을 상당히 정규화하여 네트워크가 포즈를 수정하기 전에 대략적인 구조를 먼저 학습할 수 있도록 하였다.
 
 #### Exposure Input
-<center><img src='{{"/assets/img/block-nerf/block-nerf-fig5.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/block-nerf/block-nerf-fig5.webp" | relative_url}}' width="65%"></center>
 <br>
 학습 이미지는 광범위한 노출 레벨에서 캡처될 수 있으며, 이를 설명하지 않은 채 남겨두면 NeRF 학습에 영향을 미칠 수 있다. 저자들은 모델의 외형 예측 부분에 카메라 노출 정보를 제공하면 NeRF가 시각적 차이를 보상할 수 있음을 발견했다. 구체적으로 노출 정보는 $$\gamma_\textrm{PE}$$ (셔터 속도 $\times$ 아날로그 gain / $t$)로 처리된다. 여기서 $$\gamma_\textrm{PE}$$는 4레벨의 sinusoidal positional encoding이고 $t$는 scaling factor(실제로 1,000 사용)이다. 다양한 학습된 노출의 예시는 위 그림과 같다.
 
@@ -67,7 +67,7 @@ Visibility 네트워크는 규모가 작으며 색상 및 밀도 네트워크와
 
 ### 3. Merging Multiple Block-NeRFs
 #### Block-NeRF Selection
-<center><img src='{{"/assets/img/block-nerf/block-nerf-fig2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/block-nerf/block-nerf-fig2.webp" | relative_url}}' width="50%"></center>
 <br>
 환경은 임의의 수의 Block-NeRF로 구성될 수 있다. 효율성을 위해 두 가지 필터링 메커니즘을 사용하여 주어진 타겟 뷰에 대한 관련 블록만 렌더링한다. 대상 시점의 설정된 반경 내에 있는 Block-NeRF만 고려한다. 또한 이러한 각 후보에 대해 visibility를 계산한다. 평균 visibility가 threshold보다 낮으면 Block-NeRF를 제거한다. 위 그림은 visibility 필터링의 예시이다. Visibility는 해당 네트워크가 색상 네트워크와 독립적이고 대상 이미지 해상도로 렌더링할 필요가 없기 때문에 신속하게 계산할 수 있다. 필터링 후에는 일반적으로 병합할 Block-NeRF가 1~3개 남는다.
 
@@ -85,7 +85,7 @@ $$
 #### Appearance Matching
 학습된 모델의 모양은 Block-NeRF가 학습된 후 외형 latent code에 의해 제어될 수 있다. 이 latent code는 학습 중에 랜덤하게 초기화되므로 일반적으로 동일한 코드가 다른 Block-NeRF에 입력되면 모양이 달라진다. 이는 뷰 간의 불일치로 이어질 수 있으므로 합성 시 바람직하지 않다. Block-NeRF 중 하나의 타겟 외형이 주어지면 나머지 블록의 외형과 일치하는 것을 목표로 한다. 이를 먼저 인접한 Block-NeRF 쌍 사이의 3D 매칭 위치를 선택한다. 이 위치의 visibility 예측은 두 Block-NeRF 모두에 대해 높아야 한다.
 
-<center><img src='{{"/assets/img/block-nerf/block-nerf-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/block-nerf/block-nerf-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 일치하는 위치가 주어지면 Block-NeRF 네트워크 가중치를 동결하고 각 영역 렌더링 간의 $\ell_2$ loss를 줄이기 위해 대상의 외형 코드만 최적화한다. 이 최적화는 100번의 iteration 내에서 수렴되므로 빠르다. 이 절차는 반드시 완벽한 정렬을 제공하지는 않지만 성공적인 합성을 위한 전제 조건인 시간, 색상 균형, 날씨 등 장면의 대부분의 글로벌 및 저주파 속성을 정렬한다. 위 그림은 외형 매칭이 주간 장면을 야간 장면으로 바꾸어 인접한 Block-NeRF와 일치시키는 최적화 예시를 보여준다.
 
@@ -106,17 +106,17 @@ $$
 ### 1. Model Ablations
 다음은 각 Block-NeRF에 대한 ablation study 결과이다. (Alamo Square)
 
-<center><img src='{{"/assets/img/block-nerf/block-nerf-table1.PNG" | relative_url}}' width="38%"></center>
+<center><img src='{{"/assets/img/block-nerf/block-nerf-table1.webp" | relative_url}}' width="38%"></center>
 
 ### 2. Block-NeRF Size and Placement
 다음은 Block-NeRF 수에 재구성 결과를 비교한 표이다. (Mission Bay)
 
-<center><img src='{{"/assets/img/block-nerf/block-nerf-table2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/block-nerf/block-nerf-table2.webp" | relative_url}}' width="60%"></center>
 
 ### 3. Interpolation Methods
 다음은 interpolation 방법에 대한 비교 결과이다. (IDW: inverse distance weighting)
 
-<center><img src='{{"/assets/img/block-nerf/block-nerf-table3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/block-nerf/block-nerf-table3.webp" | relative_url}}' width="50%"></center>
 
 ## Limitations
 1. 본 논문의 방법은 segmentation 알고리즘을 사용하여 마스킹을 통해 학습 중에 동적 물체를 필터링하여 처리한다. 물체가 적절하게 마스킹되지 않으면 결과 렌더링에 아티팩트가 발생할 수 있다. 예를 들어 자동차 자체를 올바르게 제거한 경우에도 자동차의 그림자가 남아 있는 경우가 많다. 식물은 또한 잎사귀가 계절에 따라 변하고 바람에 따라 움직이기 때문에 이러한 가정을 깨뜨린다. 이로 인해 나무와 식물이 흐릿하게 표현된다. 마찬가지로 건설 현장과 같은 학습 데이터의 시간적 불일치는 자동으로 처리되지 않으며 영향을 받는 블록을 수동으로 재학습해야 한다. 또한 동적 물체가 포함된 장면을 렌더링할 수 없기 때문에 현재 로봇 공학의 closed-loop 시뮬레이션 task에 Block-NeRF를 적용하는 것이 제한된다. 

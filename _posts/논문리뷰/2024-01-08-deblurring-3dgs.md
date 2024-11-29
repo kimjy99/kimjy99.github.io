@@ -28,7 +28,7 @@ classes: wide
 Deblurring 3D-GS는 다양한 벤치마크에서 SOTA 렌더링 품질을 달성하거나 현재 주요 모델과 동등한 성능을 발휘하면서 훨씬 더 빠른 렌더링 속도(> 200FPS)를 달성하였다. 
 
 ## Deblurring 3D Gaussian Splatting
-<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 3D-GS를 기반으로 3D Gaussian들을 생성하고 각 Gaussian은 3D 위치 $x$, 불투명도 $\sigma$, quaternion $r$과 scale $s$로 계산되는 공분산 행렬을 포함한 파라미터 집합으로 고유하게 특성화된다. 각 3D Gaussian에는 뷰에 따른 모양을 나타내는 spherical harmonics(SH)도 포함되어 있다. 입력은 Structure-from-Motion(SfM)을 통해 얻을 수 있는 카메라 포즈와 포인트 클라우드, 그리고 이미지들의 컬렉션으로 구성된다. 3D Gaussian을 deblurring하기 위해 $r$과 $s$에 대한 3D Gaussian의 위치를 입력으로 받고 $\delta r$과 $\delta s$를 출력하는 MLP를 사용한다. 새로운 quaternion과 scale인 $r \cdot \delta r$과 $s \cdot \delta s$를 사용하면 업데이트된 3D Gaussian이 타일 기반 rasterizer에 공급되어 흐릿한 이미지를 생성한다. 이 방법의 개요는 위 그림에 나와 있다.
 
@@ -97,7 +97,7 @@ Inference 시 선명한 이미지를 렌더링하기 위해 $G(x, r, s)$를 사�
 #### Selective blurring
 제안하는 방법은 장면의 다양한 부분에서 임의로 블러링된 학습 이미지를 처리할 수 있다. 각 Gaussian에 대해 $(\delta r, \delta_s)$를 예측하므로 학습 이미지의 일부가 흐려지는 Gaussian의 공분산을 선택적으로 확대할 수 있다. 이렇게 변환된 Gaussian당 공분산은 2D 공간에 투영되며 이미지 공간에서 픽셀 단위의 blur kernel 역할을 할 수 있다. 블러링은 공간적으로 다양하기 때문에 다양한 모양의 blur kernel을 다양한 픽셀에 적용하는 것이 장면 블러링을 모델링하는 데 중추적인 역할을 한다. 이러한 유연성을 통해 3D-GS에서 deblurring 능력을 효과적으로 구현할 수 있다. 
 
-<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-fig3.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-fig3.webp" | relative_url}}' width="75%"></center>
 <br>
 반면, 렌더링된 이미지를 흐리게 하는 간단한 접근 방식은 단순히 Gaussian kernel을 적용하는 것이다. 위 그림에서 볼 수 있듯이 이 접근 방식은 픽셀 단위로 흐리게 하지 않고 전체 이미지를 흐리게 하여 모델 학습을 위해 흐리게 해서는 안 되는 부분을 흐리게 만든다. 학습 가능한 Gaussian 커널을 적용하여 Gaussian kernel의 평균과 분산을 최적화하더라도 단일 유형의 blur kernel은 복잡하게 흐려진 장면을 모델링하기에는 표현력이 제한되고 loss function을 평균 내어 장면의 평균 블러링을 모델링하는 데 최적화된다. 이는 각 픽셀의 블러링을 모델링하지 못한다. 당연히 Gaussian blur는 제안된 방법의 특별한 경우이다. 모든 3D Gaussian에 대해 하나의 $\delta s$를 예측하면 유사하게 전체 이미지가 흐려진다.
 
@@ -106,11 +106,11 @@ Inference 시 선명한 이미지를 렌더링하기 위해 $G(x, r, s)$를 사�
 
 Dense한 포인트 클라우드를 만들기 위해 $N_{st}$ iteration 후에 포인트를 추가한다. $N_p$개의 포인트는 균일 분포 $U(\alpha, \beta)$에서 샘플링된다. 여기서 $\alpha$와 $\beta$는 각각 기존 포인트 클라우드에서 포인트 위치의 최소값과 최대값이다. 각각의 새로운 점 $p$에 대한 색상은 K-Nearest-Neigbhor(KNN)을 사용하여 기존 점 중 가장 가까운 이웃 $P_\textrm{knn}$에서 보간된 색상 $p_c$로 할당된다. 빈 공간에 불필요한 포인트가 할당되는 것을 방지하기 위해 nearest neighbor까지의 거리가 distance threshold $t_d$를 초과하는 포인트를 폐기한다. 주어진 포인트 클라우드에 포인트를 추가하는 과정은 알고리즘 1에 요약되어 있다. 
 
-<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-algo1.PNG" | relative_url}}' width="74%"></center>
+<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-algo1.webp" | relative_url}}' width="74%"></center>
 <br>
 또한 3D-GS는 주기적인 적응형 밀도 제어, 3D Gaussian의 densifying과 pruning을 통해 3D Gaussian 수를 효과적으로 관리한다. 장면의 맨 끝에 있는 3D Gaussian의 sparsity를 보상하기 위해 위치에 따라 3D Gaussian을 pruning한다. 벤치마크 DeblurNeRF 데이터셋은 전방 장면으로만 구성되므로 각 지점의 $z$축 값은 모든 시점에서 상대적인 깊이가 될 수 있다. 
 
-<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-fig4.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-fig4.webp" | relative_url}}' width="95%"></center>
 <br>
 위 그림에서 볼 수 있듯이, 상대적 깊이에 의존하여 먼 평면에 있는 더 많은 점을 보존하기 위해 장면의 먼 가장자리에 배치된 더 적은 3D Gaussian을 pruning한다. 구체적으로, pruning threshold $t_p$는 상대적 깊이에 따라 $w_p$만큼 1.0으로 스케일링되며, 가장 먼 포인트에는 가장 낮은 threshold가 적용된다. 먼 거리의 평면에 있는 3D Gaussian에 대하여 densify하는 것도 사용 가능한 옵션이지만 과도한 보상은 장면 흐림 모델링을 방해하고 추가 계산 비용이 필요하므로 실시간 렌더링 성능을 더욱 저하시킬 수 있다. 저자들은 렌더링 속도를 고려할 때 유연한 pruning이 sparse한 포인트 클라우드를 보상하기에 충분하다는 것을 경험적으로 발견했다. 
 
@@ -132,39 +132,39 @@ Dense한 포인트 클라우드를 만들기 위해 $N_{st}$ iteration 후에 �
 ### 1. Results and Comparisons
 다음은 3D Gaussian의 rotation 및 scale 변환에 평균 값이다. 
 
-<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-table3.PNG" | relative_url}}' width="15%"></center>
+<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-table3.webp" | relative_url}}' width="15%"></center>
 <br>
 다음은 SOTA deblurring NeRF와 성능을 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-fig1.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-fig1.webp" | relative_url}}' width="42%"></center>
 <br>
 다음은 실제 defocus blur 데이터셋에 대한 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-table1.PNG" | relative_url}}' width="92%"></center>
+<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-table1.webp" | relative_url}}' width="92%"></center>
 <br>
-<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-fig7.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-fig7.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 합성된 defocus blur 데이터셋에 대한 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-table2.PNG" | relative_url}}' width="92%"></center>
+<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-table2.webp" | relative_url}}' width="92%"></center>
 <br>
-<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-fig8.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-fig8.webp" | relative_url}}' width="95%"></center>
 
 ### 2. Ablation Study
 #### Extra points allocation
 다음은 학습 중에 포인트를 추가하지 않은 경우(중간)와 추가한 경우(오른쪽)을 비교한 것이다. 
 
-<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-fig5.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-fig5.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 포인트 추가에 대한 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-table4.PNG" | relative_url}}' width="30%"></center>
+<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-table4.webp" | relative_url}}' width="30%"></center>
 
 #### Depth-based pruning
 다음은 깊이 기반 pruning에 대한 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-table5.PNG" | relative_url}}' width="30%"></center>
+<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-table5.webp" | relative_url}}' width="30%"></center>
 <br>
 다음은 깊이 기반 pruning(왼쪽)과 3D-GS의 일반 pruning(오른쪽)을 비교한 것이다. 
 
-<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-fig6.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/deblurring-3dgs/deblurring-3dgs-fig6.webp" | relative_url}}' width="95%"></center>

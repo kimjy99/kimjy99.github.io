@@ -18,7 +18,7 @@ classes: wide
 > Simon Fraser University | Bytedance  
 > 3 Jul 2023  
 
-<center><img src='{{"/assets/img/mvdiffusion/mvdiffusion-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/mvdiffusion/mvdiffusion-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 사실적인 이미지 합성은 매우 사실적인 이미지를 생성하여 VR, AR, 게임 및 영화 제작에 폭넓게 적용하는 것을 목표로 한다. 이 분야는 diffusion 기반 생성 모델과 같은 딥러닝 기술의 급속한 발전에 힘입어 최근 몇 년간 상당한 발전을 이루었다. 특히 성공적인 도메인 중 하나는 text-to-image 생성이며, 최근에는 diffusion model이 주목받고 있다. DALL-E 2, Imagen 등은 대규모 diffusion model을 사용하여 사실적인 이미지를 생성한다. [Latent diffusion model](https://kimjy99.github.io/논문리뷰/ldm)은 latent space에 diffusion process를 적용하여 더 효율적인 계산과 더 빠른 이미지 합성을 가능하게 한다.
@@ -30,7 +30,7 @@ classes: wide
 요약하면, 본 논문은 표준 사전 학습된 text-to-image diffusion model에 대한 최소한의 변경이 필요한 멀티뷰 text-to-image 생성 아키텍처인 MVDiffusion을 제시하여 두 개의 멀티뷰 이미지 생성 task에서 SOTA 성능을 달성하였다. 파노라마를 생성하기 위해 MVDiffusion은 임의의 뷰별 텍스트가 제공되는 고해상도의 사실적인 파노라마 이미지를 합성하거나 하나의 perspective image를 전체 360도 뷰로 추정한다. 놀랍게도 MVDiffusion은 현실적인 실내 파노라마 데이터셋으로만 학습하였음에도 불구하고 다양한 파노라마를 생성할 수 있는 능력을 보유하고 있다. 깊이/포즈로 컨디셔닝된 멀티뷰 이미지 생성의 경우 MVDiffusion은 장면 메쉬 텍스처링을 위한 SOTA 성능을 보여준다. 
 
 ## MVDiffusion: Holistic Multi-view Image Generation
-<center><img src='{{"/assets/img/mvdiffusion/mvdiffusion-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/mvdiffusion/mvdiffusion-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 MVDiffusion은 멀티뷰 일관성을 촉진하기 위한 branch 사이의 새로운 **correspondence-aware attention (CAA)** 메커니즘을 사용하여 Stable Diffusion 모델의 여러 복사본/branch를 실행하여 여러 이미지를 동시에 생성한다. 위 그림은 multi-branch UNet과 CAA 설계의 개요를 보여준다. 이 시스템은 이미지 간에 픽셀 간 correspondences를 아는 경우에 적용 가능하다. 특히 다음 2가지 경우에 적용 가능하다. 
 
@@ -94,38 +94,38 @@ $$
 ### 1. Panoramic image generation
 다음은 다른 방법들과 FID, Inception Score (IS), CLIP Score (CS)를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/mvdiffusion/mvdiffusion-table1.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/mvdiffusion/mvdiffusion-table1.webp" | relative_url}}' width="40%"></center>
 <br>
 다음은 다른 방법들과 결과를 비교한 것이다. 빨간색 상자는 가장 왼쪽과 가장 오른쪽이 연결된 영역을 나타낸다. 
 
-<center><img src='{{"/assets/img/mvdiffusion/mvdiffusion-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/mvdiffusion/mvdiffusion-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 야외 장면에 대한 파노라마 생성 예시이다. 
 
-<center><img src='{{"/assets/img/mvdiffusion/mvdiffusion-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/mvdiffusion/mvdiffusion-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 이미지/텍스트를 조건으로 한 파노라마 생성 예시이다. 
 
-<center><img src='{{"/assets/img/mvdiffusion/mvdiffusion-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/mvdiffusion/mvdiffusion-fig5.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Multi view depth-to-image generation
 다음은 멀티뷰 depth-to-image 생성에 대한 FID, Inception Score (IS), CLIP Score (CS)를 다른 방법들과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/mvdiffusion/mvdiffusion-table2.PNG" | relative_url}}' width="35%"></center>
+<center><img src='{{"/assets/img/mvdiffusion/mvdiffusion-table2.webp" | relative_url}}' width="35%"></center>
 <br>
 다음은 다른 방법들과 depth-to-image 생성 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/mvdiffusion/mvdiffusion-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/mvdiffusion/mvdiffusion-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 이미지/텍스트를 조건으로 생성된 프레임들과 interpolation 결과를 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/mvdiffusion/mvdiffusion-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/mvdiffusion/mvdiffusion-fig7.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 메쉬를 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/mvdiffusion/mvdiffusion-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/mvdiffusion/mvdiffusion-fig8.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Measuring multi-view consistency
 다음은 파노라마 생성과 멀티뷰 depth-to-image 생성에 대한 멀티뷰 일관성을 Stable Diffusion과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/mvdiffusion/mvdiffusion-table3.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/mvdiffusion/mvdiffusion-table3.webp" | relative_url}}' width="52%"></center>

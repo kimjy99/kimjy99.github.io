@@ -18,7 +18,7 @@ classes: wide
 > Beihang University | Chinese Academy of Sciences | Griffith University | RIKEN AIP | The University of Tokyo  
 > 17 Mar 2024  
 
-<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 [3D Gaussian Splatting](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)는 일정한 해상도에서 장면 표현 학습 및 novel view synthesis에 사용된다. 그러나 멀티뷰 이미지들이 다양한 거리에서 캡처되거나 렌더링될 새로운 뷰가 캡처된 이미지의 해상도와 다른 경우 성능이 크게 저하된다. 주된 이유는 픽셀의 footprint가 서로 다른 해상도에서 변경되고 3DGS가 해당 Gaussian 값을 검색할 때 각 픽셀을 격리된 점, 즉 단순히 픽셀 중심으로 처리하기 때문에 이러한 변경에 둔감하다는 것이다. 결과적으로 3DGS는 특히 픽셀 공간이 급격하게 변경되는 경우(예: 확대 및 축소 효과를 사용하여 새로운 뷰 합성) 중요한 아티팩트(예: 흐릿하거나 톱니 모양)를 생성할 수 있다.
@@ -91,7 +91,7 @@ $$
 앞서 3DGS가 각 픽셀의 window 영역을 무시하고 픽셀 중심에 해당하는 Gaussian 값만 간주한다는 것을 관찰했다. 이 접근 방식은 서로 다른 해상도에서 픽셀 공간의 변동으로 인해 필연적으로 아티팩트를 생성한다. 본 논문은 픽셀의 신호를 정확하게 설명하여 이 문제를 해결하기 위해 픽셀 window 영역 내에서 2D Gaussian 신호의 해석적 근사치를 도출하였다. 이후에 유도된 적분을 적용하여 3DGS 프레임워크에서 $g^\textrm{2D}$를 대체하였다.
 
 ### 1. Revisit One-dimensional Gaussian Signal Response
-<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 먼저 이해를 돕기 위해 window 영역 내 1D Gaussian 신호의 통합 응답 예제를 다시 살펴보자. 신호 $g(x)$와 window 영역이 주어지면 위의 (a)에 표시된 대로 이 도메인 내에서 신호 $$\mathcal{I}_g = \int_{x_1}^{x_2} g(x)dx$$를 통합하여 응답을 얻는 것을 목표로 한다. 알 수 없는 신호의 경우, (b)와 (c)에서 설명된대로 window 영역 내의 몬테카를로 샘플링은 적분을 근사화하는 실행 가능한 접근 방식이며, 근사 결과는 샘플 수 $N$이 증가할수록 더 정확해진다. 그럼에도 불구하고 샘플 수를 늘리면 (즉, 슈퍼 샘플링) 계산 부담이 크게 늘어난다. 
 
@@ -165,7 +165,7 @@ $$
 $$
 
 ### 2. Analytic-Splatting
-<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig3.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig3.webp" | relative_url}}' width="80%"></center>
 <br>
 수학적으로 $g^\textrm{2D} (\textbf{u})$를 근사 적분 $$\mathcal{I}_g^\textrm{2D} (\textbf{u})$$로 대체한다. 위 그림의 (a)와 같이 window 영역 $$\Omega_\textbf{u}$$에 해당하는 2D 화면 공간의 픽셀 $\textbf{u} = [u_x, u_y]^\top$에 대해 Gaussian 신호 적분은 다음과 같이 표현된다.
 
@@ -214,39 +214,39 @@ $$
 ### 1. Approximation Error Analysis
 다음은 logistic function $S(x)$와 CDF $G(x)$의 차이를 표준편차 $\sigma$에 따라 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig4a.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig4a.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 근사 적분값 $S(x + \frac{1}{2}) - S(x - \frac{1}{2})$와 실제 적분값 $G(x + \frac{1}{2}) - G(x - \frac{1}{2})$의 차이를 $\sigma$에 따라 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig4b.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig4b.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 표준편차 $\sigma$에 따른 근사 오차를 다른 방법들과 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig5a.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig5a.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 변수 분포에 따른 근사 오차를 다른 방법들과 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig5b.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig5b.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 적분 영역을 회전시킨 각도에 따른 근사 오차를 다른 방법들과 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig5c.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig5c.webp" | relative_url}}' width="50%"></center>
 
 ### 2. Comparison
 다음은 Blender 합성 데이터셋에서의 성능을 다른 방법들과 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-table1.webp" | relative_url}}' width="100%"></center>
 <br>
-<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Mip-NeRF 360 데이터셋에서의 성능을 다른 방법들과 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-table2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-table2.webp" | relative_url}}' width="100%"></center>
 <br>
-<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig7.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Mip-NeRF 360 데이터셋에서의 super-resolution을 다른 방법들과 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-table3.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-table3.webp" | relative_url}}' width="90%"></center>
 <br>
-<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/analytic-gaussian/analytic-gaussian-fig8.webp" | relative_url}}' width="100%"></center>

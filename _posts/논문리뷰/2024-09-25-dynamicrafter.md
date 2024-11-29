@@ -35,7 +35,7 @@ DynamiCrafter는 다른 방법들보다 눈에 띄는 우월성을 보였으며,
 본 논문은 정지 이미지가 주어지면 이미지의 모든 시각적 콘텐츠를 상속하고 자연스러운 역학을 보여주는 짧은 동영상 클립을 생성하기 위해 이미지를 애니메이션화하는 것을 목표로 한다. 정지 이미지는 결과 프레임 시퀀스의 임의의 위치에 나타날 수 있다. 이러한 과제는 시각적 적합성이 매우 필요한 특수한 종류의 이미지 조건부 동영상 생성으로 볼 수 있다. 본 논문은 사전 학습된 VDM의 generative prior를 활용하여 이 과제를 해결하였다. 
 
 ### 1. Image Dynamics from Video Diffusion Priors
-<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-fig1.webp" | relative_url}}' width="100%"></center>
 <br>
 오픈 도메인 T2V diffusion model은 텍스트 설명을 조건으로 다양한 동적 시각적 콘텐츠를 모델링한 것으로 가정한다. T2V generative prior로 정지 이미지를 애니메이션화하려면 시각적 정보를 포괄적인 방식으로 동영상 생성 프로세스에 주입해야 한다. T2V 모델은 컨텍스트 이해를 위해 이미지를 소화해야 하며, 이는 역학 합성에 중요하다. 또한, 생성된 동영상에서 시각적 디테일이 보존되어야 한다. 이러한 통찰력을 바탕으로 저자들은 텍스트와 정렬된 컨텍스트 표현과 visual detail guidance로 구성된 듀얼 스트림 조건부 이미지 주입 패러다임을 제안하였다. 
 
@@ -59,16 +59,16 @@ $$
 특히 $\lambda$는 텍스트로 컨디셔닝된 feature와 이미지로 컨디셔닝된 feature를 융합하는 계수이며, Tanh gating을 통해 계산되고 각 레이어에 대해 적응적으로 학습할 수 있다. 이 디자인은 레이어에 따라 이미지 조건들을 흡수하는 모델의 능력을 용이하게 하는 것을 목표로 한다. U-Net의 중간 레이어는 모양이나 포즈와 더 관련이 있고 양 끝의 레이어는 외형과 더 관련이 있으므로 이미지 feature는 모양에 비교적 덜 영향을 미치는 반면 주로 동영상의 외형에 영향을 미칠 것으로 예상된다. 
 
 ##### $\lambda$에 대한 관찰 및 분석
-<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-fig2a.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-fig2a.webp" | relative_url}}' width="50%"></center>
 <br>
 위 그래프는 서로 다른 레이어에서 학습된 $\lambda$를 보여주며, 이는 이미지 정보가 중간 레이어보다 양 끝의 레이어에 더 큰 영향을 미친다는 것을 나타낸다. 저자들은 더 자세히 알아보기 위해 중간 레이어에서 $\lambda$를 수동으로 변경하였다. 
 
-<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-fig2b.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-fig2b.webp" | relative_url}}' width="55%"></center>
 <br>
 위 그림에 나와 있듯이 $\lambda$를 늘리면 프레임 간 움직임이 억제되고 $\lambda$를 줄이면 물체의 모양을 유지하는 데 어려움이 있다. 이러한 관찰 결과는 기대한 바와 일치할 뿐만 아니라 이미지 조건부 diffusion model에서 풍부한 컨텍스트 정보가 U-Net의 특정 중간 레이어에 영향을 미쳐 모델이 모션이 있는 경우에도 입력과 유사한 물체의 모양을 유지할 수 있음을 시사한다. 
 
 ##### Visual detail guidance (VDG)
-<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 풍부한 정보가 담긴 컨텍스트 표현을 통해 VDM은 입력 이미지와 매우 유사한 동영상을 생성할 수 있다. 그러나 위 그림에서 볼 수 있듯이 사소한 불일치가 여전히 발생할 수 있다. 이는 주로 사전 학습된 CLIP 이미지 인코더가 시각적 feature와 언어적 feature를 정렬하도록 설계되었기 때문에 입력 이미지 정보를 완전히 보존할 수 있는 능력이 제한적이기 때문이다. 
 
@@ -136,45 +136,45 @@ $\mathbf{x}^\textrm{in}$, $\mathbf{x}^l$, $L$은 각각 입력 이미지, 동영
 ### 1. Quantitative Evaluation
 다음은 UCF-101와 MSR-VTT에서 오픈 도메인 image-to-video 생성 방법들과 정량적으로 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-table1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-table1.webp" | relative_url}}' width="50%"></center>
 
 ### 2. Qualitative Evaluation
 다음은 다른 방법들과 시각적으로 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Motion Quality, Temporal Coherence, Input Conformity에 대한 user study 결과이다. 
 
-<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-table2.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-table2.webp" | relative_url}}' width="52%"></center>
 
 ### 3. Ablation Studies
 다음은 듀얼 스트림 이미지 주입과 학습 패러다임에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-fig5.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-fig5.webp" | relative_url}}' width="85%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-table3.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-table3.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 1단계 적응 단계와 2단계 적응 전략을 시각적으로 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-fig6.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-fig6.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 여러 학습 패러다임에 대하여 시각적으로 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-fig7.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-fig7.webp" | relative_url}}' width="90%"></center>
 
 ### 4. Discussions on Motion Control using Text
 이미지는 일반적으로 여러 잠재적인 역학과 연관되기 때문에 텍스트는 사용자 선호도에 맞게 조정된 동적 콘텐츠 생성을 보완적으로 가이드할 수 있다. 그러나 기존 대규모 데이터셋의 캡션은 많은 수의 장면 설명 단어와 적은 수의 역학/모션 설명의 조합으로 구성되어 모델이 학습하는 동안 역학/모션을 간과할 가능성이 있다. 장면 설명은 이미 이미지 조건에 포함되어 있기 때문에 모션 설명은 텍스트 조건으로 처리하여 모델을 분리된 방식으로 학습하고 모델에 역학에 대한 더 강력한 텍스트 기반 제어를 제공해야 한다. 
 
-<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-fig8.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-fig8.webp" | relative_url}}' width="70%"></center>
 <br>
 저자들은 분리된 학습을 위해 위 그림에서 볼 수 있듯이 WebVid10M 데이터셋을 필터링하고 다시 주석을 달아 데이터셋을 구성하였다. 그런 다음 이 데이터셋를 사용하여 모델 DynamiCrater<sub>DCP</sub>를 학습시켰다. 
 
 다음은 텍스트를 사용한 동작 제어를 통해 얻은 다양한 방법으로 얻은 이미지 애니메이션 결과를 시각적으로 비교한 것이다. 
 
-<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-fig9.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-fig9.webp" | relative_url}}' width="85%"></center>
 
 ### 5. Applications
-<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-fig10.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dynamicrafter/dynamicrafter-fig10.webp" | relative_url}}' width="100%"></center>
 
 1. **스토리텔링**: ChatGPT를 사용하여 스토리 스크립트와 해당 이미지를 생성한다. 그런 다음 DynamiCrafter를 사용하여 스토리 스크립트로 이미지를 애니메이션화하여 스토리텔링 동영상을 생성할 수 있다.
 2. **반복되는 동영상 생성**: 약간의 수정을 통해 반복되는 동영상 생성을 용이하게 하도록 조정될 수 있다. 학습 중에는 $$\textbf{x}^1$$과 $$\textbf{x}^L$$을 모두 VDG로 제공하고 다른 프레임은 비워둔다. Inference 시에는 둘 다 입력 이미지로 설정한다. 

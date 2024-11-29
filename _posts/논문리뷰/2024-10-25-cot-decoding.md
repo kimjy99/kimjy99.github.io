@@ -27,7 +27,7 @@ classes: wide
 
 놀랍게도 간단히 디코딩 절차를 변경하여 사전 학습된 LLM에서 Chain-of-Thought (CoT) 추론을 이끌어내는 task와 무관한 방법이 있다. 
 
-<center><img src='{{"/assets/img/cot-decoding/cot-decoding-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/cot-decoding/cot-decoding-fig1.webp" | relative_url}}' width="100%"></center>
 <br>
 위 그림은 이러한 현상을 보여준다. 추론 질문이 주어지면 LLM은 표준 greedy decoding 경로를 통해 잘못된 답을 생성하지만, top-k 토큰 검사는 내재적인 CoT 경로를 밝혀내어 쿼리를 정확하게 해결했다. 이 디코딩 수정은 프롬프팅과 모델 튜닝 없이 완전히 unsupervised 방식으로 진행된다. 
 
@@ -39,7 +39,7 @@ classes: wide
 ### 1. Pre-trained Language Models Can Reason without Prompting
 저자들은 사전 학습된 언어 모델이 명시적 프롬프트나 인간의 개입 없이도 본질적으로 추론 능력을 가지고 있는지 조사하였다. 다음은 수학(GSM8K)과 상식적 추론(year parity)에 대한 예시 디코딩 경로이다. 
 
-<center><img src='{{"/assets/img/cot-decoding/cot-decoding-table1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/cot-decoding/cot-decoding-table1.webp" | relative_url}}' width="80%"></center>
 <br>
 저자들은 사전 학습된 [PaLM-2 large](https://arxiv.org/abs/2305.10403) 모델을 사용하여 greedy decoding 경로 $(k = 0)$와 다른 디코딩 경로 $(k > 0)$를 비교하였다. 여기서 $k$는 첫 번째 디코딩 단계에서 $k$번째 토큰의 선택을 나타낸다. 
 
@@ -69,7 +69,7 @@ $$
 저자들은 GSM8K의 처음 100개 질문을 수동으로 검토하여 정량적 분석을 수행했으며, 그 결과 상위 10개 디코딩 경로 중에서 답변 신뢰도가 가장 높은 디코딩 경로를 선택하면 88%가 CoT 경로를 포함하는 것으로 나타났다. 이는 모델의 답변 신뢰도와 CoT 경로 사이에 압도적으로 높은 상관 관계가 있음을 보여준다. 
 
 ##### 다양한 CoT 경로 추출 접근 방식을 비교
-<center><img src='{{"/assets/img/cot-decoding/cot-decoding-table2.PNG" | relative_url}}' width="77%"></center>
+<center><img src='{{"/assets/img/cot-decoding/cot-decoding-table2.webp" | relative_url}}' width="77%"></center>
 <br>
 위 표는 상위 10개의 디코딩된 경로에서 CoT 경로를 추출하는 다양한 방법을 비교한 것이다. 모델 자체의 확률 측정값은 신뢰할 수 있는 지표로 작용하지 않으며, 모델의 길이로 정규화된 확률도 신뢰할 수 있는 지표로 작용하지 않는다. 반면, CoT-decoding은 CoT 경로를 신뢰할 수 있게 추출하여 모델의 추론 성능을 크게 향상시킬 수 있다.
 
@@ -81,14 +81,14 @@ $\Delta$를 계산하려면 모델의 응답에서 답변 범위를 식별해야
 
 저자들은 샘플링이 few-shot CoT 프롬프팅에서 잘 작동하지만 프롬프트 없이는 원하는 동작을 보이지 않는다는 것을 발견했다. 
 
-<center><img src='{{"/assets/img/cot-decoding/cot-decoding-table3.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/cot-decoding/cot-decoding-table3.webp" | relative_url}}' width="52%"></center>
 <br>
 위 표는 GSM8K에서 CoT-decoding과 CoT 프롬프트를 사용하지 않은 self-consistency를 비교한 결과이다. 샘플링의 비효과성은 디코딩 중에 직접적인 답변을 제공하는 모델의 강한 경향에서 비롯되므로 첫 번째 토큰은 CoT-decoding에 비해 다양성이 적은 경향이 있다. 반면 CoT-decoding은 첫 번째 디코딩 단계에서 다양성을 명시적으로 장려하여 작동한다. 
 
 ##### 다른 디코딩 단계에서 분기
 > 첫 번째 디코딩 단계에서만 분기하는 것과 비교하여 나중 디코딩 단계에서 분기하는 것이 좋은가?
 
-<center><img src='{{"/assets/img/cot-decoding/cot-decoding-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/cot-decoding/cot-decoding-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 위 그림은 후속 디코딩 단계에서 대체 토큰의 영향을 나타낸 것이다. 첫 번째 디코딩 단계에서 초기 분기가 잠재적 경로의 다양성을 크게 향상시킨다. 반대로 나중 단계 분기는 이전에 생성된 토큰의 영향을 크게 받는다. 그럼에도 불구하고 최적의 분기 지점은 task에 따라 달라질 수 있다. 예를 들어 year parity에서 중간 경로 분기는 올바른 CoT 경로를 효과적으로 생성할 수 있다. 
 
@@ -101,30 +101,30 @@ $\Delta$를 계산하려면 모델의 응답에서 답변 범위를 식별해야
 ### 1. CoT-Decoding Effectively Elicits Reasoning from Language Models
 다음은 사전 학습된 Mistral-7B 모델에 대하여 여러 디코딩 방법들을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/cot-decoding/cot-decoding-table4.PNG" | relative_url}}' width="43%"></center>
+<center><img src='{{"/assets/img/cot-decoding/cot-decoding-table4.webp" | relative_url}}' width="43%"></center>
 <br>
 다음은 3가지 언어 모델에 대하여 greedy decoding과 CoT-decoding을 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/cot-decoding/cot-decoding-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/cot-decoding/cot-decoding-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 PaLM-2의 모델 크기에 따라 greedy decoding과 CoT-decoding을 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/cot-decoding/cot-decoding-fig4.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/cot-decoding/cot-decoding-fig4.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 사전 학습된 모델과 instruction-tuning된 모델에 대하여 greedy decoding과 CoT-decoding을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/cot-decoding/cot-decoding-table5.PNG" | relative_url}}' width="38%"></center>
+<center><img src='{{"/assets/img/cot-decoding/cot-decoding-table5.webp" | relative_url}}' width="38%"></center>
 <br>
 다음은 $k$가 (왼쪽) 모델 크기와 (오른쪽) task 난이도에 따른 추론 정확도에 미치는 영향을 나타낸 그래프이다. 
 
-<center><img src='{{"/assets/img/cot-decoding/cot-decoding-fig5.PNG" | relative_url}}' width="88%"></center>
+<center><img src='{{"/assets/img/cot-decoding/cot-decoding-fig5.webp" | relative_url}}' width="88%"></center>
 
 ### 2. CoT-decoding Enables a Better Understanding of Model’s Intrinsic Reasoning Abilities
 다음은 여러 task 난이도에 대하여 greedy decoding과 CoT-decoding을 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/cot-decoding/cot-decoding-table6.PNG" | relative_url}}' width="72%"></center>
+<center><img src='{{"/assets/img/cot-decoding/cot-decoding-table6.webp" | relative_url}}' width="72%"></center>
 
 ### 3. Combining CoT-decoding with CoT-Prompting
 다음은 CoT-decoding을 zero-shot CoT-prompting의 위에 더한 후 추론 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/cot-decoding/cot-decoding-table7.PNG" | relative_url}}' width="78%"></center>
+<center><img src='{{"/assets/img/cot-decoding/cot-decoding-table7.webp" | relative_url}}' width="78%"></center>

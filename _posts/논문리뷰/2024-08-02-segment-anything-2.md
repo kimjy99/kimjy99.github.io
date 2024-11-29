@@ -21,7 +21,7 @@ Vasudev Alwala, Nicolas Carion, Chao-Yuan Wu, Ross Girshick, Piotr Dollár, Chri
 > Meta FAIR  
 > July 29, 2024  
 
-<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-fig1.webp" | relative_url}}' width="100%"></center>
 
 > [Segment Anything](https://kimjy99.github.io/논문리뷰/segment-anything)의 후속 논문
 
@@ -49,12 +49,12 @@ SAM 2는 object와 이전 상호작용에 대한 정보를 저장하는 메모�
 SAM 2는 동영상 분할 경험에 있어 단계적 변화를 제공한다. SAM 2는 이전 방법들보다 3배 적은 상호 작용을 사용하면서도 더 나은 분할 정확도를 달성할 수 있다. 또한 SAM 2는 여러 동영상 segmentation 벤치마크에서 이전 방법들보다 성능이 뛰어나고 이미지 segmentation 벤치마크에서 SAM보다 더 나은 성능을 제공하는 동시에 6배 더 빠르다. SAM 2는 수많은 zero-shot 벤치마크 (동영상 segmentation 17개, 이미지 segmentation 37개)를 통해 관찰된 것처럼 다양한 동영상 및 이미지 분포에서 효과적이다. 
 
 ## Task: promptable visual segmentation
-<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 PVS task는 동영상의 모든 프레임에서 모델에 프롬프트를 제공할 수 있다. 프롬프트는 positive/negative click, bounding box, 또는 마스크일 수 있으며, 분할할 object를 정의하거나 모델에서 예측한 object를 정제하는 데 사용할 수 있다. 대화형 경험을 제공하기 위해 특정 프레임에서 프롬프트를 수신하면 모델은 이 프레임에서 object의 유효한 segmentation mask로 즉시 응답해야 한다. 초기 (하나 또는 여러 개) 프롬프트 (동일한 프레임 또는 다른 프레임)를 수신한 후 모델은 이러한 프롬프트를 전파하여 모든 동영상 프레임에서 대상 object의 segmentation mask가 포함된 전체 동영상에서 object의 masklet을 얻어야 한다. 추가 프롬프트는 모든 프레임에서 모델에 제공하여 동영상 전체에서 세그먼트를 정제할 수 있다. 
 
 ## Model
-<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 SAM 2는 동영상 도메인에 대한 SAM의 일반화로 볼 수 있다. SAM 2는 동영상에서 분할할 object의 공간적 범위를 정의하기 위해 개별 프레임에서 포인트, bounding box, 마스크 프롬프트를 지원한다. 이미지 입력의 경우 SAM과 유사하게 동작한다. 프롬프팅 가능하고 가벼운 마스크 디코더는 현재 프레임에서 프레임 임베딩과 프롬프트(있는 경우)를 입력받고 프레임에 대한 segmentation mask를 출력한다. 마스크를 개선하기 위해 프레임에 프롬프트를 반복적으로 추가할 수 있다. 
 
@@ -69,7 +69,7 @@ Memory attention의 역할은 과거 프레임의 feature와 예측, 그리고 �
 ##### 프롬프트 인코더 & 마스크 디코더
 프롬프트 인코더는 SAM과 동일하며 positive/negative click, bounding box, 또는 마스크로 프롬프팅되어 주어진 프레임에서 object의 범위를 정의할 수 있다. 클릭(포인트)과 bounding box는 각 프롬프트 유형에 대한 학습된 임베딩과 합산된 위치 인코딩으로 표현되는 반면, 마스크는 convolutions들을 사용하여 임베딩되고 프레임 임베딩과 더해진다. 
 
-<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-fig9.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-fig9.webp" | relative_url}}' width="70%"></center>
 <br>
 디코더 디자인은 대체로 SAM을 따르며, 프롬프트와 프레임 임베딩을 업데이트하는 양방향 transformer block을 쌓는다. SAM과 같이 여러 마스크가 있을 수 있는 모호한 프롬프트, 즉 단일 클릭의 경우, 여러 마스크를 예측한다. 모호성이 프레임 전체로 확장될 수 있는 동영상의 경우, 모델은 각 프레임에서 여러 마스크를 예측한다. 후속 프롬프트가 모호성을 해결하지 못하면, 모델은 현재 프레임에 대해 예측된 IoU가 가장 높은 마스크만 전파한다. 
 
@@ -115,25 +115,25 @@ Phase 3에서는 19.7만개의 masklet이 수집되었다. SAM 2를 루프에 �
 주석에 대한 높은 품질을 유지하기 위해 품질 검증 단계를 도입한다. 별도의 annotator들이 각 주석이 달린 masklet의 품질을 "만족" (모든 프레임에서 대상 객체를 정확하고 일관되게 추적) 또는 "불만족" (대상 object가 명확한 경계로 잘 정의되었지만 masklet이 정확하거나 일관되지 않음)으로 검증하였다. 만족스럽지 않은 masklet들은 정제를 위해 주석 파이프라인으로 다시 보내졌다. 잘 정의되지 않은 object를 추적하는 masklet들은 모두 거부되었다. 
 
 ##### 자동 masklet 생성
-<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-fig10.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-fig10.webp" | relative_url}}' width="40%"></center>
 <br>
 모델의 anything 기능을 활성화하려면 주석의 다양성을 보장하는 것이 중요하다. 인간 annotator는 일반적으로 눈에 띄는 object에 더 집중할 수 있으므로, 주석을 자동으로 생성된 masklet ("Auto"라고 함)으로 보강한다. 이는 주석의 다양성을 늘리고 모델의 failure case들을 식별하는 데 도움이 된다. 위의 예시는 (a) 수동 주석만 있을 때와 (b) Auto도 있을 때를 비교한 예시이다. 
 
 자동 masklet을 생성하기 위해 첫 번째 프레임에서 regular grid로 SAM 2를 프롬프팅하고 후보 masklet을 생성한다. 그런 다음 masklet 검증 단계로 보내 필터링한다. "만족"으로 검증된 자동 masklet은 SA-V 데이터셋에 추가된다. "불만족" (failure case)으로 식별된 masklet은 샘플링되어 Phase 3에서 수정하도록 annotator에게 제공된다. 이러한 자동 masklet은 크고 눈에 띄는 중앙의 object뿐만 아니라 배경에 있는 크기와 위치가 다양한 object도 포함한다. 
 
 ##### 분석
-<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-table1.PNG" | relative_url}}' width="88%"></center>
+<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-table1.webp" | relative_url}}' width="88%"></center>
 <br>
 위 표는 각 데이터 엔진 phase의 프레임당 평균 주석을 다는 시간, masklet당 수동으로 편집한 프레임의 평균 백분율, 클릭한 프레임당 평균 클릭 수를 비교한 표이다. "Phase 1 Mask Alignment Score"는 Phase 1의 마스크와 비교했을 때 IoU가 0.75를 초과하는 마스크의 백분율이다. 
 
-<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-table2.PNG" | relative_url}}' width="36%"></center>
+<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-table2.webp" | relative_url}}' width="36%"></center>
 <br>
 위 표는 iteration 수를 고정한 채 각 phase의 마지막에 사용 가능한 데이터로 학습된 SAM 2의 성능을 비교한 것이다. 따라서 추가 데이터의 영향만 측정한 것이다. 첫 번째 프레임에서 3번 클릭으로 프롬프팅할 때 $\mathcal{J \& F}$ 정확도 (높을수록 좋음)을 사용하여 자체 SA-V validation set괴 9개의 zero-shot 벤치마크에서 평가하였다. 각 phase의 데이터를 반복적으로 포함한 후 segmentation 성능의 일관된 개선이 나타났다. 
 
 ### 2. SA-V dataset
-<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-table3.PNG" | relative_url}}' width="88%"></center>
+<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-table3.webp" | relative_url}}' width="88%"></center>
 <br>
-<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-fig5a.PNG" | relative_url}}' width="35%"></center>
+<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-fig5a.webp" | relative_url}}' width="35%"></center>
 <br>
 데이터 엔진으로 수집한 SA-V 데이터셋은 64.3만 개의 masklet이 있는 5.09만 개의 동영상으로 구성되어 있다. 위 표는 동영상, masklet, 마스크 수에 따라 SA-V와 일반적인 VOS 데이터셋을 비교한 표이다. 특히 주석이 달린 마스크의 수는 기존 VOS 데이터셋보다 53배 (Auto가 없는 경우 15배) 더 많다. Disappearance rate는 한 프레임에서 사라졌다가 다시 나타나는 masklet의 비율이다. 
 
@@ -141,7 +141,7 @@ Phase 3에서는 19.7만개의 masklet이 수집되었다. SAM 2를 루프에 �
 저자들은 크라우드워커가 촬영한 5.09만 개의 새로운 동영상 세트를 수집했다. 동영상은 54%가 실내 장면이고 46%가 실외 장면이며 평균 길이는 14초이다. 동영상은 다양한 환경을 특징으로 하며 다양한 일상 시나리오를 다룬다. 본 논문의 데이터셋은 기존 VOS 데이터셋보다 더 많은 동영상을 가지고 있으며, 다양한 참여자가 촬영했다. 
 
 ##### Masklets
-<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-fig4.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-fig4.webp" | relative_url}}' width="90%"></center>
 <br>
 주석은 데이터 엔진을 사용하여 수집한 19.1만개의 수동 masklet 주석과 45.2만 개의 자동 masklet으로 구성되어 있다. SA-V 수동 주석의 disappearance rate는 42.5%로 기존 데이터셋 중에서 가장 경쟁력이 있다. 또한 SA-V 마스크의 88% 이상이 0.1 미만의 정규화된 마스크 영역을 갖는다. 
 
@@ -154,54 +154,54 @@ SA-V validation set에는 293개의 masklet과 155개의 동영상이 있고 SA-
 또한 내부적으로 사용 가능한 저작권이 있는 동영상 데이터를 사용하여 학습 데이터셋을 더욱 보강했다. 학습을 위한 내부 데이터셋은 Phase 2와 Phase 3에서 주석이 달린 6.29만 개의 동영상과 6.96만 개의 masklet으로 구성되었으며, 내부 테스트를 위한 데이터셋은 Phase 1에서 주석이 달린 96개 동영상과 189개 masklet으로 구성되어 있다. 
 
 ## Experiments
-<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-fig13.PNG" | relative_url}}' width="93%"></center>
+<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-fig13.webp" | relative_url}}' width="93%"></center>
 
 ### 1. Zero-shot experiments
 #### Video tasks
 다음은 상호작용한 프레임 수에 따른 $\mathcal{J \& F}$ 정확도를 비교한 그래프이다. (9개 데이터셋의 평균 결과)
 
-<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-fig6.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-fig6.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 17개의 동영상 데이터셋에서 semi-supervised VOS에 대한 zero-shot 정확도를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-table4.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-table4.webp" | relative_url}}' width="70%"></center>
 
 #### Image tasks
 다음은 37개의 데이터셋에서 Segment Anything (SA) task에 대한 zero-shot 정확도를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-table6.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-table6.webp" | relative_url}}' width="70%"></center>
 
 ### 2. Comparison to SOTA in semi-supervised VOS
 다음은 VOS 성능을 기존 방법들과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-table7.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-table7.webp" | relative_url}}' width="90%"></center>
 
 ### 3. Ablations
 #### Data ablations
 다음은 학습 데이터에 따른 성능을 비교한 표이다. 첫번째 프레임에서 3번의 클릭으로 프롬프팅할 때의 $\mathcal{J \& F}$ 정확도를 비교하였다. 
 
-<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-table8.PNG" | relative_url}}' width="82%"></center>
+<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-table8.webp" | relative_url}}' width="82%"></center>
 <br>
 다음은 SA-V 데이터 양에 따른 성능을 (왼쪽) SA-V validation set, (중간) 9개의 zero-shot 데이터셋, (오른쪽) MOSE dev set에서 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-fig7.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 필터링 전략에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-table9.PNG" | relative_url}}' width="76%"></center>
+<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-table9.webp" | relative_url}}' width="76%"></center>
 
 #### Model architecture ablations
 다음은 입력 해상도, 입력 프레임 수, 메모리 수, 메모리 채널 차원, memory attention 수, 이미지 인코더 크기에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-table10.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-table10.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 relative positional encoding에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-table11.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-table11.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 메모리 디자인에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-table12.PNG" | relative_url}}' width="77%"></center>
+<center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-table12.webp" | relative_url}}' width="77%"></center>
 
 ## Limitations
 1. 혼잡한 장면, 긴 가려짐 후 또는 확장된 동영상에서 object를 추적하지 못하거나 혼동할 수 있다. 

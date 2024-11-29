@@ -20,7 +20,7 @@ classes: wide
 > Tsinghua University | Harvard University  
 > 26 Dec 2023  
 
-<center><img src='{{"/assets/img/langsplat/langsplat-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/langsplat/langsplat-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 3D 언어 필드를 모델링하면 open-vocabulary를 사용하여 3D 월드와 상호 작용하고 쿼리할 수 있다. 그러나 언어 주석이 포함된 대규모의 다양한 3D 장면 데이터가 없기 때문에 기존 접근 방식들은 CLIP과 같은 기존 vision-language model에서 3D 장면으로의 feature distillation을 사용한다. 이러한 방법은 속도와 정확성 모두에서 제한을 받아 실제 적용 가능성이 제한된다. 이 두 가지 문제를 해결하기 위해 본 논문은 3D 언어 필드 모델링의 두 가지 주요 측면, 즉 2D와 3D 사이의 격차를 해소하는 3D 모델링 접근 방식과 3D 포인트에 대해 학습할 내용을 결정하는 렌더링 대상을 다시 살펴보았다. 
@@ -36,7 +36,7 @@ CLIP 임베딩은 픽셀이 아닌 이미지와 정렬되므로 3D 포인트에 
 모호성 문제를 해결하기 위해 [Segment Anything Model (SAM)](https://kimjy99.github.io/논문리뷰/segment-anything)에 의해 정의된 semantic 계층 구조를 사용한다. 각 2D 이미지에 대해 SAM을 사용하여 여러 semantic level에서 잘 분할된 3개의 map을 얻는다. 그런 다음 정확한 경계 마스크의 CLIP feature를 추출하고 이 feature 해당 마스크의 모든 점에 할당한다. SAM 기반 마스크를 사용한 학습은 각 점에 정확한 CLIP 임베딩을 제공하여 모델 정확도를 높일 뿐만 아니라 사전 정의된 세 가지 semantic 스케일에서 직접 쿼리를 가능하게 한다. 이를 통해 여러 스케일과 보조 DINO feature에 대한 집중적인 검색이 필요하지 않으므로 효율성이 효과적으로 향상된다. 
 
 ## Proposed Approach
-<center><img src='{{"/assets/img/langsplat/langsplat-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/langsplat/langsplat-fig2.webp" | relative_url}}' width="100%"></center>
 
 ### 1. Learning Hierarchical Semantics with SAM
 Image segmentation을 위한 foundation model인 [SAM](https://kimjy99.github.io/논문리뷰/segment-anything)은 동일한 물체에 속하는 주변 픽셀과 함께 픽셀을 정확하게 그룹화할 수 있으므로 경계가 명확한 여러 마스크로 이미지를 분할할 수 있다. 또한 SAM은 포인트 프롬프트에 대해 세 가지 계층적 semantic level을 나타내는 whole, part, subpart라는 세 가지 다른 마스크를 생성하여 모호성을 해결한다. 따라서 SAM을 활용하여 정확한 마스크를 얻은 다음 픽셀 정렬된 feature를 얻는 데 사용한다. 또한 모호성 문제를 해결하기 위해 SAM이 정의한 semantic 계층 구조를 명시적으로 모델링한다. 이를 통해 각 입력 이미지에 대해 정확한 멀티스케일 segmentation map을 제공할 수 있다.
@@ -122,31 +122,31 @@ $$
 다음은 LERF 데이터셋에서의 localization 정확도(왼쪽)와 3D semantic segmentation에 대한 평균 IoU(오른쪽)이다. (% 생략)
 
 <div style="display: flex; align-items: start; justify-content: center">
-  <img src='{{"/assets/img/langsplat/langsplat-table1.PNG" | relative_url}}' width="45%">
+  <img src='{{"/assets/img/langsplat/langsplat-table1.webp" | relative_url}}' width="45%">
   &nbsp;
-  <img src='{{"/assets/img/langsplat/langsplat-table2.PNG" | relative_url}}' width="45%">
+  <img src='{{"/assets/img/langsplat/langsplat-table2.webp" | relative_url}}' width="45%">
 </div>
 <br>
 다음은 LERF 데이터셋에서의 open-vocabulary 3D object localization 결과이다. 
 
-<center><img src='{{"/assets/img/langsplat/langsplat-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/langsplat/langsplat-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 LERF 데이터셋에서의 open-vocabulary 3D semantic segmentation 결과이다. 
 
-<center><img src='{{"/assets/img/langsplat/langsplat-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/langsplat/langsplat-fig4.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Results on the 3D-OVS dataset
 다음은 3D-OVS 데이터셋에서 여러 기존 방법들과 결과를 비교한 것이다. (표는 mIoU(%)를 비교)
 
-<center><img src='{{"/assets/img/langsplat/langsplat-table5.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/langsplat/langsplat-table5.webp" | relative_url}}' width="47%"></center>
 <br>
-<center><img src='{{"/assets/img/langsplat/langsplat-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/langsplat/langsplat-fig5.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Ablation
 다음은 LERF 데이터셋(왼쪽)과 3D-OVS 데이터셋(오른쪽)에서의 ablation 결과이다. 
 
 <div style="display: flex; align-items: start; justify-content: center">
-  <img src='{{"/assets/img/langsplat/langsplat-table3.PNG" | relative_url}}' width="44%">
+  <img src='{{"/assets/img/langsplat/langsplat-table3.webp" | relative_url}}' width="44%">
   &nbsp;
-  <img src='{{"/assets/img/langsplat/langsplat-table4.PNG" | relative_url}}' width="44%">
+  <img src='{{"/assets/img/langsplat/langsplat-table4.webp" | relative_url}}' width="44%">
 </div>

@@ -20,7 +20,7 @@ classes: wide
 > BNRist Center | IDEA | HKUST | The Chinese University of Hong Kong | Microsoft Research  
 > 9 Mar 2023  
 
-<center><img src='{{"/assets/img/grounding-dino/grounding-dino-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/grounding-dino/grounding-dino-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 본 논문에서는 언어 입력에 의해 지정된 임의의 물체를 감지하는 강력한 시스템을 개발하는 것을 목표로 하며 이를 **open-set object detection**이라고 한다. 이 task는 큰 잠재력으로 인해 폭넓게 적용된다. 예를 들어, 이미지 편집을 위한 생성 모델과 협력할 수 있다. 
@@ -37,7 +37,7 @@ Grounding DINO는 GLIP과 비교했을 때 몇 가지 장점이 있다.
 `
 대부분의 기존 open-set detector는 closed-set detector를 언어 정보가 포함된 open-set 시나리오로 확장하여 개발되었다. 
 
-<center><img src='{{"/assets/img/grounding-dino/grounding-dino-fig2.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/grounding-dino/grounding-dino-fig2.webp" | relative_url}}' width="75%"></center>
 <br>
 위 그림에서 볼 수 있듯이 closed-set detector에는 일반적으로 
 
@@ -56,7 +56,7 @@ Grounding DINO는 GLIP과 비교했을 때 몇 가지 장점이 있다.
 대부분의 기존 open-set detection은 새로운 카테고리의 물체에 대한 모델을 평가한다. 저자들은 물체가 속성으로 설명되는 또 다른 중요한 시나리오도 고려해야 한다고 주장하며, 이 task를 **Reference Expression Comprehension (REC)**라 부른다. REC는 이전 open-set detection task에서는 간과되는 경향이 있었다. 본 논문에서는 open-set detection을 확장하여 REC를 지원하고 REC 데이터셋에 대한 성능도 평가히였다. 
 
 ## Method
-<center><img src='{{"/assets/img/grounding-dino/grounding-dino-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/grounding-dino/grounding-dino-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 Grounding DINO는 주어진 이미지-텍스트 쌍에 대해 여러 쌍의 bounding box와 명사구를 출력한다. GLIP을 따라 object detection를 위한 입력 텍스트로 모든 카테고리 이름을 concatenate한다. REC에는 각 텍스트 입력에 bounding box가 필요하다. 가장 큰 점수를 가진 출력 물체를 REC task의 출력으로 사용한다. 
 
@@ -68,7 +68,7 @@ Grounded DINO는 이중 인코더-단일 디코더 아키텍처이다. 여기에
 이미지-텍스트 쌍이 주어지면 Swin Transformer와 같은 이미지 backbone으로 멀티스케일 이미지 feature를 추출하고 BERT와 같은 텍스트 backbone으로 텍스트 feature를 추출한다. 이전 DETR-like detector를 따라 다양한 블록의 출력에서 멀티스케일 feature가 추출된다. 이미지 feature와 텍스트 feature를 추출한 후 이를 cross-modality feature 융합을 위한 feature enhancer에 공급한다. Feature enhancer에는 여러 feature 강화 레이어가 포함되어 있다. Deformable self-attention을 활용하여 이미지 feature를 향상시키고 일반 self-attention을 활용하여 텍스트 feature를 향상시킨다. GLIP에서 영감을 받아 feature 융합을 위해 image-to-text cross-attention과 text-to-image cross-attention을 추가한다. 
 
 ### 2. Language-Guided Query Selection
-<center><img src='{{"/assets/img/grounding-dino/grounding-dino-algo1.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/grounding-dino/grounding-dino-algo1.webp" | relative_url}}' width="42%"></center>
 <br>
 Grounding DINO는 입력된 텍스트로 지정된 이미지에서 물체를 감지하는 것을 목표로 한다. 입력 텍스트를 효과적으로 활용하여 object detection을 가이드하기 위해 입력 텍스트와 더 관련성이 높은 feature를 디코더 쿼리로 선택하는 언어 기반 쿼리 선택 모듈을 사용한다. Algorithm 1은 쿼리 선택 프로세스이다. 
 
@@ -78,7 +78,7 @@ Grounding DINO는 입력된 텍스트로 지정된 이미지에서 물체를 감
 저자들은 이미지 feature와 텍스트 feature를 결합하는 cross-modality 디코더를 개발하였다. 각 cross-modality 쿼리는 self-attention layer, 이미지 feature를 결합하는 이미지 cross-attention layer, 텍스트 feature를 결합하는 텍스트 cross-attention layer, 각 cross-modality 디코더 레이어의 FFN layer에 입력된다. 더 나은 modality 정렬을 위해 쿼리에 텍스트 정보를 삽입해야 하기 때문에 INO 디코더 레이어와 다르게 각 디코더 레이어에는 텍스트 cross-attention layer가 추가로 있다. 
 
 ### 4. Sub-Sentence Level Text Feature
-<center><img src='{{"/assets/img/grounding-dino/grounding-dino-fig4.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/grounding-dino/grounding-dino-fig4.webp" | relative_url}}' width="80%"></center>
 <br>
 위 그림과 같이 문장 수준 표현과 단어 수준 표현이라는 두 가지 종류의 텍스트 프롬프트가 이전 연구들에서 탐색되었다. 문장 수준 표현은 전체 문장을 하나의 feature로 인코딩한다. 일부 문장에 여러 구문이 있는 경우 해당 구문을 추출하고 다른 단어를 삭제한다. 이런 식으로 문장의 세밀한 정보를 잃어버리면서 단어 사이의 영향이 제거된다. 단어 수준 표현을 사용하면 여러 카테고리 이름을 하나의 forward pass로 인코딩할 수 있지만 attention 중에 관련되지 않은 일부 단어가 상호 작용한다. 
 
@@ -95,29 +95,29 @@ Bounding box regression에 L1 loss와 GIOU loss를 사용한다. [GLIP](https://
 ### 1. Zero-Shot Transfer of Grounding DINO
 다음은 COCO로의 zero-shot transfer를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/grounding-dino/grounding-dino-table2.PNG" | relative_url}}' width="92%"></center>
+<center><img src='{{"/assets/img/grounding-dino/grounding-dino-table2.webp" | relative_url}}' width="92%"></center>
 <br>
 다음은 LVIS로의 zero-shot transfer를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/grounding-dino/grounding-dino-table3.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/grounding-dino/grounding-dino-table3.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 ODinW 벤치마크에서의 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/grounding-dino/grounding-dino-table4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/grounding-dino/grounding-dino-table4.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Referring Object Detection Settings
 다음은 REC task에서의 top-1 정확도를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/grounding-dino/grounding-dino-table5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/grounding-dino/grounding-dino-table5.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Ablations
 다음은 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/grounding-dino/grounding-dino-table6.PNG" | relative_url}}' width="63%"></center>
+<center><img src='{{"/assets/img/grounding-dino/grounding-dino-table6.webp" | relative_url}}' width="63%"></center>
 
 ### 4. Transfer from DINO to Grounding DINO
 다음은 사전 학습된 DINO에서 transfer한 Grounding DINO와 처음부터 학습한 Grounding DINO를 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/grounding-dino/grounding-dino-table7.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/grounding-dino/grounding-dino-table7.webp" | relative_url}}' width="90%"></center>
 <br>
-<center><img src='{{"/assets/img/grounding-dino/grounding-dino-fig5.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/grounding-dino/grounding-dino-fig5.webp" | relative_url}}' width="65%"></center>

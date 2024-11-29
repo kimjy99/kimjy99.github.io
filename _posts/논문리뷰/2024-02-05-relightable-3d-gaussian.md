@@ -18,7 +18,7 @@ classes: wide
 > Nanjing University | Fudan University  
 > 27 Nov 2023  
 
-<center><img src='{{"/assets/img/relightable-3d-gaussian/relightable-3d-gaussian-fig1.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/relightable-3d-gaussian/relightable-3d-gaussian-fig1.webp" | relative_url}}' width="60%"></center>
 
 ## Introduction
 사실적인 렌더링을 위해 멀티뷰 이미지에서 3D 장면을 재구성하는 것은 컴퓨터 비전과 그래픽이 교차하는 근본적인 문제이다. 최근 [NeRF](https://kimjy99.github.io/논문리뷰/nerf)의 개발로 미분 가능한 렌더링 기술이 엄청난 인기를 얻었으며 이미지 기반의 novel view synthesis에서 탁월한 능력을 입증했다. 그러나 NeRF의 보급에도 불구하고 암시적 표현의 학습과 렌더링에는 상당한 시간 투자가 필요하므로 실시간 렌더링에 극복할 수 없는 과제가 있다. 느린 샘플링 문제를 해결하기 위해 그리드 기반 구조 활용 및 고급 baking을 위한 사전 계산(pre-computation)을 포함하여 다양한 가속 알고리즘이 제안되었다.
@@ -28,7 +28,7 @@ classes: wide
 본 논문에서는 재구성된 3D 포인트 클라우드의 relighting, 편집, ray tracing을 지원하는 3D Gaussian 표현만을 기반으로 하는 포괄적인 렌더링 파이프라인을 개발하는 것을 목표로 하였다. 추가적으로 각 3D Gaussian point에 normal(법선), BRDF 속성, 입사광 정보를 할당하여 포인트별 빛 반사율을 모델링하였다. 3DGS의 일반 볼륨 렌더링과 달리 PBR(물리 기반 렌더링)을 적용하여 각 3D Gaussian point에 대한 PBR color를 얻은 다음 알파 합성을 통해 해당 이미지 픽셀에 대해 렌더링된 색상을 얻는다. 견고한 재료 및 조명 추정을 위해 입사광을 글로벌 환경 맵과 로컬 입사광 필드로 분할했다. 포인트 기반 ray tracing 문제를 해결하기 위해 각 3D Gaussian point의 효율적인 visibility baking과 그림자 효과가 있는 장면의 사실적인 렌더링을 가능하게 하는 Bounding Volume Hierarchy (BVH) 기반의 새로운 tracing 방법을 제안하였다. 또한 최적화 중에 재질 및 조명 모호성을 완화하기 위해 새로운 base color 정규화, BRDF smoothness, 조명 정규화를 포함하는 적절한 정규화가 도입되었다.
 
 ## Relightable 3D Gaussians
-<center><img src='{{"/assets/img/relightable-3d-gaussian/relightable-3d-gaussian-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/relightable-3d-gaussian/relightable-3d-gaussian-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문은 3DGS를 기반으로 한 멀티뷰 이미지 컬렉션에서 재료와 조명을 분해하기 위해 맞춤화된 새로운 파이프라인을 도입한다. 이 파이프라인의 개요는 위 그림에 나와 있다.
 
@@ -192,7 +192,7 @@ $$
 
 광선에 따른 투과율 방정식 $T_i = \prod_{j=1}^{i−1} (1 − \alpha_j)$을 고려하면 $\alpha_j$의 순서가 $T_i$에 영향을 미치지 않는다는 것이 분명하다. 이는 광선을 따라 가우시안이 만나는 순서가 전반적인 투과율에 영향을 미치지 않음을 나타낸다. 
 
-<center><img src='{{"/assets/img/relightable-3d-gaussian/relightable-3d-gaussian-fig3.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/relightable-3d-gaussian/relightable-3d-gaussian-fig3.webp" | relative_url}}' width="55%"></center>
 <br>
 위 그림에서 볼 수 있듯이 binary radix tree의 root node부터 시작하여 광선과 각 node의 자식들의 경계 볼륨 간에 교차 테스트가 반복적으로 수행된다. Leaf node에 도달하면 관련 Gaussian이 식별된다. 이 순회를 통해 투과율 $T$는 점진적으로 감쇠된다. 
 
@@ -222,32 +222,32 @@ Visibility baking으로 인해 ray tracing을 수행하는 데 필요한 랜덤 
 ### 1. Training Details
 안정적인 최적화를 보장하기 위해 학습 절차는 두 단계로 나뉜다. 먼저, 추가 normal $n$으로 보강된 3DGS 모델을 최적화한다. 또한 적응형 밀도 제어를 위해 normal gradient 조건을 추가한다. 그 후, 첫 번째 단계에서 이미 안정된 형상을 사용하여 visibility 항 $v$를 baking하는 ray tracing 방법으로 시작한 다음 포괄적인 파이프라인을 사용하여 전체 파라미터들을 최적화한다. 두 번째 단계에서는 PBR에 대해 Gaussian당 $N_s = 24$개의 광선을 샘플링한다. 아래 표는 사용된 loss와 그 가중치의 전체 목록이다. 초기 단계에서는 30,000번의 iteration, 두 번째 단계에서는 10,000번의 iteration으로 모델을 학습시킨다. 모든 실험은 NVIDIA GeForce RTX 3090 GPU 1개에서 수행되었다. 
 
-<center><img src='{{"/assets/img/relightable-3d-gaussian/relightable-3d-gaussian-table1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/relightable-3d-gaussian/relightable-3d-gaussian-table1.webp" | relative_url}}' width="50%"></center>
 <br>
 ($\unicode{x2718}$: 합성 데이터셋에서는 사용되지 않았음)
 
 ### 2. Performance
 다음은 NeRF 합성 데이터셋에서의 novel view synthesis 결과를 정량적으로 비교한 표이다. 
 
-<center><img src='{{"/assets/img/relightable-3d-gaussian/relightable-3d-gaussian-table2.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/relightable-3d-gaussian/relightable-3d-gaussian-table2.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 NeRF 합성 데이터셋과 DTU 데이터셋에서 정성적으로 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/relightable-3d-gaussian/relightable-3d-gaussian-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/relightable-3d-gaussian/relightable-3d-gaussian-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 DTU 데이터셋에서의 결과를 다른 방법들과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/relightable-3d-gaussian/relightable-3d-gaussian-table3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/relightable-3d-gaussian/relightable-3d-gaussian-table3.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 BRDF 추정 결과를 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/relightable-3d-gaussian/relightable-3d-gaussian-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/relightable-3d-gaussian/relightable-3d-gaussian-fig5.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Ablation Study
 다음은 주요 구성 요소에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/relightable-3d-gaussian/relightable-3d-gaussian-table4.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/relightable-3d-gaussian/relightable-3d-gaussian-table4.webp" | relative_url}}' width="47%"></center>
 <br>
 다음은 샘플 수에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/relightable-3d-gaussian/relightable-3d-gaussian-fig6.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/relightable-3d-gaussian/relightable-3d-gaussian-fig6.webp" | relative_url}}' width="65%"></center>

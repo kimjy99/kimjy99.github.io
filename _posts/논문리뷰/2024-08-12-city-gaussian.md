@@ -19,7 +19,7 @@ classes: wide
 > Chinese Academy of Sciences | University of Chinese Academy of Sciences | Centre for Artificial Intelligence and Robotic | Shandong University | TuSimple | University of Science and Technology Beijing  
 > 1 Apr 2024  
 
-<center><img src='{{"/assets/img/city-gaussian/city-gaussian-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/city-gaussian/city-gaussian-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 [3D Gaussian Splatting (3DGS)](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)에 대한 대부분의 기존 연구들은 주로 물체나 작은 장면에 초점을 맞춘다. 그러나 3DGS를 대규모 장면 재구성에 적용하면 학습하는 동안 GPU 메모리에 엄청난 오버헤드가 발생한다. 예를 들어, RTX3090 24G에서 Gaussian의 수가 1,100만 이상으로 증가하면 메모리 부족 오류가 발생한다. 그러나 공중에서 촬영한 1.5$\textrm{km}^2$가 넘는 도시를 높은 시각적 품질로 재구성하려면 2,000만 개가 넘는 Gaussian이 필요하다. 이러한 용량의 3DGS는 40G A100에서도 직접 학습할 수 없다. 
@@ -32,7 +32,7 @@ classes: wide
 
 ## Method
 ### 1. Training
-<center><img src='{{"/assets/img/city-gaussian/city-gaussian-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/city-gaussian/city-gaussian-fig2.webp" | relative_url}}' width="100%"></center>
 
 ##### Global Gaussian prior 생성
 이 부분은 추가적인 Gaussian 분할과 데이터 분할의 기초 역할을 한다. 단순하게 COLMAP 포인트에 분할 정복 전략을 적용하면 깊이 제약과 글로벌한 인식이 부족하여 block 외부 영역을 overfitting하기 위해 floater가 많이 생성되어 서로 다른 block을 안정적으로 융합하기 어렵다. 또한 COLMAP 포인트에서 렌더링된 이미지는 흐릿하고 부정확하여 특정 뷰가 block 학습에 중요한지 여부를 평가하기 어렵다. 
@@ -111,7 +111,7 @@ $$
 데이터와 primitive 분할 후, 각 block을 병렬로 학습시킨다. 이 fine-tuning 단계는 원래의 축소되지 않은 공간에서 진행된다. 먼저, global Gaussian prior를 활용하여 각 block을 초기화한다. 학습 loss는 L1 loss와 SSIM loss의 가중 합으로 구성된 원래 3DGS의 loss를 사용한다. 그런 다음 각 block에 대해 공간 경계 내에 포함된 fine-tuning된 Gaussian을 필터링한다. Global Gaussian prior 덕분에 block 간의 간섭이 상당히 완화되며, 직접적인 concatenation을 통해 고품질의 전체 모델을 얻을 수 있다. 
 
 ### 2. Level-of-Detail (LoD)
-<center><img src='{{"/assets/img/city-gaussian/city-gaussian-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/city-gaussian/city-gaussian-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 불필요한 Gaussian이 rasterizer에 가져오는 계산 부담을 제거하기 위해, CityGS는 여러 LoD를 생성하고 block별로 보이는 Gaussian을 선택한다. 
 
@@ -163,26 +163,26 @@ $$
 ### 1. Comparison with SOTA
 다음은 SOTA 방법과 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/city-gaussian/city-gaussian-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/city-gaussian/city-gaussian-table1.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 (위) 현실 장면과 (아래) MatrixCity에서 SOTA 방법과 렌더링 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/city-gaussian/city-gaussian-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/city-gaussian/city-gaussian-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
-<center><img src='{{"/assets/img/city-gaussian/city-gaussian-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/city-gaussian/city-gaussian-fig5.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Level of Detail
 다음은 LoD의 효과를 검증한 결과이다. 
 
-<center><img src='{{"/assets/img/city-gaussian/city-gaussian-fig6.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/city-gaussian/city-gaussian-fig6.webp" | relative_url}}' width="90%"></center>
 <br>
-<center><img src='{{"/assets/img/city-gaussian/city-gaussian-table2.PNG" | relative_url}}' width="58%"></center>
+<center><img src='{{"/assets/img/city-gaussian/city-gaussian-table2.webp" | relative_url}}' width="58%"></center>
 
 ### 3. Ablation
 다음은 학습 전략에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/city-gaussian/city-gaussian-table4.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/city-gaussian/city-gaussian-table4.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 LoD 전략에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/city-gaussian/city-gaussian-table5.PNG" | relative_url}}' width="62%"></center>
+<center><img src='{{"/assets/img/city-gaussian/city-gaussian-table5.webp" | relative_url}}' width="62%"></center>

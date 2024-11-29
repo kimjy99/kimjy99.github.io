@@ -20,7 +20,7 @@ classes: wide
 > Tsinghua University | Microsoft  
 > 1 Dec 2023  
 
-<center><img src='{{"/assets/img/segment-caption-anything/segment-caption-anything-fig1.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/segment-caption-anything/segment-caption-anything-fig1.webp" | relative_url}}' width="65%"></center>
 
 ## Introduction
 [Segment Anything Model (SAM)](https://kimjy99.github.io/논문리뷰/segment-anything)은 마스크 데이터를 10억 개로 학습된 인터랙티브한 segmentation 시스템이다. 이러한 데이터 규모는 시각적 프롬프트에 따라 segmentation 시 더 강력한 일반화를 가능하게 한다. 그러나 데이터에는 semantic 레이블이 포함되어 있지 않으므로 모델은 semantic을 이해할 수 없다.
@@ -30,7 +30,7 @@ classes: wide
 그러나 영역 캡셔닝 모델을 학습시키는 데 사용할 수 있는 데이터는 제한되어 있다. 예를 들어 Visual Genome(VG)에는 최대 10만 개의 이미지가 포함되어 있다. 이와 대조적으로 SAM은 1100만 개 이상의 이미지와 10억 개 이상의 마스크가 포함된 데이터셋을 사용했다. 따라서 공개적으로 사용 가능한 object detection (Objects365) 및 segmentation 데이터셋 (COCO-Panoptic)을 활용하기 위한 weak supervision 사전 학습 단계를 도입하였다. 텍스트 feature mixer는 VG의 영역 캡션 데이터에 대해 fine-tuning된다.
 
 ## Method
-<center><img src='{{"/assets/img/segment-caption-anything/segment-caption-anything-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/segment-caption-anything/segment-caption-anything-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 모델에는 ViT 기반 인코더, transformer 쿼리 기반 feature mixer, 다양한 출력을 위한 텍스트 디코더의 세 가지 구성 요소가 있다. ViT 기반 인코더와 소형 마스크 디코더 외에도 이미지 인코더에서 추출한 글로벌 이미지 feature와 사용자 프롬프트를 혼합하는 가벼운 쿼리 기반 feature mixer가 포함된다. 이 모듈은 200만 개의 파라미터로만 구성되므로 효율적이다. 모델 아키텍처는 위 그림과 같다.
 
@@ -106,13 +106,13 @@ CE는 0.1의 강도의 label smoothing을 사용한 cross-entropy loss이다. $$
 ### 1. Comparison with Other Methods
 다음은 다른 방법들과 정량적으로 비교한 표이다. 'VG'는 VG로 20만 step동안 학습시킨 모델이고, 'Pretrain+VG'는 10만 step동안 사전 학습 후 10만 step동안 VG로 fine-tuning한 모델이다. (C: CIDEr-D, M: METEOR, S: SPICE, B: BLEU, R: ROUGE, (F): Fuzzy)
 
-<center><img src='{{"/assets/img/segment-caption-anything/segment-caption-anything-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/segment-caption-anything/segment-caption-anything-table1.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 정성적인 결과이다. 
 
 <div style="overflow-x: auto; width: 100%;">
   <div style="width: 200%;">
-    <img src='{{"/assets/img/segment-caption-anything/segment-caption-anything-fig3.PNG" | relative_url}}' width="100%">
+    <img src='{{"/assets/img/segment-caption-anything/segment-caption-anything-fig3.webp" | relative_url}}' width="100%">
   </div>
 </div>
 
@@ -128,24 +128,24 @@ CE는 0.1의 강도의 label smoothing을 사용한 cross-entropy loss이다. $$
 ### 2. Ablation Study
 다음은 weak supervision을 사용한 사전 학습에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/segment-caption-anything/segment-caption-anything-table2.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/segment-caption-anything/segment-caption-anything-table2.webp" | relative_url}}' width="45%"></center>
 <br>
 다음은 feature mixer(M)와 텍스트 디코더(TD)의 학습 세팅에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/segment-caption-anything/segment-caption-anything-table3.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/segment-caption-anything/segment-caption-anything-table3.webp" | relative_url}}' width="40%"></center>
 <br>
 다음은 (왼쪽) feature mixer의 layer 수와 (오른쪽) feature mixer 디자인에 따른 성능을 비교한 표이다. 
 
 <div style="display: flex; align-items: start; justify-content: center">
-  <img src='{{"/assets/img/segment-caption-anything/segment-caption-anything-table4.PNG" | relative_url}}' width="40%">
+  <img src='{{"/assets/img/segment-caption-anything/segment-caption-anything-table4.webp" | relative_url}}' width="40%">
   &nbsp; &nbsp;
-  <img src='{{"/assets/img/segment-caption-anything/segment-caption-anything-table5.PNG" | relative_url}}' width="40%">
+  <img src='{{"/assets/img/segment-caption-anything/segment-caption-anything-table5.webp" | relative_url}}' width="40%">
 </div>
 <br>
 다음은 (왼쪽) 이미지 인코더의 크기와 (오른쪽) data augmentation 사용에 대한 ablation 결과이다. 
 
 <div style="display: flex; align-items: start; justify-content: center">
-  <img src='{{"/assets/img/segment-caption-anything/segment-caption-anything-table6.PNG" | relative_url}}' width="40%">
+  <img src='{{"/assets/img/segment-caption-anything/segment-caption-anything-table6.webp" | relative_url}}' width="40%">
   &nbsp; &nbsp;
-  <img src='{{"/assets/img/segment-caption-anything/segment-caption-anything-table7.PNG" | relative_url}}' width="40%">
+  <img src='{{"/assets/img/segment-caption-anything/segment-caption-anything-table7.webp" | relative_url}}' width="40%">
 </div>

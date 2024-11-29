@@ -19,7 +19,7 @@ classes: wide
 > University of Southern California | Adobe Research  
 > 21 Jan 2022  
 
-<center><img src='{{"/assets/img/point-nerf/point-nerf-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/point-nerf/point-nerf-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 [NeRF](https://kimjy99.github.io/논문리뷰/nerf)는 neural radiance field를 모델링하여 novel view synthesis (NVS)에서 큰 성공을 거두었다. NeRF는 ray marching을 통해 전체 공간에 대한 글로벌 MLP를 사용하여 radiance field를 재구성한다. 이는 느린 장면당 MLP 학습과 광대한 빈 공간에 대한 불필요한 샘플링으로 인해 재구성 시간이 길어진다. 
@@ -101,7 +101,7 @@ $$
 따라서 각 neural point는 volume density에 직접적으로 기여하고, 신뢰도 $\gamma_i$는 이 기여와 명시적으로 연관된다. $\gamma_i$를 포인트 제거 프로세스에 활용한다. 
 
 ## Point-NeRF Reconstruction
-<center><img src='{{"/assets/img/point-nerf/point-nerf-fig3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/point-nerf/point-nerf-fig3.webp" | relative_url}}' width="60%"></center>
 
 ### 1. Generating initial point-based radiance fields
 이미지 $I_1, \ldots, I_Q$와 포인트 클라우드가 주어지면, 랜덤하게 초기화된 포인트별 feature와 MLP를 렌더링 loss로 최적화하여 Point-NeRF 표현을 재구성할 수 있다. 그러나 이 단순한 장면별 최적화는 기존 포인트 클라우드에 따라 달라지며 엄청나게 느릴 수 있다. 따라서 효율적인 재구성을 위해 신경망을 통해 포인트 위치 $p_i$, feature $f_i$, 신뢰도 $\gamma_i$를 포함한 모든 neural point 속성을 예측하는 생성 모듈을 제안하였다. 네트워크의 직접 추론은 좋은 초기 포인트 기반 radiance field를 출력한다. 그런 다음 초기 radiance field를 fine-tuning하여 고품질 렌더링을 달성할 수 있다. 매우 짧은 기간 내에 렌더링 품질이 NeRF보다 더 좋거나 동일하며 최적화하는 데 훨씬 더 오랜 시간이 걸린다. 
@@ -187,27 +187,27 @@ Point growing은 특히 sparse한 COLMAP과 같은 방법으로 재구성된 포
 ### 1. Evaluation
 다음은 DTU 데이터셋에서 기존 방법들과 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/point-nerf/point-nerf-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/point-nerf/point-nerf-fig6.webp" | relative_url}}' width="100%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/point-nerf/point-nerf-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/point-nerf/point-nerf-table1.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Synthetic-NeRF 데이터셋에서 기존 방법들과 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/point-nerf/point-nerf-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/point-nerf/point-nerf-fig7.webp" | relative_url}}' width="100%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/point-nerf/point-nerf-table2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/point-nerf/point-nerf-table2.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Tanks & Temples과 ScanNet에서 [NSVF](https://arxiv.org/abs/2007.11571)와 비교한 표이다. 
 
-<center><img src='{{"/assets/img/point-nerf/point-nerf-table3.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/point-nerf/point-nerf-table3.webp" | relative_url}}' width="48%"></center>
 
 ### 2. Additional experiments
 다음은 point pruning과 point growing 유무에 대한 최적화 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/point-nerf/point-nerf-fig4.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/point-nerf/point-nerf-fig4.webp" | relative_url}}' width="70%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/point-nerf/point-nerf-table4.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/point-nerf/point-nerf-table4.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 랜덤하게 샘플링한 1,000개의 COLMAP 포인트에서 시작하여 최적화한 예시이다. 
 
-<center><img src='{{"/assets/img/point-nerf/point-nerf-fig5.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/point-nerf/point-nerf-fig5.webp" | relative_url}}' width="70%"></center>

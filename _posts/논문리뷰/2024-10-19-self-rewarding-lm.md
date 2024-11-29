@@ -33,7 +33,7 @@ classes: wide
 시드 모델과 비교하여 Self-Rewarding LLM 정렬에서 instruction following 성능이 향상될 뿐만 아니라 reward 모델링 능력도 향상되었다. 즉, 반복적인 학습 중 모델은 주어진 iteration에서 이전 iteration보다 더 높은 품질의 선호도 데이터셋을 스스로에게 제공할 수 있다. 이 효과는 원래 인간이 작성한 시드 데이터만으로 학습할 수 있었던 reward model보다 우수한 reward model을 얻을 수 있는 흥미로운 가능성을 제공한다. 
 
 ## Self-Rewarding Language Models
-<center><img src='{{"/assets/img/self-rewarding-lm/self-rewarding-lm-fig1.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/self-rewarding-lm/self-rewarding-lm-fig1.webp" | relative_url}}' width="90%"></center>
 <br>
 본 논문은 사전 학습된 언어 모델과 소량의 인간이 주석을 단 시드 데이터에 대한 액세스를 가정한다. 그런 다음 두 가지 능력을 동시에 보유하는 것을 목표로 하는 모델을 구축한다. 
 
@@ -57,7 +57,7 @@ Self-instruction creation은 후보 응답을 생성한 다음 모델 스스로�
 
 이 데이터에서 입력 프롬프트는 모델에 특정 명령에 대한 주어진 응답의 품질을 평가하도록 요청한다. 제공된 평가 결과 응답은 chain-of-thought reasoning으로 구성되며, 그 뒤에 최종 점수 (5점 만점)가 이어진다. 저자들이 선택한 정확한 프롬프트 형식은 아래 그림에 나와 있으며, LLM에 품질의 다양한 측면을 포괄하는 5가지 기준 (관련성, 적용 범위, 유용성, 명확성, 전문성)을 사용하여 응답을 평가하도록 지시한다. 이 데이터를 **Evaluation Fine-Tuning (EFT)** 데이터라고 부른다. 
 
-<center><img src='{{"/assets/img/self-rewarding-lm/self-rewarding-lm-fig2.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/self-rewarding-lm/self-rewarding-lm-fig2.webp" | relative_url}}' width="75%"></center>
 
 ### 2. Self-Instruction Creation
 학습시킨 모델을 사용하여, 모델이 자체 학습 세트를 스스로 수정하도록 만들 수 있다. 구체적으로, 다음 학습 iteration을 위해 추가 학습 데이터를 생성하며, 다음과 같은 단계로 구성된다.
@@ -95,29 +95,29 @@ Self-instruction creation을 수행한 후, 추가적인 학습 예제로 시드
 ### 1. Instruction Following Ability
 다음은 instruction-following 성능을 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/self-rewarding-lm/self-rewarding-lm-fig3.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/self-rewarding-lm/self-rewarding-lm-fig3.webp" | relative_url}}' width="52%"></center>
 <br>
 다음은 AlpacaEval 2.0 결과로, GPT-4 Turbo에 대한 승률을 비교한 표이다. (GPT-4가 평가)
 
-<center><img src='{{"/assets/img/self-rewarding-lm/self-rewarding-lm-table1.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/self-rewarding-lm/self-rewarding-lm-table1.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 명령 카테고리에 따라 AlpacaEval 승률을 나타낸 그래프이다. 
 
-<center><img src='{{"/assets/img/self-rewarding-lm/self-rewarding-lm-fig4.PNG" | relative_url}}' width="58%"></center>
+<center><img src='{{"/assets/img/self-rewarding-lm/self-rewarding-lm-fig4.webp" | relative_url}}' width="58%"></center>
 <br>
 다음은 인간이 평가한 결과이다. 
 
-<center><img src='{{"/assets/img/self-rewarding-lm/self-rewarding-lm-fig5.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/self-rewarding-lm/self-rewarding-lm-fig5.webp" | relative_url}}' width="52%"></center>
 <br>
 다음은 MT-Bench 결과이다. (10점 만점)
 
-<center><img src='{{"/assets/img/self-rewarding-lm/self-rewarding-lm-table2.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/self-rewarding-lm/self-rewarding-lm-table2.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 여러 NLP 벤치마크들에 대한 비교 결과이다. 
 
-<center><img src='{{"/assets/img/self-rewarding-lm/self-rewarding-lm-table3.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/self-rewarding-lm/self-rewarding-lm-table3.webp" | relative_url}}' width="55%"></center>
 
 ### 2. Reward Modeling Ability
 다음은 다양한 metric으로 인간 선호도와의 정렬도를 평가한 표이다. 
 
-<center><img src='{{"/assets/img/self-rewarding-lm/self-rewarding-lm-table4.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/self-rewarding-lm/self-rewarding-lm-table4.webp" | relative_url}}' width="70%"></center>

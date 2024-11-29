@@ -18,7 +18,7 @@ classes: wide
 > DFKI | TU Darmstadt | Hessian.AI | Hugging Face | LAION  
 > 28 Nov 2023  
 
-<center><img src='{{"/assets/img/leditsplusplus/leditsplusplus-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/leditsplusplus/leditsplusplus-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 Diffusion model은 텍스트 설명에서 고품질 이미지를 생성하는 능력으로 인정을 받았다. 최근 실제 이미지를 조작하기 위해 이러한 모델을 활용하는 연구가 점점 늘어나고 있다. 그러나 여러 가지 장벽으로 인해 diffusion 기반 이미지 편집을 실제로 적용할 수 없다. 현재 방법은 계산 비용이 많이 드는 모델 튜닝이나 기타 최적화를 수반하여 실질적인 문제를 가지고 있다. 또한 기존 기술은 원본 이미지에 큰 변화를 가져오는 경향이 있어 종종 완전히 다른 이미지를 생성한다. 마지막으로, 이러한 모든 접근 방식은 임의의 여러 개념을 동시에 편집할 때 본질적으로 제한된다. 본 논문은 이러한 한계를 해결하는 diffusion 기반 이미지 편집 기술인 **LEDITS++**를 도입하여 이러한 문제를 해결하였다. 
@@ -211,34 +211,34 @@ $$
 ### 1. Properties of LEDITS++
 다음은 diffusion 기반 이미지 편집 기술의 주요 속성을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/leditsplusplus/leditsplusplus-table1.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/leditsplusplus/leditsplusplus-table1.webp" | relative_url}}' width="85%"></center>
 <br>
 다음은 diffusion 기반 이미지 편집 방법들과 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/leditsplusplus/leditsplusplus-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/leditsplusplus/leditsplusplus-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 SD 1.5를 사용하여 단 25 diffusion step으로 편집한 결과와 마스크들이다. 
 
-<center><img src='{{"/assets/img/leditsplusplus/leditsplusplus-fig3.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/leditsplusplus/leditsplusplus-fig3.webp" | relative_url}}' width="55%"></center>
 
 ### 2. Semantically Grounded Image Editing
 다음은 COCO panoptic segmentation에 대하여 IoU를 계산하여 semantic segmentation 품질을 측정한 그래프이다. 
 
-<center><img src='{{"/assets/img/leditsplusplus/leditsplusplus-fig4.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/leditsplusplus/leditsplusplus-fig4.webp" | relative_url}}' width="60%"></center>
 <br>
 교집합 마스크가 다른 마스크보다 성능이 큰 차이로 우수하며 래퍼런스인 CLIPSeg와 비슷하다. 
 
 ### 3. Image Editing Evaluation
 다음은 여러 편집 방법들에 대해 명령 일치도(CLIP score)와 이미지 유사도(LPIPS score) 사이의 trade-off를 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/leditsplusplus/leditsplusplus-fig5.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/leditsplusplus/leditsplusplus-fig5.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 TEdBench에서의 편집 결과이다. 
 
-<center><img src='{{"/assets/img/leditsplusplus/leditsplusplus-fig6a.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/leditsplusplus/leditsplusplus-fig6a.webp" | relative_url}}' width="75%"></center>
 <br>
-<center><img src='{{"/assets/img/leditsplusplus/leditsplusplus-fig6b.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/leditsplusplus/leditsplusplus-fig6b.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 원래 TedBench와 수정된 버전(TEdBench++)의 성공률(SR)과 LPIPS 점수를 [Imagic](https://kimjy99.github.io/논문리뷰/imagic)과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/leditsplusplus/leditsplusplus-table2.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/leditsplusplus/leditsplusplus-table2.webp" | relative_url}}' width="48%"></center>

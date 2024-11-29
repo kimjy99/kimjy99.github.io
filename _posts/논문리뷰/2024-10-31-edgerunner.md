@@ -19,7 +19,7 @@ classes: wide
 > Peking University | NVIDIA Research  
 > 26 Sep 2024  
 
-<center><img src='{{"/assets/img/edgerunner/edgerunner-fig1.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/edgerunner/edgerunner-fig1.webp" | relative_url}}' width="90%"></center>
 
 ## Introduction
 최근, 여러 접근 방식에서 메쉬를 1D 시퀀스로 토큰화하고 직접 메쉬 생성을 위해 auto-regressive model을 활용하려고 시도했다. 이러한 방법은 메쉬 vertex와 면에서 직접 학습하므로 토폴로지 정보를 보존하고 예술적인 메쉬를 생성할 수 있다. 그러나 이러한 auto-regressive한 메쉬 생성 방법은 여전히 ​​여러 가지 과제에 직면해 있다. 
@@ -43,7 +43,7 @@ Auto-regressive model은 discrete한 토큰 시퀀스 형태로 정보를 처리
 본 논문에서는 잘 확립된 삼각형 메쉬 압축 알고리즘인 EdgeBreaker를 기반으로 메쉬를 컴팩트하고 효율적으로 표현할 수 있는 tokenization 방식을 도입하였다. **메쉬 압축에 대한 핵심 통찰력은 인접한 삼각형 간의 edge 공유를 최대화하는 것이다**. 이전 삼각형과 edge를 공유함으로써 다음 삼각형은 세 개의 vertex 대신 하나의 추가 vertex만 필요하다.
 
 ##### Half-edge
-<center><img src='{{"/assets/img/edgerunner/edgerunner-fig4.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/edgerunner/edgerunner-fig4.webp" | relative_url}}' width="40%"></center>
 <br>
 삼각형 면 순회를 위한 입력 메쉬를 표현하기 위해 **half-edge** 데이터 구조를 사용한다. Half-edge를 나타내기 위해 $$\mathcal{H}$$를 사용한다. 예를 들어, $$\mathcal{H}_{41}^3$$은 vertex 4에서 1을 가리키는 half-edge이며 면의 맞은편에는 vertex 3이 있다. 
 
@@ -97,7 +97,7 @@ Auto-regressive model은 discrete한 토큰 시퀀스 형태로 정보를 처리
 설명을 위해 개념을 약간 오용하여, <span class="circle circle-null"> </span>을 사용하여 XYZ 토큰을 하나의 vertex 토큰으로 표시하자.
 
 ##### Face Tokenization
-<center><img src='{{"/assets/img/edgerunner/edgerunner-fig3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/edgerunner/edgerunner-fig3.webp" | relative_url}}' width="60%"></center>
 <br>
 Half-edge를 따라 모든 면을 순회한다. 이 과정을 설명하기 위해 위 그림의 메쉬 예제를 사용하자. 이 과정은 하나의 half-edge에서 시작하며, 여기서 $$\mathcal{H}_{23}^1$$은 현재 순회의 시작으로 선택된다. 순회의 시작을 <span class="circle square-B">B</span>로 표시하자. 그런 다음 half-edge <span class="circle">1</span>에 vertex를 첫 번째 vertex 토큰으로 추가한다. 같은 삼각형 면 내에서 두 vertex <span class="circle">2</span> <span class="circle">3</span>도 $$\mathcal{H}_{23}^1$$의 방향을 따라 추가된다.
 
@@ -128,7 +128,7 @@ LLM과 마찬가지로, 메쉬 시퀀스의 앞에 <span class="circle square-A"
 따라서 저자들은 가변 길이 메쉬를 고정 길이의 latent space로 인코딩하기 위한 **Auto-regressive Auto-encoder (ArAE)**를 제안하였다. 이는 latent diffusion model에서 VAE의 역할과 유사하다. ArAE 모델을 학습하기 위해 기하학적 정보에 대한 인코더 입력으로 포인트 클라우드가 선택되었고 출력으로 tokenize된 메쉬 시퀀스를 선택되었다. 따라서 ArAE 모델 자체도 포인트 클라우드를 조건으로 메쉬를 생성한다.
 
 ##### 아키텍처
-<center><img src='{{"/assets/img/edgerunner/edgerunner-fig2.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/edgerunner/edgerunner-fig2.webp" | relative_url}}' width="80%"></center>
 <br>
 ArAE 모델의 아키텍처는 위 그림과 같다. ArAE는 가벼운 인코더와 auto-regressive 디코더로 구성되어 있다. 메쉬 표면에서 기하학적 정보를 추출하기 위해 포인트 클라우드를 샘플링하고 Transformer 인코더를 적용한다. 구체적으로, 입력 메쉬의 표면에서 $N$개의 랜덤 포인트 $\textbf{X} \in \mathbb{R}^{N \times 3}$을 샘플링하고 cross-attention layer를 사용하여 latent code를 추출한다.
 
@@ -183,22 +183,22 @@ Backbone으로 [diffusion transformer (DiT)](https://kimjy99.github.io/논문리
 ### 1. Qualitative Results
 다음은 포인트 클라우드를 조건으로 생성한 메쉬를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/edgerunner/edgerunner-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/edgerunner/edgerunner-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 이미지를 조건으로 생성한 메쉬를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/edgerunner/edgerunner-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/edgerunner/edgerunner-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 면 개수를 대략적으로 조절하여 메쉬를 생성한 예시들이다.  
 
-<center><img src='{{"/assets/img/edgerunner/edgerunner-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/edgerunner/edgerunner-fig7.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Quantitative Results
 다음은 tokenizer 알고리즘을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/edgerunner/edgerunner-table1.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/edgerunner/edgerunner-table1.webp" | relative_url}}' width="60%"></center>
 
 ### 3. Ablation Studies
 다음은 (왼쪽) quantization 해상도와 (오른쪽) 이미지 컨디셔닝 전략에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/edgerunner/edgerunner-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/edgerunner/edgerunner-fig8.webp" | relative_url}}' width="100%"></center>
