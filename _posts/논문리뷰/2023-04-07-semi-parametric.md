@@ -23,7 +23,7 @@ classes: wide
 ## Introduction
 심층 생성 모델링에서 특히 언어 모델링과 고화질 이미지 및 기타 데이터 유형의 생성적 합성은 엄청난 도약을 이루었다. 특히 이미지의 경우 최근 놀라운 성과를 거두고 있으며 이러한 발전의 원동력으로 세 가지 주요 요인을 확인할 수 있다. 첫째, Transformer의 성공은 많은 비전 task에서 아키텍처의 혁명을 일으켰으며, 특히 autoregressive 모델링과 결합하여 사용된다. 둘째, diffusion model은 고해상도 이미지 생성에 적용되었으며 매우 짧은 시간 내에 생성 이미지 모델링의 새로운 표준이 되었다. 셋째, 이러한 접근 방식은 확장성이 좋으며, 특히 고품질 모델과 관련된 모델 및 배치 크기를 고려할 때 이러한 확장성이 성능에 가장 중요하다는 증거다. 그러나 이 학습 패러다임의 기본 원동력은 막대한 계산 리소스를 필요로 하는 파라미터 수가 계속 증가하는 모델이다. 에너지 소비와 학습 시간에 대한 막대한 요구 외에도 이 패러다임은 미래 생성 모델링을 특권 기관에 점점 더 독점적으로 만든다. 따라서 여기서는 새로운 접근 방식을 제시한다. 
 
-<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig1.PNG" | relative_url}}' width="30%"></center>
+<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig1.webp" | relative_url}}' width="30%"></center>
 <br>
 본 논문은 Retrieval-augmented NLP의 최근 발전에 영감을 받아 서로 다른 학습 예제 간에 공유되는 시각적 개념을 많은 수의 학습 가능한 파라미커로 고가로 압축하는 일반적인 접근 방식에 의문을 제기하고 비교적 작은 생성 모델에 큰 이미지 데이터베이스를 제공한다. 학습하는 동안 결과로 생성되는 semi-parametric generative model은 nearest neighbor lookup을 통해 이 데이터베이스에 액세스하므로 처음부터 데이터를 생성하는 방법을 배울 필요가 없다. 대신 검색된 시각적 인스턴스를 기반으로 새로운 장면을 구성하는 방법을 배운다. 이 방법은 파라미터 수를 줄임으로써 생성 성능을 향상시킬 뿐만 아니라 학습 중에 컴퓨팅 요구 사항을 낮춘다 (위 그림 참고). 본 논문이 제안한 접근 방식은 inference 중에 모델이 사후 모델 수정의 한 형태로 해석될 수 있으며 추가 학습 없이 대체 이미지 데이터베이스의 형태로 새로운 지식으로 일반화할 수 있도록 한다. 학습 후 검색 데이터베이스를 WikiArt 데이터셋으로 대체하여 모델을 zero-shot 스타일화에 적용하여 이를 보여준다. 
 
@@ -67,7 +67,7 @@ $$
 ### 2. Instances of Semi-Parametric Generative Image Models
 학습하는 동안 분포 $p(x)$를 $p_{\theta, \mathcal{D}, \xi_k (x)}$로 근사하려는 이미지의 학습 데이터셋 $$X = \{x_i\}_{i=1}^M$$이 제공된다. 학습 시간 샘플링 전략 $\xi_k$는 쿼리 예제 $x \sim p(x)$를 사용하여 CLIP의 이미지 feature space 공간에서 $d(x, y)$를 코사인 유사성으로 구현하여 $k$개의 nearest neighbor $y \in \mathcal{D}$를 검색한다. 충분히 큰 데이터베이스 $\mathcal{D}$가 주어지면 이 전략은 neighbor의 집합 $\xi_k(x, \mathcal{D})$가 $x$와 충분한 정보를 공유하고 따라서 생성 task에 유용한 시각적 정보를 제공하도록 보장한다. 저차원 space (dim = 512)에 이미지를 삽입하고 의미론적으로 유사한 샘플을 동일한 neighbor에 매핑하여 효율적인 검색 space를 생성하기 때문에 $\xi_k$를 구현하기 위해 CLIP을 선택한다. 아래 그림은 ViT-B/32 Vision Transformer backbone을 통해 검색된 nearest neighbor의 예를 시각화한 것이다.
 
-<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 이 접근 방식은 원칙적으로 모든 생성 모델을 semi-parametric model로 전환할 수 있다. 본 논문에서는 decoding head가 이미지 합성에서 성공한 모델인 diffusion model과 autoregressive model로 구현되는 모델에 초점을 맞춘다. 
 
@@ -140,7 +140,7 @@ Semi-parametric model의 성공적인 애플리케이션의 핵심은 적절한 
 
 결과는 아래 그래프와 같다.
 
-<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig6.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig6.webp" | relative_url}}' width="90%"></center>
 <br>
 위 그래프에서 3가지를 알 수 있다.
 
@@ -150,13 +150,13 @@ Semi-parametric model의 성공적인 애플리케이션의 핵심은 적절한 
 
 $$\mathcal{D}_\textrm{train} \cap \mathcal{X} = \emptyset$$의 이점을 확인하기 위해 ImageNet을 $\mathcal{X}$와 $$\mathcal{D}_\textrm{train}$$으로 모두 사용한 RDM-IN을 학습시켰다. RDM-OI와 RDM-IN의 비교 결과는 다음과 같다.
 
-<center><img src='{{"/assets/img/semi-parametric/semi-parametric-table1a.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/semi-parametric/semi-parametric-table1a.webp" | relative_url}}' width="50%"></center>
 <br>
 RDM-OI가 RDM-IN와 가까운 CLIP-FID를 달성하는 것을 볼 수 있다. RDM-OI/IN은 RDM-OI를 ImageNet의 예시들로 컨디셔닝한 것이고, RDM-IN/OI는 반대의 경우이다. RDM-OI/IN가 RDM-IN/OI보다 성능이 좋은 것을 볼 수 있으며, RDM-OI/IN의 CLIP-FID가 RDM-IN보다 우수하다는 것을 알 수 있다. 이를 통해 $$\mathcal{D}_\textrm{train} \cap \mathcal{X} = \emptyset$$으로 선택하면 일반화 능력이 향상된다는 것을 알 수 있다. 
 
 이 속성의 추가 근거를 제공하기 위해 저자들은 COCO 데이터셋에서 zero-shot text-to-image 합성을 비교하였으며, 그 결과는 아래 표와 같다.
 
-<center><img src='{{"/assets/img/semi-parametric/semi-parametric-table1b.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/semi-parametric/semi-parametric-table1b.webp" | relative_url}}' width="45%"></center>
 <br>
 RDM-OI가 FID와 CLIP-score 모두 LAFITE보다 우수하다. 
 
@@ -165,19 +165,19 @@ RDM-OI가 FID와 CLIP-score 모두 LAFITE보다 우수하다.
 
 다음은 1000개의 샘플들에 대하여 측정한 FID, IS와 Recall, Precision을 나타낸 그래프이다.
 
-<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig7.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig7.webp" | relative_url}}' width="50%"></center>
 <br>
 FID와 IS는 중요한 경향을 보이지 않는다. 반면에 Recall과 Precision을 보면, $k_\textrm{train}$을 증가시키면 일관성을 다양성과 맞바꾼다는 것을 알 수 있다. $k_\textrm{train}$이 크면 Recall, 즉 샘플 다양성이 다시 악화된다. 
 
 저자들은 이것이 $k_\textrm{train} > 1$일 때 학습 중에 각 모델에 공급되는 하나의 nearest neighbor을 넘어서는 중복되지 않는 추가 정보의 정규화 영향 때문이라고 생각한다. $$k_\textrm{train} \in \{2, 4, 8\}$$의 경우 이 추가 정보가 유익하며 해당 모델은 품질과 다양성 사이를 적절하게 중재한다. 따라서 기본 RDM에 $k = 4$를 사용한다. 또한 neighbor의 수는 조건부 합성 모델의 일반화 능력에 상당한 영향을 미친다. 
 
 #### Qualitative results
-<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig5.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig5.webp" | relative_url}}' width="90%"></center>
 <br>
 위 그림은 주어진 pseudo-query $\tilde{x} \sim p_\mathcal{D} (\tilde{x})$에 대하여 검색된 neighbor의 서로 다른 집합 $\mathcal{M}_\mathcal{D}^{(k)} (\tilde{x})$에 대한 FFHQ의 RDM 샘플뿐만 아니라 ImageNet에서 학습된 RDM과 RARM의 샘플을 보여준다. 또한 저자들은 이 집합이 데이터베이스 $\mathcal{D}$와 분리되어 있고 모델이 보지 못한 새로운 샘플을 렌더링한다는 것을 보여주기 위해 학습 셋에서 nearest neighbor을 plot하였다. 
 
 #### Quantitative results
-<center><img src='{{"/assets/img/semi-parametric/semi-parametric-table2.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/semi-parametric/semi-parametric-table2.webp" | relative_url}}' width="90%"></center>
 <br>
 위 표는 본 논문의 모델을 ImageNet 256$\times$256의 unconditional한 이미지 합성에서 최근 state-of-the-art diffusion model ADM과 semi-parametric GAN 기반 모델 IC-GAN(inference 중에 학습 셋 예제에 대한 액세스가 필요)과 비교한다. $s$는 classifier-free guidance (c.f.g.)의 scale parameter이다. 
 
@@ -185,13 +185,13 @@ FID와 IS는 중요한 경향을 보이지 않는다. 반면에 Recall과 Precis
 
 또한 저자들은 FFHQ에서 ImageNet RDM-OI의 복제본을 학습시켰으며, 결과는 아래 표와 같다. 
 
-<center><img src='{{"/assets/img/semi-parametric/semi-parametric-table3.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/semi-parametric/semi-parametric-table3.webp" | relative_url}}' width="45%"></center>
 <br>
 FID는 "얼굴 영역에 둔감"한 것으로 나타났기 때문에 CLIP 기반 metric을 다시 사용한다. FFHQ가 간단한 데이터셋임에도 검색 기반 전략은 다양성(Recall)이 낮아지긴 하지만 강력한 GAN과 diffusion baseline을 능가하는 것으로 입증되었다. 
 
 ### 2. Conditional Synthesis without Conditional Training
 #### Text-to-Image Synthesis
-<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 위 그림은 사용자가 정의한 텍스트 프롬프트에 대하여 본 논문의 ImageNet model의 zero-shot text-to-image 합성 능력을 보여준다. 
 
@@ -199,18 +199,18 @@ FID는 "얼굴 영역에 둔감"한 것으로 나타났기 때문에 CLIP 기반
 
 다음은 학습 중에 $k_\textrm{train}$의 neighbor을 검색하는 것이 RDM의 일반화 능력에 주는 영향을 나타낸 그래프이다. 
 
-<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig8.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig8.webp" | relative_url}}' width="50%"></center>
 <br>
 작은 $k_\textrm{train}$은 해당 모델이 inference 중에 받은 텍스트 표현과 학습된 이미지 표현 사이의 불일치를 처리할 수 없기 때문에 약한 일반화 속성으로 이어진다. $k_\textrm{train}$을 늘리면 $$\mathcal{M}_\mathcal{D}^{(k)} (x)$$가 더 큰 feature space 볼륨을 커버하고 해당 모델을 이러한 불일치에 대해 더 견고하게 정규화한다. 결과적으로 일반화 능력은 $k_\textrm{train}$과 함께 증가하고 $k_\textrm{train} = 8$에서 최적에 도달한다. $k_\textrm{train}$이 더 증가하면 검색된 neighbor을 통해 제공되는 정보가 감소하고 일반화 능력이 저하된다. 
 
 다음은 text-to-image 합성 샘플들이다.
 
-<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig9.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig9.webp" | relative_url}}' width="45%"></center>
 
 #### Class-Conditional Synthesis
 다음은 ImageNet에서의 zero-shot 클래스 조건부 합성에 대한 샘플들이다.
 
-<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig10.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig10.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Zero-Shot Text-Guided Stylization by Exchanging the Database
 Semi-parametric model에서 검색 데이터베이스 $\mathcal{D}$는 합성 모델의 명시적인 부분이다. 이를 통해 학습 후 이 데이터베이스를 교체하여 모델과 그 출력을 수정하는 것과 같은 새로운 애플리케이션이 가능하다. 
@@ -218,20 +218,20 @@ Semi-parametric model에서 검색 데이터베이스 $\mathcal{D}$는 합성 �
 다음은 ImageNet-RDM의 $$\mathcal{D}_\textrm{train}$$을 WikiArt 데이터셋의 모든 이미지로 구성된 $\mathcal{D}_\textrm{style}$로 교체하여 zero-shot text-guided stylization을 수행한 샘플들이다. 하단 행은 $
 $\mathcal{D}_\textrm{train}$$을 사용하여 동일한 절차로 얻은 샘플을 보여준다.
 
-<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig11.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig11.webp" | relative_url}}' width="80%"></center>
 <br>
 본 논문의 모델은 ImageNet에서만 학습되었지만 새로운 데이터베이스로 일반화되고 텍스트 프롬프트에 의해 정의된 콘텐츠를 묘사하는 예술 작품과 같은 이미지를 생성할 수 있다. 
 
 ### 4. Increasing Dataset Complexity
 저자들은 복잡한 생성 task에 대한 다재다능함을 조사하기 위해 학습 데이터 $p(x)$의 복잡성을 체계적으로 증가시킬 때 semi-parametric model을 fully-parametric model과 비교하였다. 저자들은 RDM과 RARM 모두에 대해 ImageNet의 개, 포유류 및 동물 부분 집합에 대해 3개의 동일한 모델과 대응되는 fully-parametric baseline을 학습시켰다. 그 결과는 아래 그래프와 같다. 
 
-<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig12.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig12.webp" | relative_url}}' width="100%"></center>
 <br>
 IN-Dogs와 같이 복잡도가 낮은 데이터셋의 경우에도 본 논문의 semi-parametric model은 표준 AR 모델보다 약간 떨어지는 Recall을 제외하고 baseline보다 향상된다. 보다 복잡한 데이터셋의 경우 성능 향상이 더욱 중요해진다. 흥미롭게도 본 논문의 모델의 Recall 점수는 복잡성이 증가함에 따라 향상되는 반면 baseline의 Recall 점수는 크게 저하된다. 저자들은 이것이 $p_\mathcal{D}(\tilde{x})$를 통해 과소 표현된 클래스를 포함하여 모든 클래스에 대한 근처의 시각적 인스턴스에 대한 semi-parametric model의 명시적 액세스에 기인한다고 생각한다. 반면 표준 생성 모델은 가장 자주 발생하는 클래스를 포함하는 모드에만 집중할 수 있다. 
 
 ### 5. Quality-Diversity Trade-Offs
 다음은 top-m sampling(왼쪽)과 classifier-free guidance(오른쪽)을 사용할 때의 품질-다양성 trade-off를 시각화한 그래프이다.
 
-<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig13.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig13.webp" | relative_url}}' width="100%"></center>
 <br>
 작은 $m$ 값의 경우 큰 precision 점수로 표시되는 것처럼 모두 단일 또는 소수의 모드에서 오는 일관된 샘플을 얻는다. 반면에 $m$을 늘리면 일관성을 희생시키면서 다양성을 높일 수 있다. FID와 IS의 경우 $m = 0.01$에서 두 지표 모두에 대해 최적의 결과를 보인다. 

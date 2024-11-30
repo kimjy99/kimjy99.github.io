@@ -17,7 +17,7 @@ classes: wide
 > University of Chicago  
 > 21 Dec 2022  
 
-<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 3D mesh에서 영역의 semantic localization은 컴퓨터 그래픽과 광범위한 응용 분야에서 중요한 문제이다. 이러한 애플리케이션 중 하나는 semantic 정보를 3D 모델링 프로세스에 통합하는 것이다. 이 task의 특히 어려운 측면은 3D 형상 신호가 분할을 수행하기에 불충분할 때 나타난다. 
@@ -33,7 +33,7 @@ classes: wide
 본 논문은 3D Highlighter의 성공에 핵심적인 몇 가지 디자인을 선택하였다. 네트워크는 메시를 직접 색칠하지 않는다. 오히려 mesh에서 색상을 혼합하는 데 사용되는 텍스트 지정 하이라이트 내부에 있을 확률을 예측한다. 포인트가 하이라이트될 확률이 약 50%가 되도록 네트워크가 초기화되어 하이라이트와 배경색 중간에 알베도가 있는 mesh가 생성된다. 최적화 중에 하이라이트 색상의 상대적 혼합 가중치는 하이라이트 확률과 직접적으로 일치한다. 이 혼합을 통해 네트워크는 대상 영역의 텍스트 사양에 따라 분할 확률을 자연스럽고 원활하게 늘리거나 줄일 수 있다.
 
 ## Method
-<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문의 방법은 위 그림에 나와 있다. 시스템에 대한 입력은 mesh $M$이며 정점 $V \in \mathbb{R}^{n \times 3}$, 면 $$F \in \{1, \ldots, n\}^{m \times 3}$$, 텍스트 설명 $T$로 표시된다. Neural highlighter라고 하는 신경망은 정점 위치 $v \in V$를 텍스트 지정 영역에 속하는 확률 $p$에 매핑하도록 최적화되어 있다. Mesh의 각 정점은 하이라이트 색상과 회색 배경 색상 사이의 확률 가중치 혼합에 따라 색상이 지정된다. 결과로 하이라이트된 mesh $M'$은 여러 view에서 렌더링되며 2D augmentation을 적용하여 이미지 세트를 얻는다. CLIP 임베딩된 이미지와 원하는 텍스트의 CLIP 임베딩을 비교하여 네트워크 최적화를 supervise한다.
 
@@ -93,54 +93,54 @@ Loss가 최소화되면 렌더링된 하이라이트된 mesh의 CLIP 임베딩�
 ### 1. Generality and Fidelity of 3D Highlighter
 다음은 존재하지 않는 부분을 하이라이트한 일반화 결과이다. 
 
-<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 동일한 객체에 대하여 다양한 부분을 하이라이트한 결과이다. 
 
-<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig3.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 하이라이트 충실도를 나타낸 표이다. 
 
-<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-table1.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-table1.webp" | relative_url}}' width="40%"></center>
 
 ### 2. Robustness of 3D Highlighter
 다음은 서로 다른 meshing 간에 localization 결과를 전송한 예시이다. 
 
-<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig9.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig9.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 3가지 서로 다른 시점에 대한 하이라이트 결과이다. 
 
-<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig6.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig6.webp" | relative_url}}' width="60%"></center>
 
 ### 3. Applications of 3D Highlighter
 다음은 3D Highlighter를 사용하여 semantic 영역 내에서 3D 객체를 선택적으로 편집한 결과이다. 
 
-<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig4.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig4.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 3가지 stylization이 주어질 때 3D Highlighter를 사용하여 서로 다른 영역을 선택하고 함께 결합한 결과이다. 
 
-<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig8.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig8.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 독특한 기하학적 부품에 대한 semantic segmentation 결과이다. 
 
-<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig10.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig10.webp" | relative_url}}' width="55%"></center>
 
 ### 4. Components of 3D Highlighter
 다음은 ablation 결과이다. 아래의 값은 CLIP 점수이다. 
 
-<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig7.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig7.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 CLIP 점수를 'gray chair with highlighted back' (왼쪽)과 'blue chair with red back' (오른쪽)의 두 가지 프롬프트에 대해 분석한 것이다. 각 프롬프트에 대해 올바른 할당과 뒤집힌 할당의 렌더링에 대한 CLIP 유사도를 측정한 것이다. 
 
-<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig12.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig12.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 세 가지 다른 초기화를 사용한 최적화 결과이다. (텍스트 프롬프트: belt)
 
-<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig11.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig11.webp" | relative_url}}' width="55%"></center>
 
 ### 5. Limitations
 3D Highlighter는 타겟 프롬프트에서 객체 설명의 변형에 강력하다. 그러나 3D 모양과 해당 설명 사이에는 여전히 논리적 연결이 있어야 한다. 아래 그림은 낙타 mesh와 타겟 하이라이트 '정강이 보호대 (shinguard)'에 대한 결과를 보여준다. 각 최적화에 대해 객체 설명을 변경하여 약간 다른 타겟 프롬프트를 사용한다. 프롬프트는 "[object] with highlighted shinguards" 형식이며 여기서 [object]는 낙타, 돼지, 동물, 의자로 대체된다. 
 
-<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig13.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/3d-highlighter/3d-highlighter-fig13.webp" | relative_url}}' width="70%"></center>
 <br>
 돼지, 동물 등 낙타의 형상과 유사한 객체 설명의 경우 3D Highlighter가 원하는 영역을 정확하게 localize한다. 그러나 객체의 기하학과 양립할 수 없는 설명 (즉, 낙타를 의자로 언급)의 경우 유의미한 결과를 생성하지 않는다. 이 결과는 텍스트 설명에 대한 3D Highlighter의 견고성을 보여준다. 3D Highlighter는 설명이 완벽하게 정확하지 않더라도 실제 설명과 충분히 유사한 경우 mesh에 대해 추론할 수 있다. 

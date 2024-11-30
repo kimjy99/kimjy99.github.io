@@ -72,7 +72,7 @@ PESQ, STOI, SI-SDR과 같이 생성된 음성과 사람이 녹음한 것 사이�
 
 저자들은 이러한 모든 시스템의 결과를 자체적으로 재생산하여 원본 논문의 품질과 일치하거나 심지어 능가할 수 있다 (HiFiGAN 보코더는 더 나은 합성 품질을 위해 예측된 mel-spectrogram에서 fine-tuning됨). MOS와 CMOS 평가를 위해 각각 20명의 심사위원이 있는 50개의 테스트 발화를 사용한다. 
 
-<center><img src='{{"/assets/img/naturalspeech/naturalspeech-table1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/naturalspeech/naturalspeech-table1.webp" | relative_url}}' width="80%"></center>
 <br>
 위 표에서 볼 수 있듯이 현재의 TTS 시스템은 녹음으로 가까운 MOS를 달성할 수 있지만 Wilcoxon signed rank test가 $p$-level $p \ll 0.05$에서 기록과 큰 CMOS 간격을 가지며 이는 사람의 녹음과 통계적으로 유의미한 차이를 보여준다. 
 
@@ -106,12 +106,12 @@ $$
 ### 2. Phoneme Encoder
 음소 인코더 $\theta_\textrm{pho}$는 음소 시퀀스 $y$를 입력으로 받아 음소 hidden 시퀀스를 출력한다. 음소 인코더의 표현 능력을 향상시키기 위해 대규모 음소 사전 학습을 수행한다. 이전 연구들은 문자/단어 레벨에서 사전 학습을 수행하고 사전 학습된 모델을 음소 인코더에 적용하면 불일치가 발생하고, 음소 사전 학습을 직접 사용하는 작업은 음소 vocabulary의 크기가 너무 작아 용량 제한이 있다. 
 
-<center><img src='{{"/assets/img/naturalspeech/naturalspeech-fig2c.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/naturalspeech/naturalspeech-fig2c.webp" | relative_url}}' width="47%"></center>
 <br>
 이러한 문제를 방지하기 위해 위 그림과 같이 음소와 상위 음소 (인접한 음소가 함께 병합됨)를 모델의 입력으로 사용하는 혼합 음소 사전 학습을 활용한다. Masked language modeling을 사용할 때 일부 상위 음소 토큰과 해당 음소 토큰을 무작위로 마스킹하고 마스킹된 음소와 상위 음소를 동시에 예측한다. 혼합 음소 사전 학습 후 사전 학습된 모델을 사용하여 TTS 시스템의 음소 인코더를 초기화한다.
 
 ### 3. Differentiable Durator
-<center><img src='{{"/assets/img/naturalspeech/naturalspeech-fig2a.PNG" | relative_url}}' width="22%"></center>
+<center><img src='{{"/assets/img/naturalspeech/naturalspeech-fig2a.webp" | relative_url}}' width="22%"></center>
 <br>
 differentiable duratior $\theta_\textrm{dur}$는 음소 hidden 시퀀스를 입력으로 취하고 위 그림과 같이 프레임 레벨에서 prior 분포 시퀀스를 출력한다. Prior 분포를 
 
@@ -131,7 +131,7 @@ $$
 TTS 모델과 함께 duration 예측, 학습 가능한 업샘플링 레이어, 평균/분산 linear layer를 완전히 미분 가능한 방식으로 최적화하여 이전 duration 예측에서 학습-inference 불일치를 줄일 수 있다. Ground-truth duration은 학습에 사용되고 예측 duration은 inference에 사용된다. 하드한 확장 대신 소프트하고 유연한 방식으로 duration을 더 잘 사용하므로 부정확한 duration 예측의 부작용이 완화된다.
 
 ### 4. Bidirectional Prior/Posterior
-<center><img src='{{"/assets/img/naturalspeech/naturalspeech-fig2b.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/naturalspeech/naturalspeech-fig2b.webp" | relative_url}}' width="55%"></center>
 <br>
 위 그림과 같이 음성 시퀀스에서 얻은 posterior와 음소 시퀀스에서 얻은 prior 사이에 정보 격차가 있기 때문에 prior $p(z' \vert y; \theta_\textrm{pri})$의 용량을 향상시키거나 posterior encoder $\phi$에 대해 posterior $q(z \vert x; \phi)$의 복잡성을 줄이기 위해 양방향 prior/posterior 모듈을 설계한다. 양방향 prior/posterior 모듈 $\theta_\textrm{bpp}$로 flow model을 선택한다. 이는 최적화하기 쉽고 가역성이 좋기 때문이다.
 
@@ -184,7 +184,7 @@ $$
 Backward loss function과 forward loss function을 사용하여 학습 시 flow model의 양방향을 모두 고려하여 backward로 학습하지만 forward로 inference하는 이전 flow model에서 학습-inference 불일치를 줄일 수 있다. 
 
 ### 5. VAE with Memory
-<center><img src='{{"/assets/img/naturalspeech/naturalspeech-fig2d.PNG" | relative_url}}' width="25%"></center>
+<center><img src='{{"/assets/img/naturalspeech/naturalspeech-fig2d.webp" | relative_url}}' width="25%"></center>
 <br>
 원래 VAE 모델의 posterior $q(z \vert x; \phi)$는 음성 파형을 재구성하는 데 사용되므로 음소 시퀀스에서 prior보다 복잡하다. Prior 예측의 부담을 더 줄이기 위해 메모리 기반 VAE 모델을 설계하여 posterior를 단순화한다. 이 디자인의 아이디어는 파형 재구성을 위해 $z \sim q(z \vert x; \phi)$를 직접 사용하는 대신 메모리 뱅크에 attend하기 위한 query로 $z$를 사용하고 파형 재구성을 위해 attention 결과를 사용한다는 것이다 (위 그림 참조). 이런 식으로 posterior $z$는 메모리 뱅크의 attention 가중치를 결정하는 데만 사용되므로 크게 단순화된다. 메모리 VAE를 기반으로 한 파형 재구성 loss는 다음과 같다.
 
@@ -219,7 +219,7 @@ $$
 1. 프레임 레벨 prior 분포 $p(z' \vert y; \theta_\textrm{pri})$는 durator의 본질적으로 부정확한 duration 예측으로 인해 ground-truth 음성 프레임과 잘 정렬될 수 없기 때문에 $$\mathcal{L}_\textrm{bwd}$$와 $$\mathcal{L}_\textrm{fwd}$$에 대한 KL loss의 soft dynamic time warping (soft-DTW) 버전을 활용한다. 
 2. 단순화를 위해 $$\mathcal{L}_\textrm{rec}$$와 $$\mathcal{L}_\textrm{e2e}$$의 파형 loss를 negative log-likelihood loss로 쓴다. 실제로 $$\mathcal{L}_\textrm{rec}$$는 GAN loss, feature mapping loss, mel-spectrogram loss로 구성되고, $$\mathcal{L}_\textrm{e2e}$$는 GAN loss로만 구성된다. 일치하지 않는 길이에서도 GAN loss가 여전히 잘 수행될 수 있으므로 $$\mathcal{L}_\textrm{e2e}$$에서는 soft-DTW를 사용하지 않는다. 
 
-<center><img src='{{"/assets/img/naturalspeech/naturalspeech-fig3.PNG" | relative_url}}' width="30%"></center>
+<center><img src='{{"/assets/img/naturalspeech/naturalspeech-fig3.webp" | relative_url}}' width="30%"></center>
 <br>
 모델 학습에는 위 그림과 같이 여러 가지 기울기 흐름이 있다.
 
@@ -232,7 +232,7 @@ $$
 
 학습 후 posterior encoder $\phi$를 버리고 $\theta_\textrm{pho}$, $\theta_\textrm{bpp}$, $\theta_\textrm{dur}$, $\theta_\textrm{dec}$만 inference에 사용한다. 학습과 inference 파이프라인은 Algorithm 1에 요약되어 있다.
 
-<center><img src='{{"/assets/img/naturalspeech/naturalspeech-algo1.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/naturalspeech/naturalspeech-algo1.webp" | relative_url}}' width="60%"></center>
 
 ### 7. Advantages of NaturalSpeech
 NaturalSpeech 시스템의 설계가 녹음 품질 격차를 좁힐 수 있는 이유는 다음과 같다. 
@@ -273,22 +273,22 @@ NaturalSpeech 시스템의 설계가 녹음 품질 격차를 좁힐 수 있는 �
 ### 1. Comparison with Human Recordings
 다음은 NaturalSpeech와 인간의 녹음의 MOS를 비교한 표이다.
 
-<center><img src='{{"/assets/img/naturalspeech/naturalspeech-table2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/naturalspeech/naturalspeech-table2.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 NaturalSpeech와 인간의 녹음의 CMOS를 비교한 표이다.
 
-<center><img src='{{"/assets/img/naturalspeech/naturalspeech-table3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/naturalspeech/naturalspeech-table3.webp" | relative_url}}' width="50%"></center>
 
 ### 2. Comparison with Previous TTS Systems
 다음은 NaturalSpeech와 이전 TTS 시스템들의 MOS와 CMOS를 비교한 표이다.
 
-<center><img src='{{"/assets/img/naturalspeech/naturalspeech-table4.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/naturalspeech/naturalspeech-table4.webp" | relative_url}}' width="52%"></center>
 
 ### 3. Ablation Studies and Method Analyses
 다음은 NaturalSpeech의 각 디자인에 대한 ablation study 결과이다.
 
-<center><img src='{{"/assets/img/naturalspeech/naturalspeech-table5.PNG" | relative_url}}' width="37%"></center>
+<center><img src='{{"/assets/img/naturalspeech/naturalspeech-table5.webp" | relative_url}}' width="37%"></center>
 <br>
 다음은 inference 속도를 비교한 표이다. RTF (real-time factor)는 1초의 파형을 합성하는데 걸리는 시간 (초)이다. Grad-TTS (1000)과 Grad-TTS (10)는 각각 inference애 1000 step과 10 step을 사용하였음을 나타낸다. 
 
-<center><img src='{{"/assets/img/naturalspeech/naturalspeech-table6.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/naturalspeech/naturalspeech-table6.webp" | relative_url}}' width="42%"></center>

@@ -43,7 +43,7 @@ classes: wide
 
 ## Methods and experimental details
 ### 1. High-level methodology
-<center><img src='{{"/assets/img/instructgpt/instructgpt-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/instructgpt/instructgpt-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문의 방법론은 [Fine-tuning language models from human preferences 논문](https://arxiv.org/abs/1909.08593)과 [Learning to summarize from human feedback 논문](https://arxiv.org/abs/2009.01325)의 방법론을 따른다. 사전 학습된 언어 모델부터 시작하며, 모델이 출력과 학습된 레이블러 팀을 일치시키는 생성을 원한다. 그런 다음 위 그림과 같이 다음 세 단계를 적용한다.
 
@@ -71,9 +71,9 @@ Step 2와 Step 3는 계속해서 반복할 수 있다. 새로운 RM을 학습시
 아래 표는 API 프롬프트의 use-case 카테고리의 분포(왼쪽)와 예시 프롬프트(오른쪽)이다. 
 
 <div style="display: flex; align-items: start; justify-content: center">
-  <img src='{{"/assets/img/instructgpt/instructgpt-table1.PNG" | relative_url}}' width="22%">
+  <img src='{{"/assets/img/instructgpt/instructgpt-table1.webp" | relative_url}}' width="22%">
   &nbsp;
-  <img src='{{"/assets/img/instructgpt/instructgpt-table2.PNG" | relative_url}}' width="55%">
+  <img src='{{"/assets/img/instructgpt/instructgpt-table2.webp" | relative_url}}' width="55%">
 </div>
 
 ### 3. Tasks
@@ -134,19 +134,19 @@ $$
 ### 1. Results on the API distribution
 다음은 API 프롬프트 분포에서 다양한 모델에 대한 인간 평가 결과로, 175B SFT model와 비교할 때 얼마나 선호되는 지를 측정한 것이다. 
 
-<center><img src='{{"/assets/img/instructgpt/instructgpt-fig1.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/instructgpt/instructgpt-fig1.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 175B SFT model과 비교하여 측정한 선호도이다. 왼쪽은 GPT-3에 프롬프트를 제출했을 때의 결과이고 오른쪽은 InstructGPT에 프롬프트를 제출했을 때의 결과이다. 위는 hold-out 레이블러의 결과이고 아래는 training 레이블러의 결과이다. 프롬프트가 이미 GPT-3에서 잘 수행하도록 디자인되어 있기 때문에 GPT-3에 프롬프트를 제출했을 때의 평가에서 GPT (prompted)를 생략한다. 
 
-<center><img src='{{"/assets/img/instructgpt/instructgpt-fig3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/instructgpt/instructgpt-fig3.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 다양한 기준으로 본 논문의 모델들을 평가한 그래프이다. 
 
-<center><img src='{{"/assets/img/instructgpt/instructgpt-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/instructgpt/instructgpt-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 본 논문의 모델들과 FLAN, T0를 1-7 scale Likert 점수로 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/instructgpt/instructgpt-fig5.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/instructgpt/instructgpt-fig5.webp" | relative_url}}' width="42%"></center>
 <br>
 저자들은 InstructGPT가 두 가지 이유로 FLAN과 T0보다 성능이 우수하다고 생각한다. 
 
@@ -156,21 +156,21 @@ $$
 ### 2. Results on public NLP datasets
 다음은 TruthfulQA dataset의 결과이다. 회색 막대는 신뢰도 등급을 나타내며, 색깔 막대는 신뢰도+정보성 등급을 나타낸다. 
 
-<center><img src='{{"/assets/img/instructgpt/instructgpt-fig6.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/instructgpt/instructgpt-fig6.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 RealToxicityPrompts에서의 인간 평가와 자동 평가 결과이다.
 
-<center><img src='{{"/assets/img/instructgpt/instructgpt-fig7.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/instructgpt/instructgpt-fig7.webp" | relative_url}}' width="70%"></center>
 
 ### 3. Qualitative Results
 다음은 InstructGPT 175B를 GPT-3 175B와 비교한 일반화의 예시이다. 
 
-<center><img src='{{"/assets/img/instructgpt/instructgpt-fig8.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/instructgpt/instructgpt-fig8.webp" | relative_url}}' width="80%"></center>
 <br>
 InstructGPT는 때때로 영어로 출력을 생성하지만 다른 언어로 된 명령을 따를 수 있다. GPT-3는 영어와 유사하게 더 신중한 프롬프트가 필요하다. InstructGPT는 GPT-3보다 안정적으로 코드에 대한 질문을 요약하고 답변할 수 있다. 
 
 다음은 InstructGPT 175B를 GPT-3 175B와 비교한 간단한 실수의 예시이다. 프롬프트는 특정 동작을 보이기 위해 cherry-picking하였지만 출력은 cherry-picking하지 않았다고 한다. 
 
-<center><img src='{{"/assets/img/instructgpt/instructgpt-fig9.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/instructgpt/instructgpt-fig9.webp" | relative_url}}' width="80%"></center>
 <br>
 InstructGPT는 잘못된 전제를 가정하고 그대로 따라가는 명령으로 인해 혼동될 수 있다. InstructGPT는 간단한 질문에 직접 답하기보다 지나치게 hedge할 수 있다. 

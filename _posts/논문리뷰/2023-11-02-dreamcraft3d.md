@@ -19,7 +19,7 @@ classes: wide
 > Tsinghua University | DeepSeek AI  
 > 25 Oct 2023  
 
-<center><img src='{{"/assets/img/dreamcraft3d/dreamcraft3d-fig1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/dreamcraft3d/dreamcraft3d-fig1.webp" | relative_url}}' width="80%"></center>
 
 ## Introduction
 2D 생성 모델링의 놀라운 성공은 시각적 콘텐츠를 만드는 방식에 큰 영향을 미쳤다. 3D 생성 모델링은 특정 카테고리에 대해 강력한 결과를 보여주었지만, 광범위한 3D 데이터가 부족하기 때문에 일반적인 3D 객체를 생성하는 것은 여전히 어려운 일이다. 최근 연구들은 사전 학습된 text-to-image (T2I) 생성 모델의 guidance를 활용하고 유망한 결과를 보여주기 위해 노력해 왔다. 
@@ -74,7 +74,7 @@ $$
 여기서 $$\epsilon_\textrm{lora}$$는 LoRA (low-rank adaptation) 모델을 사용하여 렌더링된 이미지의 score를 추정한다. 획득된 변형 분포는 충실도가 높은 텍스처를 갖는 샘플을 생성한다. 그러나 이 loss는 텍스처 향상을 위해 적용되며 SDS에서 처음 학습한 대략적인 형상에는 무력하다. 또한 SDS와 VSD는 모두 글로벌한 3D 일관성보다는 뷰별 타당성만 보장하는 고정된 타겟 2D 분포를 추출(distill)하려고 시도한다. 결과적으로 3D 품질을 저해하는 동일한 모양 및 semantic 이동 문제로 어려움을 겪는다.
 
 ## DreamCraft3D
-<center><img src='{{"/assets/img/dreamcraft3d/dreamcraft3d-fig2.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dreamcraft3d/dreamcraft3d-fig2.webp" | relative_url}}' width="90%"></center>
 <br>
 본 논문은 위 그림과 같이 3D 콘텐츠 생성을 위한 계층적 파이프라인을 제안하였다. 먼저 SOTA text-to-image 생성 모델을 활용하여 텍스트 프롬프트에서 고품질 2D 이미지를 생성한다. 이러한 방식으로 SOTA 2D diffusion model의 모든 능력을 활용하여 텍스트에 설명된 복잡한 시각적 의미를 묘사하면서 2D 모델로서의 창의적 자유를 유지할 수 있다. 그런 다음 형상 조각과 텍스처 부스팅의 계단식 단계를 통해 이 이미지를 3D로 끌어올린다. 문제를 분해함으로써 각 단계마다 특화된 기술을 적용할 수 있다. 형상의 경우 멀티뷰 일관성과 글로벌한 3D 구조를 우선시하여 세부 텍스처에 대한 어느 정도 절충을 허용한다. 형상이 고정된 상태에서 현실적이고 일관된 텍스처를 최적화하는 데만 집중하기 위해 3D 최적화를 부트스트랩하기 전에 3D-aware diffusion prior를 공동으로 학습시킨다. 
 
@@ -171,27 +171,27 @@ $$
 ##### Quantitative comparison
 다음은 이전 2D-to-3D 방법들과 DreamCraft3D의 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/dreamcraft3d/dreamcraft3d-table1.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/dreamcraft3d/dreamcraft3d-table1.webp" | relative_url}}' width="42%"></center>
 
 ##### User study
 다음은 32명의 참가자가 가장 선호하는 3D 모델을 고른 480개의 응답을 나타낸 그래프이다. 
 
-<center><img src='{{"/assets/img/dreamcraft3d/dreamcraft3d-fig5.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/dreamcraft3d/dreamcraft3d-fig5.webp" | relative_url}}' width="40%"></center>
 
 ##### Qualitative comparison
 다음은 다른 방법들과 정성적으로 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/dreamcraft3d/dreamcraft3d-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dreamcraft3d/dreamcraft3d-fig3.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Analysis
 다음은 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/dreamcraft3d/dreamcraft3d-fig6.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/dreamcraft3d/dreamcraft3d-fig6.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 각 단계의 중간 렌더링 결과를 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/dreamcraft3d/dreamcraft3d-fig7.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dreamcraft3d/dreamcraft3d-fig7.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 DreamBooth의 멀티뷰 데이터셋에 대한 결과를 단계별로 나타낸 것이다. 
 
-<center><img src='{{"/assets/img/dreamcraft3d/dreamcraft3d-fig4.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dreamcraft3d/dreamcraft3d-fig4.webp" | relative_url}}' width="90%"></center>

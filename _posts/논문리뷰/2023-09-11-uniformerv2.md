@@ -18,10 +18,10 @@ classes: wide
 > Chinese Academy of Sciences | University of Chinese Academy of Sciences | Shanghai AI Laboratory | The University of Hong Kong | Nanjing University  
 > 17 Nov 2022  
 
-<center><img src='{{"/assets/img/uniformerv2/uniformerv2-fig1c.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/uniformerv2/uniformerv2-fig1c.webp" | relative_url}}' width="55%"></center>
 
 ## Introduction
-<center><img src='{{"/assets/img/uniformerv2/uniformerv2-fig1ab.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/uniformerv2/uniformerv2-fig1ab.webp" | relative_url}}' width="100%"></center>
 <br>
 시공간 표현 학습은 동영상 이해의 기본 task이다. 최근 ViT는 이미지 도메인에서 놀라운 성공을 거두었다. 따라서 연구자들은 Multi-Head Self-Attention (MHSA)를 시간적 차원으로 확장하여 동영상 모델링을 위한 이미지 기반 ViT를 전송하기 위해 많은 노력을 기울였다. 그러나 이러한 접근 방식의 시공간 attention 메커니즘은 주로 글로벌 동영상 의존성을 캡처하는 데 초점을 맞추는 반면 로컬 동영상 중복성을 처리할 수 있는 능력은 부족하다. 결과적으로 이러한 모델은 얕은 레이어에서 로컬 동영상 표현을 인코딩하는 데 큰 계산 부담을 지니므로 시공간 학습에서 정확도-효율 균형이 만족스럽지 않다.
 
@@ -33,7 +33,7 @@ classes: wide
 
 ## Method
 #### Overall Framework
-<center><img src='{{"/assets/img/uniformerv2/uniformerv2-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/uniformerv2/uniformerv2-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문은 [UniFormer](https://kimjy99.github.io/논문리뷰/uniformer)의 동영상 디자인으로 이미지 ViT를 무장한 UniFormerV2를 제안하였다. 한편으로는 잘 사전 학습된 ViT의 공간 상호 작용을 완전히 활용하고 보존하여 공간 모델링을 향상시킬 수 있다. 다른 한편으로는 효율적인 UniFormer의 계층적 시간적 상호 작용은 시간적 모델링을 향상시키기 위해 유연하게 채택될 수 있다. 전체 아키텍처는 위 그림에 나와 있다. 먼저 입력 동영상을 토큰으로 project한 다음 로컬 모델링과 글로벌 모델링을 해당 UniBlocks에 의해 수행한다. 마지막으로 다단계 융합 블록은 다양한 단계의 글로벌 토큰을 적응적으로 통합하여 동영상 표현을 더욱 향상시킨다.
 
@@ -118,7 +118,7 @@ $$
 3. 글로벌 UniBlock은 UniFormer의 DPE 디자인을 계승한다.
 
 ### 3. Multi-Stage Fusion Block
-<center><img src='{{"/assets/img/uniformerv2/uniformerv2-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/uniformerv2/uniformerv2-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문은 위 그림과 같이 각 글로벌 UniBlock의 모든 동영상 토큰을 통합하는 다단계 융합 블록을 제안한다. 단순화를 위해 $i$번째 글로벌 블록을 $X_i^G = G_i (q_i, X_i^L)$로 표시한다. 로컬 UniBlock의 토큰 $X_i^L$가 주어지면 글로벌 블록은 학습 가능한 query $q$를 동영상 토큰 $X_i^G$로 변환한다. 본 논문에서는 모든 글로벌 블록 $$\{ X_i^G \}_{i=1}^N$$의 동영상 토큰을 최종 동영상 표현 $F$로 통합하기 위한 4가지 융합 전략을 탐색하고, 효율성과 효율성 측면에서 융합을 수행하기 위해 순차적인 방식을 사용한다. 
 
@@ -143,37 +143,37 @@ $$
 ### 1. Comparison to state-of-the-art
 다음은 Kinetics-400에서 SOTA와 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/uniformerv2/uniformerv2-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/uniformerv2/uniformerv2-table1.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Kinetics-600/700에서 SOTA와 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/uniformerv2/uniformerv2-table2.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/uniformerv2/uniformerv2-table2.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 Moments in Time V1에서 SOTA와 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/uniformerv2/uniformerv2-table3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/uniformerv2/uniformerv2-table3.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Something-Something V2에서 SOTA와 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/uniformerv2/uniformerv2-table4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/uniformerv2/uniformerv2-table4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Something-Something V1에서의 결과이다.
 
-<center><img src='{{"/assets/img/uniformerv2/uniformerv2-table5.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/uniformerv2/uniformerv2-table5.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 ActivityNet에서의 결과이다. 
 
-<center><img src='{{"/assets/img/uniformerv2/uniformerv2-table6.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/uniformerv2/uniformerv2-table6.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 HACS에서의 결과이다. 
 
-<center><img src='{{"/assets/img/uniformerv2/uniformerv2-table7.PNG" | relative_url}}' width="43%"></center>
+<center><img src='{{"/assets/img/uniformerv2/uniformerv2-table7.webp" | relative_url}}' width="43%"></center>
 
 ### 2. Ablation Studies
 다음은 다양한 사전 학습된 ViT들에 대한 결과이다.
 
-<center><img src='{{"/assets/img/uniformerv2/uniformerv2-table8.PNG" | relative_url}}' width="44%"></center>
+<center><img src='{{"/assets/img/uniformerv2/uniformerv2-table8.webp" | relative_url}}' width="44%"></center>
 <br>
 다음은 ablation study 결과이다.
 
-<center><img src='{{"/assets/img/uniformerv2/uniformerv2-table9.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/uniformerv2/uniformerv2-table9.webp" | relative_url}}' width="90%"></center>

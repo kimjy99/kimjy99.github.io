@@ -18,14 +18,14 @@ classes: wide
 > Nanjing University | Shanghai AI Laboratory | Tsinghua University  
 > 17 May 2022  
 
-<center><img src='{{"/assets/img/vit-adapter/vit-adapter-fig2.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/vit-adapter/vit-adapter-fig2.webp" | relative_url}}' width="55%"></center>
 
 ## Introduction
 최근 transformer는 광범위한 컴퓨터 비전 분야에서 놀라운 성공을 거두었다. 동적 모델링 능력과 attention 메커니즘의 장거리 의존성 덕분에 object detection이나 semantic segmentation과 같은 많은 컴퓨터 비전 task에서 다양한 ViT가 곧 등장하여 CNN 모델을 능가하고 SOTA 성능에 도달했다. 이러한 모델은 주로 일반 ViT와 계층적 변형이라는 두 가지 클래스로 나뉜다. 일반적으로 후자는 더 나은 결과를 생성할 수 있으며 로컬한 공간적 연산을 사용하여 비전 관련 inductive bias를 아키텍처에 도입한다.
 
 그럼에도 불구하고 일반 ViT에는 여전히 무시할 수 없는 장점이 있다. 전형적인 예시는 멀티모달 사전 학습에 있다. 자연어 처리 (NLP) 분야에서 유래한 transformer는 입력 데이터를 가정하지 않는다. 다양한 토크나이저 (ex. 패치 임베딩, 3D 패치 임베딩, 토큰 임베딩)를 갖춘 일반 ViT는 사전 학습을 위해 이미지, 동영상, 텍스트를 포함한 대규모 멀티모달 데이터를 사용할 수 있어 모델이 풍부한 semantic 표현을 학습하도록 장려한다. 그러나 일반 ViT는 비전 전용 transformer에 비해 dense prediction에 결정적인 결함이 있다. 이미지 관련 사전 지식이 부족하면 수렴 속도가 느려지고 성능이 저하되므로 일반 ViT는 dense prediction task에서 비전 전용 transformer와 경쟁하기 어렵다. NLP 분야의 [어댑터](https://arxiv.org/abs/1902.00751)에서 영감을 받은 본 논문은 dense prediction task를 위해 일반 ViT와 비전 전용 backbone 간의 성능 격차를 줄이는 어댑터를 개발하는 것을 목표로 한다.
 
-<center><img src='{{"/assets/img/vit-adapter/vit-adapter-fig3.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/vit-adapter/vit-adapter-fig3.webp" | relative_url}}' width="70%"></center>
 <br>
 이를 위해 본 논문은 원래 아키텍처를 수정하지 않고도 일반 ViT를 다운스트림 dense prediction task에 효율적으로 적용할 수 있는 사전 학습이 필요 없는 추가 네트워크인 **Vision Transformer Adapter (ViT-Adapter)**를 제안한다. 특히 일반 ViT에 비전 관련 inductive bias를 도입하기 위해 ViT-Adapter를 위한 맞춤형 모듈 3개를 설계하였다.
 
@@ -33,13 +33,13 @@ classes: wide
 2. Spatial prior를 ViT에 통합하기 위한 spatial feature injector
 3. Dense prediction task에 필요한 멀티스케일 feature를 재구성하기 위한 multi-scale feature extractor
 
-<center><img src='{{"/assets/img/vit-adapter/vit-adapter-fig1.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/vit-adapter/vit-adapter-fig1.webp" | relative_url}}' width="85%"></center>
 <br>
 위 그림에서 볼 수 있듯이 대규모 이미지 데이터셋 (ex. ImageNet)를 사전 학습한 다음 다른 task를 fine-tuning하는 이전 패러다임과 비교하여 본 논문의 패러다임은 더 유연하다. 본 논문의 프레임워크에서 backbone network는 이미지뿐만 아니라 멀티모달 데이터로도 사전 학습할 수 있는 범용 모델이다. Dense prediction task의 transfer learning을 위해 랜덤하게 초기화된 어댑터를 사용하여 이미지 관련 사전 지식 (inductive bias)을 사전 학습된 backbone에 도입하여 모델을 이러한 task에 적합하게 만든다. 이러한 방식으로 ViT를 backbone으로 사용하여 본 논문의 프레임워크는 [Swin](https://kimjy99.github.io/논문리뷰/swin-transformer)과 같은 비전 전용 transformer와 비슷하거나 더 나은 성능을 달성하였다.
 
 ## Vision Transformer Adapter
 ### 1. Overall Architecture
-<center><img src='{{"/assets/img/vit-adapter/vit-adapter-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/vit-adapter/vit-adapter-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 위 그림에서 볼 수 있듯이 본 논문의 모델은 두 부분으로 나눌 수 있다. 첫 번째 부분은 패치 임베딩과 $L$개의 transformer 인코더 레이어로 구성된 일반 ViT이다 (위 그림의 (a) 참조). 두 번째 부분은 위 그림의 (b)와 같이 제안된 ViT-Adapter로 
 
@@ -91,35 +91,35 @@ $$
 ### 1. Object Detection and Instance Segmentation
 다음은 COCO val2017에서 Mask R-CNN을 사용한 object detection과 instance segmentation 결과이다. 
 
-<center><img src='{{"/assets/img/vit-adapter/vit-adapter-table1.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/vit-adapter/vit-adapter-table1.webp" | relative_url}}' width="85%"></center>
 <br>
 다음은 COCO val2017에서 다른 프레임워크를 사용한 object detection 결과이다. 
 
-<center><img src='{{"/assets/img/vit-adapter/vit-adapter-table2.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/vit-adapter/vit-adapter-table2.webp" | relative_url}}' width="85%"></center>
 <br>
 다음은 다양한 사전 학습 가중치에 대한 비교 결과이다. 
 
-<center><img src='{{"/assets/img/vit-adapter/vit-adapter-table4.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/vit-adapter/vit-adapter-table4.webp" | relative_url}}' width="42%"></center>
 
 ### 2. Semantic Segmentation
 다음은 ADE20K val에서의 semantic segmentation 결과이다. 
 
-<center><img src='{{"/assets/img/vit-adapter/vit-adapter-table3.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/vit-adapter/vit-adapter-table3.webp" | relative_url}}' width="85%"></center>
 
 ### 3. Comparisons with State-of-the-Arts
 다음은 이전 SOTA와의 비교 결과이다. 
 
-<center><img src='{{"/assets/img/vit-adapter/vit-adapter-table5.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/vit-adapter/vit-adapter-table5.webp" | relative_url}}' width="47%"></center>
 
 ### 4. Ablation Study
 다음은 ViT와 ViT-Adapter의 feature를 시각화한 것이다. (a)는 푸리에 변환된 feature map의 상대 로그 진폭이다. (b)는 detection 결과이고 (c)는 stride-8 feature map이다. 
 
-<center><img src='{{"/assets/img/vit-adapter/vit-adapter-fig5.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/vit-adapter/vit-adapter-fig5.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 ViT-Adapter의 ablation study 결과이다. 왼쪽은 주요 구성 요소에 대한 ablation 결과이고 오른쪽은 상호 작용 수 $N$에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/vit-adapter/vit-adapter-table6.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/vit-adapter/vit-adapter-table6.webp" | relative_url}}' width="85%"></center>
 <br>
 다음은 다양한 attention 메커니즘 사용에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/vit-adapter/vit-adapter-table7.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/vit-adapter/vit-adapter-table7.webp" | relative_url}}' width="85%"></center>

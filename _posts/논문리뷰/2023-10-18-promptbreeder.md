@@ -34,7 +34,7 @@ classes: wide
 ## Promptbreeder
 본 논문은 특정 도메인에 대한 프롬프트를 자동으로 탐색하고 해당 도메인의 질문에 대한 답변을 도출하는 LLM의 능력을 향상시키는 task-prompt를 찾을 수 있는 프롬프트 진화 시스템인 **Promptbreeder**를 소개한다. Promptbreeder는 동일한 시스템이 다양한 도메인에 적응할 수 있다는 점에서 범용적이다. 
 
-<center><img src='{{"/assets/img/promptbreeder/promptbreeder-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/promptbreeder/promptbreeder-fig1.webp" | relative_url}}' width="100%"></center>
 <br>
 Promptbreeder는 LLM을 사용하여 입력 텍스트의 변형을 생성할 수 있다는 관찰을 활용한다. 위 그림은 Promptbreeder의 개요를 제공한다. 본 논문은 진화하는 task-prompt에 관심이 있다. Task-prompt $P$는 추가 입력 $Q$에 앞서 LLM의 컨텍스트를 컨디셔닝하는 데 사용되는 문자열로, $P$가 없을 때 $Q$가 제시된 경우보다 더 나은 응답을 보장하기 위한 것이다. 진화된 각 task-prompt의 적합성을 평가하기 위해 현재 도메인의 전체 학습 세트에서 100개의 Q&A 쌍 batch를 샘플링한다. 
 
@@ -54,7 +54,7 @@ Promptbreeder의 주요 자기 참조 메커니즘은 task-prompt뿐만 아니�
 적절한 continuation을 장려하기 위해 "INSTRUCTION"과 "INSTRUCTION MUTANT"가 추가된다. 
 
 ### 2. Mutation Operators
-<center><img src='{{"/assets/img/promptbreeder/promptbreeder-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/promptbreeder/promptbreeder-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 프롬프트 전략 탐색을 주도하는 5개의 광범위한 클래스에 속하는 9개의 연산자가 있다. 각 복제 이벤트에 대해 9개의 돌연변이 연산자 중 하나만 적용된다. 적용할 돌연변이 연산자를 결정하기 위해 9개의 연산자에 대해 균일한 확률로 샘플링한다. 이러한 다양한 연산자 집합을 사용하는 이유는 LLM이 문제의 틀을 반복적으로 변경하고 주어진 추론 문제 해결에 도움이 될 수 있는 자연어로 표현된 모델을 검색함으로써 스스로 질문하는 방법의 넓은 공간을 탐색할 수 있도록 하는 것이다. 위 그림은 Promptbreeder가 자기 참조적인 방식을 보여준다.
 
@@ -117,7 +117,7 @@ best response. It resembles" + $\langle\langle$ last index$\rangle\rangle$ + "mo
 
 다음은 Promptbreeder (PB)와 다른 프롬프팅 방법들을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/promptbreeder/promptbreeder-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/promptbreeder/promptbreeder-table1.webp" | relative_url}}' width="100%"></center>
 <br>
 비교한 프롬프팅 방법들은 다음과 같다. 
 
@@ -130,12 +130,12 @@ best response. It resembles" + $\langle\langle$ last index$\rangle\rangle$ + "mo
 
 다음은 다양한 산술 task를 위해 진화된 2단계 task-prompt 결과이다. 
 
-<center><img src='{{"/assets/img/promptbreeder/promptbreeder-table6.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/promptbreeder/promptbreeder-table6.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 GSM8K에서 Promptbreeder 학습을 하는 동안 자기 참조 방식으로 진화한 가장 성공적인 mutation-prompt들이다. 
 
-<center><img src='{{"/assets/img/promptbreeder/promptbreeder-table7.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/promptbreeder/promptbreeder-table7.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 적용된 각 유형의 돌연변이 연산자에 대해 부모보다 적합도가 더 큰 자손이 생성되는 횟수의 비율이다. (GSM8k)
 
-<center><img src='{{"/assets/img/promptbreeder/promptbreeder-table8.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/promptbreeder/promptbreeder-table8.webp" | relative_url}}' width="70%"></center>

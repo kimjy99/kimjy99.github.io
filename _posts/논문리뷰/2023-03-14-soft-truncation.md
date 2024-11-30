@@ -205,40 +205,40 @@ $$
 
 로 근사하여 전이 확률의 분산 최소값을 $\sigma_{min}^2$으로 자른다. 이는 VPSDE에서 diffusion time을 $\epsilon$으로 자르는 것과 동등하다. 따라서, 본 논문에서는 diffusion time을 자르는 것과 diffusion 분산을 자르는 것을 교환 가능하게 다룬다. 
 
-<center><img src='{{"/assets/img/soft-truncation/soft-truncation-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/soft-truncation/soft-truncation-fig1.webp" | relative_url}}' width="100%"></center>
 <br>
 위 그래프는 diffusion model의 학습에서 truncation의 중요성을 보여준다. 그래프 (a)는 $\epsilon = 10^{-5}$으로 자른 것으로, Bits-Per-Dimension (BPD) scale에서 $\mathcal{L} (\theta; g^2, \tau)$의 피적분함수가 여전히 굉장히 불균형함을 보여준다. 이러한 극심한 불균형은 diffusion model 학습에서 보편적인 현상으로 나타나며, 이러한 현상은 학습 시작부터 끝까지 지속된다. 
 
 그래프 (b)에서 초록색 선은 log-likelihood의 variational bound를 나타내며, 작은 diffusion time 근처에서 variational bound가 급격히 감소함을 보여준다. 따라서 $\epsilon$이 충분히 작지 않으면 variational bound가 log-likelihood에 엄격하지 않고 MLE 학습에서 diffsion model이 실패한다.
 
-<center><img src='{{"/assets/img/soft-truncation/soft-truncation-fig2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/soft-truncation/soft-truncation-fig2.webp" | relative_url}}' width="50%"></center>
 <br>
 또한, 위 그림은 충분히 작지 않은 $\epsilon$(또는 $\sigma_{min}$)도 미세한 샘플 품질에 해를 끼칠 수 있음을 나타낸다. 따라서 $\epsilon$은 신중하게 선택해야 하는 중요한 hyperparameter이다.
 
 ### 4. Effect of Truncation on Model Evaluation
 그래프 (c)는 밀도 추정에 대한 테스트 성능을 보여준다. $\epsilon$이 작아지면 Negative Evidence Lower Bound (NELBO)와 NLL 모두 단조 감소함을 보여주며, 이는 학습에서와 마찬가지로 테스트에서도 NELBO가 작은 diffusion time에 크게 기여되기 때문이다. 따라서 테스트 NELBO/NLL을 줄이기 위해 $\epsilon$을 최대한 줄이는 것이 일반적인 전략이 될 수 있다.
 
-<center><img src='{{"/assets/img/soft-truncation/soft-truncation-table1.PNG" | relative_url}}' width="30%"></center>
+<center><img src='{{"/assets/img/soft-truncation/soft-truncation-table1.webp" | relative_url}}' width="30%"></center>
 <br>
 반대로, 위 표는 학습 중에 $\sigma_{min}$이 작아지면 FID가 증가하는 것을 보여준다. 그래프 (b)의 파란색 선에서 variational bound에 크게 기여하는 것은 작은 diffusion time의 범위이므로 작은 truncation hyperparameter가 있는 score network는 큰 diffusion time에서 최적화되지 않은 상태로 유지된다. 따라서 위 표의 일관되지 않은 결과는 큰 diffusion time에 대한 부정확한 score에 기인한다.
 
 저자들은 이를 확인하기 위해 실험을 디자인하였다. 이 실험은 2가지 종류의 score network를 사용한다. $$\sigma_{min} \in \{10^{-3}, 10^{-4}, 10^{-5}\}$$으로 각각 학습된 대체 네트워크로 $\sigma_{max}$에서 $\sigma_{tr} (= 1)$까지 denoise한 다음, $\sigma_{min} = 10^{-5}$으로 학습된 추가 네트워크로 $\sigma_{tr}$에서 $\sigma_{min} = 10^{-5}$까지 denoise한다. 이를 통해 큰 diffusion time에서의 score 정확도를 비교할 수 있게 된다. 실험 결과는 아래 표와 같다.
 
-<center><img src='{{"/assets/img/soft-truncation/soft-truncation-table2.PNG" | relative_url}}' width="35%"></center>
+<center><img src='{{"/assets/img/soft-truncation/soft-truncation-table2.webp" | relative_url}}' width="35%"></center>
 <br>
 $\sigma_{min} = 10^{-3}$로 학습된 모델이 가장 좋은 FID를 보였으며, 이는 너무 작은 truncation은 샘플 품질에 해가 된다는 것을 보여준다. 
 
-<center><img src='{{"/assets/img/soft-truncation/soft-truncation-fig4.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/soft-truncation/soft-truncation-fig4.webp" | relative_url}}' width="50%"></center>
 <br>
 구체적으로, 위 그래프는 생성 프로세스의 drift 항인 $g^2 (t) s_\theta (x_t, t)$의 Euclidean norm을 보여주며, 큰 diffusion timte이 샘플링 프로세스를 지배한다는 것을 보여준다. 따라서, 큰 diffsion time에 대한 정밀한 score 네트워크는 샘플 생성에 특히 중요하다. 
 
 부정확한 score는 주로 글로벌한 샘플 컨텍스트에 영향을 미치며, 이는 작은 diffusion time에 대한 denoising은 미세한 디테일로만 이미지를 만들기 때문이다. 
 
-<center><img src='{{"/assets/img/soft-truncation/soft-truncation-fig3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/soft-truncation/soft-truncation-fig3.webp" | relative_url}}' width="60%"></center>
 <br>
 위 그림은 글로벌한 fidelity가 어떻게 손상되는지 보여준다. 두 번째 행에서 합성된 남자 이미지는 큰 diffusion time에서 이마에 비현실적인 곱슬 머리가 생긴다.
 
-<center><img src='{{"/assets/img/soft-truncation/soft-truncation-fig5.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/soft-truncation/soft-truncation-fig5.webp" | relative_url}}' width="70%"></center>
 <br>
 위 그림은 큰 diffusion time에 대한 좋은 score 추정 학습의 중요성을 보여준다. $x_\tau$에서 시작하여 생성 프로세스를 reverse-time으로 풀어 재생성된 샘플을 보여준다. 
 
@@ -301,11 +301,11 @@ $$
 
 $$\{t_{iw}^{(b)}\}_{b=1}^B$$는 중요도 분포에서 샘플링한 몬테 카를로 샘플이다. 
 
-<center><img src='{{"/assets/img/soft-truncation/soft-truncation-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/soft-truncation/soft-truncation-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 중요도 샘플링은 추정 분산을 상당히 낮추기 때문에 중요도 샘플링은 NLL과 FID 모두에서 균등 샘플링보다 좋다. 위의 그래프 (a)는 샘플별 loss를 나타낸 것이며, 중요도 샘플링은 diffusion time에 따라 loss를 크게 완화한다. 하지만 그래프 (c)에서 $t \rightarrow 0$으로 가면 중요도 분포 $p_{iw} (t)$가 발산하는 것을 볼 수 있다. 
 
-<center><img src='{{"/assets/img/soft-truncation/soft-truncation-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/soft-truncation/soft-truncation-fig7.webp" | relative_url}}' width="100%"></center>
 <br>
 또한 위 그림에서 보면 중요도로 가중된 몬테 카를로 시간의 대부분이 $t \approx \epsilon$에 집중된다. 따라서 중요도 샘플링의 사용은 분산 감소와 $t \approx \epsilon$ 근처에서 오버 샘플링되는 것 사이의 trade-off를 가진다. 따라서 중요도 샘플링의 사용 여부와 관계없이 큰 diffusion time에 대한 부정확한 score 추정은 샘플링 전략에 독립적으로 나타나며, 이러한 조기 score 추정을 해결하는 것은 중요한 task가 된다. 
 
@@ -430,32 +430,32 @@ $\tau \approx 0 < \epsilon$으로 batch 업데이트하는 것이 score network�
 #### FID by Iteration
 다음은 학습 step에 대한 FID를 나타낸 그래프이다.
 
-<center><img src='{{"/assets/img/soft-truncation/soft-truncation-fig8.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/soft-truncation/soft-truncation-fig8.webp" | relative_url}}' width="47%"></center>
 <br>
 15만 iteration 이후 Soft Truncation이 일반 학습 방법을 이긴다. 
 
 #### Ablation Studies
 다음은 다양한 weighting에 대한 ablation study 결과이다. (CIFAR-10 & ImageNet32 / DDPM++ (VP))
 
-<center><img src='{{"/assets/img/soft-truncation/soft-truncation-table4.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/soft-truncation/soft-truncation-table4.webp" | relative_url}}' width="65%"></center>
 <br>
 다음은 다양한 모델 아키텍처와 다양한 SDE에 대한 ablation study 결과이다. (CelebA)
 
-<center><img src='{{"/assets/img/soft-truncation/soft-truncation-table5.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/soft-truncation/soft-truncation-table5.webp" | relative_url}}' width="65%"></center>
 <br>
 다음은 다양한 $\epsilon$에 대한 ablation study 결과이다. (CIFAR-10 / DDPM++ (VP))
 
-<center><img src='{{"/assets/img/soft-truncation/soft-truncation-table6.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/soft-truncation/soft-truncation-table6.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 다양한 $\mathbb{P}_k$에 대한 ablation study 결과이다. (CIFAR-10 / DDPM++ (VP))
 
-<center><img src='{{"/assets/img/soft-truncation/soft-truncation-table7.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/soft-truncation/soft-truncation-table7.webp" | relative_url}}' width="48%"></center>
 <br>
 다음은 diffusion을 INDM의 normalizing flow와 결합하였을 때의 ablation study 결과이다. (CIFAR-10 / DDPM++ (VP))
 
-<center><img src='{{"/assets/img/soft-truncation/soft-truncation-table8.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/soft-truncation/soft-truncation-table8.webp" | relative_url}}' width="50%"></center>
 
 #### Quantitative Comparison to SOTA
 다음은 다양한 데이터셋에 대한 성능 비교 결과이다. 
 
-<center><img src='{{"/assets/img/soft-truncation/soft-truncation-table9.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/soft-truncation/soft-truncation-table9.webp" | relative_url}}' width="100%"></center>

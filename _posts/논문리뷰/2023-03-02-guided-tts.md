@@ -31,7 +31,7 @@ classes: wide
 TTS를 위한 unconditional DDPM을 guide하기 위해 대규모 음성 인식 데이터셋인 LibriSpeech에서 프레임별 음소 classifier를 학습시키고 샘플링 중에 classifier의 기울기를 사용한다. Guided-TTS는 전사 없이 학습되지만 음소 classifier를 사용하여 unconditional DDPM의 생성 프로세스를 guide하여 전사가 주어진 mel-spectogram을 효과적으로 생성한다. Guiding error를 통한 잘못된 발음은 TTS 모델에 치명적이므로 샘플링 중 classifier 기울기와 unconditional score의 균형을 맞추는 norm 기반 guidance를 제시한다.
 
 ## Guided-TTS
-<center><img src='{{"/assets/img/guided-tts/guided-tts-fig1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/guided-tts/guided-tts-fig1.webp" | relative_url}}' width="80%"></center>
 <br>
 Guided-TTS는 4개의 모듈로 구성된다.
 
@@ -107,7 +107,7 @@ Duration predictor는 주어진 텍스트 시퀀스 $y$의 각 텍스트 토큰�
 Speaker encoder는 입력 mel-spectogram에서 speaker 정보를 인코딩하고 speaker embedding $e_S$를 출력한다. Speaker encoder는 speaker verification 데이터셋으로 GE2E loss로 학습되며, speaker encoder를 사용하여 speaker-dependent한 모듈을 컨디셔닝한다. 각 학습 데이터의 깨끗한 mel-spectogram $X_0$에서 $e_S$를 추출한다. Guidance를 위해 target speaker $S$ 전사되지 않은 음성의 speaker embedding을 평균화하고 정규화하여 $e_S$를 추출한다. 
 
 ### 3. Norm-Based Guidance
-<center><img src='{{"/assets/img/guided-tts/guided-tts-algo1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/guided-tts/guided-tts-algo1.webp" | relative_url}}' width="50%"></center>
 <br>
 앞에서는 classifier의 기울기 $\nabla_{X_t} \log p_\phi (\hat{y} \vert X_t, spk = S)$를 gradient scale $s$로 스케일링하였다. 하지만, unconditional DDPM을 frame-wise phoneme classifier로 guide하면 $t = 0$ 근처에서 unconditional score의 norm이 갑자기 증가한다. 즉, 데이터 $X_0$에 가까울수록 phoneme classifier가 DDPM의 생성 프로세스에 적은 영향을 준다. 다양한 수의 gradient scale을 사용하여 샘플을 생성하는 실험은 모든 경우에 대해 텍스트가 주어진 샘플을 잘못 발음하는 결과를 낳았다고 한다. 
 
@@ -129,7 +129,7 @@ Speaker encoder는 입력 mel-spectogram에서 speaker 정보를 인코딩하고
 
 다음은 다양한 TTS 모델과 MOS, CES를 비교한 것이다. "GT MEL"은 ground-truth mel-spectogram을 HiFi-GAN으로 복원한 것을 의미한다. 
 
-<center><img src='{{"/assets/img/guided-tts/guided-tts-table1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/guided-tts/guided-tts-table1.webp" | relative_url}}' width="50%"></center>
 <br>
 Guided-TTS가 LJSpeech의 전사 없이 고품질의 음성을 합성할 수 있음을 확인할 수 있다. 
 
@@ -138,20 +138,20 @@ Guided-TTS가 LJSpeech의 전사 없이 고품질의 음성을 합성할 수 있
 
 다음은 다양한 데이터셋에 대한 5-scale MOS이다. 
 
-<center><img src='{{"/assets/img/guided-tts/guided-tts-table2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/guided-tts/guided-tts-table2.webp" | relative_url}}' width="50%"></center>
 
 ### 3. Analysis
 #### Norm-based Guidance
 저자들은 기존의 classifier guidance와 본 논문에서 제안한 norm-based classifier guidance를 비교하여 실험하였으며, 그 결과는 다음 그래프와 같다. 
 
-<center><img src='{{"/assets/img/guided-tts/guided-tts-fig2.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/guided-tts/guided-tts-fig2.webp" | relative_url}}' width="40%"></center>
 <br>
 기존 guidance를 사용하여 생성한 샘플은 기존 TTS 모델보다 CER이 나빴으며, 이는 TTS에 적합하지 않음을 의미한다. 반면 본 논문의 guidance는 기존 TTS 모델과 비슷하게 주어진 텍스트 문장에 대하여 샘플을 정확하게 생성한다. Gradient scale이 너무 작으면 classifier guidance의 효과가 거의 없으며 주어진 텍스트를 반영하지 못한다. 반면 gradient scale이 너무 크면 샘플의 품질이 악화된다. 
 
 #### Amount of Data for Phoneme Classifier 
 다음은 phoneme classifier를 학습하는 데 사용되는 LibriSpeech 데이터의 양에 따른 CER을 나타낸 표와 classification 정확도를 나타낸 그래프이다. 
 
-<center><img src='{{"/assets/img/guided-tts/guided-tts-table3.PNG" | relative_url}}' width="45%"></center>
-<center><img src='{{"/assets/img/guided-tts/guided-tts-fig3.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/guided-tts/guided-tts-table3.webp" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/guided-tts/guided-tts-fig3.webp" | relative_url}}' width="42%"></center>
 <br>
 Phoneme classification을 위한 데이터의 양이 증가할수록 Guided-TTS의 발음이 개선되는 것을 확인할 수 있다. 따라서 더 큰 규모의 ASR 데이터셋을 사용하여 학습하면 Guided-TTS의 성능을 더 개선할 수 있다. 

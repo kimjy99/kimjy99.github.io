@@ -114,7 +114,7 @@ Diffusion model을 사용한 동영상 생성에 대한 접근 방식은 표준 
 
 둘째, 각 spatial attention block 뒤에 첫 번째 축에 대한 attention을 수행하고 공간 축을 배치 축으로 취급하는 temporal attention block을 삽입한다. 네트워크가 동영상 시간의 절대적인 개념을 필요로 하지 않는 방식으로 프레임의 순서를 구별할 수 있도록 각 temporal attention block에서 relative position embedding을 사용한다. 아래 그림은 모델 아키텍처를 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/video-diffusion-model/video-diffusion-model-fig1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/video-diffusion-model/video-diffusion-model-fig1.webp" | relative_url}}' width="80%"></center>
 <br>
 분해된 시공간적 attention의 사용은 계산 효율성을 위해 video transformer에서 좋은 선택인 것으로 알려져 있다. 동영상 생성 설정을 위한 분해된 시공간적 아키텍처의 장점은 각 temporal attention block 내에서 attention 연산을 제거함으로써 동영상이 아닌 독립적인 이미지에서 실행되도록 모델을 마스킹하는 것이 특히 간단하다는 것이다. 각 동영상 timestep에서 각 key와 query 벡터가 정확히 일치하도록 attention matrix를 고정한다. 그렇게 하면 동영상 생성과 이미지 생성 모두에서 모델을 공동으로 학습할 수 있다는 것이다. 저자들은 실험을 통해 이 공동 학습이 샘플 품질에 중요하다는 것을 발견했다. 
 
@@ -165,45 +165,45 @@ $$
 
 아래 그림은 9$\times$128$\times$128 diffusion model을 사용하여 frameskip 4에서의 16$\times$64$\times$64 저해상도 샘플을 frameskip 1에서의 64$\times$128$\times$128 샘플로 확장하기 위한 이 접근법의 샘플들을 보여준다.
 
-<center><img src='{{"/assets/img/video-diffusion-model/video-diffusion-model-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/video-diffusion-model/video-diffusion-model-fig2.webp" | relative_url}}' width="100%"></center>
 
 ## Experiments
 ### 1. Unconditional video modeling
 다음은 UCF101에서의 unconditional 동영상 모델링 결과이다.
 
-<center><img src='{{"/assets/img/video-diffusion-model/video-diffusion-model-table1.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/video-diffusion-model/video-diffusion-model-table1.webp" | relative_url}}' width="65%"></center>
 
 ### 2. Video prediction
 다음은 BAIR Robot Pushing에서의 동영상 예측 결과이다.
 
-<center><img src='{{"/assets/img/video-diffusion-model/video-diffusion-model-table2.PNG" | relative_url}}' width="33%"></center>
+<center><img src='{{"/assets/img/video-diffusion-model/video-diffusion-model-table2.webp" | relative_url}}' width="33%"></center>
 <br>
 다음은 Kinetics-600에서의 동영상 예측 결과이다.
 
-<center><img src='{{"/assets/img/video-diffusion-model/video-diffusion-model-table3.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/video-diffusion-model/video-diffusion-model-table3.webp" | relative_url}}' width="42%"></center>
 
 ### 3. Text-conditioned video generation
 #### Joint training on video and image modeling
 다음은 동영상당 0, 4, 8개의 독립적인 추가 이미지 프레임들을 사용하여 학습한 결과이다. 
 
-<center><img src='{{"/assets/img/video-diffusion-model/video-diffusion-model-table4.PNG" | relative_url}}' width="72%"></center>
+<center><img src='{{"/assets/img/video-diffusion-model/video-diffusion-model-table4.webp" | relative_url}}' width="72%"></center>
 
 #### Effect of classifier-free guidance
 다음은 text-to-video 생성에서 classifier-free guidance의 효과를 보여주는 표이다. 
 
-<center><img src='{{"/assets/img/video-diffusion-model/video-diffusion-model-table5.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/video-diffusion-model/video-diffusion-model-table5.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 텍스트 조건부 동영상 모델에서 classifier-free guidance의 효과를 보여주는 그림이다. 왼쪽은 guide되지 않은 샘플들이고 오른쪽은 classifier-free guidance를 사용하여 guide한 샘플들이다. 
 
-<center><img src='{{"/assets/img/video-diffusion-model/video-diffusion-model-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/video-diffusion-model/video-diffusion-model-fig3.webp" | relative_url}}' width="100%"></center>
 
 #### Autoregressive video extension for longer sequences
 다음은 16$ 프레임 모델을 autoregressive하게 확장하여 64 프레임 동영상을 생성할 때 reconstruction guidance 방법과 replacement 방법을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/video-diffusion-model/video-diffusion-model-table6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/video-diffusion-model/video-diffusion-model-table6.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 replacement 방법(왼쪽)과 reconstruction guidance 방법(오른쪽)으로 16 프레임 모델을 64 프레임으로 확장한 예시이다. 
 
-<center><img src='{{"/assets/img/video-diffusion-model/video-diffusion-model-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/video-diffusion-model/video-diffusion-model-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 replacement 방법은 reconstruction guidance 방법과 달리 시간적 일관성이 부족하다. 

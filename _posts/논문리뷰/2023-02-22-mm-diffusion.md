@@ -22,7 +22,7 @@ classes: wide
 > Renmin University of China | Peking University | Microsoft Research  
 > 19 Dec 2022  
 
-<center><img src='{{"/assets/img/mmdiff/mmdiff-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/mm-diffusion/mm-diffusion-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 이미지, 동영상, 오디오 도메인에서 AI 기반 콘텐츠 생성은 최근 몇 년 동안 많은 관심을 끌었다. 예를 들어 DALL·E 2와 DiffWave는 각각 생생한 이미지와 고품질 오디오를 생성할 수 있다. 그러나 이렇게 생성된 콘텐츠는 single-modality 경험만 제공할 수 있으며, multi-modal 콘텐츠를 포함하는 인간이 만든 웹 콘텐츠와는 여전히 큰 격차가 있다. 본 논문에서 특히 열린 도메인에서 joint audio-video generation에 중점을 둔 새로운 multi-modality 생성 task를 연구하기 위해 한 걸음 더 나아간다. 
@@ -38,7 +38,7 @@ Multimodal diffusion model 디자인의 어려움은 주로 다음 두 가지 �
 [DDPM 논문리뷰](https://kimjy99.github.io/논문리뷰/ddpm) 참고
 
 ### 2. Multi-Modal Diffusion Models
-<center><img src='{{"/assets/img/mmdiff/mmdiff-fig2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/mm-diffusion/mm-diffusion-fig2.webp" | relative_url}}' width="50%"></center>
 <br>
 단일 modality가 생성되는 vanilla diffusion과 달리, 위 그림과 같이 본 논문의 목표는 하나의 diffsion process 내에서 두 개의 일관된 modality를 복구하는 것이다. 
 
@@ -72,7 +72,7 @@ $\lambda (t)$는 가중치 함수이다. 동영상에 대한 공식은 오디오
 Multi-modality 생성의 핵심 이점은 독립적인 가우스 분포에서 오디오-동영상 쌍을 공동으로 재구성할 수 있는 $\theta_{av}$에 있다. MM-Diffusion은 완전히 다른 모양과 패턴으로 이러한 두 가지 유형의 입력 modality를 적용할 수 있다.
 
 ### 3. Coupled U-Net for Joint Audio-Video Denoising
-<center><img src='{{"/assets/img/mmdiff/mmdiff-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/mm-diffusion/mm-diffusion-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 이전 연구에서는 U-Net을 모델 아키텍처로 사용하여 단일 modality를 생성하는 효과를 입증했다. 저자들은 이러한 연구에서 영감을 받아 오디오와 동영상 생성을 위한 두 개의 단일 modality U-Net으로 구성된 결합된 U-Net을 제안한다. (위 그림의 (a) 참고)
 
@@ -135,7 +135,7 @@ $$
 이 공식은 $\lambda$가 컨디셔닝의 강도를 제어하는 기울기 가중치 역할을 하는 classifier-free conditional generation와도 유사하다. 주요 차이점은 전통적인 조건부 생성 모델은 조건 데이터에 맞추기 위해 종종 명시적 학습이 필요하다는 것이다. 따라서 샘플링 절차의 업데이트 프로세스는 조건을 변경할 필요가 없다. 반대로 unconditional한 학습 과정에 맞추려면 gradient-guided 방법의 조건부 입력은 reverse process가 진행됨에 따라 지속적인 교체가 필요하다. 결과적으로 조건부 입력에 적응하기 위해 추가 학습이 필요하지 않다. 
 
 ## Experiments
-<center><img src='{{"/assets/img/mmdiff/mmdiff-fig4.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/mm-diffusion/mm-diffusion-fig4.webp" | relative_url}}' width="95%"></center>
 
 - 데이터셋: Landscape, AIST++
 - Implementation Details
@@ -151,26 +151,26 @@ $$
 ### 1. Objective Comparison with SOTA methods
 다음은 Landscape 데이터셋에서의 single-modal 방법들과의 비교이다. *는 완전한 DDPM 샘플링을 사용한 경우이다.
 
-<center><img src='{{"/assets/img/mmdiff/mmdiff-table1.PNG" | relative_url}}' width="43%"></center>
+<center><img src='{{"/assets/img/mm-diffusion/mm-diffusion-table1.webp" | relative_url}}' width="43%"></center>
 <br>
 다음은 AIST++ 데이터셋에서의 single-modal 방법들과의 비교이다. 
 
-<center><img src='{{"/assets/img/mmdiff/mmdiff-table2.PNG" | relative_url}}' width="43%"></center>
+<center><img src='{{"/assets/img/mm-diffusion/mm-diffusion-table2.webp" | relative_url}}' width="43%"></center>
 
 ### 2. Ablation Studies
 #### Random-Shift based Multi-modal Attention
 다음은 여러 window size에 대한 ablation study 결과를 나타낸 표이다.
 
-<center><img src='{{"/assets/img/mmdiff/mmdiff-table3.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/mm-diffusion/mm-diffusion-table3.webp" | relative_url}}' width="40%"></center>
 <br>
 다음은 여러 학습 step에서 random-shift attention의 유무에 따른 동영상과 오디오의 품질이다. 
 
-<center><img src='{{"/assets/img/mmdiff/mmdiff-table4.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/mm-diffusion/mm-diffusion-table4.webp" | relative_url}}' width="48%"></center>
 
 #### Zero-Shot Conditional Generation
 저자들은 zero-shot transferring을 위한 두 가지 방법의 효율성을 검증하고 두 가지 모두 동영상을 조건으로 사용하여 고품질 오디오를 생성할 수 있음을 발견했다. 다음 그림은 조건부 생성을 위한 zero-shot transferring에 의해 생성된 여러 샘플을 랜덤하게 선택한 것이다.
 
-<center><img src='{{"/assets/img/mmdiff/mmdiff-fig5.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/mm-diffusion/mm-diffusion-fig5.webp" | relative_url}}' width="60%"></center>
 <br>
 MM-Diffusion이 유사한 패턴의 오디오에서 유사한 장면의 동영상을 생성하고 입력된 댄스 동영상의 리듬과 일치하는 오디오를 생성할 수 있음을 보여준다.
 
@@ -180,11 +180,11 @@ MM-Diffusion이 유사한 패턴의 오디오에서 유사한 장면의 동영�
 #### Comparison with other Methods
 저자들은 동영상 품질, 오디오 품질, 동영상-오디오 관련성로 task를 나누고 Amazon Mechanical Turk를 사용하여 각 task마다 5명씩 유저를 할당하였다. 각 유저마다 9천 개의 투표를 하여 각 task마다 45000개의 투표를 모아 Mean opinion score (5점 만점)를 측정하였다. 그 결과는 아래 표와 같다. 
 
-<center><img src='{{"/assets/img/mmdiff/mmdiff-table5.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/mm-diffusion/mm-diffusion-table5.webp" | relative_url}}' width="50%"></center>
 <br>
 Baseline으로 사용한 2-stage 파이프라인은 2개의 single-modality 모델을 연결한 것으로, SOTA 오디오 diffusion model인 Diffwave와 audio-to-video 모델인 TATS를 연결하였다. 
 
 #### Turing Test
 저자들은 생성된 동영상의 현실성을 평가하기 위해 Turing test를 수행하였다. 각 데이터셋에 대하여 MM-Diffusion으로 500개의 오디오-비디오 쌍을 샘플링하고, 500개의 ground-truth와 섞어 1000개의 샘플을 준비한다. 그런 다음 5명의 유저에게 현실의 데이터인지 판단하게 하여 총 1만 개의 투표를 얻는다. 아래 표는 현실의 데이터로 판단한 비율을 퍼센트로 나타낸 것이다. 
 
-<center><img src='{{"/assets/img/mmdiff/mmdiff-table6.PNG" | relative_url}}' width="37%"></center>
+<center><img src='{{"/assets/img/mm-diffusion/mm-diffusion-table6.webp" | relative_url}}' width="37%"></center>

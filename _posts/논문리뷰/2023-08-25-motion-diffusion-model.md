@@ -19,7 +19,7 @@ classes: wide
 > Tel Aviv University  
 > 29 Sep 2022  
 
-<center><img src='{{"/assets/img/motion-diffusion-model/motion-diffusion-model-fig1.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/motion-diffusion-model/motion-diffusion-model-fig1.webp" | relative_url}}' width="95%"></center>
 
 ## Introduction
 인간 모션 생성은 가능한 모션의 범위가 넓고 고품질 데이터를 수집하는 데 드는 어려움과 비용을 포함하여 여러 가지 이유로 어려운 분야이다. 모션이 자연어에서 생성되는 최근 등장한 text-to-motion 설정의 경우 또 다른 고유한 문제는 데이터 라벨링이다. 예를 들어, "kick"이라는 레이블은 가라테 킥뿐만 아니라 축구 킥을 의미할 수 있다. 동시에 특정 킥이 주어지면 이를 수행하는 방법에서 전달하는 감정에 이르기까지 다대다 문제를 구성하는 여러 가지 방법이 있다. 현재 접근 방식은 텍스트에서 모션으로 그럴듯한 매핑을 보여준다. 그러나 이러한 모든 접근 방식은 주로 오토인코더 또는 VAE를 사용하기 때문에 학습된 분포를 여전히 제한한다. 이러한 측면에서 diffusion model은 타겟 분포에 대한 가정이 없고 다대다 분포 일치 문제를 잘 표현하는 것으로 알려져 있기 때문에 인간 모션 생성에 더 적합한 후보이다.
@@ -35,7 +35,7 @@ MDM 프레임워크에는 다양한 형태의 컨디셔닝을 가능하게 하�
 마지막으로 저자들은 완성과 편집의 시연도 하였다. Diffusion 이미지 인페인팅을 적용하여 모션 prefix와 suffix를 설정하고 모델을 사용하여 간격을 채운다. 텍스트 조건에서 그렇게 하면 MDM이 원래 입력의 의미를 여전히 유지하는 특정 모션으로 간격을 채우도록 가이드한다. 시간적으로가 아니라 joint space에서 인페인팅을 수행함으로써 다른 부분을 변경하지 않고 특정 신체 부분의 semantic 편집을 시연하였다. 
 
 ## Motion Diffusion Model
-<center><img src='{{"/assets/img/motion-diffusion-model/motion-diffusion-model-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/motion-diffusion-model/motion-diffusion-model-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문의 방법의 개요는 위 그림에 설명되어 있다. 주어진 임의의 조건 $c$에서 길이 $N$의 인간 모션 $x^{1:N}$을 합성하는 것이 목표이다. 이 조건은 오디오, 자연어 (text-to-motion), discrete한 클래스 (action-to-motion)와 같이 합성을 지시하는 실제 신호일 수 있다. 또한 unconditional한 모션 생성도 가능하며 이를 null 조건 $c = \emptyset$로 표시한다. 생성된 모션 $$x^{1:N} = \{x^i\}_{i=1}^N$$은 관절 회전 또는 위치 $x^i \in \mathbb{R}^{J \times D}$로 표현되는 일련의 인간 포즈이며, 여기서 $J$는 관절 수이고 $D$는 관절 표현의 차원이다. MDM은 위치, 회전 또는 둘 다로 표시되는 모션을 허용할 수 있다.
 
@@ -104,36 +104,36 @@ $$
 ### 1. Text-to-Motion
 다음은 HumanML3D test set에서 정량적으로 평가한 표이다.
 
-<center><img src='{{"/assets/img/motion-diffusion-model/motion-diffusion-model-table1.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/motion-diffusion-model/motion-diffusion-model-table1.webp" | relative_url}}' width="85%"></center>
 <br>
 다음은 KIT test set에서 정량적으로 평가한 표이다.
 
-<center><img src='{{"/assets/img/motion-diffusion-model/motion-diffusion-model-table2.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/motion-diffusion-model/motion-diffusion-model-table2.webp" | relative_url}}' width="85%"></center>
 <br>
 다음은 KIT에 대한 user study 결과이다.
 
-<center><img src='{{"/assets/img/motion-diffusion-model/motion-diffusion-model-fig4a.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/motion-diffusion-model/motion-diffusion-model-fig4a.webp" | relative_url}}' width="40%"></center>
 <br>
 다음은 HumanML3D에서 guidance scale $s$에 따른 FID와 R-precision을 나타낸 그래프이다.
 
-<center><img src='{{"/assets/img/motion-diffusion-model/motion-diffusion-model-fig4b.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/motion-diffusion-model/motion-diffusion-model-fig4b.webp" | relative_url}}' width="40%"></center>
 
 ### 2. Action-to-Motion
 다음은 HumanAct12에서 정량적으로 action-to-motion을 평가한 표이다.
 
-<center><img src='{{"/assets/img/motion-diffusion-model/motion-diffusion-model-table3.PNG" | relative_url}}' width="72%"></center>
+<center><img src='{{"/assets/img/motion-diffusion-model/motion-diffusion-model-table3.webp" | relative_url}}' width="72%"></center>
 <br>
 다음은 UESTC에서 정량적으로 action-to-motion을 평가한 표이다.
 
-<center><img src='{{"/assets/img/motion-diffusion-model/motion-diffusion-model-table4.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/motion-diffusion-model/motion-diffusion-model-table4.webp" | relative_url}}' width="85%"></center>
 
 ## Additional Applications
 ### 1. Motion Editing
 다음은 모션 편집의 예시이다. 하늘색 프레임은 모션 입력을 나타내고 갈색 프레임은 생성된 모션을 나타낸다. 
 
-<center><img src='{{"/assets/img/motion-diffusion-model/motion-diffusion-model-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/motion-diffusion-model/motion-diffusion-model-fig3.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Unconstrained Synthesis
 다음은 HumanAct12에서 정량적으로 제약 없는 합성을 평가한 표이다.
 
-<center><img src='{{"/assets/img/motion-diffusion-model/motion-diffusion-model-table5.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/motion-diffusion-model/motion-diffusion-model-table5.webp" | relative_url}}' width="75%"></center>

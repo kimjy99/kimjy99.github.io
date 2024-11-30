@@ -18,7 +18,7 @@ classes: wide
 > University of Oxford  
 > 21 Feb 2023  
 
-<center><img src='{{"/assets/img/realfusion/realfusion-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/realfusion/realfusion-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 본 논문은 단일 이미지가 주어진 어떤 물체의 360도 사진 재구성을 얻는 문제를 고려한다. 문제는 단일 이미지에 3D 재구성을 위한 충분한 정보가 포함되어 있지 않다는 것이다. 여러 시점에 액세스할 수 없으면 이미지는 개체의 3D 모양에 대한 약한 증거만 제공하고 개체의 한 면에 대해서만 제공한다. 그럼에도 불구하고 이 task를 해결할 수 있다는 증거가 있다. 숙련된 3D 아티스트라면 거의 모든 개체의 사진을 찍을 수 있고 충분한 시간과 노력이 주어지면 그럴듯한 3D 모델을 만들 수 있다. 작가는 자연 세계와 그 안에 포함된 사물에 대한 방대한 지식을 활용하여 이미지에서 누락된 정보를 보충함으로써 그렇게 할 수 있다.
@@ -118,7 +118,7 @@ $$
 
 아래 그림은 전체 시스템의 다이어그램이다.
 
-<center><img src='{{"/assets/img/realfusion/realfusion-fig2.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/realfusion/realfusion-fig2.webp" | relative_url}}' width="90%"></center>
 
 #### Single-image textual inversion as a substitute for alternative views
 본 논문의 방법에서 가장 중요한 구성 요소는 대체 view 대신 단일 이미지 텍스트 inversion을 사용한다는 것이다. 이상적으로, 재구성 프로세스를 $I_0$에 있는 개체의 multi-view 이미지, 즉 $p(I \vert I_0)$의 샘플로 컨디셔닝하고 싶다. 이러한 이미지를 사용할 수 없기 때문에 대신 이 multi-view 정보에 대한 대안으로 이미지 $I_0$에 대해 특별히 텍스트 프롬프트 $e^{(I_0)}$를 합성한다.
@@ -127,7 +127,7 @@ $$
 
 실제로 프롬프트는 "$\langle e \rangle$의 이미지"와 같은 템플릿에서 자동으로 파생된다. 여기서 "$\langle e \rangle$" ($= e^{(I_0)}$)는 diffusion model의 텍스트 인코더 vocabulary에 도입된 새로운 토큰이다. 최적화 절차는 최근에 제안된 [textual-inversion](https://arxiv.org/abs/2208.01618) 방법을 반영하고 일반화한다. Textual-inversion과 달리 단일 이미지 설정에서 작업하고 mutli-view가 아닌 학습을 위해 이미지 augmentation을 활용한다.
 
-<center><img src='{{"/assets/img/realfusion/realfusion-fig3.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/realfusion/realfusion-fig3.webp" | relative_url}}' width="80%"></center>
 <br>
 위 그림은 임베딩 $\langle e \rangle$에서 캡처된 디테일의 양을 보여준다.
 
@@ -184,41 +184,41 @@ $$
 ### 1. Quantitative results
 다음은 CO3D 데이터셋에서 Shelf-Supervised와 정성적으로 비교한 것이다.
 
-<center><img src='{{"/assets/img/realfusion/realfusion-fig5.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/realfusion/realfusion-fig5.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 Shelf-Supervised와 7가지 카테고리에서 정량적으로 비교한 표이다.
 
-<center><img src='{{"/assets/img/realfusion/realfusion-table1.PNG" | relative_url}}' width="43%"></center>
+<center><img src='{{"/assets/img/realfusion/realfusion-table1.webp" | relative_url}}' width="43%"></center>
 <br>
 
 ### 2. Qualitative results
 다음은 RealFusion의 정성적 결과이다.
 
-<center><img src='{{"/assets/img/realfusion/realfusion-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/realfusion/realfusion-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 multi-modal 이미지 재구성 예시이다.
 
-<center><img src='{{"/assets/img/realfusion/realfusion-fig6.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/realfusion/realfusion-fig6.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 RealFusion의 2가지 일반적인 실패 모드이다.
 
-<center><img src='{{"/assets/img/realfusion/realfusion-fig11.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/realfusion/realfusion-fig11.webp" | relative_url}}' width="95%"></center>
 <br>
 어떤 경우에는 모델이 수렴하지 못하고 어떤 경우에는 의미상 올바르지 않더라도 전면 view를 개체의 후면에 복사한다.
 
 ### 3. Analysis and Ablations
 다음은 재구성 품질 측면에서 단일 이미지 textual inversion의 효과를 시각화한 것이다.
 
-<center><img src='{{"/assets/img/realfusion/realfusion-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/realfusion/realfusion-fig7.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 coarse-to-fine 학습의 효과를 시각화한 것이다.
 
-<center><img src='{{"/assets/img/realfusion/realfusion-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/realfusion/realfusion-fig8.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 재구성 품질 측면에서 부드러운 법선의 효과를 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/realfusion/realfusion-fig9.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/realfusion/realfusion-fig9.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Stable Diffusion과 CLIP prior를 비교한 결과이다.
 
-<center><img src='{{"/assets/img/realfusion/realfusion-fig10.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/realfusion/realfusion-fig10.webp" | relative_url}}' width="100%"></center>

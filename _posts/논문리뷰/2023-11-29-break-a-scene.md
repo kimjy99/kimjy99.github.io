@@ -21,12 +21,12 @@ classes: wide
 > Google Research | The Hebrew University of Jerusalem | Tel Aviv University | Reichman University  
 > 2 Dec 2021  
 
-<center><img src='{{"/assets/img/break-a-scene/break-a-scene-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/break-a-scene/break-a-scene-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 인간은 복잡한 장면을 구성 부분으로 분해하고 이를 다양한 맥락에서 상상하는 타고난 능력을 가지고 있다. 예를 들어, 그릇 위에 앉아 있는 생물을 묘사한 도자기 예술 작품 사진이 있으면 동일한 생물이 다양한 자세와 위치에 있는 것을 쉽게 상상하거나 동일한 그릇이 새로운 환경에 있는 것을 상상할 수 있다. 그러나 오늘날의 생성 모델은 이러한 유형의 task에 직면할 때 어려움을 겪는다. 
 
-<center><img src='{{"/assets/img/break-a-scene/break-a-scene-table1.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/break-a-scene/break-a-scene-table1.webp" | relative_url}}' width="55%"></center>
 <br>
 [Textual Inversion (TI)](https://kimjy99.github.io/논문리뷰/textual-inversion)와 [DreamBooth (DB)](https://kimjy99.github.io/논문리뷰/dreambooth)에서는 대규모 text-to-image 모델의 개인화가 제안되었다. 단일 개념의 여러 이미지가 제공되면 새로 추가된 전용 텍스트 임베딩을 최적화하거나 모델 가중치를 fine-tuning하여 새로운 맥락에서 이 개념의 인스턴스를 합성할 수 있다.
 
@@ -43,11 +43,11 @@ classes: wide
 ## Method
 하나의 입력 이미지 $I$와 이미지의 관심 개념을 나타내는 $N$개의 마스크 집합 $$\{M_i\}_{i=1}^N$$이 주어지면 $N$개의 텍스트 핸들 $$\{v_i\}_{i=1}^N$$을 추출하는 것을 목표로 한다. 여기서 $i$번째 핸들 $v_i$는 $M_i$로 표시된 개념을 나타낸다. 결과 핸들은 텍스트 프롬프트에서 각 개념의 새로운 인스턴스 합성이나 여러 개념의 새로운 조합을 가이드하는 데 사용될 수 있다. 
 
-<center><img src='{{"/assets/img/break-a-scene/break-a-scene-fig2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/break-a-scene/break-a-scene-fig2.webp" | relative_url}}' width="50%"></center>
 <br>
 하나의 이미지에서 여러 개념을 추출하도록 TI 또는 DB를 적용하려는 시도는 본질적인 재구성-편집 가능성 trade-off를 드러낸다. 위 그림에서 볼 수 있듯이 TI는 추출된 개념을 새로운 컨텍스트에 포함할 수 있지만 해당 정체성을 충실하게 유지하지 못하는 반면, DB에서 모델을 fine-tuning하면 편집 가능성을 잃는 대신 가이드하는 텍스트 프롬프트를 따르지 못하는 지점까지 정체성을 캡처한다. 저자들은 개별 토큰만을 최적화하는 것은 좋은 재구성을 위해 표현력이 충분하지 않은 반면, 단일 이미지를 사용하여 모델을 fine-tuning하는 것은 overfitting에 매우 취약하다는 것을 관찰했다. 본 논문에서는 두 세계의 장점을 결합하는 "중간 수준" 솔루션을 위해 노력하였다. 즉, 편집 가능성을 포기하지 않고 대상 개념의 정체성을 포착할 수 있다. 본 논문의 접근 방식은 아래 그림에 나와 있고 네 가지 주요 구성 요소를 결합하였다. 
 
-<center><img src='{{"/assets/img/break-a-scene/break-a-scene-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/break-a-scene/break-a-scene-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 **재구성과 편집 가능성 사이의 균형:** 텍스트 임베딩과 모델 가중치를 모두 최적화하지만 이를 두 가지 다른 단계로 진행한다. 첫 번째 단계에서는 모델이 고정되고 마스킹된 개념에 해당하는 텍스트 임베딩이 높은 learning rate를 사용하여 최적화된다. 따라서 모델의 일반성을 손상시키지 않고 초기 근사 임베딩이 빠르게 달성되며, 이는 다음 단계의 좋은 시작점이 된다. 두 번째 단계에서는 상당히 낮은 learning rate를 사용하여 모델 가중치를 고정 해제하고 텍스트 토큰과 함께 최적화한다. 가중치와 토큰을 부드럽게 fine-tuning하면 편집 가능성 저하를 최소화하면서 새로운 맥락에서 추출된 개념을 충실하게 재구성할 수 있다.
 
@@ -63,7 +63,7 @@ $$
 
 여기서 $z_t$는 timestep $t$의 noisy latent, $p_s$는 텍스트 프롬프트, $M_s$는 해당 마스크의 합집합, $\epsilon$은 추가된 noise, $\epsilon_\theta$는 denoising network이다. 픽셀 공간에서 마스킹된 diffusion loss를 사용하면 프로세스가 개념을 충실하게 재구성할 수 있지만 단일 핸들을 여러 개념과 연관시키는 데에는 페널티가 부과되지 않는다. 따라서 이 loss만으로는 결과 핸들이 해당 개념을 깔끔하게 분리하는 데 실패한다. 
 
-<center><img src='{{"/assets/img/break-a-scene/break-a-scene-fig4.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/break-a-scene/break-a-scene-fig4.webp" | relative_url}}' width="70%"></center>
 <br>
 이 문제의 원인을 이해하려면 위 그림의 상단에 시각화된 것처럼 학습된 핸들과 생성된 이미지 간의 cross-attention map을 조사하는 것이 도움이 된다. 두 핸들 $[v_1]$과 $[v_2]$ 모두 각 핸들이 하나의 개념에만 attend하는 대신 생성된 이미지에서 두 가지 개념을 포함하는 영역의 합집합에 attend하는 것을 볼 수 있다. 
 
@@ -88,30 +88,30 @@ $$
 ## Experiments
 저자들은 의미있는 비교를 위해 다른 방법들을 본 논문의 문제 설정에 적응시켰다. 
 
-<center><img src='{{"/assets/img/break-a-scene/break-a-scene-fig6.PNG" | relative_url}}' width="83%"></center>
+<center><img src='{{"/assets/img/break-a-scene/break-a-scene-fig6.webp" | relative_url}}' width="83%"></center>
 <br>
 저자들은 위 그림과 같이 여러 개념 마스크가 있는 단일 입력 이미지를 이미지-텍스트 쌍의 작은 컬렉션으로 변환하였다. 특히 각 쌍은 개념 하위 집합 $i_1, \ldots, i_k$을 무작위로 선택하여 구성된다. 저자들은 random flip augmentation을 사용하여 랜덤한 단색 배경에 배치하였으며, 각 이미지와 함께 제공되는 텍스트 프롬프트는 "a photo of $[v_{i_1}]$ and $\ldots [v_{i_k}]$"이다. 이와 같은 컬렉션에서 학습된 DB와 TI를 각각 DB-m과 TI-m로 부른다. 
 
 ### 1. Comparisons
 다음은 여러 방법들과 정성적으로 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/break-a-scene/break-a-scene-fig9.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/break-a-scene/break-a-scene-fig9.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 정량적 비교 결과이다. 
 
-<center><img src='{{"/assets/img/break-a-scene/break-a-scene-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/break-a-scene/break-a-scene-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 정성적 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/break-a-scene/break-a-scene-fig7.PNG" | relative_url}}' width="88%"></center>
+<center><img src='{{"/assets/img/break-a-scene/break-a-scene-fig7.webp" | relative_url}}' width="88%"></center>
 
 ### 2. Applications
 다음은 여러 다운스트림 task에 대하여 본 논문의 방법을 적용한 것이다. 
 
-<center><img src='{{"/assets/img/break-a-scene/break-a-scene-fig10.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/break-a-scene/break-a-scene-fig10.webp" | relative_url}}' width="100%"></center>
 
 ## Limitations
-<center><img src='{{"/assets/img/break-a-scene/break-a-scene-fig8.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/break-a-scene/break-a-scene-fig8.webp" | relative_url}}' width="75%"></center>
 
 1. 일관되지 않은 조명: 입력이 단일 이미지이기 때문에 학습된 정체성들에서 조명을 분리하는 데 때때로 어려움을 겪는다. 
 2. 고정된 포즈: 단일 입력이므로 모델이 개체의 포즈와 개체의 정체성 사이를 얽히게 만드는 방법을 학습하는 경우가 있다. 

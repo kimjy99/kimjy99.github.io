@@ -33,7 +33,7 @@ classes: wide
 ## Methods
 프롬프트 적응 프레임워크의 목표는 프롬프트 엔지니어링을 자동으로 수행하는 것이다. Text-to-image generator의 사용자 입력이 주어지면 모델은 원래 의도를 유지하면서 더 나은 출력 이미지를 얻는 모델 선호 프롬프트를 생성하는 방법을 학습한다. 
 
-<center><img src='{{"/assets/img/promptist/promptist-fig1.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/promptist/promptist-fig1.webp" | relative_url}}' width="95%"></center>
 <br>
 위 그림은 본 논문의 방법의 개요를 보여준다. 프롬프트 최적화 모델의 이름은 **Promptist**이며, GPT와 같은 사전 학습된 언어 모델을 기반으로 한다. 먼저 일련의 사람이 엔지니어링한 예제를 수집하고 supervised fine-tuning을 수행하는 데 사용한다. 다음으로 목표 reward를 최대화하기 위해 강화 학습을 수행하여 생성된 이미지의 관련성과 품질을 모두 향상시킨다.
 
@@ -149,17 +149,17 @@ Policy 모델 $\pi_\theta$와 value function 모델을 각각 언어 모델링 h
 ### 1. Results
 다음은 in-domian 및 out-of-domain 데이터에 대하여 다른 baseline과 최적화된 프롬프트의 reward를 비교한 그래프이다.
 
-<center><img src='{{"/assets/img/promptist/promptist-fig2.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/promptist/promptist-fig2.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 강화 학습 후의 reward 개선을 나타낸 표이다.
 
-<center><img src='{{"/assets/img/promptist/promptist-table1.PNG" | relative_url}}' width="38%"></center>
+<center><img src='{{"/assets/img/promptist/promptist-table1.webp" | relative_url}}' width="38%"></center>
 <br>
 다음은 Stable Diffusion에서 사용자 입력과 최적화된 프롬프트에 의해 생성된 이미지이다.
 
-<center><img src='{{"/assets/img/promptist/promptist-table2.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/promptist/promptist-table2.webp" | relative_url}}' width="90%"></center>
 
 ### 2. Human Evaluation
 다음은 human evaluation 결과이다. 주황색 블록은 두 프롬프트가 똑같이 만족스러운 이미지를 생성한다는 것을 의미한다.
 
-<center><img src='{{"/assets/img/promptist/promptist-table3.PNG" | relative_url}}' width="78%"></center>
+<center><img src='{{"/assets/img/promptist/promptist-table3.webp" | relative_url}}' width="78%"></center>

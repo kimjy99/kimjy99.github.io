@@ -29,11 +29,11 @@ classes: wide
 
 또는 vision transformer는 시각적 토큰 간의 self-attention을 통해 글로벌 의존성을 포착하는 데 능숙하다. 최근에 이 디자인은 시공간 attention 메커니즘을 통해 동영상 분류에 도입되었다. 그러나 video transformer는 얕은 레이어의 로컬한 시공간 feature를 인코딩하는 데 종종 비효율적이다. 다음 그림은 잘 알려진 일반적인 TimeSformer를 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/uniformer/uniformer-fig1.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/uniformer/uniformer-fig1.webp" | relative_url}}' width="90%"></center>
 <br>
 위 그림에서 볼 수 있듯이 TimeSformer는 실제로 초기 레이어에서 상세한 동영상 표현을 학습하지만 매우 중복된 공간적 및 시간적 attention을 가진다. 특히, 공간적 attention는 주로 이웃한 토큰에 초점을 맞추는 반면, 동일한 프레임의 나머지 토큰에서는 아무것도 학습하지 않는다. 유사하게, 시간적 attention은 대부분 인접한 프레임의 토큰만 집계하고 먼 프레임의 토큰은 무시한다. 더 중요한 것은 이러한 로컬 표현은 모든 레이어에서 글로벌 토큰 간 유사성 비교를 통해 학습되므로 많은 계산 비용이 필요하다. 이 사실은 이러한 video transformer의 계산량-정확도 균형을 분명히 악화시킨다 (아래 그림 참조).
 
-<center><img src='{{"/assets/img/uniformer/uniformer-fig2.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/uniformer/uniformer-fig2.webp" | relative_url}}' width="85%"></center>
 <br>
 본 논문은 이러한 어려움을 해결하기 위해 간결한 transformer 형식으로 3D convolution과 시공간적 self-attention을 효과적으로 통합할 것을 제안하였다. 따라서 효율성과 효과 사이에서 바람직한 균형을 달성할 수 있는 네트워크를 **Unified transFormer (UniFormer)**라고 부른다. 보다 구체적으로 UniFormer는 Dynamic Position Embedding (DPE), Multi-Head Relation Aggregator (MHRA), Feed-Forward Network (FFN)의 세 가지 핵심 모듈로 구성된다. UniFormer와 기존 video transFormer의 주요 차이점은 relation aggregator의 독특한 디자인이다. 
 
@@ -41,7 +41,7 @@ classes: wide
 
 ## Method
 ### 1. Overview of UniFormer Block
-<center><img src='{{"/assets/img/uniformer/uniformer-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/uniformer/uniformer-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문은 시공간 중복성 및 의존성 문제를 극복하기 위해 위 그림과 같은 새롭고 간결한 Unified transFormer (UniFormer)를 제안하였다. 기본 transformer 형식을 사용하지만 효율적이고 효과적인 시공간 표현 학습을 위해 특별히 디자인되었다. 특히 UniFormer 블록은
 
@@ -133,7 +133,7 @@ UniFormer 블록을 계층적으로 쌓아 시공간 학습을 위한 네트워�
 첫 번째 단계 전에 stride가 2$\times$4$\times$4인 3$\times$4$\times$4 컨벌루션을 적용한다. 이는 공간 및 시간 차원이 모두 다운샘플링됨을 의미한다. 다른 단계 전에 stride가 1$\times$2$\times$2인 1$\times$2$\times$2 convolution을 적용한다. 마지막으로 시공간 average pooling과 fully connected layer을 사용하여 최종 예측을 출력한다.
 
 #### Comparison to Convolution+Transformer Network
-<center><img src='{{"/assets/img/uniformer/uniformer-table1.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/uniformer/uniformer-table1.webp" | relative_url}}' width="90%"></center>
 <br>
 이전 연구들은 self-attention이 convolution을 수행할 수 있음을 입증했지만 convolution을 결합하는 대신 convolution을 대체할 것을 제안하였다. 최근 연구들은 ViT에 convolution을 도입하려는 시도가 있으나 동영상 이해를 위한 시공간적 고려 없이 주로 동영상 인식에 초점을 맞추고 있다. 더욱이 이전의 video transformer에서는 조합이 거의 간단하다. 예를 들어 transformer를 글로벌 attention으로 사용하거나 convolution을 patch stem으로 사용한다. 반대로 UniFormer는 통찰력 있는 통합 프레임워크를 통해 동영상 중복성과 의존성을 모두 해결한다. 로컬 및 글로벌 토큰 선호도 학습을 통해 동영상 분류를 위한 바람직한 계산량-정확도 균형을 달성할 수 있다.
 
@@ -143,29 +143,29 @@ UniFormer 블록을 계층적으로 쌓아 시공간 학습을 위한 네트워�
 ### 1. Comparison to State-of-the-art
 다음은 Kinetics-400과 600에서 SOTA 방법들과 비교한 표이다.
 
-<center><img src='{{"/assets/img/uniformer/uniformer-table2.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/uniformer/uniformer-table2.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 Something-Something V1과 V2에서 SOTA 방법들과 비교한 표이다.
 
-<center><img src='{{"/assets/img/uniformer/uniformer-table3.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/uniformer/uniformer-table3.webp" | relative_url}}' width="90%"></center>
 
 ### 2. Ablation Studies
 다음은 구조 디자인에 대한 ablation study 결과이다. (Kinetics-400에서 50 epochs 동안 학습)
 
-<center><img src='{{"/assets/img/uniformer/uniformer-table4a.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/uniformer/uniformer-table4a.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 튜브 크기에 대한 ablation study 결과이다.
 
-<center><img src='{{"/assets/img/uniformer/uniformer-table4b.PNG" | relative_url}}' width="22%"></center>
+<center><img src='{{"/assets/img/uniformer/uniformer-table4b.webp" | relative_url}}' width="22%"></center>
 <br>
 다음은 transfer learning 결과이다. 
 
-<center><img src='{{"/assets/img/uniformer/uniformer-table4c.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/uniformer/uniformer-table4c.webp" | relative_url}}' width="45%"></center>
 <br>
 다음은 샘플링 방법에 대한 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/uniformer/uniformer-table4d.PNG" | relative_url}}' width="29%"></center>
+<center><img src='{{"/assets/img/uniformer/uniformer-table4d.webp" | relative_url}}' width="29%"></center>
 <br>
 다음은 다양한 데이터셋에서 Multi-clip/crop 테스트 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/uniformer/uniformer-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/uniformer/uniformer-fig4.webp" | relative_url}}' width="100%"></center>

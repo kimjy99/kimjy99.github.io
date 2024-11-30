@@ -21,7 +21,7 @@ classes: wide
 > Google Research  
 > 30 Nov 2021  
 
-<center><img src='{{"/assets/img/pyramidat/pyramidat-fig1.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/pyramidat/pyramidat-fig1.webp" | relative_url}}' width="70%"></center>
 
 ## Introduction
 인간 지능의 흥미로운 측면 중 하나는 제한된 경험을 새로운 환경으로 일반화하는 능력이다. 딥러닝은 분류 작업에서 인간을 모방하거나 능가하는 데 놀라운 발전을 이루었지만 분산 데이터를 일반화하는 데 어려움이 있다. CNN은 어려운 상황, 비정상적인 색상 및 질감, 일반적이거나 적대적인 손상이 있는 이미지를 분류하지 못할 수 있다. 실제 세계의 다양한 작업에 신경망을 안정적으로 배포하려면 분포 외 (out-of-distribution) 데이터에 대한 견고성 (robustness)을 개선해야 한다.
@@ -115,62 +115,62 @@ $$
 ### 1. Experimental Results on ViT-B/16
 다음은 ImageNet-1k에서의 결과이다. 
 
-<center><img src='{{"/assets/img/pyramidat/pyramidat-table1.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/pyramidat/pyramidat-table1.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 ImageNet-C에서 SOTA와 mean Corruption Error (mCE)를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/pyramidat/pyramidat-table2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/pyramidat/pyramidat-table2.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 ImageNet-R에서 SOTA와 top-1 정확도를 비교한 표이다. Extra data는 ImageNet-21k이다.
 
-<center><img src='{{"/assets/img/pyramidat/pyramidat-table3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/pyramidat/pyramidat-table3.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 ImageNet-Sketch에서 SOTA와 top-1 정확도를 비교한 표이다. Extra data는 ImageNet-21k이다.
 
-<center><img src='{{"/assets/img/pyramidat/pyramidat-table4.PNG" | relative_url}}' width="49%"></center>
+<center><img src='{{"/assets/img/pyramidat/pyramidat-table4.webp" | relative_url}}' width="49%"></center>
 <br>
 다음은 ImageNet-21K에서 사전 학습 후 ImageNet-1K에서 fine-tuning한 결과이다. 
 
-<center><img src='{{"/assets/img/pyramidat/pyramidat-table5.PNG" | relative_url}}' width="93%"></center>
+<center><img src='{{"/assets/img/pyramidat/pyramidat-table5.webp" | relative_url}}' width="93%"></center>
 
 ### 2. Ablations
 다음은 PixelAT와 PyramidAT를 ResNet-50, MLP-Mixer, Discrete ViT에 적용한 결과이다. 
 
-<center><img src='{{"/assets/img/pyramidat/pyramidat-table6.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/pyramidat/pyramidat-table6.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 matched dropout에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/pyramidat/pyramidat-table7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/pyramidat/pyramidat-table7.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 피라미드 구조에 대한 ablation 결과이다.
 
-<center><img src='{{"/assets/img/pyramidat/pyramidat-table8.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/pyramidat/pyramidat-table8.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 더 작은 강도의 random augmentation을 사용한 Ti/16에서의 결과이다. 
 
-<center><img src='{{"/assets/img/pyramidat/pyramidat-table9.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/pyramidat/pyramidat-table9.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 clean data와 robust data에 대한 성능을 섭동 크기에 따라 나타낸 그래프이다. 
 
-<center><img src='{{"/assets/img/pyramidat/pyramidat-fig2.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/pyramidat/pyramidat-fig2.webp" | relative_url}}' width="65%"></center>
 
 ### 3. Analysis and Discussions
 다음은 여러 모델에 대한 attention을 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/pyramidat/pyramidat-fig3.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/pyramidat/pyramidat-fig3.webp" | relative_url}}' width="65%"></center>
 <br>
 다음은 ImageNet-A에 대한 평균 attention이다. 
 
-<center><img src='{{"/assets/img/pyramidat/pyramidat-fig4.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/pyramidat/pyramidat-fig4.webp" | relative_url}}' width="65%"></center>
 <br>
 다음은 공격을 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/pyramidat/pyramidat-fig5.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/pyramidat/pyramidat-fig5.webp" | relative_url}}' width="65%"></center>
 <br>
 다음은 여러 섭동에 대한 푸리에 스펙트럼을 나타낸 히트맵이다. 
 
-<center><img src='{{"/assets/img/pyramidat/pyramidat-fig6.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/pyramidat/pyramidat-fig6.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 low-pass filtering된 noise와 high-pass filtering된 noise에 대한 top-1 정확도를 나타낸 그래프이다. 
 
-<center><img src='{{"/assets/img/pyramidat/pyramidat-fig7.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/pyramidat/pyramidat-fig7.webp" | relative_url}}' width="65%"></center>

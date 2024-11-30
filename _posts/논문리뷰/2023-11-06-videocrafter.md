@@ -19,7 +19,7 @@ classes: wide
 > Tencent AI Lab | Hong Kong University of Science and Technology | Chinese Academy of Sciences | The Chinese University of Hong Kong | City University of Hong Kong  
 > 30 Oct 2023  
 
-<center><img src='{{"/assets/img/videocrafter/videocrafter-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/videocrafter/videocrafter-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 생성 모델, 특히 diffusion model의 급속한 발전으로 이미지 생성, 동영상 생성과 같은 분야에서 수많은 혁신이 이루어졌다. 가장 잘 알려진 오픈 소스 (text-to-image) T2I 생성 모델은 그럴듯한 결과를 생성하는 Stable Diffusion(SD)이다. 이후 향상된 버전인 SDXL이 출시되어 개념 합성과 이미지 품질이 향상되었다. 
@@ -37,7 +37,7 @@ Text-to-video (T2V) 모델의 경우 [Make-A-Video](https://kimjy99.github.io/�
 ## Methodology
 ### 1. VideoCrafter1: Text-to-Video Model
 ##### Structure Overview
-<center><img src='{{"/assets/img/videocrafter/videocrafter-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/videocrafter/videocrafter-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 VideoCrafter T2V 모델은 위 그림에 설명된 것처럼 동영상 VAE와 동영상 latent diffusion model의 두 가지 주요 구성 요소로 구성된 Latent Video Diffusion Model (LVDM)이다. 동영상 VAE는 샘플 차원을 줄여 diffusion model이 보다 컴팩트하고 효율적이도록 한다. 먼저, 동영상 데이터 $x_0$는 VAE 인코더 $\mathcal{E}$에 입력되어 더 낮은 데이터 차원의 압축된 동영상 표현인 video latent $z_0$에 project된다. 그런 다음, video latent는 VAE 디코더 $\mathcal{D}$를 통해 재구성된 동영상 $x_0^\prime$으로 다시 project될 수 있다. Stable Diffusion 모델에서 사전 학습된 VAE를 채택하여 동영상 VAE 역할을 하도록 하고 시간 정보를 추출하지 않고 각 프레임을 개별적으로 project시킨다. Video latent $z_0$를 얻은 후 다음과 같이 $z_0$에서 diffusion process가 수행된다.
 
@@ -74,7 +74,7 @@ $$
 여기서 $\phi_i (z_t) \in \mathbb{R}^{N \times d_\epsilon^i}$는 공간적으로 flatten된 video latent 토큰을 나타내고, $\phi$는 CLIP 텍스트 인코더를 나타내고, $y$는 입력 텍스트 프롬프트를 나타낸다. FPS를 사용한 모션 속도 제어는 timestep 임베딩과 동일한 구조를 공유하는 FPS 임베딩을 통해 통합된다. 특히, FPS와 timestep은 sinusoidal embedding을 사용하여 임베딩 벡터에 project된다. 그런 다음 이 벡터는 2-layer MLP에 입력되어 sinusoidal embedding을 학습된 임베딩에 매핑한다. 이어서, element-wise 덧셈을 통해 timestep 임베딩과 FPS 임베딩이 융합된다. 융합된 임베딩은 최종적으로 convolutional feature에 더해져 중간 feature를 조정한다.
 
 ### 2. VideoCrafter1: Image-to-Video Model
-<center><img src='{{"/assets/img/videocrafter/videocrafter-fig4.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/videocrafter/videocrafter-fig4.webp" | relative_url}}' width="50%"></center>
 <br>
 텍스트 프롬프트는 콘텐츠 생성을 위한 매우 유연한 제어를 제공하지만 주로 디테일한 모양보다는 semantic 수준의 컨텐츠에 중점을 둔다. I2V 모델에서는 제공된 이미지를 기반으로 동적인 시각적 콘텐츠를 합성할 것으로 예상되는 video diffusion model에 추가 조건부 입력, 즉 이미지 프롬프트를 통합하는 것을 목표로 한다. Text-to-video diffusion model의 경우 조건부 텍스트 삽입 공간은 최종 출력 동영상의 시각적 콘텐츠를 결정하는 데 중요한 역할을 한다. 동영상 모델에 이미지 정보를 호환 가능한 방식으로 제공하려면 텍스트 정렬된 임베딩 공간에 이미지를 project하는 것이 필수적이다. 저자들은 시각적 충실도를 높이기 위해 풍부한 디테일을 포함하는 임베딩을 학습시킬 것을 제안한다. 위 그림은 diffusion model에 이미지 조건 분기를 장착하는 다이어그램이다.
 
@@ -92,7 +92,7 @@ $$
 
 텍스트 cross-attention과 이미지 cross-attention에 대해 동일한 쿼리를 사용한다. 따라서 각 cross-attention layer에 대해 두 개의 파라미터 행렬 $W_k^\prime$과 $W_v^\prime$만이 새로 추가된다. 아래 그림은 주어진 조건부 이미지 입력 (a)에 대하여 글로벌 semantic 토큰 (b)과 본 논문이 채택한 풍부한 시각적 토큰 (c)을 각각 조건으로 생성된 동영상의 시각적 충실도를 비교한 것이다.
 
-<center><img src='{{"/assets/img/videocrafter/videocrafter-fig5.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/videocrafter/videocrafter-fig5.webp" | relative_url}}' width="70%"></center>
 
 ## Experiments
 - 데이터셋
@@ -110,21 +110,21 @@ $$
 #### Text-to-Video Results
 다음은 user study 결과이다. 
 
-<center><img src='{{"/assets/img/videocrafter/videocrafter-table1.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/videocrafter/videocrafter-table1.webp" | relative_url}}' width="55%"></center>
 <br>
-<center><img src='{{"/assets/img/videocrafter/videocrafter-fig6.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/videocrafter/videocrafter-fig6.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 T2V에 대한 Gen-2, Pika Labs, I2VGen-XL, Zeroscope-XL와의 시각적 비교 결과이다. 
 
-<center><img src='{{"/assets/img/videocrafter/videocrafter-fig2.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/videocrafter/videocrafter-fig2.webp" | relative_url}}' width="90%"></center>
 <br>
-<center><img src='{{"/assets/img/videocrafter/videocrafter-fig7.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/videocrafter/videocrafter-fig7.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 서로 다른 VideoCrafter T2V 버전 사이의 시각적 품질을 비교한 것이다. 
 
-<center><img src='{{"/assets/img/videocrafter/videocrafter-fig8.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/videocrafter/videocrafter-fig8.webp" | relative_url}}' width="90%"></center>
 
 #### Image-to-Video Results
 다음은 I2V에 대한 VideoComposer, I2VGen-XL, Pika, Gen-2와의 시각적 비교 결과이다. 
 
-<center><img src='{{"/assets/img/videocrafter/videocrafter-fig9.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/videocrafter/videocrafter-fig9.webp" | relative_url}}' width="100%"></center>

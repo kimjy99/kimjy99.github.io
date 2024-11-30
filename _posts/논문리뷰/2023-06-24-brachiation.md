@@ -17,7 +17,7 @@ classes: wide
 > University of British Columbia  
 > 8 May 2022  
 
-<center><img src='{{"/assets/img/brachiation/brachiation-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/brachiation/brachiation-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 Brachiation은 팔만 사용하여 나뭇가지나 손잡이 사이를 이동하는 운동의 한 형태이다. Brachiating 움직임은 두 가지 유형으로 분류 될 수 있다 
@@ -46,7 +46,7 @@ Brachiation은 팔만 사용하여 나뭇가지나 손잡이 사이를 이동하
 
 긴팔원숭이 모델은 어깨, 팔꿈치, 손목, 엉덩이, 무릎, 발목을 포함한 13개의 경첩 관절과 골반의 단일 허리 관절로 구성된다. 수동적이라고 생각하는 손목 관절을 제외한 모든 관절에는 연관된 토크가 있다. Ball-and-socket 관절의 3D 동작을 2차원으로 캡처하기 위해 어깨 관절을 해당 관절 제한 없이 경첩 관절로 모델링한다. 이렇게 하면 시뮬레이션된 캐릭터가 실제 긴팔원숭이의 언더스윙 동작을 생성할 수 있다. 이 긴팔원숭이의 총 질량은 9.8kg, 팔 길이는 60cm, 서 있는 높이는 63cm이다. 시뮬레이션 안정성을 향상시키기 위해 손과 발의 질량을 인위적으로 늘린다. 긴팔 원숭이 모델의 물리적 특성은 아래 표에 요약되어 있다.
 
-<center><img src='{{"/assets/img/brachiation/brachiation-table1.PNG" | relative_url}}' width="53%"></center>
+<center><img src='{{"/assets/img/brachiation/brachiation-table1.webp" | relative_url}}' width="53%"></center>
 <br>
 전체 모델의 잡기 동작은 지점 간 제약 조건을 사용하여 시뮬레이션된다. 이를 통해 손-물체 동역학 모델링의 복잡성을 추상화할 수 있지만 여전히 기본 물리학에 대한 합리적인 근사치를 제공한다. 저자들의 구현에서는 캐릭터가 잡기를 수행하고 손이 타겟 손잡이에서 5cm 이내에 있을 때 지점 간 제약 조건이 생성된다. 제약 조건은 바람직하지 않은 가상의 힘이 도입되는 것을 방지하기 위해 타겟 손잡이 위치와 반대로 잡는 손을 현재 위치에 고정한다. 해제 시 제약 조건이 제거된다.
 
@@ -81,7 +81,7 @@ $$
 여기서 $\gamma \in [0, 1)$는 합이 수렴하도록 하는 discount factor이다. Policy gradient actor-critic 알고리즘인 Proximal Policy Optimization (PPO) 알고리즘을 사용하여 이 최적화 문제를 해결한다. 저자들은 병렬 세팅에서 하드웨어 리소스를 효과적으로 활용하여 학습 시간을 줄이기 위해 PPO를 선택하였다. 학습 파이프라인은 공개적으로 사용 가능한 PPO 구현을 기반으로 한다. 
 
 ### 1. System Overview
-<center><img src='{{"/assets/img/brachiation/brachiation-fig2.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/brachiation/brachiation-fig2.webp" | relative_url}}' width="75%"></center>
 <br>
 시스템 개요는 위 그림과 같다. 시스템에는 단순화된 모델, 전체 모델, 손잡이 시퀀스 생성기의 세 가지 구성 요소가 포함되어 있다. 학습 중에 단순화된 모델은 먼저 손잡기 생성기에 의해 생성된 랜덤하게 샘플링된 손잡기 시퀀스에 대해 학습된다. 단순화된 모델이 학습된 후 고정된 손잡이 시퀀스에 대한 단순화된 환경에서 참조 궤적을 얻는다. 이후 전체 모델은 task와 스타일 목적 함수를 최적화하면서 단순화된 모델의 참조 궤적을 모방하여 학습된다. 평가 시 단순화된 모델을 planner로 사용하여 전체 손잡이 시퀀스에 대한 선행 또는 잡기별 기준으로 전체 모델에 대한 guidance를 제공할 수 있다. 함께 작동하는 두 모델을 통해 시스템은 표준 RL policy에 어려움이 있는 어려운 손잡이 시퀀스를 통과할 수 있다.
 
@@ -128,17 +128,17 @@ Controller와 전체 모델의 value function은 레이어 너비가 256이고 �
 ### 1. Simplified Model Results
 학습된 control policy는 중요한 비행 단계를 필요로 하고 캐릭터가 필요에 따라 앞뒤로 추가 스윙을 수행하는 비상 펌핑 동작을 나타내는 까다로운 손잡이 시퀀스를 통과할 수 있다. 다음은 펌핑 행동을 시각화한 것이다.
 
-<center><img src='{{"/assets/img/brachiation/brachiation-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/brachiation/brachiation-fig3.webp" | relative_url}}' width="100%"></center>
 
 #### Number of Look-ahead Handholds
 다음은 미리 볼 수 있는 손잡이 개수에 대한 간단화된 모델의 실험 결과이다.
 
-<center><img src='{{"/assets/img/brachiation/brachiation-table2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/brachiation/brachiation-table2.webp" | relative_url}}' width="50%"></center>
 
 #### Importance of Early Termination
 다음은 조기 종료 전략에 대한 간단화된 모델의 ablation study 결과이다.
 
-<center><img src='{{"/assets/img/brachiation/brachiation-table3.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/brachiation/brachiation-table3.webp" | relative_url}}' width="65%"></center>
 
 ### 2. Full Model Results
 저자들은 학습 중에만 단순화된 모델을 사용하는 tracking reward를 사용하는 것 외에도 inference 시 단순화된 모델의 참조 궤적을 추가로 활용하는 세 가지 방법을 실험하였다. 실험에 사용된 모델 구성은 다음과 같다.
@@ -151,7 +151,7 @@ Controller와 전체 모델의 value function은 레이어 너비가 256이고 �
 
 결과는 아래 그래프와 같다.
 
-<center><img src='{{"/assets/img/brachiation/brachiation-fig4.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/brachiation/brachiation-fig4.webp" | relative_url}}' width="60%"></center>
 
 ### 3. Full Model with Planning
 Inference 시 단순화된 모델을 사용하여 예상 범위를 확장하여 전체 모델 policy의 능력을 확장할 수 있다. 전체 모델 policy의 value function은 학습에 사용된 예측 손잡이의 수 이상을 예상할 수 없다. 그러나 단순화된 모델은 model predictive control (MPC) 스타일로 손잡이 기반으로 다시 계획할 수 있을 만큼 충분히 빠르다. 런타임에 수천 개의 궤적을 병렬로 시뮬레이션하는 데 사용할 수 있다. 저자들은 미래 4초 동안 1만 개의 궤적을 탐색하도록 planner를 설정했다. 이는 기계 시간의 1초 이내에 완료될 수 있다. 
@@ -168,12 +168,12 @@ $$
 
 다음은 다양한 planning 방법들에 대한 정량적 평가 결과이다.
 
-<center><img src='{{"/assets/img/brachiation/brachiation-table4.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/brachiation/brachiation-table4.webp" | relative_url}}' width="45%"></center>
 <br>
 다음은 planner와 함께 policy를 사용할 때 통과하는 지형의 예이다.
 
 <center>
-  <img src='{{"/assets/img/brachiation/brachiation-fig5.PNG" | relative_url}}' width="100%">
+  <img src='{{"/assets/img/brachiation/brachiation-fig5.webp" | relative_url}}' width="100%">
   <br>(a) 전체 모델 value function만 사용한 planning
   <br>(b) 간단화된 모델만 사용한 planning
   <br>(c) 전체 모델 value function과 간단화된 모델을 혼합한 planning

@@ -19,7 +19,7 @@ classes: wide
 > Google Research  
 > 17 July 2021  
 
-<center><img src='{{"/assets/img/soundstream/soundstream-fig1.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/soundstream/soundstream-fig1.webp" | relative_url}}' width="45%"></center>
 
 ## Introduction
 오디오 코덱은 크게 파형 코덱과 parametric 코덱의 두 가지 카테고리로 나눌 수 있다. 파형 코덱은 디코더 측에서 입력 오디오 샘플의 충실한 재구성을 생성하는 것을 목표로 한다. 대부분의 경우 이러한 코덱은 변환 코딩 기술에 의존한다. 변환은 시간 도메인의 입력 파형을 시간 주파수 도메인에 매핑하는 데 사용된다. 그런 다음 변환 계수가 quantize되고 엔트로피 코딩된다. 디코더 측에서 변환이 반전되어 시간 도메인 파형을 재구성한다. 종종 인코더에서의 비트 할당은 quantization 프로세스를 결정하는 perceptual model에 의해 구동된다. 일반적으로 파형 코덱은 오디오 콘텐츠 유형에 대해 거의 또는 전혀 가정하지 않으므로 일반 오디오에서 작동할 수 있다. 그 결과 중간에서 높은 비트레이트로 매우 높은 품질의 오디오를 생성하지만 낮은 비트레이트로 작동할 때 아티팩트가 발생하는 경향이 있다. 
@@ -33,7 +33,7 @@ Parametric 코덱은 인코딩할 소스 오디오 (대부분의 경우 음성)�
 본 논문에서는 음성, 음악 및 일반 오디오를 보다 효율적으로 압축할 수 있는 새로운 오디오 코덱인 **SoundStream**을 제안한다. SoundStream은 뉴럴 오디오 합성 분야에서 SOTA 솔루션을 활용하여, 새로운 학습 가능한 quantization 모듈을 도입하여 중저 비트레이트에서 작동하면서 높은 지각 품질로 오디오를 제공한다. Fully convolutional decoder는 시간 도메인 파형을 입력으로 받고 더 낮은 샘플링 속도로 임베딩 시퀀스를 생성하며, 이는 residual vector quantizer에 의해 quantize된다. Fully convolutional decoder는 quantize된 임베딩을 받고 원래 파형의 근사치를 재구성한다. 이 모델은 reconstruction loss와 adversarial loss를 모두 사용하여 end-to-end로 학습된다. 이를 위해 디코딩된 오디오를 원래 오디오와 구별하고 feature 기반 reconstruction loss를 계산할 수 있는 공간을 제공하는 것을 목표로 하나(또는 그 이상)의 discriminator가 공동으로 학습된다. 인코더와 디코더 모두 causal convolution만 사용하므로 모델의 전체 대기 시간은 원래 시간 도메인 파형과 임베딩 간의 시간적 리샘플링 비율에 의해서만 결정된다.
 
 ## Model
-<center><img src='{{"/assets/img/soundstream/soundstream-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/soundstream/soundstream-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 $f_s$에서 샘플링된 $x \in \mathbb{R}^T$를 기록하는 단일 채널을 고려한다. SoundStream 모델은 위 그림과 같이 일련의 세 가지 빌딩 블록으로 구성된다.
 
@@ -44,7 +44,7 @@ $f_s$에서 샘플링된 $x \in \mathbb{R}^T$를 기록하는 단일 채널을 �
 이 모델은 adversarial loss와 reconstruction loss의 혼합을 사용하여 discriminator와 함께 end-to-end로 학습된다. 선택적으로 컨디셔닝 신호를 추가할 수 있으며, 이는 denoising이 인코더 측에 적용되는지 디코더 측에 적용되는지를 결정한다.
 
 ### 1. Encoder architecture
-<center><img src='{{"/assets/img/soundstream/soundstream-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/soundstream/soundstream-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 인코더 아키텍처는 위 그림에 나와 있으며 streaming SEANet 인코더와 동일한 구조를 따르지만 skip connection은 없다. 채널이 $C_\textrm{enc}$개인 1D convolution layer와 $B_\textrm{enc}$개의 convolution block으로 구성된다. 각각의 블록은 각각 1, 3, 9의 dilation rate의 dilated convolution을 포함하는 3개의 residual unit으로 구성되며, strided convolution 형태의 다운샘플링 레이어가 뒤따른다. 채널 수는 $C_\textrm{enc}$부터 시작하여 다운샘플링할 때마다 두 배가 된다. 커널 길이가 3이고 stride가 1인 최종 1D convolution layer는 임베딩의 차원을 $D$로 설정하는 데 사용된다. 실시간 inference를 보장하기 위해 모든 convolution은 causal이다. 즉, 패딩은 학습과 오프라인 inference 모두에서 과거에만 적용되고 미래에는 적용되지 않는 반면, streaming inference에서는 패딩이 사용되지 않는다. ELU activation을 사용하고 정규화를 적용하지 않는다. convolution block의 수 $B_\textrm{enc}$와 해당 striding 시퀀스는 입력 파형과 임베딩 사이의 시간적 리샘플링 비율을 결정한다. 예를 들어 $B_\textrm{enc} = 4$이고 (2, 4, 5, 8)을 stride로 사용하는 경우 $M = 2 \times 4 \times 5 \times 8 = 320$개의 입력 샘플마다 하나의 임베딩이 계산된다. 따라서 인코더는 $\textrm{enc}(x) \in \mathbb{R}^{S \times D}$를 출력한다 ($S = T / M$).
 
@@ -58,7 +58,7 @@ Quantizer의 목표는 인코더 $\textrm{enc}(x)$의 출력을 비트/초 (bps)
 구체적인 예로 비트레이트 $R$ = 6000bps를 대상으로 하는 코덱을 고려해 보자. Striding factor $M$ = 320을 사용하는 경우 샘플링 속도 $f_s$ = 24000Hz에서 오디오의 각 1초는 인코더 출력에서 $S$ = 75 프레임으로 표시된다. 이것은 각 프레임에 할당된 $r = 6000/75 = 80$ 비트에 해당한다. 일반 vector quantizer를 사용하면 $N = 2^80$개의 벡터로 코드북을 저장해야 하는데 이는 명백히 실현 불가능하다.
 
 #### Residual Vector Quantizer
-<center><img src='{{"/assets/img/soundstream/soundstream-algo1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/soundstream/soundstream-algo1.webp" | relative_url}}' width="50%"></center>
 <br>
 이 문제를 해결하기 위해 다음과 같이 VQ의 $N_q$개의 레이어를 캐스케이드하는 Residual Vector Quantizer를 채택한다. Quantize되지 않은 입력 벡터는 첫 번째 VQ를 통과하고 quantization residual이 계산된다. 그런 다음 residual은 Algorithm 1에 설명된 대로 일련의 추가 $N_q - 1$개의 VQ에 의해 반복적으로 qunatize된다. 총 비트는 각 VQ에 균일하게 할당된다. 즉, $r_i = r / N_q = \log_2 N$이다. 예를 들어 $N_q = 8$을 사용할 때, 각 quantizer는 크기 $N = 2*{r / N_q} = 2^{80/8} = 1024$의 코드북을 사용한다. 타겟 비트 $r$의 경우 파라미터 $N_q$는 계산 복잡도와 코딩 효율성 간의 균형을 제어한다.
 
@@ -79,7 +79,7 @@ Adversarial loss를 계산하기 위해 두 가지 다른 discriminator를 정�
 
 파형 기반 discriminator의 경우 [MelGAN](https://arxiv.org/abs/1910.06711)에서 제안하고 채택한 것과 동일한 다중 해상도 convolution discriminator를 사용한다. 3개의 구조적으로 동일한 모델이 서로 다른 해상도에서 입력 오디오에 적용된다: 원본, 2배 다운샘플링, 4배 다운샘플링. 각 단일 스케일 discriminator는 초기 일반 convolution과 그 뒤에 4개의 grouped convolution으로 구성되며, 각 convolution은 그룹 크기 4, 다운샘플링 계수 4, 채널 multiplier 4, 최대 1024개의 출력 채널을 가진다. 그 다음에는 최종 출력, 즉 logit을 생성하기 위해 두 개의 일반 convolution layer가 더 뒤따른다.
 
-<center><img src='{{"/assets/img/soundstream/soundstream-fig4.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/soundstream/soundstream-fig4.webp" | relative_url}}' width="50%"></center>
 <br>
 STFT 기반 discriminator는 위 그림에 나와 있으며 단일 스케일에서 작동하며 윈도우 길이 $W = 1024$ 샘플, hop 길이 $H = 256$ 샘플로 STFT를 계산한다. 2D convolution (커널 크기 7$\times$7, 32 채널) 다음에는 residual block 시퀀스가 온다. 각 블록은 3$\times$3 convolution으로 시작하여 3$\times$4 또는 4$\times$4 컨볼루션이 이어지며, 스트라이드는 (1, 2) 또는 (2, 2)와 같다. 여기서 $(s_t, s_f)$는 시간축과 주파수축의 다운샘플링 계수를 나타낸다. 총 6개의 residual block에 대해 (1, 2)와 (2, 2) stride를 번갈아 가며 진행한다. 채널 수는 네트워크 깊이에 따라 점진적으로 증가한다. 마지막 residual block의 출력에서 활성화는 $T / (H \cdot 2^3) \times F / 2^6$ 모양을 갖는다. 여기서 $T$는 시간 도메인의 샘플 수이고 $F = W/2$는 주파수 bin의 수이다. 마지막 레이어는 다운샘플링된 시간 도메인에서 1차원 신호를 얻기 위해 FC layer ($1 \times F/2^6 convolution으로 구현됨)를 사용하여 다운샘플링된 주파수 bin에서 logit을 집계한다.
 
@@ -160,36 +160,36 @@ $$
 ### 1. Comparison with other codecs
 다음은 주관적 평가 결과이다. 
 
-<center><img src='{{"/assets/img/soundstream/soundstream-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/soundstream/soundstream-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 콘텐츠 유형별 주관적 평가 결과이다. 
 
-<center><img src='{{"/assets/img/soundstream/soundstream-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/soundstream/soundstream-fig6.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Objective quality metrics & Bitrate scalability
 다음은 비트레이트에 따른 오디오 품질 (ViSQOL)을 나타낸 그래프이다. 
 
-<center><img src='{{"/assets/img/soundstream/soundstream-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/soundstream/soundstream-fig7.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Ablation studies
 다음은 인코더와 디코더 간의 서로 다른 용량 trade-off에 대한 오디오 품질 (ViSQOL)과 모델 복잡도 (파라미터 수, real-time factor)이다. (6kbps)
 
-<center><img src='{{"/assets/img/soundstream/soundstream-table1.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/soundstream/soundstream-table1.webp" | relative_url}}' width="57%"></center>
 <br>
 다음은 residual vector quantizer 깊이와 코드북 크기 사이의 trade-off이다. (6kbps)
 
-<center><img src='{{"/assets/img/soundstream/soundstream-table2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/soundstream/soundstream-table2.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 인코더/디코더의 총 striding factor로 정의되는 다양한 수준의 아키텍처 대기 시간에 대한 오디오 품질 (ViSQOL)과 real-time factor이다. (6kbps)
 
-<center><img src='{{"/assets/img/soundstream/soundstream-table3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/soundstream/soundstream-table3.webp" | relative_url}}' width="60%"></center>
 
 ### 4. Joint compression and enhancement
 다음은 공동으로 압축 및 배경 소음 억제를 수행할 때의 SoundStream 성능이다. 
 
-<center><img src='{{"/assets/img/soundstream/soundstream-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/soundstream/soundstream-fig8.webp" | relative_url}}' width="100%"></center>
 
 ### 5. Joint vs. disjoint compression and enhancement
 다음은 다양한 신호 대 잡음비 (SNR)에서 denoiser로서 [SEANet](https://arxiv.org/abs/2009.02095)과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/soundstream/soundstream-table4.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/soundstream/soundstream-table4.webp" | relative_url}}' width="55%"></center>

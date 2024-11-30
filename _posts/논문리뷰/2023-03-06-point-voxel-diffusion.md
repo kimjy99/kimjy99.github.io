@@ -19,7 +19,7 @@ classes: wide
 > 8 Apr 2021  
 
 ## Introduction
-<center><img src='{{"/assets/img/pvd/pvd-gif.gif" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/point-voxel-diffusion/point-voxel-diffusion-gif.gif" | relative_url}}' width="100%"></center>
 <br>
 3D 형상의 생성 모델링은 비전, 그래픽, 로봇 공학 전반에 걸쳐 광범위한 응용이 가능하다. 이러한 하위 애플리케이션에서 좋은 성능을 발휘하려면 우수한 3D 생성 모델이 충실하고 확률적이어야 한다. 충실한 모델은 인간에게 사실적인 형상을 생성하고 깊이 맵과 같은 조건부 입력을 사용할 수 있는 경우 이러한 부분 관찰을 존중한다. 확률적 모델은 생성 문제와 completion 문제에 대한 미정의 multi-modal 특성을 캡처한다. 처음부터 또는 부분 관찰에서 다양한 형상을 샘플링하고 생성할 수 있다. 위에서 볼 수 있듯이 의자 등받이만 보이는 경우 좋은 생성 모델은 팔걸이가 있는 의자와 없는 의자를 포함하여 여러 개의 완성된 의자를 생성할 수 있어야 한다.
 
@@ -48,7 +48,7 @@ $$
 
 $q(x_0)$는 데이터 분포이고 $p(x_T)$는 표준 Gaussian prior이다. $q(x_t \vert x_{t-1})$는 forward process이고 $q(x_{t-1} \vert x_t)$는 reverse process, $p_\theta (x_{t-1} \vert x_t)$는 생성 프로세스이다. 이 프로세스는 아래 그림과 같다. 
 
-<center><img src='{{"/assets/img/pvd/pvd-fig2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/point-voxel-diffusion/point-voxel-diffusion-fig2.webp" | relative_url}}' width="50%"></center>
 <br>
 사전 정의된 Gaussian noise 값의 증가 수열 $\beta_1, \cdots, \beta_T$이 주어지면 각 transition 확률은 다음과 같이 정의된다.
 
@@ -141,40 +141,40 @@ $$
 ### 1. Shape Generation
 다음은 1-NN을 metric으로 사용하여 baseline과 생성 결과를 비교한 표이다.
 
-<center><img src='{{"/assets/img/pvd/pvd-table1.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/point-voxel-diffusion/point-voxel-diffusion-table1.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 2048개의 point로 unconditional하게 생성한 형상을 나타낸 것이다.
 
-<center><img src='{{"/assets/img/pvd/pvd-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/point-voxel-diffusion/point-voxel-diffusion-fig3.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Shape Completion
 다음은 baseline과의 정량적 평가를 나타낸 표이다. 
 
-<center><img src='{{"/assets/img/pvd/pvd-table2.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/point-voxel-diffusion/point-voxel-diffusion-table2.webp" | relative_url}}' width="40%"></center>
 <br>
 다음은 shape completion을 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/pvd/pvd-fig4.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/point-voxel-diffusion/point-voxel-diffusion-fig4.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 CD가 baseline보다 높은 전형적인 케이스로, 입력 view가 ground-truth 형상을 대부분 모르는 경우다. CD는 1000이 곱해진 값이고 EMD는 100이 곱해진 값이다. 
 
-<center><img src='{{"/assets/img/pvd/pvd-fig5.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/point-voxel-diffusion/point-voxel-diffusion-fig5.webp" | relative_url}}' width="50%"></center>
 <br>
 Baseline model은 이러한 비정상적인 각도를 만났을 때 평균 모양을 출력하는 경향이 있다. 당연히 평균 모양은 그림에 예시된 것처럼 다른 모양보다 더 자주 ground-truth에 더 가깝다. 그러나 PVD는 평균 모양보다 ground-truth에서 더 멀리 떨어져 있을 수 있지만 부분 형상과 잘 일치하는 가능한 completion을 찾는다. 보여지는 예시에서 PVD의 completion은 세단이 아닌 밴이지만 똑같이 현실적이다.
 
 ### 3. Multi-Modal Completion
 다음은 PartNet에 대한 multi-modal completion의 정량적 비교 표이다. 
 
-<center><img src='{{"/assets/img/pvd/pvd-table3.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/point-voxel-diffusion/point-voxel-diffusion-table3.webp" | relative_url}}' width="57%"></center>
 <br>
 다음은 PartNet에 대한 multi-modal completion의 시각적 비교를 나타낸 것이다.
 
-<center><img src='{{"/assets/img/pvd/pvd-fig6.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/point-voxel-diffusion/point-voxel-diffusion-fig6.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 ShapeNet에 대한 multi-modal completion 결과이다. 
 
-<center><img src='{{"/assets/img/pvd/pvd-fig7.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/point-voxel-diffusion/point-voxel-diffusion-fig7.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 Redwood 3DScans 데이터셋의 스캔에 PVD를 적용한 결과이다. 
 
-<center><img src='{{"/assets/img/pvd/pvd-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/point-voxel-diffusion/point-voxel-diffusion-fig8.webp" | relative_url}}' width="100%"></center>

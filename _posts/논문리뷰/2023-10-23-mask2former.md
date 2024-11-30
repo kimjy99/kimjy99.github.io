@@ -25,7 +25,7 @@ Image segmentation은 픽셀 그룹화 문제를 연구한다. 픽셀을 그룹�
 
 이러한 단편화를 해결하기 위해 최근 연구에서는 동일한 아키텍처로 모든 segmenation task를 처리할 수 있는 범용 아키텍처를 설계하려고 시도했다. 이러한 아키텍처는 일반적으로 end-to-end 집합 예측 목적 함수 (ex. [DETR](https://kimjy99.github.io/논문리뷰/detr))를 기반으로 하며 아키텍처, loss, 학습 절차를 수정하지 않고도 여러 task를 성공적으로 처리한다. 범용 아키텍처는 동일한 아키텍처를 갖고 있음에도 불구하고 여전히 다양한 task와 데이터셋에 대해 개별적으로 학습된다. 유연성이 있는 것 외에도 범용 아키텍처는 최근 semantic segmenation과 panoptic segmenation에 대한 SOTA 결과를 보여주었다. 그러나 최근 연구들은 여전히 전문화된 아키텍처를 발전시키는 데 초점을 맞추고 있다. 이는 왜 범용 아키텍처가 전문화된 아키텍처를 대체하지 않았는가라는 질문을 제기한다.
 
-<center><img src='{{"/assets/img/mask2former/mask2former-fig1.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/mask2former/mask2former-fig1.webp" | relative_url}}' width="65%"></center>
 <br>
 위 그림에서 볼 수 있듯이 기존 범용 아키텍처는 모든 segmenation task를 처리할 수 있을 만큼 유연하지만 실제로 성능은 최고의 전문 아키텍처에 비해 뒤떨어진다. 뒤떨어지는 성능 외에도 범용 아키텍처는 학습하기가 더 어려우며, 일반적으로 고급 하드웨어와 훨씬 긴 학습이 필요하다. 예를 들어, MaskFormer 학습은 40.1 AP에 도달하는 데 300 epochs가 걸리며 32G 메모리가 있는 GPU에 단일 이미지만 넣을 수 있다. 대조적으로, 특화된 Swin-HTC++는 단 72 epochs에서 더 나은 성능을 얻는다. 성능 및 학습 효율성 문제 모두 범용 아키텍처 배포를 방해한다.
 
@@ -47,7 +47,7 @@ Image segmentation은 픽셀 그룹화 문제를 연구한다. 픽셀을 그룹�
 최종 이진 마스크 예측은 object query를 사용하여 픽셀별 임베딩에서 디코딩된다. 이러한 메타 아키텍처의 성공적인 인스턴스화 중 하나는 [MaskFormer](https://kimjy99.github.io/논문리뷰/maskformer)이다.
 
 ### 2. Transformer decoder with masked attention
-<center><img src='{{"/assets/img/mask2former/mask2former-fig2b.PNG" | relative_url}}' width="24%"></center>
+<center><img src='{{"/assets/img/mask2former/mask2former-fig2b.webp" | relative_url}}' width="24%"></center>
 <br>
 Mask2Former는 앞서 언급한 메타 아키텍처를 채택하고 제안된 Transformer 디코더 (위 그림 참조)가 표준 아키텍처를 대체한다. Transformer 디코더의 주요 구성 요소에는 전체 feature map에 attend하는 대신 각 query에 대해 예측된 마스크의 전경 영역 내로 cross-attention을 제한하여 localize한 feature를 추출하는 masked attention 연산자가 포함된다. 작은 객체를 처리하기 위해 고해상도 feature를 활용하는 효율적인 멀티스케일 전략을 사용한다. 라운드 로빈 방식으로 픽셀 디코더의 feature pyramid에서 연속적인 Transformer 디코더 레이어로 연속적인 feature map을 공급한다. 마지막으로 추가 계산을 도입하지 않고도 모델 성능을 향상시키는 최적화 개선 사항을 통합한다. 
 
@@ -88,7 +88,7 @@ $$
 #### 2.2 High-resolution features
 고해상도 feature는 특히 작은 객체의 경우 모델 성능을 향상시킨다. 그러나 이는 계산적으로 까다롭다. 따라서 계산량 증가를 제어하면서 고해상도 feature를 도입하기 위한 효율적인 멀티스케일 전략을 제안한다. 항상 고해상도 feature map을 사용하는 대신 저해상도 feature와 고해상도 feature로 구성된 feature pyramid를 활용하고 멀티스케일 feature의 해상도를 한 번에 하나의 Transformer 디코더 레이어에 공급한다.
 
-<center><img src='{{"/assets/img/mask2former/mask2former-fig2a.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/mask2former/mask2former-fig2a.webp" | relative_url}}' width="40%"></center>
 <br>
 구체적으로, 원본 이미지의 1/32, 1/16, 1/8 해상도로 픽셀 디코더에서 생성된 feature pyramid를 사용한다. 각 해상도에 대해 sinusoidal 위치 임베딩 $e_\textrm{pos} \in \mathbb{R}^{H_l W_l \times C}$과 학습 가능한 scale-level 임베딩 $e_\textrm{lvl} \in \mathbb{R}^{1 \times C}$을 추가한다. 위 그림에 표시된 대로 해당 transformer 디코더 레이어에 대해 최저 해상도부터 최고 해상도까지 이를 사용한다. 이 3-layer Transformer 디코더를 $L$번 반복한다. 따라서 최종 Transformer 디코더에는 $3L$개의 레이어가 있다. 구체적으로, 처음 3개 레이어는 해상도 $H_1 = H/32$, $H_2 = H/16$, $H_3 = H/8$, $W_1 = W/32$, $W_2 = W/16$, $W_3 = W/8$의 feature map을 받는다. 여기서 $H$와 $W$는 원본 이미지 해상도이다. 이 패턴은 모든 후속 레이어에 대해 라운드 로빈 방식으로 반복된다.
 
@@ -113,59 +113,59 @@ Transformer 디코더 디자인을 최적화하기 위해 다음 세 가지 개�
 #### Panoptic segmentation
 다음은 133개의 카테고리의 COCO panoptic val2017에서 panoptic segmentation 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/mask2former/mask2former-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/mask2former/mask2former-table1.webp" | relative_url}}' width="100%"></center>
 
 #### Instance segmenation
 다음은 80개의 카테고리의 COCO val2017에서 instance segmentation 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/mask2former/mask2former-table2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/mask2former/mask2former-table2.webp" | relative_url}}' width="100%"></center>
 
 #### Semantic segmentation
 다음은 150개의 카테고리의 ADE20K val에서 semantic segmentation 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/mask2former/mask2former-table3.PNG" | relative_url}}' width="63%"></center>
+<center><img src='{{"/assets/img/mask2former/mask2former-table3.webp" | relative_url}}' width="63%"></center>
 
 ### 2. Ablation studies
 #### Transformer decoder
 다음은 masked attention과 고해상도 feature에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/mask2former/mask2former-table4a.PNG" | relative_url}}' width="62%"></center>
+<center><img src='{{"/assets/img/mask2former/mask2former-table4a.webp" | relative_url}}' width="62%"></center>
 <br>
 다음은 최적화 개선 사항에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/mask2former/mask2former-table4b.PNG" | relative_url}}' width="62%"></center>
+<center><img src='{{"/assets/img/mask2former/mask2former-table4b.webp" | relative_url}}' width="62%"></center>
 
 #### Masked attention
 다음은 masked attention과 다른 cross-attention 변형을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/mask2former/mask2former-table4c.PNG" | relative_url}}' width="38%"></center>
+<center><img src='{{"/assets/img/mask2former/mask2former-table4c.webp" | relative_url}}' width="38%"></center>
 
 #### Feature resolution
 다음은 feature 해상도에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/mask2former/mask2former-table4d.PNG" | relative_url}}' width="43%"></center>
+<center><img src='{{"/assets/img/mask2former/mask2former-table4d.webp" | relative_url}}' width="43%"></center>
 
 #### Pixel decoder
 다음은 픽셀 디코더에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/mask2former/mask2former-table4e.PNG" | relative_url}}' width="43%"></center>
+<center><img src='{{"/assets/img/mask2former/mask2former-table4e.webp" | relative_url}}' width="43%"></center>
 
 #### Calculating loss with points vs. masks
 다음은 포인트와 마스크를 사용한 loss 계산에 대한 성능과 메모리를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/mask2former/mask2former-table5.PNG" | relative_url}}' width="63%"></center>
+<center><img src='{{"/assets/img/mask2former/mask2former-table5.webp" | relative_url}}' width="63%"></center>
 
 #### Learnable queries as region proposals
-<center><img src='{{"/assets/img/mask2former/mask2former-fig3.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/mask2former/mask2former-fig3.webp" | relative_url}}' width="80%"></center>
 <br>
 위 그림의 상단은 선택된 4개의 학습 가능한 query를 Transformer 디코더 (R50 backbone 사용)에 공급하기 전에 마스크 예측을 시각화한 것이다. 왼쪽 하단은 100개의 proposal로 클래스에 무관하게 평균 recall을 계산하고 이러한 학습 가능한 query가 Transformer 디코더 레이어 (레이어 9) 이후 Mask2Former의 최종 예측과 비교하여 좋은 proposal을 제공한다는 것을 보여준다. 오른쪽 하단은 proposal 생성 프로세스이다. 
 
 ### 3. Generalization to other datasets
 다음은 Cityscapes val에서의 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/mask2former/mask2former-table6.PNG" | relative_url}}' width="63%"></center>
+<center><img src='{{"/assets/img/mask2former/mask2former-table6.webp" | relative_url}}' width="63%"></center>
 
 ### 4. Limitations
-<center><img src='{{"/assets/img/mask2former/mask2former-table7.PNG" | relative_url}}' width="56%"></center>
+<center><img src='{{"/assets/img/mask2former/mask2former-table7.webp" | relative_url}}' width="56%"></center>
 <br>
 궁극적인 목표는 모든 image segmenation task에 대해 단일 모델을 학습시키는 것이다. 위 표는 panoptic segmenation에 대해 학습된 Mask2Former가 3개의 데이터셋에 걸쳐 instance segmenation과 semantic segmenation에 대한 해당 주석으로 학습된 정확히 동일한 모델보다 성능이 약간 더 나쁘다는 것을 알 수 있다. 이는 Mask2Former가 다양한 task로 일반화할 수 있더라도 해당 특정 task에 대해서는 여전히 학습이 필요함을 의미한다. 

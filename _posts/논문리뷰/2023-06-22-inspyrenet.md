@@ -17,7 +17,7 @@ classes: wide
 > Dept. of CSE, POSTECH  
 > 20 Sep 2022  
 
-<center><img src='{{"/assets/img/inspyrenet/inspyrenet-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/inspyrenet/inspyrenet-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 저해상도(LR) 이미지에서 Salient Object Detection(SOD)에 대한 많은 성공적인 연구들이 있지만 고해상도(HR) 이미지에 대한 요구가 많다. LR 데이터셋으로 학습된 방법이 입력 크기를 조정하여 HR 이미지에서 괜찮은 결과를 생성한다고 주장할 수 있지만, 예측 이미지의 고주파수 디테일 측면에서 품질은 여전히 낮다. 또한, HR 예측에 대한 이전 연구들은 복잡한 아키텍처를 개발하고 HR 이미지에 힘든 주석을 제안해왔다.
@@ -26,7 +26,7 @@ classes: wide
 
 첫 번째는 입력 크기에 관계없이 여러 결과를 병합할 수 있는 네트워크 아키텍처를 설계하는 것이다. 따라서 saliency map의 이미지 피라미드를 예측하는 Inverse Saliency Pyramid Reconstruction Network (InSPyReNet)를 제안한다. 이미지 피라미드는 이미지 블렌딩을 위한 간단하면서도 간단한 방법이므로 saliency map의 이미지 피라미드를 직접 생성하도록 InSPyReNet을 설계한다. 이전 연구에서는 이미 이미지 피라미드 예측을 사용했지만 결과가 구조를 엄격하게 따르지 않아 블렌딩에 사용할 수 없었다 (아래 그림 참조). 따라서 HR 예측을 위한 안정적인 이미지 블렌딩을 가능하게 하는 이미지 피라미드 구조를 보장하기 위해 새로운 아키텍처와 새로운 supervision 테크닉을 제안한다.
 
-<center><img src='{{"/assets/img/inspyrenet/inspyrenet-fig2.PNG" | relative_url}}' width="100%">(a) <a href="https://arxiv.org/abs/1807.09940">Reverse attention</a>, (b) InSPyReNet, (c) ground-truth</center>
+<center><img src='{{"/assets/img/inspyrenet/inspyrenet-fig2.webp" | relative_url}}' width="100%">(a) <a href="https://arxiv.org/abs/1807.09940">Reverse attention</a>, (b) InSPyReNet, (c) ground-truth</center>
 <br>
 둘째, LR 이미지와 HR 이미지의 ERF 불일치 문제를 해결하기 위해 서로 다른 스케일의 saliency map의 2개의 이미지 피라미드를 중첩하는 inference를 위한 피라미드 블렌딩 테크닉을 설계한다. HR SOD 방법에 대한 최근 연구에서는 이러한 문제를 완화하기 위해 HR 이미지를 LR로 크기를 조정하여 동일한 이미지의 두 가지 다른 스케일을 사용하지만 네트워크가 복잡하고 커야 한다. 단순히 HR 이미지를 InSPyReNet에 전달하거나 다른 LR SOD 네트워크를 사용하는 것은 HR 이미지로 학습되지 않았기 때문에 saliency를 예측하지 못한다. 그럼에도 불구하고 HR 예측에서 고품질 디테일을 향상시킬 가능성이 있다. 강력한 saliency 예측과 LR 및 HR 예측의 디테일을 결합하기 위해 saliency map의 두 이미지 피라미드를 혼합한다. 
 
@@ -37,7 +37,7 @@ InSPyReNet은 HR 학습과 HR 데이터셋가 필요하지 않지만 HR 벤치�
 #### Overall Architecture
 Backbone 네트워크에 Res2Net 또는 Swin Transformer를 사용하지만 HR 예측에는 Swin Transformer만 backbone으로 사용한다. UACANet은 backbone feature map의 채널 수를 줄이기 위해 멀티스케일 인코더에 Parallel Axial Attention encoder (PAA-e)를 사용하고, Parallel Axial Attention decoder (PAA-d)를 사용하여 가장 작은 stage (즉, Stage-3)에서 초기 saliency map을 예측한다. Non-local 연산으로 글로벌 컨텍스트를 캡처하고 axial attention 메커니즘 덕분에 효율적이기 때문에 두 모듈을 모두 채택한다. 
 
-<center><img src='{{"/assets/img/inspyrenet/inspyrenet-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/inspyrenet/inspyrenet-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 Stage 디자인은 위 그림과 같다. 픽셀 레벨 예측을 위한 이전의 피라미드 기반 방법은 Stage-5에서 시작하여 Stage-2에서 끝났다. 그러나 이전 방법에 대해 재구성해야 할 두 stage가 남아 있어 경계 품질 측면에서 재구성 프로세스가 불완전하다. 따라서 Stage-3에서 시작하는 이미지 피라미드가 충분하며 HR 결과에 대해 가장 낮은 단계인 Stage-0을 만날 때까지 재구성해야 한다. 존재하지 않는 스테이지(Stage-1, Stage-0)의 스케일을 복구하기 위해 적절한 위치에서 bi-linear interpolation을 사용한다.
 
@@ -48,7 +48,7 @@ Stage 디자인은 위 그림과 같다. 픽셀 레벨 예측을 위한 이전�
 
 이를 위해 강력한 Laplacian saliency 예측을 위한 scale invariant context attention 모듈인 SICA를 제안한다. 
 
-<center><img src='{{"/assets/img/inspyrenet/inspyrenet-fig5.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/inspyrenet/inspyrenet-fig5.webp" | relative_url}}' width="80%"></center>
 <br>
 위 그림과 같이 SICA의 전반적인 동작은 OCRNet을 따른다. 개체 영역 표현을 계산하면 학습-inference 불일치가 발생하므로 학습 시의 모양 $(h, w)$에 따라 입력 feature map $x$와 context map $c$의 크기를 조정한다. 학습 단계에서 이미지는 이미 고정된 모양으로 재구성되었으므로 크기를 조정할 필요가 없다. Context map은 OCRNet과 달리 부족한 saliency map에만 접근이 가능하기 때문에 여러 context map을 생성한다. SICA를 사용하면 HR 이미지에 대해 Laplacian saliency map을 보다 정확하게 계산할 수 있으므로 HR 예측에 피라미드 블렌딩을 적용할 수 있다.
 
@@ -105,11 +105,11 @@ $$
 마지막으로, SICA의 saliency map 입력을 위한 Stop-Gradient를 포함하고 더 높은 stage에서 재구성 프로세스를 포함하여 각 stage의 saliency 출력이 학습하는 동안 각 스케일에 집중하고 inference 시에만 서로에게 영향을 미치도록 한다. 이 전략은 상위 stage에 영향을 미치는 하위 stage의 기울기 흐름을 명시적으로 방지하여 stage별 ground-turth 방식을 권장한다. 따라서 고주파수 디테일에 대한 supervision은 개체의 추상적인 모양만 갖도록 의도된 상위 stage 디코더에 영향을 미치지 않는다. 이 전략은 멀티스케일 방식 측면에서 성능에 영향을 미칠 수 있지만 멀티스케일 인코더와 SICA에 대해 여러 stage의 feature map을 사용하여 이 문제를 보완한다.
 
 ### 3. Pyramid Blending
-<center><img src='{{"/assets/img/inspyrenet/inspyrenet-fig3.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/inspyrenet/inspyrenet-fig3.webp" | relative_url}}' width="90%"></center>
 <br>
 SICA는 다양한 이미지 크기에 대한 saliency 예측을 가능하게 하지만 이미지가 커지면 여전히 ERF 불일치가 존재한다(위 그림 참조). 고맙게도 saliency pyramid 출력에 대한 매우 간단한 애플리케이션 중 하나는 서로 다른 입력에서 여러 saliency pyramid를 조립하는 것이다. 
 
-<center><img src='{{"/assets/img/inspyrenet/inspyrenet-fig6.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/inspyrenet/inspyrenet-fig6.webp" | relative_url}}' width="80%"></center>
 <br>
 먼저 위 그림과 같이 원본 이미지와 크기 조정된 이미지, 즉 LR 및 HR saliency pyramid에 대해 InSPyReNet으로 saliency pyramid를 생성한다. 그런 다음 HR 피라미드에서 saliency map을 재구성하는 대신 LR 피라미드의 가장 낮은 stage부터 시작한다. 직관적으로 말하면 LR 피라미드는 HR 피라미드로 확장되어 7단계 saliency pyramid를 구성한다.
 
@@ -133,36 +133,36 @@ HR 피라미드 재구성의 경우 이전 stage의 saliency map에 대한 dilat
 #### Resizing Factor $L$
 다음은 3가지 HR 벤치마크에서 $L$에 따른 성능을 나타낸 그래프이다.
 
-<center><img src='{{"/assets/img/inspyrenet/inspyrenet-fig7.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/inspyrenet/inspyrenet-fig7.webp" | relative_url}}' width="60%"></center>
 
 #### SICA and pyramid blending
 다음은 3가지 HR 벤치마크에서의 SICA와 피라미드 블렌딩에 대한 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/inspyrenet/inspyrenet-table1.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/inspyrenet/inspyrenet-table1.webp" | relative_url}}' width="90%"></center>
 
 ### 2. Comparison with State-of-the-Art methods
 #### Quantitative Comparison
 다음은 5가지 LR 벤치마크에서의 정량적 결과이다.
 
-<center><img src='{{"/assets/img/inspyrenet/inspyrenet-table2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/inspyrenet/inspyrenet-table2.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 3가지 HR 벤치마크와 2가지 LR 벤치마크에서의 정량적 결과이다.
 
-<center><img src='{{"/assets/img/inspyrenet/inspyrenet-table3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/inspyrenet/inspyrenet-table3.webp" | relative_url}}' width="100%"></center>
 
 #### Qualitative Comparison
 다음은 HRSOD-TE에서 InSPyReNet (SwinB)를 SOTA HR 방법들과 정성적으로 비교한 결과이다.
 
-<center><img src='{{"/assets/img/inspyrenet/inspyrenet-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/inspyrenet/inspyrenet-fig8.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 UHRSD-TE에서 InSPyReNet (SwinB)를 PGNet과 정성적으로 비교한 결과이다.
 
-<center><img src='{{"/assets/img/inspyrenet/inspyrenet-fig9.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/inspyrenet/inspyrenet-fig9.webp" | relative_url}}' width="90%"></center>
 
 ## Discussion
 저자들은 다음과 같은 이유로 HR 벤치마크에 Res2Net50을 사용하지 않았다. 
 
-<center><img src='{{"/assets/img/inspyrenet/inspyrenet-fig10.PNG" | relative_url}}' width="90%"><br>(a): Res2Net50 backbone, (b): SwinB backbone</center>
+<center><img src='{{"/assets/img/inspyrenet/inspyrenet-fig10.webp" | relative_url}}' width="90%"><br>(a): Res2Net50 backbone, (b): SwinB backbone</center>
 <br>
 위 그림에서 볼 수 있듯이 Res2Net50 backbone의 HR 예측은 수많은 불필요한 아티팩트가 있는 saliency map을 생성한다. 이는 CNN backbone이 학습 데이터셋에 크게 의존하는 ERF 크기에 취약하기 때문이다. 전통적인 CNN backbone과 달리 Fast Fourier Convolution 또는 ConvNeXt와 같은 위의 문제를 최소화하기 위한 연구들이 많이 있다. 이러한 방법들은 HR 예측을 위해 이러한 아티팩트를 줄이는 데 도움이 되지만 디테일 재구성에는 충분하지 않다. 그러나 SwinB와 같은 Vision Transformer는 ERF가 더 크고 글로벌 종속성에 대한 non-local 연산으로 구성되어 본 논문의 방법에 적합하다. 따라서 HR 예측에서도 일부 false positive를 보여주지만 피라미드 블렌딩을 통해 경계의 디테일을 향상시키면서 쉽게 제거할 수 있다.
 

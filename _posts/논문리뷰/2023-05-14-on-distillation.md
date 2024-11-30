@@ -20,14 +20,14 @@ classes: wide
 > Stanford University | Stability AI & LMU Munich | Google Research, Brain Team  
 > 6 Oct 2022  
 
-<center><img src='{{"/assets/img/on-distillation/on-distillation-fig1.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/on-distillation/on-distillation-fig1.webp" | relative_url}}' width="90%"></center>
 
 ## Introduction
 [DDPM](https://kimjy99.github.io/논문리뷰/ddpm)은 이미지 생성이나 오디오 합성 등 다양한 분야에서 state-of-the-art 성능을 달성했다. Classifier-free guidance는 diffusion model의 샘플 품질을 더욱 향상시키고 GLIDE, Stable Diffusion, DALL·E 2, Imagen을 포함한 대규모 diffusion model 프레임워크에서 널리 사용되었다. 그러나 classifier-free guidance의 주요 제한 사항 중 하나는 샘플링 효율성이 낮다는 것이다. 하나의 샘플을 생성하기 위해 두 diffusion model을 수십에서 수백 번 평가해야 한다. 이러한 제한은 실제 설정에서 classifier-free guidance model의 적용을 방해했다. 
 
 Diffusion model에 대해 distillation 접근법이 제안되었지만 이러한 접근법은 classifier-free guided diffusion model에 직접 적용할 수 없다. 본 논문은 classifier-free guided model의 샘플링 효율성을 개선하기 위한 2단계 distillation 방식을 제안한다. 첫 번째 stage에서는 teacher의 두 가지 diffusion model의 결합된 출력과 일치하도록 단일 student 모델을 도입한다. 두 번째 stage에서는 첫 번째 stage에서 학습한 모델을 더 적은 step의 모델로 점진적으로 distill한다. 본 논문의 접근 방식을 사용하면 단일 distillation model이 다양한 guidance 강도를 광범위하게 처리할 수 있으므로 샘플 품질과 다양성 간의 균형을 효율적으로 유지할 수 있다. 모델에서 샘플링하기 위해 기존 deterministic 샘플러를 고려하고 stochastic 샘플링 프로세스를 추가로 제안한다. 
 
-<center><img src='{{"/assets/img/on-distillation/on-distillation-fig2.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/on-distillation/on-distillation-fig2.webp" | relative_url}}' width="75%"></center>
 <br>
 본 논문의 distillation 프레임워크는 pixel-space에서 학습된 표준 diffusion model뿐만 아니라 autoencoder의 latent-space에서 학습된 diffusion model(ex. Stable Diffusion)에도 적용될 수 있다. Pixel-space에서 직접 학습된 diffusion model의 경우 제안된 distillation model이 4 step만 사용하여 teacher model과 시각적으로 비슷한 샘플을 생성할 수 있고 비슷한 FID/IS 점수를 달성할 수 있다. 광범위한 guidance 강도에 대해 4~16 step을 사용하는 teacher model로 사용한다 (위 그림 참고). 인코더의 latent-space에서 학습된 diffusion model의 경우, 최소 1~4개의 샘플링 step을 사용하여 base model과 비슷한 시각적 품질을 달성할 수 있으며, 2~4개의 샘플링 step만으로 teacher의 성능과 일치한다. 본 논문은 pixel-space 및 latent-space classifier-free diffusion model에 대한 distillation의 효율성을 처음으로 입증하였다. 
 
@@ -81,7 +81,7 @@ $$
 
 여기에서 distill된 모델 $$\hat{x}_{\eta_1} (z_t, w)$$도 컨텍스트 $c$(ex. 텍스트 프롬프트)로 컨디셔닝되지만 단순화를 위해 $c$를 표기하지 않는다. 자세한 학습 알고리즘은 Algorithm 1과 같다.
 
-<center><img src='{{"/assets/img/on-distillation/on-distillation-algo1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/on-distillation/on-distillation-algo1.webp" | relative_url}}' width="50%"></center>
 <br>
 Guidance 가중치 $w$를 통합하기 위해 $w$로 컨디셔닝된 모델을 도입한다. 여기서 $w$는 student model에 대한 입력으로 공급된다. Feature를 더 잘 캡처하기 위해 푸리에 임베딩을 $w$에 적용한 다음 timestep이 통합된 방식과 유사한 방식으로 diffusion model backbone에 통합된다. 성능에서 초기화가 중요한 역할을 하기 때문에 $w$-conditioning과 관련하여 새로 도입된 파라미터를 제외하고는 teacher의 조건부 모델과 동일한 파라미터로 student model을 초기화한다. 사용하는 모델 아키텍처는 U-Net 모델이다. 
 
@@ -90,10 +90,10 @@ Guidance 가중치 $w$를 통합하기 위해 $w$로 컨디셔닝된 모델을 �
 
 자세한 학습 알고리즘은 Algorithm 2와 같다.
 
-<center><img src='{{"/assets/img/on-distillation/on-distillation-algo2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/on-distillation/on-distillation-algo2.webp" | relative_url}}' width="50%"></center>
 
 ### 3. $N$-step deterministic and stochastic sampling
-<center><img src='{{"/assets/img/on-distillation/on-distillation-fig5.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/on-distillation/on-distillation-fig5.webp" | relative_url}}' width="75%"></center>
 <br>
 모델 $$\hat{x}_{\eta_2}$$가 학습되면 지정된 guidance 강도 $w \in [w_\textrm{min}, w_\textrm{max}]$가 주어지면 DDIM 업데이트 규칙을 통해 샘플링을 수행할 수 있다. Distiil된 모델 $$\hat{x}_{\eta_2}$$가 주어지면 이 샘플링 절차는 initialization $z_1^w$가 주어지면 deterministic하다. 실제로 $N$-step stochastic sampling도 수행할 수 있다. 원래 step 길이의 2배(즉, $N/2$-step deterministic sampler와 동일)로 하나의 deterministic sampling step을 적용한 다음 원래 step 길이를 사용하여 한 step 역방향으로 stochastic step을 수행한다. $z_1^w \sim \mathcal{N}(0,I)$에서 $t > 1/N$일 때 다음 업데이트 규칙을 사용한다.
 
@@ -110,17 +110,17 @@ $$
 
 Deterministic 샘플러와 비교할 때 stochastic 샘플링을 수행하려면 약간 다른 timestep에서 모델을 평가해야 하며, edge case에 대한 학습 알고리즘을 약간 수정해야 한다. 자세한 알고리즘은 Algorithm 3과 같다.
 
-<center><img src='{{"/assets/img/on-distillation/on-distillation-algo3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/on-distillation/on-distillation-algo3.webp" | relative_url}}' width="50%"></center>
 
 ## Experiments
 ### 1. Distillation for pixel-space guided models
 다음은 ImageNet 64$\times$64 샘플 품질을 나타낸 그래프이다.
 
-<center><img src='{{"/assets/img/on-distillation/on-distillation-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/on-distillation/on-distillation-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 pixel-space diffusion model에 대한 ImageNet 64$\times$64 distillation 결과이다. "D"와 "S"는 각각 deterministic 샘플러와 stochastic 샘플러를 나타낸다. 
 
-<center><img src='{{"/assets/img/on-distillation/on-distillation-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/on-distillation/on-distillation-table1.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Distillation for latent-space guided models
 아래의 latent-space에 대한 실험들은 모두 distilled Stable Diffusion model을 사용하였다. 
@@ -128,36 +128,36 @@ Deterministic 샘플러와 비교할 때 stochastic 샘플링을 수행하려면
 #### Class-conditional generation
 다음은 ImageNet 256$\times$256에서 클래스 조건부 이미지 생성을 평가한 그래프이다.
 
-<center><img src='{{"/assets/img/on-distillation/on-distillation-fig11.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/on-distillation/on-distillation-fig11.webp" | relative_url}}' width="85%"></center>
 
 #### Text-guided image generation
 다음은 LAION (512$\times$512)에서 text-guided 생성을 한 샘플들이다. 
 
-<center><img src='{{"/assets/img/on-distillation/on-distillation-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/on-distillation/on-distillation-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 512$\times$512 text-to-image 생성을 평가한 그래프이다. 
 
-<center><img src='{{"/assets/img/on-distillation/on-distillation-fig10.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/on-distillation/on-distillation-fig10.webp" | relative_url}}' width="85%"></center>
 <br>
 다음은 distill된 모델의 text-to-image 샘플들을 원래의 text-to-image 샘플들과 비교한 것이다.
 
-<center><img src='{{"/assets/img/on-distillation/on-distillation-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/on-distillation/on-distillation-fig7.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 LAION 512$\times$512에서 FID와 CLIP score를 측정한 표이다.
 
-<center><img src='{{"/assets/img/on-distillation/on-distillation-table2.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/on-distillation/on-distillation-table2.webp" | relative_url}}' width="42%"></center>
 
 #### Text-guided image-to-image translation
 다음은 text-guided image-to-image translation 샘플들이다. (3 step)
 
-<center><img src='{{"/assets/img/on-distillation/on-distillation-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/on-distillation/on-distillation-fig8.webp" | relative_url}}' width="100%"></center>
 
 #### Image inpainting
 다음은 image inpainting 샘플들이다. (4 step)
 
-<center><img src='{{"/assets/img/on-distillation/on-distillation-fig9.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/on-distillation/on-distillation-fig9.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Progressive distillation for encoding
 다음은 ImageNet 64$\times$64에서 pixel-space model의 style transfer를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/on-distillation/on-distillation-fig12.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/on-distillation/on-distillation-fig12.webp" | relative_url}}' width="80%"></center>

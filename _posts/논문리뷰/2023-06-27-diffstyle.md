@@ -18,7 +18,7 @@ classes: wide
 > Yonsei University  
 > 27 Mar 2023  
 
-<center><img src='{{"/assets/img/diffstyle/diffstyle-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffstyle/diffstyle-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 Diffusion model(DM)은 랜덤 생성에서 뛰어난 성능으로 인해 다양한 도메인에서 인정을 받았다. Text-to-image DM은 classifier-free guidance를 사용하여 다양한 이미지를 생성하기 위해 주어진 텍스트를 반영하는 방법을 제공한다. 같은 맥락에서 image guidance는 guidance를 위해 주어진 레퍼런스 이미지와 유사한 랜덤 이미지를 합성한다. 이러한 접근 방식은 일부 제어를 제공하지만 생성 프로세스는 장면의 지정되지 않은 측면에서 여전히 랜덤성을 유지한다.
@@ -31,7 +31,7 @@ Diffusion model(DM)은 랜덤 생성에서 뛰어난 성능으로 인해 다양�
 
 **DiffStyle**이라는 본 논문의 방법은 $h$-space에 있는 콘텐츠 이미지의 중간 feature를 스타일 이미지의 $x_T$와 생성 프로세스로 혼합한다. Skip connection과 주입에 따른 조합 사이의 상관 관계를 유지하는 적절한 정규화를 feature와 점진적으로 결합한다. 
 
-<center><img src='{{"/assets/img/diffstyle/diffstyle-fig2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/diffstyle/diffstyle-fig2.webp" | relative_url}}' width="50%"></center>
 <br>
 위 그림은 DiffStyle의 개요를 보여준다. 또한 콘텐츠를 보존하면서 스타일 요소를 더 잘 반영하도록 생성 프로세스를 보정한다.
 
@@ -118,7 +118,7 @@ $$
 \end{aligned}
 $$
 
-<center><img src='{{"/assets/img/diffstyle/diffstyle-fig3.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/diffstyle/diffstyle-fig3.webp" | relative_url}}' width="65%"></center>
 <br>
 흥미롭게도 교체가 적용된 결과 이미지에는 위 그림과 같이 색상 분포와 배경과 같은 $I^{(1)}$의 일부 스타일 요소와 함께 $I^{(2)}$의 사람들이 포함된다. 이 현상은 주요 콘텐츠가 $h$로 지정되고 다른 측면은 skip connection의 feature와 같은 다른 구성 요소에서 비롯된다. 이제부터는 $h_t^{(2)}$를 $h_t^\textrm{content}$로 명명한다.
 
@@ -136,7 +136,7 @@ $$
 
 여기서 $n$은 샘플 수이며, $s$는 표준 편차이다. 간결함을 위해 $t$는 생략되었다. 
 
-<center><img src='{{"/assets/img/diffstyle/diffstyle-fig4b.PNG" | relative_url}}' width="35%"></center>
+<center><img src='{{"/assets/img/diffstyle/diffstyle-fig4b.webp" | relative_url}}' width="35%"></center>
 <br>
 위 그림은 $r_\textrm{homo}$가 대략 0.3보다 크고 timestep이 $T$에 가까울 때 강한 양의 값임을 보여준다. 반면, $r_textrm{hetero}$는 0 근처에 있다. 또한 중간 프로세스는 $\tilde{h} = h^{(i)} + h^{(j)}$를 설정하여 $r_\textrm{alt}$를 $r_\textrm{homo}$에 더 가깝게 만들고 왜곡을 줄인다.
 
@@ -150,12 +150,12 @@ $$
 
 여기서 $\gamma \in [0, 1]$은 $h_t^\textrm{content}$의 계수이다. Slerp는 입력이 동일한 norm을 갖도록 요구한다. $h_t$의 norm과 일치하도록 $h_t^\textrm{content}$를 정규화하면 $\vert \textrm{Slerp}(\cdot) \vert$와 $\vert g_t^{(1)} \vert$ 사이의 상관관계가 $\vert h_t \vert$와 $\vert g_t^{(1)} \vert$ 사이의 상관관계와 같게 보장한다. Slerp를 사용하여 $h_t$를 $\tilde{h}_t$로 교체하면 아래 그림과 같이 더 적은 아티팩트와 더 나은 콘텐츠 보존이 나타난다. 
 
-<center><img src='{{"/assets/img/diffstyle/diffstyle-fig5.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/diffstyle/diffstyle-fig5.webp" | relative_url}}' width="60%"></center>
 <br>
 개선 외에도 Slerp의 파라미터 $\gamma_t$를 통해 $h_t$와 $h_t^\textrm{content}$의 비율을 조정하여 얼마나 많은 콘텐츠를 주입할지 제어할 수 있다.
 
 ### 3. Style calibration
-<center><img src='{{"/assets/img/diffstyle/diffstyle-fig6.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/diffstyle/diffstyle-fig6.webp" | relative_url}}' width="45%"></center>
 <br>
 Slerp를 사용하여 $h$-space를 수정하면 대부분 원본 이미지의 스타일이 유지되지만 $h$-space에 대한 모든 변경 사항은 필연적으로 다음 denoising step $t-1$의 skip connection에 영향을 미치므로 스타일 구성 요소가 부분적으로 손실된다. 따라서 본 논문은 $\tilde{x}_t$를 조정하여 skip connection의 변화를 보상하는 style calibration을 제안한다.
 
@@ -224,7 +224,7 @@ Style calibration은 네 단계로 구성된다.
 ### 4. Content injection and style transfer
 $h$-space는 콘텐츠를 포함하고 $x_T$에서 skip connection이 스타일 요소를 지정한다. 콘텐츠 주입 및 style transfer에 이 현상을 활용한다. 랜덤한 실제 이미지에서 $x_T$를 얻을 수 있다. 따라서 예술적 이미지와 같은 도메인 외부 이미지를 사용하더라도 DiffStyle은 이미지의 스타일을 성공적으로 전송한다. 또한 $h$-space의 공간적 혼합은 해당 타겟 영역에 콘텐츠를 주입하여 로컬 style mixing을 가능하게 한다. 로컬 style mixing의 경우 각 $h_t$는 Slerp 전에 마스킹되고 혼합 $h_t$는 원본 feature map에 삽입된다. DiffStyle의 알고리즘은 아래와 같다. 단순성을 위해 알고리즘에서 스타일 보정 및 품질 부스팅을 생략한다. 
 
-<center><img src='{{"/assets/img/diffstyle/diffstyle-algo1.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/diffstyle/diffstyle-algo1.webp" | relative_url}}' width="47%"></center>
 
 ## Experiments
 - Checkpoints
@@ -240,35 +240,35 @@ $h$-space는 콘텐츠를 포함하고 $x_T$에서 skip connection이 스타일 
 ### 1. Analyses
 다음은 콘텐츠 주입 비율 $\gamma$에 따른 성능 변화를 나타낸 그래프이다. 
 
-<center><img src='{{"/assets/img/diffstyle/diffstyle-fig7.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/diffstyle/diffstyle-fig7.webp" | relative_url}}' width="75%"></center>
 
 다음은 style calibration 유무에 따른 결과를 비교한 것이다.
 
-<center><img src='{{"/assets/img/diffstyle/diffstyle-fig8.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/diffstyle/diffstyle-fig8.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 다양한 구성에 대한 성능을 측정한 표이다.
 
-<center><img src='{{"/assets/img/diffstyle/diffstyle-table1.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/diffstyle/diffstyle-table1.webp" | relative_url}}' width="42%"></center>
 <br>
 다음은 $t_\textrm{edit}$에 따른 성능 변화를 나타낸 그래프이다. 
 
-<center><img src='{{"/assets/img/diffstyle/diffstyle-fig11.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/diffstyle/diffstyle-fig11.webp" | relative_url}}' width="75%"></center>
 
 ### 2. Applications
 다음은 다양한 데이터셋에서의 콘텐츠 주입에 대한 결과이다.
 
-<center><img src='{{"/assets/img/diffstyle/diffstyle-fig9.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffstyle/diffstyle-fig9.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 CelebA-HQ에서의 style mixing과 style transfer 결과이다.
 
-<center><img src='{{"/assets/img/diffstyle/diffstyle-fig10.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffstyle/diffstyle-fig10.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Comparison with existing methods
 다음은 DiffStyle을 DiffuseIT와 비교한 결과이다.
 
-<center><img src='{{"/assets/img/diffstyle/diffstyle-fig12.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/diffstyle/diffstyle-fig12.webp" | relative_url}}' width="80%"></center>
 
 ### 4. DiffStyle on Stable Diffusion
 다음은 Stable Diffusion에 DiffStyle을 적용한 결과이다.
 
-<center><img src='{{"/assets/img/diffstyle/diffstyle-fig13.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/diffstyle/diffstyle-fig13.webp" | relative_url}}' width="75%"></center>

@@ -18,7 +18,7 @@ classes: wide
 > University of Tübingen and Max Planck Institute for Intelligent Systems  
 > 1 Feb 2022  
 
-<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-fig1.webp" | relative_url}}' width="100%"></center>
 <center>(ImageNet $256^2$에서 학습한 StyleGAN3(왼쪽)과 StyleGAN-XL(오른쪽)로 생성한 클래스 조건부 샘플들)</center>
 
 ## Introduction
@@ -37,7 +37,7 @@ Projected GAN 학습의 이점을 활용하면 StyleGAN을 ImageNet으로 확장
 ## Scaling StyleGAN to ImageNet
 StyleGAN은 ImageNet에서 잘 작동하는 기존 접근 방식에 비해 몇 가지 장점이 있다. 그러나 naive한 학습 전략은 state-of-the-art 성능을 달성하지 못한다. 저자들은 실험을 통해 최신 StyleGAN3조차도 제대로 확장되지 않는다는 것을 확인했다. 특히 고해상도에서는 학습이 불안정해진다. 따라서 본 논문의 목표는 ImageNet에서 StyleGAN3 generator를 성공적으로 학습시키는 것이다. 본 논문의 모델을 StyleGAN-XL이라 부른다 (아래 그림 참고).
 
-<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-fig2.webp" | relative_url}}' width="100%"></center>
 
 ### 1. Adapting Regularization and Architectures
 다양한 클래스 조건부 데이터셋에 대한 학습은 표준 StyleGAN 구성에 몇 가지 조정을 도입해야 한다. StyleGAN3의 translational-equivariant인 StyleGAN3-T layer를 사용하여 generator 아키텍처를 구성한다. 초기 실험에서 저자들은 rotational-equivariant인 StyleGAN3-R이 더 복잡한 데이터셋에서 지나치게 대칭적인 이미지를 생성하여 만화경과 같은 패턴을 생성한다는 사실을 발견했다. 
@@ -67,7 +67,7 @@ Efficientnet-lite0의 가장 낮은 해상도의 feature를 추출하고 공간�
 ### 3. Exploiting Multiple Feature Networks
 Projected GAN의 ablation study에서는 대부분의 사전 학습된 feature network $F$가 학습 데이터, 사전 학습 목적 함수, 네트워크 아키텍처와 관계없이 Projected GAN 학습에 사용될 때 FID 측면에서 유사하게 수행된다는 것을 발견했다. 그러나 여러 $F$를 결합하는 것이 유리한지는 ablation study에서 다루지 않았다. 
 
-<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-table1b.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-table1b.webp" | relative_url}}' width="55%"></center>
 <br>
 표준 구성인 EfficientNet-lite0에서 시작하여 사전 학습 목적 함수 (classification 또는 self-supervision), 아키텍처(CNN 또는 ViT(Vision Transformer))의 영향을 확인하기 위해 두 번째 $F$를 추가한다. 위 표의 결과는 CNN을 추가하면 FID가 약간 낮아지는 것을 보여준다. 사전 학습 목적 함수가 다른 네트워크를 결합해도 두 개의 classifier 네트워크를 사용하는 것보다 이점이 없다. 그러나 EfficientNet을 ViT와 결합하면 성능이 크게 향상된다. 이 결과는 supervised 표현과 self-supervised 표현이 유사하지만 ViT와 CNN이 서로 다른 표현을 학습한다는 최근 연구의 결과와 동일하다. 두 아키텍처를 결합하면 Projected GAN에 보완적인 효과가 있는 것으로 보인다. 더 많은 네트워크를 추가해도 크게 개선되지 않는다. 
 
@@ -87,17 +87,17 @@ $$
 ### 5. Ablation Study
 다음은 위에서 설명한 요소들에 대한 ImageNet $128^2$에서의 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-table1a.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-table1a.webp" | relative_url}}' width="45%"></center>
 
 ## Results
 ### 1. Image Synthesis
 다음은 ImageNet에서의 이미지 합성 성능을 비교한 표이다.
 
-<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-table2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-table2.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 같은 $w$에 대한 다양한 해상도에서의 샘플들이다.
 
-<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-fig3.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Inversion and Manipulation
 GAN-editing 방법은 먼저 주어진 이미지를 latent space으로 invert시킨다. 즉, $G_s$를 통과했을 때 이미지를 최대한 충실하게 재구성하는 스타일 코드 $w$를 찾는다. 그런 다음 $w$를 조작하여 semantic 편집을 할 수 있다. 
@@ -105,30 +105,30 @@ GAN-editing 방법은 먼저 주어진 이미지를 latent space으로 invert시
 #### Inversion
 다음은 inversion 결과를 나타낸 표이다. 모델에서 얻은 inversion과 reconstruction 대상 사이에서 측정하였다. 
 
-<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-table5.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-table5.webp" | relative_url}}' width="42%"></center>
 <br>
 다음은 interpolation의 예시이다.
 
-<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-fig4.webp" | relative_url}}' width="100%"></center>
 
 #### Image Manipulation
 다음은 image editing(왼쪽)과 style mixing(오른쪽)의 예시이다. 
 
-<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 랜덤 샘플이 주어지면 StyleMC에서 찾은 latent space에서 semantic 방향을 따라 이미지를 조작한 예시이다. 위에서부터 "smile", "no stripes", "big eyes" 방향으로 latent space를 조작하였다. 
 
-<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-fig6.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-fig6.webp" | relative_url}}' width="90%"></center>
 
 ### 3. Inference Speed
 다음은 ADM과 StyleGAN-XL의 inference 시간을 비교한 표이다.
 
-<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-table3.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-table3.webp" | relative_url}}' width="42%"></center>
 
 ### 4. Results on Unimodal Datasets
 다음은 unimodal 데이터셋인 FFHQ $1024^2$와 Pokémon $1024^2$에서의 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-table4.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/stylegan-xl/stylegan-xl-table4.webp" | relative_url}}' width="42%"></center>
 
 ## Limitations
 1. StyleGAN-XL은 StyleGAN3보다 3배 더 크므로 fine-tuning을 위한 시작점으로 사용할 때 더 높은 계산 오버헤드가 필요하다. 

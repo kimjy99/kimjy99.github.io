@@ -20,7 +20,7 @@ classes: wide
 > Google Research, Brain Team  
 > 26 Jan 2023  
 
-<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-fig1.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-fig1.webp" | relative_url}}' width="45%"></center>
 
 ## Introduction
 Diffusion model은 이미지, 오디오, 비디오 생성에 매우 효과적인 것으로 나타났다. 그러나 높은 해상도에 대해서 논문들은 일반적으로 낮은 차원의 잠재 공간에서 작동하거나 여러 하위 문제로 나눈다. 이러한 접근 방식의 단점은 추가 복잡성을 유발하고 일반적으로 단일 end-to-end 학습 설정을 지원하지 않는다는 것이다. 
@@ -38,7 +38,7 @@ Diffusion model은 이미지, 오디오, 비디오 생성에 매우 효과적인
 ### 1. Adjusting Noise Schedules
 수정 사항 중 하나는 일반적으로 diffusion model에 사용되는 noise schedule이다. 가장 일반적인 schedule은 variance preserving 가정 하에서 $\sigma_t / \alpha_t = \tan ( \pi / 2 )$에 해당하는 $\alpha$-cosine schedule이다. 이 schedule은 원래 해상도가 32$\times$32인 CIFAR-10과 ImageNet 64$\times$64의 성능을 개선하기 위해 제안되었다. 
 
-<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 그러나 고해상도의 경우 충분한 noise가 추가되지 않는다. 예를 들어, 위 그림의 맨 위 행을 살펴보면 표준 cosine schedule의 경우 이미지의 전체 구조가 이미 넓은 범위의 시간에 대해 대체로 정의되어 있음을 알 수 있다. 이는 생성적 denoising process가 이미지의 전체 구조를 결정할 수 있는 작은 time window만 있기 때문에 문제가 된다. 더 높은 해상도의 경우 이 schedule을 예측 가능한 방식으로 변경하여 우수한 시각적 샘플 품질을 유지할 수 있다. 
 
@@ -96,7 +96,7 @@ $$
 \end{equation}
 $$
 
-<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-fig6.PNG" | relative_url}}' width="35%"></center>
+<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-fig6.webp" | relative_url}}' width="35%"></center>
 <br>
 Log-space에서는 위 그래프와 같이 간단히 $2 \cdot \log (64/d)$만큼 shift하는 것과 같다. Variance preserving process 하에서는 diffusion parameter가 다음과 같이 계산된다.
 
@@ -152,7 +152,7 @@ $$
 
 다음 표는 $B = 1024$일 때의 convolutional kernel과 feature map의 일반적인 메모리 사용량을 나타낸 것이다.
 
-<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-table1.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-table1.webp" | relative_url}}' width="52%"></center>
 <br>
 중요한 점은 16$\times$16 해상도의 경우 feature map 크기와 parameter 메모리 모두 다루기 쉽다는 것이며, 전체 메모리 사용량이 23배 차이가 난다. 
 
@@ -163,7 +163,7 @@ $$
 
 가장 높은 해상도에서 계산을 수행하는 것을 피하기 위해 신경망의 첫 번째 step으로 이미지를 즉시 downsampling하고 마지막 step으로 upsampling한다. 저자들은 놀랍게도 이 신경망이 계산 및 메모리 측면에서 더 저렴하지만 경험적으로 더 나은 성능을 달성한다는 사실을 발견했다고 한다. 선택할 수 있는 두 가지 접근 방식이 있다.
 
-<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-fig7.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-fig7.webp" | relative_url}}' width="50%"></center>
 <br>
 한 가지 접근 방식은 가역이고 선형적인 5/3 wavelet(JPEG2000에서 사용)을 사용하여 이미지를 위 그림과 같이 저해상도 frequency response으로 변환하는 것이다. 여기에서 다양한 feature response는 시각적 목적을 위해 공간적으로 연결된다. 네트워크에서 response는 채널 축을 통해 연결된다. 둘 이상의 DWT 레벨이 적용되는 경우 response의 해상도가 다르다. 이는 가장 낮은 해상도(그림에서 $128^2$)를 찾고 더 높은 해상도의 feature map을 위해 픽셀을 재구성함으로써 해결된다. $256^2$의 경우 일반적인 공간에서 깊이 연산으로 $128^2 \times 4$로 재구성된다. 
 
@@ -185,54 +185,54 @@ $$
 #### Noise schedule
 다음은 ImageNet 128$\times$128과 256$\times$256에서 noise schedule에 따른 FID를 측정한 표이다.
 
-<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-table2.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-table2.webp" | relative_url}}' width="42%"></center>
 <br>
 Noise schedule을 shifting하는 것이 상당히 성능을 개선하는 것을 볼 수 있다. 특히 더 높은 해상도에서 성능 개선 효과가 컸다. 
 
 #### Dropout
 다음은 ImageNet 128$\times$128에서 dropout에 대한 ablation study 결과 표이다.
 
-<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-table3.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-table3.webp" | relative_url}}' width="45%"></center>
 <br>
 저자들은 낮은 해상도 feature map에서 작동하는 네트워크의 모듈을 정규화하기에 충분해야한다는 가설을 세웠으며, 이 가설이 만족하는 것을 알 수 있다. 데이터와 같은 크기의 해상도부터 dropout을 적용하는 경우 성능이 거의 개선되지 않았다. 이는 고해상도 diffusion에 대한 dropout이 지금까지 널리 사용되지 않은 이유를 설명 할 수 있다. 일반적으로 dropout은 모든 해상도에서 모든 feature map의 글로벌 파라미터로 설정되어 있지만 이 실험은 그러한 정규화가 너무 공격적이라는 것을 보여준다. 
 
 #### Architecture scaling
 다음 표는 U-Net 아키텍처를 스케일링하였을 때의 성능을 비교한다. 
 
-<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-table4.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-table4.webp" | relative_url}}' width="50%"></center>
 <br>
 "2+3"은 2개의 down block과 3개의 up block으로 U-Net을 구성한다는 뜻이다. 모듈 개수를 늘리면 성능이 일반적으로 개선되지만 block 개수가 8에서 12로 증가하는 경우 성능 개선이 거의 없다. 
 
 #### Avoiding higher resolution feature maps
 다음 표는 ImageNet 512$\times$512에서의 downsampling 전략에 따른 성능을 비교한 것이다.
 
-<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-table5.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-table5.webp" | relative_url}}' width="45%"></center>
 
 #### Multiscale loss
 다음은 multiscale loss를 적용할 때의 성능을 비교한 것이다.
 
-<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-table6.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-table6.webp" | relative_url}}' width="47%"></center>
 <br>
 Multiscale loss는 높은 해상도에서는 효과적이지만 낮은 해상도에서는 성능이 약간 감소한다. 
 
 ### 2. Comparison with literature
 다음은 다른 논문들의 생성 모델들과 ImageNet에서 비교한 표이다.
 
-<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-table7.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-table7.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 simple diffusion으로 생성한 이미지이다. 각 이미지들은 cascades (super-resolution) 없이 하나의 diffusion model로 full image space에서 생성되었다. (guidance scale 4)
 
-<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-fig2.webp" | relative_url}}' width="100%"></center>
 
 #### Text to image
 다음은 zero-shot COCO에 대한 text to image 결과를 나타낸 표이다.
 
-<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-table8.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-table8.webp" | relative_url}}' width="45%"></center>
 <br>
 다음은 512$\times$512 해상도에서의 text to image 샘플들이다. 이 모델은 distillation을 사용한 것으로 이미지 1개를 생성하는 데 TPUv4에서 0.42초가 걸린다 (텍스트 인코더 제외).
 
-<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-fig4.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-fig4.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 256$\times$256 해상도에서의 text to image 샘플들이다.
 
-<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-fig5.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/simple-diffusion/simple-diffusion-fig5.webp" | relative_url}}' width="80%"></center>

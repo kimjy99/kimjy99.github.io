@@ -21,7 +21,7 @@ classes: wide
 > University of California, Berkeley  
 > 12 Apr 2023  
 
-<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 본 논문은 이미지 편집을 위해 사람이 작성한 명령을 따르도록 생성 모델을 가르치는 방법을 제시한다. 이 task를 위한 학습 데이터는 대규모로 획득하기 어렵기 때문에 서로 다른 modality로 사전 학습된 GPT-3와 Stable Diffusion을 결합한 쌍으로 된 데이터셋을 생성하는 접근 방식을 제안한다. 이 두 모델은 두 modality에 걸친 task에 대한 학습 데이터를 만들기 위해 결합할 수 있는 언어 및 이미지에 대한 보완적인 지식을 캡처한다.
@@ -29,7 +29,7 @@ classes: wide
 생성된 쌍 데이터를 사용하여 입력 이미지와 편집 방법에 대한 텍스트 명령이 주어지면 편집된 이미지를 생성하는 조건부 diffusion model을 학습시킨다. 본 논문의 모델은 forward pass에서 이미지 편집을 직접 수행하며 추가 예제 이미지, 입력/출력 이미지에 대한 전체 설명 또는 예제별 finetuning이 필요하지 않다. 합성 예제에 대해 전적으로 학습을 받았음에도 불구하고 본 논문의 모델은 임의의 실제 이미지와 자연적인 사람이 작성한 명령 모두에 대해 zero-shot 일반화를 달성한다. 본 논문의 모델은 사람의 명령에 따라 개체 교체, 이미지 스타일 변경, 설정 변경, 예술적 매체 등 다양한 편집들을 수행할 수 있는 직관적인 이미지 편집이 가능하다.
 
 ## Method
-<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig2.webp" | relative_url}}' width="100%"></center>
 
 ### 1. Generating a Multi-modal Training Dataset
 서로 다른 modality에서 작동하는 두 개의 대규모 사전 학습된 모델의 능력을 결합하여 텍스트 편집 명령과 편집 전후의 해당 이미지를 포함하는 multi-modal 학습 데이터셋을 생성한다.
@@ -49,12 +49,12 @@ GPT-3의 방대한 지식과 일반화 능력을 활용하여 finetuning된 모�
 
 사람이 작성한 데이터셋과 GPT-3가 생성한 데이터셋의 샘플은 아래 표와 같다.
 
-<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-table1.webp" | relative_url}}' width="100%"></center>
 
 #### Generating Paired Images from Paired Captions
 다음으로 사전 학습된 text-to-image 모델을 사용하여 한 쌍의 캡션(편집 전후 이미지 참조)을 한 쌍의 이미지로 변환한다. 한 쌍의 캡션을 해당 이미지 쌍으로 변환하는 데 있어 한 가지 문제는 text-to-image 모델이 조건 프롬프트의 아주 작은 변경에서도 이미지 일관성에 대한 보장을 제공하지 않는다는 것이다. 예를 들어 "고양이 그림"과 "검은 고양이 그림"이라는 매우 유사한 두 개의 프롬프트는 완전히 다른 고양이 이미지를 생성할 수 있다. 이는 모델이 이미지를 편집하도록 학습시키기 위한 supervision으로 이 쌍을 이룬 데이터를 사용하려는 목적에 적합하지 않다. 따라서 text-to-image diffusion model에서 여러 생성 결과가 유사하도록 장려하는 것을 목표로 하는 [Prompt-to-Prompt](https://kimjy99.github.io/논문리뷰/prompt-to-prompt)를 사용한다. Prompt-to-Prompt는 몇 가지 denoising step에서 빌린 cross-attention 가중치를 통해 수행된다. 아래 그림은 Prompt-to-Prompt가 있거나 없는 샘플 이미지를 비교한 것이다.
 
-<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig3.webp" | relative_url}}' width="60%"></center>
 <br>
 이렇게 하면 생성된 이미지를 비슷하게 만드는 데 크게 도움이 되지만 다른 편집에는 이미지 space에서 다른 양의 변경이 필요할 수 있다. 예를 들어, 대규모 이미지 구조를 변경하는 것과 같은 더 큰 규모의 변경(예: 개체 이동, 다른 모양의 개체로 대체)은 생성된 이미지 쌍에서 덜 유사성을 요구할 수 있다. 다행스럽게도 Prompt-to-Prompt는 두 이미지 간의 유사성을 제어할 수 있는 파라미터로 attention 가중치를 공유한 denoising step의 비율 $p$를 사용한다. 안타깝게도 캡션과 편집 텍스트만으로 최적의 $p$ 값을 식별하는 것은 어렵다. 따라서 캡션 쌍당 각각 임의의 $p \sim \mathcal{U}(0.1, 0.9)$를 갖는 100개의 샘플 이미지 쌍을 생성하고 CLIP 기반 metric을 사용하여 이러한 샘플을 필터링한다. 이 metric은 두 이미지 캡션 간의 변경과 함께 두 이미지(CLIP space에서) 간의 변경 일관성을 측정한다. 이 필터링을 수행하면 이미지 쌍의 다양성과 품질을 최대화하는 데 도움이 될 뿐만 아니라 Prompt-to-Prompt와 Stable Diffusion에 대한 데이터 생성이 더욱 강력해진다.
 
@@ -97,45 +97,45 @@ $$
 ## Results
 다음은 모나리자를 다양한 예술적 매체로 변환한 결과이다.
 
-<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 새로운 컨텍스트와 주제를 가진 천지창조이다.
 
-<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 비틀즈의 Abbey Road 앨범 커버를 다양하게 변환한 결과이다.
 
-<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig7.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 여러 명령을 모델을 반복적으로 적용한 결과이다.
 
-<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig11.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig11.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 latent noise를 변경하여 동일한 입력 이미지와 명령에 대해 여러 이미지 편집을 생성한 결과이다. 
 
-<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig12.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig12.webp" | relative_url}}' width="100%"></center>
 
 ### 1. Baseline comparisons
 다음은 InstructPix2Pix를 다양한 편집 방법들과 비교한 것이다.
 
-<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig9.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig9.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 InstructPix2Pix와 SDEdit을 비교한 그래프이다.
 
-<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig8.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig8.webp" | relative_url}}' width="60%"></center>
 
 ### 2. Ablations
 다음은 데이터셋 크기와 데이터셋 필터링 접근법에 대한 ablation study 결과이다. ($s_T$ 고정, $s_I \in [1.0, 2.2]$)
 
-<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig10.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig10.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 classifier-free guidance 가중치에 따른 결과를 나타낸 것이다. (텍스트 명령: "Turn him into a cyborg!")
 
-<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig4.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig4.webp" | relative_url}}' width="65%"></center>
 
 ## Limitations
 InstructPix2Pix는 생성된 데이터셋의 시각적 품질에 의해 제한되며, 따라서 이미지를 생성하는 데 사용되는 diffusion model에 의해 제한된다. 또한, 새로운 편집으로 일반화하고 시각적 변경 사항과 텍스트 명령 사이의 올바른 연결을 만드는 InstructPix2Pix의 능력은 GPT-3 finetuning에 사용되는 사람이 작성한 명령, 명령을 만들고 캡션을 수정하는 GPT-3의 능력, 그리고 생성된 이미지를 수정하는 Prompt-to-Prompt 능력에 의해 제한된다. 특히, Stable Diffusion과 Prompt-to-Prompt에서와 마찬가지로 개체 수를 세고 공간 추론에 어려움을 겪는다. 
 
-<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig13.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/instruct-pix2pix/instruct-pix2pix-fig13.webp" | relative_url}}' width="100%"></center>
 <br>
 실패 예시는 위 그림과 같다. 또한, InstructPix2Pix가 기반으로 하는 데이터 및 사전 학습된 모델에 편향이 있으므로 편집된 이미지는 이러한 편향을 상속하거나 다른 편향을 도입할 수 있다. 

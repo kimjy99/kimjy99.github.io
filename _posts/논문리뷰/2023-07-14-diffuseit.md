@@ -21,7 +21,7 @@ classes: wide
 > KAIST  
 > 30 Sep 2022  
 
-<center><img src='{{"/assets/img/diffuseit/diffuseit-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffuseit/diffuseit-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 Image translation은 모델이 입력 이미지를 받아 타겟 도메인으로 변환하는 task이다. 초기 image translation 접근 방식은 주로 단일 도메인 translation을 위해 설계되었지만 곧 다중 도메인 translation으로 확장되었다. 이러한 방법은 각 도메인에 대해 많은 학습 세트를 요구하기 때문에 멀티스케일 학습을 사용한 일대일 image translation 또는 패치 매칭 전략을 포함하여 단일 이미지 쌍만을 사용하는 image translation 접근 방식이 연구되었다. 가장 최근에 Splicing ViT는 사전 학습된 DINO ViT를 활용하여 입력 이미지의 구조를 유지하면서 주어진 이미지의 의미론적 모양을 타겟 도메인으로 변환한다.
@@ -35,7 +35,7 @@ Image translation은 모델이 입력 이미지를 받아 타겟 도메인으로
 입력 이미지의 콘텐츠를 유지하면서 동시에 타겟 텍스트 또는 이미지의 semantic을 따르는 출력을 생성하는 방식으로 diffusion process를 제어하기 위해 사전 학습된 Vision Transformer (ViT)를 사용하여 loss function을 도입한다. 구체적으로, DINO ViT 모델에서 multi-head self-attention layer의 중간 key와 마지막 레이어의 classification 토큰을 추출하여 각각 콘텐츠 및 스타일 정규화로 사용한다. 구조적 정보를 보존하기 위해 샘플링 중에 입력의 중간 key와 denoise된 이미지 간의 similarity loss와 contrastive loss을 사용한다. 그런 다음 denoise된 샘플과 타겟 도메인 간의 토큰을 일치시켜 image guided style transfer가 수행되는 반면 텍스트 기반 style transfer에는 추가 CLIP loss가 사용된다. 샘플링 속도를 더욱 향상시키기 위해 새로운 semantic divergence loss와 리샘플링 전략을 사용한다.
 
 ## Proposed Method
-<center><img src='{{"/assets/img/diffuseit/diffuseit-fig2.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/diffuseit/diffuseit-fig2.webp" | relative_url}}' width="90%"></center>
 
 ### 1. DDPM Sampling with Manifold Constraint
 DDPM에서 깨끗한 이미지 $x_0 \sim q(x_0)$에서 시작하여 forward diffusion process $q(x_t \vert x_{t-1})$는 매 step $t$마다 점진적으로 Gaussian noise를 추가하는 Markov chain으로 설명된다.
@@ -238,24 +238,24 @@ $$
 ### 1. Text-guided Semantic Image Translation
 다음은 동물 데이터셋에서의 text-guided translation을 정성적으로 비교한 결과이다.
 
-<center><img src='{{"/assets/img/diffuseit/diffuseit-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffuseit/diffuseit-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 풍경 데이터셋에서의 text-guided translation을 정성적으로 비교한 결과이다.
 
-<center><img src='{{"/assets/img/diffuseit/diffuseit-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffuseit/diffuseit-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 다양한 데이터셋에서의 text-guided translation을 정량적으로 비교한 결과이다.
 
-<center><img src='{{"/assets/img/diffuseit/diffuseit-table1.PNG" | relative_url}}' width="97%"></center>
+<center><img src='{{"/assets/img/diffuseit/diffuseit-table1.webp" | relative_url}}' width="97%"></center>
 
 ### 2. Image-guided Semantic Image Translation
 다음은 image-guided translation에 대한 user study 결과이다.
 
-<center><img src='{{"/assets/img/diffuseit/diffuseit-table2.PNG" | relative_url}}' width="41%"></center>
+<center><img src='{{"/assets/img/diffuseit/diffuseit-table2.webp" | relative_url}}' width="41%"></center>
 <br>
 다음은 image-guided translation을 정성적으로 비교한 결과이다.
 
-<center><img src='{{"/assets/img/diffuseit/diffuseit-fig5.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/diffuseit/diffuseit-fig5.webp" | relative_url}}' width="90%"></center>
 
 ### 3. Ablation Study
 다음은 ablation study 결과이다.
@@ -268,6 +268,6 @@ $$
 - (f) 리샘플링 전략 제거
 - (g) DINO ViT 대신 VGG16을 사용
 
-<center><img src='{{"/assets/img/diffuseit/diffuseit-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffuseit/diffuseit-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
-<center><img src='{{"/assets/img/diffuseit/diffuseit-table3.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/diffuseit/diffuseit-table3.webp" | relative_url}}' width="48%"></center>

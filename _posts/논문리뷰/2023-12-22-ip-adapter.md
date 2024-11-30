@@ -18,7 +18,7 @@ classes: wide
 > Tencent AI Lab  
 > 13 Aug 2023  
 
-<center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 이미지 생성은 최근 대규모 text-to-image (T2I) diffusion model의 성공으로 놀라운 발전을 이루었다. 사용자는 강력한 T2I diffusion model을 사용하여 이미지를 생성하는 텍스트 프롬프트를 작성할 수 있다. 그러나 원하는 콘텐츠를 생성하기 위해 좋은 텍스트 프롬프트를 작성하는 것은 복잡한 프롬프트 엔지니어링이 필요한 경우가 많기 때문에 쉽지 않다. 또한, 텍스트는 복잡한 장면이나 개념을 표현하는 데에는 유익하지 않아 콘텐츠 제작에 방해가 될 수 있다. 
@@ -44,7 +44,7 @@ Fine-tuning의 단점으로 인해 일부 연구에서는 diffusion model의 fin
 
 ## Method
 ### 1. Image Prompt Adapter
-<center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig2.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig2.webp" | relative_url}}' width="80%"></center>
 <br>
 본 논문에서 이미지 프롬프트 어댑터는 사전 학습된 T2I diffusion model을 사용하여 이미지 프롬프트가 포함된 이미지를 생성할 수 있도록 디자인되었다. 현재 어댑터들은 fine-tuning된 이미지 프롬프트 모델이나 처음부터 학습된 모델의 성능을 맞추는 데 어려움을 겪고 있다. 가장 큰 이유는 이미지 feature를 사전 학습된 모델에 효과적으로 임베딩할 수 없기 때문이다. 대부분의 방법은 단순히 concatenate된 feature를 고정된 cross-attention 레이어에 공급하여 diffusion model이 이미지 프롬프트에서 세밀한 feature를 캡처하는 것을 막는다. 이 문제를 해결하기 위해 저자들은 새로 추가된 cross-attention 레이어에 이미지 feature가 포함되는 decoupled cross-attention 전략을 제시하였다. 제안된 IP-Adapter의 전체 아키텍처는 위 그림에 나와 있다. IP-Adapter는 두 부분으로 구성된다. 
 
@@ -140,46 +140,46 @@ $$
 ### 1. Comparison with Existing Methods
 다음은 COCO validation set에서 다른 방법들과 IP-Adapter를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/ip-adapter/ip-adapter-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/ip-adapter/ip-adapter-table1.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 여러 종류와 스타일의 이미지를 조건으로 다른 방법들과 IP-Adapter를 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig3.webp" | relative_url}}' width="100%"></center>
 
 ### 2. More Results
 #### Generalizable to Custom Models
 다음은 여러 diffusion model들과 IP-Adapter의 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig4.webp" | relative_url}}' width="100%"></center>
 
 #### Structure Control
 다음은 이미지 프롬프트와 추가적인 구조적 조건들에 대한 IP-Adapter의 결과들이다. (추가로 fine-tuning하지 않음)
 
-<center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 여러 구조적 조건들에 대하여 다른 방법들과 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig6.webp" | relative_url}}' width="100%"></center>
 
 #### Image-to-Image and Inpainting
 다음은 IP-Adapter를 사용한 image-to-image와 인페인팅 결과이다. 
 
-<center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig7.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig7.webp" | relative_url}}' width="90%"></center>
 
 #### Multimodal Prompts
 다음은 멀티모달 프롬프트에 대한 IP-Adapter의 결과들이다. 
 
-<center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig8.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 멀티모달 프롬프트에 대하여 다른 방법들과 비교한 것이다. 
 
-<center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig9.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig9.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Ablation Study
 다음은 간단한 어댑터와 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig10.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig10.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 글로벌한 feature를 사용하였을 떄와 세밀한 feature를 사용하였을 떄의 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig11.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig11.webp" | relative_url}}' width="100%"></center>

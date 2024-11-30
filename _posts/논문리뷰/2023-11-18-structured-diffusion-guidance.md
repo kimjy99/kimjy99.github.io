@@ -20,7 +20,7 @@ classes: wide
 > University of California, Santa Barbara | University of California, Santa Cruz | Google  
 > 9 Dec 2022  
 
-<center><img src='{{"/assets/img/structured-diffusion-guidance/structured-diffusion-guidance-fig1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/structured-diffusion-guidance/structured-diffusion-guidance-fig1.webp" | relative_url}}' width="80%"></center>
 
 ## Introduction
 Text-to-Image (T2I) 합성은 텍스트 프롬프트를 입력으로 하여 자연스럽고 충실한 이미지를 생성하는 것이다. 최근에는 DALL-E 2, Imagen, Parti와 같은 초대형 비전-언어 모델을 통해 생성된 이미지의 품질이 크게 향상되었다. 특히 Stable Diffusion은 수십억 개의 텍스트-이미지 쌍을 학습한 후 탁월한 성능을 보여주는 SOTA 오픈 소스 구현이다. 
@@ -42,7 +42,7 @@ SOTA T2I 모델이 대규모 텍스트-이미지 데이터셋에 대해 학습�
 입력 프롬프트 $\mathcal{P}$가 주어지면 CLIP 인코더는 이를 임베딩 시퀀스 $$\mathcal{W}_p = \textrm{CLIP}_\textrm{text} (\mathcal{P})$$로 인코딩한다. 저자들의 주요 관찰은 CLIP 임베딩의 컨텍스트화가 잘못된 속성 바인딩의 잠재적인 원인이라는 것이다. 인과적 attention 마스크로 인해 시퀀스 후반부의 토큰은 그 앞의 토큰 semantic과 혼합된다. 예를 들어 사용자가 두 번째 개체에 대해 희귀한 색상 (ex. "a yellow apple and red bananas")을 표시하면 "yellow" 임베딩이 "banana" 토큰에 attend하므로 Stable Diffusion은 바나나를 노란색으로 생성하는 경향이 있다.
 
 #### Cross Attention Layers
-<center><img src='{{"/assets/img/structured-diffusion-guidance/structured-diffusion-guidance-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/structured-diffusion-guidance/structured-diffusion-guidance-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 Cross-attention 레이어는 CLIP 텍스트 인코더에서 임베딩 시퀀스를 가져와 이를 latent feature map과 융합하여 classifier-free guidance를 달성한다. 2D feature map을 $X^t$라 하면, $X^t$는 linear layer $f_Q (\cdot)$에 의해 query에 project되고 $Q^t \in \mathbb{R}^{n \times hw \times d}$로 재구성된다. 여기서 $n$은 attention head 수를 나타내고 $d$는 feature 차원이다. 마찬가지로 $$\mathcal{W}_p$$는 linear layer $f_K(\cdot)$, $f_V(\cdot)$에 의해 key와 value $K_p, V_p \in \mathbb{R}^{n \times l \times d}$로 project된다. Attention map은 query와 key 사이의 곱을 참조한다.
 
@@ -56,7 +56,7 @@ $$
 [Prompt-to-prompt 논문](https://kimjy99.github.io/논문리뷰/prompt-to-prompt)에서는 공간 레이아웃이 Imagen의 attention map에 따라 달라지는 것을 관찰했다. 이러한 map은 생성된 이미지의 레이아웃과 구조를 제어하는 반면, value에는 attend된 영역에 매핑된 풍부한 semantic이 포함되어 있다. 따라서 attention map과 값을 별도로 제어함으로써 이미지 레이아웃과 콘텐츠를 분리할 수 있다고 가정한다. 
 
 ### 2. Structured Diffusion Guidance
-<center><img src='{{"/assets/img/structured-diffusion-guidance/structured-diffusion-guidance-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/structured-diffusion-guidance/structured-diffusion-guidance-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 어려운 프롬프트가 주어지면 속성-객체 쌍은 구성 트리나 장면 그래프와 같은 많은 구조적 표현에서 무료로 사용할 수 있다. 저자들은 언어 구조를 cross-attention layer와 결합하는 암시적인 방법을 추구한다. 위 그림에서 볼 수 있듯이 여러 명사구(NP)를 추출하고 해당 semantic을 해당 영역에 매핑할 수 있다. $M^t$는 자연스러운 토큰-영역 관계를 제공하므로 이를 다른 NP의 여러 값에 적용하여 영역별 semantic guidance를 얻을 수 있다.
 
@@ -89,7 +89,7 @@ $$
 
 $O^t$는 특정 cross-attention layer의 출력과 최종 이미지 $x$를 생성하기 위한 다운스트림 레이어의 입력이다. 본 논문의 알고리즘은 학습이나 추가 데이터가 필요하지 않으며, Algorithm 1로 요약될 수 있다.
 
-<center><img src='{{"/assets/img/structured-diffusion-guidance/structured-diffusion-guidance-algo1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/structured-diffusion-guidance/structured-diffusion-guidance-algo1.webp" | relative_url}}' width="80%"></center>
 
 ## Experiment
 - 데이터셋
@@ -104,27 +104,27 @@ $O^t$는 특정 cross-attention layer의 출력과 최종 이미지 $x$를 생�
 ### 1. Compositional Prompts
 다음은 텍스트-이미지 정렬과 이미지 충실도 측면에서 StructureDiffusion의 생성된 이미지를 다른 모델들과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/structured-diffusion-guidance/structured-diffusion-guidance-table1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/structured-diffusion-guidance/structured-diffusion-guidance-table1.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 ABC-6K에 대한 결과를 정성적으로 비교한 것이다. 
 
-<center><img src='{{"/assets/img/structured-diffusion-guidance/structured-diffusion-guidance-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/structured-diffusion-guidance/structured-diffusion-guidance-fig4.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Concept Conjunction
 다음은 두 가지 측면을 강조하는 CC-500 프롬프트에 대하여 정성적으로 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/structured-diffusion-guidance/structured-diffusion-guidance-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/structured-diffusion-guidance/structured-diffusion-guidance-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 CC-500에 대한 세분화된 인간 평가 및 자동 평가 결과이다. 
 
-<center><img src='{{"/assets/img/structured-diffusion-guidance/structured-diffusion-guidance-table2.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/structured-diffusion-guidance/structured-diffusion-guidance-table2.webp" | relative_url}}' width="85%"></center>
 
 ### 3. Scene Graph Input
 다음은 장면 그래프 파서를 구조화된 표현을 사용하였을 때 생성된 샘플들이다. 
 
-<center><img src='{{"/assets/img/structured-diffusion-guidance/structured-diffusion-guidance-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/structured-diffusion-guidance/structured-diffusion-guidance-fig6.webp" | relative_url}}' width="100%"></center>
 
 ### 4. Ablation Study
 다음은 텍스트 시퀀스 임베딩에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/structured-diffusion-guidance/structured-diffusion-guidance-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/structured-diffusion-guidance/structured-diffusion-guidance-fig7.webp" | relative_url}}' width="100%"></center>

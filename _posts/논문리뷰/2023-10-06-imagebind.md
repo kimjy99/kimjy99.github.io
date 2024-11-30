@@ -18,7 +18,7 @@ classes: wide
 > Meta AI  
 > 9 May 2023  
 
-<center><img src='{{"/assets/img/imagebind/imagebind-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/imagebind/imagebind-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 하나의 이미지는 많은 경험을 하나로 묶을 수 있다. 해변의 이미지는 파도 소리, 모래의 질감, 바람을 떠올리게 하거나 시에 영감을 줄 수도 있다. 이미지의 이 '바인딩' 속성은 시각적 feature를 이미지와 관련된 모든 감각 경험과 정렬하여 시각적 feature를 학습할 수 있는 많은 supervision 소스를 제공한다. 이상적으로는 하나의 공동 임베딩 공간의 경우 이러한 모든 센서에 정렬하여 시각적 feature를 학습해야 한다. 그러나 이를 위해서는 동일한 이미지 세트와 쌍을 이룬 데이터의 모든 유형 및 조합을 획득해야 하므로 이는 불가능하다.
@@ -30,7 +30,7 @@ classes: wide
 본 논문은 오디오, 깊이, 열화상, 관성 측정 장치 (IMU) 판독값과 같은 네 가지 새로운 modality에 걸쳐 자연적으로 쌍을 이룬 self-supervised 데이터와 함께 대규모 이미지-텍스트 쌍 데이터를 사용하며, 이러한 modality 각각에 대한 task에 대한 강력한 zero-shot 분류 및 검색 성능을 갖는다. 이러한 속성들은 기본 이미지 표현이 더 강해짐에 따라 향상된다. 오디오 분류 및 검색 벤치마크에서 ImageBind의 새로운 zero-shot 분류는 ESC, Clotho, AudioCaps와 같은 벤치마크에서 직접 오디오-텍스트 supervision으로 학습된 전문가 모델과 일치하거나 능가한다. 또한 ImageBind 표현은 few-shot 평가 벤치마크에서 전문가 supervised 모델보다 성능이 뛰어나다. 마지막으로 ImageBind의 공동 임베딩은 cross-modal 검색, 산술을 통한 임베딩 결합, 이미지에서 오디오 소스 감지, 주어진 오디오 입력 이미지 생성 등을 포함하여 다양한 결합 task에 사용될 수 있다.
 
 ## Method
-<center><img src='{{"/assets/img/imagebind/imagebind-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/imagebind/imagebind-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문의 목표는 이미지를 사용하여 함께 묶음으로써 모든 modality에 대한 단일 공동 임베딩 공간을 학습하는 것이다. 이미지 임베딩에 각 modality의 임베딩을 정렬한다 (ex. 웹 데이터를 사용하여 텍스트를 이미지로, 캡처한 동영상 데이터를 사용하여 IMU에서 동영상으로). 결과 임베딩 공간은 특정 쌍에 대한 학습 데이터를 보지 않고 modality 쌍을 자동으로 연결하는 강력한 zero-shot 동작을 가진다. 접근 방식은 위 그림과 같다.
 
@@ -69,58 +69,58 @@ ImageBind는 개념적으로 단순하며 다양한 방식으로 구현될 수 �
 ## Experiments
 <span style='color: #4d9aff'>오디오</span>, <span style='color: #098516'>깊이</span>, <span style='color: #e5b967'>열화상</span>, <span style='color: #a34679'>IMU</span>에 대하여 emergent zero-shot 분류를 위한 데이터셋은 다음과 같다. 
 
-<center><img src='{{"/assets/img/imagebind/imagebind-table1.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/imagebind/imagebind-table1.webp" | relative_url}}' width="55%"></center>
 
 ### 1. Emergent zero-shot classification
 다음은 emergent zero-shot 분류 결과이다. 텍스트 프롬프트를 사용한 경우 <span style='background-color: #e6e6ff'>파란색</span>파란색으로 표시되어 있다. 
 
-<center><img src='{{"/assets/img/imagebind/imagebind-table2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/imagebind/imagebind-table2.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Comparison to prior work
 다음은 emergent zero-shot 오디오 검색 및 분류 결과이다. 
 
-<center><img src='{{"/assets/img/imagebind/imagebind-table3.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/imagebind/imagebind-table3.webp" | relative_url}}' width="57%"></center>
 <br>
 다음은 MSR-VTT 1K-A에서의 zero-shot 텍스트 기반 검색 결과이다. 
 
-<center><img src='{{"/assets/img/imagebind/imagebind-table4.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/imagebind/imagebind-table4.webp" | relative_url}}' width="48%"></center>
 
 ### 3. Few-shot classification
 다음은 오디오와 깊이에 대한 few-shot 분류 결과를 나타낸 그래프이다. 
 
-<center><img src='{{"/assets/img/imagebind/imagebind-fig3.PNG" | relative_url}}' width="72%"></center>
+<center><img src='{{"/assets/img/imagebind/imagebind-fig3.webp" | relative_url}}' width="72%"></center>
 
 ### 4. Analysis and Applications
 다음은 이미지 임베딩과 오디오 임베딩을 더한 후 이미지 검색에 사용하는 예시이다. 
 
-<center><img src='{{"/assets/img/imagebind/imagebind-fig4.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/imagebind/imagebind-fig4.webp" | relative_url}}' width="85%"></center>
 <br>
 다음은 오디오 쿼리를 사용한 object detection의 예시이다. 
 
-<center><img src='{{"/assets/img/imagebind/imagebind-fig5.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/imagebind/imagebind-fig5.webp" | relative_url}}' width="75%"></center>
 
 ## Ablation Study
 ### 1. Scaling the Image Encoder
 다음은 이미지 인코더 크기에 따른 emergent zero-shot 분류 결과이다. 
 
-<center><img src='{{"/assets/img/imagebind/imagebind-fig6.PNG" | relative_url}}' width="53%"></center>
+<center><img src='{{"/assets/img/imagebind/imagebind-fig6.webp" | relative_url}}' width="53%"></center>
 
 ### 2. Training Loss and Architecture
 다음은 학습 loss와 아키텍처에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/imagebind/imagebind-table5.PNG" | relative_url}}' width="58%"></center>
+<center><img src='{{"/assets/img/imagebind/imagebind-table5.webp" | relative_url}}' width="58%"></center>
 <br>
 다음은 오디오 인코더와 깊이 인코더의 용량에 대한 영향을 나타낸 표이다. 
 
-<center><img src='{{"/assets/img/imagebind/imagebind-table6.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/imagebind/imagebind-table6.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 batch size에 대한 효과를 나타낸 표이다.
 
-<center><img src='{{"/assets/img/imagebind/imagebind-table7.PNG" | relative_url}}' width="38%"></center>
+<center><img src='{{"/assets/img/imagebind/imagebind-table7.webp" | relative_url}}' width="38%"></center>
 <br>
 다음은 ImageBind를 평가 도구로 사용할 때의 결과이다. 
 
-<center><img src='{{"/assets/img/imagebind/imagebind-table8.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/imagebind/imagebind-table8.webp" | relative_url}}' width="40%"></center>
 
 ## Limitations
 1. ImageBind의 임베딩은 특정 다운스트림 task 없이 학습되므로 전문가 모델의 성능이 뒤떨어진다. 

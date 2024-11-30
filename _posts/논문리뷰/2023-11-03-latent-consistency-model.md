@@ -19,7 +19,7 @@ classes: wide
 > Tsinghua University  
 > 6 Oct 2023  
 
-<center><img src='{{"/assets/img/latent-consistency-model/latent-consistency-model-fig1.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/latent-consistency-model/latent-consistency-model-fig1.webp" | relative_url}}' width="70%"></center>
 
 ## Introduction
 Diffusion model은 다양한 도메인에서 상당한 주목을 받고 놀라운 결과를 달성한 강력한 생성 모델로 등장했다. 특히, latent diffusion model (LDM) (ex. Stable Diffusion)은 특히 고해상도 text-to-image 합성 task에서 탁월한 성능을 보여주었다. LDM은 샘플의 점진적인 denoising을 수행하는 반복적인 reverse process를 활용하여 텍스트 설명에 따라 고품질 이미지를 생성할 수 있다. 
@@ -138,12 +138,12 @@ $$
 
 CFG와 Skipping-Step 기술을 사용하는 LCD의 pseudo-code는 Algorithm 1과 같다. Consistency Distillation (CD) 알고리즘에서의 수정 사항은 파란색으로 강조 표시되어 있다. 
 
-<center><img src='{{"/assets/img/latent-consistency-model/latent-consistency-model-algo1.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/latent-consistency-model/latent-consistency-model-algo1.webp" | relative_url}}' width="85%"></center>
 
 ### 4. Latent Consistency Fine-tuning for Customized Dataset
 Stable Diffusion과 같은 생성 모델은 다양한 tex-to-image 생성 task에 탁월하지만 다운스트림 task의 요구 사항을 충족하기 위해 맞춤형 데이터셋을 fine-tuning해야 하는 경우가 많다. 본 논문은 사전 학습된 LCM을 위한 fine-tuning 방법인 **Latent Consistency Fine-tuning (LCF)**를 제안하였다. Consistency Training (CT)에서 영감을 받은 LCF는 해당 데이터에 대해 학습된 teacher diffusion model에 의존하지 않고도 맞춤형 데이터셋에 대해 효율적인 few-step inference를 가능하게 한다. 이 접근 방식은 diffusion model에 대한 기존의 fine-tuning 방법에 대한 실행 가능한 대안을 제시한다. LCF의 pseudo-code는 Algorithm 4와 같다. 
 
-<center><img src='{{"/assets/img/latent-consistency-model/latent-consistency-model-algo4.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/latent-consistency-model/latent-consistency-model-algo4.webp" | relative_url}}' width="85%"></center>
 
 ## Experiment
 ### 1. Text-to-Image Generation
@@ -151,30 +151,30 @@ Stable Diffusion과 같은 생성 모델은 다양한 tex-to-image 생성 task�
 
 다음은 512$\times$512 해상도에서 CFG scale $\omega = 8$에 대한 정량적 결과를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/latent-consistency-model/latent-consistency-model-table1.PNG" | relative_url}}' width="83%"></center>
+<center><img src='{{"/assets/img/latent-consistency-model/latent-consistency-model-table1.webp" | relative_url}}' width="83%"></center>
 <br>
 다음은 768$\times$768 해상도에서 CFG scale $\omega = 8$에 대한 정량적 결과를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/latent-consistency-model/latent-consistency-model-table2.PNG" | relative_url}}' width="83%"></center>
+<center><img src='{{"/assets/img/latent-consistency-model/latent-consistency-model-table2.webp" | relative_url}}' width="83%"></center>
 <br>
 다음은 LAION-Aesthetic-6.5+에서의 text-to-image 생성 결과이다. 
 
-<center><img src='{{"/assets/img/latent-consistency-model/latent-consistency-model-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/latent-consistency-model/latent-consistency-model-fig2.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Ablation Study
 다음은 다양한 ODE solver와 skipping step $k$에 대한 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/latent-consistency-model/latent-consistency-model-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/latent-consistency-model/latent-consistency-model-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 다양한 CFG scale $\omega$에 대한 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/latent-consistency-model/latent-consistency-model-fig4.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/latent-consistency-model/latent-consistency-model-fig4.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 다양한 CFG scale $\omega$에 대한 4-step LCM의 결과이다. 
 
-<center><img src='{{"/assets/img/latent-consistency-model/latent-consistency-model-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/latent-consistency-model/latent-consistency-model-fig5.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Downstream Consistency Fine-tuning Results
 다음은 포켓몬 데이터셋 (왼쪽)과 심슨 데이터셋 (오른쪽)에 대하여 LCF를 사용한 4-step LCM의 결과이다. 
 
-<center><img src='{{"/assets/img/latent-consistency-model/latent-consistency-model-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/latent-consistency-model/latent-consistency-model-fig6.webp" | relative_url}}' width="100%"></center>

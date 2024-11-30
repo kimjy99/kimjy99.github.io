@@ -19,7 +19,7 @@ classes: wide
 > University of Chinese Academy of Sciences | Alibaba Group | Ant Group | CRIPAC | CASIA | Nanjing University  
 > 15 Mar 2023  
 
-<center><img src='{{"/assets/img/videofusion/videofusion-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/videofusion/videofusion-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 Diffusion probabilistic model (DPM)은 데이터 포인트에 noise를 점진적으로 추가하는 diffusion process와 반복적인 denoising을 통해 새 샘플을 생성하는 denoising process로 구성된 심층 생성 모델 클래스이다. 최근 DPM은 고품질의 다양한 이미지를 생성하는 놀라운 성과를 거두었다.
@@ -34,7 +34,7 @@ Diffusion probabilistic model (DPM)은 데이터 포인트에 noise를 점진적
 
 본 논문은 이를 위해 표준 diffusion process를 수정하고 동영상 생성을 위해 **VideoFusion**이라는 분해된 DPM을 제안하였다. Diffusion process에서 프레임당 noise를 두 부분, 즉 base noise와 residual noise로 분해한다. 여기서 base noise는 연속 프레임에서 공유된다. 이러한 방식으로 서로 다른 프레임의 noised latent 변수는 항상 공통 부분을 공유하므로 denoising network가 일관된 동영상를 보다 쉽게 재구성할 수 있다. 
 
-<center><img src='{{"/assets/img/videofusion/videofusion-fig2.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/videofusion/videofusion-fig2.webp" | relative_url}}' width="90%"></center>
 <br>
 직관적인 설명을 위해 DALL-E 2의 디코더를 사용하여 동일한 latent 임베딩을 조건으로 하는 이미지를 생성한다. 위 그림의 (a)에서와 같이 독립된 noise로부터 이미지를 생성하면 동일한 조건을 공유하더라도 그 내용이 많이 달라진다. 그러나 noised latent 변수가 동일한 base noise를 공유하는 경우 이미지 generator조차도 대략적으로 상관 관계가 있는 시퀀스를 합성할 수 있다 (위 그림의 (b) 참조). 따라서 동영상 생성 DPM의 denoising network 부담을 크게 경감할 수 있다.
 
@@ -105,7 +105,7 @@ z_t^i = \sqrt{\hat{\alpha}_t} x^i + \sqrt{1 - \hat{\alpha}_t} (\sqrt{\lambda^i} 
 \end{equation}
 $$
 
-<center><img src='{{"/assets/img/videofusion/videofusion-fig3.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/videofusion/videofusion-fig3.webp" | relative_url}}' width="70%"></center>
 <br>
 위 그림에서 볼 수 있듯이 이 분해된 형태는 인접한 diffusion step 사이에도 유지된다.
 
@@ -139,7 +139,7 @@ $$
 
 위 식은 $x^{\lfloor N/2 \rfloor}$를 $\epsilon$-예측 denoising function $z_\phi^b$에 공급하여 단 한 번의 forward pass로 모든 프레임에 대한 base noise $b_t$를 추정할 수 있는 기회를 제공한다. $z_\phi^b$는 **base generator**라 부르며, 이미지 diffusion model의 denoising network이다. 이를 통해 DALL-E 2나 Imagen와 같은 사전 학습된 이미지 generator를 base generator로 사용할 수 있다. 이러한 방식으로 사전 학습된 이미지 DPM의 이미지 prior를 활용하여 동영상 데이터 학습을 용이하게 할 수 있다.
 
-<center><img src='{{"/assets/img/videofusion/videofusion-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/videofusion/videofusion-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 위 그림에서 볼 수 있듯이 각 denoising step에서 먼저 $z_\phi^b (z_t^{\lfloor N/2 \rfloor}, t)$로 base noise를 추정한 다음 모든 프레임에서 제거한다.
 
@@ -200,47 +200,47 @@ $$
 ### 1. Quantitative Results
 다음은 UCF101에서 정량적으로 비교힌 표이다. 
 
-<center><img src='{{"/assets/img/videofusion/videofusion-table1.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/videofusion/videofusion-table1.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 Sky Time-lapse에서 정량적으로 비교힌 표이다. 
 
-<center><img src='{{"/assets/img/videofusion/videofusion-table2.PNG" | relative_url}}' width="53%"></center>
+<center><img src='{{"/assets/img/videofusion/videofusion-table2.webp" | relative_url}}' width="53%"></center>
 <br>
 다음은 TaiChi-HD에서 정량적으로 비교힌 표이다. 
 
-<center><img src='{{"/assets/img/videofusion/videofusion-table3.PNG" | relative_url}}' width="53%"></center>
+<center><img src='{{"/assets/img/videofusion/videofusion-table3.webp" | relative_url}}' width="53%"></center>
 
 ### 2. Qualitative Results
 다음은 (a) UCF101, (b) Sky Time-lapse, (c) TaiChi-HD에서의 시각적 비교 결과이다. 
 
-<center><img src='{{"/assets/img/videofusion/videofusion-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/videofusion/videofusion-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 WebVid-10M에서 학습된 VideoFusion의 text-to-video 생성 결과이다. 
 
-<center><img src='{{"/assets/img/videofusion/videofusion-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/videofusion/videofusion-fig7.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Efficiency Comparison
 다음은 VideoFusion의 base generator를 기반으로 VDM을 다시 구현하고 (VDM*로 표시) 효율성을 비교한 표이다.
 
-<center><img src='{{"/assets/img/videofusion/videofusion-table4.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/videofusion/videofusion-table4.webp" | relative_url}}' width="57%"></center>
 
 ### 4. Ablation study
 다음은 여러 $\lambda^i$에 대한 unconditional 생성 결과이다. (UCF101)
 
-<center><img src='{{"/assets/img/videofusion/videofusion-table5.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/videofusion/videofusion-table5.webp" | relative_url}}' width="52%"></center>
 <br>
 다음은 사전 학습에 대한 unconditional 생성 결과이다. (UCF101)
 
-<center><img src='{{"/assets/img/videofusion/videofusion-table6.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/videofusion/videofusion-table6.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 공동 학습에 대한 unconditional 생성 결과이다. (UCF101)
 
-<center><img src='{{"/assets/img/videofusion/videofusion-table7.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/videofusion/videofusion-table7.webp" | relative_url}}' width="52%"></center>
 
 ### 5. Generating Long Sequences
 다음은 UCF101 (위), Sky Time-lapse (중간), TaiChi-HD (아래)에서 512프레임으로 생성된 동영상이다. 
 
-<center><img src='{{"/assets/img/videofusion/videofusion-fig6.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/videofusion/videofusion-fig6.webp" | relative_url}}' width="90%"></center>
 
 ## Limitations
 1. 연속 프레임 간에 base noise를 공유하면 생성된 동영상의 움직임을 제한할 수도 있다.

@@ -20,7 +20,7 @@ classes: wide
 > Tsinghua University | ShengShu | Renmin University of China | Beijing Academy of AI | Pazhou Laboratory  
 > 12 Mar 2023  
 
-<center><img src='{{"/assets/img/unidiffuser/unidiffuser-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/unidiffuser/unidiffuser-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 최근 우리는 멀티모달 데이터에 대한 생성 모델링의 급속한 발전으로 인해 콘텐츠 제작 혁명을 목격하고 있다. 특히 diffusion model은 내용이 입력 텍스트 조건과 잘 일치하는 고충실도의 다양한 데이터를 생성하는 놀라운 능력을 보여주었다.
@@ -39,7 +39,7 @@ UniDiffuser는 원래 diffusion model에 대한 최소한의 수정으로 동시
 
 ## Method
 ### 1. UniDiffuser: One Diffusion Fits All Distributions
-<center><img src='{{"/assets/img/unidiffuser/unidiffuser-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/unidiffuser/unidiffuser-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 분포 $q(x_0, y_0)$에서 샘플링된 두 가지 데이터 modality가 있다고 가정하자. $q(x_0, y_0)$에 의해 결정되는 모든 관련 분포, 즉 주변 분포 $q(x_0)$와 $q(y_0)$, 조건부 분포 $q(x_0 \vert y_0)$와 $q(y_0 \vert x_0)$, 결합 분포 $q(x_0, y_0)$를 캡처할 수 있는 diffusion 기반 모델을 설계하는 것을 목표로 한다. 
 
@@ -74,7 +74,7 @@ UniDiffuser는 하나의 공동 noise 예측 네트워크로 모든 분포를 �
 하나의 공동 noise 예측 네트워크가 주어지면 UniDiffuser는 특정 샘플러에 따라 unconditional 샘플링, 조건부 샘플링, joint 샘플링을 수행할 수 있다. 특히 timestep을 적절하게 설정하면 UniDiffuser의 inference 절차는 맞춤형 모델과 동일하다. 이에 비해 멀티모달 데이터에 대한 단일 결합 분포를 학습하려면 주변 분포 또는 조건부 분포에서 샘플링하기 위한 추가 절차 (ex. Markov Chain Monte Carlo)가 필요하며, 이는 대규모 멀티모달 데이터에서 감당할 수 없다.
 
 ### 2. Classifier-Free Guidance for Free
-<center><img src='{{"/assets/img/unidiffuser/unidiffuser-fig3.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/unidiffuser/unidiffuser-fig3.webp" | relative_url}}' width="80%"></center>
 <br>
 [Classifier-free guidance (CFG)](https://kimjy99.github.io/논문리뷰/cfdg)는 샘플링 중에 조건부 모델과 unconditional 모델을 선형으로 결합한다. Diffusion model에서 샘플 품질과 이미지-텍스트 정렬을 개선하는 것은 간단하면서도 효과적이다. 특히 CFG는 학습 프로세스를 수정하지 않고 UniDiffuser의 조건부 샘플링과 joint 샘플링에 직접 적용할 수 있다.
 
@@ -126,7 +126,7 @@ $$
 2. Latent 임베딩 $x_0$와 $y_0$에서 transformer로 parameterize된 UniDiffuser를 학습시킨다.
 
 ### 1. Encoding Images and Texts into Latent Space
-<center><img src='{{"/assets/img/unidiffuser/unidiffuser-fig4a.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/unidiffuser/unidiffuser-fig4a.webp" | relative_url}}' width="55%"></center>
 <br>
 이미지 및 텍스트 인코더-디코더는 위 그림에 나와 있다.
 
@@ -152,23 +152,23 @@ $$
 
 UniDiffuser에서는 두 가지 데이터 modality와 해당 timestep을 토큰으로 처리하여 U-ViT를 약간 수정한다. 또한 저자들은 원래 U-ViT의 pre-layer normalization가 mixed precision로 학습될 때 쉽게 overflow를 유발한다는 것을 경험적으로 발견했다. 간단한 해결책은 post-layer normalization을 사용하고 긴 skip connection을 연결한 후 레이어 정규화를 추가하여 UniDiffuser의 학습을 안정화하는 것이다. 아래 그림은 backbone을 설명한다.
 
-<center><img src='{{"/assets/img/unidiffuser/unidiffuser-fig4b.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/unidiffuser/unidiffuser-fig4b.webp" | relative_url}}' width="65%"></center>
 
 ## Experiments
 - 데이터셋: LAION-5B
 
 다음은 UniDiffuser와 [Versatile Diffusion (VD)](https://kimjy99.github.io/논문리뷰/versatile-diffusion)을 text-to-image 생성에 대하여 비교한 그래프이다.
 
-<center><img src='{{"/assets/img/unidiffuser/unidiffuser-fig5.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/unidiffuser/unidiffuser-fig5.webp" | relative_url}}' width="52%"></center>
 <br>
 다음은 UniDiffuser와 VD를 image-to-text 생성에 대하여 비교한 그래프이다.
 
-<center><img src='{{"/assets/img/unidiffuser/unidiffuser-fig6.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/unidiffuser/unidiffuser-fig6.webp" | relative_url}}' width="52%"></center>
 <br>
 다음은 text-to-image 생성에 대한 UniDiffuser와 VD의 랜덤 샘플들이다. 
 
-<center><img src='{{"/assets/img/unidiffuser/unidiffuser-fig7.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/unidiffuser/unidiffuser-fig7.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 MS-COCO validation set에서의 zero-shot FID를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/unidiffuser/unidiffuser-table1.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/unidiffuser/unidiffuser-table1.webp" | relative_url}}' width="45%"></center>

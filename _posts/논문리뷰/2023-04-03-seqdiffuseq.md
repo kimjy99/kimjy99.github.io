@@ -28,7 +28,7 @@ Diffusion model을 자연어 생성으로 확장하는 것은 쉬운 일이 아�
 또는 sequence-to-sequence 생성을 위해 인코더-디코더 트랜스포머 아키텍처를 사용한 diffusion model을 탐색한다. 인코더-디코더 아키텍처는 텍스트를 모델링하는 보다 유연한 방법일 수 있다. 본 논문은 DiffusionLM에서 제안한 연속적인 diffusion 프레임워크를 sequence-to-sequence task로 확장한 SeqDiffuSeq를 제안한다. 저자들은 SeqDiffuSeq에 self-conditioning 테크닉을 장착했다. Diffusion model의 경우 적절한 noise schedule이 잠재적으로 생성된 샘플 품질과 likelihood 모델링을 향상시킬 수 있다. 따라서 텍스트 생성을 위한 토큰 레벨의 noise schedule을 학습하는 기법도 제안한다.
 
 ## Approach
-<center><img src='{{"/assets/img/seqdiffuseq/seqdiffuseq-fig1.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/seqdiffuseq/seqdiffuseq-fig1.webp" | relative_url}}' width="70%"></center>
 <br>
 SeqDiffuSeq의 개요는 위 그림에 묘사되어 있다. 입력 및 출력 시퀀스는 각각 $w_x$와 $w_y$로 표시된다. $w_x$ 또는 $w_y$의 $i$번째 토큰의 경우 $w_x^i$ 또는 $w_y^i$로 표시한다. 길이 표기를 피하기 위해 데이터 샘플을 나타내는 인덱스를 생략한다. 
 
@@ -136,18 +136,18 @@ $\mathcal{L}_s^i = M_i (\bar{\alpha}_s^i)$를 사용하면 inverse mapping $\bar
 ### 1. Main Results
 다음은 SeqDiffuSeq를 baseline과 다양한 task에 대하여 비교한 표이다.
 
-<center><img src='{{"/assets/img/seqdiffuseq/seqdiffuseq-table1.PNG" | relative_url}}' width="77%"></center>
+<center><img src='{{"/assets/img/seqdiffuseq/seqdiffuseq-table1.webp" | relative_url}}' width="77%"></center>
 <br>
 다음은 기계번역에 대한 결과이다. 
 
-<center><img src='{{"/assets/img/seqdiffuseq/seqdiffuseq-table2.PNG" | relative_url}}' width="23%"></center>
+<center><img src='{{"/assets/img/seqdiffuseq/seqdiffuseq-table2.webp" | relative_url}}' width="23%"></center>
 <br>
 AR baseline과 비교하여 번역 성능의 불일치가 있지만 SeqDiffuSeq은 강력한 NAR baseline으로 경쟁력 있는 결과를 얻을 수 있다.
 
 ### 2. Ablation Study
 다음은 IWSLT14 DE-EN validation set에 대한 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/seqdiffuseq/seqdiffuseq-table3.PNG" | relative_url}}' width="53%"></center>
+<center><img src='{{"/assets/img/seqdiffuseq/seqdiffuseq-table3.webp" | relative_url}}' width="53%"></center>
 <br>
 결과는 adaptive noise schedule과 self-conditioning의 효과를 보여준다. 서로 다른 n-gram의 BLEU score에서 trigram과 quadrigram의 점수가 더 많이 변동하는 것으로 나타났다. 이것은 두 테크닉 모두 더 긴 시퀀스를 개선하여 생성된 텍스트의 품질을 향상시킨다는 것을 보여준다. 
 
@@ -155,7 +155,7 @@ AR baseline과 비교하여 번역 성능의 불일치가 있지만 SeqDiffuSeq�
 #### Time Schedule
 다음은 adaptive noise schedule을 시각화한 그래프이다. origin은 sqrt schedule이며 token_$i$는 위치 $i$의 토큰에 대한 noise schedule이다.  
 
-<center><img src='{{"/assets/img/seqdiffuseq/seqdiffuseq-fig2.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/seqdiffuseq/seqdiffuseq-fig2.webp" | relative_url}}' width="40%"></center>
 <br>
 그래프는 adaptive noise schedule이 초기 라인에서 많이 벗어나고 토큰 위치에 따라 noise schedule이 다르다는 것을 보여준다.
 
@@ -166,7 +166,7 @@ Diffusion timestep의 시작 부분에서 $\bar{\alpha}_t^i$의 변화는 서로
 #### Inference Speed
 Diffusion model의 주요 관심사 중 하나는 inference 속도이다. Inference 시간 측면에서 SeqDiffuSeq와 DiffuSeq를 비교한다. 저자들은 QQP에 대한 실험을 수행하고 두 모델 모두에 대해 inference batch size를 50으로, diffusion timestep을 2000으로 설정다. 
 
-<center><img src='{{"/assets/img/seqdiffuseq/seqdiffuseq-table4.PNG" | relative_url}}' width="34%"></center>
+<center><img src='{{"/assets/img/seqdiffuseq/seqdiffuseq-table4.webp" | relative_url}}' width="34%"></center>
 <br>
 위 표에 표시된 결과는 단일 NVIDIA V100 GPU에서 DiffuSeq와 비교하여 SeqDiffuSeq가 3.56배 빠르게 하나의 텍스트 샘플 배치를 생성함을 보여준다. 가속은 주로 다음에서 발생한다.  
 
@@ -174,7 +174,7 @@ Diffusion model의 주요 관심사 중 하나는 inference 속도이다. Infere
 2. SeqDiffuSeq의 디코더는 출력 시퀀스만 모델링하면 되는 반면 DiffuSeq는 입력 및 출력 시퀀스 모두의 연결을 모델링해야 한다. 따라서 각 step에 대해 SeqDiffuSeq의 시퀀스 길이는 DiffuSeq의 절반에 불과하다. 
 
 #### Case Study
-<center><img src='{{"/assets/img/seqdiffuseq/seqdiffuseq-table5.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/seqdiffuseq/seqdiffuseq-table5.webp" | relative_url}}' width="80%"></center>
 <br>
 저자들은 QQP에서 3가지 케이스를 선택하고 SeqDiffuSeq의 생성 프로세스를 조사하였다. 케이스들에서 SeqDiffuSeq가 합리적인 텍스트 시퀀스를 생성할 수 있음을 보여준다. 생성 프로세스는 다음을 보여준다. 
 

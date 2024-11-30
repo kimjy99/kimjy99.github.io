@@ -20,7 +20,7 @@ classes: wide
 > S-Lab, Nanyang Technological University  
 > 24 Mar 2022  
 
-<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 본 논문에서는 예시 예술적 초상화의 스타일을 대상 얼굴에 전이하는 것을 목표로 하는 예시 기반 초상화 style transfer에 초점을 맞춘다. 
@@ -37,12 +37,12 @@ classes: wide
 2. 모델 학습: DualStyleGAN이 원활한 transfer learning을 위해 StyleGAN의 생성 space를 유지하도록 extrinsic style path가 먼저 정교하게 초기화되는 새로운 점진적 fine-tuning 방법론을 도입한다. 그런 다음 쉬운 style transfer task로 DualStyleGAN 학습을 시작한 다음 점진적으로 작업 난이도를 증가시켜 생성 space를 타겟 도메인으로 점진적으로 변환한다. 또한 모델이 다양한 스타일을 배우고 mode collapse를 방지하도록 supervision 역할을 하는 얼굴-초상화 쌍을 제공하는 facial destylization 방법을 제시한다. 
 
 ## Portrait Style Transfer via DualStyleGAN
-<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig2.webp" | relative_url}}' width="50%"></center>
 <br>
 본 논문의 목표는 사전 학습된 StyleGAN을 기반으로 DualStyleGAN을 구축하는 것이다. 이 StyleGAN은 새로운 도메인으로 전송될 수 있고 원래 도메인과 확장된 도메인 모두의 스타일을 특성화할 수 있다. Unconditional한 fine-tuning은 StyleGAN 생성 space를 전체적으로 변환하여 위 그림과 같이 캡처된 스타일의 다양성 loss로 이어진다. 
 
 ### 1. Facial Destylization
-<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig3.webp" | relative_url}}' width="60%"></center>
 <br>
 Facial destylization는 supervision으로서 고정된 얼굴-초상화 쌍을 형성하기 위해 예술적 초상화에서 사실적인 얼굴을 복구하는 것을 목표로 한다. 타겟 도메인의 예술적 초상화가 주어지면 얼굴 도메인에서 합리적인 상대를 찾는 것이 목표이다. 두 도메인의 외모 차이가 클 수 있기 때문에 사실적인 얼굴과 초상화에 대한 fidelity 사이의 균형을 맞추는 것이 쉽지 않다. 이 문제를 해결하기 위해 초상화의 사실성을 점진적으로 향상시키는 multi-level destylization 방법을 제안한다. 
 
@@ -67,7 +67,7 @@ $$\mathcal{L}_\textrm{perc}$$는 perceptual loss이고 $$\mathcal{L}_\textrm{ID}
 마지막으로 $g(\hat{z}_e^{+})$를 $z_i^{+} = E(g(\hat{z}_e^{+}))$로 임베딩하여 비현실적인 얼굴 디테일을 추가로 제거한다. $g(z_i^{+})$는 $S$를 모방하기 위해 얼굴 구조를 변형하고 추상화하는 방법에 대한 유효한 supervision을 제공하는 합리적인 얼굴 구조를 갖는다. 
 
 ### 2. DualStyleGAN
-<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig4.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig4.webp" | relative_url}}' width="70%"></center>
 <br>
 위 그림은 DualStyleGAN $G$의 네트워크 디테일을 보여준다. Intrinsic style path와 generator network는 표준 StyleGAN을 형성하고 fine-tuning 중에 고정된 상태로 유지된다. Intrinsic style path는 단위 Gaussian noise $z \in \mathbb{R}^{1 \times 512}$, 예술적 초상화의 $z_i^{+}$, $E$로 임베딩된 실제 얼굴의 intrinsic style code $z^{+}$가 가능하다. 
 
@@ -82,7 +82,7 @@ Fine-resolution layer (8 ~ 18)에서 extrinsic style path는 StyleGAN과 동일�
 Coarse-resolution layer (1~7)에서는 구조적 스타일을 조정하고 도메인별 구조적 스타일을 특성화하기 위해 구조 변환 블록 $T_s$를 추가하며, modulative residual block (ModRes)을 사용한다. ModRes에는 fine-tuning 중 convolution layer의 변경 사항을 시뮬레이션하는 ResBlock과 스타일 조건에 대한 AdaIN block이 포함되어 있다. 
 
 #### Simulating fine-tuning behavior
-<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig5.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig5.webp" | relative_url}}' width="60%"></center>
 <br>
 Toonification의 성공 여부는 fine-tuning 전후의 모델의 의미론적 정렬에 달려 있다. 즉, 두 모델이 latent space를 공유하고 밀접하게 관련된 convolution feature들을 가진다. 또한 이러한 feature의 차이가 원래 feature와 밀접한 관련이 있음을 의미한다. 
 
@@ -91,7 +91,7 @@ Toonification의 성공 여부는 fine-tuning 전후의 모델의 의미론적 �
 저자들은 toy experiment를 수행하고 채널 (위 그림의 (d)) 또는 공간 (위 그림의 (e)) 차원의 변조만으로는 fine-tuning 동작을 근사화하기에 충분하지 않다는 것을 발견했다. ResBlocks는 전체 StyleGAN(위 그림의 (b))을 fine-tuning하여 가장 유사한 결과(위 그림의 (c))를 달성한다. 따라서 residual block을 선택하고 residual path의 convolution layer에 AdaIN을 적용하여 외부 스타일 조건을 제공한다. 
 
 ### 3. Progressive Fine-Tuning
-<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig6.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig6.webp" | relative_url}}' width="60%"></center>
 <br>
 DualStyleGAN의 생성 space를 타겟 도메인으로 원활하게 변환하기 위한 점진적인 fine-tuning 방식을 제안한다. 이 계획은 위 그림의 (a)와 같이 난이도를 3단계로 점진적으로 증가시키는 커리큘럼 학습의 아이디어를 차용한다. 
 
@@ -136,7 +136,7 @@ $$
 
 ### 4. Latent Optimization and Sampling
 #### Latent optimization
-<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig7.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig7.webp" | relative_url}}' width="60%"></center>
 <br>
 매우 다양한 스타일을 완벽하게 캡처하기는 어렵다. 이 문제를 해결하기 위해 DualStyleGAN을 수정하고 각각의 extrinsic style code를 해당 ground truth $S$에 맞게 최적화한다. 최적화는 이미지를 latent space에 삽입하는 프로세스를 따르고 perceptual loss와 contextual loss를 최소화한다. 위 그림에서 볼 수 있듯이 latent 최적화를 통해 색상이 잘 정제되었다.
 
@@ -157,48 +157,48 @@ $$
 ### 1. Comparison with State-of-the-Art Methods
 다음은 예시 기반 초상화 style transfer의 시각적 비교이다.
 
-<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig8.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 사용자 선호도 점수를 측정한 표이다.
 
-<center><img src='{{"/assets/img/dualstylegan/dualstylegan-table1.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/dualstylegan/dualstylegan-table1.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 StyleCariGAN과 비교한 예시이다.
 
-<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig9.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig9.webp" | relative_url}}' width="70%"></center>
 
 ### 2. Ablation Study
 다음은 얼굴-초상화 supervision (a), 정규화 항 (b), 점진적 transfer learning (c)의 효과를 나타낸 예시이다.
 
-<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig10.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig10.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 서로 다른 layer들의 효과를 나타낸 예시이다.
 
-<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig11.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig11.webp" | relative_url}}' width="60%"></center>
 
 ### 3. Further Analysis
 #### Color and structure preservation
 다음 그림은 사진의 색상과 구조가 잘 보존되는 것을 보여준다.
 
-<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig12.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig12.webp" | relative_url}}' width="60%"></center>
 
 #### Style blending
 다음은 고유 스타일과 외부 스타일을 혼합한 예시이다.
 
-<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig13.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig13.webp" | relative_url}}' width="70%"></center>
 
 #### Performance on other styles
 다음은 Pixar, Comic, Slam Dunk 스타일에서의 성능을 보여준다. 각각 122, 101, 120개의 이미지로 fine-tuning하였다고 한다. 
 
-<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig14.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig14.webp" | relative_url}}' width="50%"></center>
 
 #### Performance on unseen style
 다음은 보지 못한 스타일에서의 성능을 보여준다. 
 
-<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig15.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig15.webp" | relative_url}}' width="50%"></center>
 
 ### 4. Limitations
-<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig16.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig16.webp" | relative_url}}' width="55%"></center>
 <br>
 위 그림에서는 DualStyleGAN의 세 가지 일반적인 실패 사례를 보여준다. 
 

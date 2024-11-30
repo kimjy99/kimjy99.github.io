@@ -29,7 +29,7 @@ Diffusion model은 특히 대규모 데이터셋에 대해 학습할 때 text-to
 저자들은 text-to-3D를 위한 알고리즘과 직교하는 다른 요소들을 체계적으로 연구하고 명확한 디자인 공간을 제시하였다. 구체적으로, 학습 중 512$\times512의 높은 렌더링 해상도와 시각적 품질 개선을 위한 어닐링된 distilling time schedule을 제안하였다. 또한 복잡한 장면 생성에 중요한 장면 초기화를 제안하였다. 본 논문의 접근 방식은 충실도가 높고 다양한 3D 결과를 생성할 수 있다. 저자들은 이 모델을 **ProlificDreamer**라고 부른다. 
 
 ## Variational Score Distillation
-<center><img src='{{"/assets/img/prolificdreamer/prolificdreamer-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/prolificdreamer/prolificdreamer-fig2.webp" | relative_url}}' width="100%"></center>
 
 ### 1. Sampling from 3D Distribution as Variational Inference
 원칙적으로 텍스트 프롬프트 $y$가 주어지면 가능한 모든 3D 표현의 확률적 분포가 존재한다. $\theta$로 parameterize된 3D 표현(ex. NeRF)에서 이러한 분포는 확률적 밀도 $\mu (\theta \vert y)$로 모델링될 수 있다. $q_0^\mu (x_0 \vert c, y)$를 주어진 카메라 $c$와 렌더링 함수 $g(\cdot, c)$에 의해 렌더링된 이미지 $x_0 := g(\theta, c)$의 분포라 하자. 또한
@@ -135,14 +135,14 @@ VSD는 사전 학습된 모델 $\epsilon_\textrm{pretrain}$에 의해 정의된 
 ##### 3D 표현을 분리하는 2D 실험의 VSD와 SDS
 SDS와 VSD를 직접 비교하기 위해 최적화 알고리즘을 3D 표현에서 분리하는 렌더링 함수 $g(\theta)$의 특수한 경우를 고려하자. 특히, 임의의 $c$에 대해 $g(\theta, c) = \theta$로 설정한다. 그러면 렌더링된 이미지 $x = g(\theta, c) = \theta$는 $\theta$와 동일한 2D 이미지이다. 이러한 경우 파라미터 $\theta$를 최적화하는 것은 2D 공간에서 이미지를 생성하는 것과 동일하므로 3D 표현과 무관하다. 
 
-<center><img src='{{"/assets/img/prolificdreamer/prolificdreamer-fig3.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/prolificdreamer/prolificdreamer-fig3.webp" | relative_url}}' width="85%"></center>
 <br>
 위 그림에는 다양한 샘플링 방법의 결과가 나와 있다. SDS는 작은 CFG 가중치와 큰 CFG 가중치 모두에서 실패한다. 특히 SDS에 사용되는 기본 CFG 가중치인 100을 사용하면 2D 샘플은 이전에 text-to-3D에서 관찰된 over-saturation 및 over-smoothing과 같은 동일한 문제를 공유한다. 이와 대조적으로 VSD는 다양한 CFG 가중치를 수용하는 유연성을 보여주고 일반 CFG 가중치(ex. 7.5)를 사용하여 현실적인 샘플을 생성하며 diffusion model과 유사하게 동작한다.
 
 이 비교에서는 다른 3D 요소가 격리되므로 이러한 결과는 SDS의 문제가 지나치게 단순화된 variational distillation과 SDS에서 사용하는 대규모 CFG에서 비롯된다는 것을 시사한다. 이러한 결과는 text-to-3D 생성에 VSD를 사용하도록 강력하게 동기를 부여하며 여전히 SDS보다 실질적이고 지속적으로 성능이 뛰어나다. 
 
 ## ProlificDreamer
-<center><img src='{{"/assets/img/prolificdreamer/prolificdreamer-table1.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/prolificdreamer/prolificdreamer-table1.webp" | relative_url}}' width="85%"></center>
 <br>
 저자들은 text-to-3D를 위한 명확한 디자인 공간을 제시하고 distillation 알고리즘에 직교하는 다른 요소들을 체계적으로 연구하였다. 위 표에 강조된 모든 개선 사항을 결합하여 고급 text-to-3D 접근 방식인 **ProlificDreamer**에 도달했다.
 
@@ -176,20 +176,20 @@ Mesh 텍스처를 표현하기 위해 NeRF 단계에서 상속된 좌표 기반 
 ### 1. Results of ProlificDreamer
 다음은 ProlificDreamer의 생성 결과이다. 
 
-<center><img src='{{"/assets/img/prolificdreamer/prolificdreamer-fig1a.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/prolificdreamer/prolificdreamer-fig1a.webp" | relative_url}}' width="95%"></center>
 <br>
-<center><img src='{{"/assets/img/prolificdreamer/prolificdreamer-fig1b.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/prolificdreamer/prolificdreamer-fig1b.webp" | relative_url}}' width="95%"></center>
 <br>
-<center><img src='{{"/assets/img/prolificdreamer/prolificdreamer-fig1c.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/prolificdreamer/prolificdreamer-fig1c.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 baseline들과의 비교 결과이다. 
 
-<center><img src='{{"/assets/img/prolificdreamer/prolificdreamer-fig4.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/prolificdreamer/prolificdreamer-fig4.webp" | relative_url}}' width="90%"></center>
 
 ### 2. Ablation Study
 다음은 높은 충실도의 NeRF 생성을 위한 개선점에 대한 ablation study 결과이다. 프롬프트는 "an elephant shull"이다. 
 
-<center><img src='{{"/assets/img/prolificdreamer/prolificdreamer-fig5.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/prolificdreamer/prolificdreamer-fig5.webp" | relative_url}}' width="90%"></center>
 
 - (1): 64 렌더링 해상도와 SDS loss를 사용한 공통 설정
 - (2): 렌더링 해상도를 512로 증가

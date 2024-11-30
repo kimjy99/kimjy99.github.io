@@ -19,7 +19,7 @@ classes: wide
 > Carnegie Mellon University | Tsinghua University | Adobe Research  
 > 8 Dec 2022  
 
-<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 최근 출시된 text-to-image 모델은 이미지 생성의 분기점을 나타낸다. 텍스트 프롬프트를 쿼리하기만 하면 사용자는 전례 없는 품질의 이미지를 생성할 수 있다. 이러한 시스템은 다양한 개체, 스타일, 장면을 생성할 수 있으며, 무엇이든 모든 것을 생성할 수 있을 것처럼 보인다. 
@@ -33,7 +33,7 @@ classes: wide
 본 논문에서는 text-to-image diffusion model을 위한 fine-tuning 기법인 **Custom Diffusion**을 제안한다. 본 논문의 방법은 계산 및 메모리 효율적이다. 위에서 언급한 문제를 극복하기 위해 모델 가중치의 작은 부분 집합, 즉 텍스트에서 cross-attention 레이어의 latent feature로의 key와 value 매핑을 식별한다. 이를 fine-tuning하면 새 개념으로 모델을 업데이트하기에 충분하다. 모델 망각을 방지하기 위해 타겟 이미지와 유사한 캡션이 있는 작은 실제 이미지 세트를 사용한다. 또한 fine-tuning 중에 augmentation을 도입하여 수렴 속도를 높이고 결과를 개선한다. 여러 개념을 주입하기 위해 동시에 또는 개별적으로 학습한 다음 병합하는 학습을 지원한다.
 
 ## Method
-<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문의 모델 fine-tuning 방법은 위 그림과 같이 모델의 cross-attention 레이어에서 가중치의 작은 부분 집합만 업데이트한다. 또한 실제 이미지의 정규화 세트를 사용하여 타겟 개념의 몇 가지 학습 샘플에 대한 overfitting을 방지한다. 
 
@@ -79,7 +79,7 @@ $$
 2. Self-attention (이미지 자체)
 3. 나머지 파라미터 (convolutional block, normalization layer)
 
-<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-fig3.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-fig3.webp" | relative_url}}' width="45%"></center>
 <br>
 위 그림은 모델이 "moongate" 이미지에서 fine-tuning될 때 세 카테고리에 대한 평균 $\Delta_l$을 보여준다. 다른 데이터셋에 대해서도 유사한 플롯을 관찰할 수 있다. 보다시피 cross-attention 레이어 파라미터는 나머지 파라미터에 비해 상대적으로 높은 $\Delta$를 갖는다. 또한 cross-attention 레이어는 모델의 총 파라미터 수의 5%에 불과하다. 이는 fine-tuning 조정 중에 중요한 역할을 한다는 것을 의미하며 이를 본 논문의 방법에서 활용한다.
 
@@ -94,13 +94,13 @@ $$
 
 여기서 $W^q$, $W^k$, $W^v$는 입력을 각각 query feature, key feature, value feature에 매핑하고 $d'$는 key feature와 query feature의 출력 차원이다. 그런 다음 latent feature가 attention 블록 출력으로 업데이트된다. Fine-tuning task는 주어진 텍스트에서 이미지 분포로의 매핑을 업데이트하는 것을 목표로 하며 텍스트 feature는 cross-attention 블록의 $W^k$와 $W^v$에만 입력된다. 따라서 fine-tuning 프로세스 중에 diffusion model의 $W^k$와 $W^v$의 파라미터만 업데이트한다. 이는 새로운 텍스트-이미지 쌍 개념으로 모델을 업데이트하기에 충분하다. 아래 그림은 cross-attention 레이어와 학습 가능한 파라미터의 인스턴스를 보여준다.
 
-<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-fig4.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-fig4.webp" | relative_url}}' width="50%"></center>
 
 #### Text encoding
 타겟 개념 이미지가 주어지면 텍스트 캡션도 필요하다. 텍스트 설명이 있는 경우 이를 텍스트 캡션으로 사용한다. 타겟 개념이 일반 카테고리의 고유한 인스턴스인 개인화 관련 사용 사례의 경우 (ex. pet dog) 새로운 modifier 토큰 임베딩을 도입한다 ($V^\ast$ dog). 학습 중에 $V^\ast$는 드물게 발생하는 토큰 임베딩으로 초기화되고 cross-attention 파라미터와 함께 최적화된다. 
 
 #### Regularization dataset
-<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-fig5.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-fig5.webp" | relative_url}}' width="65%"></center>
 <br>
 타겟 개념과 텍스트 캡션 쌍을 fine-tuning하면 언어 드리프트 문제가 발생할 수 있다. 예를 들어, "moongate"에 대한 학습은 위 그림과 같이 이전에 학습된 시각적 개념과 "moon" 및 "gate"의 연관성을 잊어버리는 모델로 이어질 것이다. 이를 방지하기 위해, LAION-400M 데이터셋에서 타겟 텍스트 프롬프트와 높은 유사도를 가진 캡션을 가진 200개의 정규화 이미지 세트를 선택한다. 이 유사도는 CLIP 텍스트 인코더 feature space에서 0.85 이상의 임계값을 가져야 한다.
 
@@ -143,38 +143,38 @@ $$
 ### 1. Fine-tuning Results
 다음은 단일 개념 fine-tuning의 결과이다.
 
-<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 단일 개념 fine-tuning에 대한 text-alignment와 image-alignment를 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-fig8a.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-fig8a.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 다중 개념 fine-tuning의 결과이다.
 
-<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-fig7.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 다중 개념 fine-tuning에 대한 text-alignment와 image-alignment를 비교한 그래프이다.
 
-<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-fig8b.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-fig8b.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 정량적으로 비교한 표이다.
 
-<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-table1.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-table1.webp" | relative_url}}' width="70%"></center>
 
 ### 2. Human Preference Study
 다음은 [Textual Inversion](https://kimjy99.github.io/논문리뷰/textual-inversion), [DreamBooth](https://kimjy99.github.io/논문리뷰/dreambooth)와의 선호도를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-table2.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-table2.webp" | relative_url}}' width="75%"></center>
 
 ### 3. Ablation and Applications
 다음은 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-table3.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-table3.webp" | relative_url}}' width="57%"></center>
 <br>
 다음은 예술적 스타일에 대한 결과이다.
 
-<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-fig9.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-fig9.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Prompt-to-Prompt를 사용한 이미지 편집 결과이다. 
 
-<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-fig10.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/custom-diffusion/custom-diffusion-fig10.webp" | relative_url}}' width="80%"></center>

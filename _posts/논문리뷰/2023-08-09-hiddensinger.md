@@ -19,7 +19,7 @@ classes: wide
 > Korea University  
 > 12 Jun 2023  
 
-<center><img src='{{"/assets/img/hiddensinger/hiddensinger-fig1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/hiddensinger/hiddensinger-fig1.webp" | relative_url}}' width="80%"></center>
 
 ## Introduction
 Singing voice synthesis(SVS) 시스템은 악보에서 고품질의 노래 음성을 생성하는 것을 목표로 한다. 생성 모델의 최근 발전으로 딥 러닝 기반 SVS 시스템이 빠르게 개발되어 고성능이 되었다. 대부분의 SVS 시스템은 먼저 acoustic model을 사용하여 악보에서 mel-spectrogram과 같은 중간 음향 표현을 합성한다. 그 후 별도로 학습된 보코더가 생성된 표현을 오디오로 변환한다.
@@ -40,7 +40,7 @@ HiddenSinger는 오디오 품질 측면에서 이전 SVS 모델을 능가한다.
 본 논문에서는 고품질의 노래 음성 오디오를 위해 뉴럴 오디오 코덱과 latent diffusion을 이용한 SVS 시스템을 제안한다. 고충실도 오디오 생성과 계산 효율성을 위해 residual vector quantization (RVQ)를 사용하는 오디오 오토인코더를 도입한다. 또한 latent generator에서 [LDM](https://kimjy99.github.io/논문리뷰/ldm)을 채택하여 오디오 오토인코더에 의해 오디오로 변환되는 악보에 따라 latent 표현을 생성한다. 또한 HiddenSinger를 악보 없이 모델을 학습시킬 수 있는 HiddenSinger-U로 확장한다. 
 
 ### 1. Audio Autoencoder
-<center><img src='{{"/assets/img/hiddensinger/hiddensinger-fig2a.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/hiddensinger/hiddensinger-fig2a.webp" | relative_url}}' width="80%"></center>
 <br>
 효율적인 코딩과 고품질 오디오 생성을 위해 오디오를 오디오 코덱으로 압축하는 오디오 오토인코더를 도입하여 저차원 표현을 제공한다. 오디오 오토인코더는 위 그림과 같이 인코더, RVQ 블록, 디코더의 세 가지 모듈로 구성된다.
 
@@ -48,7 +48,7 @@ HiddenSinger는 오디오 품질 측면에서 이전 SVS 모델을 능가한다.
 인코더는 고차원 선형 spectrogram을 입력으로 사용하고 오디오 $y$에서 연속적인 저차원 latent 표현 $z_0$를 추출한다. Latent space는 latent space의 임의의 높은 분산을 피하기 위해 vector quantization (VQ)를 통해 정규화된다. [LDM](https://kimjy99.github.io/논문리뷰/ldm)을 사용하여 샘플링을 수행한 이전 연구에서는 VQ-정규화된 latent space에서 학습된 모델이 KL-정규화된 latent space보다 더 나은 품질을 달성했음을 보여주었다. 그러나 기존의 VQ는 양자화된 벡터가 파형의 여러 feature를 나타내야 하기 때문에 고충실도 오디오 재구성에 충분하지 않다. 따라서 효율적인 오디오 압축을 위해 연속적인 latent 표현 $z_0$에 RVQ를 적용한다.
 
 #### RVQ 블록
-<center><img src='{{"/assets/img/hiddensinger/hiddensinger-fig2b.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/hiddensinger/hiddensinger-fig2b.webp" | relative_url}}' width="65%"></center>
 <br>
 위 그림에 표시된 것처럼 첫 번째 vector quantizer는 latent 표현 $z_0$를 코드북에서 가장 가까운 항목으로 discretize한다. 그런 다음 residual이 계산된다. 다음 quantizer는 두 번째 코드북과 함께 사용되며, 이 과정은 quantizer의 수 $C$만큼 반복된다. Quantizer의 수는 계산 비용과 코딩 효율성 간의 균형과 관련이 있다. 각 quantizer에 대한 코드북을 학습하기 위해 [Soundstream](https://arxiv.org/abs/2107.03312)에 설명된 학습 절차를 따른다. 또한 코드북 학습을 안정화하기 위해 다음과 같은 commitment loss를 적용한다. 가중치가 낮은 commitment loss는 학습 중에 RVQ 블록을 수렴하는 데 도움이 된다.
 
@@ -176,7 +176,7 @@ $$
 ### 4. Unsupervised Singing Voice Learning Framework
 기존의 SVS 모델은 학습을 위해 짝을 이룬 데이터 (오디오-악보 코퍼스)가 필요하다. 또한 이러한 모델은 zero-shot 적응과 같은 특별한 기술 없이는 학습되지 않은 speaker의 노래 음성을 합성할 수 없다. 제안된 모델을 unsupervised 노래 음성 학습 프레임워크인 **HiddenSinger-U**로 확장하여 짝을 이루는 데이터셋 수집의 어려움을 완화한다. 이 프레임워크를 사용하면 모델이 학습 중에 레이블이 지정되지 않은 데이터를 사용할 수 있다. 
 
-<center><img src='{{"/assets/img/hiddensinger/hiddensinger-fig2c.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/hiddensinger/hiddensinger-fig2c.webp" | relative_url}}' width="75%"></center>
 <br>
 위 그림과 같이 unsupervised 가사 및 멜로디 표현을 모델링하기 위해 조건 인코더에 두 개의 추가 인코더를 도입한다. 
 
@@ -252,36 +252,36 @@ $$
      - 사전 학습된 XLS-R의 12번째 레이어에서 self-supervised 표현을 추출
      - $F0$를 128개의 간격으로 양자화하여 speaker 정보를 완화
 
-<center><img src='{{"/assets/img/hiddensinger/hiddensinger-fig3.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/hiddensinger/hiddensinger-fig3.webp" | relative_url}}' width="75%"></center>
 
 ### 1. Singing Voice Synthesis
 다음은 테스트 데이터셋에 대한 지표를 비교한 표이다. HiddenSinger-U는 같은 데이터셋에서 학습되었으며 10%의 데이터는 레이블이 지정되지 않았다.
 
-<center><img src='{{"/assets/img/hiddensinger/hiddensinger-table1.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/hiddensinger/hiddensinger-table1.webp" | relative_url}}' width="85%"></center>
 <br>
 다음은 생성된 F0 contour를 시각화한 것이다. (a)는 같은 악보로 5개의 inference에 대한 합성된 음성의 F0 contour이다. (b)는 같은 악보로 5명의 speaker에 대해 합성된 음성의 F0 contour이다. 
 
-<center><img src='{{"/assets/img/hiddensinger/hiddensinger-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/hiddensinger/hiddensinger-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 다양한 시스템에서 생성된 샘플들을 시각화한 것이다.
 
-<center><img src='{{"/assets/img/hiddensinger/hiddensinger-fig5.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/hiddensinger/hiddensinger-fig5.webp" | relative_url}}' width="75%"></center>
 
 ### 2. Audio Autoencoder
 다음은 재구성된 오디오에 대하여 비교한 표이다.
 
-<center><img src='{{"/assets/img/hiddensinger/hiddensinger-table2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/hiddensinger/hiddensinger-table2.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 다양한 정규화 방법을 사용한 latent generator에 대한 비교 결과이다. 
 
-<center><img src='{{"/assets/img/hiddensinger/hiddensinger-table3.PNG" | relative_url}}' width="67%"></center>
+<center><img src='{{"/assets/img/hiddensinger/hiddensinger-table3.webp" | relative_url}}' width="67%"></center>
 
 ### 3. Unsupervised Singing Voice Learning Framework
 다음은 레이블이 지정되지 않은 비율에 따른 결과이다.
 
-<center><img src='{{"/assets/img/hiddensinger/hiddensinger-table4.PNG" | relative_url}}' width="88%"></center>
+<center><img src='{{"/assets/img/hiddensinger/hiddensinger-table4.webp" | relative_url}}' width="88%"></center>
 
 ### 4. Ablation Study
 다음은 ablation study 결과이다. Enhanced CE는 향상된 조건 인코더를 뜻한다.
 
-<center><img src='{{"/assets/img/hiddensinger/hiddensinger-table5.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/hiddensinger/hiddensinger-table5.webp" | relative_url}}' width="70%"></center>

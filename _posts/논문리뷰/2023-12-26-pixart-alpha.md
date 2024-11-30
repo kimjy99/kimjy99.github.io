@@ -19,7 +19,7 @@ classes: wide
 > Huawei Noah’s Ark Lab | Dalian University of Technology | HKU | HKUST  
 > 30 Sep 2023  
 
-<center><img src='{{"/assets/img/pixart-alpha/pixart-alpha-fig1.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/pixart-alpha/pixart-alpha-fig1.webp" | relative_url}}' width="90%"></center>
 
 ## Introduction
 최근 DALL·E 2, [Imagen](https://kimjy99.github.io/논문리뷰/imagen), Stable Diffusion과 같은 text-to-image (T2I) 생성 모델의 발전으로 사실적인 이미지 합성의 새로운 시대가 열리면서 수많은 다운스트림 애플리케이션에 큰 영향을 미치고 있다. 
@@ -34,7 +34,7 @@ classes: wide
 2. **효율적인 T2I Transformer**: [Diffusion Transformer (DiT)](https://kimjy99.github.io/논문리뷰/dit)를 기반으로 cross-attention 모듈을 통합하여 텍스트 조건을 주입하고 계산 집약적인 클래스 조건부 분기를 간소화하여 효율성을 향상시킨다. 또한 조정된 text-to-image 모델이 원래 클래스 조건부 모델의 파라미터를 직접 로드할 수 있도록 하는 reparameterization 기술을 도입하였다. 결과적으로 이미지 분포에 대해 ImageNet에서 배운 사전 지식을 활용하여 T2I Transformer에 대한 합리적인 초기화를 제공하고 학습을 가속화할 수 있다.
 3. **정보가 풍부한 데이터**: LAION과 같은 기존 텍스트-이미지 쌍 데이터셋은 텍스트 캡션의 정보 제공 콘텐츠 부족과 심각한 롱테일 효과 등 여러 단점이 드러났다. 이러한 결함으로 인해 T2I 모델의 학습 효율성이 크게 저하되고 안정적인 텍스트-이미지 정렬을 학습하기 위해 수백만 번의 iteration이 발생한다. 이 문제를 해결하기 위해 저자들은 SOTA 비전-언어 모델([LLaVA](https://kimjy99.github.io/논문리뷰/llava))을 활용하여 [SAM](https://kimjy99.github.io/논문리뷰/segment-anything)에 캡션을 생성하는 자동 라벨링 파이프라인을 제안하였다. SAM 데이터셋은 풍부하고 다양한 객체 컬렉션으로 인해 유리하며, 텍스트-이미지 정렬 학습에 더 적합한 정보 밀도가 높은 텍스트-이미지 쌍을 생성하는 데 이상적인 리소스이다.
 
-<center><img src='{{"/assets/img/pixart-alpha/pixart-alpha-fig2.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/pixart-alpha/pixart-alpha-fig2.webp" | relative_url}}' width="90%"></center>
 <br>
 PixArt-$\alpha$의 효과적인 디자인은 675 A100 GPU day와 2.6만 달러의 비용으로 모델에 대한 놀라운 학습 효율성을 제공한다. PixArt-$\alpha$는 Imagen에 비해 학습 데이터 볼륨을 0.2% 미만으로 소비하고 RAPHAEL에 비해 학습 시간은 2% 미만이다. RAPHAEL과 비교하면 학습 비용은 1%에 불과하여 약 300만 달러를 절약한다. PIXART-α는 기존 SOTA T2I 모델에 비해 우수한 이미지 품질과 semantic 일치를 제공하며 T2I-CompBench에서의 성능도 semantic 제어 측면에서 장점을 입증하였다. 
 
@@ -50,7 +50,7 @@ T2I 생성 task는 세 가지 측면으로 분해될 수 있다.
 
 현재 방법은 이 세 가지 문제를 하나로 엮어 방대한 양의 데이터를 사용하여 처음부터 직접 학습하므로 비효율적인 학습이 된다. 이 문제를 해결하기 위해 본 논문은 이러한 측면을 세 단계로 분리한다.
 
-<center><img src='{{"/assets/img/pixart-alpha/pixart-alpha-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/pixart-alpha/pixart-alpha-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 위 그림에 볼 수 있듯이 또 다른 문제는 현재 데이터셋의 캡션 품질에 있다. 현재의 텍스트-이미지 쌍은 종종 텍스트-이미지 정렬 불량, 설명 부족, 드물게 다양한 어휘 사용, 낮은 품질의 데이터 포함으로 인해 어려움을 겪는다. 이러한 문제로 인해 학습이 어려워지고 텍스트와 이미지 간의 안정적인 정렬을 달성하기 위해 불필요하게 수백만 번의 iteration이 발생한다. 본 논문은 이러한 문제를 해결하기 위해 정확한 이미지 캡션을 생성하는 혁신적인 자동 라벨링 파이프라인을 도입한다.
 
@@ -71,7 +71,7 @@ T2I 생성 task는 세 가지 측면으로 분해될 수 있다.
 학습 과정을 여러 단계로 분리하면 학습의 어려움이 크게 완화되고 매우 효율적인 학습이 가능하다.
 
 ### 3. 효율적인 T2I Transformer
-<center><img src='{{"/assets/img/pixart-alpha/pixart-alpha-fig4.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/pixart-alpha/pixart-alpha-fig4.webp" | relative_url}}' width="50%"></center>
 <br>
 PIXART-$\alpha$는 [Diffusion Transformer (DiT)](https://kimjy99.github.io/논문리뷰/dit)를 기본 아키텍처로 채택하고 위 그림에 설명된 대로 T2I의 고유한 과제를 처리하기 위해 Transformer 블록을 혁신적으로 커스터마이징한다. 몇 가지 전용 디자인은 다음과 같다.
 
@@ -95,7 +95,7 @@ LAION 데이터셋의 캡션은 텍스트-이미지 정렬 불량, 설명 부족
 
 세 번째 단계에서는 실제 사진을 넘어 생성된 이미지의 미적 품질을 향상시키기 위해 JourneyDB와 1천만 개의 내부 데이터셋울 통합하여 학습 데이터셋을 구성하였다.
 
-<center><img src='{{"/assets/img/pixart-alpha/pixart-alpha-table1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/pixart-alpha/pixart-alpha-table1.webp" | relative_url}}' width="50%"></center>
 <br>
 어휘 분석 결과는 위 표와 같다. VN은 유효한 고유명사이며 데이터셋에서 10회 이상 나타나는 명사로 정의된다. DN은 전체 고유 명사이다. 
 
@@ -117,19 +117,19 @@ LAION 데이터셋에는 246만 개의 고유 명사가 있지만 8.5%만 유효
 ##### Fidelity Assessment
 다음은 최신 T2I 모델들과 PixArt-$\alpha$를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/pixart-alpha/pixart-alpha-table2.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/pixart-alpha/pixart-alpha-table2.webp" | relative_url}}' width="55%"></center>
 
 ##### Alignment Assessment
 다음은 T2I-CompBench에서 정렬을 평가한 표이다. 
 
-<center><img src='{{"/assets/img/pixart-alpha/pixart-alpha-table3.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/pixart-alpha/pixart-alpha-table3.webp" | relative_url}}' width="65%"></center>
 
 ##### User Study
 다음은 300개의 프롬프트에 대한 user study 결과이다. 
 
-<center><img src='{{"/assets/img/pixart-alpha/pixart-alpha-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/pixart-alpha/pixart-alpha-fig5.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Ablation Study
 다음은 ablation study 결과이다. 왼쪽은 시각적으로 비교한 결과이고 오른쪽은 SAM에서의 zero-shot FID-2K와 GPU 메모리 사용량을 비교한 것이다. 
 
-<center><img src='{{"/assets/img/pixart-alpha/pixart-alpha-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/pixart-alpha/pixart-alpha-fig6.webp" | relative_url}}' width="100%"></center>

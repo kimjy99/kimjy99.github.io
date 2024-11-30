@@ -19,7 +19,7 @@ classes: wide
 > Weizmann Institute of Science  
 > 16 Feb 2023  
 
-<center><img src='{{"/assets/img/multidiffusion/multidiffusion-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/multidiffusion/multidiffusion-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 Text-to-image 생성 모델은 텍스트 프롬프트에서 고품질의 다양한 이미지를 합성하는 전례 없는 능력을 보여주는 "파괴적 기술"로 부상했으며, 현재 diffusion model이 SOTA으로 확립되어 있다. 이러한 발전은 디지털 콘텐츠를 생성하는 방식을 변화시키는 큰 가능성을 제시하지만, 생성된 콘텐츠에 대한 직관적인 제어를 사용자에게 제공하기 어렵기 때문에 text-to-image 모델을 실제 애플리케이션에 배포하는 것은 여전히 어려운 일이다. 현재 diffusion model에 대한 제어 가능성은 두 가지 방법으로 달성된다. 
@@ -86,9 +86,9 @@ $$
 
 여기서 $W_i \in \mathbb{R}_{+}^{H \times W}$는 픽셀별 가중치이고 $\otimes$는 element-wise 곱셈이다. 직관적으로 FTD loss는 생성된 이미지 $J_t$의 서로 다른 영역 $F_i(J_t)$에 제안된 서로 다른 denoising step $\Phi (I_t^i \vert y_i)$를 최소 제곱 방식으로 조정한다. 아래 그림은 MultiDiffuser의 한 step을 보여준다. Algorithm 2는 MultiDiffusion 샘플링 프로세스를 요약한다.
 
-<center><img src='{{"/assets/img/multidiffusion/multidiffusion-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/multidiffusion/multidiffusion-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
-<center><img src='{{"/assets/img/multidiffusion/multidiffusion-algo1.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/multidiffusion/multidiffusion-algo1.webp" | relative_url}}' width="47%"></center>
 
 #### Closed-form formula
 본 논문에서 설명하는 애플리케이션에서 $F_i$는 직접적인 픽셀 샘플로 구성된다 (ex. 이미지 $J_t$에서 crop). 이 경우, FTD loss는 minimizer $J$의 각 픽셀이 모든 diffusion 샘플 업데이트의 가중 평균인 quadratic Least-Squares (LS)이다. 
@@ -132,7 +132,7 @@ $$
 
 이는 최소 제곱 문제이며, 그 해는 수치적으로 계산된다. 
 
-<center><img src='{{"/assets/img/multidiffusion/multidiffusion-fig3.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/multidiffusion/multidiffusion-fig3.webp" | relative_url}}' width="75%"></center>
 <br>
 MultiDiffusion은 참조 모델 $\Phi$에서 제공하는 여러 diffusion 경로를 조정한다. $H \times 4W$의 파노라마를 고려한 위 그림에서 이 속성을 설명한다. 위 그림의 (a)는 겹치지 않는 4개의 crop에 $\Phi$를 독립적으로 적용한 경우의 생성 결과를 보여준다. 예상한 대로, 이는 모델에서 무작위로 추출된 4개의 샘플에 해당하므로 crop 간에 일관성이 없다. 동일한 초기 noise에서 시작하는 생성 프로세스를 통해 초기에 관련이 없는 diffusion 경로를 융합하고 생성을 고품질의 일관된 파노라마 (b)로 유도할 수 있다.
 
@@ -175,34 +175,34 @@ $$
 ### 1. Panorama Generation
 다음은 Blended Latent Diffusion (BLD), Stable Inpainting (SI)과 text-to-paranoma 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/multidiffusion/multidiffusion-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/multidiffusion/multidiffusion-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 파라노마 생성에 대한 정량적 비교 결과이다. 
 
-<center><img src='{{"/assets/img/multidiffusion/multidiffusion-table1.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/multidiffusion/multidiffusion-table1.webp" | relative_url}}' width="48%"></center>
 
 ### 2. Region-based Text-to-Image Generation
 다음은 주어진 대략적인 장면 레이아웃 guidance (왼쪽)에 대하여 MultiDiffusion이 생성한 다양한 샘플들이다. 
 
-<center><img src='{{"/assets/img/multidiffusion/multidiffusion-fig7.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/multidiffusion/multidiffusion-fig7.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 다양한 레이아웃에 대하여 생성된 샘플들이다. 
 
-<center><img src='{{"/assets/img/multidiffusion/multidiffusion-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/multidiffusion/multidiffusion-fig8.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 영역 기반 text-to-image 생성 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/multidiffusion/multidiffusion-fig5.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/multidiffusion/multidiffusion-fig5.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 부트스트래핑에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/multidiffusion/multidiffusion-fig6.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/multidiffusion/multidiffusion-fig6.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 COCO 데이터셋에서 영역 기반 생성 결과를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/multidiffusion/multidiffusion-table2.PNG" | relative_url}}' width="36%"></center>
+<center><img src='{{"/assets/img/multidiffusion/multidiffusion-table2.webp" | relative_url}}' width="36%"></center>
 
 ## Limitations
-<center><img src='{{"/assets/img/multidiffusion/multidiffusion-fig9.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/multidiffusion/multidiffusion-fig9.webp" | relative_url}}' width="50%"></center>
 <br>
 본 논문의 방법은 참조 diffusion model의 generative prior에 크게 의존한다. 즉, 결과의 품질은 모델이 제공하는 diffusion 경로에 따라 달라진다. 따라서 참조 모델이 "나쁜" 경로를 선택하면 (ex. 나쁜 시드, 편향된 텍스트 프롬프트) 결과도 영향을 받는다. 어떤 경우에는 프레임워크에 더 많은 제약 조건을 도입하거나 프롬프트 엔지니어링을 적용하여 이를 완화할 수 있다. 

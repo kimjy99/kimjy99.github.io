@@ -18,7 +18,7 @@ classes: wide
 > University of Tubingen, Tubingen AI Center | NVIDIA  
 > 23 Jan 2023  
 
-<center><img src='{{"/assets/img/stylegan-t/stylegan-t-fig1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/stylegan-t/stylegan-t-fig1.webp" | relative_url}}' width="50%"></center>
 
 ## Introduction
 Text-to-image 합성에서는 텍스트 프롬프트를 기반으로 새로운 이미지가 생성된다. 이 task의 state-of-the-art는 최근 두 가지 핵심 아이디어 덕분에 극적인 도약을 이루었다. 
@@ -45,7 +45,7 @@ StyleGAN-XL의 합성 네트워크는 점진적으로 학습되어 현재 해상
 클래스 조건부 합성의 경우 StyleGAN-XL은 one-hot 클래스 레이블을 $z$에 임베딩하고 projection discriminator를 사용한다. 
 
 ## StyleGAN-T
-<center><img src='{{"/assets/img/stylegan-t/stylegan-t-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/stylegan-t/stylegan-t-fig3.webp" | relative_url}}' width="100%"></center>
 
 ### 1. Redesigning the Generator
 StyleGAN-XL은 StyleGAN3 layer를 사용하여 translational equivariance을 달성한다. Equivariance는 다양한 애플리케이션에 바람직할 수 있지만 성공적인 DM/ARM 기반 방법 중 어느 것도 equivariance가 아니기 때문에 text-to-image 합성에는 필요하지 않을 것이다. 또한 equivariance 제약 조건은 계산 비용을 추가하고 대규모 이미지 데이터셋이 일반적으로 위반하는 학습 데이터에 특정 제한을 부과한다. 
@@ -112,7 +112,7 @@ Discriminator와 guidance 항은 여전히 원래 고정 인코더에서 $c_\tex
 #### Explicit truncation
 일반적으로 variation은 truncation trick을 사용하여 GAN에서 더 높은 fidelity로 교환된다. 여기서 샘플링된 latent $w$는 주어진 컨디셔닝 입력과 관련하여 평균으로 보간된다. 이런 식으로 truncation은 모델이 더 잘 수행되는 고밀도 영역으로 $w$를 이동시킨다. 구현에서 $w = [f(z), c_\textrm{text}]$이고, 여기서 $f(\cdot)$는 매핑 네트워크를 나타내므로 프롬프트당 평균은 $$\tilde{w} = \mathbb{E}_z [w] = [\tilde{f}, c_\textrm{text}]$$로 지정된다. 여기서 $\tilde{f} = \mathbb{E}_z [f(z)]$이다. 따라서 학습 중에 $\tilde{f}$를 추적하고 inference 시간에 스케일링 파라미터 $\psi \in [0, 1]$에 따라 $\tilde{w}$와 $w$ 사이를 보간하여 truncation을 구현한다. 
 
-<center><img src='{{"/assets/img/stylegan-t/stylegan-t-fig4.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/stylegan-t/stylegan-t-fig4.webp" | relative_url}}' width="60%"></center>
 <br>
 위 그림은 truncation의 영향을 보여준다. 실제로 본 논문은 CLIP guidance와 truncation의 결합에 의존한다. Guidance는 모델의 전체 텍스트 일치를 개선하고 truncation은 특정 샘플의 품질과 일치를 더욱 향상시켜 일부 variation을 제거할 수 있다.
 
@@ -120,45 +120,45 @@ Discriminator와 guidance 항은 여전히 원래 고정 인코더에서 $c_\tex
 ### 1. Quantitative Comparison to State-of-the-Art
 다음은 MS COCO 64$\times$64에서 FID를 비교한 표이다.
 
-<center><img src='{{"/assets/img/stylegan-t/stylegan-t-table2.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/stylegan-t/stylegan-t-table2.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 MS COCO 256$\times$256에서 FID를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/stylegan-t/stylegan-t-table3.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/stylegan-t/stylegan-t-table3.webp" | relative_url}}' width="55%"></center>
 
 ### 2. Evaluating Variation vs. Text Alignment
 다음은 FID와 CLIP score를 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/stylegan-t/stylegan-t-fig5.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/stylegan-t/stylegan-t-fig5.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 텍스트 인코더의 효과를 나타낸 FID-CLIP score 그래프이다. 
 
-<center><img src='{{"/assets/img/stylegan-t/stylegan-t-fig6.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/stylegan-t/stylegan-t-fig6.webp" | relative_url}}' width="50%"></center>
 <br>
 텍스트 인코더를 학습시키면 전체적인 텍스트 일치가 좋아지는 것을 볼 수 있다. 
 
 ### 3. Qualitative Results
 다음은 예시 이미지들과 이미지들의 interpolation을 보여주는 그림이다. 
 
-<center><img src='{{"/assets/img/stylegan-t/stylegan-t-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/stylegan-t/stylegan-t-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 latent 조작의 예시이다. 
 
-<center><img src='{{"/assets/img/stylegan-t/stylegan-t-fig7.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/stylegan-t/stylegan-t-fig7.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 고정된 random seed에 대하여 캡션 "astronaut, {X}"의 X를 변화시키면서 생성한 샘플들이다.
 
-<center><img src='{{"/assets/img/stylegan-t/stylegan-t-fig8.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/stylegan-t/stylegan-t-fig8.webp" | relative_url}}' width="60%"></center>
 
 ### 4. Architecture ablation
 다음은 아키텍처에 대한 ablation을 나타낸 표이다.
 
-<center><img src='{{"/assets/img/stylegan-t/stylegan-t-table1.PNG" | relative_url}}' width="46%"></center>
+<center><img src='{{"/assets/img/stylegan-t/stylegan-t-table1.webp" | relative_url}}' width="46%"></center>
 <br>
 Generator의 재설계, discriminator의 재설계, CLIP guidance의 도입은 각각 FID와 CLIP score를 모두 개선하는 것을 볼 수 있다. 
 
 ## Limitations
-<center><img src='{{"/assets/img/stylegan-t/stylegan-t-fig9.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/stylegan-t/stylegan-t-fig9.webp" | relative_url}}' width="60%"></center>
 <br>
 기본 언어 모델로 CLIP을 사용하는 DALL·E 2와 유사하게 StyleGAN-T는 객체에 속성을 바인딩하고 이미지에서 일관된 텍스트를 생성하는 측면에서 때때로 어려움을 겪는다(위 그림 참고). 더 큰 언어 모델을 사용하면 런타임이 느려지는 대신 이 문제를 해결할 수 있다.
 

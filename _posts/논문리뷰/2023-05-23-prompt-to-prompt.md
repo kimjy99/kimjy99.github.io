@@ -20,7 +20,7 @@ classes: wide
 > Google Research | Tel Aviv University  
 > 2 Aug 2022  
 
-<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 최근 Imagen, DALL·E 2, Parti와 같은 대규모 언어 이미지 (LLI) 모델은 경이적인 생성 semantic 및 구성 능력을 보여주었다. 이러한 LLI 모델은 매우 큰 언어-이미지 데이터셋에서 학습되며 autoregressive model과 diffusion model을 포함한 최신 이미지 생성 모델을 사용한다. 그러나 이러한 모델은 간단한 편집 수단을 제공하지 않으며 일반적으로 주어진 이미지의 특정 semantic 영역에 대한 제어가 부족하다. 특히, 텍스트 프롬프트에 약간의 변화만 있어도 완전히 다른 출력 이미지로 이어질 수 있다.
@@ -47,7 +47,7 @@ classes: wide
 ### 1. Cross-attention in text-conditioned Diffusion Models
 Imagen text-guided synthesis model을 backbone으로 사용한다. 구성과 기하학적인 요소는 대부분 64$\times$64 해상도에서 결정되기 때문에 super-resolution 프로세스를 그대로 사용하여 text-to-image diffusion model만 적용한다. 각 diffusion step $t$는 U자형 신경망을 사용하여 noisy한 이미지 $z_t$와 텍스트 임베딩 $\psi(\mathcal{P})$에서 noise를 예측하는 것으로 구성된다. 마지막 step에서 이 프로세스는 생성된 이미지 $\mathcal{I} = z_0$을 산출한다. 가장 중요한 것은 두 modality 간의 상호 작용이 noise 예측 중에 발생하며, 여기에서 시각적 및 텍스트 feature의 임베딩이 각 텍스트 토큰에 대한 spatial attention map을 생성하는 cross-attention layer를 사용하여 융합된다.
 
-<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig3.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig3.webp" | relative_url}}' width="90%"></center>
 <br>
 위 그림의 상단과 같이 noisy한 이미지 $\phi(z_t)$의 공간적 feature는 query 행렬 $Q = l_Q(\phi(z_t))$에 project되고 텍스트 임베딩은 key 행렬 $K = l_K(\psi(\mathcal{P}))$와 value 행렬 $V = l_V (\psi(\mathcal{P}))$에 project된다. 여기서 $l_Q$, $l_K$, $l_V$는 학습된 linear projection이다. 그러면 attention map은 다음과 같다.
 
@@ -69,7 +69,7 @@ Imagen은 GLIDE와 유사하게 두 가지 유형의 attention layer를 통해 �
 본 논문의 방법은 hybrid attention의 cross-attention 부분에만 개입하기 때문에 둘 다 cross-attention이라고 한다. 즉, 텍스트 토큰을 참조하는 마지막 채널만 hybrid attention 모듈에서 수정된다.
 
 ### 2. Controlling the Cross-attention
-<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig4.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig4.webp" | relative_url}}' width="90%"></center>
 <br>
 생성된 이미지의 공간 레이아웃과 기하학적인 요소는 cross-attention map에 따라 달라진다. 픽셀과 텍스트 사이의 이러한 상호 작용은 위 그림에 설명되어 있다 (평균 attention map). 볼 수 있듯이 픽셀은 픽셀을 설명하는 단어에 더 attention 된다. 평균은 시각화 목적으로 수행되며 attention map은 각 head에 대해 별도로 유지된다. 흥미롭게도 이미지의 구조는 diffusion process의 초기 step에서 이미 결정되어 있음을 알 수 있다.
 
@@ -79,7 +79,7 @@ $DM(z_t, \mathcal{P}, t, s)$는 noisy헌 이미지 $z_{t-1}$을 출력하는 dif
 
 일반적인 알고리즘은 원하는 편집 작업에 따라 attention 기반 조작이 각 step에서 적용되는 두 프롬프트에 대해 동시에 반복적인 diffusion process를 수행하는 것으로 구성된다. 위의 방법이 작동하려면 내부 randomness를 수정해야 한다. 이는 동일한 프롬프트에 대해 두 개의 랜덤 시드가 크게 다른 출력을 생성하는 diffusion model의 특성 때문이다. 일반적인 알고리즘은 다음과 같다.
 
-<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-algo1.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-algo1.webp" | relative_url}}' width="60%"></center>
 <br>
 프롬프트 $\mathcal{P}$와 랜덤 시드 $s$에 의해 생성된 이미지 $\mathcal{I}$를 추가 입력으로 정의할 수도 있다. 그러나 알고리즘은 동일하게 유지된다. 더욱이 diffusion step은 동일한 batch에서 $z_t-1$와 $z_t^\ast$ 모두에 적용될 수 있으므로 diffusion model의 원래 inference와 관련하여 단 하나의 step 오버헤드가 있다.
 
@@ -129,43 +129,43 @@ $$
 #### Text-Only Localized Editing
 다음은 attention 주입을 통해 컨텐츠를 수정한 결과이다. 
 
-<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 왼쪽 상단 이미지에서 "나비"라는 단어의 attention 가중치만 주입하여 구조와 모양을 보존하면서 컨텍스트를 대체한 예시이다. 
 
-<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 나비가 매우 그럴듯한 방식으로 모든 물체 위에 앉아 있다. 
 
 다음은 다양한 diffusion step의 수에 attention을 주입한 예시이다. 
 
-<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 초기 프롬프트의 설명을 확장하여 로컬하게 편집한 예시이다.
 
-<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig7a.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig7a.webp" | relative_url}}' width="100%"></center>
 
 #### Global editing
 다음은 초기 프롬프트의 설명을 확장하여 글로벌하게 편집한 예시이다.
 
-<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig7b.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig7b.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 소스 attention map을 주입하면서 프롬프트에 스타일 설명을 추가하여 원본 이미지의 구조를 보존하면서 새로운 스타일을 적용한 예시이다.
 
-<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig8.webp" | relative_url}}' width="100%"></center>
 
 #### Fader Control using Attention Re-weighting
 다음은 fader 제어를 통한 텍스트 기반 이미지 편집 예시이다. 
 
-<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig9.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig9.webp" | relative_url}}' width="100%"></center>
 
 #### Real Image Editing
 다음은 실제 이미지를 편집한 예시이다. 왼쪽은 DDIM 샘플링을 사용한 inversion 결과이다. 주어진 실제 이미지와 텍스트 프롬프트에서 초기화된 diffusion process를 reverse한다. 이로 인해 diffusion process에 공급될 때 입력 이미지에 대한 근사치를 생성하는 latent noise가 생긴다. 오른쪽은 Prompt-to-Prompt 기술을 적용하여 이미지를 편집한 것이다.
 
-<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig10.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig10.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 inversion 실패 케이스이다. 
 
-<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig11.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/prompt-to-prompt/prompt-to-prompt-fig11.webp" | relative_url}}' width="100%"></center>
 <br>
 실제 이미지의 현재 DDIM 기반 inversion은 만족스럽지 못한 재구성을 초래할 수 있다.

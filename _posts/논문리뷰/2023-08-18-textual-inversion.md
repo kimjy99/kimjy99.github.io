@@ -19,7 +19,7 @@ classes: wide
 > Tel Aviv University | NVIDIA  
 > 2 Aug 2022  
 
-<center><img src='{{"/assets/img/textual-inversion/textual-inversion-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/textual-inversion/textual-inversion-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 최근에 대규모 text-to-image 모델은 자연어 설명을 추론하는 전례 없는 능력을 보여주었다. 이를 통해 사용자는 처음 보는 구성으로 새로운 장면을 합성하고 다양한 스타일로 생생한 사진을 생성할 수 있다. 이러한 도구는 예술적 창조, 영감의 원천, 심지어 새롭고 물리적인 제품을 디자인하는 데 사용되었다. 그러나 이들의 사용은 텍스트를 통해 원하는 대상을 설명하는 사용자의 능력에 의해 제한된다. 
@@ -43,7 +43,7 @@ GAN inversion에 일반적으로 사용되는 도구를 기반으로 일련의 �
 저자들은 광범위한 개념과 프롬프트에 대한 본 논문의 접근 방식의 효과를 입증하여 고유한 개체를 새로운 장면에 주입하고 다양한 스타일로 변환하고 포즈를 전환하고 편견을 줄이고 심지어 새로운 제품을 상상할 수 있음을 보여주었다.
 
 ## Method
-<center><img src='{{"/assets/img/textual-inversion/textual-inversion-fig2.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/textual-inversion/textual-inversion-fig2.webp" | relative_url}}' width="80%"></center>
 <br>
 본 논문의 목표는 새로운 사용자 지정 개념의 언어로 가이드된 생성을 가능하게 하는 것이다. 그렇게 하기 위해 이러한 개념을 사전 학습된 text-to-image 모델의 중간 표현으로 인코딩하는 것을 목표로 한다. 이상적으로는 이러한 모델에 의해 표현되는 풍부한 semantic과 시각적 prior를 활용하고 개념의 직관적인 시각적 변환을 가이드하는 데 사용할 수 있는 방식으로 수행되어야 한다.
 
@@ -90,49 +90,49 @@ $c_\theta$와 $\epsilon_\theta$를 모두 고정한 상태에서 원본 LDM 모�
 ### 1. Image variations
 다음은 본 논문의 방법, DALLE-2의 CLIP 기반 재구성, 사람이 작성한 다양한 길이의 캡션으로 생성된 개체의 변형들이다. 
 
-<center><img src='{{"/assets/img/textual-inversion/textual-inversion-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/textual-inversion/textual-inversion-fig3.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Text-guided synthesis
 다음은 텍스트로 가이드된 개인화된 생성 결과이다.
 
-<center><img src='{{"/assets/img/textual-inversion/textual-inversion-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/textual-inversion/textual-inversion-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 다른 개인화된 생성 접근 방식과 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/textual-inversion/textual-inversion-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/textual-inversion/textual-inversion-fig5.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Style transfer
 모델은 알 수 없는 특정 스타일을 나타내는 유사어를 찾을 수 있다. 이러한 pseudo-word를 찾기 위해 모델에 공유 스타일이 있는 작은 이미지 세트를 제공하고 학습 텍스트를 "A painting in the style of $S_\ast$" 형식의 프롬프트로 대체한다. 그 결과는 아래와 같다. 
 
-<center><img src='{{"/assets/img/textual-inversion/textual-inversion-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/textual-inversion/textual-inversion-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 개념을 캡처하는 능력이 단순한 객체 재구성을 넘어 더 추상적인 아이디어로 확장된다.
 
 ### 3. Concept compositions
 다음은 2개의 pseudo-word를 사용한 생성 결과이다.
 
-<center><img src='{{"/assets/img/textual-inversion/textual-inversion-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/textual-inversion/textual-inversion-fig7.webp" | relative_url}}' width="100%"></center>
 
 ### 4. Bias reduction
 Text-to-image 모델의 일반적인 한계는 모델을 학습하는 데 사용되는 인터넷 규모 데이터에서 발견된 편향을 상속한다는 것이다. 이러한 편향은 생성된 샘플에서 나타난다. 
 
-<center><img src='{{"/assets/img/textual-inversion/textual-inversion-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/textual-inversion/textual-inversion-fig8.webp" | relative_url}}' width="100%"></center>
 <br>
 위 그림에서는 "의사"라는 단어에 인코딩된 편향을 강조하고 작고 더 다양한 세트에서 새로운 임베딩을 학습하여 이 편향을 줄일 수 있음을 보여준다. 즉, 성별과 인종의 다양성을 증가시킨다. 
 
 ### 5. Downstream applications
 다음은 pseudo-word를 LDM 위에 구축된 하위 모델과 함께 사용한 예시이다.
 
-<center><img src='{{"/assets/img/textual-inversion/textual-inversion-fig9.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/textual-inversion/textual-inversion-fig9.webp" | relative_url}}' width="100%"></center>
 
 ## Quantitative analysis
 다음은 CLIP 기반의 정량적 평가 결과이다. 
 
-<center><img src='{{"/assets/img/textual-inversion/textual-inversion-fig10a.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/textual-inversion/textual-inversion-fig10a.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 user study 결과이다. 
 
-<center><img src='{{"/assets/img/textual-inversion/textual-inversion-fig10b.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/textual-inversion/textual-inversion-fig10b.webp" | relative_url}}' width="70%"></center>
 
 ## Limitations
 1. 개념의 의미론적 본질을 통합하는 대신 정확한 모양을 학습하는 데 여전히 어려움을 겪을 수 있다. 

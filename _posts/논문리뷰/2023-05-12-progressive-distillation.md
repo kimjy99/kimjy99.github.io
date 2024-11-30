@@ -102,12 +102,12 @@ $$
 
 $$\hat{x}_\theta (z_t)$$가 약간의 smoothness 조건을 충족하는 경우 probability flow ODE의 수치 적분에 의해 도입된 오차는 적분 step의 수가 무한대로 커짐에 따라 사라진다. 이는 실제로 수치 적분의 정확도와 모델에서 생성된 샘플의 품질 및 이러한 샘플을 생성하는 데 필요한 시간 사이의 trade-off로 이어진다. 지금까지의 연구에 있는 대부분의 모델은 최고 품질의 샘플을 생성하기 위해 수백 또는 수천 개의 통합 step이 필요했으며, 이는 생성 모델링의 많은 애플리케이션에서 사용할 수 없다. 따라서 여기서는 정확하지만 느린 ODE integrator를 여전히 매우 정확한 훨씬 더 빠른 모델로 증류하는 방법을 제안한다. 이 아이디어는 아래 그림에 시각화되어 있다. 
 
-<center><img src='{{"/assets/img/progressive-distillation/progressive-distillation-fig1.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/progressive-distillation/progressive-distillation-fig1.webp" | relative_url}}' width="70%"></center>
 
 ## Progressive Distillation
 샘플링 시간에 diffusion model을 보다 효율적으로 만들기 위해 느린 teacher diffusion model을 더 빠른 student model로 증류하여 필요한 샘플링 step 수를 반복적으로 절반으로 줄이는 알고리즘인 progressive distillation을 제안한다. Progressive distillation의 구현은 원래 diffusion model을 학습하기 위한 구현과 매우 유사하다. Algorithm 1과 Algorithm 2는 progressive distillation의 상대적 변화를 <span style='color: #bfff00'>녹색</span>으로 강조 표시한 diffusion model 학습과 progressive distillation을 나란히 제시한다.
 
-<center><img src='{{"/assets/img/progressive-distillation/progressive-distillation-algo.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/progressive-distillation/progressive-distillation-algo.webp" | relative_url}}' width="80%"></center>
 <br>
 표준 방식으로 학습하여 얻은 teacher diffusion model을 사용하여 progressive distillation 절차를 시작한다. Progressive distillation을 반복할 때마다 동일한 파라미터와 동일한 모델 정의를 모두 사용하여 teacher의 복사본으로 student model을 초기화한다. 표준 학습에서와 같이 학습 데이터셋에서 데이터를 샘플링하고 noise를 추가한 다음 이 noisy한 데이터 $z_t$에 student denoising model을 적용하여 학습 loss를 형성한다. 
 
@@ -166,23 +166,23 @@ $$
 
 실제로, loss 가중치 선택은 학습 중에 $\alpha_t$, $\sigma_t$가 샘플링되는 방식도 고려해야 한다. 이 샘플링 분포는 예상 loss가 각 SNR에 부여하는 가중치를 강력하게 결정하기 때문이다. 아래 그림은 cosine schedule의 효과를 포함하거나 제외하여 결과적인 loss 가중치를 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/progressive-distillation/progressive-distillation-fig2.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/progressive-distillation/progressive-distillation-fig2.webp" | relative_url}}' width="80%"></center>
 
 ## Experiments
 ### 1. Model parameterization and training loss
 다음은 unconditional CIFAR-10에 대한 샘플 품질을 측정한 표이다. (FID / IS)
 
-<center><img src='{{"/assets/img/progressive-distillation/progressive-distillation-table1.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/progressive-distillation/progressive-distillation-table1.webp" | relative_url}}' width="65%"></center>
 
 ### 2. Progressive distillation
 다음은 다양한 데이터셋에 대하여 샘플링 step에 따른 FID를 나타낸 그래프이다.
 
-<center><img src='{{"/assets/img/progressive-distillation/progressive-distillation-fig4.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/progressive-distillation/progressive-distillation-fig4.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 CIFAR-10에서 다양한 diffusion model과 빠른 샘플링 결과를 비교한 표이다.
 
-<center><img src='{{"/assets/img/progressive-distillation/progressive-distillation-table2.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/progressive-distillation/progressive-distillation-table2.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 다양한 샘플링 step의 distilled 64$\times$64 ImageNet model의 랜덤한 샘플들이다. (클래스는 malamute, random seed 고정)
 
-<center><img src='{{"/assets/img/progressive-distillation/progressive-distillation-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/progressive-distillation/progressive-distillation-fig3.webp" | relative_url}}' width="100%"></center>

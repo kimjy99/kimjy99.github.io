@@ -18,7 +18,7 @@ classes: wide
 > Department of Computer Science, The University of Hong Kong | UC Berkeley | College of Intelligence and Computing, Tianjin University  
 > 3 Feb 2023  
 
-<center><img src='{{"/assets/img/adaptdiffuser/adaptdiffuser-fig1.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/adaptdiffuser/adaptdiffuser-fig1.webp" | relative_url}}' width="60%"></center>
 
 ## Introduction
 오프라인 강화 학습(RL)은 실제 환경과 상호 작용하지 않고 이전에 수집된 오프라인 데이터에서 정책을 학습하는 것을 목표로 한다. 기존의 오프라인 RL 접근 방식에는 value function 피팅 또는 policy gradient 계산이 필요하며, 이는 제한된 오프라인 데이터로 인해 얻기 어렵다. 
@@ -136,7 +136,7 @@ $$
 ### 2. Self-evolved Planning with Diffusion
 따라서, 이러한 planner의 적응 능력을 향상시키기 위해 diffusion model을 기반으로 한 새로운 스스로 진화된 의사결정 접근 방식인 AdaptDiffuser를 제안하여 forward diffusion process의 학습된 평균 $\mu_\theta$ 및 공분산 $\Sigma$의 품질을 향상시킨다. AdaptDiffuser는 스스로 진화된 합성 데이터 생성을 사용하여 $\tau_0$으로 표시된 학습 데이터셋을 강화하고 이러한 합성 데이터를 fine-tuning하여 성능을 향상시킨다. 그 후 AdaptDiffuser는 reward gradient의 guidance를 기반으로 주어진 task에 대한 최적의 action 시퀀스를 찾는다. 
 
-<center><img src='{{"/assets/img/adaptdiffuser/adaptdiffuser-fig2.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/adaptdiffuser/adaptdiffuser-fig2.webp" | relative_url}}' width="70%"></center>
 <br>
 위 그림에서 볼 수 있듯이 AdaptDiffuser를 구현하기 위해 먼저 학습 데이터셋에 존재하지 않지만 실제 세계에서 diffusion model이 접할 수 있는 광범위한 시나리오 및 동작을 시뮬레이션하는 보지 못한 task에 대한 많은 수의 합성 데모 데이터를 생성한다. 이 합성 데이터는 원래의 diffusion model $\theta_0^\ast$의 샘플링 과정을 reward guidance와 함께 반복적으로 생성하여 생성 능력이 뛰어나다.
 
@@ -187,34 +187,34 @@ $$
 
 다음은 Maze2D 환경에서의 오프라인 강화 학습 성능을 나타낸 표이다.
 
-<center><img src='{{"/assets/img/adaptdiffuser/adaptdiffuser-table1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/adaptdiffuser/adaptdiffuser-table1.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 긴 planning 경로를 가진 Maze2D의 어려운 케이스들에서 AdaptDiffuser와 Diffuser를 비교한 것이다.
 
-<center><img src='{{"/assets/img/adaptdiffuser/adaptdiffuser-fig3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/adaptdiffuser/adaptdiffuser-fig3.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 MuJoCo 환경에서의 오프라인 강화 학습 성능을 나타낸 표이다.
 
-<center><img src='{{"/assets/img/adaptdiffuser/adaptdiffuser-table2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/adaptdiffuser/adaptdiffuser-table2.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Adaptation Ability on Unseen Tasks
 다음은 gold coin picking task에 대한 Maze2D 길찾기 결과를 비교한 것이다.
 
-<center><img src='{{"/assets/img/adaptdiffuser/adaptdiffuser-fig4.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/adaptdiffuser/adaptdiffuser-fig4.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 KUKA pick-and-place task에 대한 적응 성능을 비교한 표이다.
 
-<center><img src='{{"/assets/img/adaptdiffuser/adaptdiffuser-table3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/adaptdiffuser/adaptdiffuser-table3.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 KUKA pick-and-place task에 대한 시각화이다.
 
-<center><img src='{{"/assets/img/adaptdiffuser/adaptdiffuser-fig5.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/adaptdiffuser/adaptdiffuser-fig5.webp" | relative_url}}' width="50%"></center>
 
 ### 3. Ablation Study
 다음은 반복적인 step에 대한 ablation 결과를 나타낸 표이다. 3개의 랜덤 시드에 대한 평균과 분산을 계산한 것이다. 
 
-<center><img src='{{"/assets/img/adaptdiffuser/adaptdiffuser-table4.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/adaptdiffuser/adaptdiffuser-table4.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 전문가 데이터의 양에 대한 ablation 결과를 나타낸 표이다.
 
-<center><img src='{{"/assets/img/adaptdiffuser/adaptdiffuser-table5.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/adaptdiffuser/adaptdiffuser-table5.webp" | relative_url}}' width="50%"></center>

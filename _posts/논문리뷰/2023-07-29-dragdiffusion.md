@@ -18,7 +18,7 @@ classes: wide
 > National University of Singapore | ByteDance Inc.  
 > 9 Jul 2023  
 
-<center><img src='{{"/assets/img/dragdiffusion/dragdiffusion-fig1.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/dragdiffusion/dragdiffusion-fig1.webp" | relative_url}}' width="95%"></center>
 
 ## Introduction
 생성 모델을 사용한 이미지 편집은 최근 많은 관심을 받고 있다. 중요한 최근 연구 중 하나는 상호 작용하는 포인트 기반 이미지 편집, 즉 "드래그" 편집을 가능하게 하는 [DragGAN](https://kimjy99.github.io/논문리뷰/draggan)이다. 이 프레임워크에서 사용자는 주어진 이미지에서 여러 쌍의 핸들 포인트와 타겟 포인트를 클릭한다. 그런 다음 모델은 핸들 포인트의 내용을 해당 타겟 포인트로 이동하는 의미론적으로 일관된 편집 결과를 이미지에 생성한다. 또한 사용자는 편집 가능한 이미지 영역을 지정하고 나머지 영역은 변경되지 않도록 지정하는 마스크를 그릴 수 있다. DragGAN은 인상적인 결과를 달성했지만 적용 가능성은 GAN 고유의 모델 용량에 의해 제한된다.
@@ -48,7 +48,7 @@ Latent 변수의 시퀀스 $$(Z_T, Z_{T -1}, \cdots, Z_1, Z_0)$$는 표준 정�
 ### 2. Method Overview
 DragDiffusion은 인터랙티브한 포인트 기반 이미지 편집을 달성하기 위해 특정 diffusion latent를 최적화하는 것을 목표로 한다. 이 목표를 달성하기 위해 먼저 diffusion model에서 LoRA를 fine-tuning하여 사용자가 입력한 이미지를 재구성한다. 이러한 방식으로 편집 과정에서 개체의 identity와 입력 이미지의 스타일을 더 잘 보존할 수 있다. 다음으로 입력 이미지에 DDIM inversion을 적용하여 특정 step $t$의 diffusion latent를 얻는다. 그런 다음 motion supervision과 point tracking을 반복적으로 적용하여 이전에 획득한 $t$-step diffusion latent를 최적화하여 핸들 포인트의 콘텐츠를 타겟으로 끌어당긴다. 편집 프로세스 중에 이미지의 마스킹되지 않은 영역이 변경되지 않도록 정규화 항이 적용된다. 마지막으로 최적화된 $t$번째 step의 latent를 DDIM으로 denoise하여 사후 편집 결과를 얻는다. DragDiffusion의 개요는 아래 그림과 같다. 
 
-<center><img src='{{"/assets/img/dragdiffusion/dragdiffusion-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dragdiffusion/dragdiffusion-fig2.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Motion Supervision and Point Tracking
 #### Motion supervision
@@ -124,6 +124,6 @@ $$
 ### 1. Qualitative Evaluation
 다음은 주어진 이미지에 대하여 빨간색 핸들 포인트에서 파란색 타겟 포인트로 드래그한 편집 결과이다. 밝은 영역은 사용자가 지정한 편집 가능한 영역이다. 
 
-<center><img src='{{"/assets/img/dragdiffusion/dragdiffusion-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dragdiffusion/dragdiffusion-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
-<center><img src='{{"/assets/img/dragdiffusion/dragdiffusion-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dragdiffusion/dragdiffusion-fig4.webp" | relative_url}}' width="100%"></center>

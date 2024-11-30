@@ -21,7 +21,7 @@ classes: wide
 > 13 Jul 2021  
 
 ## Introduction
-<center><img src='{{"/assets/img/maskformer/maskformer-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/maskformer/maskformer-fig1.webp" | relative_url}}' width="100%"></center>
 <br>
 Semantic segmentation의 목표는 이미지를 다양한 semantic 카테고리를 갖는 영역으로 분할하는 것이다. Fully Convolutional Network (FCN)에서 시작하여 대부분의 딥러닝 기반 semantic segmentation 접근 방식은 semantic segmentation을 픽셀별 분류 (per-pixel classification)로 공식화하고 (위 그림의 왼쪽) 각 출력 픽셀에 classification loss를 적용한다. 이 공식의 픽셀별 예측은 자연스럽게 이미지를 다양한 클래스의 영역으로 분할한다.
 
@@ -93,7 +93,7 @@ $$
 대부분의 기존 마스크 분류 모델은 $$\mathcal{L}_\textrm{mask-cls}$$ 외에 보조 loss (ex. bounding box loss, instance discrimination loss)를 사용한다. MaskFormer는 $$\mathcal{L}_\textrm{mask-cls}$$만으로 end-to-end 학습을 허용하는 간단한 마스크 분류 모델을 사용한다. 
 
 ### 3. MaskFormer
-<center><img src='{{"/assets/img/maskformer/maskformer-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/maskformer/maskformer-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문은 $N$개의 확률-마스크 쌍 $$z = \{(p_i, m_i)\}_{i=1}^N$$을 계산하는 새로운 마스크 분류 모델인 MaskFormer를 도입한다. 모델에는 세 가지 모듈이 포함되어 있다 (위 그림 참조). 
 
@@ -153,7 +153,7 @@ $$
     - open-vocabulary: ADE20K-Full (874 클래스)
   - panotic segmenation: COCO (80 "things" + 53 "stuff"), ADE20K-Panoptic (100 "things" + 50 "stuff")
 
-<center><img src='{{"/assets/img/maskformer/maskformer-fig3.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/maskformer/maskformer-fig3.webp" | relative_url}}' width="70%"></center>
 <br>
 Baseline 모델로 PerPixelBaseline과 PerPixelBaseline+가 사용된다. PerPixelBaseline는 MaskFormer의 pixel-level 모듈을 사용하여 바로 픽셀별 클래스 점수를 출력한다. PerPixelBaseline+는 공정한 비교를 위해 transformer 모듈과 mask embedding MLP를 PerPixelBaseline에 추가한 것이다. 따라서 PerPixelBaseline+와 MaskFormer는 분류 방식만 픽셀별 분류와 마스크 분류로 다르다. 
 
@@ -161,16 +161,16 @@ Baseline 모델로 PerPixelBaseline과 PerPixelBaseline+가 사용된다. PerPix
 #### Semantic segmentation
 다음은 카테고리 150개의 ADE20K val에서의 semantic segmenation 결과이다. 
 
-<center><img src='{{"/assets/img/maskformer/maskformer-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/maskformer/maskformer-table1.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 4개의 semantic segmenation 데이터셋에서 MaskFormer와 픽셀별 분류 모델들을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/maskformer/maskformer-table2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/maskformer/maskformer-table2.webp" | relative_url}}' width="100%"></center>
 
 #### Panoptic segmentation
 다음은 카테고리 133개의 COCO panoptic val에서의 panoptic segmenation 결과이다. 
 
-<center><img src='{{"/assets/img/maskformer/maskformer-table3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/maskformer/maskformer-table3.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Ablation studies
 #### 픽셀별 분류 vs. 마스크 분류
@@ -178,27 +178,27 @@ Baseline 모델로 PerPixelBaseline과 PerPixelBaseline+가 사용된다. PerPix
 
 아래 표는 비슷한 고정 매칭 방식 (ex. 카테고리 인덱스로 매칭)으로 픽셀별 분류와 마스크 분류의 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/maskformer/maskformer-table4a.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/maskformer/maskformer-table4a.webp" | relative_url}}' width="40%"></center>
 <br>
 아래 표는 MaskFormer에 고정 매칭과 이분 매칭을 적용한 결과를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/maskformer/maskformer-table4b.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/maskformer/maskformer-table4b.webp" | relative_url}}' width="47%"></center>
 
 #### Query의 개수
 다음은 학습할 때 사용한 query의 개수에 따른 MaskFormer의 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/maskformer/maskformer-table6.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/maskformer/maskformer-table6.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 각 데이터셋에 대한 MaskFormer의 각 queury에 의해 예측된 고유 카테고리 수를 내림차순으로 정렬한 그래프이다. 
 
-<center><img src='{{"/assets/img/maskformer/maskformer-fig4.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/maskformer/maskformer-fig4.webp" | relative_url}}' width="70%"></center>
 <br>
 흥미롭게도 query당 고유 카테고리 수는 균일한 분포를 따르지 않는다. 일부 query는 다른 query보다 더 많은 클래스를 캡처한다.
 
 ## Discussion
 다음은 박스 기반 매칭을 사용하는 DETR을 각각 박스와 마스크 기반 매칭으로 학습된 두 개의 MaskFormer 모델과 비교한 표이다.
 
-<center><img src='{{"/assets/img/maskformer/maskformer-table5.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/maskformer/maskformer-table5.webp" | relative_url}}' width="70%"></center>
 <br>
 마스크 기반 매칭은 박스 기반 매칭보다 좋은 성능을 보인다. 저자들은 박스와의 매칭이 마스크와의 매칭보다 더 모호하다고 가정하였다. 특히 "stuff" 영역이 종종 이미지의 넓은 영역에 퍼져 있기 때문에 완전히 다른 마스크가 유사한 박스를 가질 수 있는 "stuff" 카테고리의 경우 더욱 그렇다. 
 

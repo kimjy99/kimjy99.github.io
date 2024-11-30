@@ -38,7 +38,7 @@ $$
 
 입력 레이어 $h(0)$에서 시작하여 출력 레이어 $h(T)$를 특정 시간 $T$에서 이 ODE 초기값 문제에 대한 해로 정의할 수 있다. 이 값은 블랙박스 ODE solver로 계산할 수 있다. 원하는 정확도로 해를 결정하는 데 필요할 때마다 hidden unit의 역학 $f$를 평가한다. 아래 그림은 이러한 두 가지 접근 방식을 대조한 것이다. 
 
-<center><img src='{{"/assets/img/neural-ode/neural-ode-fig1.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/neural-ode/neural-ode-fig1.webp" | relative_url}}' width="48%"></center>
 <br>
 ODE solver를 사용하여 모델을 정의하고 평가하면 다음과 같은 이점이 있다.
 
@@ -48,7 +48,7 @@ ODE solver를 사용하여 모델을 정의하고 평가하면 다음과 같은 
 4. **연속적인 시계열 모델:** 이산적인 관찰 및 방출 간격이 필요한 RNN과 달리 연속적으로 정의된 역학은 임의의 시간에 도착하는 데이터를 자연스럽게 통합할 수 있다. 
 
 ## Reverse-mode automatic differentiation of ODE solutions
-<center><img src='{{"/assets/img/neural-ode/neural-ode-fig2.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/neural-ode/neural-ode-fig2.webp" | relative_url}}' width="57%"></center>
 <br>
 연속적인 깊이의 신경망을 학습할 때 가장 큰 기술적 어려움은 ODE solver를 통해 역방향 미분(역전파)을 수행하는 것이다. Forward pass의 연산을 통한 미분은 간단하지만 메모리 비용이 많이 들고 추가적인 수치적 오차가 발생한다. 
 
@@ -84,7 +84,7 @@ $$
 
 $z$, $a$, $\frac{\partial L}{\partial \theta}$를 풀기 위한 모든 적분은 원래 state, adjoint, 기타 편도함수를 하나의 벡터로 concatenate하고 ODE solver에 대한 하나의 call로 계산될 수 있다. Algorithm 1은 필요한 역학을 구성하고 ODE solver를 call하여 모든 기울기를 한 번에 계산하는 방법을 보여준다.
 
-<center><img src='{{"/assets/img/neural-ode/neural-ode-algo1.PNG" | relative_url}}' width="82%"></center>
+<center><img src='{{"/assets/img/neural-ode/neural-ode-algo1.webp" | relative_url}}' width="82%"></center>
 <br>
 대부분의 ODE solver에는 state $z(t)$를 여러 번 출력하는 옵션이 있다. Loss가 이러한 중간 state에 따라 달라지는 경우 역방향 미분은 각각의 연속적인 출력 시간 쌍 사이에 하나씩 별도의 해석 시퀀스로 나누어야 한다. 각 관찰에서 adjoint는 해당 편도함수 $\partial L / \partial z(t_i)$의 방향으로 조정되어야 한다. 
 
@@ -94,12 +94,12 @@ $z$, $a$, $\frac{\partial L}{\partial \theta}$를 풀기 위한 모든 적분은
 
 다음은 MNSIT에서의 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/neural-ode/neural-ode-table1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/neural-ode/neural-ode-table1.webp" | relative_url}}' width="50%"></center>
 <br>
 RK-Net은 동일한 아키텍처를 사용하지만 Runge-Kutta 적분기를 통해 기울기가 직접 역전파되는 네트워크이다. $L$은 ResNet의 레이어 수이고, $\tilde{L}$은 ODE solver가 한 번의 forward pass에서 요청한 함수 평가 횟수이다. ODE-Net과 RK-Net 모두 ResNet과 비슷한 성능을 달성하였다. 
 
 #### Error Control in ODE-Nets
-<center><img src='{{"/assets/img/neural-ode/neural-ode-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/neural-ode/neural-ode-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 ODE solver는 출력이 실제 해의 주어진 허용오차 내에 있는지 대략적으로 확인할 수 있다. 이 허용오차를 변경하면 네트워크의 동작이 변경된다. 먼저 위 그림의 (a)를 보면 오차가 실제로 제어될 수 있음을 확인할 수 있다. Forward call에 소요되는 시간은 함수 평가 횟수(NFE)에 비례하므로 (위 그림의 (b)), 허용오차를 조정하면 정확도와 계산 비용 사이의 trade-off를 얻을 수 있다. 높은 정확도로 학습할 수 있지만 테스트 시 더 낮은 정확도로 전환할 수 있다. 
 
@@ -149,7 +149,7 @@ $$
 
 ### 1. Experiments with Continuous Normalizing Flows
 #### Density matching
-<center><img src='{{"/assets/img/neural-ode/neural-ode-fig4.PNG" | relative_url}}' width="82%"></center>
+<center><img src='{{"/assets/img/neural-ode/neural-ode-fig4.webp" | relative_url}}' width="82%"></center>
 <br>
 저자들은 위에서 설명한 대로 CNF를 구성하고 Adam을 사용하여 1만 번의 iteration으로 학습시켰다. 대조적으로, NF는 RMSprop을 사용하여 50만 번의 iteration으로 학습되었다. Flow model을 $q$라고 하면, 타겟 밀도 $p(\cdot)$가 평가될 수 있는 loss function인 $$\textrm{KL}(q(x)\|p(x))$$을 최소화한다. 위 그림은 CNF가 일반적으로 더 낮은 loss를 달성한다는 것을 보여준다.
 
@@ -160,10 +160,10 @@ CNF의 유용한 속성은 forward pass와 거의 동일한 비용으로 역변�
 
 다음은 noise에서 데이터로 변환하는 과정을 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/neural-ode/neural-ode-fig5.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/neural-ode/neural-ode-fig5.webp" | relative_url}}' width="95%"></center>
 
 ## A generative latent function time-series model
-<center><img src='{{"/assets/img/neural-ode/neural-ode-fig6.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/neural-ode/neural-ode-fig6.webp" | relative_url}}' width="90%"></center>
 <br>
 불규칙하게 샘플링된 데이터에 신경망을 적용하는 것은 어렵다. 일반적으로 관측값은 고정된 기간의 저장소에 저장되고 latent의 역학은 동일한 방식으로 이산화된다. 이로 인해 누락된 데이터와 잘못 정의된 latent 변수로 인해 어려움이 발생한다. 누락된 데이터는 생성적 시계열 모델 또는 데이터 대치를 사용하여 해결할 수 있다. 또 다른 접근 방식은 타임스탬프 정보를 RNN의 입력에 concatenate하는 것이다. 
 
@@ -191,7 +191,7 @@ $$
 \end{equation}
 $$
 
-<center><img src='{{"/assets/img/neural-ode/neural-ode-fig7.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/neural-ode/neural-ode-fig7.webp" | relative_url}}' width="40%"></center>
 <br>
 다른 신경망을 사용하여 $\lambda(\cdot)$를 parameterize할 수 있다. ODE solver에 대한 단일 call로 latent 궤적과 포아송 프로세스 likelihood를 편리하게 함께 평가할 수 있다. 위 그림은 토이 데이터셋에서 이러한 모델이 학습한 이벤트 비율을 보여준다.
 
@@ -204,18 +204,18 @@ $$
 저자들은 각각 다른 지점에서 시작하고 100개의 동일한 간격의 timestep으로 샘플링된 1000개의 2차원 나선 데이터셋을 생성했다. 데이터셋에는 두 가지 유형의 나선이 포함되어 있다. 절반은 시계 방향이고 나머지 절반은 시계 반대 방향이다. Task를 보다 현실적으로 만들기 위해 관측값에 Gaussian noise를 추가하였다. 
 
 ##### Time series with irregular time points
-<center><img src='{{"/assets/img/neural-ode/neural-ode-table2.PNG" | relative_url}}' width="38%"></center>
+<center><img src='{{"/assets/img/neural-ode/neural-ode-table2.webp" | relative_url}}' width="38%"></center>
 <br>
 불규칙한 타임스탬프를 생성하기 위해 교체 없이 각 궤적에서 포인트를 무작위로 샘플링한다 ($$n = \{30, 50, 100\}$$). 저자들은 학습에 사용된 시점을 넘어서는 100개 시점에 대한 예측 RMSE(평균 제곱근 오차)를 측정하였다. 위 표는 latent ODE의 예측 RMSE가 상당히 낮다는 것을 보여준다. 
 
-<center><img src='{{"/assets/img/neural-ode/neural-ode-fig8.PNG" | relative_url}}' width="87%"></center>
+<center><img src='{{"/assets/img/neural-ode/neural-ode-fig8.webp" | relative_url}}' width="87%"></center>
 <br>
 위 그림은 30개의 서브샘플링 포인트를 사용한 나선형 재구성의 예시이다. Latent ODE로부터의 재구성은 latent 궤적의 사후 확률(posterior)에서 샘플링하고 이를 데이터 공간으로 디코딩하여 얻었다. 관측된 지점 수와 noise에도 불구하고 재구성과 추정이 ground-truth와 일치한다는 것을 관찰할 수 있다. 
 
 ##### Latent space interpolation
 위 그림의 (c)는 latent space의 처음 두 차원에 project된 latent 궤적을 보여준다. 궤적은 두 개의 개별 궤적 클러스터를 형성한다. 하나는 시계 방향 나선으로 디코딩되고 다른 하나는 시계 반대 방향으로 디코딩된다. 
 
-<center><img src='{{"/assets/img/neural-ode/neural-ode-fig9.PNG" | relative_url}}' width="92%"></center>
+<center><img src='{{"/assets/img/neural-ode/neural-ode-fig9.webp" | relative_url}}' width="92%"></center>
 <br>
 위 그림은 latent 궤적이 시계 방향에서 시계 반대 방향 나선형으로 전환하면서 초기 지점 $z(t_0)$의 함수로 부드럽게 변하는 것을 보여준다.
 

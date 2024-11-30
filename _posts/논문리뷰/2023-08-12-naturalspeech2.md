@@ -30,7 +30,7 @@ classes: wide
 
 본 논문에서는 표현적인 운율, 우수한 robustness, 그리고 가장 중요한 음성 합성을 위한 강력한 zero-shot 능력을 달성하기 위해 [latent diffusion model (LDM)](https://kimjy99.github.io/논문리뷰/ldm)을 갖춘 TTS 시스템인 **NaturalSpeech 2**를 제안한다. 먼저 음성 파형을 코덱 인코더를 사용하여 일련의 latent 벡터로 변환하는 뉴럴 오디오 코덱을 학습하고 코덱 디코더를 사용하여 이러한 latent 벡터에서 음성 파형을 재구성한다. 오디오 코덱을 학습한 후 코덱 인코더를 사용하여 학습 세트의 음성에서 latent 벡터를 추출하고 음소 인코더, duration predictor, pitch predictor에서 얻은 사전 벡터으로 컨디셔닝하는 LDM의 타겟으로 사용한다. Inference하는 동안 먼저 LDM을 사용하여 텍스트/음소 시퀀스에서 latent 벡터를 생성한 다음 코덱 디코더를 사용하여 이러한 latent 벡터에서 음성 파형을 생성한다.
 
-<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-table1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-table1.webp" | relative_url}}' width="80%"></center>
 <br>
 NaturalSpeech 2의 일부 디자인 선택은 다음과 같다. (위 표 참조)
 
@@ -41,7 +41,7 @@ NaturalSpeech 2의 일부 디자인 선택은 다음과 같다. (위 표 참조)
 이러한 설계의 이점을 활용하여 NaturalSpeech 2는 이전의 autoregressive model보다 더 안정적이고 robust하며, 2단계 토큰 예측 대신 하나의 음향 모델(diffusion model)만 필요하며 duration/pitch 예측과 non-autoregressive 생성으로 인해 음성을 넘어 (ex. 노래하는 음성) 스타일을 확장할 수 있다.
 
 ## NaturalSpeech 2
-<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-fig1.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-fig1.webp" | relative_url}}' width="75%"></center>
 <br>
 위 그림에서 볼 수 있듯이 NaturalSpeech 2는 뉴럴 오디오 코덱 (인코더, 디코더)과 prior (음소 인코더, duration/pitch predictor)가 있는 diffusion model로 구성된다. 음성 파형은 복잡하고 고차원이기 때문에 재생성 학습의 패러다임에 따라 먼저 오디오 코덱 인코더를 사용하여 음성 파형을 latent 벡터로 변환하고 오디오 코덱 디코더를 사용하여 latent 벡터에서 음성 파형을 재구성한다. 다음으로 diffusion model을 사용하여 텍스트/음소 입력으로 컨디셔닝된 latent 벡터를 예측한다.
 
@@ -51,7 +51,7 @@ NaturalSpeech 2의 일부 디자인 선택은 다음과 같다. (위 표 참조)
 1. 연속 벡터는 이산 토큰보다 압축률이 낮고 비트 전송률이 높아 고품질 오디오 재구성을 보장할 수 있다. 
 2. Hidden 시퀀스의 길이를 늘리지 않는 이산 양자화에서와 같이 각 오디오 프레임에는 여러 토큰 대신 하나의 벡터만 있다.
 
-<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-fig2.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-fig2.webp" | relative_url}}' width="95%"></center>
 <br>
 위 그림에서 볼 수 있듯이 뉴럴 오디오 코덱은 오디오 인코더, residual vector-quantizer (RVQ), 오디오 디코더로 구성된다. 
 
@@ -147,7 +147,7 @@ $$
 ### 3. Speech Prompting for In-Context Learning
 더 나은 zero-shot 생성을 위한 in-context learning을 용이하게 하기 위해 음성 프롬프트의 다양한 정보(ex. speaker ID)를 따르도록 duration/pitch predictor와 diffusion model을 장려하는 음성 프롬프팅 메커니즘을 설계하였다. 음성 latent 시퀀스 $z$의 경우 음성 프롬프트로 프레임 인덱스가 $u$에서 $v$인 세그먼트 $z^{u:v}$를 무작위로 잘라내고 나머지 음성 세그먼트 $z^{1:u}$와 $z^{v:n}$을 concat하여 diffusion model의 학습 타겟으로 새 시퀀스 $z^{\ u:v}%$를 형성한다. 
 
-<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-fig3.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-fig3.webp" | relative_url}}' width="80%"></center>
 <br>
 위 그림과 같이 Transformer 기반 프롬프트 인코더를 사용하여 음성 프롬프트 $z^{u:v}$ (그림에서 $z^p$)를 처리하여 hidden 시퀀스를 얻는다. 이 hidden 시퀀스를 프롬프트로 활용하기 위해 duration/pitch 예측 변수와 diffusion model에 대한 두 가지 다른 전략이 있다. 
 
@@ -199,39 +199,39 @@ NaturalSpeech 2는 [NaturalSpeech](https://kimjy99.github.io/논문리뷰/natura
 ### 1. Generation Quality
 다음은 LibriSpeech와 VCTK에 대한 CMOS 결과이다.
 
-<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-table3.PNG" | relative_url}}' width="36%"></center>
+<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-table3.webp" | relative_url}}' width="36%"></center>
 
 ### 2. Generation Similarity
 다음은 pitch와 duration의 평균(Mean), 표준 편차(Std), 왜도(Skew), 첨도(Kurt) 차이 측면에서 합성 음성과 프롬프트 음성 간의 운율 유사성을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-table4.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-table4.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 LibriSpeech와 VCTK에서의 SMOS이다.
 
-<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-table5.PNG" | relative_url}}' width="36%"></center>
+<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-table5.webp" | relative_url}}' width="36%"></center>
 
 ### 3. Robustness
 다음은 LibriSpeech와 VCTK에서의 단어 오차율 (WER)이다.
 
-<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-table6.PNG" | relative_url}}' width="36%"></center>
+<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-table6.webp" | relative_url}}' width="36%"></center>
 <br>
 다음은 50개의 특정 어려운 문장에서 다른 autoregressive (AR) / non-autoregressive (NAR) 모델들과 비교한 표이다.
 
-<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-table7.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-table7.webp" | relative_url}}' width="70%"></center>
 
 ### 4. Comparison with Other TTS Systems
 다음은 SMOS와 CMOS를 VALL-E와 비교한 표이다.
 
-<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-table8.PNG" | relative_url}}' width="31%"></center>
+<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-table8.webp" | relative_url}}' width="31%"></center>
 
 ### 5. Ablation Study
 다음은 ablation study 결과이다.
 
-<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-table9.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-table9.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 pitch와 duration의 평균(Mean), 표준 편차(Std), 왜도(Skew), 첨도(Kurt) 차이 측면에서 다양한 길이의 합성 음성과 프롬프트 음성 간의 NaturalSpeech 2 운율 유사성을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-table10.PNG" | relative_url}}' width="69%"></center>
+<center><img src='{{"/assets/img/naturalspeech2/naturalspeech2-table10.webp" | relative_url}}' width="69%"></center>
 
 ### 6. Zero-Shot Singing Synthesis
 저자들은 노래 데이터 수집을 위해 웹에서 여러 노래하는 목소리와 짝을 이룬 가사를 크롤링하였다. 노래 데이터 전처리를 위해 음성 처리 모델을 활용하여 노래에서 반주를 제거하고 ASR 모델을 사용하여 정렬이 어긋난 샘플을 필터링한다. 그런 다음 데이터셋은 음성 데이터와 동일한 프로세스를 사용하여 구성되며 궁극적으로 약 30시간의 노래 데이터를 포함한다. 데이터셋은 업샘플링되고 음성 데이터와 혼합된다.

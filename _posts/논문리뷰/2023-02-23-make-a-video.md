@@ -20,7 +20,7 @@ classes: wide
 > Meta AI  
 > 29 Sep 2022  
 
-<center><img src='{{"/assets/img/mav/mav-fig1.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/make-a-video/make-a-video-fig1.webp" | relative_url}}' width="85%"></center>
 
 ## Introduction
 수십억 개의 텍스트-동영상 데이터셋을 쉽게 수집할 수 없기 때문에 동영상에 대한 성공은 제한적이다. 이미지를 생성할 수 있는 모델이 이미 존재하는데 처음부터 T2V(Text-to-Video) 모델을 학습시키는 것은 낭비이다. 또한 비지도 학습을 통해 신경망은 훨씬 더 많은 데이터를 학습할 수 있다. 이 많은 양의 데이터는 세계에서 더 미묘하고 덜 일반적인 개념의 표현을 학습하는 데 중요하다. 비지도 학습은 오랫동안 자연어 처리(NLP) 분야를 발전시키는 데 큰 성공을 거두었다. 이러한 방식으로 사전 학습된 모델은 supervised 방식으로 단독으로 학습된 경우보다 훨씬 더 높은 성능을 보인다. 
@@ -32,7 +32,7 @@ classes: wide
 함수 보존 변환을 사용하여 모델 초기화 단계에서 공간 계층을 확장하여 시간 정보를 포함한다. 확장된 시공간 신경망에는 동영상 컬렉션에서 시간적인 현실의 역학을 학습하는 새로운 attention 모듈이 포함된다. 이 절차는 사전 학습된 T2I 신경망에서 새로운 T2V 신경망으로 지식을 즉시 전달하여 T2V 학습 프로세스를 크게 가속화한다. 시각적 품질을 향상시키기 위해 공간적 super-resolution 모델과 프레임 보간 모델을 학습시킨다. 이것은 생성된 동영상의 해상도를 증가시킬 뿐만 아니라 더 높은 프레임 속도를 가능하게 한다. 
 
 ## Method
-<center><img src='{{"/assets/img/mav/mav-fig2.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/make-a-video/make-a-video-fig2.webp" | relative_url}}' width="90%"></center>
 <br>
 Make-A-Video는 3가지 주요 요소로 구성된다.
 
@@ -77,7 +77,7 @@ Fully-connected layer와 같은 다른 layer는 공간 및 시간 정보에 구�
 Super resolution에는 환각 정보가 포함된다. 아티팩트가 깜박이지 않도록 하려면 환각이 프레임 전체에서 일관되어야 한다. 결과적으로 $SR_l^t$ 모듈은 공간과 시간 차원에서 작동한다. 고해상도 동영상 데이터의 부족뿐만 아니라 메모리와 컴퓨팅 제약으로 인해 $SR_h$를 시간적 차원으로 확장하는 것은 어려운 일이다. 따라서 $SR_h$는 공간 차원에서만 작동한다. 그러나 프레임 전체에서 일관된 디테일의 환각을 만들도록 하기 위해 각 프레임에 대해 동일한 noise 초기화를 사용한다. 
 
 #### 2.1 Pseudo-3D convolutional layers
-<center><img src='{{"/assets/img/mav/mav-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/make-a-video/make-a-video-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 Separable convolution에서 영감을 받아 위 그림과 같이 각 2D conv layer 다음에 1D convolution을 쌓는다. 이는 공간 축과 시간 축 사이의 정보 공유를 촉진하며, 3D conv layer의 많은 계산 없이 가능하다. 또한 사전 학습된 2D conv layer와 새로 초기화된 1D conv layer 사이에 구체적인 파티션을 생성하여, 공간적 convolution의 가중치에서 이전에 학습한 공간적 지식을 유지하면서 시간적 convolution을 처음부터 학습할 수 있다. 
 
@@ -124,19 +124,19 @@ Factorized space-time attention layers는 VDM과 CogVideo에서도 사용되었�
 ### 1. Quantitative Results
 다음은 MSR-VTT 데이터셋에 대한 T2V 생성 평가 결과이다. Zero-Shot은 MSR-VTT에서 학습을 하지 않았다는 것을 의미한다. 
 
-<center><img src='{{"/assets/img/mav/mav-table1.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/make-a-video/make-a-video-table1.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 UCF-101 데이터셋에 대한 T2V 생성 평가 결과이다. 
 
-<center><img src='{{"/assets/img/mav/mav-table2.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/make-a-video/make-a-video-table2.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 사람이 직접 Make-A-Video를 CogVideo와 비교한 결과이다. 표의 숫자는 Make-A-Video 모델을 더 선호한다고 답한 비율(%)이다. 
 
-<center><img src='{{"/assets/img/mav/mav-table3.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/make-a-video/make-a-video-table3.webp" | relative_url}}' width="80%"></center>
 
 ### 2. Qualitative Results
 다음은 Make-A-Video 모델의 다양한 비교와 적용을 나타낸 것이다.
 
-<center><img src='{{"/assets/img/mav/mav-fig4.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/make-a-video/make-a-video-fig4.webp" | relative_url}}' width="80%"></center>
 <br>
 (a)는 같은 텍스트 입력에 대하여 VDM, CogVideo와 비교한 것이다. (b)는 맨 왼쪽 이미지를 시작으로 애니메이션을 만든 것이다. (c)는 두 이미지가 주어질 때 중간 이미지를 interpolation한 것으로 FILM(왼쪽)과 Make-A-Video(오른쪽)를 비교한 것이다. (d)는 같은 CLIP 임베딩을 입력하였을 때의 다양한 결과를 보여준다. 

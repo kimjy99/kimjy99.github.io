@@ -24,7 +24,7 @@ Singing voice synthesis (SVS)는 악보로부터 자연스럽고 표현력 있�
 
 기존의 노래하는 음향 모델은 L1이나 L2 같은 간단한 loss로 음향 feature들을 재구성하였다. 반면 이 최적화는 부정확한 unimodal 분포 가정을 기반으로 하므로 흐릿하고 over-smoothing된 출력을 만든다. 기존 방법은 GAN으로 이 문제를 해결하려고 노력하지만, 불안정한 discriminator로 인해 효과적인 GAN 학습이 때때로 실패할 수 있다. 이러한 문제는 합성된 노래의 자연스러움을 방해한다. 
 
-<center><img src='{{"/assets/img/diffsinger/diffsinger-fig1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/diffsinger/diffsinger-fig1.webp" | relative_url}}' width="50%"></center>
 <br>
 최근에는 매우 유연하고 tractable한 생성 모델인 diffusion model이 등장하였다. Diffusion model은 diffusion process와 reverse process (denoising process)의 두 과정으로 구성된다. Diffusion process는 가우시안 noise를 점진적으로 추가하여 복잡한 데이터를 등방성 가우시안 분포로 변환하는 Markov chain이다. Reverse process는 반복적으로 가우시안 noise에서 원본 데이터를 복원하는 방법을 학습하는 신경망에 의해 구현된 Markov chain이다. 데이터 likelihood에 대한 variational lower bound (ELBO)를 최적화하여 diffusion model을 안정적으로 학습시킬 수 있다. Diffusion model은 이미지 생성과 신경 vocoder 분야에서 유망한 결과를 생성할 수 있음이 입증되었다.
 
@@ -48,7 +48,7 @@ Singing voice synthesis (SVS)는 악보로부터 자연스럽고 표현력 있�
 ## DiffSinger
 ### 1. Naive Version of DiffSinger
 
-<center><img src='{{"/assets/img/diffsinger/diffsinger-fig2.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/diffsinger/diffsinger-fig2.webp" | relative_url}}' width="95%"></center>
 <br>
 위 그림에서 점선 박스를 제외한 부분이 naive한 버전의 DiffSinger이다. 학습 과정에서 DiffSinger는 $t$번째 step의 mel-spectrogram $M_t$를 입력받아 $t$와 악보 $x$를 조건으로 추가된 random noise $\epsilon_\theta$를 예측한다. Inference 과정은 기존 diffusion model과 같이 $\mathcal{N}(0,I)$에서 샘플링한 가우시안 noise에서 시작하여 다음과 같이 중간 샘플을 denoising하는 것을 $T$번 반복한다. 
 
@@ -66,14 +66,14 @@ $$
 ### 2. Shallow Diffusion Mechanism
 단순한 loss에 의해 학습된 이전 음향 모델에는 tractable하지 않은 단점이 있지만 여전히 DiffSinger에 많은 사전 지식을 제공할 수 있는 ground-truth 데이터 분포에 대한 강력한 연결을 보여주는 샘플을 생성한다. 이 연관성을 탐색하고 사전 지식을 더 잘 활용할 수 있는 방법을 찾기 위해 다음 그림과 같이 diffusion process를 활용한 경험적 관찰을 할 수 있다.
 
-<center><img src='{{"/assets/img/diffsinger/diffsinger-fig3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/diffsinger/diffsinger-fig3.webp" | relative_url}}' width="50%"></center>
 
 1. $t = 0$일 때 $M$은 이웃한 고조파(harmonic) 사이의 풍부한 디테일을 가지며, 이는 합성된 노래하는 음성의 자연스러움에 영향을 준다. 반면, $\tilde{M}$은 over-smoothing된다. 
 2. $t$가 증가함에 따라 두 process의 샘플들은 구분할 수 없게 된다. 
 
 이러한 관찰 결과에서 영감을 받아 저자들은 shallow diffusion mechanism을 제안한다. Shallow diffusion mechanism은 가우시안 noise에서 reverse process를 시작하는 대신 다음 그림과 같이 두 궤적의 교차점에서 시작한다. 
 
-<center><img src='{{"/assets/img/diffsinger/diffsinger-fig4.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/diffsinger/diffsinger-fig4.webp" | relative_url}}' width="50%"></center>
 <br>
 $M_T$를 $M_0$로 변환하는 것보다 $M_k$를 $M_0$로 변환하는 것이 더 쉽기 때문에 reverse process의 부담이 분명히 완화될 수 있다. 특히, inference 단계에서 보조 디코더(auxiliary decoder)를 활용하여 $\tilde{M}$을 생성한다. $\tilde{M}$은 악보 인코더 출력을 조건으로 하여 L1으로 학습된다. 그런 다음 diffusion process를 통해 얕은 단계 $k$에서 중간 샘플을 생성한다. 
 
@@ -89,9 +89,9 @@ $$
 Shallow diffusion mechanism을 사용하는 학습 과정과 inference 과정은 다음과 같이 나타낼 수 있다.  
 
 <div style="display: flex; align-items: start; justify-content: center">
-  <img src='{{"/assets/img/diffsinger/diffsinger-algo1.PNG" | relative_url}}' width="42%">
+  <img src='{{"/assets/img/diffsinger/diffsinger-algo1.webp" | relative_url}}' width="42%">
   &nbsp;
-  <img src='{{"/assets/img/diffsinger/diffsinger-algo2.PNG" | relative_url}}' width="42%">
+  <img src='{{"/assets/img/diffsinger/diffsinger-algo2.webp" | relative_url}}' width="42%">
 </div>
 
 ### 3. Boundary Prediction
@@ -167,11 +167,11 @@ Boundary predictor는 $E_t$를 제공하기 위한 step embedding과 ResNet으�
 
 다음은 95% 신뢰도 구간으로 노래 샘플의 MOS를 측정한 것이다. DiffSinger Naive는 shallow diffusion mechanism을 사용하지 않은 버전의 DiffSinger이다. 
 
-<center><img src='{{"/assets/img/diffsinger/diffsinger-table1.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/diffsinger/diffsinger-table1.webp" | relative_url}}' width="40%"></center>
 <br>
 다음은 같은 악보에 대한 ground truth (GT) mel-spectrogram과 Diffsinger, GAN-singer, FFT-singer가 생성한 mel-spectrogram이다. 
 
-<center><img src='{{"/assets/img/diffsinger/diffsinger-fig5.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/diffsinger/diffsinger-fig5.webp" | relative_url}}' width="95%"></center>
 <br>
 Diffsinger와 GAN-singer가 FFT-singer에 비해 고조파(harmonic) 사이의 더 섬세한 디테일을 포함하고 있으며, Diffsinger가 중간과 낮은 주파수 영역에 대하여 고주파수 영역과 비슷한 품질을 유지하므로 Diffsinger의 성능이 GAN-singer의 성능보다 경쟁력 있다. 
 
@@ -180,13 +180,13 @@ Diffsinger와 GAN-singer가 FFT-singer에 비해 고조파(harmonic) 사이의 �
 #### Ablation Studies
 다음은 다양한 hyperparameter의 효과를 설명하기 위한 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/diffsinger/diffsinger-table2.PNG" | relative_url}}' width="35%"></center>
+<center><img src='{{"/assets/img/diffsinger/diffsinger-table2.webp" | relative_url}}' width="35%"></center>
 
 ### 3. Extensional Experiments on TTS
 저자들은 TTS task에서 본 논문의 방법의 일반화를 검증하기 위하여 LJSpeech 데이터셋에서 실험을 진행하였다.  FastSpeech2의 train-val-test dataset splits, mel-spectrogram 전처리, grapheme-tophoneme tool을 사용하였다. DiffSpeech를 만들기 위하여 FastSpeech2의 pitch predictor와 duration predictor를 사용하였으며, shallow diffusion mechanism의 $k$를 70으로 설정하였다. Vocoder로는 HiFi-GAN을 사용하였다. 
 
 다음은 DiffSpeech에 대한 MOS 비교 결과이다. 
 
-<center><img src='{{"/assets/img/diffsinger/diffsinger-table3.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/diffsinger/diffsinger-table3.webp" | relative_url}}' width="40%"></center>
 <br>
 DiffSpeech가 FastSpeech2와 Glow-TTS의 성능을 뛰어 넘는 것을 볼 수 있으며, 마지막 두 행을 보면 shallow diffusion mechanism의 효과를 볼 수 있다. 

@@ -17,7 +17,7 @@ classes: wide
 > Baidu Inc.  
 > 6 Apr 2022  
 
-<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-fig1.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-fig1.webp" | relative_url}}' width="60%"></center>
 
 ## Introduction
 딥러닝의 눈부신 발전과 함께 CNN을 기반으로 한 semantic segmentation 방법이 많이 제안되었다. FCN은 end-to-end 및 pixel-to-pixel 방식으로 학습된 최초의 fully convolutional network이며, 인코더-디코더 아키텍처를 제시하였다. 더 높은 정확도를 달성하기 위해 [PSPNet](https://arxiv.org/abs/1612.01105)은 pyramid pooling module(PPM)을 활용하여 글로벌 컨텍스트를 집계하고 [SFNet](https://arxiv.org/abs/1904.01810)은 feature 표현을 강화하기 위해 flow alignment module을 제안하였다.
@@ -44,7 +44,7 @@ PP-LiteSeg는 분할 정확도와 inference 속도 간의 탁월한 균형을 �
 ### 1.  Flexible and Lightweight Decoder
 인코더-디코더 아키텍처는 semantic segmentation에 효과적인 것으로 입증되었다. 일반적으로 인코더는 계층적 feature를 추출하기 위해 여러 단계로 그룹화된 일련의 레이어를 활용한다. 낮은 레벨에서 높은 레벨로 갈수록 채널 수가 점차 증가하고 feature의 공간적 크기가 감소한다. 이 디자인은 각 단계의 계산 비용 균형을 유지하여 인코더의 효율성을 보장한다. 디코더에는 feature의 융합 및 업샘플링을 담당하는 여러 단계도 있다. Feature의 공간적 크기는 높은 레벨에서 낮은 레벨로 증가하지만 최근 경량 모델의 디코더는 모든 레벨에서 feature 채널을 동일하게 유지한다. 따라서 얕은 단계의 계산 비용은 깊은 단계의 계산 비용보다 훨씬 크므로 얕은 단계의 계산 중복이 발생한다. 
 
-<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-fig3.PNG" | relative_url}}' width="63%"></center>
+<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-fig3.webp" | relative_url}}' width="63%"></center>
 <br>
 본 논문은 디코더의 효율성을 향상시키기 위해 Flexible and Lightweight Decoder (FLD)를 제시하였다. 위 그림에서 (a)는 기존의 인코더-디코더이고 (b)는 FLD이다. FLD는 feature의 채널을 높은 레벨에서 낮은 레벨로 점진적으로 감소시킨다. FLD는 인코더와 디코더 간의 더 나은 균형을 달성하기 위해 계산 비용을 쉽게 조정할 수 있다. FLD의 feature 채널이 감소하고 있지만 PP-LiteSeg는 다른 방법에 비해 경쟁력 있는 정확도를 달성한다. 
 
@@ -52,7 +52,7 @@ PP-LiteSeg는 분할 정확도와 inference 속도 간의 탁월한 균형을 �
 위에서 설명한 것처럼 높은 분할 정확도를 달성하려면 여러 단계의 feature를 융합하는 것이 필수적이다. 본 논문에서는 융합된 feature 표현을 풍부하게 하기 위해 채널 및 공간 attention을 적용하는 Unified Attention Fusion Module (UAFM)을 제안하였다.
 
 #### UAFM Framework
-<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-fig4a.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-fig4a.webp" | relative_url}}' width="55%"></center>
 <br>
 위에서 볼 수 있듯이 UAFM은 attention 모듈을 활용하여 가중치 $\alpha$를 생성하고 Mul 및 Add 연산을 통해 입력 feature를 $\alpha$와 융합한다. 입력 feature는 $F_\textrm{high}$와 $F_\textrm{low}$이다. $F_\textrm{high}$는 더 깊은 모듈의 출력이고 $F_\textrm{low}$는 인코더의 출력이며, 채널이 동일하다. UAFM은 먼저 bilinear interpolation을 사용하여 $F_\textrm{high}$를 $F_\textrm{low}$와 동일한 크기인 $F_\textrm{up}$으로 업샘플링한다. 그런 다음 attention 모듈은 $F_\textrm{up}$과 $F_\textrm{low}$를 입력으로 가중치 $\alpha$를 생성한다. 그 후 attention으로 가중된 feature를 얻기 위해 element-wise 곱연산을 $F_\textrm{up}$과 $F_\textrm{low}$에 각각 적용한다. 마지막으로 attention으로 가중된 feature들에 대해 element-wise 합연산을 수행하고 융합된 feature를 출력한다. 
 
@@ -67,7 +67,7 @@ $$
 여기서 attention 모듈은 공간 attention 모듈이나 채널 attention 모듈이다. 
 
 #### Spatial Attention Module
-<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-fig4b.PNG" | relative_url}}' width="53%"></center>
+<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-fig4b.webp" | relative_url}}' width="53%"></center>
 <br>
 공간 attention 모듈은 공간 사이의 관계를 활용하여 입력 feature의 각 픽셀의 중요성을 나타내는 가중치를 생성한다. 위 그림에서 볼 수 있듯이 입력 feature, 즉 $F_\textrm{up} \in \mathbb{R}^{C \times H \times W}$와 $F_\textrm{low} \in \mathbb{R}^{C \times H \times W}$가 주어지면 먼저 채널 축을 따라 mean 연산과 max 연산을 수행하여 4가지 feature를 생성한다. 그 후, 이 네 가지 feature는 $F_\textrm{cat} \in \mathbb{R}^{4 \times H \times W}$로 concatenate된다. Concatenate된 feature에 convolution과 sigmoid 연산을 적용하여 $\alpha \in \mathbb{R}^{1 \times H \times W}$를 생성한다. 
 
@@ -81,7 +81,7 @@ $$
 추가로 계산 비용을 줄이기 위해 max 연산을 제거할 수도 있다. 
 
 #### Channel Attention Module
-<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-fig4c.PNG" | relative_url}}' width="53%"></center>
+<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-fig4c.webp" | relative_url}}' width="53%"></center>
 <br>
 채널 attention 모듈은 채널 사이의 관계를 활용하여 입력 feature에서 각 채널의 중요성을 나타내는 가중치를 생성한다. 위 그림에서 볼 수 있듯이 제안된 채널 attention 모듈은 average-pooling과 max-pooling 연산을 활용하여 입력 feature의 공간 차원을 압축한다. 이를 통해 $\mathbb{R}^{C \times 1 \times 1}$ 차원의 4개의 feature가 생성된다. 그런 다음 채널 축을 따라 이 네 가지 feature를 concatenate하고 convolution과 sigmoid 연산을 수행하여 가중치 $\alpha \in \mathbb{R}^{C \times 1 \times 1}$를 생성한다.
 
@@ -93,16 +93,16 @@ F_\textrm{cat} &= \textrm{Concat} (\textrm{AvgPool} (F_\textrm{up}), \textrm{Max
 $$
 
 ### 3. Simple Pyramid Pooling Module
-<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-fig5.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-fig5.webp" | relative_url}}' width="60%"></center>
 <br>
 본 논문은 위 그림과 같이 Simple Pyramid Pooling Module (SPPM)을 제안하였다. 먼저 Pyramid Pooling Module (PPM)을 활용하여 입력 feature를 융합한다. PPM에는 세 가지 global-average-pooling 연산이 있으며 bin 크기가 각각 1$\times$1, 2$\times2, 4$\times$4이다. 그 후 출력 feature 뒤에는 convolution과 업샘플링 연산이 이어진다. Convolution 연산의 경우 커널 크기는 1$\times$1이고 출력 채널은 입력 채널보다 작다. 마지막으로 업샘플링된 feature들을 더하고 convolution 연산을 적용하여 개선된 feature를 생성한다. 원래 PPM과 비교하여 SPPM은 중간 채널과 출력 채널을 줄이고 short-cut을 제거하며 concatenate 연산을 합연산으로 대체한다. 결과적으로 SPPM은 실시간 모델에 더 효율적이고 적합하다.
 
 ### 4. Network Architecture
-<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-fig2.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-fig2.webp" | relative_url}}' width="85%"></center>
 <br>
 PP-LiteSeg의 아키텍처는 위 그림과 같다. PP-LiteSeg는 크게 인코더, 집계, 디코더의 세 가지 모듈로 구성된다.
 
-<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-table1.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-table1.webp" | relative_url}}' width="42%"></center>
 <br>
 첫째, 입력 이미지가 주어지면 PP-Lite는 계층적 feature를 추출하기 위해 공통 경량 네트워크를 인코더로 활용하며, 저자들은 STDCNet을 선택했다. STDCNet에는 5개의 stage가 있고 각 stage의 stride는 2이므로 최종 feature 크기는 입력 이미지의 1/32이다. 위 표와 같이 PP-LiteSeg의 두 가지 버전, 즉 PP-LiteSeg-T와 PP-LiteSeg-B가 있으며, 인코더는 각각 STDC1과 STDC2이다. PPLiteSeg-B는 더 높은 분할 정확도를 달성하는 반면 PP-LiteSeg-T의 inference 속도가 더 빠르다. 인코더 학습에 [SSLD](https://arxiv.org/abs/2103.05959) 방법을 적용하고 강화된 사전 학습된 가중치를 얻으며, 이는 학습의 수렴에 도움이 된다. 
 
@@ -133,16 +133,16 @@ PP-LiteSeg의 아키텍처는 위 그림과 같다. PP-LiteSeg는 크게 인코�
 #### Comparisons with State-of-the-arts
 다음은 Cityscapes에서 SOTA 실시간 방법들과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-table2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-table2.webp" | relative_url}}' width="60%"></center>
 
 #### Ablation study
 다음은 Cityscapes validation set에서의 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-table3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-table3.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 Cityscapes validation set에서의 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-fig6.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-fig6.webp" | relative_url}}' width="95%"></center>
 
 - (a): baseline
 - (b): baseline + FLD
@@ -154,4 +154,4 @@ PP-LiteSeg의 아키텍처는 위 그림과 같다. PP-LiteSeg는 크게 인코�
 ### 2. Experiments on CamVid
 다음은 CamVid test set에서 SOTA 실시간 방법들과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-table4.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/pp-liteseg/pp-liteseg-table4.webp" | relative_url}}' width="45%"></center>

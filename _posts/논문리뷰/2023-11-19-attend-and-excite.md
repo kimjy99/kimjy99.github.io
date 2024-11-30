@@ -19,7 +19,7 @@ classes: wide
 > Tel Aviv University  
 > 31 Jan 2023  
 
-<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 텍스트 기반 이미지 생성의 최근 발전은 자유 형식 텍스트 프롬프트를 제공하여 다양하고 창의적인 이미지를 생성할 수 있는 전례 없는 능력을 보여주었다. 그러나 그러한 모델에 의해 생성된 이미지는 항상 대상 프롬프트의 semantic 의미를 충실하게 반영하지 않는 것으로 나타났다. 
@@ -29,7 +29,7 @@ SOTA 텍스트 기반 이미지 생성 모델에서 두 가지 주요 semantic �
 1. Catastrophic neglect: 프롬프트의 피사체 중 하나 이상이 생성되지 않는 문제
 2. 잘못된 속성 바인딩: 모델이 속성을 잘못된 피사체에 바인딩하거나 완전히 바인딩하지 못하는 문제  
 
-<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-fig2.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-fig2.webp" | relative_url}}' width="75%"></center>
 <br>
 위 그림은 SOTA Stable Diffusion 모델에 의해 생성된 이미지이다. 왼쪽에는 모델이 파란색 고양이를 생성하지 못하고 그릇 생성에만 집중하는 catastrophic neglect의 예가 나와 있다. 오른쪽에서는 "노란색" 색상이 벤치에 잘못 바인딩된 잘못된 속성 바인딩 문제를 보여준다. 
 
@@ -44,11 +44,11 @@ Attend-and-Excite는 명시적으로 catastrophic neglect 문제만 다루지만
 ## Attend-and-Excite
 본 논문의 방법의 핵심은 generative semantic nursing 아이디어로, 각 timestep에서 noised latent code를 점진적으로 더 의미론적으로 충실한 생성으로 이동한다. 각 denoising timestep $t$에서 프롬프트 $\mathcal{P}$의 피사체 토큰의 attention map을 고려한다. 직관적으로, 합성 이미지에 피사체가 존재하려면 이미지의 일부 패치에 높은 영향을 주어야 한다. 따라서 각 대상 토큰의 attention 값을 최대화하려는 목적 함수를 정의한다. 그런 다음 계산된 loss의 기울기에 따라 시간 $t$의 noised latent를 업데이트한다. 이는 다음 timestep의 latent가 모든 대상 토큰을 표현에 더 잘 통합하도록 장려한다. 이 조작은 inference 중에 즉석에서 발생한다. 즉, 추가 학습이 수행되지 않는다. 
 
-<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-fig3.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-fig3.webp" | relative_url}}' width="80%"></center>
 <br>
 Attend-and-Excite의 개요는 위 그림과 같으며, 전체 알고리즘은 Algorithm 1과 같다. 
 
-<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-algo1.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-algo1.webp" | relative_url}}' width="55%"></center>
 
 #### Cross-attention map 추출
 입력 프롬프트 $\mathcal{P}$가 주어지면 $\mathcal{P}$에 존재하는 모든 피사체 토큰 (ex. 명사)의 집합 $$\mathcal{S} = \{s_1, \ldots, s_k\}$$을 고려하자. 각 토큰 $s \in \mathcal{S}$에 대한 공간 attention map을 추출하는 것이 목표이며, attention map은 각 이미지 패치에 대한 $s$의 영향을 나타낸다. 현재 timestep에서 noised latent $z_t$를 고려하여 $z_t$와 $\mathcal{P}$를 사용하여 사전 학습된 UNet 네트워크를 통해 forward pass를 수행한다. 그런 다음 모든 16$\times$16 attention layer와 head를 평균한 후 얻은 cross-attention map을 고려한다. 집계된 map $A_t$에는 $\mathcal{P}$의 각 토큰에 대해 하나씩 $N$개의 공간 attention map이 포함된다.
@@ -97,7 +97,7 @@ $$
 #### 설명 가능한 이미지 generator 얻기
 Attention이 설명으로 사용될 수 있는 정도는 광범위하게 연구되었다. 텍스트 기반 이미지 생성의 맥락에서 cross-attention map은 모델에 대한 자연스러운 설명으로 간주되었다.
 
-<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-fig4.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-fig4.webp" | relative_url}}' width="70%"></center>
 <br>
 그러나 catastrophic neglect의 직접적인 결과는 위 그림의 왼쪽에서 볼 수 있듯이 무시된 대상에 해당하는 attention map이 더 이상 생성된 이미지에서 대상의 localization을 충실하게 나타내지 않는다는 것이다. 고양이가 올바르게 localize되면 개구리가 없기 때문에 개구리에 해당하는 map이 관련 없는 영역을 강조 표시한다. 따라서 cross-attention map은 오해의 소지가 있고 부정확하므로 실행 가능한 설명을 구성하지 않는다. 반대로, 위 그림의 오른쪽에서 볼 수 있듯이 Attend-and-Excite를 사용하여 무시를 완화함으로써 고양이와 개구리 모두 attention map에서 정확하게 localize되며 이제 이 map은 충실한 설명으로 간주될 수 있다.
 
@@ -115,34 +115,34 @@ Attention이 설명으로 사용될 수 있는 정도는 광범위하게 연구�
 ### 1. Qualitative Comparisons
 다음은 본 논문이 사용한 데이터셋의 프롬프트를 사용한 정성적 비교 결과이다. 
 
-<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 복잡한 장면과 여러 피사체 토큰을 설명하는 프롬프트를 사용하여 Stable Diffusion과 추가 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 [StructureDiffusion](https://kimjy99.github.io/논문리뷰/structured-diffusion-guidance)의 프롬프트로 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-fig7.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-fig7.webp" | relative_url}}' width="70%"></center>
 
 ### 2. Quantitative Analysis
 #### Text-Image Similarities
 다음은 텍스트 프롬프트와 각 방법으로 생성된 이미지 사이의 평균 CLIP 이미지-텍스트 유사도를 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-fig8.webp" | relative_url}}' width="100%"></center>
 
 #### Text-Text Similarities
 다음은 텍스트 프롬프트와 생성된 이미지에 대해 BLIP이 생성한 캡션 사이의 평균 CLIP 텍스트-텍스트 유사도를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-table1.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-table1.webp" | relative_url}}' width="55%"></center>
 
 #### User Study
 다음은 65명의 응답자를 대상으로 실시한 user study 결과이다. 
 
-<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-table2.PNG" | relative_url}}' width="58%"></center>
+<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-table2.webp" | relative_url}}' width="58%"></center>
 
 ## Limitations
-<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-fig9.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/attend-and-excite/attend-and-excite-fig9.webp" | relative_url}}' width="80%"></center>
 
 1. 추가 학습을 적용하지 않기 때문에 생성 모델의 표현력에 의해 제한된다. 프롬프트가 모델이 학습한 텍스트 설명의 분포 밖에 있는 경우, 본 논문의 방법은 분포를 벗어난 latent를 만들어 텍스트 프롬프트와 일치하지 않는 이미지를 생성할 수 있다. 
 2. 자연적으로 함께 나타나지 않는 피사체를 합성할 때 생성된 이미지는 덜 사실적일 수 있다. 이러한 조합은 Stable Diffusion이 실제 이미지에 대해 학습한 분포 밖에 존재하는 경향이 있다. 

@@ -27,7 +27,7 @@ Face2speech 논문에서는 얼굴 이미지를 활용하여 합성 음성의 sp
 
 본 논문에서는 speaker의 robust한 특성을 제공하기 위해 얼굴 이미지를 활용한 새로운 음성 합성 모델인 Face-TTS를 제안한다. [Learnable pins 논문](https://arxiv.org/abs/1805.00833)에서 cross-modal 생체 인식을 탐구하고 목소리와 얼굴 모양 사이에 강한 상관 관계가 있음을 입증했다. 이에 영감을 받아 말하는 스타일이 얼굴 특성에 따라 결정되는 multi-speaker TTS 모델을 디자인한다. 모든 speaker의 등록을 위해 음성 세그먼트를 수집하는 것은 어렵지만 얼굴 이미지를 얻는 것은 훨씬 쉽다. 말하기 스타일의 강력한 cross-modal 표현을 학습시키기 위해 얼굴의 identity와 합성된 음성의 identity의 일치를 시행한다. 본 논문의 접근 방식은 speaker 등록 없이 음성 신호를 생성할 수 있으며 이는 zero-shot 또는 few-shot TTS 모델링에 유리하다. TTS 모델의 backbone 구조는 diffusion 방법을 사용하여 음향 feature을 학습하는 Grad-TTS에서 파생된다. 다른 face-to-speech 합성 방법과 달리 Face-TTS는 실제 데이터셋을 사용하여 얼굴 인코더에서 음향 모델까지 end-to-end로 학습된다. 얼굴 이미지가 TTS 모델 학습 조건으로 사용된 것은 본 논문이 처음이다. Speaker의 표현과 합성된 음성의 지각적(perceptual) 품질을 평가하기 위해 정성 및 정량 테스트를 수행한다. 또한 합성된 음성이 아래 그림과 같이 자신의 목소리가 없는 가상인간의 모습과 잘 어울리는지 검증한다.
 
-<center><img src='{{"/assets/img/imaginary-voice/imaginary-voice-fig1.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/imaginary-voice/imaginary-voice-fig1.webp" | relative_url}}' width="40%"></center>
 
 ## Face-TTS
 ### 1. Score-based Diffusion Model
@@ -64,7 +64,7 @@ $$
 
 전체적인 아키텍처는 아래와 같다.
 
-<center><img src='{{"/assets/img/imaginary-voice/imaginary-voice-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/imaginary-voice/imaginary-voice-fig2.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Speaker Conditioning with Cross-modal Biometrics
 Grad-TTS와 Glow-TTS 논문에서는 말하는 스타일을 학습하기 위한 speaker model을 활용하지 않지만 각 identity에 대한 사전 정의된 speaker codebook을 준비한다. 따라서 모델에 새로운 speaker를 제시하기 어렵고, 이를 해결하기 위해서는 어려운 적응 과정이 필요하다. Adaspeech 등의 논문에서는 speaker embedding이 합성된 음성에서 말하는 스타일을 정확하게 조정함을 증명하였다. 그러나 여전히 문제가 남아 있다. Speaker embedding은 일반적으로 speaker의 과도한 디테일을 나타내며 TTS의 음향 모델링에서 불안정한 학습을 생성한다. 따라서 speaker embedding은 합성된 음성에서 speaker의 음성을 나타내도록 일반화되어야 한다. 
@@ -100,18 +100,18 @@ Inference 시에는 target speaker의 얼굴로 컨디셔닝된 전사로 $X_t$�
 #### Audio quality
 다음은 mean opinion score (MOS)로 오디오 품질에 대한 주관적 평가를 비교한 표이다.
 
-<center><img src='{{"/assets/img/imaginary-voice/imaginary-voice-table1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/imaginary-voice/imaginary-voice-table1.webp" | relative_url}}' width="50%"></center>
 
 #### Speaker verification
 다음은 두 합성 발화와 일치하는 얼굴에 대한 선호도(a)와 두 얼굴 모습에 일치하는 합성 발화에 대한 선호도(b)를 테스트한 결과이다.
 
-<center><img src='{{"/assets/img/imaginary-voice/imaginary-voice-fig3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/imaginary-voice/imaginary-voice-fig3.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 speaker 신원 일치 정확도에 대한 표이다. 
 
-<center><img src='{{"/assets/img/imaginary-voice/imaginary-voice-table2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/imaginary-voice/imaginary-voice-table2.webp" | relative_url}}' width="50%"></center>
 
 #### Virtual speech generation
 다음은 Stable Diffusion으로 생성한 가상 얼굴 이미지와 생성된 발화 사이의 일치 선호도를 평가한 표이다.
 
-<center><img src='{{"/assets/img/imaginary-voice/imaginary-voice-table3.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/imaginary-voice/imaginary-voice-table3.webp" | relative_url}}' width="45%"></center>

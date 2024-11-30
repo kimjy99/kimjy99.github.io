@@ -19,7 +19,7 @@ classes: wide
 > Meta AI Research, FAIR  
 > 5 Apr 2023  
 
-<center><img src='{{"/assets/img/segment-anything/segment-anything-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/segment-anything/segment-anything-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 웹 규모 데이터셋에서 사전 학습된 대규모 언어 모델은 강력한 zero-shot 및 few-shot 일반화로 NLP를 혁신하고 있다. 이러한 "foundation model"은 학습 중에 볼 수 있는 것 이상으로 task와 데이터 분포를 일반화할 수 있다. 이 능력은 직접 만든 텍스트를 사용하여 언어 모델이 현재 task에 대한 유효한 텍스트 응답을 생성하도록 프롬프트하는 프롬프트 엔지니어링으로 구현되는 경우가 많다. 웹의 풍부한 텍스트 corpus로 확장하고 학습할 때 이러한 모델의 zero-shot 및 few-shot 성능은 fine-tuning된 모델과 놀라울 정도로 잘 비교된다. 경험적 추세는 모델 규모, 데이터셋 크기, total training compute로 이러한 동작이 개선됨을 보여준다.
@@ -37,7 +37,7 @@ classes: wide
 이러한 질문은 얽혀 있으며 포괄적인 해결책이 필요하다. 저자들은 강력한 사전 학습 목적 함수를 제공하고 광범위한 하위 애플리케이션을 활성화할 수 있을 만큼 충분히 일반적인 promptable segmentation task를 정의하는 것으로 시작한다. 이 task에는 유연한 프롬프트를 지원하고 상호 작용하도록 메시지가 표시될 때 segmentation mask를 실시간으로 출력할 수 있는 모델이 필요하다. 모델을 학습시키려면 다양하고 대규모의 데이터 소스가 필요하다. 안타깝게도 segmentation을 위한 웹 규모 데이터 소스가 없다. 이 문제를 해결하기 위해 "데이터 엔진"을 구축한다. 즉, 효율적인 모델을 사용하여 데이터 수집을 지원하는 것과 새로 수집된 데이터를 사용하여 모델을 개선하는 것 사이를 반복한다. 
 
 ## Segment Anything Task
-<center><img src='{{"/assets/img/segment-anything/segment-anything-fig3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/segment-anything/segment-anything-fig3.webp" | relative_url}}' width="50%"></center>
 <br>
 저자들은 다음 토큰 예측 task가 foundation model 사전 학습에 사용되고 프롬프트 엔지니어링을 통해 다양한 하위 task를 해결하는 NLP에서 영감을 얻었다. Segmentation을 위한 foundation model을 구축하기 위해 유사한 능력을 가진 task를 정의하는 것을 목표로 한다.
 
@@ -54,7 +54,7 @@ Promptable segmentation task는 각 학습 샘플에 대한 일련의 프롬프�
 Prompting과 composition은 단일 모델을 확장 가능한 방식으로 사용하여 잠재적으로 모델 설계 시 알려지지 않은 task를 수행할 수 있도록 하는 강력한 도구이다. 이 접근 방식은 다른 foundation model이 사용되는 방식과 유사하다. 저자들은 프롬프트 엔지니어링과 같은 기술로 구동되는 composition 가능한 시스템 설계가 고정된 일련의 task를 위해 특별히 학습된 시스템보다 더 다양한 애플리케이션을 가능하게 할 것으로 예상하였다. Ccomposition의 관점에서 promptable segmentation과 interactive segmentation을 비교하는 것도 흥미롭다. interactive segmentation model은 인간 사용자를 염두에 두고 설계되었지만 promptable segmentation을 위해 학습된 모델은 더 큰 알고리즘 시스템으로 구성될 수 있다.
 
 ## Segment Anything Model
-<center><img src='{{"/assets/img/segment-anything/segment-anything-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/segment-anything/segment-anything-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 Segment Anything Model (SAM)에는 위 그림에 나와 있는 것처럼 세 가지 구성 요소가 있다. 
 
@@ -113,7 +113,7 @@ Segmentation mask가 인터넷에 풍부하지 않기 때문에 저자들은 11�
 구체적으로, 32$\times$32 regular grid의 점으로 모델을 유도했고 각 점에 대해 유효한 객체에 해당할 수 있는 마스크 세트를 예측했다. 모호성 인식 모델을 사용하면 점이 부분 또는 하위 부분에 있으면 모델이 하위 부분, 부분 및 전체 개체를 반환한다. 모델의 IoU 예측 모듈은 신뢰할 수 있는 마스크를 선택하는 데 사용된다. 또한 안정적인 마스크만 식별하고 선택한다. 마지막으로 자신 있고 안정적인 마스크를 선택한 후 Non-Maximal Suppression (NMS)를 적용하여 중복을 필터링한다. 더 작은 마스크의 품질을 더욱 향상시키기 위해 여러 개의 겹치는 확대 이미지 crop도 처리하였다. 데이터셋의 모든 1,100만 개 이미지에 완전 자동 마스크 생성을 적용하여 총 11억 개의 고품질 마스크를 생성했다. 
 
 ## Segment Anything Dataset
-<center><img src='{{"/assets/img/segment-anything/segment-anything-fig2.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/segment-anything/segment-anything-fig2.webp" | relative_url}}' width="90%"></center>
 <br>
 SA-1B 데이터셋은 데이터 엔진으로 수집된 1,100만 개의 다양한 고해상도 라이선스 및 개인 정보 보호 이미지와 11억 개의 고품질 segmentation mask로 구성된다. 마스크의 99.1%는 자동으로 생성되었다고 한다. 
 
@@ -122,70 +122,70 @@ SA-1B 데이터셋은 데이터 엔진으로 수집된 1,100만 개의 다양한
 #### Mask properties
 다음은 SA-1B의 물체 중심의 공간적 분포를 다른 segmentation 데이터셋과 비교한 것이다.
 
-<center><img src='{{"/assets/img/segment-anything/segment-anything-fig5.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/segment-anything/segment-anything-fig5.webp" | relative_url}}' width="70%"></center>
 <br>
 SA-1B는 가장 유사하게 분산된 두 개의 데이터셋인 LVIS v1과 ADE20K에 비해 이미지 모서리의 범위가 더 넓은 반면 COCO와 Open Images V5는 중심 편향이 더 두드러진다. 
 
 다음은 데이터셋들을 크기로 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/segment-anything/segment-anything-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/segment-anything/segment-anything-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 예측한대로 SA-1B는 이미지 당 마스크의 개수가 높으며, 중소형 크기의 마스크를 더 많이 포함하는 경향이 있다. 마스크의 오목함 분포가 다른 데이터셋의 오목함 분포와 대체로 유사하다.
 
 ## Segment Anything RAI Analysis
 다음은 SA-1B 이미지들의 지리적 분포를 나타낸 것이다. 
 
-<center><img src='{{"/assets/img/segment-anything/segment-anything-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/segment-anything/segment-anything-fig7.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 SA-1B의 지리적 및 소득 표현을 비교한 표이다.
 
-<center><img src='{{"/assets/img/segment-anything/segment-anything-table1.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/segment-anything/segment-anything-table1.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 성별, 나이, 피부색에 따른 SA-1B의 segmentation 성능을 나타낸 표이다.
 
-<center><img src='{{"/assets/img/segment-anything/segment-anything-table2.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/segment-anything/segment-anything-table2.webp" | relative_url}}' width="52%"></center>
 
 ## Zero-Shot Transfer Experiments
 다음은 SAM의 zero-shot trasfer 능력을 평가하기 위해 사용된 23개의 다양한 데이터셋의 샘플들이다.
 
-<center><img src='{{"/assets/img/segment-anything/segment-anything-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/segment-anything/segment-anything-fig8.webp" | relative_url}}' width="100%"></center>
 
 ### 1. Zero-Shot Single Point Valid Mask Evaluation
 다음은 23개의 데이터셋에 대하여 mIoU를 측정하고 [RITM](https://arxiv.org/abs/2102.06583)과 그 결과를 비교한 그래프들이다. 
 
-<center><img src='{{"/assets/img/segment-anything/segment-anything-fig9.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/segment-anything/segment-anything-fig9.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Zero-Shot Edge Detection
 다음은 BSDS500에서 zero-shot으로 edge를 예측한 예시이다.
 
-<center><img src='{{"/assets/img/segment-anything/segment-anything-fig10.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/segment-anything/segment-anything-fig10.webp" | relative_url}}' width="65%"></center>
 <br>
 다음은 BSDS500에서 edge detection에 대한 zero-shot transfer 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/segment-anything/segment-anything-table3.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/segment-anything/segment-anything-table3.webp" | relative_url}}' width="55%"></center>
 
 ### 3. Zero-Shot Object Proposals
 다음은 LVIS v1에서 object proposal 생성 성능을 비교한 표이다.
 
-<center><img src='{{"/assets/img/segment-anything/segment-anything-table4.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/segment-anything/segment-anything-table4.webp" | relative_url}}' width="57%"></center>
 
 ### 4. Zero-Shot Instance Segmentation
 다음은 instance segmentation 결과를 나타낸 표이다.
 
-<center><img src='{{"/assets/img/segment-anything/segment-anything-table5.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/segment-anything/segment-anything-table5.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 사람이 평가한 마스크 품질 rating을 나타낸 그래프이다.
 
-<center><img src='{{"/assets/img/segment-anything/segment-anything-fig11.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/segment-anything/segment-anything-fig11.webp" | relative_url}}' width="60%"></center>
 
 ### 5. Zero-Shot Text-to-Mask
 다음은 zero-Shot text-to-mask에 대한 정량적 결과이다. 
 
-<center><img src='{{"/assets/img/segment-anything/segment-anything-fig12.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/segment-anything/segment-anything-fig12.webp" | relative_url}}' width="60%"></center>
 <br>
 SAM은 간단하고 미묘한 텍스트 프롬프트에 대하여 동작할 수 있으며, 정확한 예측에 실패한 경우 추가 점 프롬프트로 예측을 도울 수 있다. 
 
 ### 6. Ablations
 다음은 데이터 엔진 단계(왼쪽), 학습 데이터 스케일링(중간), 이미지 인코더 스케일링(오른쪽)에 대한 ablation study 결과를 나타낸 그래프이다. 
 
-<center><img src='{{"/assets/img/segment-anything/segment-anything-fig13.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/segment-anything/segment-anything-fig13.webp" | relative_url}}' width="100%"></center>

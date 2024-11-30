@@ -20,7 +20,7 @@ classes: wide
 > University of Hong Kong | Microsoft  
 > 25 May 2023  
 
-<center><img src='{{"/assets/img/uni-controlnet/uni-controlnet-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/uni-controlnet/uni-controlnet-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 최근 2년 동안 diffusion model은 이미지 합성 task에서 뛰어난 성능으로 인해 상당한 주목을 받았다. 따라서 T2I (text-to-image) diffusion model은 텍스트 입력을 기반으로 고품질 이미지를 합성하기 위한 대중적인 선택으로 부상했다. 이러한 T2I diffusion model은 대형 모델이 포함된 대규모 데이터셋에 대한 학습을 통해 텍스트 설명에 설명된 콘텐츠와 매우 유사한 이미지를 생성하는 탁월한 능력을 보여주고 텍스트와 시각적 도메인 간의 연결을 용이하게 한다. 복잡한 텍스처 디테일과 객체 간의 복잡한 관계를 캡처할 때 생성 품질이 크게 향상되어 다양한 실제 애플리케이션에 매우 적합하다.
@@ -29,7 +29,7 @@ classes: wide
 
 최근에는 제어 가능한 T2I diffusion model을 연구하려는 시도가 있었다. 대표적으로 [Composer](https://kimjy99.github.io/논문리뷰/composer)는 텍스트 설명과 함께 여러 제어 신호의 통합을 탐색하고 수십억 규모의 데이터셋에서 모델을 처음부터 학습하였다. 결과는 유망하지만 막대한 GPU 리소스가 필요하고 막대한 학습 비용이 발생하여 이 분야의 많은 연구자들이 감당할 수 없는 비용이 든다. 공개적으로 사용할 수 있는 강력한 사전 학습된 T2I diffusion model (ex. Stable Diffusion)이 있다는 점을 고려하여 [ControlNet](https://kimjy99.github.io/논문리뷰/controlnet)과 [T2I-Adapter](https://kimjy99.github.io/논문리뷰/t2i-adapter)는 가벼운 어댑터를 고정된 T2I diffusion model에 직접 통합하여 추가 조건 신호를 활성화한다. 이 방법은 fine-tuning을 더 저렴하게 만든다. 그러나 한 가지 단점은 각 단일 조건에 대해 하나의 독립적인 어댑터가 필요하므로 많은 조건이 유사한 특성을 공유하더라도 제어 조건의 수가 증가함에 따라 fine-tuning 비용과 모델 크기가 선형적으로 증가한다는 것이다. 또한 이로 인해 서로 다른 조건 간의 결합 가능성이 만만치 않은 과제로 남아 있다.
 
-<center><img src='{{"/assets/img/uni-controlnet/uni-controlnet-table1.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/uni-controlnet/uni-controlnet-table1.webp" | relative_url}}' width="75%"></center>
 <br>
 본 논문에서는 사전 학습된 T2I diffusion model을 정밀하게 제어할 수 있도록 경량 어댑터를 활용하는 새로운 프레임워크인 **Uni-ControlNet**을 제안한다. 위 표에서 볼 수 있듯이 Uni-ControlNet은 이전 방법과 달리 다양한 조건을 로컬 조건과 글로벌 조건의 두 가지 그룹으로 분류한다. 따라서 관련된 로컬 제어와 전역 제어의 수에 관계없이 두 개의 추가 어댑터만 추가한다. 이 디자인 선택은 전체 fine-tuning 비용과 모델 크기를 모두 크게 줄여 배포에 매우 효율적일 뿐만 아니라 다양한 조건의 결합 가능성을 용이하게 한다. 이를 달성하기 위해 로컬 및 글로벌 제어용 어댑터를 전용으로 설계했다. 특히 로컬 제어의 경우 공유 로컬 조건 인코더 어댑터를 사용하는 멀티스케일 조건 주입 전략을 도입한다. 이 어댑터는 먼저 로컬 제어 신호를 변조 신호로 변환한 다음 들어오는 noise feature를 변조하는 데 사용된다. 그리고 글로벌 제어를 위해 다른 공유 글로벌 조건 인코더를 사용하여 조건부 토큰으로 변환한다. 이 토큰은 텍스트 토큰과 concat되어 확장된 프롬프트를 형성하고 cross-attention 메커니즘을 통해 들어오는 feature와 상호 작용한다. 흥미롭게도 저자들은 이 두 어댑터가 추가 공동 학습 없이 개별적으로 학습될 수 있는 동시에 여러 제어 신호의 결합을 계속 지원한다는 사실을 발견했다. 이 발견은 Uni-ControlNet이 제공하는 유연성과 사용 편의성을 추가한다. 
 
@@ -71,11 +71,11 @@ $$
 
 또한 하나의 예시 글로벌 조건, 즉 CLIP 이미지 인코더에서 추출된 하나의 레퍼런스 콘텐츠 이미지의 글로벌 이미지 임베딩을 고려한다. 이 글로벌 조건은 단순한 이미지 feature를 넘어 조건 이미지의 semantic 내용에 대한 보다 미묘한 이해를 제공한다. 로컬 조건과 글로벌 조건을 모두 사용하여 생성 프로세스에 대한 포괄적인 제어를 제공하는 것을 목표로 한다. 아래 그림은 파이프라인의 개요이다.
 
-<center><img src='{{"/assets/img/uni-controlnet/uni-controlnet-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/uni-controlnet/uni-controlnet-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 아래 그림은 로컬 제어 어댑터와 전역 제어 어댑터의 디테일이다. 
 
-<center><img src='{{"/assets/img/uni-controlnet/uni-controlnet-fig3.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/uni-controlnet/uni-controlnet-fig3.webp" | relative_url}}' width="95%"></center>
 
 #### Local Control Adapter
 로컬 제어 어댑터의 경우 [ControlNet](https://kimjy99.github.io/논문리뷰/controlnet)에서 영감을 얻었다. 구체적으로, SD의 가중치를 고정하고 각각 $F'$과 $M'$으로 지정된 인코더 및 중간 블록의 구조와 가중치를 복사한다. 그런 다음 디코딩 프로세스 중에 로컬 제어 어댑터의 정보를 통합한다. 이를 위해 디코더의 $i$번째 블록의 입력을 다음과 같이 수정하면서 다른 모든 요소가 변경되지 않도록 한다.
@@ -135,20 +135,20 @@ $$
 ### 1. Controllable Generation Results
 다음은 Uni-ControlNet의 시각적 결과이다. 
 
-<center><img src='{{"/assets/img/uni-controlnet/uni-controlnet-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/uni-controlnet/uni-controlnet-fig4.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Comparison with Existing Methods
 다음은 여러 제어 가능한 diffusion model을 FID로 비교한 표이다. 
 
-<center><img src='{{"/assets/img/uni-controlnet/uni-controlnet-table2.PNG" | relative_url}}' width="82%"></center>
+<center><img src='{{"/assets/img/uni-controlnet/uni-controlnet-table2.webp" | relative_url}}' width="82%"></center>
 <br>
 다음은 여러 단일 조건에서 기존의 제어 가능한 diffusion model들을 비교한 것이다. 
 
-<center><img src='{{"/assets/img/uni-controlnet/uni-controlnet-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/uni-controlnet/uni-controlnet-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 여러 조건에서 제어 가능한 다양한 diffusion model들을 비교한 것이다. 
 
-<center><img src='{{"/assets/img/uni-controlnet/uni-controlnet-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/uni-controlnet/uni-controlnet-fig6.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Ablation Analysis
 - Injection-S1: 조건을 삽입하기 위해 SPADE를 직접 사용 (보간을 사용하여 조건을 해당 해상도로 크기 조정하는 연산이 포함됨)
@@ -159,12 +159,12 @@ $$
 
 다음은 조건 주입 방법과 학습 전략에 따른 FID를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/uni-controlnet/uni-controlnet-table3.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/uni-controlnet/uni-controlnet-table3.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 여러 조건 주입 방법에 대한 결과이다. 
 
-<center><img src='{{"/assets/img/uni-controlnet/uni-controlnet-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/uni-controlnet/uni-controlnet-fig7.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 여러 학습 전략에 대한 결과이다. 
 
-<center><img src='{{"/assets/img/uni-controlnet/uni-controlnet-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/uni-controlnet/uni-controlnet-fig8.webp" | relative_url}}' width="100%"></center>

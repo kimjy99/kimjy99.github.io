@@ -19,7 +19,7 @@ classes: wide
 > Weizmann Institute of Science, Rehovot, Israel  
 > 21 Nov 2022  
 
-<center><img src='{{"/assets/img/sinfusion/sinfusion-fig1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/sinfusion/sinfusion-fig1.webp" | relative_url}}' width="80%"></center>
 
 ## Introduction
 최근까지 GAN은 StyleGAN, BigGAN 등과 같은 주요 연구로 생성 모델 분야를 지배했다. Diffusion model (DM)은 지난 몇 년 동안 이미지 품질과 다양성 면에서 GAN을 능가하고 text-to-image 생성, super-resolution 등과 같은 많은 vision task에서 선도적인 방법이다. 또한 최근 연구들은 동영상 생성과 text-to-video 생성을 위한 DM의 효과를 보여주었다. 
@@ -42,12 +42,12 @@ DM은 대규모 데이터셋에서 학습하기 때문에 이러한 모델은 �
 단일 입력 이미지가 주어지면 모델이 입력 이미지와 모양 및 구조가 유사하지만 의미론적으로 일관된 변형을 허용하는 새로운 다양한 샘플을 생성하는 것이 목표이다. 일반적인 DDPM 프레임워크를 기반으로 하고 학습 절차와 DDPM의 핵심 네트워크에 몇 가지 수정 사항을 도입한다. 
 
 #### Training on Large Crops
-<center><img src='{{"/assets/img/sinfusion/sinfusion-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/sinfusion/sinfusion-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 대규모 이미지 컬렉션에 대한 학습 대신 위 그림과 같이 입력 이미지 (일반적으로 원본 이미지 크기의 약 95%)에서 대규모의 random crop에 대해 단일 diffusion model을 학습한다. 저자들은 이미지의 원래 해상도에 대한 학습이 multi-scale pyramid를 사용하지 않고도 다양한 이미지 샘플을 생성하기에 충분하다는 것을 발견했다. Large crop에 대한 학습을 통해 생성된 출력은 입력 이미지의 글로벌한 구조를 유지한다. 
 
 #### Network Architecture
-<center><img src='{{"/assets/img/sinfusion/sinfusion-fig3.PNG" | relative_url}}' width="35%"></center>
+<center><img src='{{"/assets/img/sinfusion/sinfusion-fig3.webp" | relative_url}}' width="35%"></center>
 <br>
 단일 이미지 또는 large crop에서 표준 DDPM을 직접 학습시키면 "overfitting"이 발생한다. 즉, 모델은 동일한 이미지 crop만 생성한다. 저자들은 DDPM에서 핵심 backbone network의 receptive field가 전체 입력 이미지이기 때문에 이러한 현상이 발생한다고 가정한다. 이를 위해 receptive field의 크기를 줄이기 위해 DDPM의 backbone UNet network를 수정한다. 글로벌한 receptive field가 있으므로 attention layer를 제거한다. 또한 receptive field가 너무 빠르게 커지는 downsampling 및 upsampling layer를 제거한다. 
 
@@ -65,12 +65,12 @@ $$
 
 저자들은 noise 대신 이미지를 예측하는 것이 단일 이미지로 학습할 때 품질과 학습 시간 모두에서 더 나은 결과를 가져온다는 것을 발견했다. 저자들은 이 차이가 큰 이미지 데이터셋의 데이터 분포와 비교하여 단일 이미지의 데이터 분포가 단순하기 때문이라고 생각한다. 전체 학습 알고리즘은 다음과 같다.
 
-<center><img src='{{"/assets/img/sinfusion/sinfusion-algo1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/sinfusion/sinfusion-algo1.webp" | relative_url}}' width="50%"></center>
 <br>
 본 논문의 단일 이미지 DDPM은 다양한 생성, 스케치에서 생성, 이미지 편집과 같은 다양한 이미지 합성 task에 사용할 수 있다. 
 
 ## Single Video DDPM
-<center><img src='{{"/assets/img/sinfusion/sinfusion-fig4.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/sinfusion/sinfusion-fig4.webp" | relative_url}}' width="80%"></center>
 <br>
 위 그림과 같이 동영상 생성 프레임워크는 3개의 단일 이미지 DDPM 모델로 구성되며, 이 모델의 조합은 다양한 동영상 관련 애플리케이션을 생성한다. 이 프레임워크는 기본적으로 autoregressive 동영상 generator이다. 
 
@@ -95,7 +95,7 @@ Projector model의 역할은 Predictor에서 생성된 프레임을 수정하는
 출력 샘플이 원본 입력 동영상과 유사한 모양, 구조, 동작을 갖도록 단일 입력 동영상에서 길이에 관계없이 다양한 동영상을 생성할 수 있다. 이는 Predictor와 Projector 모델을 결합하여 수행된다. 첫 번째 프레임은 원본 동영상의 일부 프레임이거나 unconditional Projector에서 생성된 출력 이미지다. 그런 다음 Predictor는 이전에 생성된 프레임에 따라 다음 프레임을 생성하는 데 사용된다. 다음으로, 예측된 프레임이 프로젝터에 의해 수정된다. 이는 생성되었을 수 있는 작은 아티팩트를 제거하여 시간이 지남에 따라 오차가 누적되는 것을 방지하기 위함이다. 이 프로세스는 원하는 수의 프레임이 생성될 때까지 반복된다. 이 autoregressive 생성 프로세스를 반복하면 임의 길이의 새로운 동영상이 생성된다. 프로세스는 본질적으로 확률적이다. 초기 프레임이 동일하더라도 서로 다른 생성된 출력이 빠르게 분기되어 서로 다른 동영상을 생성한다. 
 
 #### Video Extrapolation
-<center><img src='{{"/assets/img/sinfusion/sinfusion-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/sinfusion/sinfusion-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 입력 동영상이 주어지면 위에서 설명한 생성 프로세스를 입력 동영상의 마지막 프레임으로 초기화하여 미래 프레임을 예측할 수 있다. 위 그림은 그러한 몇 가지 예를 보여준다. 기존의 단일 동영상 생성 방법은 시간에 따라 동영상을 추정할 수 없다. 또한 Predictor는 시간적으로 역방향으로 학습되기 때문에 (음의 $k$를 사용하여 이전 프레임을 예측) 동영상의 첫 번째 프레임에서 시작하여 동영상을 역방향으로 추정할 수도 있다 (과거 예측). 예를 들어 날아가는 풍선이 착륙하는 동영상을 생성할 수 있으며, 이는 원래 동영상에서는 관찰되지 않은 동작이다. 이는 프레임워크의 일반화 능력을 직접적으로 보여준다. 
 
@@ -109,13 +109,13 @@ SinFusion은 입력 동영상을 추정할 수 있을 뿐만 아니라 원본 �
 
 아래 그림은 이러한 결과들을 보여준다.
 
-<center><img src='{{"/assets/img/sinfusion/sinfusion-fig6.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/sinfusion/sinfusion-fig6.webp" | relative_url}}' width="50%"></center>
 
 ## Evaluations & Comparisons
 ### 1. Future-Frame Prediction from a Single Video
 $N$ 프레임의 동영상이 주어지면 $n < N$ 프레임을 사용하여 모델을 학습시킨다. Inference에서는 나머지 $N-n$ 프레임에서 100 프레임을 샘플링하고, 각 프레임에 대해 학습된 모델로 다음 프레임 예측하도록 하였다. 예측된 프레임과 실제 프레임을 비교하기 위해 저자들은 PSNR을 사용하였으며, 각 프레임에 대한 PSNR에 평균을 취하여 전체 점수로 사용하였다. 
 
-<center><img src='{{"/assets/img/sinfusion/sinfusion-fig7.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/sinfusion/sinfusion-fig7.webp" | relative_url}}' width="50%"></center>
 
 단일 동영상에서의 프레임 예측을 위한 다른 방법이 없기 때문에 본 논문은 간단하지만 강력한 baseline을 사용하였다. 프레임 $f(i)$가 주어지면 다음 프레임을 동일하게 예측하는 것으로, 식으로 표현하면 $f(i+1) = f(i)$다. 대부분의 동영상이 정적인 배경을 가지고 있고 연속된 두 프레임 사이의 변화가 적기 때문에 강한 baseline이라고 할 수 있다. 
 
@@ -127,7 +127,7 @@ $N$ 프레임의 동영상이 주어지면 $n < N$ 프레임을 사용하여 모
 
 다음은 다음 프레임 예측에 대한 실험 결과를 나타낸 그래프이다.
 
-<center><img src='{{"/assets/img/sinfusion/sinfusion-fig8.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/sinfusion/sinfusion-fig8.webp" | relative_url}}' width="50%"></center>
 <br>
 SinFusion은 일관되게 baseline의 성능을 뛰어넘는다. 
 
@@ -136,7 +136,7 @@ SinFusion은 일관되게 baseline의 성능을 뛰어넘는다.
 
 NNF는 생성된 동영상에서 각 (3, 3, 3)의 시공간적 패치에 대하여 원본 동영상에서 nearest-neighbor 패치를 찾아 계산된다. 각 voxel은 해당 nearest-neighbor를 가리키는 벡터와 연결된다. 단순하게 생성된 동영상은 다소 일정한 NNF를 갖는 반면, 더 복잡하게 생성된 동영상은 복잡한 NNF를 갖는다. NNF에 대한 시각화된 예는 아래와 같다. (각 벡터는 color wheel을 사용하여 RGB로 변환)
 
-<center><img src='{{"/assets/img/sinfusion/sinfusion-fig9.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/sinfusion/sinfusion-fig9.webp" | relative_url}}' width="50%"></center>
 <br>
 VGPNN 출력의 NNF는 단순하지만 SinFusion으 경우 NNF가 복잡하다. 
 
@@ -144,7 +144,7 @@ NNF의 복잡도를 정량화하기 위하여 ZLIB를 사용하여 NNF를 압축
 
 다음 표는 동영상 생성의 다양성을 비교한 표이다.
 
-<center><img src='{{"/assets/img/sinfusion/sinfusion-table1.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/sinfusion/sinfusion-table1.webp" | relative_url}}' width="55%"></center>
 <br>
 VGPNN은 원본 동영상에서 프레임들을 복사하기 때문에 더 나은 품질 (낮은 NNFDIST와 SVFID)이 기대된다. 반면 VGPNN의 다양성(NNFDIV)은 매우 낮다. HP-VAR-GAN 데이터셋에서는 HP-VAR-GAN보다 품질과 다양성 모두 우수하였다. SinGAN-GIF 데이터셋에서는 SinGAN-GIF의 다양성이 높았지만 품질이 매우 낮았다. 두 데이터셋 모두에서 SinFusion은 다양성과 품질에 대한 최고의 trade-off를 보여주었다. 
 

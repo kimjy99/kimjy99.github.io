@@ -20,7 +20,7 @@ classes: wide
 > Google Research  
 > 9 Sep 2022  
 
-<center><img src='{{"/assets/img/token-critic/token-critic-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/token-critic/token-critic-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 클래스 조건부 이미지 합성은 현실적인 디테일과 시각적 아티팩트가 거의 없거나 전혀 없는 다양하고 의미론적으로 유의미한 이미지를 생성해야 하는 까다로운 task이다. 이 분야는 크게 GAN, diffusion model, vector-quantized (VQ) latent space를 사용하는 transformer 기반 모델이 인상적인 발전을 보였다. 이러한 각 기술은 모델 크기, 샘플링 계산 비용, 이미지 품질 및 다양성을 절충하는 서로 다른 이점을 제공한다.
@@ -63,7 +63,7 @@ $$
 
 여기서 $q(x_0, c)$는 마스킹되지 않은 실제 이미지의 분포, $q(t)$는 timestep의 분포, $q(m_t \vert t)$는 이진 마스크의 분포이다. BCE는 binary cross-entropy loss를 나타낸다. Generator $G_\theta$에 의해 유도된 샘플링 분포 $$p_\theta (\hat{x}_0 \vert m_t \odot x_0)$$는 Token-Critic 모델의 학습 중에 고정된다.
 
-<center><img src='{{"/assets/img/token-critic/token-critic-algo1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/token-critic/token-critic-algo1.webp" | relative_url}}' width="50%"></center>
 <br>
 학습 알고리즘은 Algorithm 1에서 요약된다. $\gamma(t) \in (0, 1)$은 코사인 마스크 스케줄링 함수이다. $q(t) = \mathcal{U}(0, 1)$에서 샘플링된 균일한 난수 $t$가 주어지면 $m_t$의 마스킹된 토큰 수는 $r = \lceil N \cdot \gamma (t) \rceil$로 계산된다. 여기서 $N$은 이미지 내의 총 토큰 수이다. 
 
@@ -80,7 +80,7 @@ $$
 
 MaskGIT의 마스크 계산은 예측 점수 $p_\theta (x_0 \vert x_t, c)$에만 의존하며 예측 점수가 가장 낮은 토큰이 마스킹된다. 마스크 샘플링은 각 토큰에 대해 독립적이며 이전에 마스킹되지 않은 토큰이 영원히 마스킹되지 않은 상태로 유지된다 (greedy). 대조적으로 제안된 마스크 샘플링은 토큰 간의 상관 관계를 고려하여 결합 분포에서 샘플링을 근사화하기 위해 Token-Critic 모델 $\phi$에 의해 학습된다. 이것은 특히 더 나은 생성 품질로 이어지는 샘플링을 향상시킨다. 또한 Token-Critic은 가장 최근 생성을 기반으로 이전 결정을 취소할 수 있도록 한다. 
 
-<center><img src='{{"/assets/img/token-critic/token-critic-algo2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/token-critic/token-critic-algo2.webp" | relative_url}}' width="50%"></center>
 <br>
 샘플링 프로세스는 Algorithm 2에서 제공된다. 각 step의 마스킹 비율은 스케줄링 함수 $\gamma (t)$에 의해 제공된다 ($t = T-1, \ldots, 0$). 여기서 높은 값의 $t$는 더 많은 마스킹에 해당한다. 각 단계에서 $m_t$를 예측한 후 가장 낮은 Token-Critic 점수를 가진 $R = \lceil \gamma (t/T) \cdot N \rceil$개의 토큰을 마스킹한다. 다음으로, 첫 번째 step에서 무작위성을 도입하기 위해 순위를 매기기 전에 Token-Critic 점수에 작은 "선택 노이즈" $n(t)$를 추가한다. 이 선택 noise는 $n(t) = K \cdot u \cdot (t/T)$에 따라 어닐링되며, 여기서 $K$는 hyperparameter이고 $u \in [-0.5, 0.5]^N$이다. 또한 각 토큰의 샘플링 temperature는 linear schedule $T(t) = a \cdot (t/T) + b$에 따라 어닐링된다. 
 
@@ -89,7 +89,7 @@ MaskGIT의 마스크 계산은 예측 점수 $p_\theta (x_0 \vert x_t, c)$에만
 ### 3. Relation to Discrete Diffusion Processes
 Token-Critic의 역할은 마스킹에 의해 점차적으로 정보를 파괴하는 확률적 과정이 존재한다고 가정하는 discrete diffusion process의 관점에서도 이해할 수 있다. 이 설정에서 reverse process는 마스킹된 토큰을 실제 분포에 따라 VQ 코드북의 요소로 점진적으로 대체하는 것을 목표로 한다. 본 논문의 경우 이것은 샘플링 절차의 각 step에서 generator $G_\theta$가 하는 일이다. 이상적으로 각 중간 결과는 $G_\theta$를 학습하는 데 사용되는 분포이므로 부분적으로 마스킹된 실제 이미지의 분포 내에 있어야 한다. Token-Critic의 역할은 중간 샘플을 이러한 영역으로 가이드하는 것이다.
 
-<center><img src='{{"/assets/img/token-critic/token-critic-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/token-critic/token-critic-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 위 그림은 reverse process의 개략도를 나타낸다. 마스킹된 이미지 $$\hat{x}_t$$의 현재 추정치가 주어지면 generator를 사용하여 깨끗한 이미지의 추정치 $$\hat{x}_0$$를 생성한다. 앞서 언급한 모델링 한계로 인해 이 추정치는 일반적으로 실제 이미지의 분포와는 거리가 멀다. 그런 다음 Token-Critic을 사용하여 $$\hat{x}_0$$에서 덜 손상된 이미지 $$\hat{x}_{t-1}$$을 예측한다. 호환되지 않는 토큰을 구별하도록 학습되었기 때문에 가장 "그럴듯해 보이는" 토큰을 마스킹하여 향상된 예측을 달성한다.
 
@@ -120,27 +120,27 @@ Diffusion process 논문에서 깨끗한 이미지의 추정치에 의존하는 
 #### Quantitative Results
 다음은 외부 classifier를 활용하지 않는 방법들을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/token-critic/token-critic-table1.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/token-critic/token-critic-table1.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 외부 classifier를 활용하지 않는 방법들의 FID-vs-IS 곡선을 나타낸 그래프이다. 
 
-<center><img src='{{"/assets/img/token-critic/token-critic-fig3.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/token-critic/token-critic-fig3.webp" | relative_url}}' width="90%"></center>
 
 #### Leveraging an External Classifier
 다음은 학습 중이나 샘플링 중에 외부 classifier를 사용하는 방법들을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/token-critic/token-critic-table2.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/token-critic/token-critic-table2.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 외부 classifier를 활용한 방법들의 FID-vs-IS 곡선을 나타낸 그래프이다. 
 
-<center><img src='{{"/assets/img/token-critic/token-critic-fig4.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/token-critic/token-critic-fig4.webp" | relative_url}}' width="90%"></center>
 
 #### Qualitative Results
 다음은 ImageNet 512$\times$512 모델의 샘플들을 비교한 것이다. 
 
-<center><img src='{{"/assets/img/token-critic/token-critic-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/token-critic/token-critic-fig5.webp" | relative_url}}' width="100%"></center>
 
 ### 2. VQ Image Refinement
 다음은 이전에 생성된 VQ 이미지들을 Token-Critic으로 개선한 결과이다. 상단은 원본 샘플들 (FID/IS 8.48/167)이고 하단은 60%의 토큰을 Token-Critic 점수로 정제한 후의 샘플들 (FID/IS 7.64/182.4)이다. 
 
-<center><img src='{{"/assets/img/token-critic/token-critic-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/token-critic/token-critic-fig6.webp" | relative_url}}' width="100%"></center>

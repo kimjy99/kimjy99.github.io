@@ -27,12 +27,12 @@ classes: wide
 
 본 논문에서는 diffusion model 기반의 유연하고 제어 가능한 프레임워크인 **TextDiffuser**를 제안한다. 프레임워크는 두 단계로 구성된다. 첫 번째 단계에서는 Layout Transformer를 사용하여 텍스트 프롬프트에서 각 키워드의 좌표를 찾고 문자 레벨 segmentation mask를 얻는다. 두 번째 단계에서는 생성된 segmentation mask를 텍스트 프롬프트와 함께 diffusion process의 조건으로 활용하여 latent diffusion model을 fine-tuning한다. 생성된 텍스트 영역의 품질을 더욱 향상시키기 위해 latent space에서 character-aware loss을 도입한다. 
 
-<center><img src='{{"/assets/img/textdiffuser/textdiffuser-fig1.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/textdiffuser/textdiffuser-fig1.webp" | relative_url}}' width="90%"></center>
 <br>
 위 그림은 텍스트 프롬프트를 단독으로 사용하거나 텍스트 템플릿 이미지와 함께 사용하여 정확하고 일관된 텍스트 이미지를 생성하는 TextDiffuser의 적용을 보여준다. 또한 TextDiffuser는 텍스트로 불완전한 이미지를 재구성하기 위해 텍스트 인페인팅을 수행할 수 있다. 모델을 학습하기 위해 OCR 도구와 디자인 필터링 전략을 사용하여 OCR 주석이 있는 천만 개의 고품질 이미지-텍스트 쌍인 **MARIO-10M**을 얻는다. 여기서 OCR 주석은 각각 인식, 감지, 문자 레벨 segmentation 주석으로 구성된다. 저자들은 광범위한 실험과 user study를 통해 MARIO-Eval에서 기존 방법보다 제안된 TextDiffuser의 우수성을 입증하였다. 
 
 ## Methodology
-<center><img src='{{"/assets/img/textdiffuser/textdiffuser-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/textdiffuser/textdiffuser-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 위 그림과 같이 TextDiffuser는 레이아웃 생성과 이미지 생성의 두 단계로 구성된다. 
 
@@ -99,7 +99,7 @@ TextDiffuser는 다음과 같은 방식으로 inference는 중에 높은 수준�
 ### 1. MARIO-10M Dataset
 MARIO-10M은 자연 이미지, 포스터, 책 표지 등 다양한 데이터 소스에서 가져온 약 1천만 개의 고품질의 다양한 이미지-텍스트 쌍 모음이다. 
 
-<center><img src='{{"/assets/img/textdiffuser/textdiffuser-fig3.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/textdiffuser/textdiffuser-fig3.webp" | relative_url}}' width="90%"></center>
 <br>
 위 그림은 데이터셋의 몇 가지 예를 보여준다. 저자들은 주석을 구성하고 노이즈 데이터를 정리하기 위해 자동 체계와 엄격한 필터링 규칙을 설계하였다. 데이터셋에는 텍스트 감지, 인식, 문자 레벨 segmentation 주석을 포함하여 각 이미지에 대한 포괄적인 OCR 주석이 포함되어 있다. 구체적으로 탐지를 위해 DB를 사용하고 인식을 위해 PARSeq를 사용하며 segmentation을 위해 U-Net을 수동으로 학습한다. MARIO-10M의 총 크기는 10,061,720이며, 이 중에서 학습 세트로 1천만 개의 샘플을 무작위로 선택하고 테스트셋으로 61,720개의 샘플을 선택한다. MARIO-10M은 세 가지 데이터 소스에서 수집된다.
 
@@ -144,32 +144,32 @@ MARIO-Eval로 텍스트 렌더링 품질을 다음 네 가지 측면에서 평�
 ### 1. Ablation Studies
 다음은 Layout Transformer에 대한 ablation 결과이다.
 
-<center><img src='{{"/assets/img/textdiffuser/textdiffuser-table1.PNG" | relative_url}}' width="24%"></center>
+<center><img src='{{"/assets/img/textdiffuser/textdiffuser-table1.webp" | relative_url}}' width="24%"></center>
 <br>
 다음은 character-aware loss의 가중치에 대한 ablation 결과이다.
 
-<center><img src='{{"/assets/img/textdiffuser/textdiffuser-table2.PNG" | relative_url}}' width="13%"></center>
+<center><img src='{{"/assets/img/textdiffuser/textdiffuser-table2.webp" | relative_url}}' width="13%"></center>
 <br>
 다음은 학습 비율 $\sigma$에 대한 ablation 결과이다.
 
-<center><img src='{{"/assets/img/textdiffuser/textdiffuser-table3.PNG" | relative_url}}' width="28%"></center>
+<center><img src='{{"/assets/img/textdiffuser/textdiffuser-table3.webp" | relative_url}}' width="28%"></center>
 
 ### 2. Experimental Results
 #### Quantitative Results
 다음은 기존 방법들과 text-to-image의 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/textdiffuser/textdiffuser-table4.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/textdiffuser/textdiffuser-table4.webp" | relative_url}}' width="80%"></center>
 
 #### Qualitative Results
 다음은 전체 이미지 생성 결과를 비교한 것이다.
 
-<center><img src='{{"/assets/img/textdiffuser/textdiffuser-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/textdiffuser/textdiffuser-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 부분 이미지 생성 (인페인팅) 결과를 비교한 것이다.
 
-<center><img src='{{"/assets/img/textdiffuser/textdiffuser-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/textdiffuser/textdiffuser-fig5.webp" | relative_url}}' width="100%"></center>
 
 #### User Studies
 다음은 전체 이미지 생성 (왼쪽)과 부분 이미지 생성 (오른쪽)에 대한 user study 결과이다.
 
-<center><img src='{{"/assets/img/textdiffuser/textdiffuser-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/textdiffuser/textdiffuser-fig6.webp" | relative_url}}' width="100%"></center>

@@ -19,7 +19,7 @@ classes: wide
 > International Digital Economy Academy (IDEA) | Microsoft Research  
 > 25 Apr 2023  
 
-<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-fig1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-fig1.webp" | relative_url}}' width="80%"></center>
 
 ## Introduction
 Object detection는 주로 모델 구조, 데이터 규모, 학습 전략의 개선에 힘입어 최근 몇 년 동안 크게 발전했다. 모델 레벨에서는 다양한 연구에서 더 나은 결과를 위해 모델 설계를 향상시키는 데 중점을 두었다. 마찬가지로, 모델 표현을 개선하기 위해 masked image modeling이나 image-text contrastive learning과 같은 고급 학습 전략이 채택되었다. 
@@ -38,7 +38,7 @@ Swin-L backbone을 갖춘 Stable-DINO는 COCO test-dev 데이터셋에서 63.8�
 
 최종 결과에 대한 모든 리소스는 공개적으로 접근 가능하며, 이는 아래 표에 요약되어 있다.
 
-<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-table1.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-table1.webp" | relative_url}}' width="75%"></center>
 
 ## Experiments
 - 데이터셋
@@ -63,50 +63,50 @@ Swin-L backbone을 갖춘 Stable-DINO는 COCO test-dev 데이터셋에서 63.8�
 - merged-30M: IN-22K (14M) + CC12M + CC3M + COCO + ADE20K + Objects365
 - merged-38M: IN-22K (14M) + CC12M + CC3M + COCO + ADE20K + Objects365 + OpenImage
 
-<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-table2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-table2.webp" | relative_url}}' width="100%"></center>
 
 #### Main results on COCO
 다음은 공개 데이터셋으로만 학습한 Focal-Stable-DINO의 COCO val2017 (상단)과 test-dev (하단)에서의 결과이다. (test time augmentation을 활용하지 않음)
 
-<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-table3.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-table3.webp" | relative_url}}' width="85%"></center>
 <br>
-<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-table4.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-table4.webp" | relative_url}}' width="85%"></center>
 
 ## Analysis
 ### 1. Analysis of Model Prediction Quality
 다음은 COCO val2017의 각 카테고리의 AP이다. 
 
-<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 두 가지 나쁜 케이스에 대한 precision-recall 곡선이다. 
 
-<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-fig3.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-fig3.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 두 가지 좋은 케이스에 대한 precision-recall 곡선이다. 
 
-<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-fig4.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-fig4.webp" | relative_url}}' width="80%"></center>
 
 #### Visualization over special cases
 다음은 카테고리 "책"과 "바나나"에 대한 누락된 예측을 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-fig5.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-fig5.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 "고양이"와 "개" 카테고리에 대한 부정확한 상자 예측을 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-fig6.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-fig6.webp" | relative_url}}' width="80%"></center>
 
 ### 2. Analysis of Annotation Quality
 #### Error annotations
 다음은 데이터의 오류 주석 예시이다. 왼쪽은 예측 결과이고 오른쪽은 주석이다. 
 
-<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-fig7.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-fig7.webp" | relative_url}}' width="80%"></center>
 
 #### Missing labels
 다음은 데이터의 누락된 레이블의 예시이다. 왼쪽은 예측 결과이고 오른쪽은 주석이다. 
 
-<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-fig8.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-fig8.webp" | relative_url}}' width="80%"></center>
 
 #### Inconsistency annotation standards
 다음은 데이터의 불일치 주석 표준의 예시이다. 왼쪽은 예측 결과이고 오른쪽은 주석이다. 
 
-<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-fig9.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-fig9.webp" | relative_url}}' width="80%"></center>

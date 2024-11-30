@@ -20,7 +20,7 @@ classes: wide
 > Snap Inc. | Northeastern University  
 > 1 Jun 2023  
 
-<center><img src='{{"/assets/img/snapfusion/snapfusion-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/snapfusion/snapfusion-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 Diffusion 기반 text-to-image 모델은 텍스트 프롬프트를 사용하여 사실적인 콘텐츠를 합성하는 데 놀라운 발전을 보여준다. 예를 들면 콘텐츠 제작, 이미지 편집, inpainting, super-resolution, 동영상 합성, 3D 에셋 생성에 큰 영향을 미친다. 이러한 영향으로 인해 그러한 모델들을 실행하기 위한 계산 요구 사항이 상당히 증가하였다. 결과적으로 필요한 대기 시간 제약 조건을 대규모로 충족하기 위해 종종 고급 GPU가 있는 클라우드 기반 inference 플랫폼이 필요하다. 이것은 높은 비용을 발생시키고 개인 이미지, 동영상, 프롬프트를 제3자 서비스에 전송한다는 사실 때문에 잠재적인 개인 정보 보호 문제를 야기한다.
@@ -33,9 +33,9 @@ Diffusion 기반 text-to-image 모델은 텍스트 프롬프트를 사용하여 
 저자들은 SD-v1.5의 파라미터와 계산 강도를 종합적으로 연구하였다. 심층 분석은 네트워크 아키텍처와 알고리즘 패러다임의 범위에서 모바일 장치에 text-to-image diffusion model을 배포하는 데 병목 현상을 이해하는 데 도움이 된다. 한편, 네트워크의 미시적 수준의 분해는 아키텍처 재설계와 검색의 기초 역할을 한다.
 
 #### 거시적 관점
-<center><img src='{{"/assets/img/snapfusion/snapfusion-table1.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/snapfusion/snapfusion-table1.webp" | relative_url}}' width="65%"></center>
 <br>
-<center><img src='{{"/assets/img/snapfusion/snapfusion-fig3a.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/snapfusion/snapfusion-fig3a.webp" | relative_url}}' width="80%"></center>
 <br>
 위 표와 그래프에서 볼 수 있듯이 stable diffusion의 네트워크는 세 가지 주요 구성 요소로 구성된다. 
 
@@ -60,7 +60,7 @@ $$
 \end{equation}
 $$
 
-<center><img src='{{"/assets/img/snapfusion/snapfusion-fig2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/snapfusion/snapfusion-fig2.webp" | relative_url}}' width="60%"></center>
 <br>
 파라미터의 분포와 UNet의 계산량은 위 그림에 나와 있으며, 확장된 채널 크기로 인해 파라미터가 중간 (다운샘플링된) 단계에 집중되어 있음을 보여준다. 그 중 ResNet 블록이 대부분을 구성한다. 대조적으로 공간적 cross-attention이 feature 크기 (토큰)에 대해 2차 계산 복잡도를 갖기 때문에 UNet의 가장 느린 부분은 가장 큰 feature 해상도를 가진 입력 및 출력 단계이다.
 
@@ -100,7 +100,7 @@ $$
 
 로 정의된다. 여기서 대기 시간이 짧고 CLIP에 대한 기여도가 높은 블록은 보존되는 경향이 있으며 반대는 아키텍처 진화에서 제거된다 (자세한 내용은 Algorithm 1 참조). 
 
-<center><img src='{{"/assets/img/snapfusion/snapfusion-algo1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/snapfusion/snapfusion-algo1.webp" | relative_url}}' width="50%"></center>
 <br>
 네트워크 최적화 비용을 더욱 줄이기 위해 한 번에 일련의 action을 실행하여 중복 블록을 제거하거나 중요한 위치에 추가 블록을 추가하는 아키텍처 진화를 수행한다. 본 논문의 학습 패러다임은 대규모 네트워크 순열을 허용하면서 사전 학습된 UNet의 성능을 성공적으로 보존한다. 
 
@@ -134,7 +134,7 @@ $$
 3. 16 step SD-v1.5를 teacher로 사용하여 16 step UNet에서 초기화된 efficient UNet에서 step distillation을 수행한다. 이것은 최종 UNet 모델인 8 step efficient UNet이 된다.
 
 ### 2. CFG-Aware Step Distillation
-<center><img src='{{"/assets/img/snapfusion/snapfusion-fig3b.PNG" | relative_url}}' width="27%"></center>
+<center><img src='{{"/assets/img/snapfusion/snapfusion-fig3b.webp" | relative_url}}' width="27%"></center>
 
 #### Vanilla Step Distillation
 UNet 입력, timestep $t$, noisy latent $z_t$, 텍스트 임베딩 $c$가 주어지면 teacher UNet은 시간 $t$에서 $t'$까지 그리고 $t''$까지 두 가지 DDIM denoising step을 수행한다 ($0 \le t'' < t' < t \le 1$). 이 프로세스는 다음과 같이 공식화될 수 있다.
@@ -207,19 +207,19 @@ $$
 ### 1. Text-to-Image Generation
 다음은 1.0에서 10.0까지의 CFG scale을 사용한 MS-COCO 2014 validation set에서의 FID vs. CLIP 그래프이다. 왼쪽은 전체 세트에서 SD-v1.5과 비교한 그래프이다. 오른쪽은 6천 개의 샘플에서 다양한 step과 다양한 teacher 모델 설정에 대하여 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/snapfusion/snapfusion-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/snapfusion/snapfusion-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 MS-COCO 2017 5K subset에서의 zero-shot 평가 결과이다.
 
-<center><img src='{{"/assets/img/snapfusion/snapfusion-table2.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/snapfusion/snapfusion-table2.webp" | relative_url}}' width="40%"></center>
 
 ### 2. Ablation Analysis
 #### Robust Training
 다음은 몇몇 블록들을 제거하고 robust한 학습을 하였을 때의 동일한 프롬프트에 대한 이미지 샘플들이다. DS는 다운샘플링 블록, mid는 중간 블록, US는 업샘플링 블록을 뜻한다. 
 
-<center><img src='{{"/assets/img/snapfusion/snapfusion-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/snapfusion/snapfusion-fig5.webp" | relative_url}}' width="100%"></center>
 
 #### Step Distillation
 다음은 step distillation에서의 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/snapfusion/snapfusion-fig6.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/snapfusion/snapfusion-fig6.webp" | relative_url}}' width="90%"></center>

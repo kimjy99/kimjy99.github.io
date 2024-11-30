@@ -19,7 +19,7 @@ classes: wide
 > Google Research  
 > 1 Apr 2022  
 
-<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-fig1.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-fig1.webp" | relative_url}}' width="95%"></center>
 
 ## Introduction
 Transfer learning은 특히 타겟 task의 데이터셋이 더 작은 경우 딥러닝에서 널리 채택되는 방식이다. 모델은 먼저 더 많은 양의 데이터를 사용할 수 있는 업스트림 task에 대해 사전 학습된 다음 타겟 task에 맞게 fine-tuning된다. ImageNet 또는 더 크거나 레이블이 약한 데이터셋의 transfer learning은 다양한 비전 task, 아키텍처, 학습 절차 전반에 걸쳐 성능을 향상시키는 것으로 나타났다.
@@ -42,7 +42,7 @@ Backbone을 고정하여 사전 학습된 표현을 보존하면 더 큰 데이�
 Classification 중에 학습한 지식을 보존하기 위해 classification 네트워크(backbone)의 가중치를 고정하는 가장 자연스럽고 분명한 전략을 사용한다. 연구들의 일반적인 관행은 backbone으로 초기화된 모델의 모든 가중치를 학습시키는 것이다. 대신 저자들은 모든 backbone 가중치를 고정하는 대체 전략을 고려하였다. 이는 컴퓨팅 비용을 절감하고 학습 속도를 높일 뿐만 아니라, 많은 최신 detection 아키텍처의 성능을 향상시킨다.
 
 #### 2. Detection-specific capacity
-<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-fig2.PNG" | relative_url}}' width="30%"></center>
+<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-fig2.webp" | relative_url}}' width="30%"></center>
 <br>
 Detection task에 classification 네트워크를 적용하려면 일반적으로 Region Proposal Network (RPN), Feature Pyramid Network, Detection Cascades와 같은 detection을 위한 구성 요소를 추가해야 한다. 저자들은 특히 classification task에서 초기화할 때 detection 구성 요소의 용량이 네트워크의 일반화 능력에 큰 역할을 한다는 것을 관찰했다. Detection 관련 구성 요소의 용량이 충분할 때 classification task에서 초기화하고 해당 가중치를 고정하는 것이 fine-tuning이나 처음부터 학습하는 것보다 더 나은 성능을 발휘한다. 또한, 보다 다양한 classification 데이터셋을 사전 학습하면 성능이 향상된다. 
 
@@ -55,39 +55,39 @@ Detection task에 classification 네트워크를 적용하려면 일반적으로
 ### 1. Revisiting ResNet reuse for object detection
 다음은 다양한 detection 모델에 대하여 backbone을 고정할 때의 성능 변화를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-table1.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-table1.webp" | relative_url}}' width="48%"></center>
 <br>
 다음은 이전 연구들의 결과와 비교한 표이다. (ResNet-101 + NAS-FPN)
 
-<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-table2.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-table2.webp" | relative_url}}' width="48%"></center>
 <br>
 다음은 ResNet-101 backbone을 사용할 때 여러 종류의 detector에 대한 결과를 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-fig3.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-fig3.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 다양한 detection 모델에 대하여 backbone을 고정한 상태를 유지할 때 학습되는 파라미터 수이다. (ResNet-101)
 
-<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-table3.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-table3.webp" | relative_url}}' width="48%"></center>
 
 ### 2. EfficientNet-B7’s reuse for object detection
 다음은 MSCOCO와 LVIS에서의 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-table4.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-table4.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 LVIS에서 얻은 결과를 주석의 수(위)와 객체 크기(아래)로 계층화한 표이다. (EfficientNet-B7 + NAS-FPN)
 
-<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-table5.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-table5.webp" | relative_url}}' width="95%"></center>
 <br>
-<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-table6.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-table6.webp" | relative_url}}' width="95%"></center>
 
 ### 3. How does preserving pre-trained representations help?
 다음은 backbone을 fine-tuning하는 것에 비해 얼마나 클래스별 mAP가 변하는 지를 학습 주석 수의 함수로 나타낸 그래프이다. 
 
-<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-fig4.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-fig4.webp" | relative_url}}' width="55%"></center>
 <br>
-<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-fig5.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-fig5.webp" | relative_url}}' width="52%"></center>
 
 ### 4. Beyond backbone freezing
 다음은 고정된 backbone에 residual adapter를 추가하고 detector 구성 요소와 함께 학습한 결과로, 추가 성능 증가를 가져올 수 있다. 
 
-<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-table7.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/freeze-backbone/freeze-backbone-table7.webp" | relative_url}}' width="48%"></center>

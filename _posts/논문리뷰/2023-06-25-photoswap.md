@@ -20,7 +20,7 @@ classes: wide
 > University of California, Santa Cruz | Adobe  
 > 29 May 2023  
 
-<center><img src='{{"/assets/img/photoswap/photoswap-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/photoswap/photoswap-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 개인화된 피사체 교환 (Personalized Subject Swapping)은 고유한 일련의 문제가 있는 복잡한 task이다. 이 task에는 원래 피사체와 대체 피사체 모두에 내재된 시각적 개념에 대한 심오한 이해가 필요하다. 동시에 새로운 피사체를 기존 이미지에 매끄럽게 통합할 것을 요구한다. 피사체 교환의 중요한 목표 중 하나는 대체 피사체의 유사한 포즈를 유지하는 것이다. 교체된 피사체가 원래의 포즈와 장면에 매끄럽게 맞아 자연스럽고 조화로운 시각적 구성을 만드는 것이 중요하다. 이를 위해서는 조명 조건, 원근감, 전반적인 미적 일관성과 같은 요소를 신중하게 고려해야 한다. 대체 피사체를 이러한 요소와 효과적으로 혼합함으로써 최종 이미지는 연속성과 진정성을 유지한다.
@@ -30,7 +30,7 @@ classes: wide
 따라서 본 논문은 이미지에서 개인화된 피사체 교환을 위해 사전 학습된 diffusion model을 활용하는 새로운 프레임워크인 **Photoswap**을 제시한다. 본 논문의 접근 방식에서 diffusion model은 피사체($O_t$)의 개념을 나타내는 방법을 학습한다. 그러면 원본 이미지 생성 과정에서 저장된 대표 attention map과 attention 출력은 대상 이미지의 생성 과정으로 옮겨져 타겟이 아닌 픽셀은 그대로 두고 새로운 타겟을 생성하게 된다. Photoswap은 이미지에서 피사체를 매끄럽게 교체할 수 있을 뿐만 아니라 교체된 피사체의 포즈와 이미지의 전체적인 일관성을 유지한다. 
 
 ## The Photoswap Method
-<center><img src='{{"/assets/img/photoswap/photoswap-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/photoswap/photoswap-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 개인화된 타겟 피사체 $O_t$의 몇 가지 레퍼런스 이미지를 제공하는 Photoswap은 주어진 소스 이미지 $I_s$에서 다른 타겟 $O_s$와 원활하게 교체할 수 있다. Photoswap 파이프라인은 위 그림에 설명되어 있다. 타겟 피사체 $O_t$의 시각적 개념을 학습하기 위해 레퍼런스 이미지로 diffusion model을 fine-tuning하고 특수 토큰 $\ast$을 사용하여 $O_t$를 나타내는 object inversion을 수행한다. 그런 다음 소스 이미지에서 피사체를 대체하기 위해 먼저 소스 이미지 $I_s$를 재구성하는 데 사용할 수 있는 noise $z_T$를 얻는다. 다음으로 U-Net을 통해 $M$, $A$, $\phi$를 포함하는 self-attention과 cross-attention 레이어에서 필요한 feature map과 attention 출력을 얻는다. 마지막으로 $z_T$와 타겟 텍스트 프롬프트 $P_t$로 컨디셔닝되는 타겟 이미지 생성 프로세스 중에 처음 $\lambda$개의 step에서 이러한 중간 변수($M$, $A$, $\phi$)는 소스 이미지 생성 프로세스 중에 얻은 해당 변수로 대체된다. 나머지 $(T − \lambda)$개의 step에서는 attention 교환이 필요하지 않으며 최종 결과 이미지를 얻기 위해 평소와 같이 denoising process를 계속할 수 있다. 
 
@@ -62,11 +62,11 @@ $$
 
 여기서 $A_i$는 cross-attention map이다. Self-attention과 cross-attention 모두에서 attention map $M_i$와 $A_i$는 $q_i$와 $k_i$ 사이의 유사성과 관련되어 $v_i$의 정보 조합을 지시하는 가중치 역할을 한다. 본 논문에서 diffusion model의 조작은 U-Net 내에서 self-attention과 cross-attention, 특히 $\phi$, $M$, $A$를 교환하고 $\psi$는 변경하지 않고 유지하는 데 중점을 둔다.
 
-<center><img src='{{"/assets/img/photoswap/photoswap-fig3.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/photoswap/photoswap-fig3.webp" | relative_url}}' width="80%"></center>
 <br>
 Self-attention map $M$은 linear projection 후 공간적 feature 내 유사성을 계산하므로 생성 프로세스에서 공간적 콘텐츠를 관리하는 데 중추적인 역할을 한다. 위 그림은 이미지 생성 중에 $M$을 캡처하고 특이값 분해(SVD)를 통해 주요 구성 요소를 강조 표시한 것이다. 이 시각화는 $M$과 생성된 이미지의 형상과 내용 간의 높은 상관관계를 나타낸다. 
 
-<center><img src='{{"/assets/img/photoswap/photoswap-fig4.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/photoswap/photoswap-fig4.webp" | relative_url}}' width="80%"></center>
 <br>
 또한, 위와 같이 diffusion process의 전체 step을 시각화할 때, 레이아웃 정보가 초기 step부터 self-attention에 미러링됨을 확인할 수 있다. 이 통찰력은 새롭고 고유한 레이아웃의 출현을 방지하기 위해 조기에 교환을 시작해야 할 필요성을 강조한다.
 
@@ -78,7 +78,7 @@ Cross-attention 레이어에서 나오는 cross-attention 출력 $\psi$는 타�
 
 Algorithm 1은 전체 Photoswap 알고리즘의 pseudo code이다.
 
-<center><img src='{{"/assets/img/photoswap/photoswap-algo1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/photoswap/photoswap-algo1.webp" | relative_url}}' width="80%"></center>
 
 ## Experiments
 - 구현 디테일
@@ -94,45 +94,45 @@ Algorithm 1은 전체 Photoswap 알고리즘의 pseudo code이다.
 ### 1. Personalized Subject Swapping Results
 다음은 다양한 개체와 이미지 도메인에 대한 Photoswap 결과이다.
 
-<center><img src='{{"/assets/img/photoswap/photoswap-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/photoswap/photoswap-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 다중 피사체(a)와 가려진 피사체(b)에 대한 Photoswap 결과이다.
 
-<center><img src='{{"/assets/img/photoswap/photoswap-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/photoswap/photoswap-fig6.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Comparison with Baseline Methods
 다음은 P2P+DreamBooth와 정성적으로 비교한 결과이다.
 
-<center><img src='{{"/assets/img/photoswap/photoswap-fig7.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/photoswap/photoswap-fig7.webp" | relative_url}}' width="65%"></center>
 <br>
 다음은 사람들이 평가한 결과이다.
 
-<center><img src='{{"/assets/img/photoswap/photoswap-table1.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/photoswap/photoswap-table1.webp" | relative_url}}' width="60%"></center>
 
 ### 3. Controlling Subject Identity
 다음은 $\lambda_M$에 대한 ablation study 결과이다.
 
-<center><img src='{{"/assets/img/photoswap/photoswap-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/photoswap/photoswap-fig8.webp" | relative_url}}' width="100%"></center>
 <br>
 $\lambda_M$을 증가시키면 생성된 이미지가 소스 이미지의 스타일과 아이덴티티와 더 비슷해지고 레퍼런스 피사체와 덜 비슷해진다. 
 
 ### 4. Attention Swapping Step Analysis
 다음은 다양한 swapping step에 대한 결과이다.
 
-<center><img src='{{"/assets/img/photoswap/photoswap-fig9.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/photoswap/photoswap-fig9.webp" | relative_url}}' width="100%"></center>
 
 ### 5. Results of Other Concept Learning Methods
 다음은 개념 학습 모듈로 DreamBooth 대신 Text Inversion을 사용하였을 때의 결과이다.
 
-<center><img src='{{"/assets/img/photoswap/photoswap-fig10.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/photoswap/photoswap-fig10.webp" | relative_url}}' width="100%"></center>
 
 ### 6. Ethics Exploration
 다음은 다양한 인종의 실제 사람 얼굴 이미지에 대한 결과이다. 
 
-<center><img src='{{"/assets/img/photoswap/photoswap-fig11.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/photoswap/photoswap-fig11.webp" | relative_url}}' width="100%"></center>
 
 ### 7. Failure Cases
-<center><img src='{{"/assets/img/photoswap/photoswap-fig12.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/photoswap/photoswap-fig12.webp" | relative_url}}' width="100%"></center>
 <br>
 두 가지 일반적인 실패 사례가 있다. 
 

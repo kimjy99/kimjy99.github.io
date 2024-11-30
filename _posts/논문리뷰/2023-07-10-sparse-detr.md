@@ -82,7 +82,7 @@ $$
 여기서 $\textrm{DefAttn}$은 deformable attention, $\textrm{LN}$은 layer normalization, $\textrm{FFN}$은 피드포워드 네트워크를 나타낸다. 선택되지 않은 토큰의 경우에도 값은 여전히 인코더 레이어를 통해 전달되므로 선택한 토큰을 업데이트할 때 key로 참조할 수 있다. 이는 선택되지 않은 토큰이 계산 비용을 최소화하면서 자체 가치를 잃지 않고 선택한 토큰에 정보를 전달할 수 있음을 의미한다. 여기서 $\Omega_s^\rho$로 토큰을 정제하기 위해 deformable attention을 사용하지만, 제안된 인코더 토큰 sparsification은 인코더가 어떤 attention 방법을 사용하든 관계없이 적용 가능하다.
 
 #### Complexity of Attention Modules in Encoder
-<center><img src='{{"/assets/img/sparse-detr/sparse-detr-fig1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/sparse-detr/sparse-detr-fig1.webp" | relative_url}}' width="80%"></center>
 <br>
 Deformable DETR은 key sparsification을 통해 attention 복잡도를 줄이고 위 그림과 같이 query sparsification을 통해 attention 복잡도를 더 줄인다. Deformable attention에는 선형 복잡도 $O(NK)$가 필요하다. 여기서 $K \ll N$는 각 query의 key 수이다. 반면 sparse attention에는 $O(SK)$만 필요하다. 여기서 $S \ll N$은 salient encoder query의 수이다.
 
@@ -95,7 +95,7 @@ Transformer 인코더에서 backbone feature의 어떤 항목을 추가로 업�
 #### Decoder Cross-Attention Map
 더 명확한 방식으로 디코더와 관련성이 높은 인코더 토큰의 부분집합을 선택하는 또 다른 접근 방식을 고려한다. 학습이 계속됨에 따라 디코더가 개체를 감지하는 데 유리한 인코더 출력 토큰의 부분집합에 점진적으로 주의를 기울이기 때문에 transformer 디코더의 cross attention map이 saliency를 측정하는 데 사용될 수 있다. 이것에 동기를 부여하여 디코더 cross attention map에 의해 정의된 saliency의 ground-truth를 예측하는 스코어링 네트워크를 도입하고 이를 사용하여 어떤 인코더 토큰을 즉석에서 추가로 정제해야 하는지 결정한다. 아래 그림은 스코어링 네트워크를 학습하는 방법을 요약한 것이다.
 
-<center><img src='{{"/assets/img/sparse-detr/sparse-detr-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/sparse-detr/sparse-detr-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 인코더의 각 입력 토큰 $x_\textrm{feat}$의 saliency를 결정하려면 모든 object query와 인코더 출력 간의 디코더 cross attention을 집계해야 한다. 이 과정은 backbone의 feature map과 동일한 크기의 단일 map인 **Decoder crossAttention Map (DAM)**을 생성한다. 일반 attention의 경우 모든 디코더 레이어의 attention map을 합산하여 DAM을 쉽게 얻을 수 있다. Deformable attention의 경우 각 인코더 토큰에 대해 attention 오프셋이 인코더 출력 토큰을 향하는 디코더 object query의 attention 가중치를 누적하여 해당 DAM 값을 얻을 수 있다. 
 
@@ -119,7 +119,7 @@ $$
 
 두 구성 요소는 최종 성능을 개선하고 최적화를 안정화하는 데 크게 도움이 된다. 이러한 구성 요소를 포함하는 Sparse DETR의 전체 아키텍처는 아래 그림에 나와 있다.
 
-<center><img src='{{"/assets/img/sparse-detr/sparse-detr-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/sparse-detr/sparse-detr-fig3.webp" | relative_url}}' width="100%"></center>
 
 #### Encoder Auxiliary Loss
 DETR 변형에서 보조 detection head는 디코더 레이어에 연결되지만 인코더 레이어에는 연결되지 않는다. 디코더 토큰 (약 300개)에 비해 상당히 많은 수의 인코더 토큰 (약 18,000개)으로 인해 인코더 보조 head는 계산 비용을 크게 증가시킨다. 그러나 Sparse DETR에서는 인코더 토큰의 일부만 인코더에 의해 정제되며 sprasify된 인코더 토큰에 대해서만 보조 head를 추가하는 것은 큰 부담이 되지 않는다.
@@ -141,12 +141,12 @@ DETR과 Deformable DETR에서 decoder query는 학습 가능한 object query로�
 ### 1. Comparison with Object Detection Baselines
 다음은 COCO 2017 val set에서의 감지 성능을 비교한 표이다.
 
-<center><img src='{{"/assets/img/sparse-detr/sparse-detr-table1.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/sparse-detr/sparse-detr-table1.webp" | relative_url}}' width="85%"></center>
 
 ### 2. Comparison between Token Selection Criteria
 다음은 토큰 선택 방법에 따른 성능을 나타낸 그래프이다. OS는 Objectness Score를 뜻한다. 
 
-<center><img src='{{"/assets/img/sparse-detr/sparse-detr-fig4.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/sparse-detr/sparse-detr-fig4.webp" | relative_url}}' width="50%"></center>
 <br>
 저자들은 DAM 기반 모델이 다른 모델보다 우수한 이유를 분석하기 위해 디코더가 참조하는 인코더 토큰과 인코더가 정제한 토큰 간의 중첩을 측정하였다. 메트릭으로 스칼라 상관계수 $Corr$을 다음과 같이 계산한다.
 
@@ -160,18 +160,18 @@ $$
 
 다음은 DAM 기반 모델과 OS 기반 모델의 $Corr$ 지표를 비교한 그래프이다.
 
-<center><img src='{{"/assets/img/sparse-detr/sparse-detr-fig5.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/sparse-detr/sparse-detr-fig5.webp" | relative_url}}' width="50%"></center>
 
 ### 3. Effectiveness of the Encoder Auxiliary Loss
 다음은 인코더 레이어 수에 대한 ablation study 결과이다.
 
-<center><img src='{{"/assets/img/sparse-detr/sparse-detr-fig6.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/sparse-detr/sparse-detr-fig6.webp" | relative_url}}' width="70%"></center>
 <br>
 인코더 보조 loss는 감지 성능을 향상시킬 뿐만 아니라 인코더 레이어가 12개로 두 배가 됨에 따라 감지 성능을 지속적으로 향상시킨다. 더 많은 인코더 레이어를 쌓을수록 디코더 cross attention을 통해 전파되는 기울기가 사라지므로 보조 loss의 중간 기울기가 필요하다. 
 
 ### 4. Dynamic Sparsification for Inference Stage
 실제 애플리케이션의 다양한 하드웨어 조건에서 모델을 배포하려면 필요한 성능-계산 trade-off에 따라 다양한 규모로 모델을 재학습해야 하는 경우가 많다. 저자들은 고정된 sparsity로 학습된 모델이 inference 시 동적 sparsity에 잘 적응할 수 있는지 평가하여 Sparse DETR이 이러한 번거로움을 피할 수 있는지 확인하였다. 아래 그림은 DAM 기반 방법으로 Swin-T backbone과 30% 인코더 토큰을 사용하여 모델을 학습시켰을 때 inference 동안 다양한 $\rho$ 하에서의 성능을 보여준다. 
 
-<center><img src='{{"/assets/img/sparse-detr/sparse-detr-fig7.PNG" | relative_url}}' width="30%"></center>
+<center><img src='{{"/assets/img/sparse-detr/sparse-detr-fig7.webp" | relative_url}}' width="30%"></center>
 <br>
 Inference 시 $\rho$가 작을 경우 동적 sparsification의 성능이 다소 떨어지지만 단일 모델만 사용한다는 점에서 다양한 $\rho$에서 전반적인 성능은 만족스럽다.

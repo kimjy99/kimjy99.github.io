@@ -26,11 +26,11 @@ classes: wide
 
 이러한 모델은 주어진 레퍼런스에서 피사체의 모양을 모방하고 다른 컨텍스트에서 동일한 피사체의 새로운 해석을 합성하는 능력이 부족하며, 이는 출력 도메인의 표현력이 제한되어 있기 때문이다. 개체에 대한 가장 자세한 텍스트 설명조차도 모양이 다른 인스턴스를 생성할 수 있다. 또한 공유된 language-vision space에 텍스트 임베딩이 있는 모델도 주어진 대상의 모습을 정확하게 재구성할 수 없고 이미지 콘텐츠의 변형만 생성할 수 있다. (아래 그림 참고)
 
-<center><img src='{{"/assets/img/dreambooth/dreambooth-fig2.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dreambooth/dreambooth-fig2.webp" | relative_url}}' width="90%"></center>
 <br>
 본 논문에서는 text-to-image diffusion model의 사용자의 이미지 생성 요구 사항에 맞게 모델이 조정되는, 즉 "개인화"를 위한 새로운 접근 방식을 제시한다. 본 논문의 목표는 사용자가 생성하려는 특정 주제와 새 단어를 바인딩하도록 모델의 language-vision 사전을 확장하는 것이다. 새 사전이 모델에 내장되면 이러한 단어를 사용하여 주요 식별 기능을 유지하면서 다양한 장면에서 상황에 맞는 주제의 참신한 사실적 이미지를 합성할 수 있다. 이 효과는 "magic photo booth"(이미지를 몇 장 찍으면 booth는 간단하고 직관적인 텍스트 프롬프트의 안내에 따라 다양한 조건과 장면에서 이미지를 생성)와 비슷하다. (아래 그림 참고)
 
-<center><img src='{{"/assets/img/dreambooth/dreambooth-fig1.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dreambooth/dreambooth-fig1.webp" | relative_url}}' width="90%"></center>
 <br>
 본 논문의 목표는 피사체의 이미지 몇 개(~3-5)가 주어지면 모델의 출력 도메인에 피사체를 이식하여 고유 식별자로 합성할 수 있도록 하는 것이다. 이를 위해 저자들은 희귀한 토큰 식별자로 주어진 주제를 표현하고 두 단계로 작동하는 사전 학습된 diffusion 기반 text-to-image 프레임워크를 finetuning하는 기술을 제안한다. 텍스트에서 저해상도 이미지를 생성한 후 super-resolution (SR) diffusion model을 적용한다.
 
@@ -69,13 +69,13 @@ $P$를 $f$로 토큰화하면 고정된 길이의 벡터 $f(P)$를 얻는다. �
 ## Method
 텍스트 설명 없이 특정 피사체에 대해 캐주얼하게 캡처된 이미지 몇 개(3-5개)만 주어졌을 때, 높은 디테일 fidelity로 텍스트 프롬프트에 의해 guide된 피사체의 새로운 이미지를 생성하는 것이 본 논문의 목표이다. 입력 이미지 캡처에 제한을 두지 않으며 피사체 이미지는 다양한 컨텍스트를 가질 수 있다. 출력의 예로는 피사체가 있는 장소 변경, 색상, 종 또는 모양과 같은 피사체의 속성 변경, 피사체의 포즈, 표정, 재료 및 기타 의미적 수정 수정이 있다. 저자들은 이러한 모델의 강력한 prior를 감안할 때 이러한 수정의 폭이 매우 크다는 것을 발견했다. 저자들의 방법에 대한 개요는 다음 그림과 같다.
 
-<center><img src='{{"/assets/img/dreambooth/dreambooth-fig3.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dreambooth/dreambooth-fig3.webp" | relative_url}}' width="90%"></center>
 <br>
 이를 달성하기 위한 첫 번째 작업은 피사체 인스턴스를 모델의 출력 도메인에 이식하고 피사체를 고유 식별자로 바인딩하는 것이다. 중요한 문제는 피사체를 보여주는 작은 이미지들을 finetuning하면 주어진 이미지에 overfitting되는 경향이 있다는 것이다. 또한 language drift는 언어 모델에서 흔히 발생하는 문제이며 text-to-image diffusion model에서도 나타난다. 모델은 동일한 클래스의 다른 주제를 생성하는 방법을 잊고 다양성과 해당 클래스에 속하는 인스턴스의 자연스러운 변형에 대한 지식을 잃는다. 이를 위해 저자들은 diffusion model이 주제와 동일한 클래스의 다양한 인스턴스를 계속 생성하도록 장려하여 overfitting을 완화하고 language drift를 방지하는 **autogenous class-specific prior preservation loss**를 제시한다.
 
 디테일의 보존을 강화하려면 모델의 super-resolution 부분도 finetuning해야 한다. 그러나 naive한 방식으로 대상 인스턴스를 생성하도록 finetuning된 경우 인스턴스의 중요한 디테일들을 복제할 수 없다. 저자들은 주제의 디테일을 더 잘 보존하기 위해 이러한 SR 모듈을 학습시키고 테스트할 수 있는 통찰력을 제공하여 재맥락화(recontextualization)에서 전례 없는 성능을 달성하였다. 제자들이 제안한 학습 절차의 자세한 스케치는 아래 그림에 나와 있다. 본 논문에서는 사전 학습된 Imagen 모델을 기본 모델로 사용한다.
 
-<center><img src='{{"/assets/img/dreambooth/dreambooth-fig4.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dreambooth/dreambooth-fig4.webp" | relative_url}}' width="90%"></center>
 
 ### 1. Representing the Subject with a Rare-token Identifier
 #### Designing Prompts for Few-Shot Personalization 
@@ -138,7 +138,7 @@ Recontextualization의 경우 대상 feature는 수정되지 않지만 모양이
 
 다음 recontextualization의 예시이다. 
 
-<center><img src='{{"/assets/img/dreambooth/dreambooth-fig5.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dreambooth/dreambooth-fig5.webp" | relative_url}}' width="90%"></center>
 <br>
 또한 다른 물체와의 사실적인 접촉(ex. 부분적으로 눈에 심어진 것, 사람의 손으로 조작한 것 등)과 사실적인 그림자 및 반사를 포함하여 피사체의 integration 디테일에 주목할 필요가 있다. 이는 본 논문의 방법이 피사체 디테일의 interpolation이나 복구가 가능할 뿐만 아니라 피사체의 초기 데이터가 주어지지 않았을 때 "이 피사체가 부분적으로 눈에 심어지면 어떻게 될까요?"와 같은 형식의 질문에 답하는 extrapolation도 가능하다. 
 
@@ -147,67 +147,67 @@ Recontextualization의 경우 대상 feature는 수정되지 않지만 모양이
 
 다음은 art rendition의 예시이다. 
 
-<center><img src='{{"/assets/img/dreambooth/dreambooth-fig6.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dreambooth/dreambooth-fig6.webp" | relative_url}}' width="90%"></center>
 
 #### Expression Manipulation
 다음은 대상의 표정을 수정한 새로운 이미지 생성에 대한 예시이다. 
 
-<center><img src='{{"/assets/img/dreambooth/dreambooth-fig7.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dreambooth/dreambooth-fig7.webp" | relative_url}}' width="90%"></center>
 
 #### Novel View Synthesis
 다음은 새로운 시점으로 대상을 렌더링한 예시이다.
 
-<center><img src='{{"/assets/img/dreambooth/dreambooth-fig8.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dreambooth/dreambooth-fig8.webp" | relative_url}}' width="90%"></center>
 
 #### Accessorization
 다음은 강력하게 구성된 prior에 의해 가능한 대상에 액세서리를 추가하는 능력을 보여주는 예시이다. 
 
-<center><img src='{{"/assets/img/dreambooth/dreambooth-fig9.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dreambooth/dreambooth-fig9.webp" | relative_url}}' width="90%"></center>
 
 #### Property Modification
 다음은 대상의 속성을 수정한 예시이다.
 
-<center><img src='{{"/assets/img/dreambooth/dreambooth-fig10.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dreambooth/dreambooth-fig10.webp" | relative_url}}' width="90%"></center>
 <br>
 본 논문의 방법을 사용하면 의미론적으로 복잡한 속성을 수정할 수 있다. 
 
 ### 2. Ablation Studies
 #### Class-Prior Ablation
-<center><img src='{{"/assets/img/dreambooth/dreambooth-fig11.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dreambooth/dreambooth-fig11.webp" | relative_url}}' width="90%"></center>
 <br>
 잘못된 클래스에 대한 클래스 prior가 얽힌 상태로 남아 있고 모델이 이러한 방식으로 학습될 때 대상의 새로운 이미지를 생성할 수 없음을 관찰할 수 있다. Class noun 없이 학습시키는 경우 모델은 대상 인스턴스를 학습하는 데 어려워하며 클래스 prior와 대상 인스턴스를 얽지 못한다. 모델은 수렴하는 데 더 오래 걸리고 오차가 큰 샘플을 생성한다. 
 
 #### Prior Preservation Loss Ablation
 다음은 prior-preservation loss가 overfitting을 피하는 데 효과적인 것을 보여준다. 
 
-<center><img src='{{"/assets/img/dreambooth/dreambooth-fig12.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dreambooth/dreambooth-fig12.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 prior-preservation loss를 사용할 때 클래스 의미 prior가 보존되는 것을 보여준다.
 
-<center><img src='{{"/assets/img/dreambooth/dreambooth-fig13.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dreambooth/dreambooth-fig13.webp" | relative_url}}' width="90%"></center>
 
 #### Super Resolution with Low-Noise Forward Diffusion
 다음은 noise augmentation의 level을 낮게 두는 것의 효과를 보여준다.
 
-<center><img src='{{"/assets/img/dreambooth/dreambooth-fig14.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dreambooth/dreambooth-fig14.webp" | relative_url}}' width="90%"></center>
 <br>
 Noise augmentation의 level을 낮추었을 때 샘플 품질과 대상 fidelity가 개선된다. 
 
 ### 3. Comparisons
 다음은 [An Image is Worth One Word](https://arxiv.org/abs/2208.01618) 논문의 모델과 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/dreambooth/dreambooth-fig15.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dreambooth/dreambooth-fig15.webp" | relative_url}}' width="90%"></center>
 <br>
 본 논문의 접근 방식이 의미론적으로 정확한 이미지를 생성하며 대상의 feature를 더 잘 보존한다. 
 
 다음은 디테일한 프롬프트에 대하여 DALL-E 2와 Imagen 모델과 비교한 것이다. 
 
-<center><img src='{{"/assets/img/dreambooth/dreambooth-fig16.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dreambooth/dreambooth-fig16.webp" | relative_url}}' width="90%"></center>
 
 ### 4. Limitations
 본 논문의 방법은 몇가지 제한점이 존재한다. 먼저, 다음과 같이 3가지 주요 failure mode가 존재한다. 
 
-<center><img src='{{"/assets/img/dreambooth/dreambooth-fig17.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dreambooth/dreambooth-fig17.webp" | relative_url}}' width="90%"></center>
 <br>
 
 1. 프롬프트 맥락과 다른 이미지 생성

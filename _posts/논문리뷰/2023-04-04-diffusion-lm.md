@@ -22,7 +22,7 @@ classes: wide
 ## Introduction
 대규모 autoregressive 언어 모델(LM)은 고품질 텍스트를 생성할 수 있지만 이러한 LM을 실제 애플리케이션에 안정적으로 적용하려면 텍스트 생성 프로세스를 제어할 수 있어야 하며, 원하는 요구 사항(ex. 주제, 구문 구조)을 충족하는 텍스트를 생성해야 한다. LM을 제어하기 위한 자연스러운 접근 방식은 (제어, 텍스트) 형식의 supervised 데이터를 사용하여 LM을 finetuning하는 것이다. 그러나 각 제어 task에 대한 LM 파라미터를 업데이트하는 것은 비용이 많이 들 수 있으며 여러 제어 구성을 허용하지 않는다. 이는 생성된 텍스트가 제어를 얼마나 잘 만족시키는지 측정하는 외부 classifier를 사용하여 LM을 고정하고 생성 프로세스를 조정하는 light-weight 및 modular plug-and-play 접근 방식에 동기를 부여한다. 그러나 고정된 autoregressive LM을 조정하는 것은 어려운 것으로 나타났으며 기존의 성공은 단순한 속성 수준 제어(ex. 감정이나 주제)로 제한되었다.
 
-<center><img src='{{"/assets/img/diffusion-lm/diffusion-lm-fig1.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/diffusion-lm/diffusion-lm-fig1.webp" | relative_url}}' width="70%"></center>
 <br>
 본 논문은 보다 복잡한 제어를 다루기 위해 연속적인 diffusion에 기반한 새로운 언어 모델인 **Diffusion-LM**을 제안한다. Diffusion-LM은 일련의 Gaussian noise vector로 시작하여 위 그림과 같이 단어에 해당하는 벡터로 점진적으로 denoise한다. 이러한 점진적인 denoising step은 연속적인 latent 표현의 계층(hierarchy)을 생성한다. 저자들은 이 계층적이고 연속적인 latent variable이 생성된 시퀀스의 syntactic parse tree를 제한하는 것과 같은 복잡한 제어 작업을 수행하기 위한 간단한 기울기 기반 방법을 가능하게 한다는 것을 발견했다. 
 
@@ -46,7 +46,7 @@ $$
 
 Diffusion model의 파라미터와 단어 임베딩을 공동으로 학습하는 diffusion model 목적 함수의 수정을 제안한다. 저자들은 예비 실험에서 임의의 Gaussian 임베딩과 사전 학습된 단어 임베딩을 탐색했다. 저자들은 이러한 고정 임베딩이 end-to-end 학습과 비교하여 Diffusion-LM에 최선이 아님을 발견했다. 
 
-<center><img src='{{"/assets/img/diffusion-lm/diffusion-lm-fig2.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/diffusion-lm/diffusion-lm-fig2.webp" | relative_url}}' width="70%"></center>
 <br>
 위 그림에서 볼 수 있듯이 본 논문의 접근 방식은 
 
@@ -86,7 +86,7 @@ $$
 
 $$\mathcal{L}_\textrm{simple}^\textrm{e2e} (w)$$는 $$\mathcal{L}_\textrm{vlb}^\textrm{e2e} (w)$$에서 유도할 수 있다. Embedding function을 학습하고 있으므로 $q_\phi$는 이제 학습 가능한 파라미터를 포함하고 reparametrization trick을 사용하여 이 샘플링 step를 통해 backpropagate한다. 
 
-<center><img src='{{"/assets/img/diffusion-lm/diffusion-lm-fig3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/diffusion-lm/diffusion-lm-fig3.webp" | relative_url}}' width="50%"></center>
 <br>
 경험적으로 학습된 임베딩 클러스터가 의미 있게 발견된다. 동일한 품사 태그가 있는 단어는 위 그림과 같이 클러스터링되는 경향이 있다. 
 
@@ -197,33 +197,33 @@ $$
 
 아래는 각 control task에 대한 입력 제어 텍스트와 출력 텍스트의 예시이다. 
 
-<center><img src='{{"/assets/img/diffusion-lm/diffusion-lm-table1.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/diffusion-lm/diffusion-lm-table1.webp" | relative_url}}' width="95%"></center>
 <br>
 위 4개는 classifier를 사용하고 아래 2개는 classifier를 사용하지 않는다. 
 
 ### 1. Classifier-Guided Controllable Text Generation Results
 다음은 각 control task에 대한 성공률(ctrl)과 유창성(lm)에 대한 평가 결과이다.
 
-<center><img src='{{"/assets/img/diffusion-lm/diffusion-lm-table2.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/diffusion-lm/diffusion-lm-table2.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 Syntax Tree control의 샘플이다. 다른 모델의 실패한 범위는 빨간색으로, 이에 대응되는 Diffusion-LM의 범위는 굵게 표시되어 있다. 
 
-<center><img src='{{"/assets/img/diffusion-lm/diffusion-lm-table3.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/diffusion-lm/diffusion-lm-table3.webp" | relative_url}}' width="90%"></center>
 
 ### 2. Composition of Controls
 다음은 semantic control과 syntactic control을 합친 실험의 결과이다.
 
-<center><img src='{{"/assets/img/diffusion-lm/diffusion-lm-table4.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/diffusion-lm/diffusion-lm-table4.webp" | relative_url}}' width="75%"></center>
 
 ### 3. Infilling Results
 다음은 infilling 결과이다. 
 
-<center><img src='{{"/assets/img/diffusion-lm/diffusion-lm-table5.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/diffusion-lm/diffusion-lm-table5.webp" | relative_url}}' width="70%"></center>
 
 ### 4. Ablation Studies
 다음은 디자인 선택에 대한 ablation study 결과를 나타낸 그래프이다. 왼쪽은 학습된 임베딩과 랜덤 임베딩을 비교한 그래프이고, 오른쪽은 목적 함수 parametrization에 대한 그래프이다.
 
-<center><img src='{{"/assets/img/diffusion-lm/diffusion-lm-fig4.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/diffusion-lm/diffusion-lm-fig4.webp" | relative_url}}' width="60%"></center>
 
 ## Limitations
 Diffusion-LM에는 다음과 같은 단점이 있다. 

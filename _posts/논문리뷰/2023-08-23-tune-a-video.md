@@ -19,7 +19,7 @@ classes: wide
 > National University of Singapore | ARC Lab | Tencent PCG | National University of Singapore  
 > 22 Dec 2022  
 
-<center><img src='{{"/assets/img/tune-a-video/tune-a-video-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/tune-a-video/tune-a-video-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 인터넷에서 크롤링된 수십억 개의 텍스트-이미지 쌍으로 구성된 대규모 멀티모달 데이터셋은 Text-to-Image (T2I) 생성의 획기적인 발전을 가능하게 했다. Text-to-Video (T2V) 생성에서 이러한 성공을 복제하기 위해 최근 연구들은 공간적인 T2I 생성 모델을 시공간 도메인으로 확장했다. 이러한 모델은 일반적으로 대규모 텍스트-동영상 데이터셋 (ex. WebVid-10M)에 대한 표준 학습 패러다임을 채택한다. 이 패러다임은 T2V 생성에 대한 유망한 결과를 생성하지만 비용과 시간이 많이 소요되는 대형 하드웨어 가속기에 대한 광범위한 학습이 필요하다.
@@ -35,7 +35,7 @@ classes: wide
 1. **모션**: T2I 모델은 동사 용어를 포함하여 텍스트와 잘 일치하는 이미지를 생성할 수 있다. 예를 들어 "a man is running on the beach"라는 텍스트 프롬프트가 주어지면 T2I 모델은 반드시 연속적인 방식은 아니지만 남자가 달리는 스냅샷을 생성한다. 이는 T2I 모델이 정적 동작 생성을 위해 cross-modal attention을 통해 동사에 적절하게 attend할 수 있다는 증거로 사용된다.
 2. **일관된 개체**: 하나의 이미지에서 여러 이미지로 T2I 모델의 공간 self-attention을 확장하기만 하면 프레임 전체에서 일관된 콘텐츠가 생성된다. 같은 예에서, 확장된 시공간 attention으로 병렬로 연속 프레임을 생성하면 모션이 여전히 연속적이지 않지만 결과 시퀀스에서 동일한 사람과 동일한 해변을 관찰할 수 있다. 이는 T2I 모델의 self-attention 레이어가 픽셀 위치가 아닌 공간적 유사성에 의해서만 구동된다는 것을 의미한다.
 
-<center><img src='{{"/assets/img/tune-a-video/tune-a-video-fig2.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/tune-a-video/tune-a-video-fig2.webp" | relative_url}}' width="80%"></center>
 <br>
 저자들은 **Tune-A-Video**라는 간단하면서도 효과적인 방법으로 이 발견을 구현하였다. 본 논문의 방법은 시공간 차원에 대한 SOTA T2I 모델의 간단한 구현을 기반으로 한다. 그러나 시공간에서 완전한 attention을 사용하면 필연적으로 계산이 2차적으로 증가한다. 따라서 프레임이 증가하는 동영상을 생성하는 것은 불가능하다. 또한 모든 파라미터를 업데이트하는 순진한 fine-tuning 전략을 사용하면 T2I 모델에 대한 기존 지식을 위태롭게 하고 새로운 개념의 동영상 생성을 방해할 수 있다. 
 
@@ -49,7 +49,7 @@ $$\mathcal{V} = \{v_i \vert i \in [1, m] \}$$는 $m$개의 프레임을 포함�
 
 본 논문의 접근 방식에 대한 개요는 아래 그림과 같다.
 
-<center><img src='{{"/assets/img/tune-a-video/tune-a-video-fig3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/tune-a-video/tune-a-video-fig3.webp" | relative_url}}' width="60%"></center>
 
 ### 1. Network Inflation
 T2I diffusion model (ex. [LDM](https://kimjy99.github.io/논문리뷰/ldm))은 일반적으로 skip connection이 있는 업샘플링 패스가 뒤따르는 공간적 다운샘플링 패스를 기반으로 하는 신경망 아키텍처인 U-Net을 사용한다. 스택된 2D convolution residual block과 transformer 블록으로 구성된다. 각 transformer 블록은 spatial self-attention 레이어, cross-attention 레이어, feed-forward network (FFN)로 구성된다. spatial self-attention은 유사한 상관관계를 위해 feature map의 픽셀 위치를 활용하는 반면, cross-attention은 픽셀과 조건부 입력 (ex. 텍스트) 사이의 관련성을 고려한다. 동영상 프레임 $v_i$의 latent 표현 $z_{v_i}$가 주어졌을 때, spatial self-attention 메커니즘은 다음과 같다.
@@ -76,10 +76,10 @@ $$
 
 여기서 $[\cdot]$는 concatenation 연산을 나타낸다. Porjection 행렬 $W^Q$, $W^K$, $W^V$는 공간과 시간에 걸쳐 공유된다. 시각적 묘사는 아래 그림과 같다.
 
-<center><img src='{{"/assets/img/tune-a-video/tune-a-video-fig5.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/tune-a-video/tune-a-video-fig5.webp" | relative_url}}' width="60%"></center>
 
 ### 2. Fine-Tuning and Inference
-<center><img src='{{"/assets/img/tune-a-video/tune-a-video-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/tune-a-video/tune-a-video-fig4.webp" | relative_url}}' width="100%"></center>
 
 #### Model fine-tuning
 이제 시간 모델링을 위해 주어진 입력 동영상에서 네트워크를 fine-tuning한다. 시공간 attention (ST-Attn)은 이전 프레임에서 관련 위치를 쿼리하여 시간적 일관성을 모델링하도록 설계되었다. 따라서 파라미터 $W^K$와 $W^V$를 고정하고 ST-Attn layer에서만 $W^Q$를 업데이트한다. 대조적으로 새로 추가되는 전체 temporal self-attention (T-Attn) 레이어를 fine-tuning한다. 또한 cross-attention (Cross-Attn)에서 query projection을 업데이트하여 텍스트-동영상 정렬을 개선한다. 실제로 attention 블록을 fine-tuning하는 것은 전체 튜닝에 비해 계산적으로 효율적이며 사전 학습된 T2I diffusion model의 원래 속성을 유지한다. 표준 LDM과 동일한 목적 함수를 사용한다. 
@@ -98,7 +98,7 @@ $$
 ## Applications of Tune-A-Video
 다음은 Tune-A-Video의 샘플 결과이다.
 
-<center><img src='{{"/assets/img/tune-a-video/tune-a-video-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/tune-a-video/tune-a-video-fig6.webp" | relative_url}}' width="100%"></center>
 
 1. **개체 편집**: 텍스트 프롬프트 편집을 통해 개체를 수정할 수 있다. 이를 통해 개체를 쉽게 교체, 추가 또는 제거할 수 있다. 
 2. **배경 변경**: 사용자가 개체 움직임의 일관성을 유지하면서 동영상 배경 (즉, 개체가 있는 위치)을 변경할 수 있다. 
@@ -114,14 +114,14 @@ $$
   - 동영상 1개를 fine-tuning하는 데 10분 소요, 샘플링에 1분 소요 (NVIDIA A100 GPU 1개)
 
 ### 1. Baseline Comparisons
-<center><img src='{{"/assets/img/tune-a-video/tune-a-video-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/tune-a-video/tune-a-video-fig7.webp" | relative_url}}' width="100%"></center>
 <br>
-<center><img src='{{"/assets/img/tune-a-video/tune-a-video-table1.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/tune-a-video/tune-a-video-table1.webp" | relative_url}}' width="75%"></center>
 
 ### 2. Ablation Study
-<center><img src='{{"/assets/img/tune-a-video/tune-a-video-fig8.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/tune-a-video/tune-a-video-fig8.webp" | relative_url}}' width="75%"></center>
 
 ## Limitations
-<center><img src='{{"/assets/img/tune-a-video/tune-a-video-fig9.PNG" | relative_url}}' width="83%"></center>
+<center><img src='{{"/assets/img/tune-a-video/tune-a-video-fig9.webp" | relative_url}}' width="83%"></center>
 <br>
 위 그림은 입력 동영상이 여러 객체를 포함하고 가려짐이 있을 때의 실패 사례를 나타낸다. 이는 여러 개체 간의 상호 작용을 처리할 때 T2I 모델의 고유한 제한 때문일 수 있다. 

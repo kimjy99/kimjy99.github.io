@@ -19,7 +19,7 @@ classes: wide
 > Carnegie Mellon University | Adobe Research  
 > 6 Feb 2023  
 
-<center><img src='{{"/assets/img/pix2pix-zero/pix2pix-zero-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/pix2pix-zero/pix2pix-zero-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 DALL·E 2, Imagen, Stable Diffusion과 같은 최근의 text-to-image diffusion model은 복잡한 물체와 장면으로 다양하고 사실적인 합성 이미지를 생성하여 강력한 구성 능력을 보여주었다. 그러나 실제 이미지를 편집하기 위해 이러한 모델을 용도 변경하는 것은 여전히 어려운 일이다.
@@ -39,7 +39,7 @@ DALL·E 2, Imagen, Stable Diffusion과 같은 최근의 text-to-image diffusion 
 2. **조건부 GAN distillation**: 비용이 많이 드는 diffusion process의 다단계 inference로 인해 diffusion model이 느리다. 인터랙티브한 편집을 위해 diffusion model에서 소스 이미지와 편집된 이미지의 쌍 데이터를 제공하여 diffusion model을 빠른 조건부 GAN 모델로 증류하여 실시간 inference를 가능하게 한다.
 
 ## Method
-<center><img src='{{"/assets/img/pix2pix-zero/pix2pix-zero-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/pix2pix-zero/pix2pix-zero-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문은 편집 방향에 따라 입력 이미지를 편집할 것을 제안한다. 먼저 입력 $\tilde{x}$를 결정론적 방식으로 해당 noise map으로 반전한다. 텍스트 임베딩 space에서 편집 방향을 자동으로 발견하고 미리 계산하는 방법을 제시한다. 순진하게 편집 방향을 적용하면 종종 이미지 내용이 원치 않게 변경된다. 이 문제를 해결하기 위해 diffusion sampling process를 가이드하고 입력 이미지의 구조를 유지하는 데 도움이 되는 cross-attention guidance를 제안한다. 본 논문의 방법은 다른 text-to-image model에 적용할 수 있지만 본 논문에서는 입력 이미지 $\tilde{x} \in \mathbb{R}^{X \times X \times 3}$을 latent code $x_0 \in \mathbb{R}^{S \times S \times 4}$로 인코딩하는 Stable Diffusion을 사용한다. 실험에서 $X = 512$는 이미지 크기이고 $S = 64$는 다운샘플링된 latent 크기이다. Inversion과 편집은 latent space에서 발생한다. 입력 이미지 $\tilde{x}$를 설명하기 위해 BLIP를 사용하여 초기 텍스트 프롬프트 $c$를 생성한다.
 
@@ -96,7 +96,7 @@ $$
 ### 2. Discovering Edit Directions
 최근의 대형 생성 모델을 통해 사용자는 출력 이미지를 설명하는 문장을 지정하여 이미지 합성을 제어할 수 있다. 대신 소스 도메인에서 타겟 도메인으로 원하는 변경 사항만 제공하면 되는 인터페이스를 제공한다. 
 
-<center><img src='{{"/assets/img/pix2pix-zero/pix2pix-zero-fig2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/pix2pix-zero/pix2pix-zero-fig2.webp" | relative_url}}' width="60%"></center>
 <br>
 위 그림과 같이 소스에서 타겟까지 해당 텍스트 임베딩 방향 벡터 $\Delta c_\textrm{edit}$를 자동으로 계산한다. 기존 문장을 사용하거나 소스 $s$와 타겟 $t$ 모두에 대해 다양한 문장의 대규모 bank를 생성한다. GPT-3와 같은 generator를 사용하거나 소스 및 타겟 주위에 사전 정의된 프롬프트를 사용한다. 그런 다음 문장의 CLIP 임베딩 간의 평균 차이를 계산한다. 텍스트 프롬프트 임베딩에 방향을 추가하여 편집된 이미지를 생성할 수 있다. 단일 단어보다 여러 문장을 사용하는 텍스트 방향을 찾는다. 편집 방향을 계산하는 이 방법은 약 5초밖에 걸리지 않으며 한 번만 미리 계산하면 된다. 다음으로 편집 방향을 image-to-image translation 방법에 통합한다.
 
@@ -114,7 +114,7 @@ $$
 
 편집을 적용하기 위한 순진한 방법은 사전 계산된 편집 방향 $\Delta c_\textrm{edit}$를 $c$에 적용하고 샘플링 프로세스에 $c_\textrm{edit} = c + \Delta c_\textrm{edit}$를 사용하여 $x_\textrm{edit}$를 생성하는 것이다. 이 접근 방식은 편집에 따라 이미지를 변경하는 데 성공하지만 입력 이미지의 구조를 유지하지 못한다. 샘플링 프로세스 중 cross-attention map의 편차는 이미지 구조의 편차를 초래한다. 이와 같이 cross-attention map에서 일관성을 장려하기 위해 새로운 cross-attention guidance를 사용한다.
 
-<center><img src='{{"/assets/img/pix2pix-zero/pix2pix-zero-algo1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/pix2pix-zero/pix2pix-zero-algo1.webp" | relative_url}}' width="50%"></center>
 <br>
 Algorithm 1과 같이 2단계 프로세스를 따른다. 먼저 편집 방향을 적용하지 않고 이미지를 재구성한다. 입력 텍스트 $c$를 사용하여 각 timestep $t$에 대한 레퍼런스 cross-attention map $M_t^\textrm{ref}$를 얻는다. 이러한 cross-attention map은 보존하려는 소스 이미지의 구조 $e$에 해당한다. 다음으로 $c_\textrm{edit}$를 사용하여 편집 방향을 적용하여 cross-attention map $M_t^\textrm{edit}$를 생성한다. 그런 다음 $M_t^\textrm{ref}$와 일치하는 방향으로 $x_t$에 gradient step을 수행하여 아래의 cross-attention loss $$\mathcal{L}_\textrm{xa}$$를 줄인다.
 
@@ -130,33 +130,33 @@ $$
 ### 1. Qualitative Results
 다음은 pix2pix-zero 결과의 예시들이다.
 
-<center><img src='{{"/assets/img/pix2pix-zero/pix2pix-zero-fig4.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/pix2pix-zero/pix2pix-zero-fig4.webp" | relative_url}}' width="95%"></center>
 
 ### 2. Comparisons
 다음은 실제 이미지들에 대하여 여러 baseline들과 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/pix2pix-zero/pix2pix-zero-fig5.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/pix2pix-zero/pix2pix-zero-fig5.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 이전 diffusion 기반 편집 방법들과 비교한 표이다.
 
-<center><img src='{{"/assets/img/pix2pix-zero/pix2pix-zero-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/pix2pix-zero/pix2pix-zero-table1.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Ablation Study
 다음은 ablation study 결과이다.
 
-<center><img src='{{"/assets/img/pix2pix-zero/pix2pix-zero-table2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/pix2pix-zero/pix2pix-zero-table2.webp" | relative_url}}' width="100%"></center>
 <br>
 아래 그림은 구조 보존에 대한 cross-attention guidance의 효과를 나타낸 것이다.
 
-<center><img src='{{"/assets/img/pix2pix-zero/pix2pix-zero-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/pix2pix-zero/pix2pix-zero-fig6.webp" | relative_url}}' width="100%"></center>
 
 ### 4. Model Acceleration with Conditional GANs
 다음은 조건부 GAN으로 모델을 가속한 결과이다. 
 
-<center><img src='{{"/assets/img/pix2pix-zero/pix2pix-zero-fig7.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/pix2pix-zero/pix2pix-zero-fig7.webp" | relative_url}}' width="65%"></center>
 
 ## Limitations
-<center><img src='{{"/assets/img/pix2pix-zero/pix2pix-zero-fig8.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/pix2pix-zero/pix2pix-zero-fig8.webp" | relative_url}}' width="65%"></center>
 
 1. 구조 guidance가 cross-attention map의 해상도에 의해 제한된다
 2. 객체가 비정형 포즈를 가진 어려운 경우에 방법이 실패할 수 있다.

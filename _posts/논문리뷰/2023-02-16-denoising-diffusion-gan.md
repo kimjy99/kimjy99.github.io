@@ -30,7 +30,7 @@ classes: wide
 
 기존 모델은 일반적으로 이러한 요구 사항 사이에서 타협하기 때문에 문제가 발생하며, 이를 생성 학습 트릴레마(**generative learning trilemma**)라 한다.
 
-<center><img src='{{"/assets/img/ddg/ddg-fig1.PNG" | relative_url}}' width="35%"></center>
+<center><img src='{{"/assets/img/denoising-diffusion-gan/denoising-diffusion-gan-fig1.webp" | relative_url}}' width="35%"></center>
 <br>
 위 그림은 주류 생성 프레임워크가 트릴레마를 해결하는 방법을 요약한 것이다. GAN은 고품질 샘플을 빠르게 생성하지만 모드 커버리지가 나빠 mode collapse가 발생하기 쉽다. VAE와 normalizing flow는 모드 커버리지가 좋지만 샘플의 품질이 떨어진다. 최근 강력한 생성 모델로 떠오르고 있는 diffusion model은 이미지 생성 분야에서 GAN보다 좋은 성능을 보였으며, 모드 커버리지도 좋다. 하지만 샘플링에 수 천번 신경망을 돌려야 하므로 오래 걸린다. 
 
@@ -56,7 +56,7 @@ $$
 
 두 번째 경우는 $q(x_t)$가 가우시안이면 denoising 분포 $q(x_{t-1} \vert x_t)$도 가우시안이 경우다. VAE 인코더로 데이터 분포 $q(x_0)$와 $q(x_t)$를 가우시안과 가깝게 하는 방법이 최근 LSGM 논문에서 연구되었다. 그러나 데이터를 가우시안으로 변환하는 것 자체가 어려우며 VAE 인코더가 이 문제를 완벽하게 해결할 수 없다. 따라서 LSGM도 복잡한 데이터셋에서는 여전히 수 십에서 수 백개의 step이 필요하다. 
 
-<center><img src='{{"/assets/img/ddg/ddg-fig2.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/denoising-diffusion-gan/denoising-diffusion-gan-fig2.webp" | relative_url}}' width="80%"></center>
 <br>
 본 논문에서는 두 조건이 모두 충족되지 않는 경우, 즉 denoising step이 크고 데이터 분포가 가우시안이 아닌 경우 denoising 분포에 대한 가우시안 가정을 보장할 수 없다고 주장한다. 이를 설명하기 위해 위 그림에서 multimodal한 데이터 분포에서 다양한 denoising step 크기에 대한 실제 denoising 분포를 시각화한다. Denoising step이 커짐에 따라 실제 denoising 분포가 더 복잡해지고 다양해진다. 
 
@@ -135,7 +135,7 @@ GAN generator $G_\theta (x_t, z, t)$는 $x_t$와 $L$차원의 잠재 변수 $z \
 
 다음은 본 논문의 학습 파이프라인을 시각화한 것이다.
 
-<center><img src='{{"/assets/img/ddg/ddg-fig3.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/denoising-diffusion-gan/denoising-diffusion-gan-fig3.webp" | relative_url}}' width="65%"></center>
 
 #### Advantage over one-shot generator
 본 논문의 모델에 대한 자연스러운 질문 중 하나는 반복적으로 denoising하여 샘플을 생성하는 모델 대신 GAN을 사용하여 한 번에 샘플을 생성하도록 학습시키면 안 되는지이다. 본 논문의 모델은 전통적인 GAN에 비해 몇 가지 장점이 있다. GAN은 학습이 불안정하고 mode collapse를 겪는 것으로 알려져 있으며, 복잡한 분포에서 샘플을 one-shot으로 직접 생성하는 것이 어렵고 discriminator가 깨끗한 샘플만 볼 때 overfitting 문제가 발생한다. 
@@ -148,22 +148,22 @@ GAN generator $G_\theta (x_t, z, t)$는 $x_t$와 $L$차원의 잠재 변수 $z \
 
 그 결과는 아래 표와 같다. 
 
-<center><img src='{{"/assets/img/ddg/ddg-table1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/denoising-diffusion-gan/denoising-diffusion-gan-table1.webp" | relative_url}}' width="80%"></center>
 <br>
 샘플 품질이 다른 diffusion model 및 GAN과 비교했을 때 경쟁력 있다는 것을 알 수 있다. 몇몇 모델들은 IS와 FID가 더 좋았지만 샘플을 생성하는 데 오래 걸린다. 
 
 다음은 다른 diffusion model들과 성능을 비교하기 위하여 FID와 샘플링 시간에 대하여 plot한 것이다. 
 
-<center><img src='{{"/assets/img/ddg/ddg-fig4.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/denoising-diffusion-gan/denoising-diffusion-gan-fig4.webp" | relative_url}}' width="65%"></center>
 <br>
 GAN과 비교하면 ADA를 적용한 StyleGAN2만 본 논문의 모델보다 샘플 품질이 더 좋다. 그러나 위 표에서 보면 recall 점수가 0.5보다 낮아 다양성에 한계가 있음을 알 수 있다. 반면, 본 논문의 모델은 상당히 더 좋은 recall 점수를 얻었으며 likelihood 기반 모델보다도 recall 점수가 좋은 경우도 있다. 
 
 다음은 CIFAR-10에서의 샘플들이다.
 
-<center><img src='{{"/assets/img/ddg/ddg-fig5.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/denoising-diffusion-gan/denoising-diffusion-gan-fig5.webp" | relative_url}}' width="50%"></center>
 
 ### 2. Ablation studies
-<center><img src='{{"/assets/img/ddg/ddg-table2.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/denoising-diffusion-gan/denoising-diffusion-gan-table2.webp" | relative_url}}' width="40%"></center>
 
 #### Number of denoising steps
 위 표의 첫 번째 부분을 보면 다양한 denoising step 수 $T$에 대하여 ablation study를 진행한 결과를 볼 수 있다. 
@@ -184,7 +184,7 @@ $x_0$의 추정된 샘플을 generator가 생성하는 대신 denoising 분포�
 
 아래 그림은 잠재 변수의 영향을 시각화하기 위해 고정된 $x_1$에 대하여 $p_\theta (x_0 \vert x_1)$로 샘플링한 샘플들을 나타낸 그림이다. 
 
-<center><img src='{{"/assets/img/ddg/ddg-fig8.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/denoising-diffusion-gan/denoising-diffusion-gan-fig8.webp" | relative_url}}' width="60%"></center>
 <br>
 왼쪽 2개의 그림이 원본 $x_0$와 $x_0$에 noise를 추가한 $x_1$이다. 오른쪽 3개의 그림이 $p_\theta (x_0 \vert x_1)$로 샘플링한 샘플들이다. $x_1$의 대부분의 정보가 보존되면서 잠재 변수에 의해 샘플들이 다양한 것을 볼 수 있다. 
 
@@ -192,20 +192,20 @@ $x_0$의 추정된 샘플을 generator가 생성하는 대신 denoising 분포�
 #### Mode Coverage
 저자들은 recall 점수 외에 추가로 25-Gaussians 데이터셋과 StackedMNIST 데이터셋에서 모드 커버리지를 평가하였다. 아래 그림은 4 denoising step으로 학습한 denoising diffusion GAN의 결과를 다른 모델들과 비교한 것이다. 
 
-<center><img src='{{"/assets/img/ddg/ddg-fig6.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/denoising-diffusion-gan/denoising-diffusion-gan-fig6.webp" | relative_url}}' width="95%"></center>
 <br>
 일반 GAN은 mode collapse가 심하게 발생하였으며, WGAN-GP는 모드 커버리지를 개선하였지만 샘플의 품질에 제한이 있다. 반면, 본 논문의 모델은 높은 샘플 품질을 유지하면서 모든 모드들을 커버하였다. DDPM의 경우 샘플 품질을 높게 유지하려면 많은 step이 필요하다는 것을 알 수 있다. 
 
 아래 표는 StackedMNIST로 모드 커버리지를 측정한 것이다. 
 
-<center><img src='{{"/assets/img/ddg/ddg-table3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/denoising-diffusion-gan/denoising-diffusion-gan-table3.webp" | relative_url}}' width="50%"></center>
 <br>
 본 논문의 모델이 가장 낮은 KL을 달성하였으며, StyleGAN2과 같이 최고의 샘플 품질을 가지는 모델보다 모드 커버리지가 좋았다. 
 
 #### Training Stability
 다음은 각각의 timestep에 대한 discriminator loss를 plot한 것이다.
 
-<center><img src='{{"/assets/img/ddg/ddg-fig10.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/denoising-diffusion-gan/denoising-diffusion-gan-fig10.webp" | relative_url}}' width="55%"></center>
 <br>
 Denoising diffusion GAN의 학습이 안정적인 것을 확인할 수 있다. 이러한 안정성이 생기는 데에는 2가지 이유가 있다. 
 
@@ -216,16 +216,16 @@ Denoising diffusion GAN의 학습이 안정적인 것을 확인할 수 있다. �
 다음은 CelebA-HQ와 LSUN Church 데이터셋으로 256$\times$256에서 학습한 모델의 FID를 측정한 표와 샘플들이다. 
 
 <div style="display: flex; align-items: start; justify-content: center">
-  <img src='{{"/assets/img/ddg/ddg-table4.PNG" | relative_url}}' width="40%">
+  <img src='{{"/assets/img/denoising-diffusion-gan/denoising-diffusion-gan-table4.webp" | relative_url}}' width="40%">
   &nbsp; &nbsp;
-  <img src='{{"/assets/img/ddg/ddg-table5.PNG" | relative_url}}' width="45%">
+  <img src='{{"/assets/img/denoising-diffusion-gan/denoising-diffusion-gan-table5.webp" | relative_url}}' width="45%">
 </div>
 
-<center><img src='{{"/assets/img/ddg/ddg-fig7.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/denoising-diffusion-gan/denoising-diffusion-gan-fig7.webp" | relative_url}}' width="80%"></center>
 
 #### Stroke-based image synthesis
 다음은 본 논문의 모델을 stroke 기반 이미지 합성에 적용한 결과이다. 
 
-<center><img src='{{"/assets/img/ddg/ddg-fig9.PNG" | relative_url}}' width="67%"></center>
+<center><img src='{{"/assets/img/denoising-diffusion-gan/denoising-diffusion-gan-fig9.webp" | relative_url}}' width="67%"></center>
 <br>
 Stroke 기반 이미지 합성 모델인 SDEdit의 경우 1개의 이미지를 생성하는 데 181초가 걸리지만, 본 논문의 모델은 0.16초밖에 걸리지 않는다. 이를 통해 이미지 편집과 같은 다양한 분야에 적용할 수 있음을 알 수 있다. 

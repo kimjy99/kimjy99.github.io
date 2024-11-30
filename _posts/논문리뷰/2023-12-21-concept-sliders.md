@@ -19,7 +19,7 @@ classes: wide
 > Northeastern University | Massachusetts Institute of Technology  
 > 20 Nov 2023  
 
-<center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 Text-to-image diffusion model의 사용자는 생성된 이미지에 표현된 시각적 속성과 개념을 현재 가능한 것보다 더 세밀하게 제어해야 하는 경우가 많다. 텍스트 프롬프트만 사용하면 사람의 나이나 날씨의 강도와 같은 연속적인 속성을 정밀하게 조정하는 것이 어려울 수 있으며, 이러한 제한은 제작자가 자신의 생각에 맞게 이미지를 조정하는 능력을 방해한다. 본 논문에서는 diffusion model 내에서 개념을 세밀하게 편집할 수 있는 해석 가능한 **Concept Sliders**를 도입하여 이러한 요구 사항을 해결한다. 본 논문의 방법은 제작자가 이미지 편집뿐만 아니라 생성 프로세스에 대한 충실도 높은 제어 기능을 제공한다. 
@@ -37,7 +37,7 @@ Concept Slider의 표현력은 사실성을 강화하고 손 왜곡을 수정하
 Concept Sliders는 모듈식이며 합성 가능하다. 저자들은 출력 품질을 저하시키지 않고 50개 이상의 고유한 슬라이더를 합성할 수 있음을 발견했다. 이러한 다양성은 사용자에게 수많은 텍스트 Concept Slider, 시각적 Concept Slider, GAN에서 정의된 Concept Slider를 혼합할 수 있는 미묘한 이미지 제어의 새로운 세계를 제공한다. Concept Sliders는 표준 프롬프트 토큰 제한을 피하기 때문에 텍스트만으로 달성할 수 있는 것보다 더 복잡한 편집이 가능하다.
 
 ## Method
-<center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig2.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig2.webp" | relative_url}}' width="65%"></center>
 <br>
 Concept Sliders는 위 그림과 같이 개념을 타겟으로 하는 이미지 제어를 가능하게 하기 위해 diffusion model에서 [LoRA](https://kimjy99.github.io/논문리뷰/lora) 어댑터를 fine-tuning하는 방법이다. 타겟 개념으로 컨디셔닝될 때 특정 속성의 표현을 늘리거나 줄이는 low-rank 파라미터 방향을 학습한다. 타겟 개념 $c_t$와 모델 $\theta$가 주어지면 $c_t$로 컨디셔닝될 때 이미지 $X$에서 속성 $c_{+}$와 $c_{−}$의 likelihood를 수정하는 $\theta^\ast$를 얻는 것이 목표이다. 즉, 속성 $c_{+}$의 likelihood를 높이고 속성 $c_{−}$의 likelihood를 줄이는 것이 목표이다. 
 
@@ -105,56 +105,56 @@ $$
 ### 1. Textual Concept Sliders
 다음은 [Prompt2Prompt](https://arxiv.org/abs/2208.01626)와 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/concept-sliders/concept-sliders-table1.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/concept-sliders/concept-sliders-table1.webp" | relative_url}}' width="52%"></center>
 <br>
 다음은 특정 개념을 세밀하게 편집하는 동시에 우수한 이미지 구조를 유지하는 정성적인 예시들이다. 
 
-<center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig3.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig3.webp" | relative_url}}' width="80%"></center>
 
 ### 2. Visual Concept Sliders
 다음은 선택적 텍스트 guidance가 포함된 이미지 쌍 기반 Concept Sliders를 사용하여 눈썹 모양과 눈 크기와 같은 세밀한 속성을 제어한 결과이다. 
 
-<center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig4.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig4.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 customization 방법들과 비교한 표이다. $\Delta_\textrm{eye}$는 원본 이미지와 비교하여 눈 크기의 변화 비율을 나타낸다. 
 
-<center><img src='{{"/assets/img/concept-sliders/concept-sliders-table2.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/concept-sliders/concept-sliders-table2.webp" | relative_url}}' width="45%"></center>
 
 ### 3. Sliders transferred from StyleGAN
 다음은 FFHQ 데이터셋에서 학습된 StyleGAN-v3 스타일 공간에서 전송된 슬라이더를 보여준다. 
 
-<center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig5.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig5.webp" | relative_url}}' width="80%"></center>
 
 ### 4. Composing Sliders
 다음은 두 텍스트 기반 슬라이더를 합성한 결과이다. 
 
-<center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig6.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig6.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 여러 슬라이더를 점진적으로 합성한 결과이다. 
 
-<center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig7.PNG" | relative_url}}' width="82%"></center>
+<center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig7.webp" | relative_url}}' width="82%"></center>
 
 ## Concept Sliders to Improve Image Quality
 #### Fixing Hands
 다음은 Stable Diffusion에서 손을 수정한 결과이다. 
 
-<center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig9.PNG" | relative_url}}' width="87%"></center>
+<center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig9.webp" | relative_url}}' width="87%"></center>
 
 #### Repair Slider
 다음은 repair slider를 사용하여 더욱 사실적이고 왜곡되지 않은 이미지를 생성한 예시들이다. Repair slider는 (a, b)의 왜곡된 인간과 애완동물, (b, c, d)의 부자연스러운 물체, (b, c)의 흐릿한 이미지와 같이 생성된 출력의 일부 결함을 수정하는 데 도움이 된다.
 
-<center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig8.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 미세한 디테일에 대한 repair sliders의 효과를 보여주는 예시이다. 
 
-<center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig10.PNG" | relative_url}}' width="67%"></center>
+<center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig10.webp" | relative_url}}' width="67%"></center>
 
 ## Ablations
 다음은 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/concept-sliders/concept-sliders-table3.PNG" | relative_url}}' width="43%"></center>
+<center><img src='{{"/assets/img/concept-sliders/concept-sliders-table3.webp" | relative_url}}' width="43%"></center>
 <br>
-<center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig11.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig11.webp" | relative_url}}' width="75%"></center>
 
 ## Limitations
 1. 일부 residual effect가 여전히 관찰된다. 

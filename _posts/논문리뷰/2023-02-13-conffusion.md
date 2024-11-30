@@ -19,7 +19,7 @@ classes: wide
 > School of Computer Science and Engineering, The Hebrew University of Jerusalem, Israel  
 > 17 Nov 2022  
 
-<center><img src='{{"/assets/img/conffusion/conffusion-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/conffusion/conffusion-fig1.webp" | relative_url}}' width="100%"></center>
 <br>
 
 ## Introduction
@@ -155,36 +155,36 @@ N-Conffusion은 이전에 논의된 모든 방법보다 성능이 우수하지�
 ### 1. Super-resolution
 다음은 super-resolution에 대한 평가 결과이다.
 
-<center><img src='{{"/assets/img/conffusion/conffusion-fig5.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/conffusion/conffusion-fig5.webp" | relative_url}}' width="40%"></center>
 <br>
 모든 모델이 RCPS 정의를 만족한다. 모든 모델이 $ADM_{UQ}$의 성능을 뛰어 넘었으며, $DM_{SBA}$와 N-Conffusion은 더 좁은 간격을 만들었다. $DM_{SBA}$의 size-stratified risk가 가장 좋았다. 
 
 다음은 N-Conffusion으로 추출한 bound들을 나타낸 것이다. 
 
-<center><img src='{{"/assets/img/conffusion/conffusion-fig2.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/conffusion/conffusion-fig2.webp" | relative_url}}' width="75%"></center>
 <br>
 N-Conffusion이 유의미한 bound를 제공한다는 것을 알 수 있다. Error map을 보면 대부분의 error가 높은 주파수 영역에 있음을 알 수 있다. 
 
 ### 2. Inpainting
 다음은 inpainting에 대한 평가 결과이다. 
 
-<center><img src='{{"/assets/img/conffusion/conffusion-fig6.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/conffusion/conffusion-fig6.webp" | relative_url}}' width="40%"></center>
 <br>
 모든 모델이 $ADM_{UQ}$의 성능을 뛰어 넘었다. N-Conffusion은 통제 위험에서 약간 벗어나지만 간격 크기 측면에서 뛰어나다. 
 
 다음은 다양한 방법을 inpainting task에 대하여 비교한 것이다. 
 
-<center><img src='{{"/assets/img/conffusion/conffusion-fig4.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/conffusion/conffusion-fig4.webp" | relative_url}}' width="75%"></center>
 <br>
 $ADM_{UQ}$는 흐릿한 bound를 생성하지만 $DM_{SB}$는 가장 날카로운 간격을 생성하며 추정된 bound가 아티팩트를 포함할 수 있다. N-Conffusion은 사실적인 bound를 유지하면서 가장 좁은 간격을 구성한다. 
 
 다음은 N-Conffusion으로 추출한 bound들을 나타낸 것이다. 
 
-<center><img src='{{"/assets/img/conffusion/conffusion-fig3.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/conffusion/conffusion-fig3.webp" | relative_url}}' width="75%"></center>
 
 ### 3. Is Diffusion Pretraining Necessary?
 다음은 G-Conffusion과 동일한 finetuning 목적 함수로 ResNeXt와 ResNeSt를 사전 학습한 후 비교한 결과이다. ResNeXt는 Instagram 데이터셋에서 사전 학습되었고 ResNeSt는 ImageNet에서 사전 학습되었다. 
 
-<center><img src='{{"/assets/img/conffusion/conffusion-fig7.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/conffusion/conffusion-fig7.webp" | relative_url}}' width="40%"></center>
 <br>
 모든 방법이 risk-controlling 정의를 만족하지만, diffusion model로 사전 학습한 것이 생성한 간격이 가장 좁다. 

@@ -20,12 +20,12 @@ classes: wide
 > Adobe Research | Tel-Aviv University | Carnegie Mellon University  
 > 12 Jan 2023  
 
-<center><img src='{{"/assets/img/domain-expansion/domain-expansion-fig2.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/domain-expansion/domain-expansion-fig2.webp" | relative_url}}' width="85%"></center>
 
 ## Introduction
 최근의 도메인 적응 기술은 새로운 타겟 도메인에서 이미지를 생성할 수 있도록 사전 학습된 generator를 적응함으로써 현대 생성 이미지 모델의 엄청난 성공에 편승하였다. 종종 타겟 도메인은 원본 도메인과 관련하여 정의된다. 그러한 관계가 유지될 때 도메인 적응은 일반적으로 소스 도메인에서 학습된 변동 요소를 보존하고 이를 새로운 것으로 전송하려고 한다. 그러나 기존 기술을 사용하면 적응된 모델이 원래 도메인에서 이미지를 생성하는 능력을 상실한다.
 
-<center><img src='{{"/assets/img/domain-expansion/domain-expansion-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/domain-expansion/domain-expansion-fig1.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문에서는 domain expansion이라는 새로운 task를 소개한다. 도메인 적응과 달리, 원래 동작을 무시하지 않고 단일 모델이 생성할 수 있는 이미지 공간을 늘리는 것을 목표로 한다. 유사한 이미지 도메인을 분리된 데이터 분포로 보는 대신 결합 분포에서 서로 다른 모드로 취급한다. 결과적으로 도메인은 원래 데이터 도메인에서 상속된 semantic prior를 공유한다. 예를 들어 포즈나 얼굴 모양과 같이 사실적인 얼굴에 내재된 변동 요소는 "좀비" 도메인에도 동일하게 적용될 수 있다.
 
@@ -40,7 +40,7 @@ Latent code $z \in \mathcal{Z} \subseteq \mathbb{R}^D$에서 소스 도메인 $$
 
 본 논문의 솔루션은 latent space를 각각의 새로운 도메인에 대해 하나씩 분리된 subspace로 분할하고 각 도메인 적응의 효과를 해당 subspace로 제한하는 것이다. 이를 위해 latent space에 도메인 확장을 지원하는 명시적 구조를 부여하고 새 도메인을 위해 예약된 특정 subspace의 latent만 사용하여 각 도메인 적응 loss를 최적화한다. 이 분해는 소스 generator의 동작을 유지하기 위해 정규화 목적 함수를 부과하는 원래 도메인 $$\mathcal{D}_\textrm{src}$$에 대한 base subspace를 예약한다. 아래 그림은 도메인 확장 알고리즘의 개요를 제공한다.
 
-<center><img src='{{"/assets/img/domain-expansion/domain-expansion-fig3.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/domain-expansion/domain-expansion-fig3.webp" | relative_url}}' width="65%"></center>
 
 ### 1. Structuring the Latent Space for Expansion
 최신 생성 모델은 unsupervised 방식으로 선형 latent 방향을 따라 변동 요인을 나타내는 방법을 편리하게 학습한다. 적응 task에 의해 정의된 효과가 단일 선형 방향을 따라 표현되도록 latent space를 구조화하여 이 모델을 명시적으로 확장한다. $G^{+} (z)$, $G^{+} (z + sv_i)$에서 생성된 이미지가 소스 generator $G_\textrm{src} (z)$와 적응된 generator $G_i (z)$에서 해당 이미지로 서로 관련되는 일부 스칼라 $s$와 latent 방향 $v_i$가 존재해야 한다. 
@@ -90,7 +90,7 @@ $$
 $$
 
 ### 3. Regularization
-<center><img src='{{"/assets/img/domain-expansion/domain-expansion-fig4.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/domain-expansion/domain-expansion-fig4.webp" | relative_url}}' width="70%"></center>
 <br>
 $$\mathcal{L}_\textrm{expand}$$를 최적화하면 단일 generator 내에서 새 도메인 $$\mathcal{D}_i$$에서 데이터를 생성하는 방법을 배울 수 있지만 불행히도 base subspace $$\mathcal{Z}_\textrm{base}$$가 제한되지 않은 상태로 남아 있으므로 학습 중에 변경되지 않은 상태로 유지된다는 보장이 없다. 실제로 $L_i$의 효과가 $$\mathcal{Z}_i$$ 외부에서 "누출"되어 $$\mathcal{Z}_\textrm{base}$$에서 치명적인 망각을 일으키고 다른 subspace $$\mathcal{Z}_j$$에 바람직하지 않게 영향을 미치는 것을 관찰할 수 있다. 위 그림은 이러한 누출의 예를 보여준다.
 
@@ -131,38 +131,38 @@ $$
 ### 1. Evaluating Domains Individually
 다음은 용도 변경된 방향에 따라 연속적으로 이미지를 변환한 결과이다. 
 
-<center><img src='{{"/assets/img/domain-expansion/domain-expansion-fig5.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/domain-expansion/domain-expansion-fig5.webp" | relative_url}}' width="85%"></center>
 <br>
 다음은 도메인 적응 방법과 도메인 확장 방법의 성능을 정량적으로 비교한 표이다.
 
-<center><img src='{{"/assets/img/domain-expansion/domain-expansion-table1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/domain-expansion/domain-expansion-table1.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 도메인 적응 방법과 도메인 확장 방법의 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/domain-expansion/domain-expansion-fig6.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/domain-expansion/domain-expansion-fig6.webp" | relative_url}}' width="85%"></center>
 
 ### 2. Effect of Domains on Each Other
 다음은 여러 도메인을 동시에 도입하는 효과를 조사한 것이다. 
 
-<center><img src='{{"/assets/img/domain-expansion/domain-expansion-fig7.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/domain-expansion/domain-expansion-fig7.webp" | relative_url}}' width="70%"></center>
 
 ### 3. Compositionality
 다음은 단순한 latent 탐색으로 여러 효과를 구성하는 예시이다. 
 
-<center><img src='{{"/assets/img/domain-expansion/domain-expansion-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/domain-expansion/domain-expansion-fig8.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 StyleGAN-NADA와 DiffusionCLIP에서 제안한 여러 도메인을 결합하는 방법과 본 논문의 generator의 합성성을 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/domain-expansion/domain-expansion-fig9a.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/domain-expansion/domain-expansion-fig9a.webp" | relative_url}}' width="50%"></center>
 <br>
-<center><img src='{{"/assets/img/domain-expansion/domain-expansion-fig9b.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/domain-expansion/domain-expansion-fig9b.webp" | relative_url}}' width="90%"></center>
 
 ### 4. Preservation of the Source Domain
 다음은 base subspace에서 이미지를 생성하고 소스 도메인 데이터셋에 대하여 FID를 측정한 표이다.
 
-<center><img src='{{"/assets/img/domain-expansion/domain-expansion-table2.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/domain-expansion/domain-expansion-table2.webp" | relative_url}}' width="48%"></center>
 
 ### 5. Generalization Beyond StyleGAN
 다음은 [Diffusion Autoencoder](https://kimjy99.github.io/논문리뷰/diffae)에 도메인 확장 방법을 적용한 결과이다. 
 
-<center><img src='{{"/assets/img/domain-expansion/domain-expansion-fig10.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/domain-expansion/domain-expansion-fig10.webp" | relative_url}}' width="90%"></center>

@@ -111,7 +111,7 @@ $$
 
 사실, 위 식은 확률적 그래픽 모델 논문에서 factor node와 variable node에 대해 정의된 주변 분포에 의해 공동 분포 $q(u)$를 근사화하는 중요한 Bethe approximation로 알려져 있다. Factor graph가 비순환 그래프일 때 근사값은 정확하며 $p(u) = q(u)$이다. 순환이 있는 일반 그래프의 경우 Bethe approximation가 실제로 널리 사용되며 좋은 성능을 얻는다.
 
-<center><img src='{{"/assets/img/diffcollage/diffcollage-fig2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/diffcollage/diffcollage-fig2.webp" | relative_url}}' width="50%"></center>
 <br>
 실제로 위 그림과 같이 factor graph는 임의의 크기와 모양의 컨텐츠를 커버하는 데 충분히 일반적이다.  
 
@@ -141,37 +141,37 @@ $$
 ### 1. Infinite image generation
 다음은 내부 landscape 데이터셋에서 무한 이미지 생성에 대한 다양한 diffusion 기반 방법을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/diffcollage/diffcollage-table1.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/diffcollage/diffcollage-table1.webp" | relative_url}}' width="52%"></center>
 <br>
 다음은 다양한 접근 방식으로 생성된 긴 이미지이다. 
 
-<center><img src='{{"/assets/img/diffcollage/diffcollage-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffcollage/diffcollage-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 오차 누적으로 인해 이미지가 커짐에 따라 autoregressive 접근 방식의 샘플 품질이 저하되는 반면, DiffCollage에는 이 문제가 없음을 보여준다. 
 
 다음은 다양한 이미지 길이(왼쪽)와 모션 시퀀스 길이(오른쪽)에 대하여 생성에 소요되는 시간을 나타낸 그래프이다. 
 
-<center><img src='{{"/assets/img/diffcollage/diffcollage-fig5.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/diffcollage/diffcollage-fig5.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 실제 이미지를 연결한 이미지이다. 64$\times$64 크기의 실제 이미지 $x^{(0)}$과 $x^{(N)}$이 주어지면 DiffCollage는 1024$\times$10752 이미지를 생성할 수 있다. 
 
-<center><img src='{{"/assets/img/diffcollage/diffcollage-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffcollage/diffcollage-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 한 스타일에서 완전히 다른 스타일로 전환되는 긴 이미지를 생성할 수 있다.
 
 다음은 무한 이미지 생성을 위해 설계된 다양한 방법을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/diffcollage/diffcollage-table2.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/diffcollage/diffcollage-table2.webp" | relative_url}}' width="42%"></center>
 
 ### 2. Arbitrary-sized image translation
 다음은 높이와 너비의 크기가 다른 이미지를 inpainting한 예시이다.
 
-<center><img src='{{"/assets/img/diffcollage/diffcollage-fig7.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/diffcollage/diffcollage-fig7.webp" | relative_url}}' width="65%"></center>
 
 ### 3. Text-to-motion generation
 다음은 HumanML3D test set에서 long-duration 생성의 정량적 결과를 나타낸 표이다. 
 
-<center><img src='{{"/assets/img/diffcollage/diffcollage-table3.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/diffcollage/diffcollage-table3.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 간단한 모션으로 학습된 diffusion model로 복잡한 모션을 합성한 예시이다.
 
@@ -179,11 +179,11 @@ $$
 > (Top) A person <span style='color: #f0a54a'>runs</span> forward, then <span style='color: #38a2fa'>kicks his legs</span>, then <span style='color: #9f3ee0'>skips rope</span>, then <span style='color: #43f1a6'>bends down</span> to pick something up off the ground.  
 > (Bottom) A person <span style='color: #f0a54a'>runs</span> forward, then <span style='color: #9f3ee0'>skips rope</span>, then <span style='color: #43f1a6'>bends down</span> to pick something up off the ground, then <span style='color: #38a2fa'>kicks his legs</span>.  
 
-<center><img src='{{"/assets/img/diffcollage/diffcollage-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffcollage/diffcollage-fig8.webp" | relative_url}}' width="100%"></center>
 
 ### 4. Generation with complex graphs
 다음은 DiffCollage가 복잡한 그래프로 지정된 어려운 종속성 구조로 데이터를 생성할 수 있음을 보여준다. 
 
-<center><img src='{{"/assets/img/diffcollage/diffcollage-fig9.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/diffcollage/diffcollage-fig9.webp" | relative_url}}' width="60%"></center>
 <br>
 위 그림 상단과 같이 DiffCollage는 순환 그래프를 구성하여 수평 파노라마를 생성할 수 있다. 또한 본 논문의 방법을 적용하여 semantic segmentation map(위 그림 하단)에서 조정된 일반 원근 이미지에서만 학습된 diffusion model을 사용하여 360도 파노라마를 생성할 수 있다. 

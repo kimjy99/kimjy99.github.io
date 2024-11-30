@@ -20,7 +20,7 @@ classes: wide
 > 29 Sep 2022  
 
 ## Introduction
-<center><img src='{{"/assets/img/dreamfusion/dreamfusion-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dreamfusion/dreamfusion-fig1.webp" | relative_url}}' width="100%"></center>
 <br>
 텍스트 기반 이미지 생성 모델은 fidelity가 높고 다양하며 제어 가능한 이미지 합성을 지원한다. 이러한 품질 향상은 대규모로 정렬된 이미지-텍스트 데이터셋과 확장 가능한 생성 모델 아키텍처에서 비롯되었다. Diffusion model은 안정적이고 확장 가능한 denoising 목적 함수로 고품질 이미지 generator를 학습하는 데 특히 효과적이다. Diffusion model을 다른 양식에 적용하는 것은 성공적이었지만 많은 양의 양식별로 학습 데이터가 필요하다. 본 논문에서는 사전 학습된 2D 이미지-텍스트 diffusion model을 3D 데이터 없이 3D 객체 합성으로 transfer하는 기술을 개발한다 (위 그림 참고). 2D 이미지 생성은 광범위하게 적용할 수 있지만 시뮬레이터나 비디오 게임, 영화와 같은 디지털 미디어는 풍부하게 환경을 채우기 위해 수천 개의 상세한 3D 에셋이 필요하다. 3D 에셋은 현재 Blender나 Maya3D와 같은 모델링 소프트웨어에서 수작업으로 설계되며, 이 프로세스에는 많은 시간과 전문 지식이 필요하다. Text-to-3D 생성 모델은 초보자의 진입 장벽을 낮추고 숙련된 아티스트의 작업 흐름을 개선할 수 있다. 
 
@@ -123,12 +123,12 @@ $$
 
 이 샘플링 접근 방식이 distillation과 연관이 있기 때문에 Score Distillation Sampling (SDS)이라 부르며, distillation에서 밀도 대신 score fuction이 사용되었다고 생각할 수 있다. $t \rightarrow 0$일 때 $q(z_t \vert \cdots)$의 noise가 사라지고 $g(\theta)$의 평균 파라미터가 원하는 샘플이 되므로 SDS를 sampler라고 부를 수 있다. Diffusion model이 업데이트 방향을 바로 예측하기 때문에 diffusion model에 역전파를 보낼 필요가 없으며, 모델은 효율적인 frozen critic과 같이 간단하게 행동한다. 
 
-<center><img src='{{"/assets/img/dreamfusion/dreamfusion-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dreamfusion/dreamfusion-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 $$\mathcal{L}_\textrm{SDS}$$의 모드 탐색 특성을 감안할 때 이 loss를 최소화하면 좋은 샘플이 생성되는지 여부가 불분명할 수 있다. 위 그림에서 SDS가 합리적인 품질의 제한된 이미지를 생성할 수 있음을 보여준다. 저자들은 경험적으로 classifier-free guidance의 guidance 가중치 $\omega$를 큰 값으로 설정하면 품질이 향상된다는 것을 발견했다. SDS는 ancestral sampling에 필적하는 디테일을 생성하지만 파라미터 공간에서 작동하기 때문에 새로운 전이 학습 (transfer learning) 애플리케이션이 가능하다.
 
 ## The DreamFusion Algorithm
-<center><img src='{{"/assets/img/dreamfusion/dreamfusion-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dreamfusion/dreamfusion-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 샘플을 생성하기 위해 일반적인 연속 최적화 문제 내에서 diffusion model을 loss로 사용할 수 있는 방법을 설명했으므로 이제 텍스트에서 3D 에셋을 생성할 수 있는 특정 알고리즘을 구성할 것이다. Diffusion model의 경우 텍스트에서 이미지를 합성하도록 학습된 [Imagen](https://kimjy99.github.io/논문리뷰/imagen) 모델을 사용한다. 저자들은 64$\times$64 base model만 사용하고 이 사전 학습된 모델을 수정 없이 그대로 사용한다. 텍스트에서 scene을 합성하기 위해 NeRF와 유사한 모델을 임의의 가중치로 초기화한 다음 임의의 카메라 위치와 각도에서 해당 NeRF의 view를 반복적으로 렌더링한다. 이러한 렌더링을 Imagen을 감싸는 score distillation loss function에 대한 입력으로 사용한다. 이 접근 방식을 사용한 간단한 gradient descent은 결국 텍스트와 유사한 NeRF로 parameterize된 3D 모델을 생성한다. 이 접근 방식에 대한 개요는 위 그림과 같다.
 
@@ -208,19 +208,19 @@ $$
 ## Experiments
 다음 그림은 3D scene을 생성하고 정제하는 DreamFusion의 능력을 보여준다. 
 
-<center><img src='{{"/assets/img/dreamfusion/dreamfusion-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dreamfusion/dreamfusion-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 다양한 CLIP retrieval model로 생성한 캡션들로 DreamFusion의 생성의 일관성을 평가한 표이다. 
 
-<center><img src='{{"/assets/img/dreamfusion/dreamfusion-table1.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/dreamfusion/dreamfusion-table1.webp" | relative_url}}' width="40%"></center>
 <br>
 다음은 baseline과의 정성적인 비교를 나타낸 것이다. 
 
-<center><img src='{{"/assets/img/dreamfusion/dreamfusion-fig5.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/dreamfusion/dreamfusion-fig5.webp" | relative_url}}' width="50%"></center>
 
 #### Ablations
 다음은 DreamFusion의 ablation study 결과를 나타낸 표이다.
 
-<center><img src='{{"/assets/img/dreamfusion/dreamfusion-fig6.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dreamfusion/dreamfusion-fig6.webp" | relative_url}}' width="90%"></center>
 <br>
 왼쪽은 object-centric COCO에서 CLIP L/14를 사용하여 다양한 render에 따른 빛이 없는 렌더링의 구성 요소를 평가한다. 오른쪽은 각 render의 효과를 "A bulldog is wearing a black pirate hat."에 대하여 시각화한 것이다. 

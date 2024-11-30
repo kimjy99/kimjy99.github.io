@@ -35,7 +35,7 @@ BC에 대한 인기 있는 접근 방식은 학습을 더 간단하게 만들기
 3. Counter-Strike: Global Offensive에서 인간 게임플레이를 모델링하도록 스케일링할 수 있다. 
 
 ## Observation-to-Action Diffusion Models
-<center><img src='{{"/assets/img/diffusion-bc/diffusion-bc-fig1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/diffusion-bc/diffusion-bc-fig1.webp" | relative_url}}' width="80%"></center>
 
 ### 1. Diffusion Model Overview
 Diffusion mode은 Gaussian noise를 반복적인 방식으로 일부 대상 분포에 매핑하는 생성 모델이며, 선택적으로 일부 컨텍스트로 컨디셔닝할 수 있다. $a_T \sim \mathcal{N} (0, I)$부터 시작하여 시퀀스 $a_{T -1}, a_{T -2}, \cdots, a_0$은 깨끗한 샘플인 $a_0$과 함께 각각 이전 버전의 약간 denoise된 버전으로 예측된다. 여기서 $T$는 denoising step의 총 수이다. 
@@ -101,7 +101,7 @@ $$
 
 CFG는 $w$가 클수록 다양성을 희생시키면서 더 높은 likelihood의 궤적을 생성하므로 순차적 설정에서 유익할 것이라고 예상할 수 있다. 놀랍게도 저자들은 CFG가 실제로 덜 일반적인 궤적을 조장하고 성능을 저하시킬 수 있음을 발견했다. 
 
-<center><img src='{{"/assets/img/diffusion-bc/diffusion-bc-fig3.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/diffusion-bc/diffusion-bc-fig3.webp" | relative_url}}' width="75%"></center>
 <br>
 위 그림에서 다양한 guidance 강도 $w$에서 claw machine game에 대한 $\hat{p}(a \vert o)$를 시각화한다. CFG의 해석은 암시적 classifier $p(o \vert a)$를 최대화하는 action의 샘플링을 권장한다는 것이다. 따라서 CFG는 특정 observation에 고유한 action을 선택하도록 권장한다. 이는 text-to-image model에 유용하지만, 순차적 환경에서는 일부 observation과 쌍을 이루는 덜 일반적인 action을 선호하여 에이전트가 likelihood가 높은 action을 거부하게 된다. 
 
@@ -114,7 +114,7 @@ Text-to-image diffusion에서는 일반적으로 여러 샘플이 병렬로 생�
 #### Diffusion-KDE
 평소와 같이 diffusion model에서 여러 action 샘플을 생성한다 (병렬로 수행할 수 있음). 모든 샘플에 간단한 kernel-density estimator (KDE)를 적용하고 각각의 likelihood를 점수화한다. Likelihood가 가장 높은 action을 선택한다. 
 
-<center><img src='{{"/assets/img/diffusion-bc/diffusion-bc-fig4.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/diffusion-bc/diffusion-bc-fig4.webp" | relative_url}}' width="85%"></center>
 <br>
 이러한 샘플링 수정의 효과는 위 그림에 설명되어 있다. Diffusion BC는 실제 $p(a \vert o)$ 영역을 벗어나는 소수의 action을 생성하지만 Diffusion-X와 Diffusion-KDE는 이러한 잘못된 action을 방지한다. 그림의 두 가지 고유한 모드는 두 가지 샘플링 방법 모두에 의해 복구되어 각 모드 내의 다양성이 감소하더라도 multimodality가 손상되지 않음을 나타낸다. 
 
@@ -138,16 +138,16 @@ Kitchen environment은 여러 가지 이유로 어렵다.
 #### Main Results
 다음은 로봇 제어 결과를 나타낸 표이다. 
 
-<center><img src='{{"/assets/img/diffusion-bc/diffusion-bc-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffusion-bc/diffusion-bc-table1.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 kitchen task에서 로봇 제어를 완료하는 데 걸리는 시간을 나타낸 그래프이다. 색칠된 부분은 인간 시연을 나타낸 것이고, 왼쪽은 MSE Transformer, 오른쪽은 Diffusion-X Transformer의 결과이다. 
 
-<center><img src='{{"/assets/img/diffusion-bc/diffusion-bc-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffusion-bc/diffusion-bc-fig5.webp" | relative_url}}' width="100%"></center>
 
 #### Classifier Free Guidance Analysis
 다음은 Diffusion BC에 대한 CFG의 효과를 나타낸 표이다.
 
-<center><img src='{{"/assets/img/diffusion-bc/diffusion-bc-table2.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/diffusion-bc/diffusion-bc-table2.webp" | relative_url}}' width="75%"></center>
 <br>
 Guidance가 없을 때($w = 0$)보다 강력한 guidance가 있을 때 ($w = 8$) 완료율이 크게 떨어지는 것을 볼 수 있다. 한편, CFG는 첫번째 task로 Bottom Burner를 선택하는 데 강한 bias를 생성한다. 이는 인간 시연자가 시간의 10%만 Bottom Burner를 선택하지만 CFG가 강해지면 25%까지 증가하여 CFG가 덜 일반적인 궤적을 권장함을 보여준다. 
 
@@ -158,6 +158,6 @@ Guidance가 없을 때($w = 0$)보다 강력한 guidance가 있을 때 ($w = 8$)
 
 다음은 10분의 rollout을 평균한 결과이다. 
 
-<center><img src='{{"/assets/img/diffusion-bc/diffusion-bc-table3.PNG" | relative_url}}' width="82%"></center>
+<center><img src='{{"/assets/img/diffusion-bc/diffusion-bc-table3.webp" | relative_url}}' width="82%"></center>
 <br>
 Diffusion-X는 예측된 action에 대한 Wasserstein 거리로 측정된 인간 분포에 대한 거리와 게임 점수 측면에서 observation 인코더 모두에서 가장 잘 수행되었다. MSE가 200Hz로 실행된 것에 비해 Diffusion-X는 18Hz로 실행되었다. 학습 시간은 비슷하다고 한다. 

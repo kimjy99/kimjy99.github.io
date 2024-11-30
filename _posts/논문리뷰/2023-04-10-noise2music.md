@@ -50,7 +50,7 @@ w \epsilon_\theta (x_t, c) + (1 - w) \epsilon_\theta (x_t, \cdot), \quad w > 1
 $$
 
 ### 2. Architecture
-<center><img src='{{"/assets/img/noise2music/noise2music-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/noise2music/noise2music-fig1.webp" | relative_url}}' width="100%"></center>
 <br>
 저자들은 diffusion model을 위해 Efficient U-Net의 1차원 버전인 1D Efficient U-Net을 사용한다. 위 그림에 표시된 U-Net 모델은 residual connection으로 연결된 일련의 downsampling 및 upsampling block으로 구성된다. Down/upsampling block은 down/upsampling layer 뒤에 1D convolution layer, self/cross-attention layer, combine layer를 구성하여 얻은 일련의 block으로 구성된다. Combine layer를 사용하면 단일 벡터가 일련의 벡터와 상호 작용할 수 있으며, 단일 벡터는 채널 방향 scaling괴 bias을 생성하는 데 사용된다. 이러한 block은 Efficient U-Net block 구조를 따르며, 2차원 convolution은 1차원 convolution으로 대체된다. 
 
@@ -88,7 +88,7 @@ Text-to-image diffusion model의 맥락에서 강력한 텍스트 인코더가 �
 
 **Rater-SF:** 위의 동일한 evaluation set에서 평가자가 작성한 모든 짧은 형식의 음악 태그를 수집하며 이는 크기가 23,906인 vocabulary에 해당한다.
 
-<center><img src='{{"/assets/img/noise2music/noise2music-table1.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/noise2music/noise2music-table1.webp" | relative_url}}' width="60%"></center>
 <br>
 캡션 vocabulary의 예시는 위 표에 나와 있다.
 
@@ -107,7 +107,7 @@ Pseudo-label이 지정된 큰 학습 셋에 소량의 고품질 오디오를 포
 
 ## Experiments and Results
 ### 1. Model training details
-<center><img src='{{"/assets/img/noise2music/noise2music-table2.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/noise2music/noise2music-table2.webp" | relative_url}}' width="70%"></center>
 <br>
 본 논문은 4개의 1D U-Net 모델(waveform generator와 cascader, spectrogram generator와 vocoder)을 학습시킨다. 모델에 대한 몇 가지 기본 정보는 위 표와 같다. Spectrogram generator의 수렴에 중요한 denoising schedule의 "백엔드"에서 loss에 더 많은 가중치를 부여하는 sigma-weighted loss를 발견했다.
 
@@ -136,37 +136,37 @@ Vocoder를 제외한 모든 모델은 오디오-텍스트 쌍에 대해 학습�
 
 사용한 hyperparameter는 다음 표와 같다.
 
-<center><img src='{{"/assets/img/noise2music/noise2music-table3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/noise2music/noise2music-table3.webp" | relative_url}}' width="60%"></center>
 <br>
 "Front-heavy"는 $t = 0$ 근처에 더 많은 step을 할당한 schedule이며, 반면에 "Back-heavy"는 $t = 1$ 근처에 더 많은 step을 할당한 schedule이다.
 
 다음 표는 4개의 TPU V4에서의 inference time 비용을 나타낸 표이다.
 
-<center><img src='{{"/assets/img/noise2music/noise2music-table4.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/noise2music/noise2music-table4.webp" | relative_url}}' width="52%"></center>
 
 ### 3. Evaluation result
 다음은 3가지 evaluation dataset에 대한 FAD를 측정한 표이다. FAD는 두 임베딩 분포의 Frechet distance를 측정한 metric이다.
 
-<center><img src='{{"/assets/img/noise2music/noise2music-table5.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/noise2music/noise2music-table5.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 생성된 오디오와 groun-truth 텍스트 및 오디오 사이의 평균 MuLan similarity score를 측정한 표이다. 
 
-<center><img src='{{"/assets/img/noise2music/noise2music-table6.PNG" | relative_url}}' width="63%"></center>
+<center><img src='{{"/assets/img/noise2music/noise2music-table6.webp" | relative_url}}' width="63%"></center>
 <br>
 다음은 human listening study의 쌍별 비교에서 이긴 횟수를 나타낸 표이다.
 
-<center><img src='{{"/assets/img/noise2music/noise2music-table7.PNG" | relative_url}}' width="58%"></center>
+<center><img src='{{"/assets/img/noise2music/noise2music-table7.webp" | relative_url}}' width="58%"></center>
 
 ### 4. Inference parameter ablations
 다음은 denoising step schedul과 CFG scale에 따라 FAD(VGG)와 MuLan similarity score가 어떻게 변하는지 나타낸 그래프이다. 
 
-<center><img src='{{"/assets/img/noise2music/noise2music-fig2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/noise2music/noise2music-fig2.webp" | relative_url}}' width="60%"></center>
 
 ### 5. Inference cost and performance
 
 다음은 inference 시간에 대한 FAD(VGG)와 MuLan similarity score를 plot한 그래프이다. 
 
-<center><img src='{{"/assets/img/noise2music/noise2music-fig3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/noise2music/noise2music-fig3.webp" | relative_url}}' width="60%"></center>
 
 ## Qualitative analysis
 - [Content representation](https://google-research.github.io/noise2music#table-2)

@@ -20,7 +20,7 @@ classes: wide
 > University of Washington | Google Research  
 > 14 Jun 2023  
 
-<center><img src='{{"/assets/img/try-on-diffusion/try-on-diffusion-fig1.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/try-on-diffusion/try-on-diffusion-fig1.webp" | relative_url}}' width="90%"></center>
 
 ## Introduction
 가상 의상 시착은 사람의 이미지와 의상의 이미지를 기반으로 의상이 사람에게 어떻게 보일지 시각화하는 것을 목표로 한다. 가상 시착은 온라인 쇼핑 경험을 향상시킬 수 있는 잠재력이 있지만 대부분의 시착 방법은 신체 자세와 모양 변화가 적을 때만 효과가 좋다. 핵심 문제는 의상 패턴과 질감에 왜곡을 도입하지 않으면서 타겟 체형에 맞게 의상을 단단하게 뒤틀지 않는 것이다.
@@ -34,7 +34,7 @@ TryOnDiffusion은 cross attention을 통해 통신하는 두 개의 하위 UNet�
 1024$\times$1024 해상도에서 고품질 결과를 생성하기 위해 Imagen을 따르고 cascaded diffusion model을 만든다. 특히 Parallel-UNet 기반 diffusion은 12$\times$128과 256$\times$256 해상도에 사용돤다. 그런 다음 256$\times$256 결과는 super-resolution diffusion network에 공급되어 최종 1024$\times$1024 이미지를 생성한다.
 
 ## Method
-<center><img src='{{"/assets/img/try-on-diffusion/try-on-diffusion-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/try-on-diffusion/try-on-diffusion-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 다음 그림은 가상 시착 방법의 개요이다. 사람 $p$의 이미지 $I_p$와 의상 $g$를 입은 다른 사람의 이미지 $I_g$가 주어지면 본 논문의 접근법은 의상 $g$를 입은 사람 $p$의 시착 결과 $I_\textrm{tr}$을 생성한다. $I_p$와 $I_g$는 같은 사람이 같은 옷을 입고 있지만 두 가지 포즈가 다른 이미지인 쌍 데이터에 대해 학습된다. Inference하는 동안 $I_p$와 $I_g$는 서로 다른 옷을 입고 서로 다른 포즈를 취하는 두 사람의 이미지로 설정된다. 
 
@@ -102,26 +102,26 @@ Garment-UNet은 분할된 의상 이미지 $I_c$를 입력으로 사용한다. �
 #### Quantitative comparison
 다음은 3개의 baseline들과 정량적으로 비교한 표이다.
 
-<center><img src='{{"/assets/img/try-on-diffusion/try-on-diffusion-table1.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/try-on-diffusion/try-on-diffusion-table1.webp" | relative_url}}' width="47%"></center>
 
 #### User study
 다음은 2가지 user study에 대한 결과이다. "Random"은 2804개의 랜덤한 입력 쌍을 15명의 비전문가가 최고의 결과를 선택한 것이다. "Challenging"은 6천개의 쌍 중 2천개의 어려운 신체 포즈가 선택되어 같은 방법으로 평가된다. 
 
-<center><img src='{{"/assets/img/try-on-diffusion/try-on-diffusion-table2.PNG" | relative_url}}' width="37%"></center>
+<center><img src='{{"/assets/img/try-on-diffusion/try-on-diffusion-table2.webp" | relative_url}}' width="37%"></center>
 
 #### Qualitative comparison
 다음은 3개의 baseline들과 정성적으로 비교한 표이다.
 
-<center><img src='{{"/assets/img/try-on-diffusion/try-on-diffusion-fig3.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/try-on-diffusion/try-on-diffusion-fig3.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 VITON-HD 데이터셋에서 SOTA 방법들과 비교한 것이다.
 
-<center><img src='{{"/assets/img/try-on-diffusion/try-on-diffusion-fig4.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/try-on-diffusion/try-on-diffusion-fig4.webp" | relative_url}}' width="90%"></center>
 
 #### Ablation
 다음은 ablation study 결과이다. 왼쪽은 암시적 워핑에 사용한 방법에 따른 결과이다. 오른쪽은 워핑과 블렌딩을 위한 네트워크 수에 따른 결과이다. 
 
-<center><img src='{{"/assets/img/try-on-diffusion/try-on-diffusion-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/try-on-diffusion/try-on-diffusion-fig5.webp" | relative_url}}' width="100%"></center>
 
 #### Limitations
 1. 전처리 중 segmentation map과 포즈 추정에 오차가 있는 경우 의상 아티팩트가 나타난다. 
@@ -131,9 +131,9 @@ Garment-UNet은 분할된 의상 이미지 $I_c$를 입력으로 사용한다. �
 
 다음은 실패 케이스들이다.
 
-<center><img src='{{"/assets/img/try-on-diffusion/try-on-diffusion-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/try-on-diffusion/try-on-diffusion-fig6.webp" | relative_url}}' width="100%"></center>
 
 #### Results on variety of people and garments
 다음은 8명의 사람과 5개의 의상에 대한 TryOnDiffusion 결과이다.
 
-<center><img src='{{"/assets/img/try-on-diffusion/try-on-diffusion-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/try-on-diffusion/try-on-diffusion-fig7.webp" | relative_url}}' width="100%"></center>

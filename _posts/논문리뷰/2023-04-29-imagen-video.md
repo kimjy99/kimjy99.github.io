@@ -19,7 +19,7 @@ classes: wide
 > Google Research, Brain Team  
 > 5 Oct 2022  
 
-<center><img src='{{"/assets/img/imagen-video/imagen-video-fig1.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/imagen-video/imagen-video-fig1.webp" | relative_url}}' width="90%"></center>
 
 ## Introduction
 본 논문은 텍스트에서 동영상을 생성하는 것을 목표로 한다. 동영상 생성에 대한 이전 연구들은 제한된 데이터셋에서 학습된 autoregressive model, autoregressive prior을 사용하는 laten-varient model, 보다 최근에는 non-autoregressive latent-variable 접근 방식에 중점을 두었다. Diffusion model은 중간 해상도의 동영상 생성 가능성도 보여주었다. 
@@ -65,7 +65,7 @@ $\gamma$는 sampler의 stochasity를 조절하는 hyperparameter이다. $\epsilo
 ### 2. Cascaded Diffusion Models and Text Conditioning
 [Cascaded Diffusion Model](https://kimjy99.github.io/논문리뷰/cdm)은 diffusion model을 고해상도 출력으로 확장하는 효과적인 방법으로 클래스 조건부 ImageNet과 text-to-image 생성에서 성공을 거두었다. Cascaded diffusion model은 저해상도로 이미지나 동영상을 생성한 후 일련의 SR diffusion model을 통해 이미지나 동영상의 해상도를 순차적으로 높인다. Cascaded diffusion model은 각 하위 모델을 상대적으로 단순하게 유지하면서 매우 높은 차원의 문제를 모델링할 수 있다. [Imagen](https://kimjy99.github.io/논문리뷰/imagen)은 고정된 대규모 언어 모델의 텍스트 임베딩로 컨디셔닝하여 텍스트 설명에서 고품질 1024$\times$1024 이미지를 생성할 수 있음을 보여주었다. 본 논문에서는 이 접근 방식을 동영상 생성으로 확장한다.
 
-<center><img src='{{"/assets/img/imagen-video/imagen-video-fig6.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/imagen-video/imagen-video-fig6.webp" | relative_url}}' width="90%"></center>
 <br>
 위 그림은 Imagen Video의 전체 계단식 파이프라인을 요약한 것이다. Imagen Video는 1개의 고정된 텍스트 인코더, 1개의 기본 video diffusion model, 3개의 SSR(spatial SR), 3개의 TSR(temporal SR) 모델로 구성되며, 총 116억 개의 diffusion model 파라미터가 사용된다. 이러한 모델을 학습하는 데 사용되는 데이터는 spatial resizing과 frame skipping을 통해 적절한 공간 및 시간 해상도로 처리된다. 생성 시 SSR 모델은 모든 입력 프레임의 공간 해상도를 높이는 반면 TSR 모델은 입력 프레임 사이의 중간 프레임을 채워 시간 해상도를 높인다. 모든 모델은 동시에 전체 프레임 블록을 생성한다. 예를 들어 SSR 모델은 독립 프레임에서 SR을 수행할 때 발생하는 아티팩트를 겪지 않는다. 
 
@@ -76,7 +76,7 @@ Imagen과 유사하게, 입력 텍스트 프롬프트로 컨디셔닝하기 위�
 ### 3. Video Diffusion Architectures
 이미지 생성을 위한 diffusion model은 일반적으로 denoising model $$\hat{x}_\theta$$를 나타내기 위해 2D U-Net 아키텍처를 사용한다. 이는 각 해상도에서 여러 layer의 spatial attention과 spatial convolution으로 구성된 멀티스케일 모델이며, 동일한 해상도에서 레이어 간 shortcut과 결합된다. Video diffusion model은 동영상 프레임 사이의 종속성을 캡처하기 위해 spatial attention과 spatial convolution layer 사이에 temporal attention과 temporal convolution layer를 사용하여 2D diffusion model 아키텍처를 시공간 분리가 가능한 방식으로 3D로 일반화하는 동영상 U-Net을 도입했다. 
 
-<center><img src='{{"/assets/img/imagen-video/imagen-video-fig7.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/imagen-video/imagen-video-fig7.webp" | relative_url}}' width="80%"></center>
 <br>
 본 논문은 동영상 U-Net 아키텍처를 기반으로 한다. Video diffusion model에 따라 각 denoising model $$\hat{x}_\theta$$는 여러 동영상 프레임에서 동시에 작동하므로 한 번에 동영상 프레임의 전체 블록을 생성하며, 프레임 autoregressive 접근법과 비교하여 생성된 동영상의 시간적 일관성을 캡처한다. SSR과 TSR 모델은 [SR3](https://kimjy99.github.io/논문리뷰/sr3)와 [Palette](https://kimjy99.github.io/논문리뷰/palette)와 동일하게 noisy한 데이터 $z_t$에 upsampling된 컨디셔닝 입력을 채널 축으로 연결하여 입력 동영상을 컨디셔닝한다. Concatenation 전 공간적 upsampling은 bilinear resizing을 사용하여 수행되고, concatenation 전 시간적 upsampling은 프레임을 반복하거나 빈 프레임을 채워서 수행된다. 
 
@@ -145,47 +145,47 @@ Progressive distillation은 diffusion model의 빠른 샘플링을 가능하게 
 ### 1. Unique Video Generation Capabilities
 다음은 Image Video의 다양한 예술적 스타일로 역동성을 생성하는 능력을 보여주는 프레임 스냅샷이다. 
 
-<center><img src='{{"/assets/img/imagen-video/imagen-video-fig8.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/imagen-video/imagen-video-fig8.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 Image Video의 3D 구조에 대한 이해를 보여주는 프레임 스냅샷이다. 
 
-<center><img src='{{"/assets/img/imagen-video/imagen-video-fig9.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/imagen-video/imagen-video-fig9.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 Image Video의 다양한 스타일과 역학으로 다양한 텍스트를 렌더링하는 능력을 보여주는 프레임 스냅샷이다.
 
-<center><img src='{{"/assets/img/imagen-video/imagen-video-fig10.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/imagen-video/imagen-video-fig10.webp" | relative_url}}' width="90%"></center>
 
 ### 2. Scaling
-<center><img src='{{"/assets/img/imagen-video/imagen-video-fig11.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/imagen-video/imagen-video-fig11.webp" | relative_url}}' width="95%"></center>
 <br>
 위 그래프는 base video model이 동영상 U-Net의 파라미터수 수를 확장함으로써 많은 이점을 얻을 수 있음을 보여준다. 이미지-텍스트 샘플 품질 점수로 측정할 때 diffusion model 스케일링의 이점이 제한적임을 확인할 수 있다. 저자들은 동영상 모델링이 현재 모델 크기에서 성능이 아직 포화되지 않은 더 어려운 task라는 결론을 내렸다.
 
 ### 3. Comparing Prediction Parameterizations
 다음은 80$\times$48 $\rightarrow$ 320$\times$192 동영상 SSR task에서 $\epsilon$-prediction과 $v$-prediction 간의 비교를 보여준다. 
 
-<center><img src='{{"/assets/img/imagen-video/imagen-video-fig12.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/imagen-video/imagen-video-fig12.webp" | relative_url}}' width="90%"></center>
 <br>
 $\epsilon$-parameterization이 $v$-parameterization보다 더 나쁜 생성을 생성한다는 것이 분명하다. 
 
 다음은 학습 step에 따라 두 parameterization 사이의 정량적 비교를 보여주는 그래프이다. 
 
-<center><img src='{{"/assets/img/imagen-video/imagen-video-fig13.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/imagen-video/imagen-video-fig13.webp" | relative_url}}' width="60%"></center>
 <br>
 $v$-parameterization이 $\epsilon$-parameterization보다 훨씬 더 빠르게 수렴하는 것을 확인할 수 있다.
 
 ### 4. Perceptual Quality and Distillation
 다음은 본 논문의 모델과 distillation 버전의 샘플에 대한 지각 품질 지표(CLIP score와 CLIP R-Precision)를 나타낸 표이다.
 
-<center><img src='{{"/assets/img/imagen-video/imagen-video-table1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/imagen-video/imagen-video-table1.webp" | relative_url}}' width="80%"></center>
 <br>
 저자들은 distillation이 샘플링 시간과 지각 품질 사이에서 매우 유리한 균형을 제공한다는 것을 발견했다. Distill된 계단식 모델은 원래 모델의 샘플과 비슷한 품질의 동영상을 생성하면서 약 18배 더 빠르다. FLOP의 관점에서 distillation model은 약 36배 더 효율적이다. 원래 계단식 모델은 각 모델을 두 번 병렬로 평가하여 classifier free guidance를 적용하는 반면, distillation model은 guidance 효과를 하나로 distill했기 때문에 그렇지 않다. 
 
 아래 그림은 원본 모델(왼쪽)과 distillation 모델(오른쪽)의 샘플이다.
 
-<center><img src='{{"/assets/img/imagen-video/imagen-video-fig14.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/imagen-video/imagen-video-fig14.webp" | relative_url}}' width="90%"></center>
 
 ## Videos Generated from Various Text Prompts
-<center><img src='{{"/assets/img/imagen-video/imagen-video-fig2.PNG" | relative_url}}' width="100%"></center>
-<center><img src='{{"/assets/img/imagen-video/imagen-video-fig3.PNG" | relative_url}}' width="100%"></center>
-<center><img src='{{"/assets/img/imagen-video/imagen-video-fig4.PNG" | relative_url}}' width="100%"></center>
-<center><img src='{{"/assets/img/imagen-video/imagen-video-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/imagen-video/imagen-video-fig2.webp" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/imagen-video/imagen-video-fig3.webp" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/imagen-video/imagen-video-fig4.webp" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/imagen-video/imagen-video-fig5.webp" | relative_url}}' width="100%"></center>

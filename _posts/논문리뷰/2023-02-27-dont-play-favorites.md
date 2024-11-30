@@ -43,7 +43,7 @@ $$
 
 아래 그림은 이 프로세스를 다수 샘플 그룹과 소수 샘플 그룹에 적용한 예시들을 보여준다.
 
-<center><img src='{{"/assets/img/dpf/dpf-fig1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/dont-play-favorites/dont-play-favorites-fig1.webp" | relative_url}}' width="50%"></center>
 <br>
 프로세스는 두 그룹 모두에 의미론적 변화를 가져온다. 그러나 소수 샘플의 경우 원래 포함된 고유한 feature가 재구성된 샘플에서 공통적인 feature로 대체된다는 중요한 차이점이 있다. 이것은 denoising diffusion model이 실제로 다수의 feature를 선호한다는 것을 의미한다. 즉, 주어진 noisy한 샘플에서 공통적인 feature을 가진 샘플을 생성하도록 편향되어 있다.
 
@@ -59,7 +59,7 @@ $$
 
 이 된다. 이에 대한 기하학적 설명은 아래 그림과 같다.
 
-<center><img src='{{"/assets/img/dpf/dpf-fig2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/dont-play-favorites/dont-play-favorites-fig2.webp" | relative_url}}' width="60%"></center>
 <br>
 Denoising 관점에서 보면 최적의 denoiser $\epsilon_\theta^\ast (x_t, t) := - \sqrt{1 - \alpha_t} s_\theta^\ast (x_t, t)$이다.
 
@@ -74,7 +74,7 @@ $$
 
 $d(\cdot, \cdot)$은 두 샘플 사이의 LPIPS loss이다. 이 metric을 **minority score**라고 부른다. 아래 그림은 CelebA 학습 샘플에 대한 minority score의 유효성을 시각화한 것이다.
 
-<center><img src='{{"/assets/img/dpf/dpf-fig3.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/dont-play-favorites/dont-play-favorites-fig3.webp" | relative_url}}' width="55%"></center>
 <br>
 왼쪽에는 데이터셋의 저밀도 feature로 유명한 "Eyeglasses"와 "Wearing Hat"과 같은 고유 feature를 포함하는 샘플이 표시된다. 반면 오른쪽의 샘플은 비교적 흔해 보이는 feature들을 보여준다.
 
@@ -116,25 +116,25 @@ $w$는 guidance를 위한 scaling factor이다. 이 테크닉을 **minority guid
 #### 1. Validation of the roles of $\tilde{l}$ and $w$
 다음은 다양한 minority class $\tilde{l}$에 대하여 생성된 샘플들로, CelebA에서 $L = 100$에 대하여 얻은 것이다. 왼쪽, 가운데, 오른쪽이 각각 $\tilde{l} = 0$, $\tilde{l} = 50$, $\tilde{l} = 100$으로 컨디셔닝되어 생성된 샘플이다. 
 
-<center><img src='{{"/assets/img/dpf/dpf-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dont-play-favorites/dont-play-favorites-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 minority class $\tilde{l}$의 영향(왼쪽)과 classifier scale $w$의 영향(오른쪽)을 나타낸 그래프이다. Local Outlier Factor (LOF)가 높을수록 더 고유한 feature를 가지는 샘플임을 의미한다. 
 
-<center><img src='{{"/assets/img/dpf/dpf-fig5.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/dont-play-favorites/dont-play-favorites-fig5.webp" | relative_url}}' width="65%"></center>
 
 #### 2. Comparison with the baselines
 다음은 LSUN-Bedrooms(위)와 CIFAR-10(아래)에서 DDPM 기반 방법에 초점을 둔 샘플을 비교한 것이다. 왼쪽은 일반적인 DDPM의 샘플링을 사용한 샘플이고, 가운데와 오른쪽은 본 논문의 방법을 사용하여 각각 다수 클래스와 소수 클래스로 컨디셔닝한 샘플이다. 
 
-<center><img src='{{"/assets/img/dpf/dpf-fig6.PNG" | relative_url}}' width="100%"></center>
-<center><img src='{{"/assets/img/dpf/dpf-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dont-play-favorites/dont-play-favorites-fig6.webp" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dont-play-favorites/dont-play-favorites-fig7.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 LSUN-Bedrooms에서 neighborhood density를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/dpf/dpf-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dont-play-favorites/dont-play-favorites-fig8.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 샘플 품질을 비교한 표이다.
 
-<center><img src='{{"/assets/img/dpf/dpf-table1.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/dont-play-favorites/dont-play-favorites-table1.webp" | relative_url}}' width="45%"></center>
 
 ## Limitations
 한 가지 단점은 본 논문의 프레임워크로 인한 소수 샘플의 품질이 주어진 사전 학습된 모델의 지식에 의해 주로 결정되며, 이는 종종 학습 중에 거의 볼 수 없는 사소한 feature와 관련하여 제한된다는 것이다. 또한 본 논문의 접근 방식이 많은 수의 실제 샘플에 대한 액세스가 필요하다는 것이다. 이는 매우 제한된 일부 상황에서는 실현 가능하지 않을 수 있다. 따라서 제한된 지식 문제를 해결하면서 이러한 어려운 시나리오로 경계를 확장하는 것이 필요하다. 

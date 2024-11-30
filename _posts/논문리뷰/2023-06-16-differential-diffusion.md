@@ -18,7 +18,7 @@ classes: wide
 > Tel Aviv University | Reichman University  
 > 1 Jun 2023  
 
-<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 이미지를 편집하려는 경우 Photoshop을 통한 수동 편집과 같은 기존 접근 방식 외에도 최신 AI 도구를 사용할 수 있다. 예를 들어 텍스트 지침을 통해 이미지를 편집할 수 있다. 최근 몇 년 동안 개발된 가장 성공적인 이미지 generator는 diffusion process를 사용하며, 사진에 적용할 변경량을 구성할 수 있다. 그러나 조각(그림의 특정 영역)을 편집하려면 다른 방법이 필요하다. Blended Diffusion과 같은 연구에서는 binary로 편집할 그림의 조각을 선택할 수 있다. 그러나 기껏해야 이분법적인 선택이다. 일반적으로 그림을 편집할 때 강도(strength)라고 하는 한 가지 변경 사항만 지정할 수 있다. 이미지의 조각은 같은 강도로 변경되거나 전혀 변경되지 않으며, 이것은 제한적이다. 
@@ -39,7 +39,7 @@ Diffusion model은 일반적으로 임의의 Gaussian noise로 인해 손상된 
 
 본 논문에서는 change map을 통해 각 이미지 조각에 적용되는 변경량을 제어하는 기능을 추가하는 image-to-image diffusion model의 향상된 버전인 **Differential Diffusion**을 제시한다 (Algorithm 1). 이 방법은 inference process만 변경한다.
 
-<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-algo1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-algo1.webp" | relative_url}}' width="50%"></center>
 
 ### 2. Observations
 저자들은 알고리즘을 설계하기 위해 세 가지 주요 observation을 만들었다.
@@ -61,7 +61,7 @@ Latent space에서 조각을 대체하는 프로세스인 injection이라는 새
 2. 주입된 조각에 추가되는 noise의 양은 이 조각에 적용될 step 수에 비례한다. 조각이 참여하는 step이 많을수록 더 많은 noise가 추가된다. 이는 모든 조각에 동시에 noise가 발생하므로 다르게 noise가 발생하지 않아야 하는 일반적인 inference process와 다른 주요 변경 사항이다.
 
 #### Future Hinting
-<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-fig3.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-fig3.webp" | relative_url}}' width="90%"></center>
 <br>
 지정된 강도에 따라 각 조각을 한 번만 주입하면 충분하다고 가정하고 싶을 것이다. 대부분의 image-to-image translation 절차에서 모든 조각이 첫 번째 timestep에 삽입되므로 이는 합리적으로 보일 수 있다. 그러나 새로운 inference process 전반에 걸쳐 일부 조각을 반복적으로 다시 주입한다. 임의의 timestep $k$에서 $k$에 해당하는 조각과 미래 timestep ($< k$)에 해당하는 조각을 주입한다. 모두 $k$의 양에 의해 noise가 발생한다. 따라서 강도가 가장 낮은 조각의 경우 프로세스는 noisy한 조각을 여러 번 주입한다 (위 그림 참조). 이 동작을 future hinting이라고 하며, 몇 가지 목표를 제공한다.
 
@@ -70,7 +70,7 @@ Latent space에서 조각을 대체하는 프로세스인 injection이라는 새
 
 Future hinting의 유무에 따른 결과는 아래와 같다.
 
-<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-fig6.webp" | relative_url}}' width="100%"></center>
 
 ### 5. Technical Details
 - 모델: Stable Diffusion 2.1의 512-base-ema.ckpt
@@ -81,24 +81,24 @@ Future hinting의 유무에 따른 결과는 아래와 같다.
 ## Results
 다음은 강도에 따른 편집 효과를 나타낸 것이다.
 
-<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 각 timestep에 injection을 사용한 Differential Diffusion의 중간 step들이다.
 
-<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-fig2.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-fig2.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 다양한 출력 예시들이다. 
 
-<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-fig11.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-fig11.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 사실적인 사진에 예술적인 요소를 혼합한 예시이다. (프롬프트: "a futuristic city")
 
-<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-fig4.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-fig4.webp" | relative_url}}' width="45%"></center>
 
 ### 1. Comparisons
 다음은 Differential Diffusion을 Blend Latent Diffusion과 Stable Diffusion 2.1과 비교한 것이다.
 
-<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-fig10.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-fig10.webp" | relative_url}}' width="90%"></center>
 
 ### 2. Evaluation
 #### Trend Reconstruction
@@ -106,7 +106,7 @@ Change map에 대한 결과의 준수 여부를 평가한다. 예를 들어 1에
 
 저자들은 trend reconstruction 테스트를 수행하였다. 즉, 수평 기울기 맵을 사용하고 열을 따라 평균이 선형으로 변경되는지 여부를 측정하였다. 직관적으로 기울기 맵이 사진의 변화에 의해 모방되는 것에 주로 관심을 가진다. 열을 따라 평균화하면 측정 noise도 감소해야 한다. 아래 그림은 결과가 기울기 맵을 따른다는 것을 보여준다.
 
-<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-fig7.webp" | relative_url}}' width="100%"></center>
 
 #### Reliability score
 저자들은 이 속성을 수치화하기 위해 다음 사항을 고려하여 수치 측정을 설정한다.
@@ -144,13 +144,13 @@ $$
 
 다음은 reliability score $R$을 나타낸 표이다.
 
-<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-table1.PNG" | relative_url}}' width="32%"></center>
+<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-table1.webp" | relative_url}}' width="32%"></center>
 <br>
 다음은 reliability score $R$을 비교한 그래프이다.
 
-<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-fig8.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Memory Consumption
 다음은 VRAM 최고치를 나타낸 표이다.
 
-<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-table2.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/differential-diffusion/differential-diffusion-table2.webp" | relative_url}}' width="40%"></center>

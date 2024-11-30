@@ -27,7 +27,7 @@ DDPM은 데이터에서 가우시안 noise로의 diffusion process를 반전시�
 본 논문에서는 긴 형식의 discrete symbolic music을 생성하기 위해 low-level variational autoencoder (VAE)의 연속 latent에서 DDPM을 학습시킴으로써 이러한 한계를 극복할 수 있음을 보여준다. 
 
 ## Model
-<center><img src='{{"/assets/img/symbolic-music-diffusion/symbolic-music-diffusion-fig1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/symbolic-music-diffusion/symbolic-music-diffusion-fig1.webp" | relative_url}}' width="80%"></center>
 
 ### 1. Architecture
 본 논문의 모델은 먼저 파라미터 $\gamma$를 사용하여 VAE를 학습시킨 다음, $k$ VAE latnet 사이의 시간적 관계를 캡처하도록 diffusion model을 학습시켜 MIDI의 discrete 시퀀스를 생성하는 방법을 학습한다. MusicVAE와 같은 시퀀스 VAE는 긴 시퀀스에서 학습하기 어렵다. 이를 극복하기 위해 짧은 2마디 MusicVAE 모델을 $k = 32$ latent 사이의 종속성을 모델링할 수 있는 diffusion model과 페어링하여 총 64개의 마디(bar)를 모델링한다. 
@@ -35,7 +35,7 @@ DDPM은 데이터에서 가우시안 noise로의 diffusion process를 반전시�
 #### MusicVAE embeddings
 각 악구(phrase)는 소절(measure)당 16개의 양자화된 step이 있는 일련의 one-hot vector이며, vocabulary에는 90개의 토큰(1 note on + 1 note off + 88 pitches)이 포함된다. 그런 다음 사전 학습된 2마디 멜로디 MusicVAE를 사용하여 각 2마디 소절을 parameterize하고, 전체 시퀀스를 parameterize하기 위해 연속 latent embedding 시퀀스 $z_1, \cdots, z_k$를 생성한다. 
 
-<center><img src='{{"/assets/img/symbolic-music-diffusion/symbolic-music-diffusion-fig4.PNG" | relative_url}}' width="30%"></center>
+<center><img src='{{"/assets/img/symbolic-music-diffusion/symbolic-music-diffusion-fig4.webp" | relative_url}}' width="30%"></center>
 <br>
 MusicVAE 모델은 위 그림에 표시된 대로 양방향 LSTM을 인코더로 사용하고 autoregressive LSTM을 디코더로 사용한다. 각 2소절 악구를 latent $z$ embedding으로 인코딩한 후 각 embedding의 도메인이 $[-1, 1]$이도록 선형 스케일링을 수행한다. 이렇게 하면 diffusion model에 대한 isotropic Gaussian latent $x_N$에서 시작하여 일관되게 스케일링된 입력이 보장된다. 
 
@@ -64,7 +64,7 @@ Infilling 절차는 부분적으로 가려진 샘플 $s$의 정보를 통합하�
 
 이 수정된 샘플링 절차는 Algorithm 1과 같다.
 
-<center><img src='{{"/assets/img/symbolic-music-diffusion/symbolic-music-diffusion-algo1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/symbolic-music-diffusion/symbolic-music-diffusion-algo1.webp" | relative_url}}' width="50%"></center>
 
 ## Experiments
 - 데이터셋
@@ -110,26 +110,26 @@ C와 Var이 클수록 모델의 출력과 학습 시퀀스가 통계적으로 �
 #### Reseult
 다음은 C와 Var을 unconditional sampling과 infilling에 대하여 계산한 표이다.
 
-<center><img src='{{"/assets/img/symbolic-music-diffusion/symbolic-music-diffusion-table1.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/symbolic-music-diffusion/symbolic-music-diffusion-table1.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 정규화하지 않은 framewise self-similarity를 계산한 표이다.
 
-<center><img src='{{"/assets/img/symbolic-music-diffusion/symbolic-music-diffusion-table2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/symbolic-music-diffusion/symbolic-music-diffusion-table2.webp" | relative_url}}' width="60%"></center>
 <br>
 Diffusion model은 autoregressive와 달리 모든 latent를 동시에 모델링하는 방법을 학습하기 때문에 시퀀스의 결합 종속성을 더 잘 포착할 수 있다.
 
 다음은 latent space를 평가한 표이다.
 
-<center><img src='{{"/assets/img/symbolic-music-diffusion/symbolic-music-diffusion-table3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/symbolic-music-diffusion/symbolic-music-diffusion-table3.webp" | relative_url}}' width="60%"></center>
 <br>
 TransformerMDN이 latent space를 더 잘 표현하는 것으로 나타났다. 또한 latent space metric은 latent manifold 분포에 대한 가정에 의해 제한되며 전체 space의 디테일을 완전히 캡처할 수 없으므로 정량적 framewise self-similarity metric과 정성적 평가의 필요성이 더욱 강조된다. 
 
 다음은 reverse process가 진행됨에 따라 샘플 품질이 개선되는 것을 보여주는 표이다.
 
-<center><img src='{{"/assets/img/symbolic-music-diffusion/symbolic-music-diffusion-fig3.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/symbolic-music-diffusion/symbolic-music-diffusion-fig3.webp" | relative_url}}' width="45%"></center>
 <br>
 다음은 빨간 박스를 모델이 채우는 infilling 실험의 결과이다.
 
-<center><img src='{{"/assets/img/symbolic-music-diffusion/symbolic-music-diffusion-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/symbolic-music-diffusion/symbolic-music-diffusion-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문의 모델이 원본과 가장 비슷하게 infilling을 수행하였다. 

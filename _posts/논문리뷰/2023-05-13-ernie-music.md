@@ -58,7 +58,7 @@ $$
 조건부 diffusion model은 denoising process $$\hat{x}_\theta (z_t, \lambda_t, t, y)$$를 모델링하여 $p(x)$ 대신 분포 $p(x \vert y)$를 근사한다. 여기서 $y$는 조건을 나타낸다. $y$는 이미지, 텍스트, 오디오와 같은 모든 유형의 modality가 될 수 있다. 특히 text-to-music 생성 시나리오에서 $y$는 관련 음악을 생성하도록 모델을 안내하는 텍스트 프롬프트이다. 
 
 #### Model Architecture
-<center><img src='{{"/assets/img/ernie-music/ernie-music-fig1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/ernie-music/ernie-music-fig1.webp" | relative_url}}' width="80%"></center>
 <br>
 Text-to-music 생성의 경우 diffusion process의 조건 $y$는 텍스트이다. 위 그림에서 볼 수 있듯이 전체 모델 아키텍처에는 velocity $$\hat{v}_\theta (z_t, t, y)$$를 모델링하는 조건부 음악 diffusion model과 길이가 $n$인 텍스트 토큰을 $d_E$ 차원의 벡터 표현의 시퀀스 $[s_0; S]$로 매핑하는 텍스트 인코더 $E(\cdot)$가 포함되어 있다. 여기서 $S = [s_1, \cdots, s_n]$이고, $s_i \in \mathbb{R}^{d_E}$이며, $s_0$는 텍스트의 classification 표현이다. 
 
@@ -99,47 +99,47 @@ $$
 
 Algorithm 1은 progressive distillation 논문이 제안한 diffusion 목적 함수로 전체 학습 과정을 보여준다.
 
-<center><img src='{{"/assets/img/ernie-music/ernie-music-algo1.PNG" | relative_url}}' width="35%"></center>
+<center><img src='{{"/assets/img/ernie-music/ernie-music-algo1.webp" | relative_url}}' width="35%"></center>
 
 ## Experiments
 ### 1. Dataset
 다음은 저자들이 수집하여 데이터셋으로 사용한 웹 음악과 텍스트에 대한 통계이다.
 
-<center><img src='{{"/assets/img/ernie-music/ernie-music-table1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/ernie-music/ernie-music-table1.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 수집한 데이터셋의 예시들이다.
 
-<center><img src='{{"/assets/img/ernie-music/ernie-music-table2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/ernie-music/ernie-music-table2.webp" | relative_url}}' width="50%"></center>
 
 ### 2. Results
 다음은 텍스트-음악 관련성을 비교한 표이다. Score는 1, 2, 3으로 세 모델의 순위를 매긴 것이다.
 
-<center><img src='{{"/assets/img/ernie-music/ernie-music-table3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/ernie-music/ernie-music-table3.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 음악 품질을 비교한 표이다. Score는 1~5로 인간이 평가한 것이다. 
 
-<center><img src='{{"/assets/img/ernie-music/ernie-music-table4.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/ernie-music/ernie-music-table4.webp" | relative_url}}' width="50%"></center>
 
 ## Analysis
 #### Diversity
 다음은 생성된 음악 샘플의 spectrogram과 waveform이다. (a)와 (c)의 텍스트는 "The piano piece is light and comfortable yet deeply affectionate"이고 (b)와 (d)의 텍스트는 "A passionate, fast-paced guitar piece"이다. 
 
-<center><img src='{{"/assets/img/ernie-music/ernie-music-fig2.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/ernie-music/ernie-music-fig2.webp" | relative_url}}' width="85%"></center>
 
 #### Comparison of Different Text Condition Fusing Operations
 다음은 fuse 연산의 선택에 따른 테스트 셋에 대한 MSE이다.
 
-<center><img src='{{"/assets/img/ernie-music/ernie-music-fig3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/ernie-music/ernie-music-fig3.webp" | relative_url}}' width="50%"></center>
 
 #### Music Tag Conditioning
 다음은 자유 형식 텍스트와 해당 음악 태그의 예시이다.
 
-<center><img src='{{"/assets/img/ernie-music/ernie-music-table5.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/ernie-music/ernie-music-table5.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 채택된 태그와 폐기된 태그의 예시이다.
 
-<center><img src='{{"/assets/img/ernie-music/ernie-music-table6.PNG" | relative_url}}' width="43%"></center>
+<center><img src='{{"/assets/img/ernie-music/ernie-music-table6.webp" | relative_url}}' width="43%"></center>
 <br>
 다음은 두 가지 컨디셔닝 텍스트 포맷 간의 텍스트-음악 관련성을 비교한 표이다.
 
-<center><img src='{{"/assets/img/ernie-music/ernie-music-table7.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/ernie-music/ernie-music-table7.webp" | relative_url}}' width="52%"></center>

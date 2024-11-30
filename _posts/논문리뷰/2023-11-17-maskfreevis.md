@@ -18,7 +18,7 @@ classes: wide
 > ETH Zurich | HKUST  
 > 28 Mar 2023  
 
-<center><img src='{{"/assets/img/maskfreevis/maskfreevis-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/maskfreevis/maskfreevis-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 Video Instance Segmentation (VIS)은 지정된 카테고리 집합에서 동영상의 모든 객체를 공동으로 감지, 추적, 분할해야 한다. 이 어려운 task를 수행하기 위해 SOTA VIS 모델은 VIS 데이터셋의 완전한 동영상으로 학습된다. 그러나 동영상 주석은 특히 객체 마스크 레이블과 관련하여 비용이 많이 든다. 대략적인 다각형 기반 마스크 주석도 동영상 bounding box에 주석을 추가하는 것보다 몇 배 더 느리다. 값비싼 마스크 주석으로 인해 기존 VIS 벤치마크의 확장이 어려워지고 적용되는 객체 카테고리 수가 제한된다. 이는 유난히 데이터를 많이 사용하는 경향이 있는 최신 transformer 기반 VIS 모델의 경우 특히 문제가 된다. 따라서 저자들은 마스크가 없는 설정에서 weakly supervised VIS의 문제를 연구하여 완전한 마스크 주석의 필요성을 다시 검토하였다. 
@@ -30,7 +30,7 @@ Loss (TK-Loss)**를 도입하였다. 동일한 동영상 개체에 해당하는 
 
 TK-Loss는 아키텍처 수정이 필요 없이 기존 VIS 방법에 쉽게 통합된다. 학습 중에 TK-Loss는 동영상 마스크 생성을 supervise할 때 기존 동영상 마스크 loss를 대체한다. 동영상 클립을 통해 시간적 일관성을 더욱 강화하기 위해 TK-Loss는 조밀한 프레임별 연결을 사용하는 대신 순환 방식으로 사용된다. 이는 무시할 수 있는 성능 저하로 메모리 비용을 크게 줄인다. 
 
-<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table1.webp" | relative_url}}' width="50%"></center>
 
 ## Method
 본 논문은 동영상이나 이미지 마스크 레이블을 사용하지 않고 VIS를 해결하기 위하여 **MaskFreeVIS**를 제안하였다. 본 논문의 접근 방식은 일반적이며 [Mask2Former](mask2former)나 [SeqFormer](https://arxiv.org/abs/2112.08275)와 같은 SOTA VIS 방법을 학습시키는 데 직접 적용할 수 있다.
@@ -53,11 +53,11 @@ Optical flow로 알려진 후속 동영상 프레임 간의 조밀한 일대일 
 #### Temporal KNN-patch Loss
 Temporal KNN-patch Loss (TK-Loss)는 프레임 전반에 걸쳐 간단하고 유연한 대응 추정을 기반으로 한다. Optical flow와 달리 공식을 일대일 대응으로 제한하지 않는다. 대신에 $1:K$ 대응을 확립한다. 여기에는 기존의 일대일 ($K = 1$)이 포함된다. 그러나 이를 통해 가려짐의 경우 존재하지 않는 대응 ($K = 0$), 동질 영역의 경우 일대다($K \ge 2$)의 경우도 처리할 수 있다. 
 
-<center><img src='{{"/assets/img/maskfreevis/maskfreevis-fig2.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/maskfreevis/maskfreevis-fig2.webp" | relative_url}}' width="70%"></center>
 <br>
 일치하는 항목이 여러 개 발견된 경우 위 그림과 같이 유사한 모양으로 인해 동일한 객체 또는 배경에 속하는 경우가 가장 많다. 이는 s더 조밀한 supervision을 통해 마스크 일관성 목적 함수에 더욱 도움이 된다. 이 접근 방식은 계산 오버헤드를 무시할 수 있고 학습 가능한 파라미터가 없어 구현이 간단하다. 본 논문의 접근 방식은 아래 그림과 같으며 4가지 주요 단계로 구성된다.
 
-<center><img src='{{"/assets/img/maskfreevis/maskfreevis-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/maskfreevis/maskfreevis-fig3.webp" | relative_url}}' width="100%"></center>
 
 **1) Patch Candidate Extraction:** $X_p^t$를 프레임 $t$의 공간 위치 $p = (x, y)$에 중심을 둔 $N \times N$ 타겟 이미지 패치라 하자. 본 논문의 목표는 동일한 객체 영역을 나타내는 프레임 번호 $\hat{t}$에서 대응되는 위치 집합 $$S_p^{t \rightarrow \hat{t}} = \{\hat{p}_i\}_i$$를 찾는 것이다. 이를 위해 먼저 $\| p − \hat{p} \| \le R$이 되는 반경 $R$ 내에서 후보 위치 $\hat{p}$를 선택한다. 이러한 윈도우 패치 검색은 철저한 글로벌 검색을 피하기 위해 인접 프레임 간의 공간적 근접성을 활용한다. 빠른 구현을 위해 모든 타겟 이미지 패치 $X_p^t$에 대해 윈도우 검색이 병렬로 수행된다. 
 
@@ -83,7 +83,7 @@ $$
 $$\mathcal{L}_\textrm{cons} (M_p^t, M_{\hat{p}}^{\hat{t}})$$은 두 예측이 모두 배경이나 전경을 정확하게 나타내는 경우에만 최소값 0을 얻는다. 따라서 목적 함수는 동일한 확률 값 $$M_p^t, M_{\hat{p}}^{\hat{t}}$$를 달성하기 위해 두 개의 마스크 예측을 촉진할 뿐만 아니라 특정 전경 또는 배경 예측을 수행한다.
 
 **4) Cyclic Tube Connection:**
-<center><img src='{{"/assets/img/maskfreevis/maskfreevis-fig4.PNG" | relative_url}}' width="62%"></center>
+<center><img src='{{"/assets/img/maskfreevis/maskfreevis-fig4.webp" | relative_url}}' width="62%"></center>
 <br>
 Temporal tube가 $T$ 프레임으로 구성되어 있다고 가정하자. 위 그림에서와 같이 순환 방식으로 전체 tube에 대한 시간적 loss를 계산한다. 시작 프레임은 끝 프레임에 연결되어 시간적으로 가장 먼 두 프레임에 걸쳐 직접적인 장기 마스크 일관성을 도입한다. 전체 tube에 대한 시간적 TK-Loss는 다음과 같다.
 
@@ -165,48 +165,48 @@ Box-supervised segmentation loss에 대한 기존 연구들은 Faster R-CNN이�
 #### Comparison on Temporal Matching Schemes
 다음은 마스크 없는 학습 설정에서 다양한 시간적 매칭 방식에 대한 비교 결과이다. (YTVIS2019 val)
 
-<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table2.PNG" | relative_url}}' width="58%"></center>
+<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table2.webp" | relative_url}}' width="58%"></center>
 
 #### Effect of Temporal KNN-patch Loss
 다음은 공간적 pairwise loss와 TK-Loss에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table3.PNG" | relative_url}}' width="59%"></center>
+<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table3.webp" | relative_url}}' width="59%"></center>
 <br>
 다음은 pairwise loss, TK-Loss, ground-truth 동영상 및 이미지 마스크를 사용한 Mask2Former에 대한 정성적 비교 결과이다. 
 
-<center><img src='{{"/assets/img/maskfreevis/maskfreevis-fig5.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/maskfreevis/maskfreevis-fig5.webp" | relative_url}}' width="70%"></center>
 
 #### Analysis of Temporal KNN-patch Loss 
 다음은 $K$에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table4.PNG" | relative_url}}' width="28%"></center>
+<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table4.webp" | relative_url}}' width="28%"></center>
 <br>
 다음은 패치 매칭 메트릭에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table5.PNG" | relative_url}}' width="30%"></center>
+<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table5.webp" | relative_url}}' width="30%"></center>
 <br>
 다음은 탐색 반경 $R$에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table6.PNG" | relative_url}}' width="29%"></center>
+<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table6.webp" | relative_url}}' width="29%"></center>
 <br>
 다음은 패치 크기 $N$에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table7.PNG" | relative_url}}' width="29%"></center>
+<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table7.webp" | relative_url}}' width="29%"></center>
 
 #### Effect of the Cyclic Tube Connection 
 다음은 tube 연결 방식에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table8.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table8.webp" | relative_url}}' width="57%"></center>
 
 #### Comparison on Sequence Matching Functions
 다음은 집합 매칭 비용 함수에 대한 ablation 결과이다. (YTVIS2019 val)
 
-<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table9.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table9.webp" | relative_url}}' width="57%"></center>
 
 #### Training on Various Amounts of Data 
 다음은 YTVIS 학습 데이터에 대한 다양한 비율에 대한 ablation 결과이다. (YTVIS2019 val)
 
-<center><img src='{{"/assets/img/maskfreevis/maskfreevis-fig6.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/maskfreevis/maskfreevis-fig6.webp" | relative_url}}' width="70%"></center>
 
 ### 2. Comparison with State-of-the-art Methods
 #### YTVIS 2019/2021
@@ -218,18 +218,18 @@ Box-supervised segmentation loss에 대한 기존 연구들은 Faster R-CNN이�
 - M2F: Mask2Former
 - SeqF: SeqFormer
 
-<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table10.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table10.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 YTVIS 2021에서 SOTA 방법들과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table11.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table11.webp" | relative_url}}' width="55%"></center>
 
 #### OVIS
 다음은 R50 사용하여 OVIS에서 SOTA 방법들과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table12.PNG" | relative_url}}' width="53%"></center>
+<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table12.webp" | relative_url}}' width="53%"></center>
 
 #### BDD100K MOTS
 다음은 BDD100K에서 SOTA 방법들과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table13.PNG" | relative_url}}' width="62%"></center>
+<center><img src='{{"/assets/img/maskfreevis/maskfreevis-table13.webp" | relative_url}}' width="62%"></center>

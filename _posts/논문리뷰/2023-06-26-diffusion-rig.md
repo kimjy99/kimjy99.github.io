@@ -20,7 +20,7 @@ classes: wide
 > UC San Diego | Adobe  
 > 13 Apr 2023  
 
-<center><img src='{{"/assets/img/diffusion-rig/diffusion-rig-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffusion-rig/diffusion-rig-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 사람의 아이덴티티(ID)와 고주파 얼굴 특성을 유지하면서 인물 사진의 조명, 표정, 머리 포즈 등을 사실적으로 변경하는 것은 컴퓨터 비전 및 그래픽 분야의 오랜 문제이다. 이 문제의 어려움은 근본적으로 제약이 없는 특성에서 비롯되며, 이전 연구들에서는 일반적으로 신경망이 서로 다른 ID의 대규모 데이터셋에서 학습되고 새로운 ID에서 테스트되는 zero-shot 학습으로 이 문제를 해결한다. 이러한 방법은 일반적인 얼굴 prior가 종종 테스트 ID의 고주파수 얼굴 특징을 캡처하지 못하고 동일한 사람의 여러 사진이 쉽게 사용할 수 있다는 사실을 무시한다. 
@@ -60,7 +60,7 @@ DDPM은 랜덤 noise 이미지를 입력으로 사용하고 이미지의 noise�
 1. 새로운 조명과 같은 다양한 모양 조건을 기반으로 이미지를 생성하고 
 2. 편집 중에 사람의 ID가 변경되지 않도록 개인적인 우선순위를 학습해야 한다.
 
-<center><img src='{{"/assets/img/diffusion-rig/diffusion-rig-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffusion-rig/diffusion-rig-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 이를 위해 위 그림과 같이 2 stage 학습 파이프라인을 설계한다. 첫 번째 stage에서 모델은 기존 estimator를 사용하여 자동으로 추출된 물리적 버퍼로 표현되는 기본 "외관 조건"이 주어진 초상화 이미지를 재구성하도록 학습되어 일반적인 얼굴 prior를 학습한다. 두 번째 stage에서는 한 사람의 초상화 사진을 사용하여 모델을 fine-tuning하여 모델이 외모 편집 중 ID 이동을 방지하는 데 필요한 개인화된 prior를 학습하도록 한다.
 
@@ -111,39 +111,39 @@ $$
 ### 1. Rigging Appearance With Physical Buffers
 다음은 물리적 버퍼로 외모를 편집한 결과이다. 
 
-<center><img src='{{"/assets/img/diffusion-rig/diffusion-rig-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffusion-rig/diffusion-rig-fig4.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Rigging Appearance With Global Latent Code
 다음은 물리적 버퍼와 글로벌 latent code를 섞어 외모를 편집한 결과이다. 
 
-<center><img src='{{"/assets/img/diffusion-rig/diffusion-rig-fig5.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/diffusion-rig/diffusion-rig-fig5.webp" | relative_url}}' width="60%"></center>
 
 ### 3. Identity Transfer With Learned Priors
 다음은 개인화된 모델을 스와핑한 결과이다.
 
-<center><img src='{{"/assets/img/diffusion-rig/diffusion-rig-fig6.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/diffusion-rig/diffusion-rig-fig6.webp" | relative_url}}' width="57%"></center>
 
 ### 4. Baseline Comparisons
 다음은 DECA re-inference의 RMSE를 측정한 표이다.
 
-<center><img src='{{"/assets/img/diffusion-rig/diffusion-rig-table1.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/diffusion-rig/diffusion-rig-table1.webp" | relative_url}}' width="57%"></center>
 <br>
 다음은 DiffusionRig와 MyStyle을 비교한 표이다.
 
-<center><img src='{{"/assets/img/diffusion-rig/diffusion-rig-table2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/diffusion-rig/diffusion-rig-table2.webp" | relative_url}}' width="60%"></center>
 
 ### 5. Ablation Study
 다음은 개인화된 prior를 사용한 / 사용하지 않은 재구성 결과이다.
 
-<center><img src='{{"/assets/img/diffusion-rig/diffusion-rig-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffusion-rig/diffusion-rig-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Stage 2 이미지 개수에 따른 이미지 품질을 비교한 것이다.
 
-<center><img src='{{"/assets/img/diffusion-rig/diffusion-rig-fig7.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/diffusion-rig/diffusion-rig-fig7.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 조건의 형태에 대한 ablation study 결과이다.
 
-<center><img src='{{"/assets/img/diffusion-rig/diffusion-rig-fig8.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/diffusion-rig/diffusion-rig-fig8.webp" | relative_url}}' width="60%"></center>
 
 ## Limitations
 1. Fine-tuning을 위해 작은 초상화 데이터셋에 의존하므로 대규모의 사용자를 위한 확장성이 제한된다. 

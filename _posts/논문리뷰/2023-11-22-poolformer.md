@@ -23,7 +23,7 @@ classes: wide
 ## Introduction
 Transformers는 컴퓨터 비전 분야에서 많은 관심과 성공을 거두었다. 순수 Transformer를 이미지 분류 작업에 적용하는 ViT의 중요한 연구 이후, 다양한 컴퓨터 비전 task에서 더욱 개선하고 유망한 성능을 달성하기 위해 많은 후속 모델이 개발되었다.
 
-<center><img src='{{"/assets/img/poolformer/poolformer-fig1a.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/poolformer/poolformer-fig1a.webp" | relative_url}}' width="60%"></center>
 <br>
 위 그림에 표시된 Transformer 인코더는 두 가지 구성 요소로 구성된다. 하나는 토큰 간 정보를 혼합하기 위한 attention 모듈이며 이를 **token mixer**라고 부른다. 다른 구성 요소에는 channel MLP와 residual connection과 같은 나머지 모듈이 포함된다. Attention 모듈을 특정 token mixer로 간주함으로써 위 그림에 표시된 것처럼 전체 Transformer를 token mixer가 지정되지 않은 일반 아키텍처 **MetaFormer**로 추가로 추상화된다.
 
@@ -31,7 +31,7 @@ Transformers의 성공은 오랫동안 attention 기반 token mixer 덕분이었
 
 최근의 일부 접근 방식에서는 MetaFormer 아키텍처 내에서 다른 유형의 token mixer를 탐색하고 고무적인 성능을 보여주었다. 예를 들어 attention을 푸리에 변환으로 대체해도 바닐라 Transformer 정확도의 약 97%를 달성한다. 이 모든 결과를 종합해 보면 모델이 MetaFormer를 일반 아키텍처로 채택하는 한 유망한 결과를 얻을 수 있을 것으로 보인다. 따라서 저자들은 특정 token mixer와 비교할 때 MetaFormer가 모델이 경쟁력 있는 성능을 달성하는 데 더 필수적이라고 가정하였다.
 
-<center><img src='{{"/assets/img/poolformer/poolformer-fig1b.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/poolformer/poolformer-fig1b.webp" | relative_url}}' width="45%"></center>
 <br>
 이 가설을 검증하기 위해 저자들은 매우 간단한 non-parametric 연산자인 pooling을 token mixer로 적용하여 기본적인 token 혼합만을 수행하였다. 놀랍게도 PoolFormer라고 불리는 이 파생 모델은 경쟁력 있는 성능을 달성하며 위 그래프에서 것처럼 DeiT와 ResMLP를 포함하여 잘 튜닝된 Transformer와 MLP-like 모델보다 지속적으로 성능이 뛰어나다. 보다 구체적으로, PoolFormer-M36은 ImageNet-1K 분류 벤치마크에서 82.1%의 top-1 정확도를 달성하여 잘 튜닝된 ViT/MLP-like baseline인 DeiTB/ResMLP-B24를 35%/52% 더 적은 파라미터와 50%/62% 더 적은 MAC 수로 0.3%/1.1% 정확도로 능가한다. 이러한 결과는 단순한 token mixer를 사용하더라도 MetaFormer가 여전히 유망한 성능을 제공할 수 있음을 보여준다. 따라서 본 논문은 MetaFormer가 특정 token mixer보다 경쟁력 있는 성과를 달성하는 데 더 필수적인 비전 모델에 대한 사실상의 필요라고 주장한다. 이는 token mixer가 중요하지 않다는 의미는 아니다. MetaFormer에는 여전히 추상화된 구성 요소가 있다. 이는 token mixer가 attention과 같은 특정 타입으로 제한되지 않음을 의미한다. 
 
@@ -83,11 +83,11 @@ $$
 
 여기서 $K$는 pooling 크기이다. MetaFormer 블록에는 이미 residual connection이 있으므로 입력 자체의 뺄셈이 위 식에 추가된다. Pooling의 코드는 Algorithm 1에 나와 있다.
 
-<center><img src='{{"/assets/img/poolformer/poolformer-algo1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/poolformer/poolformer-algo1.webp" | relative_url}}' width="50%"></center>
 <br>
 잘 알려진 바와 같이, self-attention과 spatial MLP는 혼합할 토큰 수에 비례하는 계산 복잡도를 갖는다. 더욱이 spatial MLP는 더 긴 시퀀스를 처리할 때 훨씬 더 많은 파라미터를 가져온다. 결과적으로 self-attention과 spatial MLP는 일반적으로 수백 개의 토큰만 처리할 수 있다. 대조적으로, pooling에는 학습 가능한 파라미터가 없이 시퀀스 길이에 선형적인 계산 복잡도가 필요하다. 따라서 저자들은 전통적인 CNN과 최근 계층적 Transformer 변형과 유사한 계층적 구조를 채택하여 pooling을 활용하였다. 
 
-<center><img src='{{"/assets/img/poolformer/poolformer-fig2.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/poolformer/poolformer-fig2.webp" | relative_url}}' width="90%"></center>
 <br>
 위 그림은 PoolFormer의 전체 프레임워크를 보여준다. 구체적으로 PoolFormer는 각각 $\frac{H}{4} \times \frac{W}{4}$, $\frac{H}{8} \times \frac{W}{8}$, $\frac{H}{16} \times \frac{W}{16}$, $\frac{H}{32} \times \frac{W}{32}$개의 토큰으로 구성된 4단계를 가지고 있다. 여기서 $H$와 $W$는 입력 이미지의 너비와 높이이다. 임베딩 차원에는 두 가지 그룹이 있다.
 
@@ -96,7 +96,7 @@ $$
 
 총 $L$개의 PoolFormer 블록이 있다고 가정하면 단계 1, 2, 3, 4에는 각각 $L/6$, $L/6$, $L/2$, $L/6$개의 PoolFormer 블록을 포함한다. MLP 확장 비율은 4로 설정된다. 위의 단순 모델 스케일링 규칙에 따라 PoolFormer의 5가지 모델 크기를 얻었으며 해당 hyperparameter는 아래 표와 같다.
 
-<center><img src='{{"/assets/img/poolformer/poolformer-table1.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/poolformer/poolformer-table1.webp" | relative_url}}' width="55%"></center>
 
 ## Experiments
 ### 1. Image classification
@@ -113,11 +113,11 @@ $$
 
 다음은 ImageNet-1K에 대한 분류 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/poolformer/poolformer-table2.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/poolformer/poolformer-table2.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 MAC과 모델 크기에 따른 ImageNet-1K top-1 정확도를 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/poolformer/poolformer-fig3.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/poolformer/poolformer-fig3.webp" | relative_url}}' width="95%"></center>
 
 ### 2. Object detection and instance segmentation
 - 데이터셋: COCO
@@ -134,7 +134,7 @@ $$
 
 다음은 COCO val2017에서의 object detection과 instance segmentation 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/poolformer/poolformer-table3.PNG" | relative_url}}' width="87%"></center>
+<center><img src='{{"/assets/img/poolformer/poolformer-table3.webp" | relative_url}}' width="87%"></center>
 
 ### 3. Semantic segmentation
 - 데이터셋: ADE20K
@@ -148,9 +148,9 @@ $$
 
 다음은 ADE20K validation set에서의 semantic segmentation 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/poolformer/poolformer-table4.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/poolformer/poolformer-table4.webp" | relative_url}}' width="42%"></center>
 
 ### 4. Ablation studies
 다음은 PoolFormer에 대한 ablation 결과이다. (ImageNet-1K 분류 벤치마크)
 
-<center><img src='{{"/assets/img/poolformer/poolformer-table5.PNG" | relative_url}}' width="93%"></center>
+<center><img src='{{"/assets/img/poolformer/poolformer-table5.webp" | relative_url}}' width="93%"></center>

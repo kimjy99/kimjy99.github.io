@@ -40,7 +40,7 @@ classes: wide
 ## Method
 수십억 개의 이미지-텍스트 쌍에 대해 학습된 모델인 Stable Diffusion은 일반화할 수 있는 풍부한 지식을 자랑한다. 본 논문은 특정 Classification task에 대한 이 지식을 활용하기 위해 사전 학습된 generator $G$를 타겟 도메인 데이터셋으로 안내하는 2-stage 방법을 제안하였다. 첫 번째 stage에서는 각 이미지를 모델의 latent space에 매핑하여 latent 임베딩 벡터의 데이터셋을 생성한다. 그런 다음 이러한 벡터의 noisy한 버전에 따라 reverse diffusion process를 실행하여 새로운 이미지 변형을 생성한다. 아래 그림은 이 접근 방식을 설명한다.
 
-<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig1a.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig1a.webp" | relative_url}}' width="70%"></center>
 
 ### 1. Stage 1 - Embedding Learning
 #### Stable Diffusion
@@ -59,7 +59,7 @@ $$
 여기서 $t$는 timestep을 나타내고, $z_t$는 시간 $t$에서의 latent noise, $\epsilon$은 스케일링되지 않은 noise 샘플, $\epsilon_\theta$는 denoising network, $c_\theta (y)$는 입력 $y$를 벡터에 매핑하는 모델 매핑이다. Inference 과정에서 임의의 noise 벡터를 컨디셔닝 벡터로 반복적으로 denoising하여 새로운 이미지 latent $z_0$를 생성하고, latent code를 사전 학습된 디코더 $x' = \mathcal{D} (z_0)$를 사용하여 이미지로 변환한다.
 
 #### Diffusion Inversion
-<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig2.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig2.webp" | relative_url}}' width="70%"></center>
 <br>
 이전 연구들에서는 이미지를 텍스트 인코더 $c_\theta$의 입력 토큰으로 다시 반전시키려고 시도했다. 그러나 이 접근 방식은 텍스트 modality의 표현력에 의해 제한되고 모델의 원래 출력 도메인으로 제한된다. 이 한계를 극복하기 위해 $c_\theta$를 ID 매핑으로 취급하고 LDM loss를 최소화하여 실제 데이터셋의 각 이미지 latent $z$에 대한 조건 벡터 $c$를 직접 최적화한다. 
 
@@ -111,80 +111,80 @@ $$
 
 전체 런타임, 즉 임베딩 학습과 샘플링에 소요되는 시간은 아래 그래프와 같다.
 
-<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig4.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig4.webp" | relative_url}}' width="40%"></center>
 
 ### 1. Generator Quality and Data Size Matter
 다음은 generator의 품질을 비교한 그래프이다.
 
-<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig5.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig5.webp" | relative_url}}' width="65%"></center>
 <br>
 다음은 실제 데이터 포인트 수에 따른 성능을 나타낸 그래프이다.
 
-<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig6.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig6.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 다양한 해상도에서 오토인코딩된 이미지로 학습된 ResNet18의 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-table1.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-table1.webp" | relative_url}}' width="40%"></center>
 <br>
 가장 높은 해상도인 512도 원본 이미지로 학습한 것보다 성능이 좋지 못하다. 이는 오토인코딩 중 상당한 정보 손실이 있거나 재구성된 이미지와 실제 이미지 사이의 분포 이동이 있음을 뜻한다. 
 
 다음은 생성된 데이터의 수에 따른 정확도를 나타낸 그래프이다.
 
-<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig1b.PNG" | relative_url}}' width="37%"></center>
+<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig1b.webp" | relative_url}}' width="37%"></center>
 
 ### 2. Data Distribution and Data Coverage Matter
 다음은 Language Enhancement with Clip Filtering (LECF)과 비교한 표와 그래프이다.
 
-<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-table2.PNG" | relative_url}}' width="43%"></center>
+<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-table2.webp" | relative_url}}' width="43%"></center>
 <br>
-<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig7b.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig7b.webp" | relative_url}}' width="40%"></center>
 <br>
 다음은 EuroSAT 데이터셋으로 few-shot learning 성능을 평가한 것이다. 
 
-<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig7a.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig7a.webp" | relative_url}}' width="40%"></center>
 <br>
 다음은 LAION-5B에서의 KNN 검색 성능을 비교한 표이다.
 
-<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-table3.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-table3.webp" | relative_url}}' width="45%"></center>
 <br>
 다음은 다양한 데이터셋에 대하여 Diffusion Inversion으로 합성한 이미지들이다. 
 
-<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig3.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Evaluation on Various Architectures
 다음은 다양한 classifier 아키텍처에 대한 평가 결과이다.
 
-<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig7c.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig7c.webp" | relative_url}}' width="65%"></center>
 
 ### 4. Comparison against Image Data Augmentation Methods
 다음은 다양한 data augmentation 방법을 사용하였을 때의 정확도를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-table4.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-table4.webp" | relative_url}}' width="85%"></center>
 
 ## Quantitative Analysis
 다음은 classifier-free guidance 강도와 학습 step에 따른 정확도를 나타낸 그래프이다.
 
-<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig8a.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig8a.webp" | relative_url}}' width="40%"></center>
 <br>
 다음은 inference step과 unconditional embedding에 따른 정확도를 나타낸 그래프이다.
 
-<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig8b.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig8b.webp" | relative_url}}' width="40%"></center>
 <br>
 다음은 Gaussian noise 강도와 데이터 생성 수에 따른 정확도를 나타낸 그래프이다.
 
-<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig8c.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig8c.webp" | relative_url}}' width="40%"></center>
 <br>
 다음은 latent interpolation 강도와 데이터 생성 수 따른 정확도를 나타낸 그래프이다.
 
-<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig8d.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig8d.webp" | relative_url}}' width="40%"></center>
 <br>
 다음은 interpolation 강도에 따른 영향을 나타낸 표이다. 
 
-<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-table5.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-table5.webp" | relative_url}}' width="40%"></center>
 <br>
 다음은 두 임베딩 벡터를 다양한 interpolation 강도 $\alpha$로 보간하여 생성한 이미지의 예시이다. ($\alpha$는 왼쪽부터 0.0, 0.1, 0.2, 0.3, 0.5, 0.7, 0.8, 0.9, 1.0)
 
-<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig9.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffusion-inversion/diffusion-inversion-fig9.webp" | relative_url}}' width="100%"></center>
 
 ## Limitations
 ImageNet과 같은 대규모 데이터셋으로 확장하면 상당한 스토리지 요구량과 Stable Diffusion의 비효율적인 샘플링으로 인해 문제가 발생한다. 

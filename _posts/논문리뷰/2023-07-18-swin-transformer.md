@@ -33,13 +33,13 @@ classes: wide
 
 이러한 문제를 극복하기 위해 본 논문은 계층적 feature map을 구성하고 이미지 크기에 대한 선형 계산 복잡도를 갖는 **Swin Transformer**라는 범용 Transformer backbone을 제안하였다. 
 
-<center><img src='{{"/assets/img/swin-transformer/swin-transformer-fig1.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/swin-transformer/swin-transformer-fig1.webp" | relative_url}}' width="60%"></center>
 <br>
 위 그림과 같이 Swin Transformer는 작은 크기의 패치 (회색 윤곽선)에서 시작하여 점점 더 깊은 Transformer 레이어에서 인접한 패치를 병합하여 계층적 표현을 구성한다. 이러한 계층적 feature map을 통해 Swin Transformer 모델은 feature pyramid network (FPN) 또는 U-Net과 같은 조밀한 예측을 위한 고급 기술을 편리하게 활용할 수 있다. 
 
 이미지를 분할하는 겹치지 않는 window (빨간색 윤곽선) 내에서 로컬로 self-attention을 계산하여 선형 계산 복잡도를 달성된다. 각 window의 패치 수는 고정되어 있으므로 복잡도는 이미지 크기에 비례한다. 이러한 장점으로 인해 Swin Transformer는 단일 해상도의 feature map을 생성하고 2차 복잡도를 갖는 이전 Transformer 기반 아키텍처와 달리 다양한 비전 task를 위한 범용 backbone으로 적합하다.
 
-<center><img src='{{"/assets/img/swin-transformer/swin-transformer-fig2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/swin-transformer/swin-transformer-fig2.webp" | relative_url}}' width="60%"></center>
 <br>
 Swin Transformer의 핵심 설계 요소는 위 그림과 같이 연속적인 self-attention 레이어 사이의 window 파티션의 이동이다. Shifted window는 이전 레이어의 window를 연결하여 모델링 능력을 크게 향상시키는 연결을 제공한다. 이 전략은 또한 실제 지연 시간과 관련하여 효율적이다. Window 내의 모든 쿼리 패치는 하드웨어에서 메모리 액세스를 용이하게 하는 동일한 키 세트를 공유한다. 
 
@@ -47,7 +47,7 @@ Swin Transformer의 핵심 설계 요소는 위 그림과 같이 연속적인 se
 
 ## Method
 ### 1. Overall Architecture
-<center><img src='{{"/assets/img/swin-transformer/swin-transformer-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/swin-transformer/swin-transformer-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 Swin Transformer 아키텍처의 개요는 tiny 버전인 SwinT를 보여주는 위 그림에 나와 있다. 먼저 ViT와 같은 패치 분할 모듈에 의해 입력 RGB 이미지를 겹치지 않는 패치로 분할한다. 각 패치는 "토큰"으로 취급되며 해당 feature는 픽셀 RGB 값의 concatenation으로 설정된다. 구현에서는 4$\times$4의 패치 크기를 사용하므로 각 패치의 feature 차원은 $4 \times 4 \times 3 = 48$이다. 이 feature에 선형 임베딩 레이어를 적용하여 임의의 차원 $C$로 project한다.
 
@@ -102,7 +102,7 @@ $$
 
 Naive한 해결책은 attention을 계산할 때 더 작은 window를 $M \times M$ 크기로 채우고 패딩된 값을 마스킹하는 것이다. 일반 파티셔닝의 window 수가 적은 경우, 이 naive한 솔루션으로 증가된 계산은 상당하다. 예를 들어 2$\times$2의 경우 3$\times$3이 되어 window 수가 2.25배 커진다. 
 
-<center><img src='{{"/assets/img/swin-transformer/swin-transformer-fig4.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/swin-transformer/swin-transformer-fig4.webp" | relative_url}}' width="60%"></center>
 <br>
 본 논문은 위 그림과 같이 왼쪽 위 방향으로 순환 이동 (cyclic-shifting)하여 보다 효율적인 배치 계산 방식을 제안한다. 이 이동 후 일괄 처리된 window는 feature map에서 인접하지 않은 여러 개의 하위 window로 구성될 수 있다. 따라서 마스킹 메커니즘을 사용하여 각 하위 window 내에서 self-attention 계산을 제한한다. Cyclic-shifting를 사용하면 배치된 window의 수가 일반 window 파티션과 동일하게 유지되므로 효율적이다.
 
@@ -136,24 +136,24 @@ $$
   - ADE20K semantic segmentation
 
 ### 1. Image Classification on ImageNet-1K
-<center><img src='{{"/assets/img/swin-transformer/swin-transformer-table1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/swin-transformer/swin-transformer-table1.webp" | relative_url}}' width="50%"></center>
 
 ### 2. Object Detection on COCO
-<center><img src='{{"/assets/img/swin-transformer/swin-transformer-table2.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/swin-transformer/swin-transformer-table2.webp" | relative_url}}' width="52%"></center>
 
 ### 3. Semantic Segmentation on ADE20K
 
-<center><img src='{{"/assets/img/swin-transformer/swin-transformer-table3.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/swin-transformer/swin-transformer-table3.webp" | relative_url}}' width="52%"></center>
 
 ### 4. Ablation Study
 다음은 shifted window 접근법과 다양한 위치 임베딩 방법에 대한 ablation study 결과이다. (Swin-T 아키텍처)
 
-<center><img src='{{"/assets/img/swin-transformer/swin-transformer-table4.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/swin-transformer/swin-transformer-table4.webp" | relative_url}}' width="48%"></center>
 <br>
 다음은 다양한 self-attention 계산 방법에 대한 실제 속도를 비교한 표이다.
 
-<center><img src='{{"/assets/img/swin-transformer/swin-transformer-table5.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/swin-transformer/swin-transformer-table5.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 다양한 self-attention 계산 방법을 사용한 Swin Transformer의 정확도를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/swin-transformer/swin-transformer-table6.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/swin-transformer/swin-transformer-table6.webp" | relative_url}}' width="50%"></center>

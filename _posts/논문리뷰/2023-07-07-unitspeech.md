@@ -79,7 +79,7 @@ $$
 
 Unit encoder는 TTS 모델의 텍스트 인코더와 아키텍처와 역할 모두 동일한 모델이다. 전사를 사용하는 텍스트 인코더와 달리 unit encoder는 unit으로 알려진 discretize된 표현을 사용하여 모델의 생성 능력을 확장하고, 이를 통해 전사되지 않은 음성에 적응할 수 있다. 
 
-<center><img src='{{"/assets/img/unitspeech/unitspeech-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/unitspeech/unitspeech-fig1.webp" | relative_url}}' width="100%"></center>
 <br>
 구체적으로 unit은 음성에 대한 self-supervised 모델인 HuBERT에서 얻은 discretize된 표현이다. 위 그림의 가장 왼쪽 부분은 음성 파형을 HuBERT의 입력으로 사용하고 출력 표현을 K-mean 클러스터링을 통해unit 클러스터로 discretize하여 unit 시퀀스를 생성하는 unit 추출 프로세스를 보여준다. 적절한 수의 클러스터를 설정하면 주로 원하는 음성 콘텐츠를 포함하도록 unit을 제한할 수 있다. HuBERT에서 얻은 unit 시퀀스는 mel-spectrogram 길이로 업샘플링된 다음 unit duration $d_u$와 squeeze된 unit 시퀀스 $u$로 압축된다.
 
@@ -133,17 +133,17 @@ $$
 ### 1. Adaptive Text-to-Speech
 다음은 TTS 성능을 비교한 표이다. zs는 fine-tuning 없이 zero-shot 적응을 수행한 것을 나타낸다. 
 
-<center><img src='{{"/assets/img/unitspeech/unitspeech-table1.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/unitspeech/unitspeech-table1.webp" | relative_url}}' width="42%"></center>
 
 ### 2. Any-to-Any Voice Conversion
 다음은 Voice Conversion 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/unitspeech/unitspeech-table2.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/unitspeech/unitspeech-table2.webp" | relative_url}}' width="42%"></center>
 
 ### 3. Analysis
 다음은 unit 클러스터의 수 $K$, fine-tuning iteration, fine-tuning에 사용된 음성의 길이, gradient scale $\gamma$의 효과를 보여주는 표이다.
 
-<center><img src='{{"/assets/img/unitspeech/unitspeech-table3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/unitspeech/unitspeech-table3.webp" | relative_url}}' width="50%"></center>
 
 1. 클러스터 $K$의 수는 TTS 결과에 큰 영향을 미치지 않는다. 그러나 unit을 직접 입력으로 사용하는 VC의 경우 $K$가 증가하면 발음이 보다 정밀하게 세분화되어 발음 정확도가 향상된다. 
 2. 더 많이 fine-tuning할수록 speaker 유사성이 점차 증가하고 결국 약 500 iteration으로 수렴된다. 또한 2,000 iteration 이상 fine-tuning하면 발음 정확도가 감소한다. 

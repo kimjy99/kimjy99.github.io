@@ -19,7 +19,7 @@ classes: wide
 > Tsinghua University | International Digital Economy Academy (IDEA) | Alibaba Group | The Hong Kong University of Science and Technology | South China University of Technology  
 > 10 Apr 2023  
 
-<center><img src='{{"/assets/img/stable-dino/stable-dino-fig1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/stable-dino/stable-dino-fig1.webp" | relative_url}}' width="80%"></center>
 
 ## Introduction
 Object detection은 다양한 응용 분야에서 비전의 기본 task이다. 지난 수십 년 동안 딥러닝, 특히 CNN의 발전으로 큰 진전이 있었다.
@@ -30,7 +30,7 @@ DETR-like detector는 인상적인 성능을 달성하지만 현재까지 충분
 
 현재까지 불안정한 매칭 문제를 해결하려고 시도한 연구는 단 하나뿐이다. [DN-DETR](https://arxiv.org/abs/2203.01305)은 불일치를 방지하기 위해 추가로 hard-assigned query를 도입하여 새로운 denoising 학습 접근 방식을 제안했다. 일부 다른 연구들에서는 더 빠른 수렴을 위해 추가 query를 추가했지만 불안정한 매칭 문제에 중점을 두지 않았다. 이에 비해 본 논문은 매칭 및 loss 계산 과정에 중점을 두어 이 문제를 해결한다.
 
-<center><img src='{{"/assets/img/stable-dino/stable-dino-fig2.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/stable-dino/stable-dino-fig2.webp" | relative_url}}' width="75%"></center>
 <br>
 불안정한 매칭 문제의 핵심은 다중 최적화 경로 문제이다. 위 그림에서 볼 수 있듯이 학습 중에 두 가지 불완전한 예측이 있다. 예측 A는 IoU 점수가 더 높지만 분류 점수는 더 낮다. 반면 예측 B는 그 반대이다. 이는 학습 중에 가장 간단하지만 가장 일반적인 경우이다. 모델은 그 중 하나를 ground truth에 할당하여 두 가지 최적화 기본 설정을 생성한다. 하나는 더 나은 분류 결과를 얻기 위해 높은 위치 메트릭을 사용하여 A를 장려하고, 다른 하나는 더 나은 IoU 점수를 얻기 위해 높은 semantic 메트릭 (여기서는 분류 점수)을 사용하여 B를 장려한다. 이러한 기본 설정을 다양한 최적화 경로라고 한다. 학습 중 랜덤성으로 인해 각 예측은 positive example로 할당되고 다른 예측은 negative example로 간주될 확률이 있다. 기본 loss 디자인이 주어지면 A 또는 B가 positive example로 선택되는지 여부에 관계없이 모델은 ground truth bounding box와의 정렬을 향해 이를 최적화한다. 이는 위 그림의 오른쪽 표에 표시된 것처럼 모델에 다중 최적화 경로가 있음을 의미한다. 이 문제는 여러 query가 positive example로 선택되므로 기존 detector에서는 덜 중요하다. 그러나 DETR-like 모델의 일대일 매칭은 예측 A와 B 사이의 최적화 격차를 확대하여 모델 학습 효율성을 떨어뜨린다.
 
@@ -100,11 +100,11 @@ $s_i^\prime$는 GIOU의 범위가 $[-1, 1]$이기 때문에 $[0, 1]$ 범위로 �
 
 ### 4. Analyses
 #### 위치 점수만으로 분류를 supervise하는 이유는 무엇인가?
-<center><img src='{{"/assets/img/stable-dino/stable-dino-fig2.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/stable-dino/stable-dino-fig2.webp" | relative_url}}' width="75%"></center>
 <br>
 저자들은 불안정한 매칭의 원인이 다중 최적화 경로 문제라고 주장한다. 가장 간단한 시나리오에 대해 논의하자. 두 개의 불완전한 예측 A와 B가 있다. 위 그림에 표시된 것처럼 예측 A는 IOU 점수가 더 높지만 중심이 배경에 있기 때문에 분류 점수가 더 낮다. 이와 대조적으로 예측 B는 분류 점수가 더 높지만 IOU 점수는 더 낮다. 두 가지 예측은 실제 개체를 놓고 경쟁한다. 하나가 positive example로 할당되면 다른 하나는 negative example로 설정된다. 두 개의 불완전한 후보가 포함된 ground truth는 학습 중에, 특히 초기 step에서 흔히 발생한다.
 
-<center><img src='{{"/assets/img/stable-dino/stable-dino-table1.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/stable-dino/stable-dino-table1.webp" | relative_url}}' width="55%"></center>
 <br>
 학습 중 랜덤성으로 인해 두 예측 중 각각은 positive example로 할당될 확률이 있다. 기본 DETR 변형 loss 디자인에서는 위 표와 같이 기본 loss 디자인이 positive example을 장려하고 negative example을 제한하므로 각 가능성이 증폭된다. Detection 모델에는 두 가지 다른 최적화 경로가 있다. 모델은 IOU가 높은 샘플을 선호하거나 분류 점수가 높은 샘플을 선호한다. 다양한 최적화 경로는 학습 중에 모델을 혼란스럽게 할 수 있다. 좋은 질문은 모델이 두 가지 예측을 모두 장려할 수 있는지 여부이다. 불행히도 이는 일대일 매칭 요구 사항을 위반하게 된다. 각 ground truth에 여러 예측을 할당하는 기존 detector에서는 문제가 중요하지 않다. DETR-like 모델의 일대일 매칭 전략은 충돌을 증폭시킨다. 
 
@@ -126,7 +126,7 @@ Object detector에는 두 가지 최적화 경로가 있다. 하나는 좋은 �
 새로운 loss로 인해 DETR-like 모델은 둘 다 더 큰 IOU 점수로 예측을 장려하지만 더 나쁜 분류 점수로 예측을 장려하므로 기존 detector와 더 유사하게 작동한다.
 
 #### 불안정한 점수의 비교
-<center><img src='{{"/assets/img/stable-dino/stable-dino-fig3.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/stable-dino/stable-dino-fig3.webp" | relative_url}}' width="70%"></center>
 <br>
 본 논문의 방법의 효율성을 확인하기 위해 위 그래프에서 바닐라 DINO와 안정적인 매칭을 사용하는 DINO 사이의 불안정한 점수를 비교하였다. 불안정한 점수는 인접한 디코더 레이어 간의 일치하지 않는 매칭 결과이다. 예를 들어, 이미지에 10개의 ground truth 상자가 있고 단 하나의 상자에만 $(i − 1)$번째 레이어와 $i$번째 레이어에서 일치하는 다른 예측 인덱스가 있는 경우 레이어 $i$의 불안정한 점수는 $1/10 = 10.00\%$이다. 일반적으로 모델에는 6개의 디코더 레이어가 있다. 레이어 1의 불안정한 점수는 인코더와 첫 번째 디코더 레이어의 매칭 결과를 비교하여 계산한다.
 
@@ -136,11 +136,11 @@ Object detector에는 두 가지 최적화 경로가 있다. 하나는 좋은 �
 2. DINO의 불안정한 점수 중 레이어 5에는 이상한 피크가 있는 반면, 안정적인 매칭을 사용한 DINO는 그렇지 않다. 이는 랜덤성이 피크를 유발하는 것으로 의심된다.
 
 ## Memory Fusion
-<center><img src='{{"/assets/img/stable-dino/stable-dino-fig4.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/stable-dino/stable-dino-fig4.webp" | relative_url}}' width="70%"></center>
 <br>
 초기 학습 단계에서 모델 수렴 속도를 더욱 향상시키기 위해 본 논문은 다양한 수준의 인코더 출력 feature들을 멀티스케일 backbone feature와 병합하는 memory fusion이라는 간단한 feature 융합 기술을 제안했다. 저자들은 위 그림의 (b), (c), (d)에 표시된 simple fusion, U-like fusion, dense fusion이라는 세 가지 memory fusion 방식을 제안한다. 여러 feature들을 융합하려면 먼저 feature 차원을 따라 feature들을 concat한 다음 concat된 feature을 원래 차원에 project한다.
 
-<center><img src='{{"/assets/img/stable-dino/stable-dino-fig5.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/stable-dino/stable-dino-fig5.webp" | relative_url}}' width="50%"></center>
 <br>
 Dense fusion은 더 나은 성능을 달성하며, 실험에서 기본 feature fusion으로 사용된다. 위 그림은 DINO와 dense fusion을 사용한 DINO의 학습 곡선을 비교한 그래프이다. 이는 융합이 특히 초기 단계에서 더 빠른 수렴을 가능하게 함을 보여준다.
 
@@ -157,34 +157,34 @@ Dense fusion은 더 나은 성능을 달성하며, 실험에서 기본 feature f
 ### 1. Main Results
 다음은 COCO val2017에서 ResNet-50 backbone을 사용하는 이전 DETR 변형들과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/stable-dino/stable-dino-table2.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/stable-dino/stable-dino-table2.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 COCO val2017에서 Swin-L backbone을 사용하는 이전 DETR 변형들과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/stable-dino/stable-dino-table3.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/stable-dino/stable-dino-table3.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 COCO val2017에서 SOTA instance segmentation 모델과 Stable-MaskDINO를 비교한 표이다.
 
-<center><img src='{{"/assets/img/stable-dino/stable-dino-table4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/stable-dino/stable-dino-table4.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Generalization of our Methods
 다음은 다른 DETR 변형들에 대한 본 논문의 방법의 효과를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/stable-dino/stable-dino-table5.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/stable-dino/stable-dino-table5.webp" | relative_url}}' width="60%"></center>
 
 ### 3. Ablation Study
 다음은 다양한 구성에 대한 ablation 결과이다. PSL은 position-supervised loss, PMC는 position-modulated cost를 의미한다. 
 
-<center><img src='{{"/assets/img/stable-dino/stable-dino-table6.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/stable-dino/stable-dino-table6.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 position-supervised loss에 대한 다양한 loss 디자인을 비교한 표이다. $s$와 $p$는 각각 IOU 점수와 분류 확률을 의미한다. 
 
-<center><img src='{{"/assets/img/stable-dino/stable-dino-table7.PNG" | relative_url}}' width="53%"></center>
+<center><img src='{{"/assets/img/stable-dino/stable-dino-table7.webp" | relative_url}}' width="53%"></center>
 <br>
 다음은 position-supervised loss에 대한 다양한 loss 가중치를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/stable-dino/stable-dino-table8.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/stable-dino/stable-dino-table8.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 position-modulated cost에 대한 다양한 디자인과 가중치를 비교한 표이다. $s$는 IOU 점수를 의미한다. 
 
-<center><img src='{{"/assets/img/stable-dino/stable-dino-table9.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/stable-dino/stable-dino-table9.webp" | relative_url}}' width="55%"></center>

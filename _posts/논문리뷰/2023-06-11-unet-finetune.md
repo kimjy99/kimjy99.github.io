@@ -18,9 +18,9 @@ classes: wide
 > 12 Apr 2023  
 
 <div style="display: flex; align-items: start; justify-content: center">
-  <img src='{{"/assets/img/unet-finetune/unet-finetune-fig1a.PNG" | relative_url}}' width="45%">
+  <img src='{{"/assets/img/unet-finetune/unet-finetune-fig1a.webp" | relative_url}}' width="45%">
   &nbsp;
-  <img src='{{"/assets/img/unet-finetune/unet-finetune-fig1b.PNG" | relative_url}}' width="54%">
+  <img src='{{"/assets/img/unet-finetune/unet-finetune-fig1b.webp" | relative_url}}' width="54%">
 </div>
 
 ## Introduction
@@ -33,7 +33,7 @@ classes: wide
 ## Design Space of Parameter-Efficient Learning in Diffusion Models
 NLP에서 parameter-efficient transfer learning의 성공에도 불구하고 이 기술은 residual block과 cross-attention과 같은 더 많은 구성 요소의 존재로 인해 diffusion model 영역에서 완전히 이해되지 않았다. Diffusion model의 parameter-efficient tuning에 대한 분석 전에 어댑터의 디자인 공간을 input position, output position, function form의 세 가지 직교 요소로 분해한다.
 
-<center><img src='{{"/assets/img/unet-finetune/unet-finetune-fig3.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/unet-finetune/unet-finetune-fig3.webp" | relative_url}}' width="85%"></center>
 <br>
 
 본 논문은 현재 유일한 오픈 소스 대규모 diffusion model인 Stable Diffusion을 고려한다 (U-Net 기반 아키텍처에 대한 위 그림 참조). 
@@ -41,12 +41,12 @@ NLP에서 parameter-efficient transfer learning의 성공에도 불구하고 이
 ### 1. Input Position and Output Position
 Input position은 어댑터의 입력이 들어오는 곳이고 output position은 어댑터의 출력이 나가는 곳이다. 깔끔한 표기를 위해 표시된 것처럼 position은 인접 레이어에 따라 이름이 지정된다. 예를 들어 $$\textrm{SA}_\textrm{in}$$은 self-attention layer의 input position에 해당하고, $$\textrm{Trans}_\textrm{out}$$은 Transformer 블록의 output position에 해당하며, $$\textrm{CA}_\textrm{c}$$는 cross attention layer의 조건 입력에 해당한다. 
 
-<center><img src='{{"/assets/img/unet-finetune/unet-finetune-fig4.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/unet-finetune/unet-finetune-fig4.webp" | relative_url}}' width="60%"></center>
 <br>
 본 논문의 프레임워크에서 input position은 위 그림에 설명된 activation position 중 하나가 될 수 있다. 따라서 input position에 대한 총 10가지 옵션이 있다. 덧셈은 교환적이므로 일부 output position은 동일하다. 예를 들어 $$\textrm{SA}_\textrm{out}$$에 출력을 넣는 것은 $$\textrm{CA}_\textrm{in}$$에 출력을 넣는 것과 같다. 이에 따라 output position에 대한 옵션이 총 7개로 줄어든다. 또 다른 제약은 output position이 input position 뒤에 위치해야 한다는 것이다.
 
 ### 2. Function Form
-<center><img src='{{"/assets/img/unet-finetune/unet-finetune-fig5.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/unet-finetune/unet-finetune-fig5.webp" | relative_url}}' width="65%"></center>
 <br>
 Function form은 어댑터가 입력을 출력으로 전송하는 방법을 설명한다. Transformer 블록과 residual block에 각각 어댑터의 function form을 제시하며 (위 그림 참조), 둘 다 다운샘플링 연산자, activation function, 업샘플링 연산자, scaling factor로 구성된다. 다운샘플링 연산자는 입력의 차원을 줄이고 업샘플링 연산자는 차원을 늘려 출력이 입력과 동일한 차원을 갖도록 한다. 원래 네트워크에 영향을 미치는 강도를 제어하기 위해 출력에 scaling factor $s$를 더 곱한다.
 
@@ -78,36 +78,36 @@ ANOVA의 기본 아이디어는 데이터의 전체 변동을 그룹 내 변동(
 ### 1. Analysis of Variance (ANOVA) on the Design Space
 다음은 ANOVA의 F-통계량이다.
 
-<center><img src='{{"/assets/img/unet-finetune/unet-finetune-fig8.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/unet-finetune/unet-finetune-fig8.webp" | relative_url}}' width="50%"></center>
 <br>
 Input position에 대한 F-통계량이 가장 크며, 이는 input position이 모델의 성능에 중요한 요소임을 의미한다. 
 
 다음은 DreamBooth task에서 다양한 input position과 output position에 대한 성능을 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/unet-finetune/unet-finetune-fig6.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/unet-finetune/unet-finetune-fig6.webp" | relative_url}}' width="65%"></center>
 <br>
 다음은 fine-tuning task에서 다양한 input position과 output position에 대한 성능을 시각화한 것이다. 
 
-<center><img src='{{"/assets/img/unet-finetune/unet-finetune-fig7.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/unet-finetune/unet-finetune-fig7.webp" | relative_url}}' width="65%"></center>
 
 ### 2. Ablate the Input Position
 다음은 어댑터의 다양한 input position에 대하여 생성된 샘플들이다. 모든 샘플들은 "a photo of [$V$] $C_\textrm{class}$"로 컨디셔닝되었다. 
 
-<center><img src='{{"/assets/img/unet-finetune/unet-finetune-fig9.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/unet-finetune/unet-finetune-fig9.webp" | relative_url}}' width="90%"></center>
 <br>
 저자들은 "a photo of [$V$] $C_\textrm{class}$"와 "a photo of $C_\textrm{class}$"라는 프롬프트가 주어질 때 noise 예측 간의 차이를 계산하였다. 파이프라인은 아래 그림과 같다. 
 
-<center><img src='{{"/assets/img/unet-finetune/unet-finetune-fig10.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/unet-finetune/unet-finetune-fig10.webp" | relative_url}}' width="55%"></center>
 <br>
 먼저 정규화 데이터에서 이미지에 noise를 추가하고 U-Net을 사용하여 두 프롬프트가 주어진 noise를 예측하고 예측된 두 noise 사이의 차이를 시각화한다. 
 
-<center><img src='{{"/assets/img/unet-finetune/unet-finetune-fig11.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/unet-finetune/unet-finetune-fig11.webp" | relative_url}}' width="90%"></center>
 <br>
 위 그림에서 볼 수 있듯이 input position이 $$\textrm{CA}_\textrm{c}$$ 또는 $$\textrm{CA}_\textrm{out}$$인 어댑터는 noise 예측 간에 상당한 차이를 나타낸다.
 
 ### 3. Compare with DreamBooth
 다음은 본 논문의 최고의 세팅(input position이 $$\textrm{CA}_\textrm{out}$$, output position이 $$\textrm{FFN}_\textrm{in}$$)과 DreamBooth를 CLIP similarity로 비교한 결과들이다.
 
-<center><img src='{{"/assets/img/unet-finetune/unet-finetune-fig2.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/unet-finetune/unet-finetune-fig2.webp" | relative_url}}' width="85%"></center>
 <br>
-<center><img src='{{"/assets/img/unet-finetune/unet-finetune-fig12.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/unet-finetune/unet-finetune-fig12.webp" | relative_url}}' width="55%"></center>

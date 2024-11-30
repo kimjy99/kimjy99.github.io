@@ -49,7 +49,7 @@ SoundStorm은 AudioLM의 acoustic generator 역할을 하여 AudioLM의 2단계 
 SoundStorm은 컨디셔닝 신호를 나타내는 이산 토큰 시퀀스를 입력으로 받고 오디오 파형으로 다시 디코딩할 수 있는 SoundStream 토큰 시퀀스를 출력으로 생성한다. 컨디셔닝 신호가 SoundStream 프레임과 시간 정렬되거나 동일한 속도로 업샘플링될 수 있다고 가정한다. 그러한 컨디셔닝 신호는 예를 들어 AudioLM, SPEAR-TTS, [MusicLM](https://arxiv.org/abs/2301.11325)에서 사용되는 semantic 토큰 시퀀스이며, 이는 본 논문의 방법을 이러한 모델의 acoustic generator에 대한 drop-in replacement로 만든다. 다른 유형의 컨디셔닝 신호에 대한 확장은 남겨두고 AudioLM의 coarse acoustic modeling 단계와 fine acoustic modeling 단계를 모두 대체하는 AudioLM 내의 acoustic generator로서 SoundStorm에 중점을 둔다.
 
 ### 1. Architecture
-<center><img src='{{"/assets/img/soundstorm/soundstorm-fig1.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/soundstorm/soundstorm-fig1.webp" | relative_url}}' width="70%"></center>
 <br>
 모델의 아키텍처는 위 그림에 설명되어 있다 ($T = 4$, $Q = 3$, $t = 0$, $q = 2$). 입력 측에서 프레임 수준에서 시간 정렬된 컨디셔닝 토큰을 SoundStream 토큰과 인터리브하고, 결과 시퀀스를 임베딩하고, 컨디셔닝 토큰의 임베딩을 포함하여 동일한 프레임에 해당하는 임베딩을 합산한다. 컨디셔닝 토큰의 결과로 나온 연속 임베딩을 Conformer에 전달한다. 결과적으로 Conformer에서 양방향 self-attention을 위한 시퀀스 길이는 SoundStream 프레임 수 (일반적으로 초당 50개)에 의해 결정되므로 RVQ level의 수 $Q$와 무관하므로 몇 분 정도의 길이로 오디오를 처리할 수 있다. 출력 측에서는 $Q$개의 dense layer를 head로 사용하여 타겟 SoundStream 토큰을 생성한다.
 
@@ -93,17 +93,17 @@ RVQ 디코딩을 level별로 수행하면 finer level에서 조건부 독립 가
 ### 1. Speech Intelligibility, Audio Quality, Voice Preservation and Acoustic Consistency
 다음은 AudioLM의 acoustic generator와 SoundStorm의 명료도, 품질, 음성 보존, 음향 일관성을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/soundstorm/soundstorm-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/soundstorm/soundstorm-table1.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 LibriSpeech test-clean 'long' split의 샘플에 대한 프롬프트와 생성된 오디오 간의 음향 일관성을 비교한 그래프이다.  
 
-<center><img src='{{"/assets/img/soundstorm/soundstorm-fig2.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/soundstorm/soundstorm-fig2.webp" | relative_url}}' width="45%"></center>
 
 ### 2. Runtime and Ablations
 다음은 시퀀스 길이에 따른 런타임을 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/soundstorm/soundstorm-fig3.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/soundstorm/soundstorm-fig3.webp" | relative_url}}' width="45%"></center>
 <br>
 다음은 첫번째 RVQ level의 iteration 수에 따른 오디오 품질을 나타낸 그래프이다. 
 
-<center><img src='{{"/assets/img/soundstorm/soundstorm-fig4.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/soundstorm/soundstorm-fig4.webp" | relative_url}}' width="45%"></center>

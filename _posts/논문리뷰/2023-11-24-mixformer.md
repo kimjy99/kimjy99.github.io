@@ -44,11 +44,11 @@ Mixing Block은 표준 window 기반 attention 블록에 두 가지 핵심 디�
 
 그런 다음 attention은 local-window self-attention과 depth-wise convolution을 결합하는 적절한 방법을 채택하도록 한다. 이전 연구에서는 이 두 연산자를 연속적으로 쌓아 목표를 달성했다. 그러나 연속적인 단계에서 window 내 관계와 window 간 관계를 캡처하면 이 두 가지 유형의 관계가 덜 얽혀 있게 된다.
 
-<center><img src='{{"/assets/img/mixformer/mixformer-fig1.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/mixformer/mixformer-fig1.webp" | relative_url}}' width="40%"></center>
 <br>
 본 논문에서는 window 내 관계와 window 간 관계를 동시에 모델링하여 receptive field를 확대하는 병렬 디자인을 제안하였다. 위 그림에서 볼 수 있듯이 local-window self-attention과 depth-wise convolution은 두 개의 병렬 경로에 있다. 자세히 보면 서로 다른 window 크기를 사용한다. 이전 연구를 따라 local-window self-attention에는 7$\times$7 window가 채택되었다. Depth-wise convolution에서는 효율성을 고려하여 더 작은 커널 크기인 3$\times$3이 적용된다. 
 
-<center><img src='{{"/assets/img/mixformer/mixformer-table1.PNG" | relative_url}}' width="77%"></center>
+<center><img src='{{"/assets/img/mixformer/mixformer-table1.webp" | relative_url}}' width="77%"></center>
 <br>
 또한 FLOPs가 다르기 때문에 위 표의 FLOPs 비율에 따라 채널 수를 조정한다. 그런 다음 출력은 서로 다른 정규화 레이어로 정규화되고 concatenation을 통해 병합된다. 병합된 feature는 연속적인 Feed-Forward Network (FFN)로 전송되어 채널 전체에서 학습된 관계를 혼합하여 최종 출력 feature를 생성한다.
 
@@ -60,7 +60,7 @@ Mixing Block은 표준 window 기반 attention 블록에 두 가지 핵심 디�
 #### 양방향 상호 작용
 일반적으로 가중치를 공유하면 공유 차원의 모델링 능력이 제한된다. 이 딜레마를 해결하는 일반적인 방법은 동적 네트워크에서 수행되는 것처럼 데이터 의존 가중치를 생성하는 것이다. Local-window self-attention은 채널 전체에서 가중치를 공유하면서 공간 차원에서 즉시 가중치를 계산하므로 채널 차원에서 모델링 능력이 약한 문제가 발생한다. 
 
-<center><img src='{{"/assets/img/mixformer/mixformer-fig2.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/mixformer/mixformer-fig2.webp" | relative_url}}' width="80%"></center>
 <br>
 채널 차원에서 local-window self-attention의 모델링 용량을 향상시키기 위해 채널별 동적 가중치를 생성하는 것이 목표이다. Depth-wise convolution은 채널에 초점을 맞추면서 공간 차원에 가중치를 공유한다. 이는 local-window self-attention에 대한 보완적인 단서를 제공할 수 있으며 그 반대의 경우도 마찬가지이다.
 
@@ -87,12 +87,12 @@ $$
 
 ### 2. MixFormer
 #### 전체 아키텍처
-<center><img src='{{"/assets/img/mixformer/mixformer-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/mixformer/mixformer-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 저자들은 Mixing Block을 기반으로 pyramid feature map을 사용하여 효율적이고 범용적인 ViT인 **MixFormer**를 설계하였다. 다운샘플링 비율이 각각 {4, 8, 16, 32}인 4개의 stage가 있다. MixFormer는 stem layer와 downsampling layer 모두에서 convolution layer를 사용하는 하이브리드 ViT이다. 게다가 stage 끝 부분에 projection layer를 도입했다. Projection layer는 classification head 앞의 채널에서 더 많은 디테일을 보존하는 것을 목표로 linear layer와 activation layer를 사용하여 feature의 채널을 1280으로 늘린다. 이는 classification에서 더 높은 성능을 제공하며 특히 작은 모델에 잘 작동한다. MobileNet과 EfficeintNet과 같은 이전의 효율적인 네트워크에서도 동일한 디자인을 찾을 수 있다. MixFormer의 스케치는 위 그림에 나와 있다.
 
 #### 아키텍처 변형
-<center><img src='{{"/assets/img/mixformer/mixformer-table2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/mixformer/mixformer-table2.webp" | relative_url}}' width="50%"></center>
 <br>
 저자들은 각 stage의 블록을 수동으로 쌓고 계산 복잡도가 0.7G (B1)에서 3.6G (B4)에 이르는 다양한 크기의 여러 모델 형식을 지정하였다. 여러 stage의 블록 수는 마지막 두 stage에 더 많은 블록을 넣는 방식으로 설정된다. 모델들은 위 표의 세부 설정을 따른다. 
 
@@ -102,49 +102,49 @@ $$
 ### 1. Image Classification
 다음은 ImageNet validation set에서의 분류 정확도이다. 
 
-<center><img src='{{"/assets/img/mixformer/mixformer-table3.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/mixformer/mixformer-table3.webp" | relative_url}}' width="42%"></center>
 
 ### 2. Object Detection and Instance Segmentation
 다음은 Mask R-CNN를 사용한 COCO detection 및 segmentation 결과이다. 
 
-<center><img src='{{"/assets/img/mixformer/mixformer-table4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/mixformer/mixformer-table4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Cascade Mask R-CNN를 사용한 COCO detection 및 segmentation 결과이다. 
 
-<center><img src='{{"/assets/img/mixformer/mixformer-table5.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/mixformer/mixformer-table5.webp" | relative_url}}' width="60%"></center>
 
 ### 3. Semantic Segmentation
 다음은 ADE20K semantic segmentation 결과이다. 
 
-<center><img src='{{"/assets/img/mixformer/mixformer-table6.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/mixformer/mixformer-table6.webp" | relative_url}}' width="55%"></center>
 
 ### 4. Ablation Study
 다음은 양방향 상호 작용을 사용한 병렬 디자인에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/mixformer/mixformer-table7.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/mixformer/mixformer-table7.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 depth-wise convolution의 window 크기에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/mixformer/mixformer-table8.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/mixformer/mixformer-table8.webp" | relative_url}}' width="47%"></center>
 <br>
 다음은 다른 테크닉에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/mixformer/mixformer-table9.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/mixformer/mixformer-table9.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 stage들의 블록 수에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/mixformer/mixformer-table10.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/mixformer/mixformer-table10.webp" | relative_url}}' width="47%"></center>
 
 ### 5. Generalization
 다음은 추가 다운스트림 task에 대한 결과이다. 
 
-<center><img src='{{"/assets/img/mixformer/mixformer-table11.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/mixformer/mixformer-table11.webp" | relative_url}}' width="45%"></center>
 <br>
 다음은 ConvNets애 Mixing Block을 적용한 결과이다. (ImageNet-1K)
 
-<center><img src='{{"/assets/img/mixformer/mixformer-table12.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/mixformer/mixformer-table12.webp" | relative_url}}' width="50%"></center>
 
 ## Limitations
-<center><img src='{{"/assets/img/mixformer/mixformer-table16.PNG" | relative_url}}' width="32%"></center>
+<center><img src='{{"/assets/img/mixformer/mixformer-table16.webp" | relative_url}}' width="32%"></center>
 <br>
 MixFormer는 local-window self-attention 문제를 완화하기 위해 제안되었다. 따라서 본 논문에서는 window 기반 ViT로 제한될 수 있다. 병렬 디자인과 양방향 상호 작용이 글로벌 self-attention에 적용될 수 있지만 얼마나 많은 이득을 가져올 수 있는지는 확실하지 않다. 저자들은 DeiT-Tiny에 대한 간단한 실험을 수행하였다. 그러나 결과는 위 표와 같이 약간 악화된다. Mixing Block은 글로벌 attention에 적용하기 위해서는 더 많은 연구가 필요하다. 

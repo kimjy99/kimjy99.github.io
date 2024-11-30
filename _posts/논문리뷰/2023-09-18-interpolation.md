@@ -19,7 +19,7 @@ classes: wide
 > MIT CSAIL  
 > 24 Jul 2023  
 
-<center><img src='{{"/assets/img/interpolation/interpolation-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/interpolation/interpolation-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 이미지 편집은 오랫동안 컴퓨터 비전 및 생성 모델링의 중심 주제였다. 생성 모델의 발전으로 실제 이미지의 제어된 편집을 위한 점점 더 정교한 기술이 가능해졌으며, 최신 개발 중 많은 부분이 diffusion model에서 나타났다. 그러나 스타일 및/또는 콘텐츠가 다른 실제 이미지 간에 고품질 보간을 생성하는 기술은 현재까지 시연되지 않았다.
@@ -40,7 +40,7 @@ $$
 로 원래 입력과 관련될 수 있다. Denoising U-Net의 역할은 $\epsilon$를 추정하는 것이다. LDM은 여러 반복에 걸쳐 점진적으로 denoising을 수행하여 컨디셔닝 정보를 충실하게 통합하는 고품질 출력을 생성한다. $c_\textrm{text}$는 원하는 이미지를 설명하는 텍스트 (선택적으로 부정 프롬프트 포함)이고 $c_\textrm{pose}$는 인간 또는 의인화 주제에 대한 선택적 조건화 포즈를 나타낸다.
 
 ## Real Image Interpolation
-<center><img src='{{"/assets/img/interpolation/interpolation-fig2.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/interpolation/interpolation-fig2.webp" | relative_url}}' width="85%"></center>
 <br>
 
 ### 1. Latent interpolation
@@ -70,11 +70,11 @@ $$
 ### 3. Pose guidance
 피사체의 포즈가 두 이미지 간에 크게 다른 경우 이미지 보간이 어렵고 종종 팔다리와 얼굴이 여러 개인 것과 같은 해부학적 오류가 발생한다. LDM에 포즈 컨디셔닝 정보를 통합하여 다른 포즈의 피사체 간에 보다 그럴듯한 전환을 얻는다. 아래 그림과 같이 OpenPose를 사용하여 만화 또는 인간이 아닌 피사체에 대한 style transfer의 도움으로 입력 이미지의 포즈를 얻는다. 
 
-<center><img src='{{"/assets/img/interpolation/interpolation-fig4.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/interpolation/interpolation-fig4.webp" | relative_url}}' width="80%"></center>
 <br>
 그런 다음 두 이미지의 모든 공유 키포인트 위치를 선형 보간하여 각 이미지의 중간 포즈를 얻는다. 결과 포즈는 임의의 이미지 입력을 컨디셔닝하는 강력한 방법인 [ControlNet](https://kimjy99.github.io/논문리뷰/controlnet)을 사용하여 LDM에 제공된다. 흥미롭게도 입력 이미지에 대해 잘못된 포즈가 예측되는 경우에도 포즈에 대한 컨디셔닝이 급격한 포즈 변경을 방지하기 때문에 여전히 우수한 보간을 생성한다는 것을 관찰할 수 있다 (아래 그림 참조).
 
-<center><img src='{{"/assets/img/interpolation/interpolation-fig3.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/interpolation/interpolation-fig3.webp" | relative_url}}' width="85%"></center>
 
 ### 4. CLIP ranking
 LDM은 서로 다른 랜덤 시드를 사용하여 매우 다양한 품질과 특성의 출력을 생성할 수 있다. 이 문제는 하나의 잘못 생성된 이미지가 여기에서 파생된 다른 모든 이미지의 품질을 손상시키므로 실제 이미지 보간에서 복잡해진다. 따라서 속도보다 품질이 더 중요한 경우 서로 다른 랜덤 시드를 사용하여 여러 후보를 생성한 다음 CLIP으로 순위를 매길 수 있다. 서로 다른 noise 벡터를 사용하여 각 forward diffusion step을 반복하고 보간된 각 latent 벡터의 noise를 제거한 다음 지정된 긍정 및 부정 프롬프트로 디코딩된 이미지의 CLIP 유사도를 측정한다 (ex. 긍정: "고품질, 상세, 2D", 부정: "흐릿한, 왜곡된, 3D 렌더링"). 양의 유사도에서 음의 유사도를 뺀 값이 가장 높은 이미지가 유지된다. 더 높은 수준의 제어와 품질이 필요한 애플리케이션에서 이 파이프라인은 사용자가 원하는 보간을 수동으로 선택하거나 특정 이미지에 대한 새 프롬프트 또는 포즈를 지정할 수 있는 인터랙티브 모드로 변경할 수 있다.
@@ -111,20 +111,20 @@ $$
 #### Results
 다음은 동일한 입력에 대한 여러 보간 방식의 결과를 비교한 것이다.
 
-<center><img src='{{"/assets/img/interpolation/interpolation-fig5.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/interpolation/interpolation-fig5.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 여러 보간 방식을 정량적으로 비교한 표이다. 
 
-<center><img src='{{"/assets/img/interpolation/interpolation-table1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/interpolation/interpolation-table1.webp" | relative_url}}' width="50%"></center>
 
 ### 2. Extensions
 다음은 보간을 이미지의 affine 변환과 결합한 결과이다.
 
-<center><img src='{{"/assets/img/interpolation/interpolation-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/interpolation/interpolation-fig6.webp" | relative_url}}' width="100%"></center>
 
 ## Limitations
 본 논문의 방법은 스타일과 레이아웃에 큰 차이가 있는 이미지 쌍을 보간하지 못할 수 있다. 
 
-<center><img src='{{"/assets/img/interpolation/interpolation-figA4.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/interpolation/interpolation-figA4.webp" | relative_url}}' width="90%"></center>
 <br>
 위 그림은 모델이 피사체의 포즈를 감지 및 보간할 수 없는 경우 (상단), 프레임에 있는 개체 간의 semantic 매핑을 이해하지 못하는 경우 (가운데), 매우 다른 스타일 간에 설득력 있는 보간을 생성하는 데 어려움을 겪는 경우 (아래)의 예를 보여준다. 또한 모델이 때때로 가짜 텍스트를 삽입할 수 있으며, pose guidance가 주어져도 신체 부위를 혼동할 수 있다. 

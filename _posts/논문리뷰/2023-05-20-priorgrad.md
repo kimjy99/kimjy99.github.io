@@ -92,9 +92,9 @@ $$
 ## Method
 ### 1. General Formulation
 <div style="display: flex; align-items: center; justify-content: center">
-  <img src='{{"/assets/img/priorgrad/priorgrad-fig1.PNG" | relative_url}}' width="74%">
+  <img src='{{"/assets/img/priorgrad/priorgrad-fig1.webp" | relative_url}}' width="74%">
   &nbsp; &nbsp;
-  <img src='{{"/assets/img/priorgrad/priorgrad-fig2.PNG" | relative_url}}' width="24%">
+  <img src='{{"/assets/img/priorgrad/priorgrad-fig2.webp" | relative_url}}' width="24%">
 </div>
 <br>
 표준 Gaussian이 아닌 $\mathcal{N}(\mu, \Sigma)$를 forward diffusion prior로 사용하는 방법의 일반적인 공식을 다룬다. PriorGrad는 조건부 데이터를 활용하여 적응 방식으로 인스턴스 레벨 근사 prior를 직접 계산하고 학습 및 inference 모두에 대한 forwad diffusion 대상으로 근사 prior을 사용한다. 위 그림들은 시각적으로 높은 레벨의 개요를 보여준다. 원래 DDPM에서와 동일한 $\mu_\theta$와 $\sigma_\theta$의 parameterization을 사용한다. 
@@ -128,7 +128,7 @@ $$
 
 로 $\gamma_t$를 삭제한다. Algorithm 1과 2는 데이터 종속 prior $(\mu, \Sigma)$에 의해 강화된 학습 및 샘플링 절차를 설명한다. 데이터 종속 prior 계산은 애플리케이션에 종속이므로 주어진 task에 대한 조건부 데이터를 기반으로 이러한 prior 계산을 설명한다.
 
-<center><img src='{{"/assets/img/priorgrad/priorgrad-algo.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/priorgrad/priorgrad-algo.webp" | relative_url}}' width="80%"></center>
 
 ### 2. Theoretical Analysis
 #### Simplified modeling
@@ -162,7 +162,7 @@ $$
 $\epsilon_\theta$가 선형 함수라고 가정한다면, $L(\mu, \Sigma, x_0; \theta)$의 경우 $H \propto I$이고 $L(0,I,x_0; theta)$의 경우 $H \propto \Sigma + I$이다. Prior을 $\mathcal{N} (\mu, \Sigma)$로 설정하면 $H$의 condition number가 1이 되어 condition number가 가장 작은 값이 되는 것이 분명하다. 따라서 수렴을 가속화할 수 있다.
 
 ## Application to Vocoder
-<center><img src='{{"/assets/img/priorgrad/priorgrad-fig3.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/priorgrad/priorgrad-fig3.webp" | relative_url}}' width="90%"></center>
 
 ### 1. PriorGrad for Vocoder
 Vocoder에 적용되는 PriorGrad는 [DiffWave](https://arxiv.org/abs/2009.09761)를 기반으로 한다. 여기서 모델은 데이터의 컴팩트한 주파수 feature 표현을 포함하는 mel-spectrogram을 조건으로 하는 시간 도메인 waveform을 합성한다. $\epsilon \sim \mathcal{N}(0, I)$를 사용한 이전 방법과 달리, PriorGrad 네트워크는 파괴된 신호 $$\bar{\alpha}_t x_0 + \sqrt{1 - \bar{\alpha}_t} \epsilon$$가 주어지면 noise $\epsilon \sim \mathcal{N} (0, \Sigma)$를 추정하도록 학습된다. 네트워크는 또한 diffusion-step embedding layer가 있는 noise level $\sqrt{\vphantom{1} \bar{\alpha}_t}$의 discretize된 인덱스와 조건부 projection layer가 있는 mel-spectrogram $c$로 컨디셔닝된다.
@@ -174,22 +174,22 @@ Mel-spectrogram 조건을 기반으로 스펙트럼 에너지가 waveform 분산
 ### 2. Experiments Results
 다음은 vocoder 모델의 수렴 결과를 LS-MAE (log-mel spectrogram mean absolute error)로 나타낸 그래프이다.
 
-<center><img src='{{"/assets/img/priorgrad/priorgrad-fig4.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/priorgrad/priorgrad-fig4.webp" | relative_url}}' width="40%"></center>
 <br>
 다음은 5점 MOS로 PriorGrad vocoder를 주관적으로 평가한 표이다. 
 
-<center><img src='{{"/assets/img/priorgrad/priorgrad-table1.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/priorgrad/priorgrad-table1.webp" | relative_url}}' width="45%"></center>
 <br>
 다음은 다양한 객관적 지표를 나타낸 표이다. (100만 step 학습)
 
-<center><img src='{{"/assets/img/priorgrad/priorgrad-table3.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/priorgrad/priorgrad-table3.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 모델의 capacity를 줄였을 때의 MOS 결과를 나타낸 표이다. (100만 step 학습)
 
-<center><img src='{{"/assets/img/priorgrad/priorgrad-table2.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/priorgrad/priorgrad-table2.webp" | relative_url}}' width="42%"></center>
 
 ## Application to Acoustic Model
-<center><img src='{{"/assets/img/priorgrad/priorgrad-fig5.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/priorgrad/priorgrad-fig5.webp" | relative_url}}' width="90%"></center>
 
 ### 1. PriorGrad for Acoustic Model
 Acoustic model은 인코더 디코더 아키텍처를 사용하여 일련의 음소가 주어지면 mel-spectrogram을 생성한다. 즉, acoustic model은 타겟 이미지가 2D mel-spectrogram인 텍스트 조건부 이미지 생성 task와 유사하다. 본 논문은 [Fastspeech 2](https://arxiv.org/abs/2006.04558)의 접근 방식을 feed-forward 음소 인코더로 사용하고 [Diffwave](https://arxiv.org/abs/2009.09761)를 기반으로 dilated convolutional layer가 있는 diffusion 기반 디코더를 사용하여 PriorGrad acoustic model을 구현한다.
@@ -209,4 +209,4 @@ $$
 ### 2. Experiments Results
 다음은 PriorGrad acoustic model의 MOS 결과이다. (95% 신뢰 구간)
 
-<center><img src='{{"/assets/img/priorgrad/priorgrad-table4.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/priorgrad/priorgrad-table4.webp" | relative_url}}' width="50%"></center>

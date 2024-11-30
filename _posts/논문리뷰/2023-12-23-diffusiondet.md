@@ -19,7 +19,7 @@ classes: wide
 > The University of Hong Kong | Tencent AI Lab | Fudan University | Shanghai AI Laboratory  
 > 17 Nov 2022  
 
-<center><img src='{{"/assets/img/diffusiondet/diffusiondet-fig1.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/diffusiondet/diffusiondet-fig1.webp" | relative_url}}' width="70%"></center>
 
 ## Introduction
 Object detection은 하나의 이미지에서 대상 객체에 대한 일련의 bounding box와 카테고리 레이블을 예측하는 것을 목표로 한다. 현대 bject detection 감지 접근 방식은 객체 후보의 개발과 함께 진화해 왔다. 즉, 경험적 object prior에서 학습 가능한 object query로 발전해 왔다. 특히 대부분의 detector는 sliding window, region proposal, anchor box, reference point와 같이 경험적으로 설계된 객체 후보에 대한 회귀 및 분류를 정의하여 detection task를 해결한다. 
@@ -41,7 +41,7 @@ Noise-to-box 패러다임의 철학은 점진적으로 이미지를 생성하는
 
 ## Approach
 ### 1. Architecture
-<center><img src='{{"/assets/img/diffusiondet/diffusiondet-fig2a.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/diffusiondet/diffusiondet-fig2a.webp" | relative_url}}' width="50%"></center>
 <br>
 Diffusion model은 반복적으로 데이터 샘플을 생성하므로 inference 단계에서 모델 $f_\theta$를 여러 번 실행해야 한다. 그러나 모든 반복 step에서 이미지에 $f_\theta$를 직접 적용하는 것은 계산상 다루기 어렵다. 따라서 저자들은 전체 모델을 image encoder와 detection decoder의 두 부분으로 분리할 것을 제안하였다. 여기서 전자는 입력 이미지 $x$에서 feature 표현을 추출하기 위해 한 번만 실행되고 후자는 원본 이미지 대신 이 feature를 조건으로 사용하여 noisy box $z_t$로부터 박스 예측을 점진적으로 개선한다. 
 
@@ -51,7 +51,7 @@ Image encoder는 이미지를 입력으로 사용하고 detection decoder를 위
 #### Detection decoder
 Sparse R-CNN를 따라 detection decoder는 proposal box 집합을 입력으로 사용하여 image encoder에서 생성된 feature map에서 RoI feature들을 자르고 이러한 RoI feature들을 detection head로 보내 박스 회귀 및 분류 결과를 얻는다. DiffusionDet의 경우 proposal box는 학습 시에는 ground-truth box에서 교란되고 평가 시에서는 가우시안 분포에서 직접 샘플링된다.
 
-<center><img src='{{"/assets/img/diffusiondet/diffusiondet-fig2b.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/diffusiondet/diffusiondet-fig2b.webp" | relative_url}}' width="65%"></center>
 <br>
 Detection decoder는 6개의 계단식 단계로 구성돤다. 본 논문의 디코더와 Sparse R-CNN의 디코더 사이에는 3가지 차이점이 있다. 
 
@@ -60,7 +60,7 @@ Detection decoder는 6개의 계단식 단계로 구성돤다. 본 논문의 디
 3. DiffusionDet은 평가를 위해 반복적인 방식으로 detector head를 재사용할 수 있으며 파라미터는 여러 step에서 공유된다. 각 step은 반복 평가라고 하는 timestep 임베딩에 의해 diffusion process에 지정되는 반면 Sparse R-CNN은 detection decoder를 한 번만 사용한다.
 
 ### 2. Training
-<center><img src='{{"/assets/img/diffusiondet/diffusiondet-algo1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/diffusiondet/diffusiondet-algo1.webp" | relative_url}}' width="50%"></center>
 <br>
 학습 중에 먼저 ground-truth box에서 noisy box로의 diffusion process를 구성한 다음 이 과정을 역전시키도록 모델을 학습시킨다. Algorithm 1은 DiffusionDet 학습 절차의 pseudo-code이다.
 
@@ -74,7 +74,7 @@ Detection decoder는 6개의 계단식 단계로 구성돤다. 본 논문의 디
 Detector는 $N_\textrm{train}$개의 손상된 박스를 입력으로 사용하고 카테고리 분류와 박스 좌표에 대한 $N_\textrm{train}$개의 예측을 예측한다. $N_\textrm{train}$개의 예측 집합에 set prediction loss를 적용한다. 최적의 전송 할당 방법을 통해 가장 적은 비용으로 상위 $k$개의 예측을 선택하여 각 ground-truth 값에 여러 예측을 할당한다. 
 
 ### 3. Inference
-<center><img src='{{"/assets/img/diffusiondet/diffusiondet-algo2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/diffusiondet/diffusiondet-algo2.webp" | relative_url}}' width="50%"></center>
 <br>
 DiffusionDet의 inference 절차는 noise에서 object box까지의 denoising process이다. 가우시안 분포에서 샘플링된 박스에서 시작하여 모델은 Algorithm 2에 표시된 대로 예측을 점진적으로 개선한다.
 
@@ -103,43 +103,43 @@ DiffusionDet의 inference 절차는 noise에서 object box까지의 denoising pr
 ### 1. Main Properties
 다음은 300개의 object query 또는 proposal box로 학습된 DETR과 DiffusionDet의 성능을 평가 시 사용하는 박스 수에 따라 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/diffusiondet/diffusiondet-fig3a.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/diffusiondet/diffusiondet-fig3a.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 학습 시 사용한 박스 수에 따른 성능을 iteration step 수에 따라 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/diffusiondet/diffusiondet-fig3b.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/diffusiondet/diffusiondet-fig3b.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 COCO에서 CrowdHuman으로의 zero-shot transfer 결과이다. 
 
-<center><img src='{{"/assets/img/diffusiondet/diffusiondet-table1.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/diffusiondet/diffusiondet-table1.webp" | relative_url}}' width="48%"></center>
 
 ### 2. Benchmarking on Detection Datasets
 다음은 COCO 2017 val set에서 다양한 object detector와 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/diffusiondet/diffusiondet-table2.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/diffusiondet/diffusiondet-table2.webp" | relative_url}}' width="52%"></center>
 <br>
 다음은 LVIS v1.0 val set에서 다양한 object detector와 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/diffusiondet/diffusiondet-table3.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/diffusiondet/diffusiondet-table3.webp" | relative_url}}' width="52%"></center>
 
 ### 3. Ablation Study
 다음은 ablation study의 결과이다. 
 
-<center><img src='{{"/assets/img/diffusiondet/diffusiondet-table4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffusiondet/diffusiondet-table4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 학습과 inferenc의 박스 수에 따른 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/diffusiondet/diffusiondet-table5.PNG" | relative_url}}' width="46%"></center>
+<center><img src='{{"/assets/img/diffusiondet/diffusiondet-table5.webp" | relative_url}}' width="46%"></center>
 <br>
 다음은 실행 시간과 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/diffusiondet/diffusiondet-table6.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/diffusiondet/diffusiondet-table6.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 5개의 랜덤 시드에 대해 10번씩 평가한 결과이다. 
 
-<center><img src='{{"/assets/img/diffusiondet/diffusiondet-fig4.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/diffusiondet/diffusiondet-fig4.webp" | relative_url}}' width="60%"></center>
 
 ### 4. Full-training on CrowdHuman
 다음은 CrowdHuman에서 처음부터 학습하였을 떄의 성능을 다른 모델들과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/diffusiondet/diffusiondet-table7.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/diffusiondet/diffusiondet-table7.webp" | relative_url}}' width="50%"></center>

@@ -17,7 +17,7 @@ classes: wide
 > Tel Aviv University | Simon Fraser University  
 > 20 Feb 2023  
 
-<center><img src='{{"/assets/img/cdc/cdc-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/cross-domain-compositing/cross-domain-compositing-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 주어진 시각적 prior에서 새로운 장면을 구성하는 능력은 컴퓨터 그래픽 분야에서 오랜 과제이다. 목표는 하나 이상의 이미지에서 개체를 추출하여 새로운 장면에 접목하는 것이다. 이 과제는 이미 어려운 작업으로, 일관된 조명과 부드러운 전환으로 새로운 물체가 장면과 조화를 이루어야 한다. 그러나 구성 요소가 서로 다른 시각적 도메인에서 시작되는 경우 더욱 문제가 악화된다. 이러한 경우 콘텐츠를 손상시키지 않고 새 도메인의 스타일과 일치하도록 객체를 추가로 변형해야 한다. 
@@ -73,12 +73,12 @@ $\phi$는 low-pass filter 연산이다. 실제로 $\phi$는 scaling factor $N$�
 
 Localize된 편집에 ILVR을 활용하기 위해 $N$과 $T_{stop}$을 개별적으로 제어할 수 있는 local mask 내부에 적용하고 싶지만 ILVR은 global한 방식으로 디자인되었으며 이를 local하게 적용하려고 시도하면 아티팩트가 생긴다. (아래 그림 참고)
 
-<center><img src='{{"/assets/img/cdc/cdc-fig3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/cross-domain-compositing/cross-domain-compositing-fig3.webp" | relative_url}}' width="60%"></center>
 <br>
 저자들은 이러한 아티팩트가 이미지에 급격한 변화를 시도할 때 나타나는 것을 관찰하였으며 중간 생성 ff-manifold를 유도한다. 저자들은 이것이 영역 간의 급격한 전환에서 비롯된 주파수 앨리어싱의 결과라고 가정한다. 따라서 이러한 장애물을 극복하기 위해 ILVR을 다음과 같이 수정할 것을 제안한다. 
 
 #### Localizing the control
-<center><img src='{{"/assets/img/cdc/cdc-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/cross-domain-compositing/cross-domain-compositing-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 로컬 제어를 허용하기 위해 ILVR 프로세스를 별도의 이미지 영역으로 분리할 것을 제안한다. 본 논문의 로컬 제어 guidance 방법은 위 그림에 설명되어 있다. 레퍼런스 이미지 $y \in \mathbb{R}^{H \times W \times C}$와 mask $M \in [0, 1]^{H \times W}$가 주어지면 사용자는 low-pass filter $\phi_{in}$, $\phi_{out}$을 위한 $N_{in}$, $N_{out}$을 정의하고 영역별 ILVR 강도를 $T_{in}$, $T_{out}$으로 정의한다. 먼저 선형 low-pass filtering 연산을 다음과 같이 정의한다.
 
@@ -128,49 +128,49 @@ $T$는 diffusion step의 전체 수이다. 예를 들어, $T_{in} = 0.2$, $T_{ou
 ### 1. Image Modification via Scribbles
 다음은 낙서 guidance를 사용한 로컬 이미지 편집을 정성적으로 비교한 것이다. 텍스트 프롬프트는 위에서부터 a corgi wearing a business suit, a cat reading a book, a living room with a sofa and a table, a sofa with pillows이다. 
 
-<center><img src='{{"/assets/img/cdc/cdc-fig4.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/cross-domain-compositing/cross-domain-compositing-fig4.webp" | relative_url}}' width="60%"></center>
 <br>
 각 방법에 대해 parameter sweep을 실행하고 경험적으로 최상의 결과를 선택한다. 다른 방법들은 배경을 유지하거나 낙서를 사실적인 개체로 변경하는 데 실패한다. 특히 본 논문의 방법은 양복의 주름과 단추 또는 베개의 그림자와 질감과 같이 낙서에 추가된 고주파수 디테일이 추가된다. 
 
 ### 2. Object Immersion
 다음은 object immersion을 비교한 것이다.
 
-<center><img src='{{"/assets/img/cdc/cdc-fig5.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/cross-domain-compositing/cross-domain-compositing-fig5.webp" | relative_url}}' width="65%"></center>
 <br>
 본 논문의 방법은 보다 적절한 스타일 일치를 보여주며 개체는 그대로 두고 배경과 일치하도록 만든다. 
 
 다음은 참가자들이 입력 이미지와 함께 한 쌍의 결과를 제시받고 개체가 배경에 더 잘 맞는 결과를 선택하도록 요청받았을 때 다른 방법보다 본 논문 방법을 선호하는 답변의 비율을 나타낸 것이다.
 
-<center><img src='{{"/assets/img/cdc/cdc-table1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/cross-domain-compositing/cross-domain-compositing-table1.webp" | relative_url}}' width="50%"></center>
 
 ### 3. Single-view 3D Reconstruction (SVR)
 다음은 다양한 포즈에서 ShapeNet 개체에 대한 배경 augmentation 결과이다. 맨 윗줄은 입력 이미지이고 나머지는 배경이 추가된 다양한 이미지이다. 
 
-<center><img src='{{"/assets/img/cdc/cdc-fig6.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/cross-domain-compositing/cross-domain-compositing-fig6.webp" | relative_url}}' width="60%"></center>
 <br>
 기하학적으로 일관된 배경이 생성되는 동시에 개체가 보다 사실적으로 보이도록 변경한다. 
 
 다음은 다양한 데이터셋에서 SVR 모델의 Chamfer $L_1$ distance를 평가한 것이다. Original Model은 오리지널 데이터셋으로 학습한 모델이고 0.5 Model은 $T_{in} = 0.5$인 데이터셋으로 학습한 모델이다. 
 
-<center><img src='{{"/assets/img/cdc/cdc-table3.PNG" | relative_url}}' width="37%"></center>
+<center><img src='{{"/assets/img/cross-domain-compositing/cross-domain-compositing-table3.webp" | relative_url}}' width="37%"></center>
 <br>
 다음은 다양한 데이터셋에서 학습된 D²IMNet의 SVR 결과이다. 
 
-<center><img src='{{"/assets/img/cdc/cdc-fig7.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/cross-domain-compositing/cross-domain-compositing-fig7.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 다양한 데이터셋에서 학습된 모델의 2D IoU를 평가한 것이다. 맨 윗줄의 숫자는 배경 augmentation에 사용된 $T_{in}$의 값을 나타낸다. CP는 copy-paste 데이터셋을 의미한다. 
 
-<center><img src='{{"/assets/img/cdc/cdc-table2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/cross-domain-compositing/cross-domain-compositing-table2.webp" | relative_url}}' width="50%"></center>
 
 ### 4. Parameter Ablation
 다음은 파라미터의 영향을 나타낸 그림이다.
 
-<center><img src='{{"/assets/img/cdc/cdc-fig8.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/cross-domain-compositing/cross-domain-compositing-fig8.webp" | relative_url}}' width="80%"></center>
 
 ## Limitations
 다음 그림은 다양한 failure case들을 보여준다. 
 
-<center><img src='{{"/assets/img/cdc/cdc-fig9.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/cross-domain-compositing/cross-domain-compositing-fig9.webp" | relative_url}}' width="60%"></center>
 
 - (1): 어렵고 디테일한 객체
 - (2): 어려운 시점을 제공하여 모델이 semantic을 이해하기 어려운 경우

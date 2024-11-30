@@ -27,7 +27,7 @@ Diffusion model (DM)은 뛰어난 성능을 보여준 매우 강력한 생성 �
 
 본 논문에서는 latent space $\mathcal{X}$에 대한 유용한 직관을 소개하여 사전 학습된 고정 diffusion model을 제어하는 방법에 대한 이해를 심화한다. 먼저, unsupervised 방식으로 리만 기하학을 사용하여 결과 이미지를 조작하는 $\mathcal{X}$의 semantic latent direction을 식별한다. 방향은 모델의 중간 feature space인 $\mathcal{X}$에서 $\mathcal{H}$로 매핑의 Jacobian의 특이값 분해에서 나온다. 아래 그림은 본 논문의 방법의 주요 개념을 보여준다.
 
-<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig1.webp" | relative_url}}' width="50%"></center>
 <br>
 둘째, $\mathcal{H}$의 동질성을 이용하여 global semantic direction을 찾는다. 번거로운 샘플당 Jacobian 계산을 제거하고 일반적인 제어 가능성을 허용한다. GAN의 과정을 따르며, 샘플별 편집 방향을 글로벌한 편집 방향으로 확장한다. 
 
@@ -88,12 +88,12 @@ $$
 
 이다. 이 반복 편집 절차는 자연스럽게 측지선(geodesic)을 형성하기 때문에 **geodesic shooting**이라고 한다. 아래 그림은 위의 절차를 요약한 것이다.
 
-<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig2.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig2.webp" | relative_url}}' width="40%"></center>
 
 ### 3. Global semantic directions
 $x_t$ 편집을 위한 의미있는 방향을 추출했다. 그러나 semantic latent direction은 local이므로 $x_t$의 개별 샘플에만 적용할 수 있다. 따라서 모든 샘플에 대해 동일한 semantic 의미를 갖는 **global semantic direction**을 얻어야 한다. 저자들은 개별 샘플의 latent direction 사이에 큰 겹침을 관찰했다. 이 관찰은 $\mathcal{H}$가 global semantic direction을 갖는다는 가설을 세우도록 동기를 부여하였다. 
 
-<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig3.webp" | relative_url}}' width="60%"></center>
 <br>
 이 가설을 검증하기 위해 $$u_i^{(1)} \in \mathcal{T}_{h^{(1)}}$$에 대해 $u_i^{(1)}$와 크게 겹치는 $$u_j^{(2)} \in \mathcal{T}_{h^{(2)}}$$가 존재하는지 여부를 조사한다. 그런 다음 $x_t$의 많은 샘플 간에 $u_i^{(1)}$의 latent direction을 비교한다. $\lambda_i^{(1)}$과 $\lambda_j^{(2)}$의 큰 eigenvalue를 갖는 $u_i^{(1)}$과 $u_j^{(2)}$의 우세한 방향에 대해 항상 $t = T$일 때 두 단위 벡터가 상당히 겹치는 $(i, j)$를 항상 찾을 수 있다 (위 그림의 (a)). 따라서 $x_T$의 개별 샘플의 $\mathcal{H}$에서 가장 가까운 latent direction에 평균을 취하여 global semantic direction $\bar{u}_i$를 정의한다. Global direction은 샘플 $x$를 편집하는 데 사용할 수 있다. $\bar{u}_i$는 때때로 $\mathcal{T}_h$의 local tangent space에서 벗어날 수 있다. 이 탈출을 완화하기 위해 $\bar{u}_i$를 $\mathcal{T}_h$에 project한다. 본 논문의 방법은 $\mathcal{X}$에서 샘플을 편집하기 때문에 Jacobian을 통해 $\bar{u}_i$를 $\mathcal{T}_x$의 해당 방향 $\bar{v}_i$로 변환한다. 
 
@@ -148,26 +148,26 @@ $$
 #### Semantic latent directions
 다음은 CLIP이나 다른 classifier와 같은 supervision 없이 본 논문의 방법으로 찾은 direction으로 편집한 결과의 예시이다.
 
-<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 Direction에는 성별, 연령, 민족, 표정, 품종, 질감과 같은 semantic이 명확하게 포함되어 있다. 흥미롭게도 timestep $T$에서의 편집은 머리 색깔, 머리 길이, 먼 품종과 같은 대략적인 변화로 이어진다. 반면 timestep $0.5T$에서의 편집은 메이크업, 머리결, 주름, 표정 등 디테일한 변화로 이어진다. 
 
 #### Editing timing
 다음은 다양한 timestep에 대한 direction을 비교한 것이다.
 
-<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig5.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig5.webp" | relative_url}}' width="75%"></center>
 <br>
 (a)는 여러 timestep에 대한 $v_i$의 예시를 보여준다. $T$에서 $v_i$는 $x_T$의 흐릿한 변화에 의해 $x_0$의 대략적인 속성 변화로 이어진다. $0.25T$에서 $v_i$는 $x_0$ 와 $x_t$ 모두에서 고주파 디테일을 편집한다. (b)는 $v_i$의 power spectral density (PSD)를 보여준다. 초기 timestep은 나중 timestep보다 저주파의 더 많은 부분을 포함하고 나중 timestep은 고주파의 더 많은 부분을 포함한다. 이러한 현상은 편집된 이미지의 경향과 일치한다. 이 결과는 timestep에 대한 일반적인 이해를 강화한다. 
 
 #### Global semantic directions 
 다음은 global semantic direction으로 편집한 예시 이미지들이다.
 
-<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig6.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig6.webp" | relative_url}}' width="75%"></center>
 <br>
 $x_t$의 global direction은 같은 semantic 변경을 이끈다. 이는 $\mathcal{X}$가 metric이 없는 space지만 pullback metric을 통해 $\mathcal{X}$가 $\mathcal{H}$의 동질성을 상속함을 확인한다.
 
 ### 2. Curved manifold of DMs
-<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig7.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig7.webp" | relative_url}}' width="50%"></center>
 <br>
 저자들은 $\mathcal{X}$가 곡선 manifold라는 가정의 경험적 기반을 제공하였다. Manifold 위의 두 점 사이의 semantic path 길이는 manifold를 따라 두 지점을 연결하는 선분의 로컬한 뒤틀림의 합으로 정의된다. 선분 $$\{x^{(1)}, x^{(2)}\}$$의 curvedness를 $$\{h^{(1)}, h^{(2)}\}$$에 중심을 둔 두 tangent space의 각도로 정의하기 위해 **geodesic metric**을 사용한다.
 
@@ -191,7 +191,7 @@ $$
 
 가정을 검증하기 위해 서로 다른 경로(linear path, spherical path, geodesic shooting path)의 semantic path 길이를 비교한다. 위 그림의 (a)는 manifold, linear path (lerp), spherical path (slerp)와 함수 $f$에 의해 매핑된 $\mathcal{H}$의 해당 경로를 시각화한 것이다. 저자들은 랜덤하게 선택된 50개의 이미지 쌍에 대한 semantic path 길이를 계산했다. 위 그림의 (c)는 경로를 따라 segment 길이의 분포를 보여준다. 흥미롭게도 lerp의 길이는 끝 부분이 높고 중앙 근처에서 geodesic의 길이로 줄어든다. 저자들은 lerp 경로가 원래 manifold에서 멀어지고 다른 manifold를 따라 이동한다고 가정한다.
 
-<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-table1.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-table1.webp" | relative_url}}' width="40%"></center>
 <br>
 위 표는 slerp의 semantic path 길이가 lerp보다 작다는 것을 보여주며, 이는 slerp 경로가 lerp보다 manifold에 더 가깝다는 것을 나타낸다. 즉, manifold가 곡선이다. 
 
@@ -200,32 +200,32 @@ Semantic path 길이는 interpolation path를 따른 합산에 관한 perceptual
 ### 3. Stable Diffusion
 다음은 Stable Diffusion으로 일반화한 예시를 보여준다. 
 
-<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig8.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig8.webp" | relative_url}}' width="75%"></center>
 
 ### 4. Ablation study
 아래 그림 semantic direction의 중요성을 보여준다.
 
-<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig9.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig9.webp" | relative_url}}' width="75%"></center>
 <br>
 랜덤한 direction이 이미지를 심각하게 손상시킴을 보여준다. 
 
 아래 그림은 정규화의 필요성을 보여준다.
 
-<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig10.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig10.webp" | relative_url}}' width="75%"></center>
 <br>
 본 논문의 방법은 극단적인 변화에도 그럴듯한 편집 이미지를 생성하지만 정규화를 제거하면 과도한 채도가 발생한다. 
 
 ### 5. Comparison to other editing methods
 GAN에서 $\mathcal{Z}$에서 $\mathcal{W}$로 매핑하는 대신 $\mathcal{X}$에서 $\mathcal{H}$로 매핑하는 것을 고려하여 [GANSpace](https://arxiv.org/abs/2004.02546)와 본 논문의 방법을 비교한다. 따라서 PCA를 사용하여 $\mathcal{H}$에서 direction을 찾는다. 
 
-<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig11.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig11.webp" | relative_url}}' width="75%"></center>
 <br>
 위 그림은 그 효과를 보여준다. 속성을 다소 변경하지만 심각한 왜곡이나 얽힘을 수반한다. 반대로 본 논문의 방법은 이전 결과에서 볼 수 있듯이 적절한 조작으로 이어지는 기하학적 구조를 고려하여 $\mathcal{H}$의 변화가 가장 큰 방향을 찾는다. 
 
 ## Limitations
 Semantic latent direction이 일반적으로 disentanglement를 강제하기 위해 속성 주석을 사용하지 않더라도 disentangle한 속성을 전달한다는 것은 흥미롭다. 저자들은 U-Net에서 인코더의 Jacobian을 분해하면 자연스럽게 어느 정도 disentanglement가 발생한다고 가정하였다. U-Net에서 중간 feature space $\mathcal{H}$의 선형성을 기반으로 한다. 그러나 완벽한 disentanglement를 보장하는 것은 아니며 일부 direction이 얽혀 있다. 
 
-<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig12.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/semantic-latent-direction/semantic-latent-direction-fig12.webp" | relative_url}}' width="85%"></center>
 <br>
 예를 들어, 긴 머리의 direction은 위 그림의 (a)와 같이 남성 피사체를 여성으로 변환한다. 이러한 종류의 얽힘은 이전 데이터셋으로 인해 다른 편집 방법에서 종종 발생한다 (긴 머리를 가진 남성 얼굴이 거의 없다).
 

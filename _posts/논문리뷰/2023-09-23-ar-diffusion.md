@@ -27,7 +27,7 @@ classes: wide
 
 포괄적인 분석을 수행하기 위해 다양한 위치에 위치한 토큰 $f(\cdot)$의 diffusion timestep을 추적하는 2차원 좌표계를 도입한다. 
 
-<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-fig1.webp" | relative_url}}' width="100%"></center>
 <br>
 위 그림과 같이 시스템은 토큰 위치 $n \in [1, N]$을 수평축에 할당하고 확산 시간 단계 $t \in [0,T]$를 수직축에 할당한다. 기존의 diffusion 기반 텍스트 생성 모델이 뒤따르는 Diffusion-LM은 (a)에 나와 있다. 모든 토큰에 균일한 timestep $t$를 할당한다. 대조적으로, (b)에 묘사된 AR 모델의 토큰은 생성 step ($t_i$) 내에서 뚜렷한 timestep을 나타낸다. 예를 들어 위치 $n_1$에서 이미 디코딩된 토큰은 timestep이 0인 반면 위치 $n_2$에서 디코딩될 토큰은 timestep이 $T$다. 이 접근 방식은 순차적 의존성을 효과적으로 캡처한다. 본 논문은 이러한 관찰에 동기를 부여하여 토큰 위치의 격차와 순차적인 토큰 식별 원리에 대한 autoregressive diffusion 방법인 **AR-Diffusion**을 소개한다.
 
@@ -62,7 +62,7 @@ $$
 ### 2. Token-Level Diffusion with Dynamic Movement Speed
 본 논문은 이동 속도를 기반으로 diffusion에서 AR을 활용하기 위해 토큰 레벨의 timestep 함수 $f(n, t)$를 설계하기 위한 기본 원칙인 동적 이동 속도를 제안한다. 구체적으로 문장의 왼쪽에 있는 요소는 랜덤 Gaussian noise에서 토큰 임베딩까지 더 빠른 이동 속도로 이동하고, 오른쪽에 있는 요소는 더 낮은 이동 속도로 이동하므로 나중 문장 레벨 timestep에서 생성되어 이전에 생성된 토큰의 정보를 보다 효과적으로 활용할 수 있다. 
 
-<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-algo1.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-algo1.webp" | relative_url}}' width="85%"></center>
 <br>
 원칙의 guidance에 따라 선형 함수를 사용하여 토큰 레벨 diffusion 전략을 개발한다. 절차는 Algorithm 1에 설명되어 있으며 여기서 $\textrm{clip} (x, \textrm{min}, \textrm{max})$ 함수는 $x$의 모든 요소를 $[\textrm{min}, \textrm{max}]$ 범위로 고정한다. 구체적으로 diffusion의 forward process에서 시작점은 가로축을 따라 왼쪽으로 $(N, 0)$에서 $(0, 0)$으로 이동한 다음 세로축을 따라 위로 $(0, T)$로 이동한다. 따라서 문장 레벨 timestep의 전체 범위는 $[0, N + T]$로 확장된다. 
 
@@ -79,7 +79,7 @@ $$
 ### 3. Inference with Skipping
 일반적으로 생성 프로세스는 $T + N$에서 0까지 모든 문장 레벨 timestep을 거쳐야 한다. 디코딩 시간을 줄이기 위해 timestep의 부분 집합을 통과할 수 있는 skipping 메커니즘을 도입한다.
 
-<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-algo2.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-algo2.webp" | relative_url}}' width="85%"></center>
 <br>
 Inference를 위한 알고리즘은 Algorithm 2와 같다.
 
@@ -96,60 +96,60 @@ $z_{t_{i+1}}$의 조건부 분포는 $p_\theta (z_{t_{i+1}} \vert z_{t_i}; x)$�
 ## Experiments
 학습 파라미터는 아래 표와 같다. $N_{gc}$를 gradient accumulation 수라고 하면, Batch Size는 mini batch size $\times N_{gc} \times$ GPU 수이며, Optimized Steps는 전체 step 수 / $N_{gc}$이다. 
 
-<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-table1.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-table1.webp" | relative_url}}' width="75%"></center>
 
 ### 1. Main Results
 #### Text Summarization
 다음은 XSUM test set에서의 결과이다. 
 
-<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-table2.PNG" | relative_url}}' width="82%"></center>
+<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-table2.webp" | relative_url}}' width="82%"></center>
 <br>
 다음은 Cnn/DailyMail test set에서의 결과이다. 
 
-<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-table3.PNG" | relative_url}}' width="82%"></center>
+<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-table3.webp" | relative_url}}' width="82%"></center>
 
 #### Machine Translation
 다음은 IWSLT14 DE $\rightarrow$ EN test set에서 SeqDiffSeq의 세팅을 따른 결과이다. 
 
-<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-table4.PNG" | relative_url}}' width="82%"></center>
+<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-table4.webp" | relative_url}}' width="82%"></center>
 <br>
 다음은 IWSLT14 test set에서의 SacreBLEU를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-table5.PNG" | relative_url}}' width="72%"></center>
+<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-table5.webp" | relative_url}}' width="72%"></center>
 
 #### Common Sense Generation
 다음은 CommonGen dev set에서의 결과이다. 
 
-<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-table6.PNG" | relative_url}}' width="82%"></center>
+<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-table6.webp" | relative_url}}' width="82%"></center>
 
 ### 2. Inference Efficiency
 다음은 XSUM test set에서 2 step이나 3 step으로 inference한 결과를 GENIE와 비교한 표이다. 
 
-<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-table7.PNG" | relative_url}}' width="82%"></center>
+<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-table7.webp" | relative_url}}' width="82%"></center>
 
 ### 3. Analysis
 #### Diversity of Samples
 다음은 XSUM 테스트셋에서 생성된 10개 샘플의 다양성을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-table8.PNG" | relative_url}}' width="84%"></center>
+<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-table8.webp" | relative_url}}' width="84%"></center>
 
 #### Ablation Study
 다음은 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-fig2.webp" | relative_url}}' width="100%"></center>
 
 #### Case Study
 다음은 총 20 step으로 텍스트를 생성할 때 AR-Diffusion의 중간 상태이다. 색상의 밝기는 logit의 크기를 나타내며, 어두울수록 logit이 크다.  
 
-<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-fig3.webp" | relative_url}}' width="100%"></center>
 
 ### 4. Impact of Minimum Bayes Risk and Anchor Point
 #### Minimum Bayes Risk
 다음은 MBR 적용을 위한 후보 샘플 수와 SacreBLEU의 관계를 나타낸 그래프이다. (IWSLT14 DE $\rightarrow$ EN test set)
 
-<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-fig4.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-fig4.webp" | relative_url}}' width="47%"></center>
 
 #### Anchor Point
 다음은 다양한 위치에서 앵커 포인트의 효과를 나타낸 표이다. (IWSLT14 DE $\rightarrow$ EN test set)
 
-<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-table9.PNG" | relative_url}}' width="22%"></center>
+<center><img src='{{"/assets/img/ar-diffusion/ar-diffusion-table9.webp" | relative_url}}' width="22%"></center>

@@ -33,7 +33,7 @@ classes: wide
 
 본 논문에서는 DETR의 느린 수렴과 높은 복잡도 문제를 완화하는 **Deformable DETR**을 제안한다. Deformable convolution의 sparse spatial sampling과 Transformer의 관계 모델링 능력을 결합한다. 모든 feature map 픽셀에서 눈에 띄는 핵심 요소에 대한 사전 필터로 작은 샘플링 위치 집합에만 attention을 연산하는 deformable attention module을 제안한다. 이 모듈은 FPN의 도움 없이 멀티스케일 feature를 집계하도록 자연스럽게 확장될 수 있다. Deformable DETR에서는 아래 그림과 같이 Transformer attention 모듈로 처리한 feature map을 대체하기 위해 멀티스케일 deformable attention module을 활용한다.
 
-<center><img src='{{"/assets/img/deformable-detr/deformable-detr-fig1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/deformable-detr/deformable-detr-fig1.webp" | relative_url}}' width="80%"></center>
 <br>
 Deformable DETR은 빠른 수렴, 계산 및 메모리 효율성 덕분에 end-to-end object detector의 변형을 활용할 수 있는 가능성을 열어준다. 저자들은 detection 성능을 향상시키기 위해 간단하고 효과적인 boundary box 반복 개선 메커니즘을 탐색하였다. 또한 저자들은 2-stage Deformable DETR을 시도하였다. 2-stage Deformable DETR에서 region proposal은 Deformable DETR의 변형에 의해 생성되며 반복적인 boundary box 개선을 위해 디코더에 추가로 공급된다.
 
@@ -72,7 +72,7 @@ DETR은 object detection을 위한 매력적인 디자인으로 수작업으로 
 ## Method
 ### 1. Deformable Transformers for End-to-End Object Detection
 #### Deformable Attention Module
-<center><img src='{{"/assets/img/deformable-detr/deformable-detr-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/deformable-detr/deformable-detr-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 이미지 feature map에 Transformer attention을 적용하는 핵심 문제는 가능한 모든 공간 위치를 살펴본다는 점이다. 이를 해결하기 위해 본 논문은 **deformable attention module**을 제시한다. Deformable convolution에서 영감을 받은 deformable attention module은 위 그림과 같이 feature map의 공간 크기에 관계없이 기준점 주변의 작은 key 샘플링 지점 집합에만 주의를 기울인다. 각 query에 대해 수렴 및 feature space 해상도 문제를 완화할 수 있다. 
 
@@ -164,18 +164,18 @@ Deformable DETR은 빠른 수렴, 계산 및 메모리 효율성 덕분에 end-t
 ### 1. Comparison with DETR
 다음은 COCO 2017 val set에서의 성능을 DETR과 비교한 표이다. DETR-DC5<sup>+</sup>는 공정한 비교를 위해 DETR-DC5에 Focal Loss를 추가하고 object query의 수를 300으로 늘린 버전이다. 
 
-<center><img src='{{"/assets/img/deformable-detr/deformable-detr-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/deformable-detr/deformable-detr-table1.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Deformable DETR과 DETR-DC5의 수렴 곡선이다.
 
-<center><img src='{{"/assets/img/deformable-detr/deformable-detr-fig3.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/deformable-detr/deformable-detr-fig3.webp" | relative_url}}' width="65%"></center>
 
 ### 2. Ablation Study on Deformable Attention
 다음은 COCO 2017 val set에서 수행한 deformable attention의 ablation study 결과이다. MS는 멀티스케일을 뜻한다.
 
-<center><img src='{{"/assets/img/deformable-detr/deformable-detr-table2.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/deformable-detr/deformable-detr-table2.webp" | relative_url}}' width="75%"></center>
 
 ### 3. Comparison with State-of-the-art Methods
 다음은 COCO 2017 test-dev set에서 Deformable DETR을 다른 SOTA 방법들과 비교한 표이다.
 
-<center><img src='{{"/assets/img/deformable-detr/deformable-detr-table3.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/deformable-detr/deformable-detr-table3.webp" | relative_url}}' width="80%"></center>

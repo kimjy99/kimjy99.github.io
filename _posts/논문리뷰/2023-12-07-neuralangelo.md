@@ -19,7 +19,7 @@ classes: wide
 > NVIDIA Research | Johns Hopkins University  
 > 5 Jun 2023  
 
-<center><img src='{{"/assets/img/neuralangelo/neuralangelo-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/neuralangelo/neuralangelo-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 3D 표면 재구성은 서로 다른 시점에서 관찰된 여러 이미지로부터 dense한 기하학적 장면 구조를 복구하는 것을 목표로 한다. 복구된 표면은 증강/가상/혼합 현실을 위한 3D 에셋 생성이나 로봇의 자율 탐색을 위한 환경 매핑과 같은 많은 다운스트림 애플리케이션에 유용한 구조 정보를 제공한다. 단안 RGB 카메라를 사용한 3D 표면 재구성은 사용자에게 유비쿼터스 모바일 장치를 사용하여 현실 세계의 디지털 복사본을 자연스럽게 생성할 수 있는 기능을 제공하므로 특히 중요하다.
@@ -93,7 +93,7 @@ $$
 해시 인코딩의 한 가지 대안은 각 그리드 모서리가 충돌 없이 고유하게 정의되는 sparse voxel 구조이다. 그러나 volumetric feature 그리드에는 파라미터 수를 다루기 쉽게 만들기 위해 계층적 공간 분해 (ex. octrees)가 필요하다. 그렇지 않으면 공간 해상도에 따라 메모리가 3차적으로 증가한다. 이러한 계층 구조를 고려할 때 설계상 더 fine한 복셀 해상도는 더 coarse한 해상도로 잘못 표현된 표면을 복구할 수 없다. 대신 해시 인코딩은 공간 계층 구조가 없다고 가정하고 기울기 평균을 기반으로 자동으로 충돌을 해결한다.
 
 ### 2. Numerical Gradient Computation
-<center><img src='{{"/assets/img/neuralangelo/neuralangelo-fig2.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/neuralangelo/neuralangelo-fig2.webp" | relative_url}}' width="55%"></center>
 <br>
 해시 인코딩 위치에 대한 해석적 기울기 (analytical gradient)는 locality로 인해 어려움을 겪는다. 따라서 최적화 업데이트는 로컬 해시 그리드에만 전파되며 로컬이 아닌 부드러움이 부족하다. 저자들은 수치적 기울기 (numerical gradient)를 사용하여 이러한 locality 문제에 대한 간단한 수정을 제안하였다. 개요는 위 그림에 나와 있다.
 
@@ -178,35 +178,35 @@ MLP와 해시 인코딩을 포함한 모든 네트워크 파라미터는 공동�
 ### 1. DTU Benchmark
 다음은 DTU 벤치마크에서의 정성적 비교 결과이다. 
 
-<center><img src='{{"/assets/img/neuralangelo/neuralangelo-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/neuralangelo/neuralangelo-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 DTU 벤치마크에서의 정량적 비교 결과이다. 
 
-<center><img src='{{"/assets/img/neuralangelo/neuralangelo-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/neuralangelo/neuralangelo-table1.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 여러 coarse-to-fine 방식에 대한 정석적 비교 결과이다. 
 
-<center><img src='{{"/assets/img/neuralangelo/neuralangelo-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/neuralangelo/neuralangelo-fig4.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Tanks and Temples
 다음은 Tanks and Temples 데이터셋에 대한 정성적 비교 결과이다. 
 
-<center><img src='{{"/assets/img/neuralangelo/neuralangelo-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/neuralangelo/neuralangelo-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Tanks and Temples 데이터셋에 대한 정량적 비교 결과이다. 
 
-<center><img src='{{"/assets/img/neuralangelo/neuralangelo-table2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/neuralangelo/neuralangelo-table2.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Level of Details
 다음은 여러 해시 해상도에서의 결과이다. 
 
-<center><img src='{{"/assets/img/neuralangelo/neuralangelo-fig6.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/neuralangelo/neuralangelo-fig6.webp" | relative_url}}' width="70%"></center>
 
 ### 4. Ablations
 다음은 곡률 정규화에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/neuralangelo/neuralangelo-fig7a.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/neuralangelo/neuralangelo-fig7a.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 topology warmup에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/neuralangelo/neuralangelo-fig7b.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/neuralangelo/neuralangelo-fig7b.webp" | relative_url}}' width="75%"></center>

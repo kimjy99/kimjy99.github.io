@@ -39,7 +39,7 @@ Text-to-image model의 잠재적 남용은 출력물에 워터마크를 개발�
 - Model Owner (감지 단계): $\epsilon_\theta$와 $\mathcal{T}$에 대한 액세스가 주어지면 $x'$이 $\epsilon_\theta$에서 유래했는지 확인하려고 한다. 모델을 컨디셔닝하는 데 사용되는 텍스트, guidance scale, 생성 step 수와 같은 기타 hyperparameter에 대한 지식이 없다. 
 
 ### 2. Overview of Tree-Ring Watermarking
-<center><img src='{{"/assets/img/tree-ring-watermark/tree-ring-watermark-fig1.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/tree-ring-watermark/tree-ring-watermark-fig1.webp" | relative_url}}' width="95%"></center>
 <br>
 Diffusion model은 Gaussian noise 배열을 깨끗한 이미지로 변환한다. Tree-Ring Watermarking은 푸리에 변환이 중심 근처에 신중하게 구성된 패턴을 포함하도록 초기 noise 배열을 선택한다. 이 패턴을 "key"라고 한다. 이 초기 noise 벡터는 수정 없이 표준 diffusion 파이프라인을 사용하여 이미지로 변환된다. 이미지에서 워터마크를 감지하기 위해 생성에 사용된 원본 noise 배열을 검색하는 프로세스를 사용하여 diffusion model을 반전시킨다. 그런 다음 이 배열을 검사하여 key가 있는지 확인한다.
 
@@ -101,28 +101,28 @@ $$
 
 ### 1. Benchmarking Watermark Accuracy and Image Quality
 
-<center><img src='{{"/assets/img/tree-ring-watermark/tree-ring-watermark-table1.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/tree-ring-watermark/tree-ring-watermark-table1.webp" | relative_url}}' width="75%"></center>
 
 ### 2. Benchmarking Watermark Robustness
 
-<center><img src='{{"/assets/img/tree-ring-watermark/tree-ring-watermark-table2.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/tree-ring-watermark/tree-ring-watermark-table2.webp" | relative_url}}' width="80%"></center>
 
 ### 3. Ablation Experiments
 다음은 생성과 감지 step 수에 따른 AUC를 측정한 그래프이다.
 
-<center><img src='{{"/assets/img/tree-ring-watermark/tree-ring-watermark-fig3.PNG" | relative_url}}' width="67%"></center>
+<center><img src='{{"/assets/img/tree-ring-watermark/tree-ring-watermark-fig3.webp" | relative_url}}' width="67%"></center>
 <br>
 다음은 Watermark 반지름과 guidance scale에 대한 ablation 결과이다.
 
-<center><img src='{{"/assets/img/tree-ring-watermark/tree-ring-watermark-fig4.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/tree-ring-watermark/tree-ring-watermark-fig4.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 다양한 공격 강도에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/tree-ring-watermark/tree-ring-watermark-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/tree-ring-watermark/tree-ring-watermark-fig5.webp" | relative_url}}' width="100%"></center>
 
 ### 4. Qualitative comparison
 다음은 동일한 random seed에서 워터마킹하여 생성한 이미지이다. 
 
-<center><img src='{{"/assets/img/tree-ring-watermark/tree-ring-watermark-fig2.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/tree-ring-watermark/tree-ring-watermark-fig2.webp" | relative_url}}' width="90%"></center>
 <br>
 Tree-ring은 다른 워터마킹 방법들과 다르게 워터마크가 보이지 않는 특성을 가진다. 

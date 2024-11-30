@@ -20,7 +20,7 @@ classes: wide
 > KAIST  
 > 6 Oct 2021  
 
-<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 Contrastive Language-Image Pretraining (CLIP)과 결합된 GAN inversion 방법이 텍스트 프롬프트에 따라 zero-shot 이미지 조작 능력으로 인해 인기를 얻고 있다. 그럼에도 불구하고 다양한 유형의 이미지에 대한 실제 적용은 제한된 GAN inversion 성능으로 인해 여전히 까다롭다.
@@ -36,7 +36,7 @@ Contrastive Language-Image Pretraining (CLIP)과 결합된 GAN inversion 방법�
 또한, 저자들은 고품질과 빠른 이미지 조작으로 이어지는 최적의 샘플링 조건을 찾기 위한 체계적인 접근 방식을 제안하였다. DiffsuionCLIP은 강력하고 정확한 이미지 조작을 제공하여 SOTA baseline을 능가할 수 있다. 
 
 ## DiffusionCLIP
-<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig2.webp" | relative_url}}' width="60%"></center>
 <br>
 이미지 조작을 위해 제안된 DiffusionCLIP의 전체 개요는 위 그림에 나와 있다. 여기서 입력 이미지 $x_0$는 먼저 사전 학습된 diffusion model $\epsilon_\theta$를 사용하여 latent $x_{t_0} (\theta)$로 변환된다. 그런 다음 CLIP loss에 따라 역방향 경로의 diffusion model이 fine-tuning되어 타겟 텍스트 $y_\textrm{tar}$에 맞는 샘플을 생성한다. 결정론적 forward process는 DDIM을 기반으로 한다. 처음 보는 도메인 간 변환의 경우에도 forward DDPM process를 통해 latent 생성이 수행된다.
 
@@ -63,11 +63,11 @@ $$
 
 여기서 $$\mathcal{L}_\textrm{face}$$는 얼굴 identity loss이고, $$\lambda_\textrm{L1} \ge 0$$와 $$\lambda_\textrm{face} \ge 0$$는 각 loss에 대한 가중치 파라미터이다. Identity loss의 필요성은 제어의 유형에 따라 다르다. 일부 제어의 경우 픽셀 유사도와 사람의 identity (ex. 표정, 머리 색깔)의 보존이 중요한 반면 다른 제어에서는 모양과 색상 변경을 선호한다.
 
-<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig3.webp" | relative_url}}' width="60%"></center>
 <br>
 기존 diffusion model은 Transformer에서 사용된 sinusoidal 위치 임베딩을 사용하여 $t$의 정보를 삽입하는 모든 $t$에 대한 공유 U-Net 아키텍처를 채택한다. 이 아키텍처를 사용하면 DiffusionCLIP fine-tuning 중 기울기 흐름이 위 그림과 같으며 이는 RNN을 학습시키는 과정과 유사하다.
 
-<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig4a.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig4a.webp" | relative_url}}' width="65%"></center>
 <br>
 Diffusion model이 fine-tuning되면 사전 학습된 도메인의 모든 이미지를 위 그림과 같이 타겟 텍스트 $$y_\textrm{tar}$$에 해당하는 이미지로 조작할 수 있다.
 
@@ -97,7 +97,7 @@ DiffusionCLIP의 또 다른 중요한 부분은 빠른 샘플링 전략이다. �
 ### 3. Image Translation between Unseen Domains
 DiffusionCLIP을 통해 fine-tuning된 모델을 활용하여 추가적인 새로운 이미지 조작을 수행할 수 있다.
 
-<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig4bc.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig4bc.webp" | relative_url}}' width="65%"></center>
 <br>
 먼저, 위 그림과 같이 처음 보는 도메인에서 다른 처음 보는 도메인으로 이미지 변환을 수행하고 처음 보는 도메인에서 스트로크 조건에 따른 이미지 합성을 수행할 수 있다. 이 어려운 문제를 해결하기 위한 핵심 아이디어는 상대적으로 수집하기 쉬운 데이터샛에 대해 학습된 diffusion model을 삽입하여 두 도메인 사이를 연결하는 것이다. 특히, [ILVR](https://arxiv.org/abs/2108.02938)과 [SDEdit](https://arxiv.org/abs/2108.01073)에서는 사전 학습된 diffusion model을 사용하여 처음 보는 도메인에서 학습된 이미지가 학습된 도메인의 이미지로 변환될 수 있음을 발견했다. 이 방법을 DiffsuionCLIP과 결합하면 이제 소스 및 타겟 도메인 모두에 대해 zero-shot으로 이미지를 변환할 수 있다. 
 
@@ -105,7 +105,7 @@ DiffusionCLIP을 통해 fine-tuning된 모델을 활용하여 추가적인 새�
 
 ### 4. Noise Combination
 ##### Multi-attribute transfer
-<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig4d.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig4d.webp" | relative_url}}' width="65%"></center>
 <br>
 저자들은 샘플링 중에 여러 fine-tuning 모델 $$\{\epsilon_{\hat{\theta}_i}\}_{i=1}^M$$에서 예측된 noise가 결합되면 위 그림과 같이 단 한 번의 샘플링 프로세스를 통해 여러 속성이 변경될 수 있음을 발견했다. 따라서 여러 속성을 정의하는 타겟 텍스트로 새 모델을 fine-tuning할 필요 없이 여러 단일 속성 fine-tuning 모델을 다양한 조합으로 유연하게 혼합할 수 있다. 
 
@@ -143,47 +143,47 @@ $$
 #### Reconstruction
 다음은 얼굴 이미지 재구성에 대하여 정량적으로 비교한 표이다. 
 
-<center><img src='{{"/assets/img/diffusionclip/diffusionclip-table1.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/diffusionclip/diffusionclip-table1.webp" | relative_url}}' width="45%"></center>
 
 #### Qualitative comparison
 다음은 SOTA 텍스트 기반 이미지 조작 방법들과 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig5.webp" | relative_url}}' width="100%"></center>
 
 #### User study
 다음은 CelebA-HQ에서 실제 이미지 조작에 대한 user study 결과이다.  
 
-<center><img src='{{"/assets/img/diffusionclip/diffusionclip-table2.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/diffusionclip/diffusionclip-table2.webp" | relative_url}}' width="47%"></center>
 
 #### Quantitative evaluation
 다음은 정량적 평가 결과이다. 
 
-<center><img src='{{"/assets/img/diffusionclip/diffusionclip-table3.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/diffusionclip/diffusionclip-table3.webp" | relative_url}}' width="52%"></center>
 
 ### 2. More Manipulation Results on Other Datasets
 다음은 DiffsuionCLIP을 사용한 실제 이미지에 대한 조작 결과이다. 
 
-<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig6.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Image Translation between Unseen Domains
 다음은 처음 보는 도메인들 사이의 이미지 변환 결과이다. 
 
-<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig7.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig7.webp" | relative_url}}' width="57%"></center>
 
 ### 4. Noise Combination
 다음은 multi-attribute transfer 결과이다. 
 
-<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig8.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig8.webp" | relative_url}}' width="57%"></center>
 <br>
 다음은 continuous transition 결과이다. 
 
-<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig9.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig9.webp" | relative_url}}' width="57%"></center>
 
 ### 5. Dependency on Hyperparameters
 다음은 $S_\textrm{for}$과 $S_\textrm{gen}$에 따른 재구성 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig10.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig10.webp" | relative_url}}' width="57%"></center>
 <br>
 다음은 $t_0$에 따른 조작 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig11.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig11.webp" | relative_url}}' width="57%"></center>

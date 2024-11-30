@@ -32,7 +32,7 @@ classes: wide
 ## Our method
 실제 동영상에서 관찰되는 장기간의 시간적 행동을 모델링하는 데는 두 가지 주요 과제가 있다. 첫째, 관련 효과를 캡처하기 위해 학습 중에 충분히 긴 시퀀스를 사용해야 한다. 예를 들어 연속 프레임 쌍을 사용하면 몇 초 동안 발생하는 효과에 대한 의미 있는 학습 신호를 제공하지 못한다. 둘째, 네트워크 자체가 장기간에 걸쳐 작동할 수 있도록 해야 한다. 예를 들어 generator의 receptive field가 8개의 인접한 프레임에만 걸쳐 있는 경우 8개 프레임 이상 떨어져 있는 두 프레임은 반드시 서로 관련이 없다. 
 
-<center><img src='{{"/assets/img/long-video-gan/long-video-gan-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/long-video-gan/long-video-gan-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 위 그림의 (a)는 generator의 전체 디자인을 보여준다. 가우시안 분포에서 가져온 프레임당 8개의 스칼라 구성 요소로 구성된 가변 길이 temporal noise의 스트림으로 생성 프로세스를 seed한다. Temporal noise는 먼저 저해상도 generator에 의해 처리되어 $64^2$ 해상도의 RGB 프레임 시퀀스를 얻은 다음 별도의 super-resolution 네트워크에 의해 정제되어 $256^2$ 해상도의 최종 프레임을 생성한다. 저해상도 generator의 역할은 시간이 지남에 따라 강력한 표현력과 넓은 receptive field를 필요로 하는 동작 및 장면 구성의 주요 양상을 모델링하는 반면, super-resolution 네트워크는 나머지 디테일을 생성하는 보다 세분화된 작업을 담당한다. 
 
@@ -44,7 +44,7 @@ classes: wide
 위 그림의 (b)는 저해상도 generator에 대한 학습 설정을 보여준다. 각 iteration에서 generator에 새로운 임시 noise 셋을 제공하여 128프레임(30fps에서 4.3초)의 시퀀스를 생성한다. Discriminator를 학습시키기 위해 랜덤 동영상과 해당 동영상 내에서 128프레임의 랜덤 간격을 선택하여 학습 데이터에서 해당 시퀀스를 샘플링한다. 저자들은 긴 시퀀스를 사용한 학습이 overfitting 문제를 악화시키는 경향이 있음을 관찰했다. 시퀀스 길이가 증가함에 따라 generator가 여러 시간 스케일에서 시간 역학을 동시에 모델링하는 것이 더 어려워지지만 동시에 discriminator가 실수를 더 쉽게 발견할 수 있다. 실제로 저자들은 학습을 안정화하기 위해 강력한 discriminator augmentation이 필요하다는 것을 발견했다. 시퀀스의 각 프레임에 대해 동일한 변환을 사용하는 DiffAug와 $\frac{1}{2} \times$와 $2 \times$ 사이의 분수 시간 stretching을 사용한다. 
 
 #### Architecture
-<center><img src='{{"/assets/img/long-video-gan/long-video-gan-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/long-video-gan/long-video-gan-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 위 그림은 저해상도 generator의 아키텍처를 보여준다. 주요 목표는 시간적 latent 표현, 시간적 스타일 변조, 시공간 convolution 및 시간적 upsample의 신중한 설계를 포함하여 시간 축을 가장 중요한 축으로 만드는 것이다. 이러한 메커니즘을 통해 generator는 방대한 시간적 receptive field(5k 프레임)에 걸쳐 여러 시간 스케일에서 시간적 상관 관계를 나타낼 수 있다. 
 
@@ -68,7 +68,7 @@ Super-resolution discriminator는 StyleGAN discriminator의 간단한 확장 버
 ## Datasets
 대부분의 기존 동영상 데이터셋은 시간이 지남에 따라 새로운 콘텐츠를 거의 또는 전혀 도입하지 않는다. 예를 들어 말하는 얼굴의 데이터셋은 각 동영상의 지속 시간동안 동일한 사람을 보여준다. UCF101은 다양한 인간 행동을 묘사하지만 동영상은 짧고 카메라 움직임이 제한적이며 시간이 지남에 따라 동영상에 들어오는 새로운 개체가 거의 또는 전혀 없다. 
 
-<center><img src='{{"/assets/img/long-video-gan/long-video-gan-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/long-video-gan/long-video-gan-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 
 모델을 가장 잘 평가하기 위해 시간이 지남에 따라 복잡한 변화를 보이는 1인칭 산악 자전거 및 승마의 두 가지 새로운 동영상 데이터셋을 도입한다. 본 논문의 새로운 데이터셋에는 말이나 자전거 타는 사람의 피사체 움직임, 공간을 이동하는 1인칭 카메라 시점, 시간 경과에 따른 새로운 풍경과 물체가 포함된다. 동영상은 고화질로 제공되며 문제가 있는 부분, 장면 컷, 텍스트 오버레이, 시야 방해 등을 제거하기 위해 수동으로 다듬었다. 산악 자전거 데이터셋에는 30fps에서 길이의 중앙값이 330프레임인 1202개의 동영상이 있고 승마 데이터 세트는 30fps에서 길이의 중앙값이 6504프레임인 66개의 동영상으로 이루어져 있다. 
@@ -79,7 +79,7 @@ Super-resolution discriminator는 StyleGAN discriminator의 간단한 확장 버
 ### 1. Qualitative results
 다음은 정성적 결과를 나타낸 예시이다.
 
-<center><img src='{{"/assets/img/long-video-gan/long-video-gan-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/long-video-gan/long-video-gan-fig1.webp" | relative_url}}' width="100%"></center>
 <br>
 다양한 모델들이 생성한 동영상들은 [웹페이지](https://www.timothybrooks.com/tech/long-video-gan/)에서 확인할 수 있다. 
 
@@ -96,14 +96,14 @@ $$
 
 $S(x, t)$가 1이면 색상 히스토그램이 $x_0$와 $x_t$에서 같다는 것을 의미한다. 실제로 저자들은 $N = 20$으로 설정하고 128개의 프레임을 포함한 1000개의 랜덤 동영상 클립에서 $S(\cdot, t)$의 평균과 표준 편차를 측정하였다. 
 
-<center><img src='{{"/assets/img/long-video-gan/long-video-gan-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/long-video-gan/long-video-gan-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 위 그림은 각 데이터셋에서 실제 동영상과 생성된 동영상에 대한 $S(\cdot, t)$를 $t$의 함수로 보여준다. 콘텐츠와 풍경이 점차 변화함에 따라 실제 동영상의 경우 시간이 지남에 따라 곡선이 아래쪽으로 기울어진다. StyleGAN-V과 DIGAN은 색상이 너무 느리게 변하는 쪽으로 편향되어 있다. 이 두 모델 모두 전체 동영상에 대해 고정된 글로벌 latent code를 포함한다. 반면에 MoCoGAN-HD와 TATS는 색상이 너무 빨리 변하는 경향이 있다. 이러한 모델은 각각 RNN과 autoregressive network를 사용하며 둘 다 누적 오차로 인해 어려움을 겪는다. 본 논문의 모델은 목표 곡선의 모양과 거의 일치하며 생성된 동영상의 색상이 적절한 속도로 변경됨을 나타낸다. 
 
 ### 3. Fréchet video distance (FVD)
 다음은 128프레임과 16프레임의 세그멘트에 대한 FVD를 계산한 표이다.
 
-<center><img src='{{"/assets/img/long-video-gan/long-video-gan-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/long-video-gan/long-video-gan-table1.webp" | relative_url}}' width="100%"></center>
 <br>
 표의 왼쪽 부분을 보면, 본 논문의 모델은 시간이 지남에 따라 더 복잡한 변화를 포함하는 승마 및 산악 자전거 데이터셋에서 StyleGAN-V를 능가하지만 ACID에서는 성능이 떨어지고 $\textrm{FVD}_128$ 측면에서 SkyTimelapse에서는 약간 성능이 떨어진다. 그러나 이러한 저조한 성과는 사용자 연구의 결론과 크게 다르다. 저자들은 이러한 불일치가 StyleGAN-V가 더 나은 개별 프레임을 생성하고 아마도 더 나은 소규모 모션을 생성하지만 믿을 수 있는 장기적 사실감을 재현하는 데는 심각하게 부족하고 FVD가 주로 전자 측면에 민감하기 때문에 발생한다고 생각한다. 
 
@@ -112,13 +112,13 @@ $S(x, t)$가 1이면 색상 히스토그램이 $x_0$와 $x_t$에서 같다는 �
 ### 4. Ablations
 다음은 학습 시퀀스 길이와 temporal lowpass filter footprint에 대한 ablation 결과를 나타낸 표이다.
 
-<center><img src='{{"/assets/img/long-video-gan/long-video-gan-table2.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/long-video-gan/long-video-gan-table2.webp" | relative_url}}' width="85%"></center>
 <br>
 (a)를 보면 학습 중에 긴 동영상을 관찰하면 모델이 장기적인 일관성을 학습하는 데 도움이 되는 것을 볼 수 있다. (b)를 보면 부적절하게 크기가 조정된 필터를 사용할 경우의 부정적인 영향을 보여준다. 
 
 다음은 super-resolution network의 효과를 나타낸 것이다. 
 
-<center><img src='{{"/assets/img/long-video-gan/long-video-gan-fig6.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/long-video-gan/long-video-gan-fig6.webp" | relative_url}}' width="90%"></center>
 <br>
 (a)와 (b)는 super-resolution network에서 생성된 해당 고해상도 프레임과 함께 모델에서 생성된 저해상도 프레임의 예시를 보여준다. Super-resolution network가 일반적으로 잘 수행됨을 확인할 수 있다. 결과의 품질이 super-resolution network에 의해 불균형적으로 제한되지 않도록 하기 위해 입력으로 super-resolution network에 실제 저해상도 비디오를 제공할 때 FVD를 추가로 측정한다. (c)를 보면 실제로 FVD는 이 경우 크게 향상되며, 이는 저해상도 generator를 추가로 개선하여 실현할 상당한 이득이 있음을 나타낸다. 
 

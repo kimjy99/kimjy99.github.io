@@ -57,7 +57,7 @@ Swin Transformer에서 각 축을 따른 상대적 위치는 $[-M+1, M-1]$ 범�
 #### Issues in scaling up model capacity and window resolution
 저자들은 Swin Transformer의 용량과 window 해상도를 확장할 때 두 가지 문제를 관찰하였다.
 
-<center><img src='{{"/assets/img/swin-transformer-v2/swin-transformer-v2-fig3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/swin-transformer-v2/swin-transformer-v2-fig3.webp" | relative_url}}' width="50%"></center>
 
 1. **모델 용량을 확장할 때 불안정성 문제**: Swin Transformer 모델의 크기를 확장하면 더 깊은 레이어의 activation 값이 크게 증가한다. 가장 높은 진폭과 가장 낮은 진폭을 가진 레이어 간의 불일치는 $10^4$에 도달했다. 거대한 크기 (6.58억 파라미터)로 더 확장하면 위 그림에서 볼 수 있듯이 학습을 완료할 수 없다.
 2. **Window 해상도 간에 모델을 전송할 때 성능이 저하됨**: Bi-cubic interpolation 접근법을 사용할 때, 사전 학습된 ImageNet-1K 모델 (256$\times$256 이미지, 8$\times$8 window 크기)의 정확도를 더 큰 이미지 해상도와 window 크기에서 직접 테스트할 때 정확도가 크게 감소한다. 
@@ -66,7 +66,7 @@ Swin Transformer에서 각 축을 따른 상대적 위치는 $[-M+1, M-1]$ 범�
 앞서 언급했듯이 Swin Transformer와 대부분의 ViT는 바닐라 ViT에서 상속된 각 블록의 시작 부분에 layer norm (LN) 레이어를 채택한다. 모델 용량을 확장하면 더 깊은 레이어에서 activation 값의 상당한 증가가 관찰된다. 실제로 pre-normalization 구성에서 각 residual block의 출력 activation 값은 다시 기본 분기로 다시 병합되고 기본 분기의 진폭은 더 깊은 레이어에서 점점 더 커진다. 서로 다른 레이어의 큰 진폭 불일치로 인해 학습이 불안정해진다. 
 
 #### Post normalization
-<center><img src='{{"/assets/img/swin-transformer-v2/swin-transformer-v2-fig1.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/swin-transformer-v2/swin-transformer-v2-fig1.webp" | relative_url}}' width="55%"></center>
 <br>
 본 논문은 이 문제를 완화하기 위해 위 그림과 같이 residual post normalization 접근 방식을 대신 사용할 것을 제안한다. 이 접근 방식에서 각 residual block의 출력은 메인 분기로 다시 병합되기 전에 정규화되며 메인 분기의 진폭은 레이어가 더 깊어지면 축적되지 않는다. 이 접근 방식에 의한 activation 진폭은 원래 pre-normalization 구성보다 훨씬 약하다. 가장 큰 모델의 학습에서는 학습을 더욱 안정화하기 위해 6개의 Transformer 블록마다 기본 분기에 추가 LN 레이어를 도입한다.
 
@@ -146,37 +146,37 @@ SwinV2-H와 SwinV2-G의 경우 6개 레이어마다 기본 분기에 추가 LN �
 ### 1. Scaling Up Experiments
 다음은 ImageNet-1K V1/V2에서 대형 비전 모델들과 classification 결과를 비교한 표이다.
 
-<center><img src='{{"/assets/img/swin-transformer-v2/swin-transformer-v2-table2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/swin-transformer-v2/swin-transformer-v2-table2.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 COCO object detection과 instance segmentation에서 이전 최고의 결과들과 비교한 표이다. I(W)는 이미지와 window의 크기를 뜻한다.
 
-<center><img src='{{"/assets/img/swin-transformer-v2/swin-transformer-v2-table3.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/swin-transformer-v2/swin-transformer-v2-table3.webp" | relative_url}}' width="48%"></center>
 <br>
 다음은 ADE20K semantic segmentation에서 이전 최고의 결과들과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/swin-transformer-v2/swin-transformer-v2-table4.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/swin-transformer-v2/swin-transformer-v2-table4.webp" | relative_url}}' width="45%"></center>
 <br>
 다음은 Kinetics-400 video action classification에서 이전 최고의 결과들과 비교한 표이다. 
 
-<center><img src='{{"/assets/img/swin-transformer-v2/swin-transformer-v2-table5.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/swin-transformer-v2/swin-transformer-v2-table5.webp" | relative_url}}' width="55%"></center>
 
 ### 2. Ablation Study
 다음은 res-post-norm과 cosine attention에 대한 ablation 결과이다.
 
-<center><img src='{{"/assets/img/swin-transformer-v2/swin-transformer-v2-table6.PNG" | relative_url}}' width="49%"></center>
+<center><img src='{{"/assets/img/swin-transformer-v2/swin-transformer-v2-table6.webp" | relative_url}}' width="49%"></center>
 <br>
 다음은 다른 정규화 방법들과 비교한 표이다.
 
-<center><img src='{{"/assets/img/swin-transformer-v2/swin-transformer-v2-table7.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/swin-transformer-v2/swin-transformer-v2-table7.webp" | relative_url}}' width="52%"></center>
 <br>
 다음은 다양한 모델 크기에 대한 신호 전파 그래프이다. 
 
-<center><img src='{{"/assets/img/swin-transformer-v2/swin-transformer-v2-fig2.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/swin-transformer-v2/swin-transformer-v2-fig2.webp" | relative_url}}' width="65%"></center>
 <br>
 다음은 다양한 position bias 접근법에 대한 비교 결과이다.
 
-<center><img src='{{"/assets/img/swin-transformer-v2/swin-transformer-v2-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/swin-transformer-v2/swin-transformer-v2-table1.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 다양한 모델 크기에서 Log-CPB에 대한 ablation 결과이다.
 
-<center><img src='{{"/assets/img/swin-transformer-v2/swin-transformer-v2-table8.PNG" | relative_url}}' width="49%"></center>
+<center><img src='{{"/assets/img/swin-transformer-v2/swin-transformer-v2-table8.webp" | relative_url}}' width="49%"></center>

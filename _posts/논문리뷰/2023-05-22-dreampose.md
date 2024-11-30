@@ -20,7 +20,7 @@ classes: wide
 > University of Washington, UC Berkeley, Google Research, NVIDIA  
 > 12 Apr 2023  
 
-<center><img src='{{"/assets/img/dreampose/dreampose-fig1.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/dreampose/dreampose-fig1.webp" | relative_url}}' width="90%"></center>
 
 ## Introduction
 본 논문에서는 주어진 포즈 시퀀스를 사용하여 패션 사진을 사실적인 애니메이션 동영상으로 변환하는 방법인 DreamPose를 소개한다. Dreampose는 Stable Diffusion 기반의 diffusion 동영상 합성 모델이다. 하나 이상의 인간 이미지와 포즈 시퀀스가 주어지면 DreamPose는 포즈 시퀀스에 따라 입력 대상의 고품질 동영상을 생성한다.
@@ -64,7 +64,7 @@ DreamPose 모델은 이미지 애니메이션을 위해 원래의 text-to-image 
 
 을 포함한다. 이와 같이 DreamPose에는 전체 구조, 개인 신원(identity), 옷의 세밀한 디테일을 캡처하는 이미지 컨디셔닝 메커니즘과 대상 포즈에서 출력 이미지를 효과적으로 컨디셔닝하는 동시에 독립적으로 샘플링된 출력 프레임 간의 시간적 일관성을 가능하게 하는 방법이 필요하다. 아키텍처의 다이어그램은 아래 그림과 같다.
 
-<center><img src='{{"/assets/img/dreampose/dreampose-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dreampose/dreampose-fig2.webp" | relative_url}}' width="100%"></center>
 
 #### Split CLIP-VAE Encoder
 [InstructPix2Pix](https://arxiv.org/abs/2211.09800)와 같은 많은 이전 연구에서 이미지 컨디셔닝 신호는 종종 denoising U-Net에 대한 입력 noise와 concat된다. 이것은 원하는 출력 이미지와 공간적으로 정렬된 신호를 컨디셔닝하는 데 효과적이지만, Dreampose의 경우 네트워크는 특히 입력 이미지와 공간적으로 정렬되지 않은 이미지를 생성하는 것을 목표로 한다. 따라서 저자들은 이미지 컨디셔닝을 위한 다른 접근 방식을 탐색하였다. 특히 사전 학습된 CLIP 이미지와 VAE 인코더의 인코딩된 정보를 결합하는 맞춤형 컨디셔닝 어댑터로 CLIP 텍스트 인코더를 대체하여 이미지 컨디셔닝을 구현한다.
@@ -95,7 +95,7 @@ $$
 ### 3. Finetuning
 초기화를 위해 별도의 사전 학습된 체크포인트에서 로드되는 CLIP 이미지 인코더를 제외하고 수정되지 않은 Stable Diffusion 레이어는 사전 학습된 text-to-image Stable Diffusion 체크포인트에서 초기화된다. 이전에 언급한 바와 같이 새로운 layer는 초기에 새로운 컨디셔닝 신호가 네트워크 출력에 기여하지 않도록 초기화된다.
 
-<center><img src='{{"/assets/img/dreampose/dreampose-fig4.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/dreampose/dreampose-fig4.webp" | relative_url}}' width="80%"></center>
 <br>
 초기화 후 DreamPose는 두 단계로 finetuning된다. 첫 번째 단계는 입력 이미지 및 포즈와 일치하는 프레임을 합성하기 위해 전체 학습 데이터셋에서 UNet과 어댑터 모듈을 finetuning한다. 두 번째 단계에서는 하나 이상의 주제별 입력 이미지에서 UNet과 어댑터 모듈, VAE 디코더를 finetuning하여 base model을 개선하여 inference에 사용되는 주제별 사용자 정의 모델을 생성한다.
 
@@ -103,7 +103,7 @@ $$
 
 또한 VAE 디코더를 finetuning하는 것이 합성된 출력 프레임에서 더 선명하고 사실적인 디테일을 복구하는 데 중요하다. (아래 그림 참고)
 
-<center><img src='{{"/assets/img/dreampose/dreampose-fig5.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/dreampose/dreampose-fig5.webp" | relative_url}}' width="80%"></center>
 
 ### 4. Pose and Image Classifier-Free Guidance
 Inference 시 단일 입력 이미지와 주제별 모델을 사용하는 일련의 포즈에서 프레임별로 동영상을 생성한다. 이중 classifier-free guidance를 사용하여 inference 중에 이미지 컨디셔닝 $c_I$와 포즈 컨디셔닝 $c_p$의 강도를 조절한다. 이중 classifier-free guidance 방정식은 출력 이미지가 입력 이미지 $c_I$와 입력 포즈 $c_p$와 각각 얼마나 유사한지를 결정하는 두 개의 guidance 가중치 $s_I$와 $s_p$에 의해 제어되도록 수정된다.
@@ -116,7 +116,7 @@ $$
 \end{aligned}
 $$
 
-<center><img src='{{"/assets/img/dreampose/dreampose-fig7.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/dreampose/dreampose-fig7.webp" | relative_url}}' width="70%"></center>
 <br>
 위 그림에서는 classifier-free guidance 가중치 $(s_I, s_p)$에 따른 효과를 보여준다. 큰 $s_I$는 입력 이미지에 대한 높은 외관 충실도를 보장하는 반면, 큰 $s_p$는 입력 포즈에 대한 정렬을 보장한다. 포즈 및 이미지 guidance를 강화하는 것 외에도 분리된 classifier-free guidance는 주제별 finetuning 후 하나의 입력 포즈에 대한 overfitting을 방지한다.
 
@@ -135,22 +135,22 @@ $$
 
 다음은 다양한 입력 프레임과 포즈들에 대한 결과 샘플들이다.
 
-<center><img src='{{"/assets/img/dreampose/dreampose-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dreampose/dreampose-fig3.webp" | relative_url}}' width="100%"></center>
 
 ### 1. Comparisons
 ####  Quantitative Analysis
 다음은 DreamPose를 MRAA와 TPSMM과 정량적으로 비교한 결과이다.
 
-<center><img src='{{"/assets/img/dreampose/dreampose-table1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/dreampose/dreampose-table1.webp" | relative_url}}' width="50%"></center>
 
 #### Qualitative Analysis
 다음은 DreamPose를 MRAA와 TPSMM과 정성적으로 비교한 결과이다.
 
-<center><img src='{{"/assets/img/dreampose/dreampose-fig6.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/dreampose/dreampose-fig6.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 DreamPose를 PIDM과 정성적으로 비교한 결과이다.
 
-<center><img src='{{"/assets/img/dreampose/dreampose-fig9.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/dreampose/dreampose-fig9.webp" | relative_url}}' width="75%"></center>
 
 ### 2. Ablation Studies
 저자들은 ablation study를 위해 4가지 버전의 모델을 비교하였다.
@@ -163,21 +163,21 @@ $$
 #### Quantitative Comparison
 다음은 각 버전에 대한 정량적 비교 결과이다. 
 
-<center><img src='{{"/assets/img/dreampose/dreampose-table2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/dreampose/dreampose-table2.webp" | relative_url}}' width="50%"></center>
 
 #### Qualitative Comparison
 다음은 각 버전에 대한 정성적 비교 결과이다. 
 
-<center><img src='{{"/assets/img/dreampose/dreampose-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/dreampose/dreampose-fig8.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Multiple Input Images
 Dreampose는 하나의 입력 이미지에 대하여 고품질의 결과를 생성한다. Dreampose는 피사체에 대한 임의의 입력 이미지 개수로 학습할 수 있다. 다음은 1, 3, 5, 7개의 입력 이미지로 학습한 결과이다.
 
-<center><img src='{{"/assets/img/dreampose/dreampose-fig10.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/dreampose/dreampose-fig10.webp" | relative_url}}' width="80%"></center>
 <br>
 피사체의 추가 입력 이미지는 품질과 일관성을 높인다. 
 
 ## Limitations
-<center><img src='{{"/assets/img/dreampose/dreampose-fig11.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/dreampose/dreampose-fig11.webp" | relative_url}}' width="60%"></center>
 <br>
 위 그림에서는 실패 사례를 보여준다. 드문 경우지만 대상 포즈가 뒤를 향할 때 팔다리가 옷 속으로 사라지고(왼쪽), hallucinate feature(중간)와 방향 불일치(오른쪽)가 관찰된다. 또한 Dreampose는 대부분의 단순한 패턴의 옷에서 사실적인 결과를 생성하지만 일부 결과는 크고 복잡한 패턴에서 약간의 깜박임 동작을 보인다. 마지막으로 다른 diffusion model과 마찬가지로 finetuning 및 inference 시간이 GAN 또는 VAE에 비해 느리다. 특정 피사체에 대한 모델 finetuning은 프레임당 18초의 렌더링 시간 외에 UNet의 경우 약 10분, VAE 디코더의 경우 약 20분이 소요된다.

@@ -29,7 +29,7 @@ CNN과 ViT 사이의 격차를 해소하기 위해 먼저 두 가지 측면에�
 
 본 논문에서는 대규모 파라미터와 데이터로 효율적으로 확장할 수 있는 CNN 기반 foundation model을 설계하는 데 집중하였다. 특히 유연한 convolution 변형인 deformable convolution (DCN)으로 시작한다. Transformer와 유사한 일련의 맞춤형 블록 레벨 및 아키텍처 레벨 디자인과 결합하여 **InternImage**라는 새로운 convolution backbone 네트워크를 설계한다. 
 
-<center><img src='{{"/assets/img/internimage/internimage-fig1.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/internimage/internimage-fig1.webp" | relative_url}}' width="57%"></center>
 <br>
 위 그림에서 볼 수 있듯이 31$\times$31과 같은 매우 큰 커널을 가진 최근 개선된 CNN과 달리 InternImage의 핵심 연산자는 3$\times$3의 공통 window 크기를 가진 dynamic sparse convolution이다. Dynamic sparse convolution의 특징은 다음과 같다. 
 
@@ -92,7 +92,7 @@ DCNv3를 핵심 연산자로 사용하면 새로운 질문을 할 수 있다.
 
 먼저 모델의 기본 블록과 기타 필수 레이어에 대한 디테일을 제시한 다음 이러한 기본 블록에 대한 맞춤형 스태킹 전략을 탐색하여 InternImage라는 새로운 CNN 기반 foundation model을 구성한다. 마지막으로 제안된 모델에 대한 scaling-up 규칙을 연구하여 증가하는 파라미터로부터 이득을 얻는다.
 
-<center><img src='{{"/assets/img/internimage/internimage-fig3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/internimage/internimage-fig3.webp" | relative_url}}' width="50%"></center>
 
 #### Basic block
 기존 CNN에서 널리 사용되는 bottleneck과 달리 기본 블록의 설계는 LN, 피드포워드 네트워크 (FFN), GELU를 비롯한 고급 구성 요소가 장착된 ViT에 더 가깝다. 이 디자인은 다양한 비전 task에서 효율적인 것으로 입증되었다. 여기서 핵심 연산자는 DCNv3이고 샘플링 오프셋과 modulation 스케일은 separable convolution (3$\times$3 depth-wise convolution 후 linear projection)을 통해 입력 feature $x$를 전달하여 예측된다. 다른 구성 요소의 경우 기본적으로 post-normalization 설정을 사용하고 일반 trasnformer와 동일한 설계를 따른다.
@@ -130,37 +130,37 @@ $$
 
 여기서 1.99는 InternImage에 고유하며 깊이를 일정하게 유지하고 모델 너비를 두 배로 늘려 계산한다. 저자들은 실험으로 최상의 스케일링 설정이 $\alpha = 1.09$, $\beta = 1.36$이라는 것을 알아냈으며, 이를 기반으로 다른 파라미터 스케일을 ConvNeXt와 복잡도가 유사하게 구성하여 InternImage-T/S/B/L/XL로 InternImage 변형을 구성하였다. 저자들은 능력을 추가로 테스트하기 위해 10억 개의 파라미터가 있는 더 큰 InternImage-H를 구축했으며 매우 큰 모델 너비를 수용하기 위해 그룹 차원 $C'$을 32로 변경했다. 구성은 표 1에 요약되어 있다.
 
-<center><img src='{{"/assets/img/internimage/internimage-table1.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/internimage/internimage-table1.webp" | relative_url}}' width="57%"></center>
 
 ## Experiment
 ### 1. Image Classification
 다음은 ImageNet validation set에서의 이미지 분류 성능을 나타낸 표이다.
 
-<center><img src='{{"/assets/img/internimage/internimage-table2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/internimage/internimage-table2.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Object Detection
 다음은 COCO val2017에서의 object detection과 instance segmentation 성능을 나타낸 표이다. 
 
-<center><img src='{{"/assets/img/internimage/internimage-table3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/internimage/internimage-table3.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 COCO val2017과 test-dev에서 SOTA detector와 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/internimage/internimage-table4.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/internimage/internimage-table4.webp" | relative_url}}' width="55%"></center>
 
 ### 3. Semantic Segmentation
 다음은 ADE20K validation set에서의 semantic segmentation 성능을 나타낸 표이다. 
 
-<center><img src='{{"/assets/img/internimage/internimage-table5.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/internimage/internimage-table5.webp" | relative_url}}' width="55%"></center>
 
 ### 4. Ablation Study
 다음은 convolution 뉴런 간의 공유 가중치와 비공유 가중치에 대하혀 모델 파라미터와 GPU 메모리 사용량을 비교한 그래프이다.
 
-<center><img src='{{"/assets/img/internimage/internimage-fig4.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/internimage/internimage-fig4.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 DCNv3의 3가지 수정 사항에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/internimage/internimage-table6.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/internimage/internimage-table6.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 여러 stage의 여러 그룹에 대한 샘플링 위치를 시각화 한 것이다.
 
-<center><img src='{{"/assets/img/internimage/internimage-fig5.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/internimage/internimage-fig5.webp" | relative_url}}' width="80%"></center>

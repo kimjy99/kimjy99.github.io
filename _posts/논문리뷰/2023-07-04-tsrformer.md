@@ -37,7 +37,7 @@ classes: wide
 이러한 새로운 기술을 통해 TSRFormer는 여러 TSR 벤치마크에서 SOTA 성능을 달성했다. 또한 복잡한 구조, 경계선 없는 셀, 큰 빈 공간, 빈 셀 또는 스패닝 셀, 왜곡되거나 구부러진 모양이 있는 테이블에 대한 접근 방식의 robustness를 보다 까다로운 실제 내부 데이터셋에서 입증했다. 
 
 ## Methodology
-<center><img src='{{"/assets/img/tsrformer/tsrformer-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/tsrformer/tsrformer-fig1.webp" | relative_url}}' width="100%"></center>
 <br>
 위 그림과 같이 TSRFormer에는 두 가지 주요 구성 요소가 포함되어 있다. 
 
@@ -65,7 +65,7 @@ $$
 를 먼저 생성한다. 각 다운샘플링 블록은 1$\times$2 max-pooling layer, 3$\times$3 convolution layer, ReLU의 시퀀스로 구성된다. 다음으로 2개의 계단식 spatial CNN (SCNN) 모듈을 $$P'_2$$에 연결하여 전체 feature map에 대해 오른쪽 및 왼쪽 방향으로 컨텍스트 정보를 전파하여 feature 표현 능력을 더욱 향상시킨다. 오른쪽 방향을 예로 들면, SCNN 모듈은 $$P'_2$$를 폭 방향으로 $\frac{W}{32}$개의 슬라이스로 분할하고 정보를 왼쪽 슬라이스에서 오른쪽 슬라이스로 전파한다. 각 슬라이스에 대해 먼저 커널 크기가 9$\times$1인 convolution layer로 전송된 다음 element-wise addition을 통해 다음 슬라이스와 병합된다. SCNN 모듈의 도움으로 출력 컨텍스트 향상 feature map $E_\textrm{row}$의 각 픽셀은 더 나은 표현 능력을 위해 양쪽의 구조 정보를 활용할 수 있다.
 
 #### SepRETR based separation line prediction
-<center><img src='{{"/assets/img/tsrformer/tsrformer-fig3.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/tsrformer/tsrformer-fig3.webp" | relative_url}}' width="65%"></center>
 <br>
 위 그림과 같이 세 개의 평행한 곡선을 사용하여 각 행 구분자의 상단 경계선, 중심선 및 하단 경계선을 각각 나타낸다. 각 곡선은 $K = 15$개의 포인트로 표시되며 $x$ 좌표는 각각 $x_1, \cdots, x_K$로 설정된다. 각 행 구분자에 대해 포인트의 $y$ 좌표 $3K$개는 SepRETR 모델에서 직접 예측한다. 여기에서 $i$번째 $x$ 좌표에 대해 
 
@@ -77,7 +77,7 @@ $$
 
 로 설정한다. $y$ 좌표의 경우 위 식에서 $W$를 $H$로 바꾸기만 하면 된다. 
 
-<center><img src='{{"/assets/img/tsrformer/tsrformer-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/tsrformer/tsrformer-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 위 그림과 같이 SepRETR에는 기준점 감지 모듈과 분리선 회귀를 위한 DETR 디코더의 두 가지 모듈이 포함되어 있다. 기준점 감지 모듈은 먼저 향상된 feature map $E_\textrm{row}$에서 각 행 구분자에 대한 기준점을 예측하려고 시도한다. 감지된 기준점의 feature는 개체 쿼리로 간주되어 DETR 디코더에 입력되어 각 쿼리에 대한 향상된 임베딩을 생성한다. 이러한 향상된 쿼리 임베딩은 피드포워드 네트워크에 의해 구분선 좌표와 클래스 레이블로 독립적으로 디코딩된다. 두 모듈 모두 
 
@@ -234,41 +234,41 @@ $$
 ### 1. Comparisons with Prior Arts
 다음은 SciTSR에서의 결과이다. $\ast$는 빈 셀이 없는 경우의 결과이다. 
 
-<center><img src='{{"/assets/img/tsrformer/tsrformer-table1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/tsrformer/tsrformer-table1.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 PubTabNet에서의 결과이다. 
 
-<center><img src='{{"/assets/img/tsrformer/tsrformer-table2.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/tsrformer/tsrformer-table2.webp" | relative_url}}' width="57%"></center>
 <br>
 다음은 WTW에서의 결과이다.
 
-<center><img src='{{"/assets/img/tsrformer/tsrformer-table3.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/tsrformer/tsrformer-table3.webp" | relative_url}}' width="47%"></center>
 <br>
 다음은 향상된 SPLERGE와 TSRFormer를 다양한 데이터셋에서 비교한 표이다.
 
-<center><img src='{{"/assets/img/tsrformer/tsrformer-table4.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/tsrformer/tsrformer-table4.webp" | relative_url}}' width="57%"></center>
 <br>
 다음은 TSRFormer의 정성적 결과이다. (a-b)는 SciTSR, (c-d)는 PubTabNet, (e-h)는 WTW, (i-l)은 내부 데이터셋에 대한 결과이다. 
 
-<center><img src='{{"/assets/img/tsrformer/tsrformer-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/tsrformer/tsrformer-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 비뚤어진 표에 대하여 SPLERGE (파란색)와 TSRFormer (빨간색)의 정성적 결과이다. 
 
-<center><img src='{{"/assets/img/tsrformer/tsrformer-fig5.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/tsrformer/tsrformer-fig5.webp" | relative_url}}' width="80%"></center>
 
 ### 2. Ablation Studies
 다음은 TSRFormer의 다양한 모듈에 대한 ablation study 결과이다.
 
-<center><img src='{{"/assets/img/tsrformer/tsrformer-table5.PNG" | relative_url}}' width="53%"></center>
+<center><img src='{{"/assets/img/tsrformer/tsrformer-table5.webp" | relative_url}}' width="53%"></center>
 <br>
 다음은 테두리가 없고 빈칸이 큰 휘어진 표에 대하여 segmentation 기반 접근 방식인 SCNN (가운데)와 TSRFormer (오른쪽)을 정성적으로 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/tsrformer/tsrformer-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/tsrformer/tsrformer-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 SepRETR의 디자인에 대한 ablation study 결과이다.
 
-<center><img src='{{"/assets/img/tsrformer/tsrformer-table6.PNG" | relative_url}}' width="43%"></center>
+<center><img src='{{"/assets/img/tsrformer/tsrformer-table6.webp" | relative_url}}' width="43%"></center>
 <br>
 다음은 prior-enhanced 이분 매칭 전략에 대한 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/tsrformer/tsrformer-table7.PNG" | relative_url}}' width="35%"></center>
+<center><img src='{{"/assets/img/tsrformer/tsrformer-table7.webp" | relative_url}}' width="35%"></center>

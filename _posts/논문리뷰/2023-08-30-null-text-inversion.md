@@ -20,7 +20,7 @@ classes: wide
 > Google Research | Tel Aviv University  
 > 17 Nov 2022  
 
-<center><img src='{{"/assets/img/null-text-inversion/null-text-inversion-fig1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/null-text-inversion/null-text-inversion-fig1.webp" | relative_url}}' width="80%"></center>
 
 ## Introduction
 Text-guided diffusion model을 사용한 이미지 합성의 발전은 뛰어난 사실성과 다양성으로 인해 많은 관심을 끌었다. 대규모 모델은 수많은 사용자의 상상력에 불을 붙여 전례 없는 창의적 자유로 이미지 생성을 가능하게 했다. 당연히 이미지 편집을 위해 이러한 강력한 모델을 활용하는 방법을 조사하는 지속적인 연구 노력이 있었다. 가장 최근에는 합성 이미지에 대한 직관적인 텍스트 기반 편집이 시연되어 사용자가 텍스트만으로 이미지를 쉽게 조작할 수 있다.
@@ -47,7 +47,7 @@ $\mathcal{I}$를 실제 이미지라고 하자. 본 논문의 목표는 텍스�
 
 전체 개요는 아래와 같다.
 
-<center><img src='{{"/assets/img/null-text-inversion/null-text-inversion-fig3.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/null-text-inversion/null-text-inversion-fig3.webp" | relative_url}}' width="80%"></center>
 
 ### 1. Background and Preliminaries
 Text-guided diffusion model은 랜덤 noise 벡터 $z_t$와 텍스트 조건 $\mathcal{P}$를 주어진 조건 프롬프트에 해당하는 출력 이미지 $z_0$에 매핑하는 것을 목표로 한다. 순차적인 denoising을 수행하기 위해 네트워크 $\epsilon_\theta$는 다음 목적 함수에 따라 인공 noise를 예측하도록 학습된다.
@@ -122,7 +122,7 @@ $$
 
 단일 unconditional embedding $\varnothing$의 최적화를 global null-text optimization라고 한다. 저자들은 각 timestep $t$에 대해 서로 다른 unconditional embedding $\varnothing_t$를 최적화하면 재구성 품질이 크게 향상되며 이것이 pivotal inversion에 매우 적합하다는 것을 관찰했다. 따라서 timestep별 unconditional embedding $$\{\varnothing_t\}_{t=1}^T$$을 사용하고 이전 step의 임베딩 $\varnothing_{t+1}$으로 $\varnothing_t$를 초기화한다.
 
-<center><img src='{{"/assets/img/null-text-inversion/null-text-inversion-algo1.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/null-text-inversion/null-text-inversion-algo1.webp" | relative_url}}' width="47%"></center>
 <br>
 두 구성 요소를 함께 넣은 전체 알고리즘은 Algorithm 1과 같다. $w = 1$인 DDIM inversion은 noisy latent code $z_T^\ast, \cdots, z_0^\ast$의 시퀀스를 출력한다. 여기서 $z_0^\ast = z_0$이다. $$\bar{z}_T = z_t$$로 초기화하고 timestep $t = T, \cdots, 1$과 각 iteration에 대해 기본 guidance scale $w = 7.5$로 다음과 같은 최적화를 수행한다.
 
@@ -145,35 +145,35 @@ $$
 ## Ablation Study
 다음은 전체 알고리즘(녹색 선)의 성능을 다양한 변형과 비교하고 PSNR 점수를 최적화 iteration 수에 따라 측정하여 재구성 품질을 평가한 그래프이다.
 
-<center><img src='{{"/assets/img/null-text-inversion/null-text-inversion-fig4a.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/null-text-inversion/null-text-inversion-fig4a.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 200 iteration 후의 inversion 결과를 비교한 것이다.
 
-<center><img src='{{"/assets/img/null-text-inversion/null-text-inversion-fig4b.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/null-text-inversion/null-text-inversion-fig4b.webp" | relative_url}}' width="85%"></center>
 
 ## Results
 다음은 실제 이미지 편집 결과이다. 
 
-<center><img src='{{"/assets/img/null-text-inversion/null-text-inversion-fig2.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/null-text-inversion/null-text-inversion-fig2.webp" | relative_url}}' width="85%"></center>
 <br>
 다음은 attention re-weighting을 사용한 세밀한 제어 편집 예시이다.
 
-<center><img src='{{"/assets/img/null-text-inversion/null-text-inversion-fig5.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/null-text-inversion/null-text-inversion-fig5.webp" | relative_url}}' width="85%"></center>
 
 ### 1. Comparisons
 다음은 기존 방법들과 비교한 결과이다.
 
-<center><img src='{{"/assets/img/null-text-inversion/null-text-inversion-fig6.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/null-text-inversion/null-text-inversion-fig6.webp" | relative_url}}' width="85%"></center>
 <br>
 다음은 마스크 기반 방법들과 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/null-text-inversion/null-text-inversion-fig7.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/null-text-inversion/null-text-inversion-fig7.webp" | relative_url}}' width="85%"></center>
 <br>
 다음은 user study 결과이다. 
 
-<center><img src='{{"/assets/img/null-text-inversion/null-text-inversion-table1.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/null-text-inversion/null-text-inversion-table1.webp" | relative_url}}' width="45%"></center>
 
 ### 2. Evaluating Additional Editing Technique
 다음은 SDEdit 결과를 개선한 결과이다.
 
-<center><img src='{{"/assets/img/null-text-inversion/null-text-inversion-fig8.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/null-text-inversion/null-text-inversion-fig8.webp" | relative_url}}' width="80%"></center>

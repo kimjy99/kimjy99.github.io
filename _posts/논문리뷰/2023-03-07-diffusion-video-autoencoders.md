@@ -19,7 +19,7 @@ classes: wide
 > KAIST | NAVER AI Lab | AITRICS  
 > 6 Dec 2022  
 
-<center><img src='{{"/assets/img/diffusion-video-autoencoder/diffusion-video-autoencoder-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffusion-video-autoencoders/diffusion-video-autoencoders-fig1.webp" | relative_url}}' width="100%"></center>
 <br>
 (왼쪽은 안경 추가, 오른쪽은 수염 추가)
 
@@ -48,7 +48,7 @@ classes: wide
 계산 비용으로 인해 CLIP loss에 대한 편집 이미지를 완전히 생성할 수 없기 때문에 효율성을 위해 중간 timestep의 latent state를 사용하는 새로운 전략을 제안한다.
 
 ## Diffusion Video Autoencoders
-<center><img src='{{"/assets/img/diffusion-video-autoencoder/diffusion-video-autoencoder-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffusion-video-autoencoders/diffusion-video-autoencoders-fig2.webp" | relative_url}}' width="100%"></center>
 
 ### 1. Disentangled Video Encoding
 N 프레임 $$\{x_0^{(n)}\}_{n=1}^N$$으로 동영상을 인코딩하기 위해 사람 얼굴 동영상의 시불변 feature를 identity 정보로, 각 프레임의 시간 종속 feature를 모션 및 배경 정보로 간주한다. 이 세 가지 중에서 얼굴과 관련된 identity 정보나 모션 정보는 상위 representation을 추출하기 위해 저차원 space에 project하기에 적합하다. 상대적으로 배경은 임의의 디테일로 높은 분산을 나타내며 얼굴 영역을 자르고 정렬하여 머리 모션에 따라 더 많이 변경된다. 따라서 배경 정보를 높은 레벨의 semantic space로 인코딩하는 것은 매우 어려울 수 있다. 따라서 identity와 모션 feature는 동영상의 identity feature $z_\textrm{id}$와 각 프레임의 모션 feature $z_\textrm{lnd}^{(n)}$을 결합하여 높은 레벨의 semantic space $z_\textrm{face}^{(n)}$에 인코딩되고, 배경 feature는 noise map $x_T^{(n)}$에 인코딩된다. 프레임 인덱스는 시간 불변이고 동영상의 모든 프레임에서 공유되므로 위첨자 $(n)$ 없이 $z_{id}$로 표시된다. 
@@ -155,7 +155,7 @@ $$
 으로 바꾸면 된다. 
 
 #### CLIP-based editing
-<center><img src='{{"/assets/img/diffusion-video-autoencoder/diffusion-video-autoencoder-fig3.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/diffusion-video-autoencoders/diffusion-video-autoencoders-fig3.webp" | relative_url}}' width="65%"></center>
 <br>
 사전 학습된 classifier는 몇 가지 미리 정의된 속성에 대해서만 편집할 수 있으므로 저자들은 CLIP-guidance identity feature 최적화 방법을 추가로 고안하였다. Directional CLIP loss에는 중립 텍스트와 대상 텍스트에 각각 해당하는 두 개의 이미지가 필요하다. 이는 diffusion model을 사용하여 합성된 이미지가 필요하다는 것을 의미하며, 전체 생성 프로세스의 비용이 많이 든다. 
 
@@ -177,28 +177,28 @@ CLIP loss 외에도 나머지 속성을 보존하기 위해 ID loss ($z_\textrm{
 ### 1. Reconstruction
 다음은 정량적 reconstruction 결과를 나타낸 표이다.
 
-<center><img src='{{"/assets/img/diffusion-video-autoencoder/diffusion-video-autoencoder-table1.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/diffusion-video-autoencoders/diffusion-video-autoencoders-table1.webp" | relative_url}}' width="55%"></center>
 
 ### 2. Temporal Consistency
 다음은 동영상 편집 성능을 정성적으로 평가하기 위해 시각적 비교를 한 것이다. (수염 추가)
 
-<center><img src='{{"/assets/img/diffusion-video-autoencoder/diffusion-video-autoencoder-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/diffusion-video-autoencoders/diffusion-video-autoencoders-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 동영상 편집 성능에 대한 정량적 결과이다.
 
-<center><img src='{{"/assets/img/diffusion-video-autoencoder/diffusion-video-autoencoder-table2.PNG" | relative_url}}' width="34%"></center>
+<center><img src='{{"/assets/img/diffusion-video-autoencoders/diffusion-video-autoencoders-table2.webp" | relative_url}}' width="34%"></center>
 
 ### 3. Editing Wild Face Videos
 다음은 실제 얼굴 동영상을 편집한 것을 나타낸 것이다. Classifier 기반 편집이 사용되었으며 위는 얼굴을 어리게 편집한 것이고 아래는 성별을 바꾸도록 편집한 것이다. 
 
-<center><img src='{{"/assets/img/diffusion-video-autoencoder/diffusion-video-autoencoder-fig5.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/diffusion-video-autoencoders/diffusion-video-autoencoders-fig5.webp" | relative_url}}' width="50%"></center>
 
 ### 4. Decomposed Features Analysis
 저자들은 diffusion video autoencoder가 feature를 적합하게 분해하는 지 확인하기 위해 합성된 이미지의 각 분해된 feature를 바꿔보는 실험을 진행하였다. 
 
-<center><img src='{{"/assets/img/diffusion-video-autoencoder/diffusion-video-autoencoder-fig6.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/diffusion-video-autoencoders/diffusion-video-autoencoders-fig6.webp" | relative_url}}' width="55%"></center>
 
 ### 5. Ablation Study
 저자들은 추가로 제안된 regularization loss $\mathcal{L}_\textrm{reg}$에 대한 ablation study를 진행하였다. 
 
-<center><img src='{{"/assets/img/diffusion-video-autoencoder/diffusion-video-autoencoder-fig7.PNG" | relative_url}}' width="58%"></center>
+<center><img src='{{"/assets/img/diffusion-video-autoencoders/diffusion-video-autoencoders-fig7.webp" | relative_url}}' width="58%"></center>

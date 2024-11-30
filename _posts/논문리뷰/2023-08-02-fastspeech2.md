@@ -49,7 +49,7 @@ FastSpeech의 이러한 설계는 TTS의 일대다 매핑 문제 학습을 용�
 TTS는 일반적인 일대다 매핑 문제이다. pitch, duration, 사운드 볼륨, 운율과 같은 음성의 변화로 인해 가능한 여러 음성 시퀀스가 텍스트 시퀀스에 해당할 수 있기 때문이다. Non-autoregressive TTS에서 유일한 입력 정보는 음성의 분산을 완전히 예측하기에 충분하지 않은 텍스트이다. 이 경우 모델은 학습 세트의 타겟 음성 변형에 overfitting되기 쉬워 일반화 능력이 저하된다. FastSpeech는 일대다 매핑 문제를 완화하기 위해 두 가지 방법을 설계하였지만 복잡한 학습 파이프라인, 타겟 mel-spectrogram의 정보 손실, 충분히 정확하지 않은 ground-truth duration 등 다양한 문제점을 가지고 있다. 
 
 ### 2. Model Overview
-<center><img src='{{"/assets/img/fastspeech2/fastspeech2-fig1a.PNG" | relative_url}}' width="30%"></center>
+<center><img src='{{"/assets/img/fastspeech2/fastspeech2-fig1a.webp" | relative_url}}' width="30%"></center>
 <br>
 FastSpeech 2의 전체 모델 아키텍처는 위 그림에 나와 있다. 인코더가 음소 임베딩 시퀀스를 음소 hidden 시퀀스로 변환한 다음, variance adaptor가 duration, pitch, energy와 같은 다양한 분산 정보를 hidden 시퀀스에 추가하고, 마지막으로 mel-spectrogram 디코더는 적응된 hidden 시퀀스를 mel-스펙트로그램 시퀀스로 변환한다. 병행하여. 인코더와 mel-spectrogram 디코더의 기본 구조로 FastSpeech에서와 같이 self-attention layer와 1D-convolution의 스택인 feed-forward Transformer 블록을 사용한다. 
 
@@ -66,7 +66,7 @@ Variance adaptor는 TTS의 일대다 매핑 문제에 대한 변형 음성을 �
 2. pitch: 감정을 전달하는 핵심 feature로 운율에 큰 영향을 미친다
 3. energy: mel-스펙트로그램의 프레임 수준 크기를 나타내고 음성의 볼륨과 운율에 직접적인 영향을 미친다
 
-<center><img src='{{"/assets/img/fastspeech2/fastspeech2-fig1b.PNG" | relative_url}}' width="23%"></center>
+<center><img src='{{"/assets/img/fastspeech2/fastspeech2-fig1b.webp" | relative_url}}' width="23%"></center>
 <br>
 이에 따라 variance adaptor는 위 그림과 같이 
 
@@ -76,7 +76,7 @@ Variance adaptor는 TTS의 일대다 매핑 문제에 대한 변형 음성을 �
 
 로 구성된다. 학습 시에는 타겟 음성을 예측하기 위해 hidden 시퀀스에 대한 입력으로 녹음에서 추출된 duration, pitch, energy의 ground-truth 값을 취한다. 동시에 타겟 음성을 합성하기 위한 inference에 사용되는 duration, pitch, energy predictor 예측자를 학습하기 위해 ground-truth duration, pitch, energy를 타겟으로 사용한다. 
 
-<center><img src='{{"/assets/img/fastspeech2/fastspeech2-fig1c.PNG" | relative_url}}' width="20%"></center>
+<center><img src='{{"/assets/img/fastspeech2/fastspeech2-fig1c.webp" | relative_url}}' width="20%"></center>
 <br>
 위 그림에서 볼 수 있듯이 duration, pitch, energy predictor는 유사한 모델 구조 (모델 파라미터는 다름)를 공유하며, 이는 ReLU가 포함된 2-layer 1D convolution network로 구성되며 각각 layer normalization과 dropout layer가 뒤따른다. 또한 hidden state를 출력 시퀀스에 project하는 추가 linear layer가 뒤따른다. 
 
@@ -106,7 +106,7 @@ TTS 파이프라인을 완전한 end-to-end 프레임워크로 추진할 때 몇
 1. Variance predictor를 사용하여 위상 정보를 예측하기 어려운 점을 고려하여 파형 디코더에서 적대적 학습을 도입하여 자체적으로 위상 정보를 암시적으로 복구하도록 한다. 
 2. FastSpeech 2의 mel-spectrogram 디코더를 활용한다. 이는 텍스트 feature 추출을 돕기 위해 전체 텍스트 시퀀스에 대해 학습된다. 
 
-<center><img src='{{"/assets/img/fastspeech2/fastspeech2-fig1d.PNG" | relative_url}}' width="22%"></center>
+<center><img src='{{"/assets/img/fastspeech2/fastspeech2-fig1d.webp" | relative_url}}' width="22%"></center>
 <br>
 위 그림에서 볼 수 있듯이 파형 디코더는 non-causal convolution과 gated activation을 포함하는 WaveNet 구조를 기반으로 한다. 파형 디코더는 짧은 오디오 클립에 해당하는 슬라이스된 hidden 시퀀스를 입력으로 사용하고 오디오 클립의 길이와 일치하도록 transposed 1D-convolution으로 업샘플링한다. 적대적 학습의 discriminator는 Parallel WaveGAN에서 동일한 구조를 채택한다. 이 구조는 leaky ReLU가 있는 non-causal dilated 1-D convolution의 10개로 구성된다. 파형 디코더는 Parallel WaveGAN에 따른 다중 해상도 STFT loss와 LSGAN discriminator loss에 의해 최적화된다. Inference에서는 mel-spectrogram 디코더를 버리고 파형 디코더만 사용하여 음성 오디오를 합성한다.
 
@@ -116,26 +116,26 @@ TTS 파이프라인을 완전한 end-to-end 프레임워크로 추진할 때 몇
 ### 1. Model Performance
 다음은 오디오 품질을 비교한 표이다.
 
-<center><img src='{{"/assets/img/fastspeech2/fastspeech2-table1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/fastspeech2/fastspeech2-table1.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 파형 합성에 대한 학습 시간과 inference 지연 시간을 비교한 표이다.
 
-<center><img src='{{"/assets/img/fastspeech2/fastspeech2-table2.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/fastspeech2/fastspeech2-table2.webp" | relative_url}}' width="85%"></center>
 
 ### 2. Analyses on Variance Information
 다음은 pitch의 표준 편차 ($\sigma$), skewness ($\gamma$), kurtosis ($\mathcal{K}$), 평균 DTW 거리 (DTW)를 비교한 표이다.
 
-<center><img src='{{"/assets/img/fastspeech2/fastspeech2-table3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/fastspeech2/fastspeech2-table3.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 합성된 음성 오디오의 에너지의 평균 절대 오차(MAE)이다.
 
-<center><img src='{{"/assets/img/fastspeech2/fastspeech2-table4.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/fastspeech2/fastspeech2-table4.webp" | relative_url}}' width="47%"></center>
 <br>
 다음은 teacher model과 MFA의 duration을 비교한 표이다.
 
-<center><img src='{{"/assets/img/fastspeech2/fastspeech2-table5.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/fastspeech2/fastspeech2-table5.webp" | relative_url}}' width="80%"></center>
 
 ### 3. Ablation Study
 다음은 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/fastspeech2/fastspeech2-table6.PNG" | relative_url}}' width="77%"></center>
+<center><img src='{{"/assets/img/fastspeech2/fastspeech2-table6.webp" | relative_url}}' width="77%"></center>

@@ -34,7 +34,7 @@ classes: wide
 본 논문은 향후 연구가 최적화 친화성에 선점되지 않고 학습된 표현의 일반성과 확장성에 더 많은 관심을 집중할 수 있는 방법을 제공한다. 일반성과 확장성은 사전 학습을 광범위한 비전 task에 적합하게 만들 뿐만 아니라 학습된 네트워크가 더 큰 모델 용량과 더 큰 데이터를 최대한 활용할 수 있도록 하기 때문에 매우 중요하다. 기존 연구에서는 일반성과 확장성의 목표가 최적화 친화성 목표와 얽혀 있는 경우가 많다. Feature distillation 접근 방식은 이 두 가지 목표를 어떻게 분리할 수 있는지를 조명하고 일반성과 확장성이라는 중요한 문제에 더 많은 노력을 기울일 수 있도록 해준다.
 
 ## A Feature Distillation Method
-<center><img src='{{"/assets/img/feature-distillation/feature-distillation-fig1a.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/feature-distillation/feature-distillation-fig1a.webp" | relative_url}}' width="50%"></center>
 <br>
 본 논문은 이미 사전 학습된 모델에서 지식을 추출하는 동시에 fine-tuning에 더 친숙한 새로운 표현을 얻는 것이 목표이다. 위 그림에 설명된 것처럼 feature distillation 방법을 통해 이를 달성한다. 이 방법에서는 이미 사전 학습된 모델이 teacher 역할을 하고 새 모델이 student 역할을 한다. 본 논문은 이 방법을 일반적이고 효과적으로 만들기 위해 다음과 같은 디자인을 고려하였다.
 
@@ -71,32 +71,32 @@ Feature distillation 프레임워크의 2가지 방식을 사용하면 teacher�
 저자들은 head당 평균 attention 거리, head들의 attention map 간 평균 코사인 유사도, 각 레이어에 대한 평균 attention map, 정규화 loss등을 포함한 일련의 attention 및 최적화 관련 진단 도구를 통해 feature distillation 메커니즘을 자세히 살펴보았다. 저자들은 50,000개의 ImageNet-1K validation 이미지를 사용하여 이러한 분석을 수행하고 distillation 방법을 적용하기 전과 후에 모델을 진단하였다. Feature distillation 전후에 학습된 표현의 다양한 속성 동작이 관찰되었다.
 
 #### Feature distillation은 attention head들을 다양화한다
-<center><img src='{{"/assets/img/feature-distillation/feature-distillation-fig2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/feature-distillation/feature-distillation-fig2.webp" | relative_url}}' width="60%"></center>
 <br>
 저자들은 head들의 attention 다양성을 조사하였다. 위 그림은 각각 DINO, DeiT, CLIP으로 사전 학습된 ViT-B 아키텍처를 사용하여 head별 평균 attention 거리와 레이어 깊이를 보여준다. 왼쪽은 feature distillation 전이고 오른쪽은 후이다. 평균 attention 거리는 attention 가중치에 따라 계산된 각 attention head에 대한 receptive field 크기를 부분적으로 반영할 수 있다. 
 
 위 그림에서 다음을 관찰할 수 있다. Distillation 전에 사전 학습된 모든 표현의 경우 더 깊은 레이어에 있는 다양한 head들의 attention 거리가 붕괴되어 매우 작은 거리 범위 내에 위치한다. 이는 서로 다른 head가 매우 유사한 시각적 단서를 학습하고 모델 용량을 낭비할 수 있음을 의미한다. Feature distillation 과정이 끝나면 모든 표현은 attention 거리가 더욱 다양해지고 고르게 분포된다. 특히 더 깊은 레이어의 경우 더욱 그렇다. 이 관찰은 각 레이어의 attention head 간 평균 코사인 유사도를 계산하는 아래 그림에도 반영된다 (왼쪽이 전, 오른쪽이 후). 
 
-<center><img src='{{"/assets/img/feature-distillation/feature-distillation-fig3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/feature-distillation/feature-distillation-fig3.webp" | relative_url}}' width="60%"></center>
 
 #### Attention 패턴의 변화
-<center><img src='{{"/assets/img/feature-distillation/feature-distillation-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/feature-distillation/feature-distillation-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 위 그림은 feature distillation 전(왼쪽)과 후(오른쪽)의 평균 attention map을 보여준다. Attention map에는 대각선(diagonal)과 열(column)이라는 두 가지 명백한 패턴이 있다. 대각선 패턴은 고정된 상대 위치의 이미지 패치 간의 관계에 해당하는 반면, 열 패턴은 특정 절대 위치의 이미지 패치가 다른 모든 위치에 미치는 영향을 나타낸다.
 
 Feature distillation 후의 표현에는 훨씬 더 많은 대각선 패턴이 있음을 알 수 있다. 이는 모델이 상대 위치의 관계를 인코딩하는 시각적 단서에 더 많이 의존한다는 것을 의미한다. 이는 모델이 더 나은 평행이동 불변성을 가지도록 하며, 다양한 비전 task에 유용한 속성인 경우가 많다. 
 
-<center><img src='{{"/assets/img/feature-distillation/feature-distillation-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/feature-distillation/feature-distillation-fig7.webp" | relative_url}}' width="100%"></center>
 <br>
 저자들은 student 네트워크에 공유 RPB가 포함되어 있다는 점에 주목하여 그 효과를 연구하기 위해 student 아키텍처에서 절대 위치 인코딩 (APE)을 사용하려고 시도했으며 그 attention map은 위 그림에 표시되어 있다. Feature distillation 후 표현도 레이어 0과 레이어 7과 같은 상대 위치에 더 많이 의존하며 fine-tuning 정확도도 상당히 높다. 이는 더 많은 대각선 패턴이 주로 feature distillation 알고리즘 자체에 의해 발생함을 나타낸다.
 
 #### Feature distillation을 통해 loss/정확도 landscape가 더 좋아진다
-<center><img src='{{"/assets/img/feature-distillation/feature-distillation-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/feature-distillation/feature-distillation-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 저자들은 [Visualizing the Loss Landscape of Neural Nets 논문](https://arxiv.org/abs/1712.09913)의 방법을 사용하여 다양한 모델의 loss/정확도 landscape를 시각화하였다. 이 시각화 방법에서 모델 가중치는 다양한 정도의 일련의 Gaussian noise에 의해 교란된다. 각 noise level은 다양한 모델의 다양한 가중치 진폭 효과를 설명하기 위해 각 필터의 $\ell_2$ norm으로 정규화되어 정의된다. 위 그림은 feature distillation 전후의 여러 사전 학습된 모델의 loss/정확도 landscape를 시각화한 것이다. Feature distillation 후 대부분의 표현의 loss/정확도 landscape는 distillation 전 표현의 것보다 더 평탄해졌으며 이는 더 나은 fine-tuning 정확도와 일맥상통하다. 
 
 #### Masked image modeling (MIM)
-<center><img src='{{"/assets/img/feature-distillation/feature-distillation-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/feature-distillation/feature-distillation-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 위 그림은 feature distillation 전후의 MIM 기반 접근 방식인 [MAE](https://kimjy99.github.io/논문리뷰/mae)의 평균 attention 거리와 loss/정확도 landscape를 보여준다. MAE를 사용하여 사전 학습된 표현은 여러 head들을 학습했으며 loss/정확도 landscape가 상대적으로 평탄하다는 것을 알 수 있다. 실제로 feature distillation 방법을 통해 기존 MAE 표현을 새로운 표현으로 추가 변환하면 +0.2%(83.6% $\rightarrow$ 83.8%)의 약간의 이득만 얻을 수 있다. 이러한 결과는 feature distillation 후처리를 통해 얻은 우수한 fine-tuning 성능이 MIM 방법과 기능이 어느 정도 중복된다는 것을 시사할 수 있다.
 
@@ -114,25 +114,25 @@ Feature distillation 후의 표현에는 훨씬 더 많은 대각선 패턴이 �
 ### 1. Main Results
 다음은 feature distillation을 사용한 fine-tuning 결과이다. $\vphantom{1}^\ast$는 ImageNet-22K 이미지 분류에 대한 추가 fine-tuning 단계가 있다.
 
-<center><img src='{{"/assets/img/feature-distillation/feature-distillation-table1.PNG" | relative_url}}' width="66%"></center>
+<center><img src='{{"/assets/img/feature-distillation/feature-distillation-table1.webp" | relative_url}}' width="66%"></center>
 <br>
 다음은 SwinV2-G 모델에 대한 feature distillation 결과이다. 
 
-<center><img src='{{"/assets/img/feature-distillation/feature-distillation-table2.PNG" | relative_url}}' width="78%"></center>
+<center><img src='{{"/assets/img/feature-distillation/feature-distillation-table2.webp" | relative_url}}' width="78%"></center>
 
 ### 2. Ablations
 다음은 distillation 타겟에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/feature-distillation/feature-distillation-table3.PNG" | relative_url}}' width="34%"></center>
+<center><img src='{{"/assets/img/feature-distillation/feature-distillation-table3.webp" | relative_url}}' width="34%"></center>
 <br>
 다음은 teacher feature 정규화 방법에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/feature-distillation/feature-distillation-table4.PNG" | relative_url}}' width="34%"></center>
+<center><img src='{{"/assets/img/feature-distillation/feature-distillation-table4.webp" | relative_url}}' width="34%"></center>
 <br>
 다음은 위치 인코딩에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/feature-distillation/feature-distillation-table5.PNG" | relative_url}}' width="34%"></center>
+<center><img src='{{"/assets/img/feature-distillation/feature-distillation-table5.webp" | relative_url}}' width="34%"></center>
 <br>
 다음은 비대칭 drop path rate에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/feature-distillation/feature-distillation-table6.PNG" | relative_url}}' width="34%"></center>
+<center><img src='{{"/assets/img/feature-distillation/feature-distillation-table6.webp" | relative_url}}' width="34%"></center>

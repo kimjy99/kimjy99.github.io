@@ -21,7 +21,7 @@ classes: wide
 > 10 Nov 2022  
 
 ## Introduction
-<center><img src='{{"/assets/img/oneformer/oneformer-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/oneformer/oneformer-fig1.webp" | relative_url}}' width="100%"></center>
 <br>
 Image segmentation은 픽셀을 여러 세그먼트로 그룹화하는 task이다. 이러한 그룹화는 semantic 기반 (ex. 도로, 하늘, 건물) 또는 인스턴스 기반 (잘 정의된 경계가 있는 객체)일 수 있다. 이전의 segmentation 접근 방식은 전문화된 아키텍처를 사용하여 이러한 두 가지 segmentation task를 개별적으로 다루었으므로 각각에 대한 별도의 연구 노력이 필요했다. Semantic segmentation과 instance segmentation을 통합하려는 최근  연구에서는 픽셀을 비정형 배경 영역("물건"으로 표시됨)에 대해 비정형 세그먼트로 그룹화하고 잘 정의된 모양 ("stuff"로 표시됨)을 가진 개체에 대해 개별 세그먼트로 그룹화하는 panoptic segmentation을 제안했다. 그러나 이러한 노력으로 인해 이전 task를 통합하는 대신 새로운 전문화된 panoptic 아키텍처가 탄생했다 (위 그림의 a 참조). 
 
@@ -40,7 +40,7 @@ Image segmentation은 픽셀을 여러 세그먼트로 그룹화하는 task이�
 최근 컴퓨터 비전에서 transformer 프레임워크의 성공에 따라 query 토큰을 사용하여 가이드할 수 있는 transformer 기반 접근 방식으로 프레임워크를 공식화한다. 모델에 task별 컨텍스트를 추가하기 위해 task 토큰의 반복으로 query를 초기화하고 샘플링된 task에 대한 해당 ground truth 레이블에서 파생된 텍스트를 사용하여 query-text contrastive loss를 계산한다. 저자들은 query의 contrastive loss가 모델이 보다 task에 민감하도록 가이드하는 데 도움이 된다고 가정하였다. 또한 카테고리 예측 오차를 어느 정도 줄이는 데도 도움이 된다.
 
 ## Method
-<center><img src='{{"/assets/img/oneformer/oneformer-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/oneformer/oneformer-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문은 panoptic, semantic, instance segmentation에 대해 공동으로 학습되고 개별적으로 학습된 모델보다 성능이 뛰어난 범용 image segmentation 프레임워크인 OneFormer를 소개한다. 위 그림은 OneFormer의 개요를 제공한다. OneFormer는 샘플 이미지와 "the task is {task}" 형식의 task 입력이라는 두 가지 입력을 사용한다. 하나의 공동 학습 과정에서 task는 각 이미지에 대하여 {panoptic, instance, semantic}에서 균일하게 샘플링된다. 먼저 backbone과 픽셀 디코더를 사용하여 입력 이미지에서 멀티스케일 feature를 추출한다. Task 입력을 토큰화하여 object query를 컨디셔닝하는 데 사용되는 1D task 토큰을 얻고 결과적으로 각 입력에 대한 task에 대한 모델을 얻는다. 또한 ground truth 레이블에 있는 각 클래스의 이진 마스크 수를 나타내는 텍스트 목록을 생성하고 이를 text query 표현에 매핑한다. 텍스트 목록은 입력 이미지와 {task}에 따라 달라진다. 모델의 task에 동적인 예측을 supervise하기 위해 panoptic 주석에서 해당 ground truth 정보를 도출한다. Ground truth는 task에 따라 달라지므로 object query에 task 구분이 있는지 확인하기 위해 객체와 text query 간의 query-text contrastive loss를 계산한다. Object query와 멀티스케일 feature는 transformer 디코더에 입력되어 최종 예측을 생성한다. 
 
@@ -49,7 +49,7 @@ Image segmentation을 위한 기존 semi-universal 아키텍처는 세 가지 se
 
 Task로 컨디셔닝된 공동 학습 전략을 사용하여 image segmentation을 위한 multi-task train-once 문제를 해결한다. 특히, 먼저 ground truth 레이블에 대한 {panoptic, semantic, instance}에서 task를 균일하게 샘플링한다. Panoptic 주석에서 task별 레이블을 파생하여 하나의 주석 세트만 사용하여 panoptic 주석의 통합 가능성을 실현한다.
 
-<center><img src='{{"/assets/img/oneformer/oneformer-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/oneformer/oneformer-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 다음으로, task별 ground truth 레이블에서 이미지에 있는 각 카테고리에 대한 이진 마스크 집합을 추출한다. 즉, semantic task는 이미지에 있는 각 클래스에 대해 단 하나의 비정형 이진 마스크만 보장하는 반면, instance task는 겹치지 않음을 나타낸다. "stuff" 클래스에만 이진 마스크를 적용하고 "thing" 영역은 무시한다. Panoptic task는 위 그림과 같이 "stuff" 클래스에 대한 하나의 비정형 마스크와 "thing" 클래스에 대한 겹치지 않는 마스크를 나타낸다. 이어서 마스크 집합을 반복하여 "a photo with a {CLS}" 템플릿으로 구성된 텍스트 목록 $T_\textrm{list}$을 생성한다. 여기서 CLS는 해당 이진 마스크의 클래스 이름이다. 샘플당 이진 마스크 수는 데이터셋에 따라 다르다. 따라서 일정한 길이 $N_\textrm{text}$의 패딩된 목록 $T_\textrm{pad}$를 얻기 위해 "a/an {task} photo" 엔트리로 $T_\textrm{list}$를 패딩한다. Query-text contrastive loss를 계산하기 위해 $T_\textrm{pad}$를 사용한다.
 
@@ -58,7 +58,7 @@ Task로 컨디셔닝된 공동 학습 전략을 사용하여 image segmentation�
 ### 2. Query Representations
 학습 중에 아키텍처에서는 text query $Q_\textrm{text}$와 object query $Q$라는 두 가지 query 집합을 사용한다. $Q_\textrm{text}$는 이미지의 세그먼트에 대한 텍스트 기반 표현인 반면 $Q$는 이미지 기반 표현이다.
 
-<center><img src='{{"/assets/img/oneformer/oneformer-fig4.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/oneformer/oneformer-fig4.webp" | relative_url}}' width="48%"></center>
 <br>
 $Q_\textrm{text}$를 얻기 위해 먼저 텍스트 엔트리 $T_\textrm{pad}$를 토큰화하고 6-layer transformer인 텍스트 인코더를 통해 토큰화된 표현을 전달한다. 인코딩된 $N_\textrm{text}$개의 텍스트 임베딩은 입력 이미지의 이진 마스크 수와 해당 클래스를 나타낸다. 위 그림 (text mapper)과 같이 $N_\textrm{ctx}$개의 학습 가능한 텍스트 컨텍스트 임베딩 $Q_\textrm{ctx}$의 집합을 인코딩된 텍스트 임베딩에 concat하여 최종 $N$개의 text query $Q_\textrm{text}$를 얻는다. $Q_\textrm{ctx}$를 사용하는 동기는 샘플 이미지에 대하여 통합된 텍스트 컨텍스트를 학습하는 것이다. 학습 중에만 text query를 사용하며, inference 중에 text mapper 모듈을 삭제하여 모델 크기를 줄일 수 있다. 
 
@@ -110,45 +110,45 @@ $$
 #### ADE20K
 다음은 ADE20K val set에서 SOTA와 비교한 표이다. 
 
-<center><img src='{{"/assets/img/oneformer/oneformer-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/oneformer/oneformer-table1.webp" | relative_url}}' width="100%"></center>
 
 #### Cityscapes
 다음은 Cityscapes val set에서 SOTA와 비교한 표이다. 
 
-<center><img src='{{"/assets/img/oneformer/oneformer-table2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/oneformer/oneformer-table2.webp" | relative_url}}' width="100%"></center>
 
 #### COCO
 다음은 COCO val2017 set에서 SOTA와 비교한 표이다. 
 
-<center><img src='{{"/assets/img/oneformer/oneformer-table3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/oneformer/oneformer-table3.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Ablation Studies
 #### Task-Conditioned Architecture
 다음은 구성 요소에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/oneformer/oneformer-table4.PNG" | relative_url}}' width="58%"></center>
+<center><img src='{{"/assets/img/oneformer/oneformer-table4.webp" | relative_url}}' width="58%"></center>
 
 #### Contrastive Query Loss
 다음은 loss에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/oneformer/oneformer-table5.PNG" | relative_url}}' width="63%"></center>
+<center><img src='{{"/assets/img/oneformer/oneformer-table5.webp" | relative_url}}' width="63%"></center>
 
 #### Input Text Template
 다음은 입력 텍스트 템플릿에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/oneformer/oneformer-table6.PNG" | relative_url}}' width="58%"></center>
+<center><img src='{{"/assets/img/oneformer/oneformer-table6.webp" | relative_url}}' width="58%"></center>
 
 #### Task Conditioned Joint Training
 다음은 공동 학습에 대한 ablation 결과이다. (Swin-L backbone, ADE20K)
 
-<center><img src='{{"/assets/img/oneformer/oneformer-table7.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/oneformer/oneformer-table7.webp" | relative_url}}' width="60%"></center>
 
 #### Task Token Input
 다음은 task 토큰 입력에 대한 ablation 결과이다. (Swin-L backbone, ADE20K)
 
-<center><img src='{{"/assets/img/oneformer/oneformer-table8.PNG" | relative_url}}' width="56%"></center>
+<center><img src='{{"/assets/img/oneformer/oneformer-table8.webp" | relative_url}}' width="56%"></center>
 
 #### Reduced Category Misclassifications
 다음은 비슷한 클래스들이 있는 영역에 대한 분할 결과를 [Mask2Former](https://kimjy99.github.io/논문리뷰/mask2former)와 비교한 것이다. 
 
-<center><img src='{{"/assets/img/oneformer/oneformer-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/oneformer/oneformer-fig5.webp" | relative_url}}' width="100%"></center>

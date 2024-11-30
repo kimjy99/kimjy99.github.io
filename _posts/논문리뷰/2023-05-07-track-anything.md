@@ -38,7 +38,7 @@ Video Object Tracking (VOT)는 컴퓨터 비전에서 근본적인 task이며, �
 본 논문은 [Segment Anything](https://kimjy99.github.io/논문리뷰/segment-anything) task에서 영감을 받아 임의의 동영상에서 유연한 객체 tracking을 목표로 하는 Track Anything task를 제안한다. 여기서 타겟 객체가 사용자의 관심에 따라 어떤 방식으로든 유연하게 선택, 추가 또는 제거될 수 있음을 정의한다. 또한 동영상 길이와 유형은 동영상에 제한되지 않고 임의적일 수 있다. 이러한 설정을 통해 단일/다중 객체 tracking, 단기/장기 객체 tracking, unsupervised VOS, semi-supervised VOS, referring VOS, interactive VOS, long-term VOS 등 다양한 하위 task를 수행할 수 있다.
 
 ## Methodology
-<center><img src='{{"/assets/img/track-anything/track-anything-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/track-anything/track-anything-fig1.webp" | relative_url}}' width="100%"></center>
 <br>
 SAM에서 영감을 받아 동영상의 모든 것을 추적하는 것을 고려한다. 저자들은 높은 상호작용성과 사용 편의성으로 이 task를 정의하는 것을 목표로 하였다. 그것은 사용의 용이성으로 이어지며 인간의 상호 작용 노력이 거의 없이 높은 성능을 얻을 수 있다. 위 그림은 Track Anything Model (TAM)의 파이프라인을 보여준다. 그림과 같이 Track-Anything 프로세스를 다음 네 단계로 나눈다.
 
@@ -58,24 +58,24 @@ VOS 모델을 inference하는 동안 일관되고 정확한 마스크를 계속 
 ### 1. Quantitative Results
 TAM을 평가하기 위해 DAVIS-2016의 validation set과 DAVIS-2017의 test-development set를 활용한다. 결과는 아래 표와 같다. 
 
-<center><img src='{{"/assets/img/track-anything/track-anything-table1.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/track-anything/track-anything-table1.webp" | relative_url}}' width="90%"></center>
 <br>
 TAM은 DAVIS-2016-val과 DAVIS-2017-test-dev 데이터셋에서 각각 88.4 및 73.1의 $J$&$F$ 점수를 얻었다. TAM은 클릭으로 초기화되고 한 번에 평가된다. 특히 TAM은 어렵고 복잡한 시나리오에 대해 잘 작동한다. 
 
 ### 2. Qualitative Results
 다음은 DAVIS-16과 DAVIS-17의 동영상 시퀀스에 대한 정성적 결과이다.
 
-<center><img src='{{"/assets/img/track-anything/track-anything-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/track-anything/track-anything-fig2.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Applications
 다음은 영화 '캡틴 아메리카 : 시빌 워'에 대한 실제 프레임, 객체 마스크, inpainting 결과이다. 
 
-<center><img src='{{"/assets/img/track-anything/track-anything-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/track-anything/track-anything-fig4.webp" | relative_url}}' width="100%"></center>
 
 ### 4. Failed Cases
 다음은 실패한 케이스의 예시이다. 
 
-<center><img src='{{"/assets/img/track-anything/track-anything-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/track-anything/track-anything-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 전반적으로 실패한 케이스는 일반적으로 다음 두 경우에 나타난다. 
 

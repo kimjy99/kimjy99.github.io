@@ -19,7 +19,7 @@ classes: wide
 > SHI Labs | Tsinghua University | UT Austin | Georgia Tech | Picsart AI Research (PAIR)  
 > 25 May 2023  
 
-<center><img src='{{"/assets/img/prompt-free-diffusion/prompt-free-diffusion-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/prompt-free-diffusion/prompt-free-diffusion-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 개인화된 합성 결과에 대한 높은 수요로 인해 모델 fine-tuning, 프롬프트 엔지니어링, 제어 가능한 편집을 비롯한 여러 text-to-image (T2I) 관련 기술이 새로운 차원의 중요성으로 떠오르게 되었다. 다양한 각도에서 개인화 task를 다루기 위한 최근 연구들도 상당수 등장하였다. 간단한 접근 방식 중 하나는 예시 이미지로 T2I 모델을 fine-tuning하는 것이다. [DreamBooth](https://kimjy99.github.io/논문리뷰/dreambooth)와 같은 개인화 튜닝 기술은 모델 가중치를 fine-tuning하여 유망한 품질을 보여주었다. 그들의 단점은 아직 명백하다. 모델을 fine-tuning하는 것은 보다 효율적인 튜닝 노력이 증가하고 있음에도 불구하고 일반 사용자에게는 여전히 리소스 비용이 많이 든다. 프롬프트 엔지니어링은 T2I 모델을 개인화하기 위한 가벼운 대안 역할을 한다. 비용이 거의 들지 않고 출력 품질이 향상되기 때문에 업계에서 널리 채택되었다. 그럼에도 불구하고 맞춤형 결과를 얻기 위해 고품질 텍스트 프롬프트를 검색하는 것은 과학이라기보다는 예술에 가깝다. 또한 원하는 이미지를 텍스트로 설명하려는 시도는 종종 모호해지고 섬세한 시각적 디테일을 포괄적으로 다룰 수 없다.
@@ -43,11 +43,11 @@ ControlNet 등과 같은 방법이 개인화된 T2I의 모든 문제를 해결�
 ### 1. Prompt-Free Diffusion
 본 논문은 이전 접근 방식의 모든 장점 (즉, 고품질, 학습이 필요하지 않음, 대부분의 오픈 소스 모델에 재사용 가능)을 적극적으로 유지하면서 오늘날 요구 사항이 높은 맞춤형 T2I를 처리할 수 있는 효과적인 솔루션을 제안하는 것을 목표로 한다. 
 
-<center><img src='{{"/assets/img/prompt-free-diffusion/prompt-free-diffusion-table1.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/prompt-free-diffusion/prompt-free-diffusion-table1.webp" | relative_url}}' width="95%"></center>
 <br>
 위 표는 개인화 품질, 손쉬운 설치, 도메인 적응, 입력 복잡성 및 유연성의 세 가지 각도에서 측정한 다양한 접근 방식의 장단점을 설명한다. Prompt-Free Diffusion의 디자인은 T2I 및 Image-Variation 모델을 계승하며 diffuser와 컨텍스트 인코더를 두 개의 핵심 모듈로 구성하고 diffusion의 차원을 줄이는 VAE 옵션을 제공한다. 
 
-<center><img src='{{"/assets/img/prompt-free-diffusion/prompt-free-diffusion-fig2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/prompt-free-diffusion/prompt-free-diffusion-fig2.webp" | relative_url}}' width="60%"></center>
 <br>
 특히 본 논문에서는 위 그림과 같이 Stable Diffusion과 같은 정밀한 [latent diffusion](https://kimjy99.github.io/논문리뷰/ldm) 구조를 유지했다.
 
@@ -62,7 +62,7 @@ Prompt-Free Diffusion의 핵심 모듈인 **Semantic Context Encoder (SeeCoder)*
 
 따라서 본 논문은 CLIP보다 비전 tak에 더 적합한 솔루션인 SeeCoder를 제안한다.
 
-<center><img src='{{"/assets/img/prompt-free-diffusion/prompt-free-diffusion-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/prompt-free-diffusion/prompt-free-diffusion-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 위 그림에서 볼 수 있듯이 SeeCoder는 Backbone Encoder, Decoder, Query Transformer의 세 가지 구성 요소로 분류할 수 있다. 
 
@@ -94,19 +94,19 @@ SeeCoder와 Prompt-Free Diffusion은 놀랍도록 간단하다. VLB loss로 일�
 ### 1. Performance
 다음은 Prompt-Free Diffusion의 결과이다. 
 
-<center><img src='{{"/assets/img/prompt-free-diffusion/prompt-free-diffusion-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/prompt-free-diffusion/prompt-free-diffusion-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 점차 복잡해지는 프롬프트를 사용하여 [ControlNet](https://kimjy99.github.io/논문리뷰/controlnet)+T2I의 성능을 비교한 것이다.
 
-<center><img src='{{"/assets/img/prompt-free-diffusion/prompt-free-diffusion-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/prompt-free-diffusion/prompt-free-diffusion-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Image-Variation 결과를 [VD](https://kimjy99.github.io/논문리뷰/versatile-diffusion), [ControlNet](https://kimjy99.github.io/논문리뷰/controlnet)과 비교한 것이다.
 
-<center><img src='{{"/assets/img/prompt-free-diffusion/prompt-free-diffusion-fig6.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/prompt-free-diffusion/prompt-free-diffusion-fig6.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 Dual-ControlNet과 Prompt-Free Diffusion의 성능을 비교한 것이다. 
 
-<center><img src='{{"/assets/img/prompt-free-diffusion/prompt-free-diffusion-fig7.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/prompt-free-diffusion/prompt-free-diffusion-fig7.webp" | relative_url}}' width="75%"></center>
 
 ### 2. Reusability
 다음은 7가지 오픈 소스 및 자체 모델에 대한 SeeCoder의 적응력을 검사한 것이다. 
@@ -119,13 +119,13 @@ SeeCoder와 Prompt-Free Diffusion은 놀랍도록 간단하다. VLB loss로 일�
 - (f) Deliberate-V2
 - (g) RealisticVision-V2
 
-<center><img src='{{"/assets/img/prompt-free-diffusion/prompt-free-diffusion-fig8.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/prompt-free-diffusion/prompt-free-diffusion-fig8.webp" | relative_url}}' width="70%"></center>
 
 ### 3. Downstream Applications
 다음은 레퍼런스 이미지와 컨디셔닝 포즈와 함께 Prompt-Free Diffusion을 사용하여 애니메이션 그림을 생성한 데모이다. 
 
-<center><img src='{{"/assets/img/prompt-free-diffusion/prompt-free-diffusion-fig9.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/prompt-free-diffusion/prompt-free-diffusion-fig9.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 Prompt-Free Diffusion과 SOTA 예시 기반 접근 방식을 사용한 가상 시착 데모이다. 
 
-<center><img src='{{"/assets/img/prompt-free-diffusion/prompt-free-diffusion-fig10.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/prompt-free-diffusion/prompt-free-diffusion-fig10.webp" | relative_url}}' width="85%"></center>

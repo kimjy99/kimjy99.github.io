@@ -72,7 +72,7 @@ s_\theta (x, \sigma_t) = (D_\theta (x; \sigma_t) - x) / \sigma_t^2
 \end{equation}
 $$
 
-<center><img src='{{"/assets/img/patch-diffusion/patch-diffusion-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/patch-diffusion/patch-diffusion-fig1.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문은 전체 이미지에 대해 score matching을 수행하는 대신 임의의 크기의 패치에서 score function을 학습할 것을 제안한다. 위 그림에서 볼 수 있듯이 임의의 $x \sim p(x)$에 대해 먼저 작은 패치 $x_{i,j,s}$를 랜덤하게 잘라낸다. 여기서 왼쪽 위 모서리 픽셀 좌표인 $(i,j)$를 사용하여 각 이미지 패치를 찾는다. $s$는 패치 크기를 나타낸다. 해당 패치 위치 및 크기를 조건으로 하여 이미지 패치에서 denoising score matching을 수행하며 다음과 같이 표현된다.
 
@@ -193,31 +193,31 @@ $$
 ### 1. Ablation study
 다음은 다양한 $p$에 대한 CelebA-64$\times$64의 FID를 나타낸 표와 그래프이다.
 
-<center><img src='{{"/assets/img/patch-diffusion/patch-diffusion-fig2a.PNG" | relative_url}}' width="68%"></center>
-<center><img src='{{"/assets/img/patch-diffusion/patch-diffusion-fig2b.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/patch-diffusion/patch-diffusion-fig2a.webp" | relative_url}}' width="68%"></center>
+<center><img src='{{"/assets/img/patch-diffusion/patch-diffusion-fig2b.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 다양한 $p$로 학습된 모델의 CelebA-64$\times$64에 대한 샘플들이다. (아래로 갈수록 $p$가 증가)
 
-<center><img src='{{"/assets/img/patch-diffusion/patch-diffusion-fig3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/patch-diffusion/patch-diffusion-fig3.webp" | relative_url}}' width="50%"></center>
 
 ### 2. Experiments on Large-scale Dataset
 다음은 CelebA-64$\times$64과 FFHQ-64$\times$64에 대한 FID, NFE(함수 평가 횟수), 학습시간을 나타낸 표이다.
 
-<center><img src='{{"/assets/img/patch-diffusion/patch-diffusion-table1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/patch-diffusion/patch-diffusion-table1.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 CelebA-64$\times$64과 FFHQ-64$\times$64에 대한 샘플들이다.
 
-<center><img src='{{"/assets/img/patch-diffusion/patch-diffusion-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/patch-diffusion/patch-diffusion-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Patch Diffusion을 Latent Diffusion과 결합한 Latent Patch Diffusion을 LSUN-Bedroom-256$\times$256과 LSUN-Church-256$\times$256에서 평가한 표이다.
 
-<center><img src='{{"/assets/img/patch-diffusion/patch-diffusion-table2.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/patch-diffusion/patch-diffusion-table2.webp" | relative_url}}' width="75%"></center>
 
 ### 3. Experiments on Limited-size Dataset
 다음은 제한된 크기의 데이터셋(AFHQv2)에서 Patch Diffusion을 평가한 표이다.
 
-<center><img src='{{"/assets/img/patch-diffusion/patch-diffusion-table3.PNG" | relative_url}}' width="72%"></center>
+<center><img src='{{"/assets/img/patch-diffusion/patch-diffusion-table3.webp" | relative_url}}' width="72%"></center>
 <br>
 다음은 AFHQv2-64$\times$64에 대한 샘플들이다.
 
-<center><img src='{{"/assets/img/patch-diffusion/patch-diffusion-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/patch-diffusion/patch-diffusion-fig5.webp" | relative_url}}' width="100%"></center>

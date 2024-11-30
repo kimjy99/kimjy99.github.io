@@ -21,7 +21,7 @@ classes: wide
 > University of Science and Technology of China | Microsoft Research Asia  
 > 20 Dec 2021  
 
-<center><img src='{{"/assets/img/styleswin/styleswin-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/styleswin/styleswin-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 이미지 생성 모델링은 최근 몇 년 동안 극적인 발전을 보였으며 그 중 GAN은 틀림없이 고해상도 이미지 합성에서 가장 강력한 품질을 제공한다. 초기 시도는 적절한 정규화 또는 adversarial loss 디자인을 통해 학습을 안정화하는 데 초점을 맞추었지만 최근의 눈에 띄는 성능 향상은 주로 self-attention 채택, 공격적인 모델 확장, 스타일 기반 generator와 같은 더 강력한 모델링 용량을 목표로 하는 아키텍처 수정에 기인한다. 최근 transformer의 광범위한 성공에 힘입어 몇몇 연구들은 표현력 증가와 장거리 의존성을 모델링하는 능력이 복잡한 이미지 생성에 도움이 될 수 있기를 바라며 순수 transformer를 사용하여 생성 네트워크를 구축하려고 시도했지만 아직 특히 고해상도에서 고품질 이미지 생성은 여전히 어려운 일이다.
@@ -40,7 +40,7 @@ classes: wide
 
 ## Method
 ### 1. Transformer-based GAN architecture
-<center><img src='{{"/assets/img/styleswin/styleswin-fig2a.PNG" | relative_url}}' width="23%"></center>
+<center><img src='{{"/assets/img/styleswin/styleswin-fig2a.webp" | relative_url}}' width="23%"></center>
 <br>
 Latent 변수 $z \sim \mathcal{N} (0, I)$을 입력으로 받고 점진적으로 transformer 블록의 cascade를 통해 feature map을 업샘플링하는 위 그림과 같은 간단한 generator 아키텍처에서 시작한다.
 
@@ -60,7 +60,7 @@ $$
 Discriminator는 adversarial training의 안정성에 심각한 영향을 미치기 때문에 convolution 기반 discriminator를 직접 사용한다. 실험에서 저자들은 이 기본 아키텍처에서 단순히 convolution을 transformer 블록으로 교체하면 향상된 모델 용량으로 인해 보다 안정적인 학습을 얻을 수 있음을 발견했다. 그러나 이러한 순진한 아키텍처는 transformer 기반 GAN을 SOTA와 경쟁하게 만들 수 없다. 
 
 #### Style injection
-<center><img src='{{"/assets/img/styleswin/styleswin-fig2b.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/styleswin/styleswin-fig2b.webp" | relative_url}}' width="55%"></center>
 <br>
 먼저 위 그림과 같이 generator를 스타일 기반 아키텍처에 적용하여 모델 능력을 강화한다. 비선형 매핑 $f : \mathcal{Z} \rightarrow \mathcal{W}$를 학습하여 latent code $z$를 $\mathcal{Z}$ space에서 $\mathcal{W}$ space로 매핑하여 기본 합성 네트워크에 주입되는 스타일을 지정한다. 저자들은 다음과 같은 스타일 주입 방식을 조사하였다.
 
@@ -68,7 +68,7 @@ Discriminator는 adversarial training의 안정성에 심각한 영향을 미치
 2. **Modulated MLP**: Feature map을 변조하는 대신 linear layer의 가중치를 변조할 수도 있다. 구체적으로 transformer 블록 내 feed-forward network의 채널별 가중치 크기를 재조정한다. 이러한 스타일 주입은 AdaNorm보다 속도가 빠르다.
 3. **Cross-attention**: transformer가 $\mathcal{W}$ space에서 파생된 스타일 토큰에 추가로 attend하는 transformer별 스타일 주입
 
-<center><img src='{{"/assets/img/styleswin/styleswin-table1.PNG" | relative_url}}' width="29%"></center>
+<center><img src='{{"/assets/img/styleswin/styleswin-table1.webp" | relative_url}}' width="29%"></center>
 <br>
 위 표는 고해상도 합성을 위해 batch size가 손상되기 때문에 AdaBN을 사용한 학습이 수렴하지 않는 것을 제외하고 위의 모든 스타일 주입 방법이 생성 모델링 용량을 크게 향상시킨다는 것을 보여준다. Modulated MLP와 cross attention은 스타일 정보를 한 번만 사용할 수 있지만, 반면 AdaNorm은 네트워크가 attention 블록과 FFN에서 스타일 정보를 두 번 활용할 수 있기 때문에 더 충분한 스타일 주입을 제공한다. 또한 AdaBN, AdaLN과 비교하여 AdaIN은 feature map이 정규화되고 독립적으로 변조되므로 더 미세하고 충분한 feature 변조를 제공하므로 기본적으로 AdaIN을 선택한다. 
 
@@ -77,7 +77,7 @@ Discriminator는 adversarial training의 안정성에 심각한 영향을 미치
 
 확대된 receptive field를 위해 단일 transformer 블록이 로컬 window와 shifted window의 컨텍스트에 동시에 attend할 수 있도록 하는 double attention을 도입한다. 
 
-<center><img src='{{"/assets/img/styleswin/styleswin-fig2c.PNG" | relative_url}}' width="35%"></center>
+<center><img src='{{"/assets/img/styleswin/styleswin-fig2c.webp" | relative_url}}' width="35%"></center>
 <br>
 위 그림에서 볼 수 있듯이 $h$개의 attention head를 두 그룹으로 나눈다. Head의 전반부는 일반 window attention을 수행하는 반면 후반부는 shifted window attention을 계산한다. 이 두 그룹의 결과는 출력을 형성하기 위해 추가로 concat된다. 구체적으로, 일반 window 분할과 shifted window 분할 하에서의 겹치지 않는 패치를 각각 $x_w$와 $x_{sw}$로 표시하자. 즉, $x_w, x_{sw} \in \mathbb{R}^{\frac{HW}{\kappa^2} \times \kappa \times \kappa \times C}$라고 하면 double attention은 다음과 같다. 
 
@@ -115,13 +115,13 @@ $$
 여기서 $(i, j)$는 2D 위치이다. 실제로 RPE와 SPE를 함께 사용하여 최대한 활용한다. 각 transformer 블록 내에 적용되는 RPE는 로컬 컨텍스트 내의 상대적 위치를 제공하는 반면 각 스케일에 도입된 SPE는 글로벌 위치를 알려준다.
 
 ### 2. Blocking artifact in high-resolution synthesis
-<center><img src='{{"/assets/img/styleswin/styleswin-fig3.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/styleswin/styleswin-fig3.webp" | relative_url}}' width="70%"></center>
 <br>
 위의 구조로 256$\times$256 이미지를 합성하여 SOTA 품질을 달성하지만, 이를 고해상도 합성에 직접 적용하면 위 그림과 같이 블로킹 아티팩트가 발생하여 이미지 품질에 심각한 영향을 미친다. Bilinear upsampling과 안티앨리어싱 필터를 사용하므로 이 아티팩트는 transposed convolution으로 인해 발생하는 체크보드 아티팩트가 아니다.
 
 저자들은 블로킹 아티팩트가 transformer에 의해 발생한다고 추측하였다. 이를 확인하기 위해 64$\times$64에서 시작하는 attention 연산자를 제거하고 고주파 디테일을 특성화하기 위해 MLP만 사용하면, 아티팩트가 없는 결과를 얻는다. 더 나아가, 저자들은 이러한 아티팩트가 로컬 attention의 window 크기와 강한 상관관계가 있는 주기적인 패턴을 보인다는 것을 발견했다. 따라서 공간 일관성을 깨고 블로킹 아티팩트를 유발하는 것이 window 방식 처리라고 확신하였다. 
 
-<center><img src='{{"/assets/img/styleswin/styleswin-fig4.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/styleswin/styleswin-fig4.webp" | relative_url}}' width="55%"></center>
 <br>
 단순화하기 위해 위 그림의 1D 예시를 고려할 수 있다. (a)는 입력 신호이고 (b)는 window-wise attention 후의 출력 신호이다. Attention은 Strided window에서 로컬로 계산된다. 연속 신호의 경우 동일한 window 내의 값이 softmax 연산 후에 균일해지는 경향이 있으므로 window 방향 로컬 attention은 불연속적인 출력을 생성할 가능성이 높으므로 인접 window의 출력이 다소 뚜렷하게 나타난다. 2D 예시는 블록별 인코딩으로 인한 JPEG 압축 아티팩트와 유사하다.
 
@@ -136,17 +136,17 @@ $$
 #### Artifact-suppression discriminator
 실제로 256$\times$256 해상도의 초기 학습 단계에서 블로킹 아티팩트가 관찰되지만 학습이 진행됨에 따라 점차 사라진다. 즉, window 기반 attention이 아티팩트를 생성하는 경향이 있지만 generator는 아티팩트가 없는 솔루션을 제공할 수 있는 능력이 있다. Discriminator가 고주파 디테일 검사하지 못하기 때문에 아티팩트가 고해상도 합성을 방해한다. 이것은 아티팩트 억제를 위해 더 강력한 discriminator에 의지하도록 한다. 
 
-<center><img src='{{"/assets/img/styleswin/styleswin-fig5.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/styleswin/styleswin-fig5.webp" | relative_url}}' width="60%"></center>
 
 1. **Patch discriminator**: Patch discriminator는 제한된 receptive field를 가지고 있으며 특히 로컬 구조에 페널티를 주는 데 사용할 수 있다. 
 2. **Total variation annealing**: 네트워크의 아티팩트를 억제하기 위해 학습 시작 시 큰 total variation loss를 적용한다. 그런 다음 loss 가중치는 학습이 끝날 때까지 선형적으로 0으로 감소한다. 아티팩트를 완전히 제거할 수 있지만 이러한 제약은 과도하게 평활화된 결과를 선호하고 고주파 디테일에 불가피하게 영향을 미친다.
 3. **Wavelet discriminator**: 아래 그림에서 볼 수 있듯이 주기적인 아티팩트 패턴은 스펙트럼 영역에서 쉽게 구분할 수 있다. (b)는 아티팩트가 있는 이미지의 푸리에 스펙트럼이고 (c)는 아티팩트가 없는 이미지의 푸리에 스펙트럼이다. 이에 영감을 받아 공간적 discriminator를 보완하기 위해 wavelet discriminator에 의지한다. 
 
-<center><img src='{{"/assets/img/styleswin/styleswin-fig6.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/styleswin/styleswin-fig6.webp" | relative_url}}' width="65%"></center>
 <br>
 위 그림은 wavelet discriminator의 구조이다. Discriminator는 입력 이미지를 계층적으로 다운샘플링하고 각 스케일에서 discrete wavelet decomposition 후 실제 이미지에 대한 주파수 불일치를 검사한다. 이러한 wavelet discriminator는 블로킹 아티팩트를 방지하는 데 매우 효과적이다. 한편, 분포 매칭에 부작용을 일으키지 않아 generator가 풍부한 디테일을 생성하도록 효과적으로 가이드한다.
 
-<center><img src='{{"/assets/img/styleswin/styleswin-table2.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/styleswin/styleswin-table2.webp" | relative_url}}' width="47%"></center>
 <br>
 위 표는 위의 아티팩트 억제 방법을 비교하여 시각적 아티팩트를 완전히 제거할 수 있는 네 가지 접근 방식이 있음을 보여준다. 그러나 sliding window inference는 학습-테스트 차이로 인해 어려움을 겪는 반면, MLP는 고해상도 단계에서 미세한 디테일을 합성하지 못하여 둘 다 더 높은 FID로 이어진다. 한편, annealing에 따른 total variation은 여전히 FID를 악화시킨다. 이에 비해 wavelet transformer는 가장 낮은 FID를 달성하고 가장 시각적으로 만족스러운 결과를 산출한다.
 
@@ -163,28 +163,28 @@ $$
 ### 1. Quantitative results
 다음은 256$\times$256 해상도에서 SOTA 이미지 생성 방법들과 비교한 표이다.
 
-<center><img src='{{"/assets/img/styleswin/styleswin-table3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/styleswin/styleswin-table3.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 1024$\times$1024 해상도에서 SOTA 이미지 생성 방법들과 비교한 표이다.
 
-<center><img src='{{"/assets/img/styleswin/styleswin-table4.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/styleswin/styleswin-table4.webp" | relative_url}}' width="47%"></center>
 
 ### 2. Qualitative results
 다음은 FFHQ-1024 (a)와 CelebA-HQ-1024 (b)로 학습된 StyleSwin이 생성한 이미지 샘플들이다. 
 
-<center><img src='{{"/assets/img/styleswin/styleswin-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/styleswin/styleswin-fig7.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 LSUN Church-256으로 학습된 StyleSwin이 생성한 이미지 샘플들이다. 
 
-<center><img src='{{"/assets/img/styleswin/styleswin-fig8.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/styleswin/styleswin-fig8.webp" | relative_url}}' width="80%"></center>
 <br>
 
 ### 3. Ablation
 다음은 FFHQ-256에서 수행한 ablation study의 결과이다.
 
-<center><img src='{{"/assets/img/styleswin/styleswin-table5.PNG" | relative_url}}' width="32%"></center>
+<center><img src='{{"/assets/img/styleswin/styleswin-table5.webp" | relative_url}}' width="32%"></center>
 
 ### 4. Parameters and Throughput
 다음은 StyleGAN2와 파라미터 수와 FLOPs를 비교한 표이다. 
 
-<center><img src='{{"/assets/img/styleswin/styleswin-table6.PNG" | relative_url}}' width="35%"></center>
+<center><img src='{{"/assets/img/styleswin/styleswin-table6.webp" | relative_url}}' width="35%"></center>

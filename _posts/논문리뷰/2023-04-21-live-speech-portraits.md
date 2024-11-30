@@ -21,7 +21,7 @@ classes: wide
 > Nanjing University | Xmov  
 > 22 Sep 2021  
 
-<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig1.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig1.webp" | relative_url}}' width="85%"></center>
 
 ## Introduction
 Talking-head animation, 즉 target의 오디오와 싱크가 맞는 동영상 프레임을 합성하는 것은 인터랙티브한 애플리케이션에 유용하다. 최근 딥 러닝의 발전으로 이 오랜 문제에서 큰 진전을 이루었다. 그러나 사실적이고 표현력이 풍부한 말하는 애니메이션을 구현하는 것은 여전히 어려운 과제이다. 인간은 얼굴 인공물에 극도로 민감하여 원하는 기술에 대한 요구 사항이 높다. 
@@ -63,7 +63,7 @@ $$
 
 Manifold projection 연산은 사람의 얼굴에서 멀리 떨어진 스케치로 일반화할 수 있는 스케치에서 얼굴을 합성하는 최근 성공에 영감을 받았다. 음성 표현 manifold에 locally linear embedding (LLE) 가정을 적용한다. 각 데이터 포인트와 그 이웃은 고차원 manifold에서 LLE이다. 
 
-<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig3.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig3.webp" | relative_url}}' width="70%"></center>
 <br>
 추출된 음성 표현 $h \in \mathbb{R}^{512}$가 주어지면 LLE 가정 하에 재구성된 표현 $\hat{h} \in \mathbb{R}^{512}$를 각 차원에 대하여 계산한다. 위 그림에서 묘사한 것과 같이, 먼저 target 음성 표현 데이터베이스 $\mathcal{D} \in \mathbb{R}^{N_s \times 512}$애서 $h$와 가까운 $K$개의 포인트를 유클리드 거리를 계산하여 찾는다. $N_s$는 학습 프레임의 개수이다. 그런 다음 $h$를 가장 잘 재구성하는 $K$개의 포인트의 선형 결합을 찾는다. 이는 다음 최소화 문제를 해결하여 neighbor를 기반으로 $h$의 중심 좌표를 계산하는 것과 같다.
 
@@ -115,7 +115,7 @@ $$
 
 여기서 $x$는 머리 움직임이고 $\hat{h}$는 음성 표현이다.
 
-<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig4.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig4.webp" | relative_url}}' width="50%"></center>
 <br>
 본 논문이 사용하는 확률 모델은 다차원 가우시안 분포이다. 네트워크 아키텍처는 조건부 확률 생성 모델링의 최근 성공에 영감을 받았다. 확률 모델의 세부 설계는 위 그림 4에 설명되어 있다. 
 
@@ -137,7 +137,7 @@ $$
 마지막 단계는 이전 예측에서 사실적인 얼굴 렌더링을 생성하는 것이다. 렌더링 네트워크는 사실적이고 제어 가능한 얼굴 동영상 합성의 최근 발전에 영감을 받았다. 적대적 학습과 함께 조건부 image-to-image 변환 네트워크를 backbone으로 사용한다. 네트워크는 조건부 feature map과 target의 후보 이미지 $N = 4$개를 channel-wise concat하여 사실적인 렌더링을 생성한다. 
 
 #### Conditional Feature Maps
-<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig5.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig5.webp" | relative_url}}' width="45%"></center>
 <br>
 얼굴과 상체의 단서를 제공하기 위해 위의 예측에서 각 프레임에 대한 조건부 feature map을 그린다. 조건부 map의 예시는 위 그림에 나와 있다. Feature map은 얼굴 부분과 상체 부분으로 구성된다. 색상으로 semantic 영역 또는 더 나아가 하나의 영역을 그리면, 하나의 채널이 더 풍부한 정보와 더 많은 그리기 시간을 가져간다. 저자들은 이 두 가지 대안에서 뚜렷한 개선점을 찾지 못했다. 희박한 얼굴 랜드마크와 예상하는 상체 billboard는 객체 좌표에서 찾을 수 있다. 따라서 미리 계산된 카메라 고유 파라미터 $K$를 통해 이러한 3D 위치를 2D 이미지 평면에 project해야 한다. 사용하는 카메라 모델은 핀홀 카메라 모델이며 
 
@@ -260,7 +260,7 @@ $$
 - Learning rate = $10^{-4}$, 선형적으로 $10^{-5}$로 감소
 - Nvidia 1080Ti GPU 사용
 
-<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-table0.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-table0.webp" | relative_url}}' width="50%"></center>
 
 ### 4. Real-Time Animation
 Intel Core i7-9700K CPU (32GB RAM), NVIDIA GeForce RTX 2080 (8GB RAM)에서 30FPS 이상에 대하여 inference하는 데 총 27.4ms가 소요된다. 
@@ -269,56 +269,56 @@ Intel Core i7-9700K CPU (32GB RAM), NVIDIA GeForce RTX 2080 (8GB RAM)에서 30FP
 ### 1. Qualitative Evaluation
 다음은 오디오 기반 talking-head animation의 결과를 나타낸 것이다.
 
-<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 
 다음은 본 논문의 방법의 포즈 제어 가능성을 보여준다. 
 
-<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig7.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig7.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 manifold projection에 대한 t-SNE 시각화이다. 
 
-<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig8.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig8.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 머리 포즈 생성에 대한 t-SNE 시각화이다. 왼쪽은 생성된 포즈를 시각화 한 것이고, 오른쪽은 생성된 포즈(★)와 학습 코퍼스의 머리 포즈(●)를 시각화 한 것이다. 
 
-<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig9.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig9.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 추정된 머리 포즈를 정성적으로 비교한 것이다. 
 
-<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig10.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig10.webp" | relative_url}}' width="70%"></center>
 
 ### 2. Quantitative Evaluation
 다음은 time delay $d$에 따른 랜드마크 사이의 유클리드 거리를 측정한 것이다. 
 
-<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-table1.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-table1.webp" | relative_url}}' width="45%"></center>
 <br>
 다음은 머리 포즈 예측에 대한 정량적 평가 결과이다.
 
-<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-table2.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-table2.webp" | relative_url}}' width="45%"></center>
 <br>
 다음은 렌더러의 조건부 입력에 대한 정성적 평가 결과이다. 
 
-<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig11.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig11.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 렌더러의 아키텍처 디자인에 대한 정성적 평가 결과이다.
 
-<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig12.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig12.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 학습 데이터셋 크기에 대한 정성적 평가 결과이다. 
 
-<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig13.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig13.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 조건부 입력 (상단), 아키텍처 (중간), 학습 데이터셋 크기 (하단)에 대한 정량적 평가 결과이다. 
 
-<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-table3.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-table3.webp" | relative_url}}' width="75%"></center>
 
 ### 3. Comparisons to the State-of-the-Art
 다음은 state-of-the-art 이미지 기반 생성 방법과 비교한 것이다.
 
-<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig14.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig14.webp" | relative_url}}' width="100%"></center>
 
 ### 4. User Study
 다음은 3개의 user study 결과이다. 
 
-<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig15.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/live-speech-portraits/live-speech-portraits-fig15.webp" | relative_url}}' width="45%"></center>

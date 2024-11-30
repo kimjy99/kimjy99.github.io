@@ -20,7 +20,7 @@ classes: wide
 > Blavatnik School of Computer Science, Tel Aviv University  
 > 30 Nov 2021  
 
-<center><img src='{{"/assets/img/hyperstyle/hyperstyle-fig1.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/hyperstyle/hyperstyle-fig1.webp" | relative_url}}' width="60%"></center>
 
 ## Introduction
 GAN, 특히 StyleGAN은 이미지 합성의 표준이 되었다. 의미적으로 풍부한 latent 표현 덕분에 많은 task에서 latent space 조작을 통해 다양하고 표현적인 편집을 용이하게 했다. 그러나 실제 애플리케이션에 이러한 접근 방식을 채택하는 데 있어 중요한 문제는 실제 이미지를 편집하는 능력이다. 실제 사진을 편집하려면 먼저 일반적으로 GAN inversion이라고 하는 프로세스를 통해 해당 latent 표현을 찾아야 한다. Inversion 프로세스는 잘 연구된 문제이지만 여전히 open chanllenge이다. 
@@ -72,7 +72,7 @@ $$
 여기서 $\hat{\theta}$는 새로운 generator 가중치를 나타낸다. 최종 재구성은 초기 inversion과 수정된 가중치를 활용하여 $$\hat{y} = G(\hat{w}_{init}; \hat{\theta})$$으로 얻을 수 있다.
 
 ### 2. Overview
-<center><img src='{{"/assets/img/hyperstyle/hyperstyle-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/hyperstyle/hyperstyle-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 HyperStyle은 위 그림 2와 같이 generator에 수정된 가중치를 효율적으로 제공하여 ID 주입 연산을 수행하는 것을 목표로 한다. 이미지 $x$, 가중치 $\theta$로 parameterize된 generator $G$, 초기 inverted latent code $$\hat{w}_{init} \in \mathcal{W}$$로 시작한다. 이러한 가중치와 $$\hat{w}_{init}$$를 사용하여 초기 재구성 이미지 $$\hat{y}_{init} = G(\hat{w}_{init}; \theta)$$를 생성한다. 이러한 latent code를 얻기 위해 상용 인코더를 사용한다. 
 
@@ -107,7 +107,7 @@ $$
 
 채널당 offset을 학습하면 각 generator 파라미터에 대한 offset을 예측하는 것과 비교하여 hypernetwork 파라미터의 수가 88% 감소한다. 
 
-<center><img src='{{"/assets/img/hyperstyle/hyperstyle-fig3.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/hyperstyle/hyperstyle-fig3.webp" | relative_url}}' width="90%"></center>
 <br>
 입력 이미지를 처리하기 위해 6채널 입력 $x^i, y_{init}^i$를 받고 16$\times$16$\times$512 feature map을 출력하는 ResNet34 백본을 통합한다. 이 공유 backbone 다음에는 각각 단일 generator layer의 변조를 생성하는 refinement block의 집합이 이어진다. 크기 $k_l \times k_l \times C_l^{in} \times C_l^{out}$의 파라미터 $\theta_l$이 있는 레이어 $l$을 생각해보자. 여기서 $k_l$은 커널 크기이다. 해당 refinement block은 backbone에서 추출한 feature map을 받고 $1 \times 1 \times C_l^{in} \times C_l^{out}$ 크기의 offset을 출력한다. Offset은 $\theta_l$의 $k_l \times k_l$ 커널 차원과 일치하도록 복제된다. 마지막으로 레이어 $l$의 새로운 가중치를 업데이트한다. Refinement block은 위 그림에 설명되어 있다.
 
@@ -115,7 +115,7 @@ $$
 
 Shared Refinement Blocks와 채널별 예측을 결합한 최종 구성에는 naive한 하이퍼네트워크보다 27억 개 적은 파라미터(~89%)가 포함된다. 다양한 hypernetwork 변형의 총 파라미터 수는 아래 표와 같다.
 
-<center><img src='{{"/assets/img/hyperstyle/hyperstyle-table1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/hyperstyle/hyperstyle-table1.webp" | relative_url}}' width="50%"></center>
 
 #### Which layers are refined?
 정제할 레이어를 선택하는 것이 매우 중요하다. 보다 의미 있는 generator 가중치에 hypernetwork를 집중시키면서 출력 차원을 줄일 수 있다. 한 번에 하나의 ID를 invert하므로 affine transformation layer에 대한 모든 변경 사항은 convolution 가중치의 각 재조정으로 재생산된다. 또한 저자들은 toRGB layer를 변경하면 GAN의 편집 능력이 손상된다는 사실을 발견했다. 저자들은 toRGB layer를 수정하면 픽셀별 텍스처와 색상이 주로 변경되고 포즈와 같은 글로벌한 편집에서 잘 변환되지 않는 변경 사항이 있다고 가정한다. 따라서 toRGB가 아닌 convolution만 수정하도록 제한한다. 
@@ -149,30 +149,30 @@ $$
 
 ### 1. Reconstruction Quality
 #### Qualitative Evaluation
-<center><img src='{{"/assets/img/hyperstyle/hyperstyle-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/hyperstyle/hyperstyle-fig4.webp" | relative_url}}' width="100%"></center>
 
 ### Quantitative Evaluation
-<center><img src='{{"/assets/img/hyperstyle/hyperstyle-table2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/hyperstyle/hyperstyle-table2.webp" | relative_url}}' width="50%"></center>
 
 ### 2. Editability via Latent Space Manipulations
 #### Qualitative Evaluation
-<center><img src='{{"/assets/img/hyperstyle/hyperstyle-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/hyperstyle/hyperstyle-fig5.webp" | relative_url}}' width="100%"></center>
 
 #### Quantitative Evaluation
-<center><img src='{{"/assets/img/hyperstyle/hyperstyle-fig6.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/hyperstyle/hyperstyle-fig6.webp" | relative_url}}' width="80%"></center>
 
 ### 3. Ablation Study
 다음은 ablation study 결과를 나타낸 표이다. Layers의 C, M, F, R은 각각 coarse, medium, fine, toRGB를 의미한다. 
 
-<center><img src='{{"/assets/img/hyperstyle/hyperstyle-table3.PNG" | relative_url}}' width="52%"></center>
+<center><img src='{{"/assets/img/hyperstyle/hyperstyle-table3.webp" | relative_url}}' width="52%"></center>
 
 ### 4. Additional Applications
 #### Domain Adaptation
 다음은 FFHQ에서 학습된 HyperStyle이 예측한 가중치 offset을 fine-tuning된 generator(ex. Toonify, StyleGAN-NADA)를 수정하는 데 적용한 예시이다.
 
-<center><img src='{{"/assets/img/hyperstyle/hyperstyle-fig7.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/hyperstyle/hyperstyle-fig7.webp" | relative_url}}' width="65%"></center>
 
 #### Editing Out-of-Domain Images
 실제 이미지에 대해서만 학습된 HyperStyle을 generator fine-tuning 학습 중에 관찰되지 않는 까다로운 스타일로 성공적으로 일반화한 예시이다. 
 
-<center><img src='{{"/assets/img/hyperstyle/hyperstyle-fig8.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/hyperstyle/hyperstyle-fig8.webp" | relative_url}}' width="70%"></center>

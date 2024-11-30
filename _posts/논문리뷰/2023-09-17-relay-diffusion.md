@@ -19,7 +19,7 @@ classes: wide
 > Tsinghua University | Zhipu AI  
 > 4 Sep 2023  
 
-<center><img src='{{"/assets/img/relay-diffusion/relay-diffusion-fig1.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/relay-diffusion/relay-diffusion-fig1.webp" | relative_url}}' width="95%"></center>
 
 ## Introduction
 Diffusion model은 GAN과 autoregressive model의 뒤를 이어 최근 몇 년 동안 가장 널리 사용되는 생성 모델이 되었다. 그러나 고해상도 이미지에 대한 diffusion model을 학습하는 데는 여전히 과제가 존재한다. 보다 구체적으로 말하면 두 가지 주요 장애물이 있다.
@@ -50,7 +50,7 @@ Diffusion model에는 각 단계에서 Gaussian noise의 양을 제어하기 위
 
 ## Method
 ### 1. Motivation
-<center><img src='{{"/assets/img/relay-diffusion/relay-diffusion-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/relay-diffusion/relay-diffusion-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 Noise schedule은 diffusion model에 매우 중요하며 해상도에 따라 다르다. 위 그림의 (a)와 (b)의 첫 번째 행을 보면, 64$\times$64 이미지를 적절하게 손상시키는 특정 noise level은 256$\times$256 이미지를 손상시키지 못할 수 있다. 저자들은 주파수 스펙트럼 관점의 분석이 이 현상을 잘 이해하는 데 도움이 될 수 있음을 발견했다.
 
@@ -94,7 +94,7 @@ $$
 자연스러운 아이디어는 고해상도 단계의 저주파 정보가 이미 저해상도 조건에 의해 결정되었기 때문에 업샘플링된 결과에서 직접 생성을 계속하여 학습 및 샘플링 step을 모두 줄일 수 있다는 것이다. 그러나 저해상도 이미지의 생성은 완벽하지 않으므로, ground-truth와 생성된 저해상도 이미지 간의 분포 불일치를 해결하는 것이 우선이다. 
 
 ### 2. Relay Diffusion
-<center><img src='{{"/assets/img/relay-diffusion/relay-diffusion-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/relay-diffusion/relay-diffusion-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문은 block noise와 patch-level blurring diffusion으로 단계를 연결하는 계단식 파이프라인인 **relay diffusion model (RDM)**을 제안하였다. [CDM](https://kimjy99.github.io/논문리뷰/cdm)과 달리 RDM은 고해상도로 업샘플링할 때 저해상도로 생성된 이미지의 동등성을 고려한다. 생성된 64$\times$64 저해상도 이미지 $x_0^L = x^L + \epsilon_L$을 실제 분포의 샘플 $x^L$과 나머지 noise $\epsilon_L \sim \mathcal{N} (0, \beta_0^2 I)$로 분해할 수 있다고 가정한다. 앞서 언급했듯이 $\epsilon_L$의 256$\times$256 equivalence $\epsilon_H$는 분산 $\beta_0^2$을 갖는 block noise이다. 업샘플링 후에 $x^L$은 $x^H$가 되며, 여기서 각 4$\times$4 그리드는 동일한 픽셀 값을 공유한다. 이것을 patch-wise blurring diffusion의 시작 상태로 정의할 수 있다.
 
@@ -169,7 +169,7 @@ Blurring diffusion 외에 block noise도 고려해야 하며, 단순히 Gaussian
 
 RDM의 super-resolution 단계에 대한 stochastic sampler는 Algorithm 1에 요약되어 있다.
 
-<center><img src='{{"/assets/img/relay-diffusion/relay-diffusion-algo1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/relay-diffusion/relay-diffusion-algo1.webp" | relative_url}}' width="80%"></center>
 
 ## Experiments
 - 데이터셋: CelebA-HQ, ImageNet
@@ -177,21 +177,21 @@ RDM의 super-resolution 단계에 대한 stochastic sampler는 Algorithm 1에 �
 ### 1. Results
 다음은 CelebA-HQ 256$\times$256에서 unconditional 이미지 생성 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/relay-diffusion/relay-diffusion-table1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/relay-diffusion/relay-diffusion-table1.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 ImageNet 256$\times$256에서 클래스 조건부 이미지 생성 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/relay-diffusion/relay-diffusion-table2.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/relay-diffusion/relay-diffusion-table2.webp" | relative_url}}' width="70%"></center>
 
 ### 2. Ablation Study
 다음은 block noise의 유무에 따른 성능을 ImageNet 256$\times$256 (a)과 CelebA-HQ 256$\times$256 (b)에서 학습한 RDM으로 비교한 그래프이다. ($\alpha = 0.15$, $s = 4$)
 
-<center><img src='{{"/assets/img/relay-diffusion/relay-diffusion-fig4.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/relay-diffusion/relay-diffusion-fig4.webp" | relative_url}}' width="90%"></center>
 <br>
 다음은 sampler의 stochasticity $\eta$에 따른 FID를 ImageNet 256$\times$256 (위)과 CelebA-HQ 256$\times$256 (아래)에서 비교한 표이다. 
 
-<center><img src='{{"/assets/img/relay-diffusion/relay-diffusion-table3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/relay-diffusion/relay-diffusion-table3.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 다양한 샘플링 step 수에 대한 FID를 ImageNet에서 비교한 그래프이다. $N$은 NFE이고, $10n+ (\frac{N}{2} −n)$은 첫 번째 단계에서 $10n$, 두 번째 단계에서 $\frac{N}{2} − n$을 의미한다. 
 
-<center><img src='{{"/assets/img/relay-diffusion/relay-diffusion-fig5.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/relay-diffusion/relay-diffusion-fig5.webp" | relative_url}}' width="48%"></center>

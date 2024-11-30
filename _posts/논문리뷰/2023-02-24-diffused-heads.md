@@ -19,7 +19,7 @@ classes: wide
 > University of Wrocław | Imperial College London | Wrocław University of Science and Technology | Tooploox  
 > 6 Jan 2023  
 
-<center><img src='{{"/assets/img/dh/dh-fig1.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/diffused-heads/diffused-heads-fig1.webp" | relative_url}}' width="65%"></center>
 
 ## Introduction
 음성으로 얼굴의 애니메이션을 생성하는 것은 연결 상태가 좋지 않은 가상 통화 중의 동영상 압축부터 영화, 게임, VR 등의 엔터테인먼트 산업의 예술적인 애니메이션에 이르기까지 광범위한 적용이 가능하다. 그러나 이 task의 수많은 과제를 고려할 때 아직 완벽한 솔루션은 없다. 현재까지의 기존 방법은 생성 과정에서 추가 supervision이 필요하면서도 진정한 표정과 움직임을 유지하는 자연스러운 얼굴을 만드는 데 어려움을 겪고 있다.
@@ -36,7 +36,7 @@ GAN의 강력한 능력에도 불구하고 음성 기반 동영상 합성에 적
 Diffused Heads는 전체 생성 프로세스 동안 고정된 ID 프레임과 사전 학습된 오디오 인코더를 사용하여 내장된 음성 녹음을 통해 한 번에 하나의 프레임을 생성한다. 보다 부드럽고 표현력 있는 결과를 얻기 위해 motion frame과 motion audio embedding을 도입하여 과거 움직임과 미래 표현에 대한 추가 정보를 주입한다. 또한 추가 립싱크 손실 함수를 정의하여 모델이 입 부분에 더 많은 주의를 기울이도록 한다. 
 
 ### 1. Training
-<center><img src='{{"/assets/img/dh/dh-fig2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/diffused-heads/diffused-heads-fig2.webp" | relative_url}}' width="60%"></center>
 <br>
 동영상에서 추출한 프레임의 분포를 diffusion model이 학습한다. 학습 과정은 위 그림과 같다. 학습 데이터셋에서 랜덤하게 동영상 $$X = \{x^{(1)}, \cdots, x^{(n)}\}$$을 뽑는다. 그런 다음 forward process로 noise를 추가하여 $x_t^{(k)}$를 얻는다. ID를 유지하기 위하여 $x_t^{(k)}$에 ID frame $x_{Id}$를 channel-wise하게 concat한다. 
 
@@ -106,7 +106,7 @@ $$
 
 $\tilde{\epsilon}$와 $\tilde{\epsilon}_\theta$는 ground-truth noise와 예측된 noise의 잘린 버전이다. 이 과정은 아래 그림과 같다. 
 
-<center><img src='{{"/assets/img/dh/dh-fig3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/diffused-heads/diffused-heads-fig3.webp" | relative_url}}' width="50%"></center>
 <br>
 Lip sync loss를 사용하면 모델이 오디오 임베딩에 입술을 동기화하는 데 더 집중하며, 샘플링된 동영상의 전체적인 perception이 개선된다. $L_{ls}$는 상수 $\lambda_{ls}$를 가중치로 하며, 전체 목적 함수는 다음과 같다.
 
@@ -136,36 +136,36 @@ $$
 ### 1. Qualitative results
 다음은 CREMA(위)와 LRW(아래) 데이터셋에 대한 결과이다. 빨간 테두리는 나머지 프레임을 생성하는 데 사용한 ID 프레임이다. 
 
-<center><img src='{{"/assets/img/dh/dh-fig4.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/diffused-heads/diffused-heads-fig4.webp" | relative_url}}' width="85%"></center>
 
 ### 2. Quantitative results
 다음은 다른 방법들과의 비교 결과 표이다.
 
-<center><img src='{{"/assets/img/dh/dh-table1.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/diffused-heads/diffused-heads-table1.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 LRW 데이터셋에 대한 Turing test 결과이다. 
 
-<center><img src='{{"/assets/img/dh/dh-table2.PNG" | relative_url}}' width="32%"></center>
+<center><img src='{{"/assets/img/diffused-heads/diffused-heads-table2.webp" | relative_url}}' width="32%"></center>
 <br>
 저자들은 각 방법마다 10개의 동영상을 샘플링하고 실제 동영상 10개와 섞은 뒤 총 30개의 동영상을 140명에게 보여주었다. 동영상이 실제 동영상 같은 지 아닌지 투표하도록 하였다고 한다. 
 
 ### 3. Ablation study
 다음은 motion frame에 대한 ablation study 결과로, motion frame을 사용하지 않을 떄(위)와 2개의 motion frame을 사용할 때(아래)의 optical flow의 평균 magnitude와 연속 프레임이다. 
 
-<center><img src='{{"/assets/img/dh/dh-fig5.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/diffused-heads/diffused-heads-fig5.webp" | relative_url}}' width="60%"></center>
 <br>
 Motion frame이 1일 때의 연속 프레임은 2일 때의 연속 프레임과 육안으로 보았을 때 큰 차이가 없어 포함하지 않았다고 한다. 
 
 다음은 LRW 데이터셋에서 motion audio embedding의 개수와 grayscale 적용 여부에 대한 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/dh/dh-table3.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/diffused-heads/diffused-heads-table3.webp" | relative_url}}' width="75%"></center>
 <br>
 Grayscale 변환을 CREMA와 같은 다양성이 낮은 데이터셋에 사용하는 것은 도움이 되지 않는다고 한다. CREMA 데이터셋은 91명의 동영상만을 포함하기 때문에 새로운 얼굴에 대한 일반화가 어렵다. 그런 이유로 RGB motion frame을 사용하는 것이 ID 프레임과 motion frame에서 더 많은 정보를 얻을 수 있다. 
 
 ### 5. Generalization
 딥러닝에서 중요한 과제 중 하나는 모델이 보지 못한 데이터를 잘 일반화하는 능력을 가지는 것이다. Diffused Heads의 일반화 능력을 보기 위하여 저자들은 실험을 진행하였고, 그 결과는 아래와 같다.
 
-<center><img src='{{"/assets/img/dh/dh-fig6.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/diffused-heads/diffused-heads-fig6.webp" | relative_url}}' width="85%"></center>
 <br>
 위에서 부터 영어/여성, 한국어/여성, 독일어/남성, 영어/남성의 오디오 녹음으로 생성한 동영상의 프레임들이다. 위의 2줄은 CREMA로 학습하였으며, 나머지 2줄은 LRW로 학습한 것이다. 
 

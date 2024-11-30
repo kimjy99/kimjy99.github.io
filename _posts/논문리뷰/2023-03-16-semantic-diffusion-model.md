@@ -19,7 +19,7 @@ classes: wide
 > University of Science and Technology of China (USTC) | Microsoft Research Asia | Microsoft Cloud+AI  
 > 30 Jun 2022  
 
-<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 Semantic image synthesis는 semantic layout을 기반으로 실사 이미지를 생성하는 것을 목표로 하며, semantic segmentation의 반대 문제이다. 최근 연구는 주로 네트워크가 reconstruction loss와 함께 adversarial loss로 학습되는 적대적 학습 패러다임을 따른다. 모델 아키텍처를 탐색함으로써 벤치마크 데이터셋에서 성능을 점진적으로 향상시킨다. 그러나 기존의 GAN 기반 접근 방식은 일부 복잡한 장면에서 높은 fidelity와 다양한 결과를 생성하는 데 한계가 있다. 
@@ -33,7 +33,7 @@ Denoising network의 입력으로 조건 정보를 noisy한 이미지와 직접 
 또한 diffusion model은 본질적으로 다양한 결과를 생성할 수 있다. 샘플링 전략은 생성된 결과의 품질과 다양성의 균형을 맞추는 데 중요한 역할을 한다. Naive한 샘플링 절차는 높은 다양성을 보여주지만 semantic label map과의 사실감 및 강력한 대응이 부족한 이미지를 생성할 수 있다.  [Classifier-free guidance](https://kimjy99.github.io/논문리뷰/cfdg) 전략을 채택하여 이미지 fidelity와 의미론적 대응을 향상한다. 특히 semantic mask 입력을 랜덤하게 제거하여 사전 학습된 diffusion model을 finetuning한다. 그런 다음 semantic mask가 있거나 없는 diffusion mask의 예측을 기반으로 샘플링 전략이 처리된다. 이 두 상황의 score를 보간함으로써 샘플링 결과는 semantic mask 입력과 더 높은 fidelity 및 더 강한 상관관계를 달성한다. 
 
 ## Methodology
-<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-fig3.webp" | relative_url}}' width="100%"></center>
 
 ### 1. Semantic Diffusion Model
 위 그림의 (a)는 SDM의 조건부 denoising network의 개요이다. 기존의 조건부 diffusion model과 다르게 denoising network는 semantic label map과 noisy한 이미지를 독립적으로 처리한다. Noisy한 이미지는 인코더 부분에 들어가고 semantic label map은 multi-layer SPADE 연산으로 디코더에 주입된다. 
@@ -165,37 +165,37 @@ $$
 ### 1. Comparison with previous methods
 다음은 semantic image synthesis에 대한 기존 방법들과의 정량적 평가 표이다.
 
-<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-table1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-table1.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 CelebAMask-HQ, ADE20K, Cityscapes. COCO-Stuff에서의 샘플들을 비교한 것이다. 
 
-<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-fig4.PNG" | relative_url}}' width="70%"></center>
-<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-fig5.PNG" | relative_url}}' width="70%"></center>
-<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-fig6.PNG" | relative_url}}' width="100%"></center>
-<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-fig7.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-fig4.webp" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-fig5.webp" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-fig6.webp" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-fig7.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 4개의 데이터셋에 대하여 본 논문의 결과를 다양한 다른 방법들의 결과보다 선호하는 비율을 나타낸 user study이다. 
 
-<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-table2.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-table2.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 본 논문의 모델로 생성한 multimodal 생성 결과이다. 고품질의 다양한 결과를 생성하는 것을 볼 수 있다. 
 
-<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-fig8.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-fig8.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 4개의 데이터셋에 대하여 mIoU를 측정한 표이다.
 
-<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-table3.PNG" | relative_url}}' width="56%"></center>
+<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-table3.webp" | relative_url}}' width="56%"></center>
 
 ### 2. Ablation Studies
 다음은 조건 정보의 임베딩과 classifier-free guidance 전략에 대한 ablation study 결과이다.
 
-<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-table4.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-table4.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 ablation 실험의 정성적 결과를 비교한 것이다.
 
-<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-fig9.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-fig9.webp" | relative_url}}' width="50%"></center>
 
 ### 3. Controlled Generation
 다음은 SDM의 semantic image editing의 예시이다. 녹색 부분이 지워진 부분이며, 모델은 편집된 semantic map을 기반으로 inpainting을 한다. 
 
-<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-fig10.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/semantic-diffusion-model/semantic-diffusion-model-fig10.webp" | relative_url}}' width="50%"></center>

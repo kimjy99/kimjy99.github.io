@@ -18,7 +18,7 @@ classes: wide
 > Shanghai AI Laboratory | The Chinese University of Hong Kong | Stanford University  
 > 10 Jul 2023  
 
-<center><img src='{{"/assets/img/animatediff/animatediff-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/animatediff/animatediff-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 최근 몇 년 동안 text-to-image (T2I) 생성 모델은 높은 시각적 품질과 텍스트 기반 제어 가능성을 제공하기 때문에 연구 커뮤니티 내외에서 전례 없는 주목을 받았다. 기존 T2I 생성 모델의 창의성을 더욱 자극하기 위해 [DreamBooth](https://kimjy99.github.io/논문리뷰/dreambooth)와 [LoRA](https://kimjy99.github.io/논문리뷰/lora)와 같은 몇 가지 가벼운 개인화 방법이 제안되었으며 RTX3080을 탑재한 노트북과 같은 장치를 사용하여 소규모 데이터셋에서 맞춤형 fine-tuning이 가능하고 품질이 크게 향상된 맞춤형 콘텐츠를 생성할 수 있다. 이러한 방식으로 사용자는 사전 학습된 T2I 모델에 매우 저렴한 비용으로 새로운 개념이나 스타일을 도입할 수 있으며, 결과적으로 CivitAI나 Huggingface와 같은 모델 공유 플랫폼에서 예술가와 아마추어가 기여한 수많은 개인화된 모델이 생성되었다. 
@@ -28,7 +28,7 @@ DreamBooth 또는 LoRA로 학습된 개인화된 T2I 모델은 탁월한 시각�
 본 논문에서는 개인화된 T2I 모델에 대한 애니메이션 이미지를 생성할 수 있는 일반적인 방법인 **AnimateDiff**를 제시한다. 이를 통해 모델별 튜닝이 필요하지 않고 시간이 지남에 따라 매력적인 콘텐츠 일관성을 달성할 수 있다. 대부분의 개인화된 T2I 모델이 동일한 기본 모델(예: Stable Diffusion)에서 파생되고 모든 개인화된 도메인에 대해 해당 동영상을 수집하는 것이 완전히 불가능하다는 점을 고려하여 저자들은 대부분의 개인화된 T2I 모델을 한 번에 애니메이션화할 수 있는 모션 모델링 모듈을 설계하였다. 구체적으로 모션 모델링 모듈을 기본 T2I 모델에 도입한 다음 대규모 동영상 클립으로 fine-tuning하여 합리적인 모션 사전 학습을 수행한다. 기본 모델의 파라미터는 그대로 유지된다. Fine-tuning 후에는 개인화된 T2I가 잘 학습된 모션 prior를 활용하여 부드럽고 매력적인 애니메이션을 생성할 수 있다. 즉, 모션 모델링 모듈은 추가 데이터 수집이나 맞춤형 학습에 대한 추가 노력 없이 해당하는 모든 개인화된 T2I 모델을 애니메이션화하도록 관리한다. 
 
 ## Method
-<center><img src='{{"/assets/img/animatediff/animatediff-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/animatediff/animatediff-fig2.webp" | relative_url}}' width="100%"></center>
 
 ### 1. Personalized Animation
 개인화된 이미지 모델을 애니메이션화하려면 일반적으로 해당 동영상 컬렉션으로 추가로 fine-tuning해야 하므로 훨씬 더 어려워진다. 본 논문은 사용자가 학습하거나 CivitAI 또는 Huggingface에서 다운로드한 DreamBooth 또는 LoRA 체크포인트와 같이 개인화된 T2I 모델이 주어지면 이를 애니메이션 생성기로 변환하는 것이 목표이다. 원래의 도메인 지식과 품질을 유지하면서 학습 비용이 거의 또는 전혀 들지 않는다. 예를 들어, T2I 모델이 특정 2D 애니메이션 스타일에 맞게 개인화되었다고 가정해 보자. 이 경우 해당 애니메이션 생성기는 전경/배경 분할, 캐릭터 신체 움직임 등과 같은 적절한 동작으로 해당 스타일의 애니메이션 클립을 생성할 수 있어야 한다. 
@@ -37,7 +37,7 @@ DreamBooth 또는 LoRA로 학습된 개인화된 T2I 모델은 탁월한 시각�
 
 ### 2. Motion Modeling Module
 #### Network Inflation
-<center><img src='{{"/assets/img/animatediff/animatediff-fig3.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/animatediff/animatediff-fig3.webp" | relative_url}}' width="45%"></center>
 <br>
 원본 Stable Diffusion은 이미지 데이터 batch만 처리할 수 있기 때문에 batch $\times$ 채널 $\times$ 프레임 $\times$ 높이 $\times$ 너비 형태의 5차원 동영상 텐서를 입력으로 사용하는 모션 모델링 모듈과 호환되도록 모델 인플레이션이 필요하다. 이를 위해 [Video Diffusion Model](https://kimjy99.github.io/논문리뷰/video-diffusion-model)과 유사한 솔루션을 채택한다. 구체적으로, 프레임 축을 batch 축으로 재형성하고 네트워크가 각 프레임을 독립적으로 처리할 수 있도록 하여 원본 이미지 모델의 각 2D convolution layer와 attention layer를 spatial-only pseudo-3D layer로 변환한다. 새로 삽입된 모션 모듈은 각 batch의 프레임 전체에서 작동하여 애니메이션 클립의 부드러운 모션과 콘텐츠 일관성을 달성한다. 자세한 내용은 위 그림 3에 설명되어 있다.
 
@@ -73,26 +73,26 @@ $$
 
 사용된 개인화된 모델들은 다음과 같다. 
 
-<center><img src='{{"/assets/img/animatediff/animatediff-table1.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/animatediff/animatediff-table1.webp" | relative_url}}' width="40%"></center>
 
 ### 1. Qualitative Results
 다음은 여러 모델들에 대한 정성적 결과이다. 
 
-<center><img src='{{"/assets/img/animatediff/animatediff-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/animatediff/animatediff-fig4.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Comparison with Baselines
 다음은 Text2Video-Zero와 AnimateDiff 사이의 프레임 간 콘텐츠 일관성을 정성적으로 비교한 것이다. 
 
-<center><img src='{{"/assets/img/animatediff/animatediff-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/animatediff/animatediff-fig5.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Ablative Study
 다음은 3가지 diffusion schedule에 대한 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/animatediff/animatediff-table2.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/animatediff/animatediff-table2.webp" | relative_url}}' width="45%"></center>
 <br>
-<center><img src='{{"/assets/img/animatediff/animatediff-fig6.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/animatediff/animatediff-fig6.webp" | relative_url}}' width="70%"></center>
 
 ## Limitations
-<center><img src='{{"/assets/img/animatediff/animatediff-fig7.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/animatediff/animatediff-fig7.webp" | relative_url}}' width="65%"></center>
 <br>
 개인화된 T2I 모델의 도메인이 2D 디즈니 만화와 같이 현실적이지 않을 때 대부분의 실패 사례가 나타난다. 이러한 경우 애니메이션 결과에 명백한 아티팩트가 있어 적절한 동작을 생성할 수 없다. 저자들은 이것이 학습 동영상과  개인화된 모델 사이의 큰 분포 격차 때문이라고 가정하였다. 

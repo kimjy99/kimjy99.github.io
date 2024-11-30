@@ -18,7 +18,7 @@ classes: wide
 > Peking University Shenzhen Graduate School, Peng Cheng Laboratory  
 > 1 Mar 2023  
 
-<center><img src='{{"/assets/img/unlimited-size/unlimited-size-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/unlimited-size/unlimited-size-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 Diffusion 기반의 Image Restoration (IR) 방법들은 크게 supervised와 zero-shot으로 나눌 수 있다. 그 중 zero-shot은 방법은 사전 학습된 상용 diffusion model만을 사용하며 finetuning 없이 다양한 IR task를 다룰 수 있기 때문에 새로운 패러다임을 발전시켰다. Zero-shot 방법들이 일반적으로 diffusion model의 선택에 독립적이므로 더 강력한 diffusion model을 사용할 수 있다면 더 좋은 성능을 낼 수 있다. 본 논문에서는 간결하고 유연하고 빠른 zero-shot 방법에 주목하였다.
@@ -38,13 +38,13 @@ OOD 문제는 랜덤하게 crop된 이미지로 diffusion model을 학습시켜 
 - Diffusion model: [DDPM 논문리뷰](https://kimjy99.github.io/논문리뷰/ddpm) 참고
 - Denoising Diffusion Null-space Model (DDNM): [DDNM 논문리뷰](https://kimjy99.github.io/논문리뷰/ddnm) 참고
 
-<center><img src='{{"/assets/img/unlimited-size/unlimited-size-algo1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/unlimited-size/unlimited-size-algo1.webp" | relative_url}}' width="50%"></center>
 
 ## Method
 ### 1. Process as a Whole Image
 일반적인 diffusion model은 U-Net 구조를 denoise backbone으로 사용한다. 이론적으로 U-Net은 convolutional network이므로 다양한 입력 크기를 지원한다. 
 
-<center><img src='{{"/assets/img/unlimited-size/unlimited-size-fig2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/unlimited-size/unlimited-size-fig2.webp" | relative_url}}' width="50%"></center>
 <br>
 따라서 간단한 해결책은 모델 처리 크기를 직접 변경하는 것이다. 유연한 생성 크기를 위해 Stable Diffusion에 유사한 접근 방식이 채택되었다. 유연한 입력 크기를 지원함에도 불구하고 고정 이미지 크기로 학습된 denoiser는 다른 이미지 크기에 적용될 때 OOD 문제에 직면할 수 있다. 위 그림에서 볼 수 있듯이 CelebA 256$\times$256에서 학습된 diffusion model은 512$\times$512 얼굴 이미지를 생성하지 못한다. OOD 문제를 해결하는 한 가지 방법은 256$\times$256 denoise를 정렬된 데이터셋이 아닌 랜덤하게 crop된 데이터셋으로 학습시키는 것이다. 흥미롭게도 ImageNet과 LAION-5B는 정렬되지 않은 데이터셋이므로 상대적으로 사소한 OOD 문제가 발생한다.
 
@@ -64,7 +64,7 @@ OOD 문제는 랜덤하게 crop된 이미지로 diffusion model을 학습시켜 
 
 저자들의 통찰은 패치를 나눌 때 겹치는 영역을 남겨두고 다음 패치를 해결할 때 이러한 겹치는 영역을 추가 제약 조건으로 사용할 수 있다는 것이다. 멋진 점은 이 제약 조건을 코드 한 줄만 추가하면 기존의 zero-shot 방법에 통합할 수 있다는 것이다. 
 
-<center><img src='{{"/assets/img/unlimited-size/unlimited-size-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/unlimited-size/unlimited-size-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
 위 그림과 같은 4$\times$SR task를 생각해보자. 64$\times$96 크기의 입력 이미지 $y^{full}$이 주어지면 256$\times$384 크기의 SR 결과를 얻는 것이 목표이다. Degradation operator $A$를 average-pooling downsampler로 설정하고 $A^\dagger$를 replication upsampler로 설정한다. 위 그림의 (a)는 $A^\dagger y^{full}$의 결과를 보여준다. 먼저 $A^\dagger y^{full}$를 256$\times$256 크기의 두 개의 패치 $A^\dagger \dot{y}$와 $A^\dagger y$로 나눈다. 두 패치는 256$\times$128 크기만큼 겹친다. 
 
@@ -78,12 +78,12 @@ $$
 
 $A_m$은 겹쳐진 영역에 대한 mask operator이다. 전체 알고리즘은 Algorithm 2와 같으며 Mask-Shift Restoration (MSR)이라 부른다. 
 
-<center><img src='{{"/assets/img/unlimited-size/unlimited-size-algo2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/unlimited-size/unlimited-size-algo2.webp" | relative_url}}' width="50%"></center>
 <br>
 위 그림의 (c)에서 볼 수 있듯이 Step 1과 Step 2의 결과를 concat한 최종 결과가 경계 아티팩트를 보이지 않는다는 것을 알 수 있다. 비슷하게, MSR을 반복적으로 사용하여 무제한 크기의 이미지를 생성하는 데 사용할 수 있으며, 경계 아티팩트가 생기지 않는다. 겹친 영역과 shift하는 방향은 임의로 정할 수 있으며, SR뿐만 아니라 다른 linear inverse problem에도 사용할 수 있다. 
 
 ### 4. Hierarchical Restoration
-<center><img src='{{"/assets/img/unlimited-size/unlimited-size-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/unlimited-size/unlimited-size-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 MSR은 로컬 일관성을 보장하지만 큰 이미지를 처리할 때 작은 receptive field를 가진다. 이로 인해 글로벌한 정보에 대한 이해가 부족하여 semantic 정보 복구가 잘못될 수 있다. 위 그림의 (a)에서 크기 512$\times$768의 마스킹된 이미지를 보여준다. 여기서 256$\times$256 패치는 전체 semantic 주제를 커버할 수 없다. 위 그림의 (b)는 DDNM 기반의 MSR을 사용한 결과이다. 로컬 일관성은 우수하지만 합리적이지 않은 semantic 구조를 생성한다. 
 
@@ -91,8 +91,8 @@ MSR은 로컬 일관성을 보장하지만 큰 이미지를 처리할 때 작은
 
 위 그림의 (a)를 예로 들면, semantic 복원 단계에서 먼저 2$\times$ downsample를 하여 512$\times$768 입력을 256$\times$384로 변환한다. 그런 다음 256$\times$256 크기의 패치로 DDNM 기반의 MSR을 사용하여 256$\times$384 크기의 inpainting 결과 $\ddot{x}_0$를 얻는다. 그 결과는 아래 그림의 (a)와 같다.
 
-<center><img src='{{"/assets/img/unlimited-size/unlimited-size-fig5a.PNG" | relative_url}}' width="70%"></center>
-<center><img src='{{"/assets/img/unlimited-size/unlimited-size-fig5b.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/unlimited-size/unlimited-size-fig5a.webp" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/unlimited-size/unlimited-size-fig5b.webp" | relative_url}}' width="100%"></center>
 <br>
 이 결과는 semantic하게 합리적이고 저주파수 레퍼런스로 사용될 수 있다. Texture 복원 단계 (위 그림의 (b))에서는 다음과 같은 저주파수 제약 조건을 추가한다. 
 
@@ -104,7 +104,7 @@ $$
 
 $A_\textrm{sr}$는 average-pooling downsampler이고 $A_\textrm{sr}^\dagger$는 $A_\textrm{sr}$의 pseudo-inverse upsampler이다. Algorithm 3는 HiR의 두번째 단계의 전체 알고리즘을 보여준다.
 
-<center><img src='{{"/assets/img/unlimited-size/unlimited-size-algo3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/unlimited-size/unlimited-size-algo3.webp" | relative_url}}' width="50%"></center>
 <br>
 HiR은 inpainting task뿐만 아니라 큰 규모의 SR이나 colorization에도 사용할 수 있다.
 
@@ -121,13 +121,13 @@ MSR은 일반적인 패치 연결 테크닉으로 볼 수 있으며 HiR은 복�
 
 다음은 noisy 4$\times$SR에 대한 실험 결과를 BSRGAN과 비교한 것이다. 
 
-<center><img src='{{"/assets/img/unlimited-size/unlimited-size-fig6.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/unlimited-size/unlimited-size-fig6.webp" | relative_url}}' width="90%"></center>
 <br>
 본 논문의 방법이 현실성과 일관성 모두에서 더 좋은 성능을 보였으며, RND의 사용으로 낮은 해상도에서 정확한 색과 구조 정보를 충실히 상속할 수 있다. 
 
 다음은 HiR을 사용한 colorization 결과이다.
 
-<center><img src='{{"/assets/img/unlimited-size/unlimited-size-fig7.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/unlimited-size/unlimited-size-fig7.webp" | relative_url}}' width="80%"></center>
 
 ## Limitations
 1. 널리 사용되는 supervised 방법보다 계산과 시간 소비가 훨씬 더 많다. 

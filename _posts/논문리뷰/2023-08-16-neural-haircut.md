@@ -18,7 +18,7 @@ classes: wide
 > Samsung AI Center | Rockstar Games | FAU Erlangen-Nurnberg | Cinemersive Labs  
 > 9 Jun 2023  
 
-<center><img src='{{"/assets/img/neural-haircut/neural-haircut-fig1.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/neural-haircut/neural-haircut-fig1.webp" | relative_url}}' width="95%"></center>
 
 ## Introduction
 본 논문은 멀티뷰 이미지 또는 동영상 프레임에서 사람의 머리카락을 복원하는 새로운 이미지 기반 모델링 방법을 제안한다. 머리카락 재구성은 매우 복잡한 기하학, 물리학, 반사율로 인해 인간 3D 모델링에서 가장 어려운 문제 중 하나로 남아 있다. 그럼에도 불구하고 특수 효과, 텔레프레즌스, 게임과 같은 많은 애플리케이션에 중요하다.
@@ -66,7 +66,7 @@ $$
 
 마지막으로 prior 기반 정규화는 사전 학습된 diffusion model을 사용하여 형상 텍스처 $T$에 직접 적용된다. 특히 형상 맵에 랜덤 noise를 적용하고 diffusion model $\mathcal{D}$를 사용하여 noise를 제거한다. 그런 다음 입력 맵 $T$의 재구성 오차를 평가하고 이 loss의 기울기를 다시 텍스처로 역전파한다. 이 파이프라인은 [DreamFusion](https://kimjy99.github.io/논문리뷰/dreamfusion) 방법에서 영감을 얻었지만 작은 헤어스타일 데이터셋에서 학습을 용이하게 하는 약간의 수정이 있다.
 
-<center><img src='{{"/assets/img/neural-haircut/neural-haircut-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/neural-haircut/neural-haircut-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 세밀한 재구성 단계의 계획은 위 그림에 나와 있다. 
 
@@ -214,7 +214,7 @@ $$
 $$
 
 #### 렌더링 기반 loss들
-<center><img src='{{"/assets/img/neural-haircut/neural-haircut-fig3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/neural-haircut/neural-haircut-fig3.webp" | relative_url}}' width="60%"></center>
 <br>
 저자들은 가시적인 머리카락 형상을 개선하기 위해 머리카락 가닥의 미분 렌더링을 위한 새로운 접근 방식을 개발했다. 이전 hair rasterization 접근 방식은 그래픽 API line rasterization 알고리즘에 의존한다. 계산적으로 효율적이기는 하지만 이러한 방법은 위 그림의 (a)와 같이 선분 $z$-버퍼의 첫 번째 요소에 대한 기울기만 제공한다. 동시에 mesh inverse rendering task의 경우 기울기를 여러 $z$-버퍼 요소로 전파하는 것이 매우 유익한 것으로 나타났다. 위 그림의 (b)와 같이 mesh에 대한 soft rasterization을 머리카락 가닥의 differentiable rendering에 적용한다. 
 
@@ -257,20 +257,20 @@ $$
 ### 1. Real-world evaluation
 다음은 현실 평가 결과이다.
 
-<center><img src='{{"/assets/img/neural-haircut/neural-haircut-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/neural-haircut/neural-haircut-fig4.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 단일 동영상에서 얻은 높은 충실도의 머리카락 재구성 결과이다.
 
-<center><img src='{{"/assets/img/neural-haircut/neural-haircut-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/neural-haircut/neural-haircut-fig5.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Ablation study
 다음은 개별 구성 요소에 대한 광범위한 정량적 평가 결과이다.
 
-<center><img src='{{"/assets/img/neural-haircut/neural-haircut-table1.PNG" | relative_url}}' width="73%"></center>
+<center><img src='{{"/assets/img/neural-haircut/neural-haircut-table1.webp" | relative_url}}' width="73%"></center>
 <br>
 다음은 곡률 (상단)과 diffusion loss들 (하단)에 대한 ablation 결과이다.
 
-<center><img src='{{"/assets/img/neural-haircut/neural-haircut-fig6.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/neural-haircut/neural-haircut-fig6.webp" | relative_url}}' width="70%"></center>
 
 ## Limitations
 본 논문의 시스템은 여전히 곱슬머리를 표현하는 데 어려움을 겪고 있으며 재구성을 생성하기 위해 정확한 머리카락과 신체 segmentation mask에 의존한다. 

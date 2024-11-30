@@ -26,7 +26,7 @@ Score 기반 생성 모델이라고도 하는 diffusion model은 이미지 생�
 
 본 논문의 목표는 필요할 때 샘플 품질을 위해 컴퓨팅을 거래하고 zero-shot 데이터 편집 작업을 수행하는 것과 같은 반복 샘플링의 중요한 이점을 희생하지 않고 효율적인 단일 step 생성을 촉진하는 생성 모델을 만드는 것이다. 
 
-<center><img src='{{"/assets/img/consistency-model/consistency-model-fig1.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/consistency-model/consistency-model-fig1.webp" | relative_url}}' width="60%"></center>
 <br>
 위 그림에서 볼 수 있듯이 연속 시간 diffusion model의 확률 흐름 상미분 방정식 (PF ODE) 위에 구축한다. 이 모델의 궤적은 데이터 분포를 다루기 쉬운 noise 분포로 부드럽게 전환한다. 궤적의 시작점에 임의의 timestep에서 임의의 지점을 매핑하는 모델을 학습할 것을 제안한다. 본 논문의 모델의 주목할만한 속성은 self-consistency이다. 즉, 동일한 궤적에 있는 지점이 동일한 초기 지점에 매핑된다. 따라서 이러한 모델을 **consistency model**이라고 한다. Consistency model을 사용하면 단 한 번의 네트워크 평가로 랜덤 noise 벡터 (ODE 궤적의 끝점, $x_T$)를 변환하여 데이터 샘플 (ODE 궤적의 초기 지점, $x_0$)을 생성할 수 있다. 중요한 것은 여러 timestep에서 consistency model의 출력을 연결함으로써 샘플 품질을 개선하고 더 많은 컴퓨팅 비용으로 zero-shot 데이터 편집을 수행할 수 있다는 것이다.
 
@@ -72,7 +72,7 @@ PF ODE의 솔루션 궤적 $$\{x_t\}_{t \in [\epsilon, T]}$$가 주어지면 con
 > 출력은 동일한 PF ODE 궤적에 속하는 $(x_t, t)$의 임의 쌍에 대해 일관된다.  
 > 즉, 모든 $t, t' \in [\epsilon, T]$에 대해 $f (x_t, t) = f (x_{t'}, t')$이다.  
 
-<center><img src='{{"/assets/img/consistency-model/consistency-model-fig2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/consistency-model/consistency-model-fig2.webp" | relative_url}}' width="60%"></center>
 <br>
 위 그림에서 볼 수 있듯이 consistency model $f_\theta$의 목표는 self-consistency 속성을 적용하는 방법을 학습하여 데이터에서 이 consistency function $f$를 추정하는 것이다. Neural ODE의 맥락에서 neural flow에 유사한 정의가 사용된다. 그러나 neural flow와 비교하여 consistency model은 가역적으로 강제되지 않는다.
 
@@ -103,7 +103,7 @@ $$
 #### Sampling
 잘 학습된 consistency model $f_\theta$를 사용하여 초기 분포 $$\hat{x}_T = \mathcal{N} (0, T^2 I)$$에서 샘플링한 다음 $$\hat{x}_\epsilon = f_\theta (\hat{x}_T, T)$$에 대한 consistency model을 평가하여 샘플을 생성할 수 있다. 여기에는 consistency model을 통한 단 하나의 정방향 통과가 포함되므로 단일 step에서 샘플을 생성한다. 중요한 것은 샘플 품질 향상을 위해 denoising과 noise 주입 단계를 번갈아 가며 consistency model을 여러 번 평가할 수도 있다는 것이다. 
 
-<center><img src='{{"/assets/img/consistency-model/consistency-model-algo1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/consistency-model/consistency-model-algo1.webp" | relative_url}}' width="50%"></center>
 <br>
 Algorithm 1에 요약된 이 다단계 샘플링 절차는 컴퓨팅을 샘플 품질과 교환할 수 있는 유연성을 제공한다. 또한 zero-shot 데이터 편집에 중요하다. 실제로 Algorithm 1에서 시간 포인트 $$\{\tau_1, \cdots, \tau_{N-1}\}$$를 그리디 알고리즘으로 찾는다. 여기서 시간 포인트는 Algorithm 1에서 얻은 샘플의 FID를 최적화하기 위해 삼분 탐색 (ternary search)을 사용하여 한 번에 하나씩 정확히 지정된다. 이것은 주어진 이전 시점에서 FID가 다음 시점의 단봉 함수라고 가정한다. 
 
@@ -156,7 +156,7 @@ $$
 \end{equation}
 $$
 
-<center><img src='{{"/assets/img/consistency-model/consistency-model-algo2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/consistency-model/consistency-model-algo2.webp" | relative_url}}' width="50%"></center>
 <br>
 전체 학습 절차는 Algorithm 2에 요약되어 있다. 강화 학습과 모멘텀 기반 contrastive learning의 관례에 따라 $f_{\theta^{-}}$를 "타겟 네트워크"로, $f_\theta$를 "온라인 네트워크"라고 한다. 단순히 $\theta^{-} = \theta$를 설정하는 것과 비교하여 EMA 업데이트와 "stopgrad" 연산자가 학습 프로세스를 크게 안정화하고 consistency model의 최종 성능을 향상시킬 수 있다.
 
@@ -189,7 +189,7 @@ $$
 
 저자들은 실제 성능 향상을 위해 schedule function $N (\cdot)$에 따라 학습 중에 $N$을 점진적으로 증가시킬 것을 제안한다. $N$이 작을 때 (즉, $\Delta t$가 클 때) 기본 CD loss와 관련하여 CT loss가 "분산"이 적지만 "편향"이 더 커서 학습 시작 시 더 빠른 수렴을 용이하게 한다는 것이 직관적이다. 반대로, $N$이 크면 (즉, $\Delta t$가 작으면) "분산"은 더 많지만 "편향"은 적다. 이는 학습의 끝에 가까워질수록 바람직하다. 최상의 성능을 위해 schedule function $\mu (\cdot)$에 따라 $\mu$가 $N$과 함께 변경되어야 한다. CT의 전체 알고리즘은 Algorithm 3에서 제공된다. 
 
-<center><img src='{{"/assets/img/consistency-model/consistency-model-algo3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/consistency-model/consistency-model-algo3.webp" | relative_url}}' width="50%"></center>
 <br>
 CD와 유사하게 CT loss $$\mathcal{L}_\textrm{CT}^N (\theta, \theta^{-})$$는 $\theta^{-} = \textrm{stopgrad} (\theta)$인 경우 연속 시간 (즉, $N \rightarrow \infty$)에서 유지되도록 확장될 수 있다. 이 연속 시간 loss function은 $N$ 또는 $\mu$에 대한 schedule function이 필요하지만 효율적인 구현을 위해 순방향 자동 미분을 필요로 한다. 이산 시간 CT loss와 달리 Algorithm 2에서 $\Delta t \rightarrow 0$을 효과적으로 취하기 때문에 연속 시간 목적 함수와 관련된 바람직하지 않은 "편향"은 없다.
 
@@ -197,28 +197,28 @@ CD와 유사하게 CT loss $$\mathcal{L}_\textrm{CT}^N (\theta, \theta^{-})$$는
 ### 1. Training Consistency Models
 다음은 CIFAR-10에서 CD와 CT에 영향을 미치는 다양한 요인들에 대한 그래프이다.
 
-<center><img src='{{"/assets/img/consistency-model/consistency-model-fig3.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/consistency-model/consistency-model-fig3.webp" | relative_url}}' width="75%"></center>
 <br>
 CD를 위한 최적의 metric은 LPIPS이며, Heun ODE solver와 $N = 18$가 최적의 선택이다. 또한 $N$과 $\mu$의 적응형 schedule은 CT의 수렴 속도와 샘플 품질을 크게 향상시킨다. 
 
 ### 2. Few-Step Image Generation
 다음은 consistency distillation (CD)를 사용한 다단계 이미지 생성 성능을 [progressive distillation (PD)](https://kimjy99.github.io/논문리뷰/progressive-distillation)와 비교한 그래프이다.
 
-<center><img src='{{"/assets/img/consistency-model/consistency-model-fig4.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/consistency-model/consistency-model-fig4.webp" | relative_url}}' width="75%"></center>
 <br>
 다음은 CIFAR-10에서의 샘플 품질을 비교한 표이다.
 
-<center><img src='{{"/assets/img/consistency-model/consistency-model-table1.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/consistency-model/consistency-model-table1.webp" | relative_url}}' width="65%"></center>
 <br>
 다음은 ImageNet 64$\times$64와 LSUN Bedroom & Cat 256$\times$256에서의 샘플 품질을 비교한 표이다.
 
-<center><img src='{{"/assets/img/consistency-model/consistency-model-table2.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/consistency-model/consistency-model-table2.webp" | relative_url}}' width="65%"></center>
 <br>
 다음은 EDM (상단), CT + single-step 생성 (중단), CT + 2-step 생성 (하단) 결과를 비교한 것이다.
 
-<center><img src='{{"/assets/img/consistency-model/consistency-model-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/consistency-model/consistency-model-fig5.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Zero-Shot Image Editing
 LSUN Bedroom 256$\times$256에서 CD로 학습된 consistency model을 사용한 zero-shot 이미지 편집 결과이다.
 
-<center><img src='{{"/assets/img/consistency-model/consistency-model-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/consistency-model/consistency-model-fig6.webp" | relative_url}}' width="100%"></center>

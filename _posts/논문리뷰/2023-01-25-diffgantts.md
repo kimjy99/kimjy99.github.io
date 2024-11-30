@@ -36,7 +36,7 @@ Text-to-speech (TTS)는 주어진 텍스트 입력에 대하여 다양한 음성
 
 ## DiffGAN-TTS
 
-<center><img src='{{"/assets/img/diffgantts/diffgantts-fig1.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/diffgantts/diffgantts-fig1.webp" | relative_url}}' width="90%"></center>
 <br>
 DDPM이 복잡한 데이터 분포를 모델링하는 능력을 잘 보여주었지만 느린 inference 시간이 실시간 적용을 어렵게 한다. 이는 DDPM의 2가지 가정에 의한 것이다.
 
@@ -52,7 +52,7 @@ Denoising step이 더 커지고 데이터 분포가 가우시안이 아니라면
 
 DiffGAN-TTS의 학습 과정은 다음과 같다.
 
-<center><img src='{{"/assets/img/diffgantts/diffgantts-fig2.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/diffgantts/diffgantts-fig2.webp" | relative_url}}' width="80%"></center>
 <br>
 본 논문의 목표는 denoising step 수 $T$를 줄여 (ex. $T \le 4$) inference 과정을 효율적이고 품질 저하 없이 실시간 음성 합성에 적합하도록 하는 것이다. 저자들은 denoising step이 큰 discrete-time diffusion model에 주목하며 conditional GAN을 사용하여 denoising 분포를 모델링한다. 
 
@@ -136,7 +136,7 @@ $$
 
 DiffGAN-TTS의 inference를 가속화하기 위하여 본 논문은 active shallow diffusion mechanism을 제안한다. 
 
-<center><img src='{{"/assets/img/diffgantts/diffgantts-fig3.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/diffgantts/diffgantts-fig3.webp" | relative_url}}' width="65%"></center>
 <br>
 위 그림과 같이 2단계 학습으로 설계되었다. 1단계에서는 기본 음향 모델 $G_\psi^{\textrm{base}} (y, s)$가
 
@@ -160,7 +160,7 @@ $$
 경험적으로 diffusion decoder는 기본 음향 모델의 coarse한 예측에 super-resolution을 수행하는 post filter로 생각할 수 있다. 본 논문은 denoising step의 수를 1로 줄이는 것에 주목한다. Inference 시에 기본 음향 모델은 먼저 coarse한 mel spectrogram $\hat{x}_0$를 생성한 후 diffusion step 1에서 diffused sample $\hat{x}_1$이 계산된다. 그런 다음 DiffGAN-TTS는 $\hat{x}_1$를 prior로 하여 denoising step 하나를 진행하여 최종 출력을 얻는다. 이러한 변형 모델을 "DiffGAN-TTS (two-stage)"로 표기한다. 
 
 ### 4. Model architecture
-<center><img src='{{"/assets/img/diffgantts/diffgantts-fig4.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/diffgantts/diffgantts-fig4.webp" | relative_url}}' width="60%"></center>
 <br>
 
 - Transformer encoder: FastSpeech2와 같이 4개의 FFT로 구성된 아키텍처
@@ -209,7 +209,7 @@ Attention is all you need 논문과 동일한 learning rate schedule 사용
 ## Results
 다음은 DiffGAN-TTS와 ground truth, 다른 TTS 모델을 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/diffgantts/diffgantts-table1.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/diffgantts/diffgantts-table1.webp" | relative_url}}' width="95%"></center>
 
 ### 1. Objective Evaluation
 객관적 평가 지표로는 SSIM (structural similarity index measure), MCD (mel-cepstral distortion), $F_0$ RMSE (root mean squared error), voice cosine similarity가 사용되었다. 
@@ -221,7 +221,7 @@ MCD와 $F_0$ 계산 시 생성된 음성과 ground-truth 음성을 정렬하기 
 
 다음은 step 1에서의 diffused sample을 비교한 것이다.
 
-<center><img src='{{"/assets/img/diffgantts/diffgantts-fig5.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/diffgantts/diffgantts-fig5.webp" | relative_url}}' width="70%"></center>
 <br>
 $\hat{x}_1$은 예측된 mel spectrogram에서 샘플링한 것이고 $x_1$은 ground truth에서 샘플링한 것이다. 두 샘플의 구조가 비슷한 것을 알 수 있으며, 이는 $\hat{x}_1$을 강한 prior로 사용할 수 있음을 의미한다. 
 
@@ -230,16 +230,16 @@ RTF (Real-Time factor)는 NVIDIA T4 GPU를 사용하여 측정하였으며, 1초
 
 다음은 텍스트 길이에 대한 inference 시간에 대한 그래프이다.
 
-<center><img src='{{"/assets/img/diffgantts/diffgantts-fig6.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/diffgantts/diffgantts-fig6.webp" | relative_url}}' width="70%"></center>
 
 ### 4. Ablation studies
 다음은 DiffGAN-TTS ($T = 4$) 모델에 대한 ablation studies를 수행한 결과이다. 
 
-<center><img src='{{"/assets/img/diffgantts/diffgantts-table2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/diffgantts/diffgantts-table2.webp" | relative_url}}' width="50%"></center>
 <br>
 Latent variable $z$를 diffusion decoder에 추가한 모델은 다음과 같다.
 
-<center><img src='{{"/assets/img/diffgantts/diffgantts-fig7.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/diffgantts/diffgantts-fig7.webp" | relative_url}}' width="60%"></center>
 <br>
 StyleGAN과 비슷하게 $z \sim \mathcal{N}(0,I)$을 mapping network로 매핑한 후 FC layer로 $\gamma$와 $\beta$를 계산하여 AdaIN 연산에 사용하는 방식이다.
 
@@ -250,6 +250,6 @@ FastSpeech2와 GANSpeech와는 다르게 DiffGAN-TTS의 출력은 입력 텍스�
 
 다음은 DiffGAN-TTS ($T = 4$) 모델에서 얻은 샘플들을 $F_0$ contour에 나타낸 것이다. 
 
-<center><img src='{{"/assets/img/diffgantts/diffgantts-fig8.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/diffgantts/diffgantts-fig8.webp" | relative_url}}' width="70%"></center>
 <br>
 위는 특정 입력 텍스트와 화자에 대하여 10번 실행한 결과이며 다양한 pitch의 음성이 생성되었다. 아래는 서로 다른 10명의 화자에 대하여 실행한 결과이며 각 화자마다 서로 굉장히 다른 운율이 나타났다. 

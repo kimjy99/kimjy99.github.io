@@ -19,7 +19,7 @@ classes: wide
 > University of Science and Technology of China | Microsoft Research Asia  
 > 23 Nov 2022  
 
-<center><img src='{{"/assets/img/paint-by-example/paint-by-example-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/paint-by-example/paint-by-example-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 수많은 소셜 미디어 플랫폼의 발전으로 인해 사진을 창의적으로 편집하는 것은 어디에서나 필요한 일이 되었다. AI 기반 기술은 전통적으로 전문 소프트웨어와 노동 집약적인 수동 작업이 필요한 고급 이미지 편집의 장벽을 크게 낮춘다. 이제 심층 신경망은 풍부하게 사용 가능한 쌍 데이터로부터 학습하여 이미지 인페인팅, 합성, colorization, 미적 향상과 같은 다양한 낮은 수준의 이미지 편집 task에 대한 강력한 결과를 생성할 수 있다. 반면에 더 어려운 시나리오는 이미지 사실성을 유지하면서 이미지 콘텐츠의 높은 수준의 semantic을 조작하려는 semantic 이미지 편집이다. 이러한 방식으로 GAN과 같은 생성 모델의 semantic latet space에 주로 의존하는 엄청난 노력이 이루어졌지만 기존 연구들의 대부분은 특정 이미지 장르로 제한된다. 
@@ -74,7 +74,7 @@ $$
 
 텍스트 기반 인페인팅 모델의 경우 조건 $c$는 주어진 텍스트이며 일반적으로 사전 학습된 CLIP 텍스트 인코더에 의해 처리되어 77개의 토큰을 출력한다. 마찬가지로 순진한 해결책은 이를 CLIP 이미지 임베딩으로 직접 대체하는 것이다. $$c = \textrm{CLIP}_\textrm{all} (x_r)$$로 표시되는 1개의 클래스 토큰과 256개의 패치 토큰을 포함하여 257개의 토큰을 출력하는 사전 학습된 CLIP 이미지 인코더를 활용한다.
 
-<center><img src='{{"/assets/img/paint-by-example/paint-by-example-fig3.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/paint-by-example/paint-by-example-fig3.webp" | relative_url}}' width="75%"></center>
 <br>
 이 순진한 솔루션은 학습 세트에 잘 수렴된다. 그러나 테스트 이미지에 적용해 보면 생성된 결과가 만족스럽지 못하다. 위 그림에서 볼 수 있듯이 편집 영역에는 명백한 복사 붙여넣기 아티팩트가 존재하여 생성된 이미지를 매우 부자연스럽게 만든다. 이는 순진한 학습 방식에서 모델이 자명한 매핑 함수 $\bar{m} \odot x_s + x_r = x_s$를 학습하기 때문이다. 이는 네트워크가 레퍼런스 이미지의 내용과 소스 이미지에 대한 연결을 이해하는 것을 방해하여 레퍼런스 이미지가 임의로 제공되지만 원본 이미지의 패치는 제공되지 않는 일반화 실패로 이어진다.
 
@@ -142,7 +142,7 @@ $$
 
 여기서는 간결함을 위해 $t$와 $\bar{m} \odot x_s$를 생략했다. 전체 프레임워크는 아래 그림에 나와 있다.
 
-<center><img src='{{"/assets/img/paint-by-example/paint-by-example-fig4.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/paint-by-example/paint-by-example-fig4.webp" | relative_url}}' width="80%"></center>
 
 ## Experiments
 - 데이터셋: OpenImages
@@ -155,40 +155,40 @@ $$
 ### 1. Comparisons
 다음 그림은 다른 접근 방법들과 정성적으로 비교한 것이다. 
 
-<center><img src='{{"/assets/img/paint-by-example/paint-by-example-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/paint-by-example/paint-by-example-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 다른 방법들과 정량적으로 비교한 표이다. 
 
-<center><img src='{{"/assets/img/paint-by-example/paint-by-example-table1.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/paint-by-example/paint-by-example-table1.webp" | relative_url}}' width="47%"></center>
 <br>
 다음은 이미지 품질과 semantic 일관성에 대한 user study 결과로, 평균 순위 점수를 비교한 표이다. (1 ~ 5)
 
-<center><img src='{{"/assets/img/paint-by-example/paint-by-example-table2.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/paint-by-example/paint-by-example-table2.webp" | relative_url}}' width="47%"></center>
 
 ### 2. Ablation Study
 다음은 각 구성요소에 대한 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/paint-by-example/paint-by-example-table3.PNG" | relative_url}}' width="45%"></center>
+<center><img src='{{"/assets/img/paint-by-example/paint-by-example-table3.webp" | relative_url}}' width="45%"></center>
 <br>
-<center><img src='{{"/assets/img/paint-by-example/paint-by-example-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/paint-by-example/paint-by-example-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 classifier-free guidance scale $\lambda$에 따른 결과를 비교한 것이다. 
 
-<center><img src='{{"/assets/img/paint-by-example/paint-by-example-fig7.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/paint-by-example/paint-by-example-fig7.webp" | relative_url}}' width="85%"></center>
 
 ### 3. From Language to Image Condition
 다음은 점점 더 정확해지는 텍스트 설명과 이미지를 guidance로 사용할 때의 결과를 비교한 것이다. 이미지를 조건으로 사용할 때 디테일이 더 우수하다. 
 
-<center><img src='{{"/assets/img/paint-by-example/paint-by-example-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/paint-by-example/paint-by-example-fig8.webp" | relative_url}}' width="100%"></center>
 
 ### 4. In-the-wild Image Editing
 다음은 실제 예시 기반 이미지 편집 결과들이다. 
 
-<center><img src='{{"/assets/img/paint-by-example/paint-by-example-fig10.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/paint-by-example/paint-by-example-fig10.webp" | relative_url}}' width="85%"></center>
 <br>
 다음은 동일한 원본 이미지와 예시 이미지로부터 함성한 현실적이고 다양한 결과들이다. 
 
-<center><img src='{{"/assets/img/paint-by-example/paint-by-example-fig9.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/paint-by-example/paint-by-example-fig9.webp" | relative_url}}' width="80%"></center>
 
 ### 5. More Visual Results
-<center><img src='{{"/assets/img/paint-by-example/paint-by-example-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/paint-by-example/paint-by-example-fig2.webp" | relative_url}}' width="100%"></center>

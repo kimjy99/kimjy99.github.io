@@ -18,7 +18,7 @@ classes: wide
 > Stanford University  
 > 10 Feb 2023  
 
-<center><img src='{{"/assets/img/controlnet/controlnet-fig1.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig1.webp" | relative_url}}' width="90%"></center>
 
 ## Introduction
 대형 text-to-image 모델이 있는 경우 시각적으로 매력적인 이미지를 생성하려면 사용자가 입력하는 짧은 설명 프롬프트만 필요할 수 있다. 몇 가지 텍스트를 입력하고 이미지를 얻은 후 자연스럽게 몇 가지 질문이 떠오를 수 있다. 
@@ -40,7 +40,7 @@ classes: wide
 
 ## Method
 ### 1. ControlNet
-<center><img src='{{"/assets/img/controlnet/controlnet-fig2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig2.webp" | relative_url}}' width="60%"></center>
 <br>
 ControlNet은 신경망 블록의 입력 조건을 조작하여 전체 신경망의 전반적인 동작을 추가로 제어한다. 여기서 "네트워크 블록"은 신경망을 구축하기 위해 자주 사용되는 단위로 한데 모인 레이어의 집합을 의미하며, 예를 들어 "resnet" 블록, "conv-bn-relu" 블록, multi-head attention 블록, transformer 블록 등이 있다. 
 
@@ -141,7 +141,7 @@ $$
 
 여기서 $c_f$는 변환된 feature map이다. 이 네트워크는 512$\times$512 이미지 조건을 64$\times$64 feature map으로 변환한다.
 
-<center><img src='{{"/assets/img/controlnet/controlnet-fig3.PNG" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig3.webp" | relative_url}}' width="85%"></center>
 <br>
 위 그림과 같이 ControlNet을 사용하여 U-net의 각 레벨을 제어한다. ControlNet을 연결하는 방법은 계산적으로 효율적이다. 원래 가중치가 잠겨 있기 때문에 학습을 위해 원래 인코더에 대한 기울기 계산이 필요하지 않다. 이렇게 하면 원본 모델에서 기울기 계산의 절반을 피할 수 있으므로 학습 속도가 빨라지고 GPU 메모리가 절약된다. ControlNet으로 Stable Diffusion 모델을 학습하려면 GPU 메모리가 약 23% 더 필요하고 각 학습 iteration에서 34% 더 많은 시간이 필요하다. 
 
@@ -188,79 +188,79 @@ GPU 사용이 제한될 때 ControlNet과 Stable Diffusion 간의 연결을 부�
 다음은 다양한 이미지 조건으로 Stable Diffusion을 제어한 예시들이다.
 
 #### Canny edge
-<center><img src='{{"/assets/img/controlnet/controlnet-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig4.webp" | relative_url}}' width="100%"></center>
 
 #### Hough line (M-LSD)
-<center><img src='{{"/assets/img/controlnet/controlnet-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig5.webp" | relative_url}}' width="100%"></center>
 
 #### 사용자의 낙서
-<center><img src='{{"/assets/img/controlnet/controlnet-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig6.webp" | relative_url}}' width="100%"></center>
 
 #### HED edge
-<center><img src='{{"/assets/img/controlnet/controlnet-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig7.webp" | relative_url}}' width="100%"></center>
 
 #### Openpifpaf pose
-<center><img src='{{"/assets/img/controlnet/controlnet-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig8.webp" | relative_url}}' width="100%"></center>
 
 #### Openpose
-<center><img src='{{"/assets/img/controlnet/controlnet-fig9.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig9.webp" | relative_url}}' width="100%"></center>
 
 #### ADE20K segmentation map
-<center><img src='{{"/assets/img/controlnet/controlnet-fig11.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig11.webp" | relative_url}}' width="100%"></center>
 
 #### COCO-Stuff segmentation map
-<center><img src='{{"/assets/img/controlnet/controlnet-fig12.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig12.webp" | relative_url}}' width="60%"></center>
 
 ####  DIODE normal map
-<center><img src='{{"/assets/img/controlnet/controlnet-fig13.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig13.webp" | relative_url}}' width="60%"></center>
 
 #### 만화 선화
-<center><img src='{{"/assets/img/controlnet/controlnet-fig15.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig15.webp" | relative_url}}' width="60%"></center>
 
 ### 2. Ablation Study
 다음은 ControlNet을 사용하지 않고 학습된 모델과의 비교를 보여준다. 해당 모델은 Stability의 Depth-to-Image 모델과 정확히 동일한 방법으로 학습된다.
 
-<center><img src='{{"/assets/img/controlnet/controlnet-fig20.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig20.webp" | relative_url}}' width="80%"></center>
 <br>
 다음 그림은 학습 과정을 보여준다. 모델이 갑자기 입력 조건을 따를 수 있게 되는 "급격한 수렴 현상"이 발생한다. 이는 learning rate로 $1 \times 10^{-5}$를 사용할 때 5,000에서 10,000 step까지의 학습 과정 중에 발생할 수 있다. 
 
-<center><img src='{{"/assets/img/controlnet/controlnet-fig21.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig21.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 다양한 데이터셋 스케일로 학습된 Canny-edge 기반 ControlNet을 보여준다.
 
-<center><img src='{{"/assets/img/controlnet/controlnet-fig22.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig22.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Comparison to previous methods
 다음은 Stability의 Depth-to-Image model과 비교한 예시들이다.
 
-<center><img src='{{"/assets/img/controlnet/controlnet-fig14.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig14.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 Pretraining-Image-to-Image(PITI)와 비교한 예시들이다.
 
-<center><img src='{{"/assets/img/controlnet/controlnet-fig17.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig17.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 sketch-guided diffusion과 비교한 예시들이다.
 
-<center><img src='{{"/assets/img/controlnet/controlnet-fig18.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig18.webp" | relative_url}}' width="50%"></center>
 <br>
 다음은 Taming transformer와 비교한 예시들이다. 
 
-<center><img src='{{"/assets/img/controlnet/controlnet-fig19.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig19.webp" | relative_url}}' width="50%"></center>
 
 ### 4. Comparison of pre-trained models
 다음 그림은 diffusion process가 마스킹되면 펜 기반 이미지 편집에서 모델을 사용할 수 있음을 보여준다.
 
-<center><img src='{{"/assets/img/controlnet/controlnet-fig16.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig16.webp" | relative_url}}' width="70%"></center>
 <br>
 다음 그림은 객체가 상대적으로 단순할 때 모델이 디테일을 비교적 정확하게 제어할 수 있음을 보여준다.
 
-<center><img src='{{"/assets/img/controlnet/controlnet-fig26.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig26.webp" | relative_url}}' width="60%"></center>
 <br>
 다음 그림은 ControlNet이 50% diffusion iteration에만 적용될 때 입력 형태를 따르지 않는 결과를 얻을 수 있음을 보여준다.
 
-<center><img src='{{"/assets/img/controlnet/controlnet-fig27.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig27.webp" | relative_url}}' width="70%"></center>
 
 ## Limitation
 다음은 semantic 해석이 잘못된 경우 모델이 올바른 내용을 생성하기 어려울 수 있음을 보여준다.
 
-<center><img src='{{"/assets/img/controlnet/controlnet-fig28.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/controlnet/controlnet-fig28.webp" | relative_url}}' width="50%"></center>

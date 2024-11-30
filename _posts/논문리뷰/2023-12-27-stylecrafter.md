@@ -19,7 +19,7 @@ classes: wide
 > Tsinghua University | Tencent AI Lab | CUHK  
 > 1 Dec 2023  
 
-<center><img src='{{"/assets/img/stylecrafter/stylecrafter-fig1.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/stylecrafter/stylecrafter-fig1.webp" | relative_url}}' width="55%"></center>
 
 ## Introduction
 강력한 diffusion model의 인기는 콘텐츠 생성 분야에서 놀라운 발전을 가져왔다. 예를 들어, text-to-image (T2I) 모델은 다양한 시각적 개념을 포괄하는 텍스트 프롬프트에서 다양하고 생생한 이미지를 생성할 수 있다. 이러한 큰 성공은 모델의 발전뿐만 아니라 인터넷을 통해 다양한 이미지 데이터를 이용할 수 있게 된 덕분이다. 이와 달리 text-to-video (T2V) 모델은 특히 스타일 면에서 데이터 카테고리가 부족하다. 이는 기존 동영상이 주로 사실적인 feature를 갖고 있기 때문이다. 잘 학습된 T2I 모델에서 가중치를 초기화하거나 이미지나 동영상 데이터셋을 사용한 공동 학습과 같은 전략이 이 문제를 완화하는 데 도움이 될 수 있지만 생성된 스타일화(stylize)된 동영상은 일반적으로 스타일 충실도가 저하된다. [AnimateDiff](https://kimjy99.github.io/논문리뷰/animatediff)는 LoRA를 튜닝한 T2I 모델을 사전 학습된 시간 블록과 결합하여 인상적인 스타일화된 동영상을 만들 수 있다. 그러나 각 스타일에는 작은 예제 세트에 대한 LoRA fine-tuning이 필요하므로 이는 비효율적이며 어떤 스타일도 지원할 수 없다.
@@ -34,7 +34,7 @@ classes: wide
 스타일화된 동영상 데이터셋의 희소성을 고려하여, 저자들은 먼저 이미지 데이터셋의 이미지에서 원하는 스타일 feature를 추출하도록 스타일 어댑터를 학습시킨 다음, 맞춤형 fine-tuning 패러다임을 통해 학습된 스타일화 능력을 동영상 생성에 전달할 것을 제안하였다. 콘텐츠 스타일 분리를 촉진하기 위해 텍스트 프롬프트에서 스타일 설명을 제거하고 디커플링 학습 전략을 사용하여 레퍼런스 이미지에서만 스타일 정보를 추출한다. 특히, 텍스트 기반 콘텐츠 feature와 이미지 기반 스타일 feature의 균형을 맞추기 위해 scale-adaptive fusion module을 설계하여 다양한 텍스트와 스타일 조합에 대한 일반화를 돕는다. StyleCrafter는 텍스트 내용과 일치하고 레퍼런스 이미지의 스타일과 유사한 고품질의 스타일화된 동영상을 효율적으로 생성한다. 
 
 ## Method
-<center><img src='{{"/assets/img/stylecrafter/stylecrafter-fig2.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/stylecrafter/stylecrafter-fig2.webp" | relative_url}}' width="60%"></center>
 <br>
 본 논문은 사전 학습된 T2V 모델에 스타일 어댑터를 장착하여 텍스트 프롬프트와 스타일 레퍼런스 이미지를 기반으로 스타일화된 동영상을 생성할 수 있는 방법을 제안한다. 개요 다이어그램은 위 그림에 설명되어 있다. 이 프레임워크에서 텍스트 설명은 동영상 콘텐츠를 제어하고 스타일 이미지는 시각적 스타일을 제어하여 동영상 생성 프로세스에 대한 명확한 제어를 보장한다. 스타일화된 동영상의 제한된 가용성을 고려하여 저자들은 2단계 학습 전략을 사용하였다. 처음에는 레퍼런스 기반 스타일 변조를 학습하기 위해 예술적 스타일이 풍부한 이미지 데이터셋을 활용한다. 이후 생성된 동영상의 시간적 품질을 향상시키기 위해 스타일 이미지와 사실적인 동영상이 혼합된 데이터셋에 대한 fine-tuning을 수행한다.
 
@@ -67,7 +67,7 @@ $$F_\textrm{in}^i$$는 레이어 $i$의 backbone feature이고, LN$은 layer nor
 
 여기서 동기는 서로 다른 스타일 장르가 콘텐츠 표현에 대해 서로 다른 강세를 가질 수 있다는 것이다. 예를 들어, 추상적 스타일은 내용의 구체성을 감소시키는 경향이 있는 반면, 사실주의 스타일은 내용의 정확성과 특수성을 강조하는 경향이 있다. 따라서 저자들은 텍스트와 스타일 이미지에 따라 fusion scale factor를 예측하는 context-aware scale factor 예측 네트워크를 제안하였다. 구체적으로, 학습 가능한 factor query를 생성하고, 텍스트 feature $F_t$와 스타일 feature $F_s$와 상호 작용하여 Q-Former를 통해 스케일 feature를 생성한 다음 레이어별 scale factor $s \in \mathbb{R}^{16}$에 project된다. 
 
-<center><img src='{{"/assets/img/stylecrafter/stylecrafter-fig3.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/stylecrafter/stylecrafter-fig3.webp" | relative_url}}' width="75%"></center>
 <br>
 위 그림은 여러 컨텍스트 스타일 입력에 걸쳐 학습된 scale factor를 보여준다. 이는 적응형 scale factor가 스타일 장르와 강한 상관관계를 가지며 텍스트 프롬프트에도 의존한다는 것을 보여준다. 풍부한 스타일 semantic이 포함된 스타일 레퍼런스들은 일반적으로 스타일을 강조하기 위해 더 높은 scale factor를 생성한다. 복잡한 프롬프트는 콘텐츠 제어를 향상시키기 위해 더 낮은 factor를 생성하는 경향이 있다. 
 
@@ -102,52 +102,52 @@ $$
 ### 1. Style-Guided Text-to-Image Generation
 다음은 스타일 기반 T2I 생성을 정량적으로 비교한 표이다. 400쌍의 테스트셋에 대한 이미지-텍스트 정렬(Text)과 스타일 적합성(Style)에 대한 CLIP score를 평가한 결과이다. 
 
-<center><img src='{{"/assets/img/stylecrafter/stylecrafter-table1.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/stylecrafter/stylecrafter-table1.webp" | relative_url}}' width="65%"></center>
 <br>
 다음은 스타일 기반 T2I 생성을 시각적으로 비교한 결과이다.
 
-<center><img src='{{"/assets/img/stylecrafter/stylecrafter-fig4.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/stylecrafter/stylecrafter-fig4.webp" | relative_url}}' width="100%"></center>
 
 ### 2. Style-Guided Text-to-Video Generation
 다음은 스타일 기반 T2V 생성을 정량적으로 비교한 표이다. 240쌍의 테스트셋에 대한 이미지-텍스트 정렬(Text)과 스타일 적합성(Style), 시간적 품질(Temporal)에 대한 CLIP score를 평가한 결과이다.
 
-<center><img src='{{"/assets/img/stylecrafter/stylecrafter-table2.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/stylecrafter/stylecrafter-table2.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 스타일 기반 T2V 생성을 시각적으로 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/stylecrafter/stylecrafter-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/stylecrafter/stylecrafter-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 여러 레퍼런스에서의 스타일 기반 T2V 생성을 정량적으로 비교한 표이다. 60쌍의 테스트셋에 대한 이미지-텍스트 정렬(Text)과 스타일 적합성(Style), 시간적 품질(Temporal)에 대한 CLIP score를 평가한 결과이다.
 
-<center><img src='{{"/assets/img/stylecrafter/stylecrafter-table3.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/stylecrafter/stylecrafter-table3.webp" | relative_url}}' width="65%"></center>
 <br>
 다음은 여러 레퍼런스에서의 스타일 기반 T2V 생성을 시각적으로 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/stylecrafter/stylecrafter-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/stylecrafter/stylecrafter-fig6.webp" | relative_url}}' width="100%"></center>
 
 ### 3. Ablation Study
 #### Data Augmentation & Dual Cross-Attention
 다음은 스타일 변조 설계에 대한 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/stylecrafter/stylecrafter-table4.PNG" | relative_url}}' width="57%"></center>
+<center><img src='{{"/assets/img/stylecrafter/stylecrafter-table4.webp" | relative_url}}' width="57%"></center>
 <br>
 다음은 dual cross-attention과 data augmentation의 효과를 시각적으로 비교한 것이다. 
 
-<center><img src='{{"/assets/img/stylecrafter/stylecrafter-fig7.PNG" | relative_url}}' width="67%"></center>
+<center><img src='{{"/assets/img/stylecrafter/stylecrafter-fig7.webp" | relative_url}}' width="67%"></center>
 
 #### Adaptive Style-Content Fusion
 다음은 적응형 콘텐츠-스타일 융합의 효과를 시각적으로 비교한 것이다. 
 
-<center><img src='{{"/assets/img/stylecrafter/stylecrafter-fig8.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/stylecrafter/stylecrafter-fig8.webp" | relative_url}}' width="70%"></center>
 
 #### Two-Stage Training Scheme
 다음은 다양한 학습 방식에 대해 비교한 것이다. 
 
-<center><img src='{{"/assets/img/stylecrafter/stylecrafter-fig9.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/stylecrafter/stylecrafter-fig9.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 2단계 학습 방식에 대한 ablation study 결과이다. 
 
-<center><img src='{{"/assets/img/stylecrafter/stylecrafter-table5.PNG" | relative_url}}' width="75%"></center>
+<center><img src='{{"/assets/img/stylecrafter/stylecrafter-table5.webp" | relative_url}}' width="75%"></center>
 
 ## Limitations
 레퍼런스 이미지가 타겟 스타일을 충분히 표현할 수 없거나 제시된 스타일이 극도로 눈에 띄지 않는 경우 원하는 결과를 생성할 수 없다. 

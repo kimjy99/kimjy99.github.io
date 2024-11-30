@@ -20,7 +20,7 @@ classes: wide
 > AI graduate school, GIST | Google Research  
 > 31 Mar 2023  
 
-<center><img src='{{"/assets/img/global-local-clip/global-local-clip-fig1.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/global-local-clip/global-local-clip-fig1.webp" | relative_url}}' width="60%"></center>
 
 ## Introduction
 CLIP과 같은 멀티모달 모델의 최근 성공의 핵심 요소는 대규모 이미지-텍스트 쌍 집합에 대한 대조 이미지-텍스트 사전 학습이다. object detection, semantic segmentation, image captioning, visual question answering (VQA) 등과 같은 광범위한 task에서 놀라운 zero-shot 전송 가능성을 보여주었다.
@@ -37,7 +37,7 @@ Referring image segmentation (RIS)은 특정 영역을 설명하는 자연어 �
 ### 1. Overall Framework
 텍스트 설명을 기반으로 타겟 영역을 예측하는 것을 목표로 하는 RIS를 해결하려면 공유 임베딩 공간에서 이미지와 텍스트 표현을 학습하는 것이 필수적이다. 이를 위해 CLIP을 채택하여 이미지와 자연어에 대해 사전 학습된 cross-modal feature를 활용한다.
 
-<center><img src='{{"/assets/img/global-local-clip/global-local-clip-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/global-local-clip/global-local-clip-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문의 프레임워크는 위 그림과 같이 두 부분으로 구성된다. 
 
@@ -59,7 +59,7 @@ $$
 여기서 $\textrm{sim}(\cdot, \cdot)$은 코사인 유사도, $t$는 $T$에 대한 글로벌-로컬 textual feature, $f$는 글로벌-로컬 visual feature, $M(I)$는 주어진 이미지 $I$에 대한 mask proposal 집합이다. 
 
 ### 2. Mask-guided Global-local Visual Features
-<center><img src='{{"/assets/img/global-local-clip/global-local-clip-fig3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/global-local-clip/global-local-clip-fig3.webp" | relative_url}}' width="50%"></center>
 <br>
 참조 표현과 관련된 타겟 영역을 분할하기 위해서는 타겟의 로컬 semantic 정보뿐만 아니라 이미지 내 여러 객체 간의 글로벌 관계를 이해하는 것이 필수적이다. CLIP을 사용하여 글로벌 및 로컬 컨텍스트 feature를 추출하고 이를 융합한다. 
 
@@ -151,38 +151,38 @@ $$
 #### Main Results
 다음은 세 가지 표준 벤치마크 데이터셋에 대하여 zero-shot RIS baseline과 비교한 표이다. (U: The UMD partition. G: The Google partition)
 
-<center><img src='{{"/assets/img/global-local-clip/global-local-clip-table1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/global-local-clip/global-local-clip-table1.webp" | relative_url}}' width="100%"></center>
 
 #### Zero-shot Evaluation on Unseen Domain
 다음은 PhraseCut의 zero-shot 설정에서 supervised 방법을 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/global-local-clip/global-local-clip-fig4a.PNG" | relative_url}}' width="37%"></center>
+<center><img src='{{"/assets/img/global-local-clip/global-local-clip-fig4a.webp" | relative_url}}' width="37%"></center>
 
 #### Comparison to supervised methods in few-shot Setting
 다음은 RefCOCOg의 few-shot 설정에서 supervised 방법을 비교한 그래프이다. 
 
-<center><img src='{{"/assets/img/global-local-clip/global-local-clip-fig4b.PNG" | relative_url}}' width="36%"></center>
+<center><img src='{{"/assets/img/global-local-clip/global-local-clip-fig4b.webp" | relative_url}}' width="36%"></center>
 
 ### 2. Ablation Study
 #### Effects of Mask Quality
 다음은 본 논문의 방법과 baseline를 oIoU로 비교한 표이다. 
 
-<center><img src='{{"/assets/img/global-local-clip/global-local-clip-table2.PNG" | relative_url}}' width="48%"></center>
+<center><img src='{{"/assets/img/global-local-clip/global-local-clip-table2.webp" | relative_url}}' width="48%"></center>
 
 #### Effects of Global-Local Context Features
 다음은 여러 컨텍스트 수준의 feature에 대한 oIoU 결과이다. 
 
-<center><img src='{{"/assets/img/global-local-clip/global-local-clip-table3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/global-local-clip/global-local-clip-table3.webp" | relative_url}}' width="50%"></center>
 
 #### Qualitative Analysis
 다음은 여러 수준의 visual feature에 대한 정성적 결과이다.
 
-<center><img src='{{"/assets/img/global-local-clip/global-local-clip-fig5.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/global-local-clip/global-local-clip-fig5.webp" | relative_url}}' width="55%"></center>
 <br>
 다음은 여러 수준의 textual feature에 대한 정성적 결과이다. 
 
-<center><img src='{{"/assets/img/global-local-clip/global-local-clip-fig6.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/global-local-clip/global-local-clip-fig6.webp" | relative_url}}' width="65%"></center>
 <br>
 다음은 본 논문의 방법을 여러 baseline들과 정성적으로 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/global-local-clip/global-local-clip-fig7.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/global-local-clip/global-local-clip-fig7.webp" | relative_url}}' width="100%"></center>

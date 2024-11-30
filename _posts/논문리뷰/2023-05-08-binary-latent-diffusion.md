@@ -19,7 +19,7 @@ classes: wide
 > Purdue University | Microsoft Corporation  
 > 10 Apr 2023  
 
-<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-fig1.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-fig1.webp" | relative_url}}' width="60%"></center>
 
 ## Introduction
 고품질의 새로운 샘플을 효율적으로 생성할 수 있는 이미지 분포 모델링의 목표는 표현 학습 및 생성 모델의 연구를 주도한다. 픽셀 space에서 이미지를 직접 표현하고 생성하는 것은 GAN, flow model, energy 기반 모델, diffusion model 등 다양한 연구를 자극하였다. 해상도가 높아짐에 따라 픽셀 값을 정확하게 회귀하기가 점점 더 어려워진다. 그리고 이 문제는 일반적으로 계층적 모델 아키텍처를 통해 또는 현저하게 높은 비용으로 해결해야 한다. 또한 뛰어난 생성 이미지 품질을 보여주지만 GAN 모델은 불충분한 모드 커버리지와 학습 불안정성 등의 문제를 겪는다. 
@@ -45,7 +45,7 @@ $$
 
 여기서 $\oslash$는 stop gradient 연산이다. $z$와 동등하고 binary인 $\tilde{z}$는 이미지 재구성을 위해 디코더 네트워크 $\Phi$에 보내진다. 디코더 $\Phi$에서 $\tilde{z}$로 다시 전파된 기울기는 $y$로 직접 전송되며, 이는 인코더 $\Psi$에 대해 미분 가능하고 이산적인 binary latent space를 사용하여 전체 autoencoder의 end-to-end 학습을 가능하게 한다.
 
-<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-fig2.PNG" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-fig2.webp" | relative_url}}' width="90%"></center>
 <br>
 이미지 재구성은 $\hat{x} = \Phi (\tilde{z})$로 얻는다. Binary autoencoder의 전체 프레임워크는 위 그림에 시각화되어 있다. End-to-end 기울기 전파를 보장하는 기울기 함수를 사용하여 네트워크는 다음 최종 목적 함수를 최소화하여 학습된다.
 
@@ -71,7 +71,7 @@ $$
 
 여기서 $\mathcal{B}$는 베르누이 분포이고 $\beta^t$는 각 step $t$에서의 noise scale이다. Step $T$가 충분하고 scale $\beta^t$가 적합하면 forward diffusion process는 $\mathcal{B}(z^T; 0.5)$로 수렴할 것이다. 아래 그림은 binary latent diffusion process의 예시이다. 
 
-<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-fig3.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-fig3.webp" | relative_url}}' width="70%"></center>
 <br>
 임의의 timestep $t$와 샘플 $z^0$이 주어지면 사후 분포는 다음과 같이 쉽게 얻을 수 있다.
 
@@ -183,10 +183,10 @@ $$
 
 로 바꾸는 temperature $\tau$를 삽입하여 샘플링 다양성을 수동으로 조정할 수 있다. $\tau$는 학습 후 샘플링 동안 다양성을 조정하는 데만 사용되며 학습에서 hyperparameter로 포함되지 않는다. $\tau$가 샘플 다양성에 미치는 영향의 예는 아래 그림에 나와 있다.
 
-<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-fig4.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-fig4.webp" | relative_url}}' width="70%"></center>
 
 ### 2. Comparisons with Existing Methods
-<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-fig5.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-fig5.webp" | relative_url}}' width="70%"></center>
 <br>
 Latent space 이미지 표현의 다른 방벙에 비해 제안된 binary 표현을 채택하는 이점에 대해 간략하게 논의한다. 위 그림에서 볼 수 있듯이 vector-quantized latent space는 각 이미지 패치를 이산적인 인덱스 또는 one-hot vector로 나타낸다. 그런 다음 one-hot vector는 학습된 코드북과 곱하여 이미지 패치의 feature 표현을 얻는다. 연속적인 latent space의 이미지 표현은 단순히 디코더 네트워크의 첫 번째 가중치 행렬을 학습된 코드북으로 취급하여 유사한 방식으로 해석할 수 있다. 
 
@@ -198,47 +198,47 @@ Latent space 이미지 표현의 다른 방벙에 비해 제안된 binary 표현
 ### 1. Unconditional Image Generation
 다음은 256$\times$256 unconditional 이미지 생성에 대한 정량적 비교 결과이다. 
 
-<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-table1.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-table1.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 1024$\times$1024 unconditional 이미지 생성에 대한 정량적 비교 결과이다. 
 
-<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-table3.PNG" | relative_url}}' width="53%"></center>
+<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-table3.webp" | relative_url}}' width="53%"></center>
 
 ### 2. Conditional Image Generation
 다음은 256$\times$256 클래스 조건부 이미지 생성에 대한 정량적 비교 결과이다. 
 
-<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-table2.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-table2.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 클래스 조건부로 생성한 이미지 샘플들이다. 
 
-<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-fig6.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-fig6.webp" | relative_url}}' width="50%"></center>
 
 ### 3. Discussions
 #### Image Reconstruction
 다음은 다양한 latent code의 포맷에 대한 이미지 재구성 품질을 나타낸 표이다.
 
-<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-table4.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-table4.webp" | relative_url}}' width="50%"></center>
 
 #### Alternative samplers
 다음은 다양한 sampler로 베르누이 latent 분포에서 prior를 모델링하였을 때의 FID이다. 
 
-<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-table5.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-table5.webp" | relative_url}}' width="50%"></center>
 
 #### Efficiency
 다음은 이미지 생성 속도를 비교한 표이다. (샘플/초)
 
-<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-table6.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-table6.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 denoising step에 따른 FID의 변화를 absorbing diffusion model과 비교한 것이다. (공정한 비교를 위해 $\tau = 1.0$)
 
-<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-fig7.PNG" | relative_url}}' width="65%"></center>
+<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-fig7.webp" | relative_url}}' width="65%"></center>
 
 #### Ablation studies
 다양한 $\lambda$와 예측 대상에 따른 FID와 Recall을 측정한 표이다.
 
-<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-table7.PNG" | relative_url}}' width="55%"></center>
+<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-table7.webp" | relative_url}}' width="55%"></center>
 
 #### Image inpainting
 다음은 inpainting 결과이다. 
 
-<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-fig8.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/binary-latent-diffusion/binary-latent-diffusion-fig8.webp" | relative_url}}' width="100%"></center>

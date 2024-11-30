@@ -19,7 +19,7 @@ classes: wide
 > KAIST | NAVER Cloud  
 > 28 Nov 2022  
 
-<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 Diffusion model은 최근 이미지 생성 등의 분야에서 SOTA를 기록하였다. SOTA model이 인간 수준의 생성을 수행하지만 아직 diffusion model에 대한 깊은 이해를 위한 연구가 많이 필요하다. 
@@ -112,7 +112,7 @@ $$
 
 $\lambda$는 시간적 가중치이다. Discriminator는 diffuse된 실제 데이터 $x_t \sim p_r^t$를 진짜로, diffuse된 샘플 데이터 $x_t \sim p_{\theta_\infty}^t$를 가짜로 분류한다. 자세한 알고리즘은 Algorithm 1과 같다. 
 
-<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-algo1.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-algo1.webp" | relative_url}}' width="50%"></center>
 <br>
 그런 다음 correction term을
 
@@ -138,7 +138,7 @@ dx_t = [f(x_t, t) - g^2 (t) (s_{\theta_\infty} + c_\phi) (x_t, t)] d \bar{t} + g
 \end{equation}
 $$
 
-<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-fig3.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-fig3.webp" | relative_url}}' width="50%"></center>
 <br>
 위 그림은 discriminator가 학습됨에 따라 샘플 품질이 개선되며 빠르게 수렴함을 보여준다. 
 
@@ -171,7 +171,7 @@ $$
 
 만일 discriminator가 전혀 학습되지 않았다면 ($d_{\phi_0} \approx 0.5$) gain은 근사적으로 0이다. 최적의 discriminator는 $E_{\theta_\infty, \phi} = 0$이므로 gain이 최대화된다. 
 
-<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-fig4.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-fig4.webp" | relative_url}}' width="50%"></center>
 <br>
 다르게 말하면, discriminator guidance가 추가적인 축 방향 자유도 $\phi$를 두어 score error $E_{\theta_\infty}$를 discriminator error $E_{\theta_\infty, \phi}$로 reparameterize한다고 할 수 있다. $E_{\theta_\infty}$는 더 이상 $L_\theta$로 최적화할 수 없지만 $E_{\theta_\infty, \phi}$는 대체 loss $\mathcal{L}_\phi$로 최적화할 수 있다. (위 그림 참고)
 
@@ -206,17 +206,17 @@ $$
 
 $w_t^\textrm{DG}$와 $w_t^\textrm{CG}$는 시간 종속 가중치이다. 두 가지 정보는 보완적인 방식으로 샘플을 classifier와 discriminator의 공통 영역으로 이상적으로 guide할 수 있다. 
 
-<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-algo2.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-algo2.webp" | relative_url}}' width="50%"></center>
 <br>
 Algorithm 2는 guidance 테크닉의 샘플링 절차의 전체 디테일을 설명한다. 이 알고리즘은 아래 표의 해당 하이퍼파라미터를 사용하여 DDPM, DDIM, EDM의 sampler를 줄인다. 본 논문의 sampler는 기본 sampler 뒤에 G++를 붙여 표시한다.
 
-<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-table1.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-table1.webp" | relative_url}}' width="40%"></center>
 
 ## Experiments
 ### 1. A Toy 2-dimensional Case
 다음은 tractable한 2차원 toy case의 실험 결과를 보여준다. 
 
-<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-fig5.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-fig5.webp" | relative_url}}' width="50%"></center>
 <br>
 저자들은 256개의 뉴런으로 이루어진 4-layered MLP discriminator를 수렴할 때까지 학습시켰다. 저자들은 데이터 score에 부적합한 잘못된 score function $s := \nabla \log p_g^t$를 가정한다. Guidance가 없는 경우 잘못된 score $s$는 그림의 두번째 행과 같이 잘못된 분포에서 샘플을 생성한다. 반대로 $s + c_{\phi_\infty}$는 $s$를 $\nabla \log p_r^t$로 성공적으로 guide한다. 
 
@@ -229,50 +229,50 @@ U-Net 구조의 인코더를 discriminator network로 사용하였다. Pixel-dif
 #### Quantitative Analysis
 실험 결과, 모든 데이터셋에 대해 새로운 SOTA FID를 달성하였다. 다음은 CIFAR-10에서의 성능을 나타낸 표이다.
 
-<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-table2.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-table2.webp" | relative_url}}' width="70%"></center>
 <br>
 Discriminator Guidance가 pixel-diffusion model (EDM)과 latent-diffusion model (LSGM) 모두에서 효과적임을 보여준다. EDM과 LSGM 모두 hyperparameter를 그대로 사용하였기 때문에 성능 개선은 순수하게 DG에 의한 것이다. 다음은 CelebA와 FFHQ에서의 FID를 비교한 것이다.
 
-<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-table3.PNG" | relative_url}}' width="60%"></center>
+<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-table3.webp" | relative_url}}' width="60%"></center>
 <br>
 다음은 ImageNet 256$\times$256에서의 성능을 나타낸 표이다.
 
-<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-table4.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-table4.webp" | relative_url}}' width="70%"></center>
 <br>
 모델의 IS와 precision이 validation dataset 수준에 도달하였으며, FID, sFID, recall과 같은 다른 metric을 최적화하는 것이 더 중요해졌다. 한편, FID와 recall 사이의 trade-off가 존재한다. 
 
 #### Qualitative Analysis
 다음은 ImageNet 256$\times$256에서의 샘플을 비교한 것이다. (a)는 ADM, (b)는 classifier guidance를 사용한 ADM, (c)는 classifier guidance와 discriminator guidance를 사용한 ADM의 샘플이다. 
 
-<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-fig2.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-fig2.webp" | relative_url}}' width="95%"></center>
 <br>
 다음은 원본 샘플, EDM과 EDM-G++로 재생성한 샘플 100개의 평균을 나타낸 그림이다. 원본 샘플을 표준 가우시안의 random noise로 손상시킨 뒤 probability flow ODE를 풀어 재생성한 것이다. 
 
-<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-fig6.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-fig6.webp" | relative_url}}' width="50%"></center>
 <br>
 이상적인 경우 sampler가 deterministic하므로 score 추정이 정확하다면 완벽한 재생성이 가능하다. EDM으로 재생성한 경우 forward SDE와 generative SDE 사이의 불일치가 발생하였지만 EDM-G++는 generative SDE가 수정되어 forward process와 거의 동일해졌다. 
 
 다음은 FFHQ에서 density-ratio에 따른 샘플 궤적들을 비교한 그래프이다.
 
-<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-fig7.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-fig7.webp" | relative_url}}' width="50%"></center>
 <br>
 학습된 discriminator가 정확하게 실제 데이터와 샘플 데이터의 diffusion 경로를 구분하는 것을 볼 수 있다. 조정된 score를 활용하여 생성된 샘플 경로는 discriminator를 속이고 조정된 generative SDE의 density-ratio 곡선이 데이터 forward SDE의 곡선에 근접하게 된다. 
 
 다음은 CIFAR-10에서 샘플링 시의 함수 평가 횟수 (NFE)에 따른 DG의 효과를 나타낸 그래프이다. 
 
-<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-fig8.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-fig8.webp" | relative_url}}' width="50%"></center>
 <br>
 NFE가 감소하면 이산화 오차가 샘플링 오차의 대부분을 차지하며, DG에 의한 gain이 suboptimal해진다. 
 
 다음은 ImageNet 256에서 negative log-likelihood $$-\log \mathcal{N}(F(x); \mu_{data}, \Sigma_{data})$$를 나타낸 그래프이다. $F(x)$는 sFID의 feature map으로, 공간적 feature를 캡처하는 데 특화되어 있다. 
 
-<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-fig9.PNG" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-fig9.webp" | relative_url}}' width="50%"></center>
 <br>
 ADM-G++의 feature 분포는 validation data에 가까워지며, ADM-G++는 자주 보이는 데이터뿐만 아니라 학습중에 드물게 관찰되는 데이터도 잘 생성한다. 
 
 ### 3. Image-2-Image Translation
 다음은 I2I task에 대한 그림이다. (a)는 SDEdit에 DG를 적용하여 translation 품질을 개선한 것이고, (b)는 realism (FID)와 faithfulness (PSNR) 사이의 그래프이다. 
 
-<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-fig10.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/discriminator-guidance/discriminator-guidance-fig10.webp" | relative_url}}' width="100%"></center>
 <br>
 (a)를 보면 DG는 source 도메인이나 translated 도메인에 가지 않고 target 도메인으로 연결된다. (b)를 보면 DG가 realism과 faithfulness 사이의 trade-off를 해결한다. 

@@ -34,7 +34,7 @@ CondInst 논문에 따르면 하나의 이미지 내의 instance mask는 공통 
 
 아래 그림에서 DiffusionInst의 denoising diffusion process를 보여준다.
 
-<center><img src='{{"/assets/img/diffinst/diffinst-fig1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/diffusioninst/diffusioninst-fig1.webp" | relative_url}}' width="80%"></center>
 <br>
 Multi-step inference를 수행하는 능력 외의 또 다른 장점은 noisy라게 생성된 필터가 무작위로 선택된 시간 $$t \in \{0, 1, \cdots, T\}$$에 따라 다른 분포의 noise를 포함할 수 있다는 것이다. 경우에 따라 $T$ denoising step는 $T$개의 다른 분포의 noise로 볼 수 있으며, 이는 학습의 어려움을 크게 증가시키고 모델 견고성과 성능에 크게 기여한다. 
 
@@ -86,7 +86,7 @@ Diffusion process에서 instance mask를 나타내기 위해 필터를 사용하
 ### 3. DiffusionInst
 위와 같은 CondInst의 마스크 표현 방법을 사용하면 DiffusionInst의 데이터 샘플을 instance segmentation을 위한 필터 $x_0 = \theta$로 간주할 수 있다. DiffusionInst의 전체 프레임워크는 아래 그림에 설명되어 있다. 
 
-<center><img src='{{"/assets/img/diffinst/diffinst-fig2.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/diffusioninst/diffusioninst-fig2.webp" | relative_url}}' width="80%"></center>
 <br>
 전체 아키텍처는 주로 다음 구성 요소를 포함한다. 
 
@@ -151,7 +151,7 @@ Diffusion model을 instacne segmentation task에 성공적으로 도입했지만
 
 ### 1. Comparison with State-of-the-art
 #### COCO validation set
-<center><img src='{{"/assets/img/diffinst/diffinst-table1.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/diffusioninst/diffusioninst-table1.webp" | relative_url}}' width="80%"></center>
 <br>
 위 표는 COCO validation set에서의 instacne segmentation 결과이다. 표로부터 4가지 결론을 얻을 수 있다. 
 
@@ -161,13 +161,13 @@ Diffusion model을 instacne segmentation task에 성공적으로 도입했지만
 4. DiffusionInst는 큰 instacne에 대하여 성능이 좋지만 몇몇 작은 instacne는 놓친다. 이는 더 넓은 receptive field가 필요함을 뜻한다. 
 
 #### COCO test-dev set
-<center><img src='{{"/assets/img/diffinst/diffinst-table2.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/diffusioninst/diffusioninst-table2.webp" | relative_url}}' width="47%"></center>
 
 #### LVIS dataset
-<center><img src='{{"/assets/img/diffinst/diffinst-table3.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/diffusioninst/diffusioninst-table3.webp" | relative_url}}' width="47%"></center>
 
 ### 2. Ablation Studies
-<center><img src='{{"/assets/img/diffinst/diffinst-table4.PNG" | relative_url}}' width="47%"></center>
+<center><img src='{{"/assets/img/diffusioninst/diffusioninst-table4.webp" | relative_url}}' width="47%"></center>
 
 ### 3. Visualizations
-<center><img src='{{"/assets/img/diffinst/diffinst-fig3.PNG" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/diffusioninst/diffusioninst-fig3.webp" | relative_url}}' width="95%"></center>

@@ -18,7 +18,7 @@ classes: wide
 > Meta AI | Visual Geometry Group, University of Oxford  
 > 14 Jul 2023  
 
-<center><img src='{{"/assets/img/co-tracker/co-tracker-fig1.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/co-tracker/co-tracker-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
 점 대응을 설정하는 것은 컴퓨터 비전의 근본적인 문제이며 많은 다운스트림 task에 필요하다. 본 논문은 동적 객체와 움직이는 카메라가 포함된 동영상에서 점 대응을 추정하는 데 관심이 있다. 이 task를 흔히 모션 추정이라고 하며, 3D 장면의 특정 물리적 포인트의 projection인 하나 이상의 2D 포인트가 주어지면 동영상의 다른 모든 프레임에서 동일한 물리적 포인트의 위치를 찾는 것이 목표이다. 
@@ -51,11 +51,11 @@ $$
 추적기는 $N$개의 트랙의 시작 위치와 시간 $(P_{t^i}^i, t^i)_{i=1}^N$뿐만 아니라 동영상 $V$를 입력으로 취하고 해당 트랙의 추정 $$\hat{P}_t^i = (\hat{x}_t^i, \hat{y}_t^i)$$를 출력하는 알고리즘이며, 모든 유효한 시간 ($t \ge t^i$)을 추적한다. 또한 visibility flag의 추정값 $$\hat{v}_i^t$$를 예측하는 task를 추적기에 맡긴다. 이 값 중 초기 값인 $$\hat{P}_{t^i}^i = P_{t^i}^i$$와 $$\hat{v}_{t^i}^i = v_{t^i}^i = 1$$만 추적기에 알려지고 나머지는 예측해야 한다.
 
 ### 1. Transformer formulation
-<center><img src='{{"/assets/img/co-tracker/co-tracker-fig2.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/co-tracker/co-tracker-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
 본 논문은 **CoTracker**라고 부르는 transformer 네트워크 $\Psi : G \mapsto O$를 사용하여 이 예측 문제에 접근한다. Transformer의 목표는 주어진 트랙 추정치를 향상시키는 것이다. 트랙은 각 트랙 $i = 1, \ldots, N$와 시간 $t = 1, \ldots, T$에 대해 하나씩 입력 토큰 $G_t^i$의 그리드로 인코딩된다. 업데이트된 트랙은 출력 토큰 $O_t^i$의 해당 그리드로 표현된다. 이러한 토큰은 optical flow를 위한 [RAFT](https://arxiv.org/abs/2003.12039)와 추적을 위한 [PIP](https://arxiv.org/abs/2204.04153)에서 영감을 받은 디자인을 사용하여 구축되었다. 전체 개요는 위 그림에 나와 있고 모델 구성 요소는 아래 그림에 나와 있다. 
 
-<center><img src='{{"/assets/img/co-tracker/co-tracker-fig3.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/co-tracker/co-tracker-fig3.webp" | relative_url}}' width="100%"></center>
 
 ##### Image features
 각 동영상 프레임 $I_t$에서 transformer와 함께 end-to-end로 학습한 CNN을 사용하여 $d$차원 외관 feature $\phi (I_t) \in \mathbb{R}^{d \times \frac{H}{k} \times \frac{W}{k}}$를 추출한다. 여기서 $k = 8$은 효율성을 위해 활용되는 downsampling factor이다. 이러한 feature 중 stride $s = 1, \ldots, S$를 갖는 몇 가지 스케일링된 버전 $\phi (I_t; s) \in \mathbb{R}^{d \times \frac{H}{sk} \times \frac{W}{sk}}$를 고려한다. 이러한 축소된 feature들은 $s \times s$ 이웃들의 기본 feature들에 average pooling을 적용하여 얻는다. 저자들은 $S = 4$ 스케일을 사용하였다. 
@@ -149,7 +149,7 @@ $$
 
 그러나 벤치마크 데이터셋에서 방법을 평가할 때는 주의가 필요하다. 이러한 데이터셋에서 사람이 주석을 추가한 포인트들은 움직이는 물체의 돌출된 위치에 있는 경우가 많다. 포인트 선택과 관련하여 성능 수치가 견고함을 보장하고 기존 방법과 엄격하게 공정한 비교를 보장하기 위해 한 번에 하나의 타겟 ground truth 포인트만 사용하여 모델을 평가한다. 이는 데이터셋의 포인트 분포에서 모델 성능을 분리한다.
 
-<center><img src='{{"/assets/img/co-tracker/co-tracker-fig5.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/co-tracker/co-tracker-fig5.webp" | relative_url}}' width="100%"></center>
 <br>
 위 그림에 시각화된 두 가지 점 선택 전략을 실험한다. "글로벌" 전략을 사용하면 전체 이미지에 걸쳐 일반 그리드에서 추가 점을 선택하기만 하면 된다. "로컬" 전략을 사용하면 타겟 포인트 주변의 일반 그리드를 사용하여 타겟 포인트에 가까운 추가 포인트를 선택하므로 모델이 해당 인근 지역에 집중할 수 있다. 포인트 선택은 inference 시에만 사용된다.
 
@@ -159,27 +159,27 @@ $$
 ### 1. Results
 다음은 다양한 보조 그리드에 대한 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/co-tracker/co-tracker-table1.PNG" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/co-tracker/co-tracker-table1.webp" | relative_url}}' width="70%"></center>
 <br>
 다음은 TAP-Vid에서 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/co-tracker/co-tracker-table2.PNG" | relative_url}}' width="73%"></center>
+<center><img src='{{"/assets/img/co-tracker/co-tracker-table2.webp" | relative_url}}' width="73%"></center>
 <br>
 다음은 포인트 추적 벤치마크에서의 비교 결과이다. 
 
-<center><img src='{{"/assets/img/co-tracker/co-tracker-table3.PNG" | relative_url}}' width="40%"></center>
+<center><img src='{{"/assets/img/co-tracker/co-tracker-table3.webp" | relative_url}}' width="40%"></center>
 <br>
 다음은 Kubric에서 학습한 PIP와 성능을 비교한 표이다. 
 
-<center><img src='{{"/assets/img/co-tracker/co-tracker-table4.PNG" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/co-tracker/co-tracker-table4.webp" | relative_url}}' width="80%"></center>
 <br>
 다음은 다른 방법들과 정성적으로 비교한 결과이다. 
 
-<center><img src='{{"/assets/img/co-tracker/co-tracker-fig6.PNG" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/co-tracker/co-tracker-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
 다음은 sliding window를 펼치는 것에 대한 ablation 결과이다. 
 
-<center><img src='{{"/assets/img/co-tracker/co-tracker-table5.PNG" | relative_url}}' width="42%"></center>
+<center><img src='{{"/assets/img/co-tracker/co-tracker-table5.webp" | relative_url}}' width="42%"></center>
 
 ### 2. Limitations
 1. Sliding window 기반 방법이므로 하나의 window 크기보다 길게 가려지면 포인트를 추적할 수 없다. 
