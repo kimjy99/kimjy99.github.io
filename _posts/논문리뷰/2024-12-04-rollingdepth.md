@@ -23,7 +23,7 @@ classes: wide
 ## Introduction
 일반적으로 단일 이미지 depth estimator를 동영상에 프레임 단위로 적용하면 만족스러운 결과를 얻기 어렵고, 깜빡임과 드리프트 같은 아티팩트가 발생한다. 이러한 문제는 여러 요인에 의해 발생한다.
 
-가장 분명한 이유는 모델 학습이나 inference 과정에서 인접한 프레임 간의 시간적 일관성에 대한 개념이 전혀 반영되지 않기 때문이다. 또한, 단일 이미지 depth estimator는 장면을 이해하는 능력에 의존하는데, 이는 시간적 컨텍스트의 부족으로 인해 영향을 받을 수 있다. (ex. 부분적으로만 보이는 물체가 줌아웃 후에야 제대로 인식될 수 있는 경우). 
+가장 분명한 이유는 모델 학습이나 inference 과정에서 인접한 프레임 간의 시간적 일관성에 대한 개념이 전혀 반영되지 않기 때문이다. 또한, 단일 이미지 depth estimator는 장면을 이해하는 능력에 의존하는데, 이는 시간적 컨텍스트의 부족으로 인해 영향을 받을 수 있다. (ex. 부분적으로만 보이는 물체가 줌아웃 후에야 제대로 인식될 수 있는 경우)
 
 게다가 동영상에서는 가까운 장면과 먼 장면 부분 간의 깊이 범위가 갑작스럽게 변할 수 있다. 예를 들어, 전경의 물체가 시야에 들어오거나 시야에 창문이 들어오는 경우 이러한 변화가 발생할 수 있다. 이러한 상황은 일관된 깊이 추정을 더욱 어렵게 만든다.
 
@@ -117,7 +117,7 @@ Inverse depth 값은 robustness를 위해 2번째 및 98번째 백분위수를 �
 <span style="display: block; margin: 1px 0;"></span>
 <center><img src='{{"/assets/img/rollingdepth/rollingdepth-table1.webp" | relative_url}}' width="100%"></center>
 <br>
-다음은 (위) 시간에 따른 AbsRel와 (아래) 두 프레임에서의 error map을 비교한 것이다. 
+다음은 (위) 시간에 따른 AbsRel과 (아래) 두 프레임에서의 error map을 비교한 것이다. 
 
 <center><img src='{{"/assets/img/rollingdepth/rollingdepth-fig5a.webp" | relative_url}}' width="50%"></center>
 <span style="display: block; margin: 1px 0;"></span>
