@@ -7,7 +7,7 @@ tags:
   - NLP
   - LLM
   - AI
-  - Meta AI
+  - Meta
 excerpt: "Self-Rewarding Language Models 논문 리뷰"
 use_math: true
 classes: wide

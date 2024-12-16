@@ -8,7 +8,7 @@ tags:
   - Image Segmentation
   - Computer Vision
   - AI
-  - Meta AI
+  - Meta
   - CVPR
 excerpt: "Mask2Former 논문 리뷰 (CVPR 2022)"
 use_math: true

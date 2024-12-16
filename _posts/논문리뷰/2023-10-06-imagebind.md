@@ -6,7 +6,7 @@ categories:
 tags:
   - Computer Vision
   - AI
-  - Meta AI
+  - Meta
   - CVPR
 excerpt: "ImageBind 논문 리뷰 (CVPR 2023)"
 use_math: true

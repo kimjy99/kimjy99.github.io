@@ -9,7 +9,7 @@ tags:
   - Visual Object Tracking
   - Computer Vision
   - AI
-  - Meta AI
+  - Meta
 excerpt: "SAM 2 논문 리뷰"
 use_math: true
 classes: wide

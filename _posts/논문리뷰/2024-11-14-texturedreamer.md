@@ -8,7 +8,7 @@ tags:
   - 3D Vision
   - AI
   - CVPR
-  - Meta AI
+  - Meta
 excerpt: "TextureDreamer 논문 리뷰 (CVPR 2024)"
 use_math: true
 classes: wide

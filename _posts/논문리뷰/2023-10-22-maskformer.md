@@ -8,7 +8,7 @@ tags:
   - Image Segmentation
   - Computer Vision
   - AI
-  - Meta AI
+  - Meta
   - NeurIPS
 excerpt: "MaskFormer 논문 리뷰 (NeurIPS 2021)"
 use_math: true
