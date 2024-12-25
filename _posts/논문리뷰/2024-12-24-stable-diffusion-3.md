@@ -99,11 +99,11 @@ Loss를 명시적인 형태로 변환하기 위해
 $$
 \begin{aligned}
 \psi_t^\prime (x_0 \vert \epsilon) &= a_t^\prime x_0 + b_t^\prime \epsilon \\
-\psi_t^{-1} (z \vert \epsilon) &= \frac{z - b_t \epsilon}{a_t}$
+\psi_t^{-1} (z \vert \epsilon) &= \frac{z - b_t \epsilon}{a_t}
 \end{aligned}
 $$
 
-를 $$u_t (z \vert \epsilon) = \psi_t^\prime (\psi_t^{-1} (z \vert \epsilon) \vert \epsilon)$$에 삽입한다.
+를 $$u_t (z \vert \epsilon) = \psi_t^\prime (\psi_t^{-1} (z \vert \epsilon) \vert \epsilon)$$에 대입한다.
 
 $$
 \begin{equation}
@@ -344,7 +344,15 @@ $$
 그리고 가로 위치에 대해서도 동일한 방식으로 격자를 구성한다. 이후, 생성된 2D 위치 격자에서 중앙을 crop한 다음, 임베딩을 수행한다.
 
 ##### 해상도에 따른 timestep schedule shifting
-직관적으로, 해상도가 높을수록 픽셀이 더 많으므로 신호를 파괴하기 위해 더 많은 noise가 필요하다. $n = H \cdot W$개의 픽셀을 가진 해상도에서, 모든 픽셀의 값이 $c \in \mathbb{R}$인 상수 이미지를 고려하자. Forward process는 $z_t = (1 − t) c \unicode{x1D7D9} + t \epsilon$을 생성한다. 따라서 $z_t$는 확률 변수 $Y = (1 − t)c + t\eta$에 대한 $n$개의 관측치를 제공한다. $\eta \sim \mathcal{N}(0,1)$이므로 $\mathbb{E}(Y) = (1 − t)c$이고 $\sigma(Y) = t$이다. 
+직관적으로, 해상도가 높을수록 픽셀이 더 많으므로 신호를 파괴하기 위해 더 많은 noise가 필요하다. $n = H \cdot W$개의 픽셀을 가진 해상도에서, 모든 픽셀의 값이 $c \in \mathbb{R}$인 상수 이미지를 고려하자. 
+
+$$
+\begin{equation}
+z_t = (1 − t) c \unicode{x1D7D9} + t \epsilon
+\end{equation}
+$$
+
+$z_t$는 확률 변수 $Y = (1 − t)c + t\eta$에 대한 $n$개의 관측치를 제공한다. $\eta \sim \mathcal{N}(0,1)$이므로 $\mathbb{E}(Y) = (1 − t)c$이고 $\sigma(Y) = t$이다. 
 
 따라서 $c = \frac{1}{1-t} \mathbb{E}(Y)$를 통해 $c$를 복구할 수 있다. $Y$의 표준 오차는 $\frac{t}{\sqrt{n}}$이기 때문에, $c$와 샘플 추정치 $\hat{c} = \frac{1}{1-t} \sum_{i=1}^n z_{t,i}$ 간의 오차는 $\sigma(t, n) = \frac{t}{1-t} \sqrt{\frac{1}{n}}$의 표준 편차를 갖는다. 따라서 이미 이미지 $z_0$가 픽셀 전체에서 일정하다는 것을 알고 있다면 $\sigma(t, n)$은 $z_0$에 대한 불확실성의 정도를 나타낸다. 예를 들어, 너비와 높이를 두 배로 하면 불확실성이 절반으로 줄어든다. 
 
