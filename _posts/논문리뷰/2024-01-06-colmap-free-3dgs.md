@@ -6,6 +6,7 @@ categories:
 tags:
   - Gaussian Splatting
   - Novel View Synthesis
+  - Pose Estimation
   - 3D Vision
   - AI
   - NVIDIA
