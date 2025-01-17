@@ -8,12 +8,13 @@ tags:
   - Image Editing
   - Computer Vision
   - AI
-excerpt: "DragDiffusion 논문 리뷰"
+  - CVPR
+excerpt: "DragDiffusion 논문 리뷰 (CVPR 2024 Highlight)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2306.14435)] [[Page](https://yujun-shi.github.io/projects/dragdiffusion.html)] [[Github](https://github.com/Yujun-Shi/DragDiffusion)]  
+> CVPR 2024 (Highlight). [[Paper](https://arxiv.org/abs/2306.14435)] [[Page](https://yujun-shi.github.io/projects/dragdiffusion.html)] [[Github](https://github.com/Yujun-Shi/DragDiffusion)]  
 > Yujun Shi, Chuhui Xue, Jiachun Pan, Wenqing Zhang, Vincent Y. F. Tan, Song Bai  
 > National University of Singapore | ByteDance Inc.  
 > 9 Jul 2023  

@@ -8,12 +8,13 @@ tags:
   - Computer Vision
   - AI
   - Meta
-excerpt: "CoTracker 논문 리뷰"
+  - ECCV
+excerpt: "CoTracker 논문 리뷰 (ECCV 2024)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2307.07635)] [[Page](https://co-tracker.github.io/)] [[Github](https://github.com/facebookresearch/co-tracker)]  
+> ECCV 2024. [[Paper](https://arxiv.org/abs/2307.07635)] [[Page](https://co-tracker.github.io/)] [[Github](https://github.com/facebookresearch/co-tracker)]  
 > Nikita Karaev, Ignacio Rocco, Benjamin Graham, Natalia Neverova, Andrea Vedaldi, Christian Rupprecht  
 > Meta AI | Visual Geometry Group, University of Oxford  
 > 14 Jul 2023  

@@ -9,12 +9,13 @@ tags:
   - Text-to-Image
   - Computer Vision
   - AI
-excerpt: "Concept Sliders 논문 리뷰"
+  - ECCV
+excerpt: "Concept Sliders 논문 리뷰 (ECCV 2024)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2311.12092)] [[Page](https://sliders.baulab.info/)] [[Github](https://github.com/rohitgandikota/sliders)]  
+> ECCV 2024. [[Paper](https://arxiv.org/abs/2311.12092)] [[Page](https://sliders.baulab.info/)] [[Github](https://github.com/rohitgandikota/sliders)]  
 > Rohit Gandikota, Joanna Materzynska, Tingrui Zhou, Antonio Torralba, David Bau  
 > Northeastern University | Massachusetts Institute of Technology  
 > 20 Nov 2023  

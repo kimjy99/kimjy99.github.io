@@ -8,12 +8,13 @@ tags:
   - Text-to-Image
   - Computer Vision
   - AI
-excerpt: "AnimateDiff 논문 리뷰"
+  - ICLR
+excerpt: "AnimateDiff 논문 리뷰 (ICLR 2024)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2307.04725)] [[Page](https://animatediff.github.io/)] [[Github](https://github.com/guoyww/animatediff/)]  
+> ICLR 2024. [[Paper](https://arxiv.org/abs/2307.04725)] [[Page](https://animatediff.github.io/)] [[Github](https://github.com/guoyww/animatediff/)]  
 > Yuwei Guo, Ceyuan Yang, Anyi Rao, Yaohui Wang, Yu Qiao, Dahua Lin, Bo Dai  
 > Shanghai AI Laboratory | The Chinese University of Hong Kong | Stanford University  
 > 10 Jul 2023  

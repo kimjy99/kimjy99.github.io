@@ -8,12 +8,13 @@ tags:
   - 3D Vision
   - Novel View Synthesis
   - AI
-excerpt: "Spec-Gaussian 논문 리뷰"
+  - NeurIPS
+excerpt: "Spec-Gaussian 논문 리뷰 (NeurIPS 2024)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2024. [[Paper](https://arxiv.org/abs/2402.15870)]  
+> NeurIPS 2024. [[Paper](https://arxiv.org/abs/2402.15870)] [[Page](https://ingra14m.github.io/Spec-Gaussian-website/)] [[Github](https://github.com/ingra14m/Specular-Gaussians)]  
 > Ziyi Yang, Xinyu Gao, Yangtian Sun, Yihua Huang, Xiaoyang Lyu, Wen Zhou, Shaohui Jiao, Xiaojuan Qi, Xiaogang Jin  
 > Zhejiang University | The University of Hong Kong | ByteDance Inc.  
 > 24 Feb 2024  
