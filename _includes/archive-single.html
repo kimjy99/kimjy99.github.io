@@ -35,5 +35,16 @@
     
     {% include page__meta.html type=include.type %}
     {% if post.excerpt %}<p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>{% endif %}
+
+    {% assign path_type = "posts?tags=" %}
+    {% assign tags_sorted = post.tags | sort_natural %}
+    <p class="page__meta page__taxonomy">
+      <i class="fas fa-fw fa-tags" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].tags_label | default: "Tags:" }}
+      <span itemprop="keywords">
+      {% for tag_word in tags_sorted %}
+        <a href="{{ tag_word | slugify | prepend: path_type | relative_url }}" class="page__taxonomy-item p-category" rel="tag">{{ tag_word }}</a>{% unless forloop.last %}<span class="sep">, </span>{% endunless %}
+      {% endfor %}
+      </span>
+    </p>
   </article>
 </div>
