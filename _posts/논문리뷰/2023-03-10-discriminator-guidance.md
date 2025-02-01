@@ -193,7 +193,7 @@ $$
 \end{aligned}
 $$
 
-이기 떄문에, $(x_t, y)$의 결합 분포에서 샘플링하는 것과 동등하다. Classifier guidance는 샘플이 클래스 레이블 $y$에 맞게 분류되는지 아닌지를 평가하여 샘플 경로에 보조 정보를 제공한다. 반면, discriminator guidance는 레이블에 구애받지 않으며 샘플 경로가 현실적인지 비현실적인지에 대한 고유한 정보를 제공한다. 
+이기 때문에, $(x_t, y)$의 결합 분포에서 샘플링하는 것과 동등하다. Classifier guidance는 샘플이 클래스 레이블 $y$에 맞게 분류되는지 아닌지를 평가하여 샘플 경로에 보조 정보를 제공한다. 반면, discriminator guidance는 레이블에 구애받지 않으며 샘플 경로가 현실적인지 비현실적인지에 대한 고유한 정보를 제공한다. 
 
 $(x_t, y)$의 결합 분포에서 샘플링은 score 추정이 정확한 경우에만 유효하므로 discriminator guidance는 부정확한 score 추정을 조정하여 classifier guidance와 시너지 효과를 낼 수 있다. 저자들은 다음과 같은 guidance의 결합을 제안한다. 
 
