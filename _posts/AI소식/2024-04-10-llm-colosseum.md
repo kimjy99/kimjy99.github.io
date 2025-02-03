@@ -21,11 +21,11 @@ classes: wide
 ### 경기 결과
 ELO 랭킹은 아래 표와 같다. 작은 모델이 지연시간과 속도 측면에서 유리하였다. 
 
-<center><img src='{{"/assets/img/llm-colosseum/elo.PNG" | relative_url}}' width="35%"></center>
+<center><img src='{{"/assets/img/llm-colosseum/elo.webp" | relative_url}}' width="35%"></center>
 <br>
 모델들 간의 승률을 아래와 같다. 
 
-<center><img src='{{"/assets/img/llm-colosseum/win_rate_matrix.png" | relative_url}}' width="70%"></center>
+<center><img src='{{"/assets/img/llm-colosseum/win_rate_matrix.webp" | relative_url}}' width="70%"></center>
 
 ### 입력 프롬프트
 LLM에 입력되는 프롬프트는 다음과 같다. 

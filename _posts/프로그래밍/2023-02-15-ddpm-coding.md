@@ -32,7 +32,7 @@ Loss는 0.02 정도까지 쭉 감소한 후 더 이상 줄어들지 않아 학�
 
 $T = 1000$으로 12장을 한 번 샘플링하는 데 6분 정도 걸린다. 샘플은 아래와 같다. 
 
-<center><img src='{{"/assets/img/ddpm-coding/ddpm-coding-fig1.png" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/ddpm-coding/ddpm-coding-fig1.webp" | relative_url}}' width="50%"></center>
 <br>
 특정 색이 너무 강조되어 나오고 있고, 얼굴 모양 자체도 이상하다. 아무래도 학습이 덜 진행된 것 같은 데 더 이상 loss가 떨어지지 않는다. 
 
@@ -59,7 +59,7 @@ Loss가 0.0023 정도까지 감소하였다. P2-weighting 가중치의 평균이
 
 샘플은 아래와 같다. 
 
-<center><img src='{{"/assets/img/ddpm-coding/ddpm-coding-fig2.png" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/ddpm-coding/ddpm-coding-fig2.webp" | relative_url}}' width="50%"></center>
 <br>
 U-Net 채널 수를 고려하면 나름 괜찮은 결과가 나온 것 같다. 
 
@@ -75,13 +75,13 @@ Learning rate가 절반이 되면 10,000 iteration 정도 loss가 소폭 감소�
 
 샘플은 아래와 같다. 
 
-<center><img src='{{"/assets/img/ddpm-coding/ddpm-coding-fig3.png" | relative_url}}' width="50%"></center>
+<center><img src='{{"/assets/img/ddpm-coding/ddpm-coding-fig3.webp" | relative_url}}' width="50%"></center>
 <br>
 확실히 성능이 개선되었다. 이상한 샘플이 나오는 비율도 줄어든 것 같다. 어떤 논문에서 loss가 거의 줄어들지 않더라도 오래 학습하는 것이 성능 개선에 효과가 있다고 하던데 오래 학습하는 것이 효과가 있긴 한 것 같다.
 
 약 3시간 동안 360개의 샘플을 생성하고 그 중 괜찮은 샘플만 모아보았다. 
 
-<center><img src='{{"/assets/img/ddpm-coding/samples.png" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/ddpm-coding/samples.webp" | relative_url}}' width="100%"></center>
 <br>
 모아놓고 보니 꽤 그럴듯하다. 아무래도 CelebA 데이터셋이 여성 얼굴이 1.4배 더 많기 때문에 여성 얼굴을 더 많이 생성한다. 
 

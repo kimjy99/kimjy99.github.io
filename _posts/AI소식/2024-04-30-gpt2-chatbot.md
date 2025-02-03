@@ -61,7 +61,7 @@ gpt2-chatbot이 공개된 이후 정체를 둘러싼 여러 추측들이 나오�
 
 <center><div style="overflow-x: auto; width: 65%;">
   <div style="width: 200%;">
-    <img src='{{"/assets/img/gpt2-chatbot/gpt2-chatbot-fig1.PNG" | relative_url}}' width="100%">
+    <img src='{{"/assets/img/gpt2-chatbot/gpt2-chatbot-fig1.webp" | relative_url}}' width="100%">
   </div>
 </div></center>
 <br>
