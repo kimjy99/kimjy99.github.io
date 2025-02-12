@@ -5,7 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - Diffusion
-  - Transformer
+  - DiT
   - Text-to-Image
   - Image Generation
   - Computer Vision

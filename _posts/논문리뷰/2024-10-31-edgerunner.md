@@ -6,6 +6,7 @@ categories:
 tags:
   - Autoregressive
   - Diffusion
+  - DiT
   - 3D Vision
   - AI
   - NVIDIA
