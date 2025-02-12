@@ -5,6 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - Diffusion
+  - Personalization
   - Text-to-Image
   - Computer Vision
   - AI

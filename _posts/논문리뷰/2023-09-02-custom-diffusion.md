@@ -5,7 +5,8 @@ categories:
   - 논문리뷰
 tags:
   - Diffusion
-  - Image-to-Image Translation
+  - Personalization
+  - Text-to-Image
   - Computer Vision
   - AI
   - CVPR

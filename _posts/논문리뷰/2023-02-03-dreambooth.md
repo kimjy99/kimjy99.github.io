@@ -7,6 +7,7 @@ tags:
   - Diffusion
   - Fine-Tuning
   - Text-to-Image
+  - Personalization
   - Computer Vision
   - AI
   - Google

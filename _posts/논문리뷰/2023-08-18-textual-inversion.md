@@ -6,6 +6,7 @@ categories:
 tags:
   - Diffusion
   - Text-to-Image
+  - Personalization
   - Computer Vision
   - AI
   - NVIDIA
