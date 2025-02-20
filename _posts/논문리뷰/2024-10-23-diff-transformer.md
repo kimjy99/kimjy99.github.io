@@ -5,6 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - Transformer
+  - LLM
   - NLP
   - AI
   - Microsoft

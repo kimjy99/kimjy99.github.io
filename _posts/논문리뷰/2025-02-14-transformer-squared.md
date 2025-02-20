@@ -6,6 +6,7 @@ categories:
 tags:
   - Transformer
   - NLP
+  - LLM
   - AI
   - Google
 excerpt: "Transformer² 논문 리뷰"
