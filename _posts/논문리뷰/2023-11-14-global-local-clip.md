@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Image Segmentation
   - Computer Vision
-  - AI
   - Google
   - CVPR
 excerpt: "Global-Local CLIP 논문 리뷰 (CVPR 2023)"

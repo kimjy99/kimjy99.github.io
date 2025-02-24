@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Personalization
   - 3D Vision
-  - AI
   - CVPR
   - Meta
 excerpt: "TextureDreamer 논문 리뷰 (CVPR 2024)"

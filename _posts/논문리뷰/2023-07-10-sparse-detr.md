@@ -7,7 +7,6 @@ tags:
   - Transformer
   - Object Detection
   - Computer Vision
-  - AI
   - ICLR
 excerpt: "Sparse DETR 논문 리뷰 (ICLR 2022)"
 use_math: true

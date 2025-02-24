@@ -7,7 +7,6 @@ tags:
   - Transformer
   - NLP
   - LLM
-  - AI
   - Google
 excerpt: "Transformer² 논문 리뷰"
 use_math: true

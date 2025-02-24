@@ -8,7 +8,6 @@ tags:
   - Personalization
   - Text-to-Image
   - Computer Vision
-  - AI
   - CVPR
 excerpt: "Personalized Residuals 논문 리뷰 (CVPR 2024)"
 use_math: true

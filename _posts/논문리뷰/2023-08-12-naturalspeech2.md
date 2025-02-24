@@ -8,7 +8,6 @@ tags:
   - Text-to-Speech
   - Voice Conversion
   - Audio and Speech Processing
-  - AI
   - Microsoft
 excerpt: "NaturalSpeech 2 논문 리뷰"
 use_math: true

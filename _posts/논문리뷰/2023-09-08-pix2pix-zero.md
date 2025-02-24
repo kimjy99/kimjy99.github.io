@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Image-to-Image Translation
   - Computer Vision
-  - AI
   - SIGGRAPH
 excerpt: "pix2pix-zero 논문 리뷰 (SIGGRAPH 2023)"
 use_math: true

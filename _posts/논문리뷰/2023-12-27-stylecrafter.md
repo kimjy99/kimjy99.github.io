@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Text-to-Video
   - Computer Vision
-  - AI
   - SIGGRAPH
 excerpt: "StyleCrafter 논문 리뷰 (SIGGRAPH Asia 2024)"
 use_math: true

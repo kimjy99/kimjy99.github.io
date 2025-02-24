@@ -7,7 +7,6 @@ tags:
   - Distillation
   - Diffusion
   - Computer Vision
-  - AI
   - Google
   - CVPR
 excerpt: "On Distillation of Guided Diffusion Models 논문 리뷰 (CVPR 2023)"

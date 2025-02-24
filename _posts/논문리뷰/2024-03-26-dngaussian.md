@@ -7,7 +7,6 @@ tags:
   - Gaussian Splatting
   - 3D Vision
   - Novel View Synthesis
-  - AI
   - CVPR
 excerpt: "DNGaussian 논문 리뷰 (CVPR 2024)"
 use_math: true

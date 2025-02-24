@@ -8,7 +8,6 @@ tags:
   - Diffusion
   - Image-to-Image Translation
   - Computer Vision
-  - AI
   - CVPR
 excerpt: "Domain Expansion 논문 리뷰 (CVPR 2023)"
 use_math: true

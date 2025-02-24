@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Contrastive Learning
   - Computer Vision
-  - AI
   - Google
 excerpt: "StableRep 논문 리뷰"
 use_math: true

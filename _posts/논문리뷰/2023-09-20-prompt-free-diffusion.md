@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Image Editing
   - Computer Vision
-  - AI
   - CVPR
 excerpt: "Prompt-Free Diffusion 논문 리뷰 (CVPR 2024)"
 use_math: true

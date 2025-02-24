@@ -7,7 +7,6 @@ tags:
   - Transformer
   - Image Segmentation
   - Computer Vision
-  - AI
   - Meta
   - CVPR
 excerpt: "Mask2Former 논문 리뷰 (CVPR 2022)"

@@ -6,7 +6,6 @@ categories:
 tags:
   - Diffusion
   - Computer Vision
-  - AI
 excerpt: "Tree-Ring Watermarks 논문 리뷰"
 use_math: true
 classes: wide

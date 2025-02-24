@@ -8,7 +8,6 @@ tags:
   - Diffusion
   - Image Editing
   - Computer Vision
-  - AI
   - Google
 excerpt: "Prompt-to-Prompt 논문 리뷰"
 use_math: true

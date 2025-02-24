@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Fine-Tuning
   - Computer Vision
-  - AI
   - Google
   - NVIDIA
 excerpt: "DreamPose 논문 리뷰"

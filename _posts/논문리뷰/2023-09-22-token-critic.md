@@ -7,7 +7,6 @@ tags:
   - Transformer
   - Image Generation
   - Computer Vision
-  - AI
   - Google
   - ECCV
 excerpt: "Token-Critic 논문 리뷰 (ECCV 2022)"

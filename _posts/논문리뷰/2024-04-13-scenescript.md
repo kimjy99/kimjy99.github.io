@@ -9,7 +9,6 @@ tags:
   - Object Detection
   - NLP
   - LLM
-  - AI
   - Meta
 excerpt: "SceneScript 논문 리뷰"
 use_math: true

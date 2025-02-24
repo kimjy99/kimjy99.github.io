@@ -9,7 +9,6 @@ tags:
   - Text-to-Image
   - Distillation
   - Computer Vision
-  - AI
   - ICLR
 excerpt: "InstaFlow 논문 리뷰 (ICLR 2024)"
 use_math: true

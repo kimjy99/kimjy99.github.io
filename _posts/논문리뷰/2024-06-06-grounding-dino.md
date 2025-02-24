@@ -7,7 +7,6 @@ tags:
   - Transformer
   - Object Detection
   - Computer Vision
-  - AI
   - Microsoft
   - ECCV
 excerpt: "Grounding DINO 논문 리뷰 (ECCV 2024)"

@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Image Generation
   - Computer Vision
-  - AI
   - CVPR
 excerpt: "DemoFusion 논문 리뷰 (CVPR 2024)"
 use_math: true

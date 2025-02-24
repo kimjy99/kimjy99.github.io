@@ -6,7 +6,6 @@ categories:
 tags:
   - NLP
   - LLM
-  - AI
   - Google
   - NeurIPS
 excerpt: "Zero-shot-CoT 논문 리뷰 (NeurIPS 2022)"

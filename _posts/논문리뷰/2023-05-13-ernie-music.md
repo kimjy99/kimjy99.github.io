@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Text-to-Music
   - Audio and Speech Processing
-  - AI
 excerpt: "ERNIE-Music 논문 리뷰 (AACL 2023)"
 use_math: true
 classes: wide

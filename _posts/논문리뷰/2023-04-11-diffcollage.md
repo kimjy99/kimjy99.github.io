@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Image Generation
   - Computer Vision
-  - AI
   - NVIDIA
   - CVPR
 excerpt: "DiffCollage 논문 리뷰 (CVPR 2023)"

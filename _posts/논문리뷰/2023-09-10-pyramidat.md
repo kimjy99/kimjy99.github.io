@@ -8,7 +8,6 @@ tags:
   - Text-To-Image
   - Image-to-Image Translation
   - Computer Vision
-  - AI
   - Google
   - CVPR
 excerpt: "PyramidAT 논문 리뷰 (CVPR 2022)"

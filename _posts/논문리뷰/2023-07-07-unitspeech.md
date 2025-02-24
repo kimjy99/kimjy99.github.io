@@ -8,7 +8,6 @@ tags:
   - Text-to-Speech
   - Voice Conversion
   - Audio and Speech Processing
-  - AI
   - INTERSPEECH
 excerpt: "UnitSpeech 논문 리뷰 (INTERSPEECH 2023)"
 use_math: true

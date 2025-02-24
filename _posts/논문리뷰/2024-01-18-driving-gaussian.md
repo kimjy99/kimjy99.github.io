@@ -7,7 +7,6 @@ tags:
   - Gaussian Splatting
   - Novel View Synthesis
   - 3D Vision
-  - AI
   - Google
   - CVPR
 excerpt: "DrivingGaussian 논문 리뷰 (CVPR 2024)"

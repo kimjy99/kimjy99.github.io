@@ -8,7 +8,6 @@ tags:
   - Transformer
   - Computer Vision
   - NLP
-  - AI
   - Meta
 excerpt: "Transfusion 논문 리뷰"
 use_math: true

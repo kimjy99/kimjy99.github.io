@@ -3,8 +3,6 @@ title: "[AI소식] Pause Giant AI Experiments: An Open Letter"
 last_modified_at: 2023-03-31
 categories:
   - AI소식
-tags:
-  - AI
 excerpt: "Pause Giant AI Experiments"
 use_math: true
 classes: wide

@@ -8,7 +8,6 @@ tags:
   - Text-to-Image
   - Computer Vision
   - Reinforcement Learning
-  - AI
 excerpt: "Diffusion-DPO 논문 리뷰"
 use_math: true
 classes: wide

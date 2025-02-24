@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Text-to-3D
   - 3D Vision
-  - AI
   - ICLR
 excerpt: "SweetDreamer 논문 리뷰 (ICLR 2024)"
 use_math: true

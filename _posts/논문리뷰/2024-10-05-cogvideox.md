@@ -8,7 +8,6 @@ tags:
   - DiT
   - Text-to-Video
   - Computer Vision
-  - AI
 excerpt: "CogVideoX 논문 리뷰"
 use_math: true
 classes: wide

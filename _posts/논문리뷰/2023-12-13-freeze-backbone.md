@@ -6,7 +6,6 @@ categories:
 tags:
   - Object Detection
   - Computer Vision
-  - AI
   - Google
   - CVPR
 excerpt: "Proper Reuse of Image Classification Features Improves Object Detection 논문 리뷰 (CVPR 2022)"

@@ -8,7 +8,6 @@ tags:
   - Fine-Tuning
   - Inpainting
   - Computer Vision
-  - AI
 excerpt: "Conffusion 논문 리뷰"
 use_math: true
 classes: wide

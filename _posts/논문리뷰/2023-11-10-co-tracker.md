@@ -6,7 +6,6 @@ categories:
 tags:
   - Transformer
   - Computer Vision
-  - AI
   - Meta
   - ECCV
 excerpt: "CoTracker 논문 리뷰 (ECCV 2024)"

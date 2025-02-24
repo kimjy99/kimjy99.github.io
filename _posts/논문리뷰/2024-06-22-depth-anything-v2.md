@@ -6,7 +6,6 @@ categories:
 tags:
   - Monocular Depth Estimation
   - Computer Vision
-  - AI
   - NeurIPS
 excerpt: "Depth Anything V2 논문 리뷰 (NeurIPS 2024)"
 use_math: true

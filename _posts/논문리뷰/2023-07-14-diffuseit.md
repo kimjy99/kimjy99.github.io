@@ -9,7 +9,6 @@ tags:
   - Image-to-Image Translation
   - Image Editing
   - Computer Vision
-  - AI
   - ICLR
 excerpt: "DiffuseIT 논문 리뷰 (ICLR 2023)"
 use_math: true

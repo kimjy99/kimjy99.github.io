@@ -6,7 +6,6 @@ categories:
 tags:
   - Diffusion
   - Reinforcement Learning
-  - AI
   - Microsoft
   - ICLR
 excerpt: "Imitating Human Behaviour with Diffusion Models 논문 리뷰 (ICLR 2023)"

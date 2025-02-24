@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Image Generation
   - Computer Vision
-  - AI
   - ICML
 excerpt: "Discriminator Guidance 논문 리뷰 (ICML 2023 Oral)"
 use_math: true

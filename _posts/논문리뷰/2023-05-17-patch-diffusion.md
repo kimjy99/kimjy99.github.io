@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Image Generation
   - Computer Vision
-  - AI
   - Microsoft
 excerpt: "Patch Diffusion 논문 리뷰"
 use_math: true

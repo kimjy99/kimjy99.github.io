@@ -8,7 +8,6 @@ tags:
   - Gaussian Splatting
   - Novel View Synthesis
   - 3D Vision
-  - AI
   - NVIDIA
 excerpt: "BulletTimer (BTimer) 논문 리뷰"
 use_math: true

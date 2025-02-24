@@ -7,7 +7,6 @@ tags:
   - Gaussian Splatting
   - 3D Segmentation
   - 3D Vision
-  - AI
 excerpt: "FlashSplat 논문 리뷰 (ECCV 2024)"
 use_math: true
 classes: wide

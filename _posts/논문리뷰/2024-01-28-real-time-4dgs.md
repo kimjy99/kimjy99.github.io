@@ -7,7 +7,6 @@ tags:
   - Gaussian Splatting
   - Novel View Synthesis
   - 3D Vision
-  - AI
   - ICLR
 excerpt: "Real-time Photorealistic Dynamic Scene Representation and Rendering with 4D Gaussian Splatting 논문 리뷰 (ICLR 2024)"
 use_math: true

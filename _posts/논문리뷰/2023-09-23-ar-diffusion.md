@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Text Generation
   - NLP
-  - AI
   - Microsoft
   - NeurIPS
 excerpt: "AR-Diffusion 논문 리뷰 (NeurIPS 2023)"

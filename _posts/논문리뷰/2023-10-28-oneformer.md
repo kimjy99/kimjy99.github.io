@@ -8,7 +8,6 @@ tags:
   - Contrastive Learning
   - Image Segmentation
   - Computer Vision
-  - AI
   - CVPR
 excerpt: "OneFormer 논문 리뷰 (CVPR 2023)"
 use_math: true

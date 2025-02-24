@@ -8,7 +8,6 @@ tags:
   - Image Generation
   - Distillation
   - Computer Vision
-  - AI
   - Google
   - ICLR
 excerpt: "Progressive Distillation 논문 리뷰 (ICLR 2022)"

@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Image Editing
   - Computer Vision
-  - AI
   - CVPR
 excerpt: "DDPM Inversion 논문 리뷰 (CVPR 2024)"
 use_math: true

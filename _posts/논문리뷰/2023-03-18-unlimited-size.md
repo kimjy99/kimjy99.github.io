@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Image Restoration
   - Computer Vision
-  - AI
 excerpt: "Unlimited-Size Diffusion Restoration 논문 리뷰"
 use_math: true
 classes: wide

@@ -5,7 +5,6 @@ categories:
   - 논문리뷰
 tags:
   - Computer Vision
-  - AI
   - NeurIPS
 excerpt: "Neural ODE 논문 리뷰 (NeurIPS 2018)"
 use_math: true

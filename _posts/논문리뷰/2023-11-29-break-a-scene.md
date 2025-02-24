@@ -9,7 +9,6 @@ tags:
   - Text-to-Image
   - Fine-Tuning
   - Computer Vision
-  - AI
   - Google
   - SIGGRAPH
 excerpt: "Break-A-Scene 논문 리뷰 (SIGGRAPH Asia 2023)"

@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Text-to-Motion
   - Computer Vision
-  - AI
   - ICLR
 excerpt: "Motion Diffusion Model 논문 리뷰 (ICLR 2023)"
 use_math: true

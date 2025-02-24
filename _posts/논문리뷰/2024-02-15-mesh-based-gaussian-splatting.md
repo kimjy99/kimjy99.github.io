@@ -7,7 +7,6 @@ tags:
   - Gaussian Splatting
   - 3D Vision
   - Novel View Synthesis
-  - AI
 excerpt: "Mesh-based Gaussian Splatting 논문 리뷰"
 use_math: true
 classes: wide

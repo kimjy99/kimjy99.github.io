@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Image Classification
   - Computer Vision
-  - AI
   - ICCV
 excerpt: "Diffusion Classifier 논문 리뷰 (ICCV 2023)"
 use_math: true

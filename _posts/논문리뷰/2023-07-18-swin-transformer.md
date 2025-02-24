@@ -9,7 +9,6 @@ tags:
   - Object Detection
   - Image Segmentation
   - Computer Vision
-  - AI
   - Microsoft
   - ICCV
 excerpt: "Swin Transformer 논문 리뷰 (ICCV 2021)"

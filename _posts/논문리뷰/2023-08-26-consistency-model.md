@@ -8,7 +8,6 @@ tags:
   - Image Generation
   - Distillation
   - Computer Vision
-  - AI
   - OpenAI
   - ICML
 excerpt: "Consistency Models 논문 리뷰 (ICML 2023)"

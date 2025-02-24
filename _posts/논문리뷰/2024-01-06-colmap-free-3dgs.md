@@ -8,7 +8,6 @@ tags:
   - Novel View Synthesis
   - Pose Estimation
   - 3D Vision
-  - AI
   - NVIDIA
   - CVPR
 excerpt: "COLMAP-Free 3D Gaussian Splatting 논문 리뷰 (CVPR 2024 Highlight)"

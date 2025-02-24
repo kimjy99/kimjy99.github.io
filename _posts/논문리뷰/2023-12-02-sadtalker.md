@@ -7,7 +7,6 @@ tags:
   - Talking Head
   - Video Generation
   - Computer Vision
-  - AI
   - CVPR
 excerpt: "SadTalker 논문 리뷰 (CVPR 2023)"
 use_math: true

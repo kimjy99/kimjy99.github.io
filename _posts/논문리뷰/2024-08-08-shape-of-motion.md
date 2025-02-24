@@ -8,7 +8,6 @@ tags:
   - Novel View Synthesis
   - 3D Motion Tracking
   - 3D Vision
-  - AI
   - Google
 excerpt: "Shape of Motion 논문 리뷰"
 use_math: true

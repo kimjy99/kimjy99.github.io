@@ -8,7 +8,6 @@ tags:
   - Image Classification
   - Image Segmentation
   - Computer Vision
-  - AI
   - CVPR
 excerpt: "PoolFormer 논문 리뷰 (CVPR 2022)"
 use_math: true

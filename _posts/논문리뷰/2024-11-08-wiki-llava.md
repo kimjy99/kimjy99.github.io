@@ -6,7 +6,6 @@ categories:
 tags:
   - Large Multimodal Model
   - NLP
-  - AI
   - RAG
 excerpt: "Wiki-LLaVA 논문 리뷰 (CVPRW 2024)"
 use_math: true

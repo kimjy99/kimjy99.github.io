@@ -8,7 +8,6 @@ tags:
   - 3D Vision
   - Distillation
   - Novel View Synthesis
-  - AI
   - CVPR
 excerpt: "Feature 3DGS 논문 리뷰 (CVPR 2024)"
 use_math: true

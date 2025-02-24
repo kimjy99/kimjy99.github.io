@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Language Generation
   - NLP
-  - AI
 excerpt: "SeqDiffuSeq 논문 리뷰"
 use_math: true
 classes: wide

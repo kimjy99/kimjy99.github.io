@@ -7,7 +7,6 @@ tags:
   - Gaussian Splatting
   - 3D Vision
   - Novel View Synthesis
-  - AI
   - NeurIPS
 excerpt: "3DGS-Enhancer 논문 리뷰 (NeurIPS 2024)"
 use_math: true

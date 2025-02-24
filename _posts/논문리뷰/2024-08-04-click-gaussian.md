@@ -7,7 +7,6 @@ tags:
   - Gaussian Splatting
   - Contrastive Learning
   - 3D Vision
-  - AI
   - ECCV
 excerpt: "Click-Gaussian 논문 리뷰 (ECCV 2024)"
 use_math: true

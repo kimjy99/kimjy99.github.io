@@ -9,7 +9,6 @@ tags:
   - Audio Generation
   - Computer Vision
   - Audio and Speech Processing
-  - AI
   - Microsoft
   - CVPR
 excerpt: "MM-Diffusion 논문 리뷰 (CVPR 2023)"

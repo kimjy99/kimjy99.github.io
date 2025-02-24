@@ -6,7 +6,6 @@ categories:
 tags:
   - Diffusion
   - Computer Vision
-  - AI
   - CVPR
 excerpt: "Intrinsic Image Diffusion 논문 리뷰 (CVPR 2024)"
 use_math: true

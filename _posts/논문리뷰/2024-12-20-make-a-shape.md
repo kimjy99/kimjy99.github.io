@@ -6,7 +6,6 @@ categories:
 tags:
   - Diffusion
   - 3D Vision
-  - AI
   - ICML
 excerpt: "Make-A-Shape 논문 리뷰 (ICML 2024)"
 use_math: true

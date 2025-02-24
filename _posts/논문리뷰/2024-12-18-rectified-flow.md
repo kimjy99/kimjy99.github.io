@@ -8,7 +8,6 @@ tags:
   - Image Generation
   - Image-to-Image Translation
   - Computer Vision
-  - AI
   - ICLR
 excerpt: "Rectified Flow 논문 리뷰 (ICLR 2023)"
 use_math: true

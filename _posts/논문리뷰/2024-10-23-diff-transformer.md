@@ -7,7 +7,6 @@ tags:
   - Transformer
   - LLM
   - NLP
-  - AI
   - Microsoft
 excerpt: "Diff Transformer 논문 리뷰"
 use_math: true

@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Text-to-3D
   - 3D Vision
-  - AI
   - Google
 excerpt: "DreamFusion 논문 리뷰"
 use_math: true

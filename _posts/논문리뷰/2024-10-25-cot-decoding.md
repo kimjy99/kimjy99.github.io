@@ -6,7 +6,6 @@ categories:
 tags:
   - NLP
   - LLM
-  - AI
   - Google
 excerpt: "CoT-decoding 논문 리뷰"
 use_math: true

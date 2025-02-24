@@ -6,7 +6,6 @@ categories:
 tags:
   - Diffusion
   - Computer Vision
-  - AI
   - NeurIPS
 excerpt: "MVDiffusion 논문 리뷰 (NeurIPS 2023 Spotlight)"
 use_math: true

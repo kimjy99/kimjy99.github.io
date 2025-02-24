@@ -5,7 +5,6 @@ categories:
   - 논문리뷰
 tags:
   - Computer Vision
-  - AI
   - CVPR
 excerpt: "InternImage 논문 리뷰 (CVPR 2023)"
 use_math: true

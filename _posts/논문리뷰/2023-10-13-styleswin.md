@@ -8,7 +8,6 @@ tags:
   - GAN
   - Image Generation
   - Computer Vision
-  - AI
   - Microsoft
   - CVPR
 excerpt: "StyleSwin 논문 리뷰 (CVPR 2022)"

@@ -7,7 +7,6 @@ tags:
   - Gaussian Splatting
   - Novel View Synthesis
   - 3D Vision
-  - AI
   - CVPR
 excerpt: "Scaffold-GS 논문 리뷰 (CVPR 2024)"
 use_math: true

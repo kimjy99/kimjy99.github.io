@@ -8,7 +8,6 @@ tags:
   - LoRA
   - Image Segmentation
   - Computer Vision
-  - AI
 excerpt: "Ref LDM-Seg 논문 리뷰"
 use_math: true
 classes: wide

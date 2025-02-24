@@ -8,7 +8,6 @@ tags:
   - Diffusion
   - DiT
   - 3D Vision
-  - AI
   - NVIDIA
 excerpt: "EdgeRunner 논문 리뷰"
 use_math: true

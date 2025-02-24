@@ -8,7 +8,6 @@ tags:
   - Text-to-Speech
   - Distillation
   - Audio and Speech Processing
-  - AI
   - Microsoft
   - ICLR
 excerpt: "FastSpeech 2 논문 리뷰 (ICLR 2021)"

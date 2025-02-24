@@ -8,7 +8,6 @@ tags:
   - Contrastive Learning
   - Computer Vision
   - Distillation
-  - AI
   - Microsoft
 excerpt: "Feature Distillation 논문 리뷰"
 use_math: true

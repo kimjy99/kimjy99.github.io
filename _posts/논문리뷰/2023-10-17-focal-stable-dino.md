@@ -7,7 +7,6 @@ tags:
   - Transformer
   - Object Detection
   - Computer Vision
-  - AI
   - Microsoft
 excerpt: "Focal-Stable-DINO 논문 리뷰"
 use_math: true

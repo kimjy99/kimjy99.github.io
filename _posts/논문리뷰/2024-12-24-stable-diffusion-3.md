@@ -9,7 +9,6 @@ tags:
   - Text-to-Image
   - Image Generation
   - Computer Vision
-  - AI
   - ICML
 excerpt: "Stable Diffusion 3 논문 리뷰 (ICML 2024)"
 use_math: true

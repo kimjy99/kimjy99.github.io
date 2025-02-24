@@ -7,7 +7,6 @@ tags:
   - Gaussian Splatting
   - 3D Vision
   - Novel View Synthesis
-  - AI
   - ECCV
 excerpt: "CityGaussian 논문 리뷰 (ECCV 2024)"
 use_math: true

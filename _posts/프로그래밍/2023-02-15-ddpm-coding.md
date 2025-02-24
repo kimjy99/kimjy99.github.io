@@ -6,7 +6,6 @@ categories:
 tags:
   - Diffusion
   - Computer Vision
-  - AI
 excerpt: "Colab에서 DDPM 구현하기 - 진행상황"
 use_math: true
 classes: wide

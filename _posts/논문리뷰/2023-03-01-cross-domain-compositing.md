@@ -6,7 +6,6 @@ categories:
 tags:
   - Diffusion
   - Computer Vision
-  - AI
 excerpt: "Cross-domain Compositing with Pretrained Diffusion Models 논문 리뷰"
 use_math: true
 classes: wide

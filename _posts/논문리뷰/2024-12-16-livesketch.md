@@ -6,7 +6,6 @@ categories:
 tags:
   - Diffusion
   - Computer Vision
-  - AI
   - CVPR
   - NVIDIA
 excerpt: "Breathing Life Into Sketches 논문 리뷰 (CVPR 2024 Highlight)"

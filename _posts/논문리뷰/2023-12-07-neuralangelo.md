@@ -6,7 +6,6 @@ categories:
 tags:
   - 3D Vision
   - Surface Reconstruction
-  - AI
   - NVIDIA
   - CVPR
 excerpt: "Neuralangelo 논문 리뷰 (CVPR 2023)"

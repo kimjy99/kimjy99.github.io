@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Text-to-Speech
   - Audio and Speech Processing
-  - AI
   - ICML
 excerpt: "Guided-TTS 논문 리뷰 (ICML 2021)"
 use_math: true

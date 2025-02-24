@@ -7,7 +7,6 @@ tags:
   - NeRF
   - 3D Vision
   - Novel View Synthesis
-  - AI
   - CVPR
   - Microsoft
 excerpt: "NeRF On-the-go 논문 리뷰 (CVPR 2024)"

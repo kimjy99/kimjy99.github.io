@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Text-to-Image
   - Computer Vision
-  - AI
 excerpt: "IP-Adapter 논문 리뷰"
 use_math: true
 classes: wide

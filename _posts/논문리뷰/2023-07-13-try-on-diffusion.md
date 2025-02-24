@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Image-to-Image Translation
   - Computer Vision
-  - AI
   - Google
   - CVPR
 excerpt: "TryOnDiffusion 논문 리뷰 (CVPR 2023)"

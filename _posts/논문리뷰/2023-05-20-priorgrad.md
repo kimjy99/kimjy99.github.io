@@ -6,7 +6,6 @@ categories:
 tags:
   - Diffusion
   - Audio and Speech Processing
-  - AI
   - Microsoft
   - ICLR
 excerpt: "PriorGrad 논문 리뷰 (ICLR 2022)"

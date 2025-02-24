@@ -8,7 +8,6 @@ tags:
   - Contrastive Learning
   - Singing Voice Synthesis
   - Audio and Speech Processing
-  - AI
 excerpt: "HiddenSinger 논문 리뷰"
 use_math: true
 classes: wide

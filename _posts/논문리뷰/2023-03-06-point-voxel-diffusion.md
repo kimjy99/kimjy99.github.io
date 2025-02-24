@@ -6,7 +6,6 @@ categories:
 tags:
   - Diffusion
   - 3D Vision
-  - AI
   - ICCV
 excerpt: "Point-Voxel Diffusion 논문 리뷰 (ICCV 2021)"
 use_math: true

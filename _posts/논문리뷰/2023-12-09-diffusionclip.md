@@ -8,7 +8,6 @@ tags:
   - Image-to-Image Translation
   - Fine-Tuning
   - Computer Vision
-  - AI
   - CVPR
 excerpt: "DiffusionCLIP 논문 리뷰 (CVPR 2022)"
 use_math: true

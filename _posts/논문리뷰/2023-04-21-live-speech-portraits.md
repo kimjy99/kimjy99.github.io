@@ -9,7 +9,6 @@ tags:
   - Talking Head
   - Video Generation
   - Computer Vision
-  - AI
   - SIGGRAPH
 excerpt: "Live Speech Portraits 논문 리뷰 (SIGGRAPH Asia 2021)"
 use_math: true

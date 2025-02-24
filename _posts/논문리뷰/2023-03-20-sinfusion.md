@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Video Generation
   - Computer Vision
-  - AI
   - ICML
 excerpt: "SinFusion 논문 리뷰 (ICML 2023)"
 use_math: true

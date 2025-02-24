@@ -10,7 +10,6 @@ tags:
   - NLP
   - Large Multimodal Model
   - Computer Vision
-  - AI
   - Google
   - ICML
 excerpt: "VideoPoet 논문 리뷰 (ICML 2024)"

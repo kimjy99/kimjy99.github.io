@@ -8,7 +8,6 @@ tags:
   - Novel View Synthesis
   - NLP
   - 3D Vision
-  - AI
   - CVPR
 excerpt: "LangSplat 논문 리뷰 (CVPR 2024 Highlight)"
 use_math: true

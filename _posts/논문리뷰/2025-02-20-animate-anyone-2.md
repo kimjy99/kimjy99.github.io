@@ -6,7 +6,6 @@ categories:
 tags:
   - Diffusion
   - Computer Vision
-  - AI
 excerpt: "Animate Anyone 2 논문 리뷰"
 use_math: true
 classes: wide

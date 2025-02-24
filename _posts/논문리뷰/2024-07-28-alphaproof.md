@@ -5,7 +5,6 @@ categories:
   - 논문리뷰
 tags:
   - Reinforcement Learning
-  - AI
   - Google
 excerpt: "AlphaProof & AlphaGeometry 2 블로그 리뷰"
 use_math: true

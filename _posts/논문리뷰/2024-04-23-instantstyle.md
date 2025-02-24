@@ -8,7 +8,6 @@ tags:
   - Image-to-Image Translation
   - Style Transfer
   - Computer Vision
-  - AI
 excerpt: "InstantStyle 논문 리뷰"
 use_math: true
 classes: wide

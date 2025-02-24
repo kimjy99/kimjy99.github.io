@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Image Editing
   - Computer Vision
-  - AI
   - Microsoft
 excerpt: "Paint by Example 논문 리뷰"
 use_math: true

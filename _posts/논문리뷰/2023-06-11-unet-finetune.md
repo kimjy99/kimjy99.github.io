@@ -6,7 +6,6 @@ categories:
 tags:
   - Diffusion
   - Computer Vision
-  - AI
 excerpt: "A Closer Look at Parameter-Efficient Tuning in Diffusion Models 논문 리뷰"
 use_math: true
 classes: wide

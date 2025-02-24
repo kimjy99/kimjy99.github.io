@@ -8,7 +8,6 @@ tags:
   - Text-to-Image
   - Computer Vision
   - Reinforcement Learning
-  - AI
   - Microsoft
   - NeurIPS
 excerpt: "Promptist 논문 리뷰 (NeurIPS 2023)"

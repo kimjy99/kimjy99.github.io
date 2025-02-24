@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Monocular Depth Estimation
   - Computer Vision
-  - AI
 excerpt: "Depth Any Video 논문 리뷰"
 use_math: true
 classes: wide

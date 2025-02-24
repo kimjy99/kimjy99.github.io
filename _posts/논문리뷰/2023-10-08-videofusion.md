@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Video Generation
   - Computer Vision
-  - AI
   - CVPR
 excerpt: "VideoFusion 논문 리뷰 (CVPR 2023)"
 use_math: true

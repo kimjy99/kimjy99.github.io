@@ -8,7 +8,6 @@ tags:
   - Text-to-Image
   - Personalization
   - Computer Vision
-  - AI
   - NVIDIA
 excerpt: "Textual Inversion 논문 리뷰"
 use_math: true

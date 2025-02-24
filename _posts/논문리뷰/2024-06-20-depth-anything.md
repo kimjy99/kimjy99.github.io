@@ -6,7 +6,6 @@ categories:
 tags:
   - Monocular Depth Estimation
   - Computer Vision
-  - AI
   - CVPR
 excerpt: "Depth Anything 논문 리뷰 (CVPR 2024)"
 use_math: true

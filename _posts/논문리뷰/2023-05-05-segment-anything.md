@@ -7,7 +7,6 @@ tags:
   - Image Segmentation
   - ViT
   - Computer Vision
-  - AI
   - Meta
 excerpt: "SAM 논문 리뷰"
 use_math: true

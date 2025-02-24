@@ -6,7 +6,6 @@ categories:
 tags:
   - Image Segmentation
   - Computer Vision
-  - AI
   - CVPR
 excerpt: "RobustSAM 논문 리뷰 (CVPR 2024 Highlight)"
 use_math: true

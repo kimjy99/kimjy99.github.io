@@ -7,7 +7,6 @@ tags:
   - Gaussian Splatting
   - 3D Vision
   - 3D Segmentation
-  - AI
 excerpt: "2D-Guided 3D Gaussian Segmentation 논문 리뷰"
 use_math: true
 classes: wide

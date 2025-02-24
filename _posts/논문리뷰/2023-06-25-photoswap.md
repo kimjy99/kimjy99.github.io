@@ -8,7 +8,6 @@ tags:
   - Fine-Tuning
   - Image-to-Image Translation
   - Computer Vision
-  - AI
   - NeurIPS
 excerpt: "Photoswap 논문 리뷰 (NeurIPS 2023)"
 use_math: true

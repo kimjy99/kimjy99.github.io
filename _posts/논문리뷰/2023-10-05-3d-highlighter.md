@@ -5,7 +5,6 @@ categories:
   - 논문리뷰
 tags:
   - 3D Vision
-  - AI
   - CVPR
 excerpt: "3D Highlighter 논문 리뷰 (CVPR 2023)"
 use_math: true

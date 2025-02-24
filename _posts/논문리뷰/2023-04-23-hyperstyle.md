@@ -8,7 +8,6 @@ tags:
   - GAN
   - Image-to-Image Translation
   - Computer Vision
-  - AI
   - CVPR
 excerpt: "HyperStyle 논문 리뷰 (CVPR 2022)"
 use_math: true

@@ -6,7 +6,6 @@ categories:
 tags:
   - Image Segmentation
   - Computer Vision
-  - AI
   - CVPR
 excerpt: "MaskFreeVIS 논문 리뷰 (CVPR 2023)"
 use_math: true

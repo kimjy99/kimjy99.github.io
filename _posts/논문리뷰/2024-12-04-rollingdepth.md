@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Computer Vision
   - Monocular Depth Estimation
-  - AI
 excerpt: "RollingDepth 논문 리뷰"
 use_math: true
 classes: wide

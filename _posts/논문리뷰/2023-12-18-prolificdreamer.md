@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Text-to-3D
   - 3D Vision
-  - AI
   - NeurIPS
 excerpt: "ProlificDreamer 논문 리뷰 (NeurIPS 2023 Spotlight)"
 use_math: true

@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Text-to-Image
   - Computer Vision
-  - AI
   - SIGGRAPH
 excerpt: "Attend-and-Excite 논문 리뷰 (SIGGRAPH 2023)"
 use_math: true

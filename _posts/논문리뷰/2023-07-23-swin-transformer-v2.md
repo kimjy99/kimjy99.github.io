@@ -9,7 +9,6 @@ tags:
   - Object Detection
   - Image Segmentation
   - Computer Vision
-  - AI
   - Microsoft
   - CVPR
 excerpt: "Swin Transformer V2 논문 리뷰 (CVPR 2022)"

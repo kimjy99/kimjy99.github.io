@@ -6,7 +6,6 @@ categories:
 tags:
   - NLP
   - LLM
-  - AI
 excerpt: "LLM Colosseum"
 use_math: true
 classes: wide

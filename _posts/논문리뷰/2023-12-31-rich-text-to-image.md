@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Text-to-Image
   - Computer Vision
-  - AI
   - ICCV
 excerpt: "Rich Text-to-Image 논문 리뷰 (ICCV 2023)"
 use_math: true

@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Text-to-Image
   - Computer Vision
-  - AI
   - Google
   - ICLR
 excerpt: "Structured Diffusion Guidance 논문 리뷰 (ICLR 2023)"

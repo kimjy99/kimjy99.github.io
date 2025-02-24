@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Image Segmentation
   - Computer Vision
-  - AI
 excerpt: "DiffusionInst 논문 리뷰"
 use_math: true
 classes: wide

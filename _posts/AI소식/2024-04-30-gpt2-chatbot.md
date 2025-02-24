@@ -6,7 +6,6 @@ categories:
 tags:
   - NLP
   - LLM
-  - AI
 excerpt: "gpt2-chatbot"
 use_math: true
 classes: wide

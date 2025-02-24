@@ -6,7 +6,6 @@ categories:
 tags:
   - NLP
   - LLM
-  - AI
   - Google
   - ICLR
 excerpt: "Self-Consistency 논문 리뷰 (ICLR 2023)"

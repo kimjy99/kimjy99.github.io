@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Text-to-Video
   - Computer Vision
-  - AI
   - CVPR
 excerpt: "VideoCrafter2 논문 리뷰 (CVPR 2024)"
 use_math: true

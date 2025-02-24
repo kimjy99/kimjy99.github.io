@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Text-to-Speech
   - Audio and Speech Processing
-  - AI
   - Google
 excerpt: "Noise2Music 논문 리뷰"
 use_math: true

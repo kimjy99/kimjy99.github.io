@@ -7,7 +7,6 @@ tags:
   - Transformer
   - Text-to-Speech
   - Audio and Speech Processing
-  - AI
   - Microsoft
 excerpt: "NaturalSpeech 논문 리뷰"
 use_math: true

@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Text-to-Video
   - Computer Vision
-  - AI
   - ICCV
 excerpt: "Tune-A-Video 논문 리뷰 (ICCV 2023)"
 use_math: true

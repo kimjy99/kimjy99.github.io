@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Text-to-Image
   - Computer Vision
-  - AI
   - Microsoft
   - NeurIPS
 excerpt: "Uni-ControlNet 논문 리뷰 (NeurIPS 2023)"

@@ -7,7 +7,6 @@ tags:
   - Vision Transformer
   - Image Segmentation
   - Computer Vision
-  - AI
   - Microsoft
   - CVPR
 excerpt: "Segment and Caption Anything (SCA) 논문 리뷰 (CVPR 2024)"

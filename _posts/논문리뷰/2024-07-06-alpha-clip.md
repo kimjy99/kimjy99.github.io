@@ -5,7 +5,6 @@ categories:
   - 논문리뷰
 tags:
   - Computer Vision
-  - AI
   - CVPR
 excerpt: "Alpha-CLIP 논문 리뷰 (CVPR 2024)"
 use_math: true

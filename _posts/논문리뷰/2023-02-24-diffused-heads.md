@@ -8,7 +8,6 @@ tags:
   - Diffusion
   - Video Generation
   - Computer Vision
-  - AI
 excerpt: "Diffused Heads 논문 리뷰"
 use_math: true
 classes: wide

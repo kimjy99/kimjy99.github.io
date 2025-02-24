@@ -8,7 +8,6 @@ tags:
   - Fine-Tuning
   - Image-to-Image Translation
   - Computer Vision
-  - AI
   - CVPR
 excerpt: "DualStyleGAN 논문 리뷰 (CVPR 2022)"
 use_math: true

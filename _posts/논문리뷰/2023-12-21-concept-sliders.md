@@ -8,7 +8,6 @@ tags:
   - LoRA
   - Text-to-Image
   - Computer Vision
-  - AI
   - ECCV
 excerpt: "Concept Sliders 논문 리뷰 (ECCV 2024)"
 use_math: true

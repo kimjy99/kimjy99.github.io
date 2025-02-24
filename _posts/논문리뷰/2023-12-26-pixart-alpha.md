@@ -8,7 +8,6 @@ tags:
   - DiT
   - Text-to-Image
   - Computer Vision
-  - AI
   - ICLR
 excerpt: "PixArt-α 논문 리뷰 (ICLR 2024 Spotlight)"
 use_math: true

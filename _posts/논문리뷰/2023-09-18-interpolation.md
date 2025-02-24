@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Image-to-Image Translation
   - Computer Vision
-  - AI
   - ICML
 excerpt: "Interpolating between Images with Diffusion Models 논문 리뷰 (ICML 2023)"
 use_math: true

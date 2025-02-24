@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Image-to-Image Translation
   - Computer Vision
-  - AI
 excerpt: "Unsupervised Discovery of Semantic Latent Directions in Diffusion Models 논문 리뷰"
 use_math: true
 classes: wide

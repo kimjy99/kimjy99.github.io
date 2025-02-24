@@ -9,7 +9,6 @@ tags:
   - Image Editing
   - NLP
   - Computer Vision
-  - AI
   - CVPR
 excerpt: "SmartEdit 논문 리뷰 (CVPR 2024)"
 use_math: true

@@ -7,7 +7,6 @@ tags:
   - Gaussian Splatting
   - Novel View Synthesis
   - 3D Vision
-  - AI
 excerpt: "Depth-Regularized Optimization for 3D Gaussian Splatting 논문 리뷰 (CVPRW 2024)"
 use_math: true
 classes: wide

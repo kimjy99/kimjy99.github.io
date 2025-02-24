@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Text-to-Image
   - Computer Vision
-  - AI
   - ECCV
 excerpt: "MaxFusion 논문 리뷰 (ECCV 2024)"
 use_math: true

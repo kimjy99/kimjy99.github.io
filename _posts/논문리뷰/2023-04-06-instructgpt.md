@@ -9,7 +9,6 @@ tags:
   - Reinforcement Learning
   - NLP
   - LLM
-  - AI
   - OpenAI
 excerpt: "InstructGPT (RLHF) 논문 리뷰"
 use_math: true

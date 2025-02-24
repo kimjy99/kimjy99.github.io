@@ -6,7 +6,6 @@ categories:
 tags:
   - Image Segmentation
   - Computer Vision
-  - AI
   - Google
 excerpt: "CLIP as RNN (CaR) 논문 리뷰 (CVPR 2024)"
 use_math: true

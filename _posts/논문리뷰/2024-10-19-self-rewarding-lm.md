@@ -6,7 +6,6 @@ categories:
 tags:
   - NLP
   - LLM
-  - AI
   - Meta
 excerpt: "Self-Rewarding Language Models 논문 리뷰"
 use_math: true

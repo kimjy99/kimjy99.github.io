@@ -6,7 +6,6 @@ categories:
 tags:
   - Diffusion
   - Computer Vision
-  - AI
   - Google
 excerpt: "On the Importance of Noise Scheduling for Diffusion Models 논문 리뷰"
 use_math: true

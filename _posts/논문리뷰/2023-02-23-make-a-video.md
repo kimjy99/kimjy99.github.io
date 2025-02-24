@@ -8,7 +8,6 @@ tags:
   - Video Generation
   - Text-to-Video
   - Computer Vision
-  - AI
   - Meta
 excerpt: "Make-A-Video 논문 리뷰"
 use_math: true

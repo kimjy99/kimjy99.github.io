@@ -6,7 +6,6 @@ categories:
 tags:
   - 3D Vision
   - Novel View Synthesis
-  - AI
 excerpt: "TetSphere Splatting 논문 리뷰"
 use_math: true
 classes: wide

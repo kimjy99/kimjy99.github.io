@@ -8,7 +8,6 @@ tags:
   - Personalization
   - Text-to-Image
   - Computer Vision
-  - AI
 excerpt: "BLIP-Diffusion 논문 리뷰"
 use_math: true
 classes: wide

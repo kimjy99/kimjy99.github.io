@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Computer Vision
   - Image-to-Video
-  - AI
 excerpt: "DynamiCrafter 논문 리뷰 (ECCV 2024 Oral)"
 use_math: true
 classes: wide

@@ -6,7 +6,6 @@ categories:
 tags:
   - Video Understanding
   - Computer Vision
-  - AI
   - Google
   - ICML
 excerpt: "VideoPrism 논문 리뷰 (ICML 2024)"

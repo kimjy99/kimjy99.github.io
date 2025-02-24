@@ -8,7 +8,6 @@ tags:
   - Text-to-Video
   - Image-to-Video
   - Computer Vision
-  - AI
 excerpt: "VideoCrafter1 논문 리뷰"
 use_math: true
 classes: wide

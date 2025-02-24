@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Text-to-Image
   - Computer Vision
-  - AI
   - SIGGRAPH
 excerpt: "ConsiStory 논문 리뷰 (SIGGRAPH 2024)"
 use_math: true

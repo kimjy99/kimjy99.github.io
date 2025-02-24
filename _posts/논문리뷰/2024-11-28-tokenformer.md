@@ -6,7 +6,6 @@ categories:
 tags:
   - Transformer
   - NLP
-  - AI
   - Google
 excerpt: "TokenFormer 논문 리뷰"
 use_math: true

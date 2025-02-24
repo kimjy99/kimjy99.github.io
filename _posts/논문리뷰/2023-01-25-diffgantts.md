@@ -8,7 +8,6 @@ tags:
   - GAN
   - Text-to-Speech
   - Audio and Speech Processing
-  - AI
 excerpt: "DiffGAN-TTS 논문 리뷰"
 use_math: true
 classes: wide

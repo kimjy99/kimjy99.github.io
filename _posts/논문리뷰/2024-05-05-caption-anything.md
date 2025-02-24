@@ -6,7 +6,6 @@ categories:
 tags:
   - Image Captioning
   - Computer Vision
-  - AI
 excerpt: "Caption Anything (CAT) 논문 리뷰"
 use_math: true
 classes: wide

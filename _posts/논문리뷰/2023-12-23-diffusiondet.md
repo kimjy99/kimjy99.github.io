@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Object Detection
   - Computer Vision
-  - AI
   - ICCV
 excerpt: "DiffusionDet 논문 리뷰 (ICCV 2023 Oral)"
 use_math: true

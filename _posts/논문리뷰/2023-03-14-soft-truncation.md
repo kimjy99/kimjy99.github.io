@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Image Generation
   - Computer Vision
-  - AI
   - ICML
 excerpt: "Soft Truncation 논문 리뷰 (ICML 2022)"
 use_math: true

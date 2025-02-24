@@ -7,7 +7,6 @@ tags:
   - NeRF
   - Novel View Synthesis
   - 3D Vision
-  - AI
   - Google
   - CVPR
 excerpt: "Block-NeRF 논문 리뷰 (CVPR 2022)"

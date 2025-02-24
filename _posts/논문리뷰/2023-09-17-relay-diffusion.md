@@ -7,7 +7,6 @@ tags:
   - Diffusion
   - Image Generation
   - Computer Vision
-  - AI
   - ICLR
 excerpt: "Relay Diffusion 논문 리뷰 (ICLR 2024 Spotlight)"
 use_math: true

@@ -8,7 +8,6 @@ tags:
   - GAN
   - Image Generation
   - Computer Vision
-  - AI
   - NVIDIA
   - ICLR
 excerpt: "Denoising Diffusion GAN 논문 리뷰 (ICLR 2022 Spotlight)"

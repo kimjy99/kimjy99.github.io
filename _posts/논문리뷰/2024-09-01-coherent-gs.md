@@ -7,7 +7,6 @@ tags:
   - Gaussian Splatting
   - Novel View Synthesis
   - 3D Vision
-  - AI
   - Meta
   - ECCV
 excerpt: "CoherentGS 논문 리뷰 (ECCV 2024)"

@@ -9,7 +9,6 @@ tags:
   - Object Detection
   - Image Segmentation
   - Computer Vision
-  - AI
   - CVPR
 excerpt: "MixFormer 논문 리뷰 (CVPR 2022)"
 use_math: true

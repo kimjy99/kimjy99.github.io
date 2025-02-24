@@ -7,7 +7,6 @@ tags:
   - Transformer
   - Image Segmentation
   - Computer Vision
-  - AI
   - Meta
   - NeurIPS
 excerpt: "MaskFormer 논문 리뷰 (NeurIPS 2021)"

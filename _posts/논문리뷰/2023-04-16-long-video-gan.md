@@ -7,7 +7,6 @@ tags:
   - GAN
   - Video Generation
   - Computer Vision
-  - AI
   - NVIDIA
   - NeurIPS
 excerpt: "LongVideoGAN 논문 리뷰 (NeurIPS 2022)"

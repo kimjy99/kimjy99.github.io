@@ -9,7 +9,6 @@ tags:
   - Text-to-Image
   - Personalization
   - Computer Vision
-  - AI
   - Google
   - CVPR
 excerpt: "DreamBooth 논문 리뷰 (CVPR 2023)"

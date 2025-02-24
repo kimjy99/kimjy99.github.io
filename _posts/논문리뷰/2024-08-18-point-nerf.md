@@ -7,7 +7,6 @@ tags:
   - NeRF
   - Novel View Synthesis
   - 3D Vision
-  - AI
   - CVPR
 excerpt: "Point-NeRF 논문 리뷰 (CVPR 2022 Oral)"
 use_math: true
