@@ -9,12 +9,13 @@ tags:
   - DiT
   - 3D Vision
   - NVIDIA
-excerpt: "EdgeRunner 논문 리뷰"
+  - ICLR
+excerpt: "EdgeRunner 논문 리뷰 (ICLR 2025)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2024. [[Paper](https://arxiv.org/abs/2409.18114)] [[Page](https://research.nvidia.com/labs/dir/edgerunner/)]  
+> ICLR 2025. [[Paper](https://arxiv.org/abs/2409.18114)] [[Page](https://research.nvidia.com/labs/dir/edgerunner/)]  
 > Jiaxiang Tang, Zhaoshuo Li, Zekun Hao, Xian Liu, Gang Zeng, Ming-Yu Liu, Qinsheng Zhang  
 > Peking University | NVIDIA Research  
 > 26 Sep 2024  

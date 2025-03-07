@@ -7,12 +7,13 @@ tags:
   - Gaussian Splatting
   - 3D Vision
   - Novel View Synthesis
-excerpt: "Analytic-Splatting 논문 리뷰"
+  - ECCV
+excerpt: "Analytic-Splatting 논문 리뷰 (ECCV 2024 Oral)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2024. [[Paper](https://arxiv.org/abs/2403.11056)] [[Page](https://lzhnb.github.io/project-pages/analytic-splatting/)]  
+> ECCV 2024 (Oral). [[Paper](https://arxiv.org/abs/2403.11056)] [[Page](https://lzhnb.github.io/project-pages/analytic-splatting/)]  
 > Zhihao Liang, Qi Zhang, Wenbo Hu, Ying Feng, Lei Zhu, Kui Jia  
 > Beihang University | Chinese Academy of Sciences | Griffith University | RIKEN AIP | The University of Tokyo  
 > 17 Mar 2024  

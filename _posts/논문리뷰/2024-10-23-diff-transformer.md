@@ -8,12 +8,13 @@ tags:
   - LLM
   - NLP
   - Microsoft
-excerpt: "Diff Transformer 논문 리뷰"
+  - ICLR
+excerpt: "Diff Transformer 논문 리뷰 (ICLR 2025 Oral)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2024. [[Paper](https://arxiv.org/abs/2410.05258)] [[Github](https://github.com/microsoft/unilm/tree/master/Diff-Transformer)]  
+> ICLR 2025 (Oral). [[Paper](https://arxiv.org/abs/2410.05258)] [[Github](https://github.com/microsoft/unilm/tree/master/Diff-Transformer)]  
 > Tianzhu Ye, Li Dong, Yuqing Xia, Yutao Sun, Yi Zhu, Gao Huang, Furu Wei  
 > Microsoft Research | Tsinghua University  
 > 7 Oct 2024  

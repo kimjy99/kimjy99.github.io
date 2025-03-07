@@ -7,12 +7,13 @@ tags:
   - NLP
   - LLM
   - Google
-excerpt: "CoT-decoding 논문 리뷰"
+  - NeurIPS
+excerpt: "CoT-decoding 논문 리뷰 (NeurIPS 2024)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2024. [[Paper](https://arxiv.org/abs/2402.10200)]  
+> NeurIPS 2024. [[Paper](https://arxiv.org/abs/2402.10200)]  
 > Xuezhi Wang, Denny Zhou  
 > Google DeepMind  
 > 15 Feb 2024  

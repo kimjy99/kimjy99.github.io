@@ -8,12 +8,13 @@ tags:
   - NLP
   - LLM
   - Google
-excerpt: "Transformer² 논문 리뷰"
+  - ICLR
+excerpt: "Transformer² 논문 리뷰 (ICLR 2025)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2025. [[Paper](https://arxiv.org/abs/2501.06252)] [[Blog](https://sakana.ai/transformer-squared/)] [[Github](https://github.com/SakanaAI/self-adaptive-llms)]  
+> ICLR 2025. [[Paper](https://arxiv.org/abs/2501.06252)] [[Blog](https://sakana.ai/transformer-squared/)] [[Github](https://github.com/SakanaAI/self-adaptive-llms)]  
 > Qi Sun, Edoardo Cetin, Yujin Tang  
 > Sakana AI | Institute of Science Tokyo  
 > 9 Jan 2025  

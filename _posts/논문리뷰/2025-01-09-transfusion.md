@@ -9,12 +9,13 @@ tags:
   - Computer Vision
   - NLP
   - Meta
-excerpt: "Transfusion 논문 리뷰"
+  - ICLR
+excerpt: "Transfusion 논문 리뷰 (ICLR 2025 Oral)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2024. [[Paper](https://arxiv.org/abs/2408.11039)]  
+> ICLR 2025 (Oral). [[Paper](https://arxiv.org/abs/2408.11039)]  
 > Chunting Zhou, Lili Yu, Arun Babu, Kushal Tirumala, Michihiro Yasunaga, Leonid Shamis, Jacob Kahn, Xuezhe Ma, Luke Zettlemoyer, Omer Levy  
 > Meta | Waymo | University of Southern California  
 > 20 Aug 2024  

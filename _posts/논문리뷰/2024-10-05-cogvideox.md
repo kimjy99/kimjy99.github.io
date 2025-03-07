@@ -8,12 +8,13 @@ tags:
   - DiT
   - Text-to-Video
   - Computer Vision
-excerpt: "CogVideoX 논문 리뷰"
+  - ICLR
+excerpt: "CogVideoX 논문 리뷰 (ICLR 2025)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2024. [[Paper](https://arxiv.org/abs/2408.06072)] [[Github](https://github.com/THUDM/CogVideo)]  
+> ICLR 2025. [[Paper](https://arxiv.org/abs/2408.06072)] [[Github](https://github.com/THUDM/CogVideo)]  
 > Zhuoyi Yang, Jiayan Teng, Wendi Zheng, Ming Ding, Shiyu Huang, Jiazheng Xu, Yuanming Yang, Wenyi Hong, Xiaohan Zhang, Guanyu Feng, Da Yin, Xiaotao Gu, Yuxuan Zhang, Weihan Wang, Yean Cheng, Ting Liu, Bin Xu, Yuxiao Dong, Jie Tang  
 > Zhipu AI | Tsinghua University  
 > 12 Aug 2024  

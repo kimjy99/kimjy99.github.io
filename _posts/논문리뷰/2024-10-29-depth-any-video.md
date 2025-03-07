@@ -7,12 +7,13 @@ tags:
   - Diffusion
   - Monocular Depth Estimation
   - Computer Vision
-excerpt: "Depth Any Video 논문 리뷰"
+  - ICLR
+excerpt: "Depth Any Video 논문 리뷰 (ICLR 2025)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2024. [[Paper](https://arxiv.org/abs/2410.10815)] [[Page](https://depthanyvideo.github.io/)] [[Github](https://github.com/Nightmare-n/depthanyvideo)]  
+> ICLR 2025. [[Paper](https://arxiv.org/abs/2410.10815)] [[Page](https://depthanyvideo.github.io/)] [[Github](https://github.com/Nightmare-n/depthanyvideo)]  
 > Honghui Yang, Di Huang, Wei Yin, Chunhua Shen, Haifeng Liu, Xiaofei He, Binbin Lin, Wanli Ouyang, Tong He  
 > Shanghai AI Laboratory | Zhejiang University | The University of Sydney  
 > 14 Oct 2024  

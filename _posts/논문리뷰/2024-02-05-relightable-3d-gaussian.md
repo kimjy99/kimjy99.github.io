@@ -7,12 +7,13 @@ tags:
   - Gaussian Splatting
   - 3D Vision
   - Novel View Synthesis
-excerpt: "Relightable 3D Gaussian 논문 리뷰"
+  - ECCV
+excerpt: "Relightable 3D Gaussian 논문 리뷰 (ECCV 2024)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2311.16043)] [[Page](https://nju-3dv.github.io/projects/Relightable3DGaussian/)] [[Github](https://github.com/NJU-3DV/Relightable3DGaussian)]  
+> ECCV 2024. [[Paper](https://arxiv.org/abs/2311.16043)] [[Page](https://nju-3dv.github.io/projects/Relightable3DGaussian/)] [[Github](https://github.com/NJU-3DV/Relightable3DGaussian)]  
 > Jian Gao, Chun Gu, Youtian Lin, Hao Zhu, Xun Cao, Li Zhang, Yao Yao  
 > Nanjing University | Fudan University  
 > 27 Nov 2023  

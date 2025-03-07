@@ -6,12 +6,13 @@ categories:
 tags:
   - 3D Vision
   - Novel View Synthesis
-excerpt: "TetSphere Splatting 논문 리뷰"
+  - ICLR
+excerpt: "TetSphere Splatting 논문 리뷰 (ICLR 2025 Oral)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2024. [[Paper](https://arxiv.org/abs/2405.20283)] [[Github](https://github.com/gmh14/tssplat)]  
+> ICLR 2025 (Oral). [[Paper](https://arxiv.org/abs/2405.20283)] [[Github](https://github.com/gmh14/tssplat)]  
 > Minghao Guo, Bohan Wang, Kaiming He, Wojciech Matusik  
 > MIT CSAIL  
 > 30 May 2024  

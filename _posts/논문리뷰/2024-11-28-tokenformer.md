@@ -7,12 +7,13 @@ tags:
   - Transformer
   - NLP
   - Google
-excerpt: "TokenFormer 논문 리뷰"
+  - ICLR
+excerpt: "TokenFormer 논문 리뷰 (ICLR 2025 Spotlight)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2024. [[Paper](https://arxiv.org/abs/2410.23168)] [[Page](https://haiyang-w.github.io/tokenformer.github.io/)] [[Github](https://github.com/Haiyang-W/TokenFormer)]  
+> ICLR 2025 (Spotlight). [[Paper](https://arxiv.org/abs/2410.23168)] [[Page](https://haiyang-w.github.io/tokenformer.github.io/)] [[Github](https://github.com/Haiyang-W/TokenFormer)]  
 > Haiyang Wang, Yue Fan, Muhammad Ferjad Naeem, Yongqin Xian, Jan Eric Lenssen, Liwei Wang, Federico Tombari, Bernt Schiele  
 > Max Planck Institute for Informatics | Google | Peking University  
 > 30 Oct 2024  

@@ -7,12 +7,13 @@ tags:
   - NLP
   - LLM
   - Meta
-excerpt: "Self-Rewarding Language Models 논문 리뷰"
+  - ICML
+excerpt: "Self-Rewarding Language Models 논문 리뷰 (ICML 2024)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2024. [[Paper](https://arxiv.org/abs/2401.10020)]  
+> ICML 2024. [[Paper](https://arxiv.org/abs/2401.10020)]  
 > Weizhe Yuan, Richard Yuanzhe Pang, Kyunghyun Cho, Xian Li, Sainbayar Sukhbaatar, Jing Xu, Jason Weston  
 > Meta | NYU  
 > 18 Jan 2024  

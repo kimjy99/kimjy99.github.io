@@ -10,12 +10,13 @@ tags:
   - NLP
   - LLM
   - Meta
-excerpt: "SceneScript 논문 리뷰"
+  - ECCV
+excerpt: "SceneScript 논문 리뷰 (ECCV 2024)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2024. [[Paper](https://arxiv.org/abs/2403.13064)] [[Page](https://www.projectaria.com/scenescript/)]  
+> ECCV 2024. [[Paper](https://arxiv.org/abs/2403.13064)] [[Page](https://www.projectaria.com/scenescript/)]  
 > Armen Avetisyan, Christopher Xie, Henry Howard-Jenkins, Tsun-Yi Yang, Samir Aroudj, Suvam Patra, Fuyang Zhang, Duncan Frost, Luke Holland, Campbell Orme, Jakob Engel, Edward Miller, Richard Newcombe, Vasileios Balntas  
 > Meta Reality Labs | Simon Fraser University  
 > 19 Mar 2024  

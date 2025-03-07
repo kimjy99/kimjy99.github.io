@@ -9,16 +9,17 @@ tags:
   - Visual Object Tracking
   - Computer Vision
   - Meta
-excerpt: "SAM 2 논문 리뷰"
+  - ICLR
+excerpt: "SAM 2 논문 리뷰 (ICLR 2025 Oral)"
 use_math: true
 classes: wide
 ---
 
-> [[Paper](https://ai.meta.com/research/publications/sam-2-segment-anything-in-images-and-videos/)] [[Page](https://ai.meta.com/sam2/)] [[Github](https://github.com/facebookresearch/segment-anything-2)]  
+> ICLR 2025 (Oral). [[Paper](https://arxiv.org/abs/2408.00714)] [[Page](https://ai.meta.com/sam2/)] [[Github](https://github.com/facebookresearch/segment-anything-2)]  
 > Nikhila Ravi, Valentin Gabeur, Yuan-Ting Hu, Ronghang Hu, Chaitanya Ryali, Tengyu Ma, Haitham Khedr, Roman Rädle, Chloe Rolland, Laura Gustafson, Eric Mintun, Junting Pan, Kalyan
 Vasudev Alwala, Nicolas Carion, Chao-Yuan Wu, Ross Girshick, Piotr Dollár, Christoph Feichtenhofer  
 > Meta FAIR  
-> July 29, 2024  
+> 1 Aug 2024  
 
 <center><img src='{{"/assets/img/segment-anything-2/segment-anything-2-fig1.webp" | relative_url}}' width="100%"></center>
 
