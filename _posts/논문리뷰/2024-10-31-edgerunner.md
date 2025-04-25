@@ -4,6 +4,7 @@ last_modified_at: 2024-10-31
 categories:
   - 논문리뷰
 tags:
+  - Mesh Generation
   - Autoregressive
   - Diffusion
   - DiT
