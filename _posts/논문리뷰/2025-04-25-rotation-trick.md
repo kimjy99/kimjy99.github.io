@@ -1,6 +1,6 @@
 ---
 title: "[논문리뷰] Restructuring Vector Quantization with the Rotation Trick"
-last_modified_at: 2025-03-28
+last_modified_at: 2025-04-25
 categories:
   - 논문리뷰
 tags:
