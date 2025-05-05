@@ -17,7 +17,7 @@ classes: wide
 첫 학습을 4일만에 종료하였다. 총 19시간 정도 학습하였다. 
 
 > 이미지 전처리: CelebA 178 $\times$ 218 → CenterCrop 178 $\times$ 178 → Resize 156 $\times$ 156 → RandomCrop 128 $\times$ 128  
-> U-Net 채널 수: 64, 64, 128, 128
+> U-Net 채널 수: 64, 64, 128, 128  
 > Batch size: 120 (mini batch size 12 $\times$ accumulation step 10)  
 > Learning rate: $6 \times 10^{-5}$  
 > beta schedule: linear  
