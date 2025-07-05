@@ -34,7 +34,7 @@
       </li>
       <li>
         <span class="nav__sub-title" v-on:click='togglec()'><a href="/categories/논문리뷰">📝 논문리뷰 ({{ site.categories['논문리뷰'].size }})</a></span>
-        {% assign fav_tags = "Computer Vision/CV/Computer Vision, 3D Vision/3DV/3D Vision, Audio and Speech Processing/ASP/Audio & Speech, NLP/NLP/NLP, Reinforcement Learning/RL/RL" | split: ", " %}
+        {% assign fav_tags = "Computer Vision/CV/Computer Vision, 3D Vision/3DV/3D Vision, NLP/NLP/NLP, Audio and Speech Processing/ASP/Audio & Speech, Reinforcement Learning/RL/RL" | split: ", " %}
         {% for fav_tag in fav_tags %}
           {% assign sep = fav_tag | split: "/" %}
           <ul v-show="flag_c">
