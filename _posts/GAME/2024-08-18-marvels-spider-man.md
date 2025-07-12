@@ -10,4 +10,4 @@ excerpt: "Marvel's Spider-Man - 플래티넘 트로피"
 classes: wide
 ---
 
-<center><img src='{{"/assets/img/game/marvels-spider-man.jpg" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/game/marvels-spider-man/marvels-spider-man.jpg" | relative_url}}' width="100%"></center>

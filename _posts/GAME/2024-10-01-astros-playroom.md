@@ -10,4 +10,4 @@ excerpt: "Astro's Playroom - 플래티넘 트로피"
 classes: wide
 ---
 
-<center><img src='{{"/assets/img/game/astros-playroom.jpg" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/game/astros-playroom/astros-playroom.jpg" | relative_url}}' width="100%"></center>

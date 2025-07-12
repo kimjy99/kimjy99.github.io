@@ -10,4 +10,4 @@ excerpt: "Marvel's Spider-Man: Miles Morales - 플래티넘 트로피"
 classes: wide
 ---
 
-<center><img src='{{"/assets/img/game/marvels-spider-man-miles-morales.jpg" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/game/marvels-spider-man-miles-morales/marvels-spider-man-miles-morales.jpg" | relative_url}}' width="100%"></center>

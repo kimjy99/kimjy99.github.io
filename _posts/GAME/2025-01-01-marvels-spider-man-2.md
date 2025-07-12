@@ -10,4 +10,4 @@ excerpt: "Marvel's Spider-Man 2 - 플래티넘 트로피"
 classes: wide
 ---
 
-<center><img src='{{"/assets/img/game/marvels-spider-man-2.jpg" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/game/marvels-spider-man-2/marvels-spider-man-2.jpg" | relative_url}}' width="100%"></center>

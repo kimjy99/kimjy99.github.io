@@ -10,4 +10,4 @@ excerpt: "Ghost of Tsushima - 플래티넘 트로피"
 classes: wide
 ---
 
-<center><img src='{{"/assets/img/game/ghost-of-tsushima.jpg" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/game/ghost-of-tsushima/ghost-of-tsushima.jpg" | relative_url}}' width="100%"></center>
