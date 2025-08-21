@@ -4,7 +4,7 @@ last_modified_at: 2025-05-15
 categories:
   - 논문리뷰
 tags:
-  - Novel View Synthesis
+  - 3D Reconstruction
   - Gaussian Splatting
   - 3D Vision
   - CVPR

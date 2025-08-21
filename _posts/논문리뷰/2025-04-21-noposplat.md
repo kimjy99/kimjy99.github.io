@@ -7,6 +7,7 @@ tags:
   - Gaussian Splatting
   - ViT
   - DUSt3R
+  - Pose Estimation
   - Novel View Synthesis
   - 3D Vision
   - NVIDIA

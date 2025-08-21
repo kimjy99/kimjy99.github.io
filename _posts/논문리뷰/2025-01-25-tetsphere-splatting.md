@@ -6,6 +6,7 @@ categories:
 tags:
   - 3D Vision
   - Novel View Synthesis
+  - 3D Reconstruction
   - ICLR
 excerpt: "TetSphere Splatting 논문 리뷰 (ICLR 2025 Oral)"
 use_math: true

@@ -6,6 +6,7 @@ categories:
 tags:
   - Gaussian Splatting
   - Novel View Synthesis
+  - 3D Reconstruction
   - 3D Vision
   - CVPR
 excerpt: "PlanarSplatting 논문 리뷰 (CVPR 2025 Highlight)"
