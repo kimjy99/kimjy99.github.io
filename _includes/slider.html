@@ -1,0 +1,46 @@
+<div class="slider-container" style="display:flex; justify-content:center; align-items:center; position:relative; user-select:none;">
+  <button class="prevBtn" style="border:none; background:none; cursor:pointer; padding:0; margin-right:10px; opacity:0.4; pointer-events:none; outline: none;">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+  </button>
+  <div class="slider-wrapper" style="width:{{ include.width | default: '95%' }}; overflow:hidden;">
+    <div class="slider" style="display:flex; transition:transform 0.3s ease;">
+      {% for image in include.slider_images %}
+      <div style="min-width:100%; box-sizing:border-box; text-align:center;">
+        <img src="{{ image | relative_url }}" style="width:100%;">
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <button class="nextBtn" style="border:none; background:none; cursor:pointer; padding:0; margin-left:10px; opacity:1; outline: none;">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll('.slider-container').forEach(container => {
+    const slider = container.querySelector('.slider');
+    const prevBtn = container.querySelector('.prevBtn');
+    const nextBtn = container.querySelector('.nextBtn');
+    let currentSlide = 0;
+    const totalSlides = slider.children.length;
+
+    function updateSlide() {
+      slider.style.transform = 'translateX(' + (-100 * currentSlide) + '%)';
+      prevBtn.style.opacity = currentSlide === 0 ? 0.4 : 1;
+      prevBtn.style.pointerEvents = currentSlide === 0 ? 'none' : 'auto';
+      nextBtn.style.opacity = currentSlide === totalSlides - 1 ? 0.4 : 1;
+      nextBtn.style.pointerEvents = currentSlide === totalSlides - 1 ? 'none' : 'auto';
+    }
+
+    prevBtn.onclick = () => { if (currentSlide > 0) { currentSlide--; updateSlide(); } };
+    nextBtn.onclick = () => { if (currentSlide < totalSlides - 1) { currentSlide++; updateSlide(); } };
+
+    updateSlide();
+  });
+});
+</script>
