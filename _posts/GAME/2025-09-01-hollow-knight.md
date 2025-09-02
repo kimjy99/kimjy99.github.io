@@ -13,3 +13,7 @@ classes: wide
 <center><img src='{{"/assets/img/game/hollow-knight/hollow-knight-1.jpg" | relative_url}}' width="95%"></center>
 <span style="display: block; margin: 1px 0;"></span>
 <center><img src='{{"/assets/img/game/hollow-knight/hollow-knight-2.webp" | relative_url}}' width="90%"></center>
+<br>
+<center><img src='{{"/assets/img/game/hollow-knight/hollow-knight-3.jpg" | relative_url}}' width="95%"></center>
+<span style="display: block; margin: 1px 0;"></span>
+<center><img src='{{"/assets/img/game/hollow-knight/hollow-knight-4.webp" | relative_url}}' width="90%"></center>
