@@ -132,7 +132,7 @@ $$
 
 ($\tau (j)$는 평면의 인덱스, $t_j$는 교점의 depth)
 
-Metric3Dv2로 예측한 depth map $\textbf{D}_\textrm{pre}$과 Omnidata로 예측한 normal map $\textbf{N}_\textrm{pre}$로 각각 렌더링된 depth map과 normal map을 학습시킨다. 렌더링 loss는 다음과 같다.
+Metric3Dv2로 예측한 depth map $$\textbf{D}_\textrm{pre}$$과 Omnidata로 예측한 normal map $$\textbf{N}_\textrm{pre}$$로 각각 렌더링된 depth map과 normal map을 학습시킨다. 렌더링 loss는 다음과 같다.
 
 $$
 \begin{aligned}
