@@ -10,12 +10,13 @@ tags:
   - Personalization
   - Computer Vision
   - Google
-excerpt: "TokenVerse 논문 리뷰"
+  - SIGGRAPH
+excerpt: "TokenVerse 논문 리뷰 (SIGGRAPH 2025 Best Paper)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2025. [[Paper](https://arxiv.org/abs/2501.12224)] [[Page](https://token-verse.github.io/)]  
+> SIGGRAPH 2025 (Best Paper). [[Paper](https://arxiv.org/abs/2501.12224)] [[Page](https://token-verse.github.io/)]  
 > Daniel Garibi, Shahar Yadin, Roni Paiss, Omer Tov, Shiran Zada, Ariel Ephrat, Tomer Michaeli, Inbar Mosseri, Tali Dekel  
 > Google DeepMind | Tel Aviv University | Technion | Weizmann Institute  
 > 21 Jan 2025  

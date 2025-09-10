@@ -7,12 +7,13 @@ tags:
   - Gaussian Splatting
   - Novel View Synthesis
   - 3D Vision
-excerpt: "GaussianShader 논문 리뷰"
+  - CVPR
+excerpt: "GaussianShader 논문 리뷰 (CVPR 2024)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2023. [[Paper](https://arxiv.org/abs/2311.17977)] [[Page](https://asparagus15.github.io/GaussianShader.github.io/)] [[Github](https://github.com/Asparagus15/GaussianShader)]  
+> CVPR 2024. [[Paper](https://arxiv.org/abs/2311.17977)] [[Page](https://asparagus15.github.io/GaussianShader.github.io/)] [[Github](https://github.com/Asparagus15/GaussianShader)]  
 > Yingwenqi Jiang, Jiadong Tu, Yuan Liu, Xifeng Gao, Xiaoxiao Long, Wenping Wang, Yuexin Ma  
 > ShanghaiTech University | The University of Hong Kong | Tencent America | Texas A&M University  
 > 29 Nov 2023  

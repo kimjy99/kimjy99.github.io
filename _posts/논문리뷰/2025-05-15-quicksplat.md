@@ -8,12 +8,13 @@ tags:
   - Gaussian Splatting
   - 3D Vision
   - CVPR
-excerpt: "QuickSplat 논문 리뷰"
+  - ICCV
+excerpt: "QuickSplat 논문 리뷰 (ICCV 2025)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2025. [[Paper](https://arxiv.org/abs/2505.05591)] [[Page](https://liu115.github.io/quicksplat)]  
+> ICCV 2025. [[Paper](https://arxiv.org/abs/2505.05591)] [[Page](https://liu115.github.io/quicksplat)]  
 > Yueh-Cheng Liu, Lukas Höllein, Matthias Nießner, Angela Dai  
 > Technical University of Munich  
 > 8 May 2025  

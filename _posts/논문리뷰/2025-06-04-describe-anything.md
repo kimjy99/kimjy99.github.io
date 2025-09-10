@@ -8,12 +8,13 @@ tags:
   - LLM
   - Computer Vision
   - NVIDIA
-excerpt: "Describe Anything (DAM) 논문 리뷰"
+  - ICCV
+excerpt: "Describe Anything (DAM) 논문 리뷰 (ICCV 2025)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2025. [[Paper](https://arxiv.org/abs/2504.16072)] [[Page](https://describe-anything.github.io/)] [[Github](https://github.com/NVlabs/describe-anything)]  
+> ICCV 2025. [[Paper](https://arxiv.org/abs/2504.16072)] [[Page](https://describe-anything.github.io/)] [[Github](https://github.com/NVlabs/describe-anything)]  
 > Long Lian, Yifan Ding, Yunhao Ge, Sifei Liu, Hanzi Mao, Boyi Li, Marco Pavone, Ming-Yu Liu, Trevor Darrell, Adam Yala, Yin Cui  
 > NVIDIA | UC Berkeley | UCSF  
 > 22 Apr 2025  

@@ -7,12 +7,13 @@ tags:
   - Diffusion
   - Computer Vision
   - Monocular Depth Estimation
-excerpt: "RollingDepth 논문 리뷰"
+  - CVPR
+excerpt: "RollingDepth 논문 리뷰 (CVPR 2025)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2024. [[Paper](https://arxiv.org/abs/2411.19189)] [[Page](https://rollingdepth.github.io/)] [[Github](https://github.com/prs-eth/rollingdepth)]  
+> CVPR 2025. [[Paper](https://arxiv.org/abs/2411.19189)] [[Page](https://rollingdepth.github.io/)] [[Github](https://github.com/prs-eth/rollingdepth)]  
 > Bingxin Ke, Dominik Narnhofer, Shengyu Huang, Lei Ke, Torben Peters, Katerina Fragkiadaki, Anton Obukhov, Konrad Schindler  
 > ETH Zurich | Carnegie Mellon University  
 > 28 Nov 2024  

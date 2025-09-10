@@ -9,12 +9,13 @@ tags:
   - 3D Motion Tracking
   - 3D Vision
   - Google
-excerpt: "Shape of Motion 논문 리뷰"
+  - ICCV
+excerpt: "Shape of Motion 논문 리뷰 (ICCV 2025 Highlight)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2024. [[Paper](https://arxiv.org/abs/2407.13764)] [[Page](https://shape-of-motion.github.io/)] [[Github](https://github.com/vye16/shape-of-motion/)]  
+> ICCV 2025 (Highlight). [[Paper](https://arxiv.org/abs/2407.13764)] [[Page](https://shape-of-motion.github.io/)] [[Github](https://github.com/vye16/shape-of-motion/)]  
 > Qianqian Wang, Vickie Ye, Hang Gao, Jake Austin, Zhengqi Li, Angjoo Kanazawa  
 > UC Berkeley | Google Research  
 > 18 Jul 2024  

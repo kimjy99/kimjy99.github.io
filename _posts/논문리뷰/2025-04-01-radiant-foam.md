@@ -6,12 +6,13 @@ categories:
 tags:
   - Novel View Synthesis
   - 3D Vision
-excerpt: "Radiant Foam 논문 리뷰"
+  - ICCV
+excerpt: "Radiant Foam 논문 리뷰 (ICCV 2025)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2025. [[Paper](https://arxiv.org/abs/2502.01157)] [[Page](https://radfoam.github.io/)] [[Github](https://github.com/theialab/radfoam)]  
+> ICCV 2025. [[Paper](https://arxiv.org/abs/2502.01157)] [[Page](https://radfoam.github.io/)] [[Github](https://github.com/theialab/radfoam)]  
 > Shrisudhan Govindarajan, Daniel Rebain, Kwang Moo Yi, Andrea Tagliasacchi  
 > Fudan University | ByteDance  
 > 3 Feb 2025  

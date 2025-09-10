@@ -8,12 +8,12 @@ tags:
   - 3D Vision
   - Novel View Synthesis
   - 3D Reconstruction
-excerpt: "DN-Splatter 논문 리뷰"
+excerpt: "DN-Splatter 논문 리뷰 (WACV 2025)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2024. [[Paper](https://arxiv.org/abs/2403.17822)] [[Page](https://maturk.github.io/dn-splatter/)] [[Github](https://github.com/maturk/dn-splatter)]  
+> WACV 2025. [[Paper](https://arxiv.org/abs/2403.17822)] [[Page](https://maturk.github.io/dn-splatter/)] [[Github](https://github.com/maturk/dn-splatter)]  
 > Matias Turkulainen, Xuqian Ren, Iaroslav Melekhov, Otto Seiskari, Esa Rahtu, Juho Kannala  
 > ETH Zurich | Tampere University | Aalto University | Spectacular AI  
 > 26 Mar 2024  
