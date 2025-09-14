@@ -6,6 +6,7 @@ categories:
 tags:
   - Game
 use_math: true
+teaser: "/assets/img/game/teaser/donkey-kong-bananza.png"
 excerpt: "Donkey Kong Bananza 올클리어 (★★★)"
 classes: wide
 slider_images:

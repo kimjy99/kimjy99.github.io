@@ -6,6 +6,7 @@ categories:
 tags:
   - Game
 use_math: true
+teaser: "/assets/img/game/teaser/ghost-of-tsushima.jpg"
 excerpt: "Ghost of Tsushima - 플래티넘 트로피"
 classes: wide
 ---

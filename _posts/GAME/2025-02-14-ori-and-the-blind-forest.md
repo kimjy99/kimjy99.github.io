@@ -6,6 +6,7 @@ categories:
 tags:
   - Game
 use_math: true
+teaser: "/assets/img/game/teaser/ori-and-the-blind-forest.jpg"
 excerpt: "Ori and the Blind Forest: Definitive Edition - 완성도 100%"
 classes: wide
 ---

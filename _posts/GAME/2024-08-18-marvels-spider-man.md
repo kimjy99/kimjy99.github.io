@@ -6,6 +6,7 @@ categories:
 tags:
   - Game
 use_math: true
+teaser: "/assets/img/game/teaser/marvels-spider-man.png"
 excerpt: "Marvel's Spider-Man - 플래티넘 트로피"
 classes: wide
 ---

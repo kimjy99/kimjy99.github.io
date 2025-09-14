@@ -6,6 +6,7 @@ categories:
 tags:
   - Game
 use_math: true
+teaser: "/assets/img/game/teaser/monster-hunter-wilds.jpg"
 excerpt: "Monster Hunter Wilds - 도전과제 100%"
 classes: wide
 ---

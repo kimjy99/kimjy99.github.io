@@ -6,6 +6,7 @@ categories:
 tags:
   - Game
 use_math: true
+teaser: "/assets/img/game/teaser/ori-and-the-will-of-the-wisps.jpg"
 excerpt: "Ori and the Will of the Wisps - 완성도 100%"
 classes: wide
 ---

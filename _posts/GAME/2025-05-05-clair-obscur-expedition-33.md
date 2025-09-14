@@ -6,6 +6,7 @@ categories:
 tags:
   - Game
 use_math: true
+teaser: "/assets/img/game/teaser/clair-obscur-expedition-33.jpg"
 excerpt: "Clair Obscur: Expedition 33 - 도전과제 100%"
 classes: wide
 ---

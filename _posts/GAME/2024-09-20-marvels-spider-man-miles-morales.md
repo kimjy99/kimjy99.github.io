@@ -6,6 +6,7 @@ categories:
 tags:
   - Game
 use_math: true
+teaser: "/assets/img/game/teaser/marvels-spider-man-miles-morales.jpg"
 excerpt: "Marvel's Spider-Man: Miles Morales - 플래티넘 트로피"
 classes: wide
 ---

@@ -6,6 +6,7 @@ categories:
 tags:
   - Game
 use_math: true
+teaser: "/assets/img/game/teaser/a-game-about-digging-a-hole.jpg"
 excerpt: "A Game About Digging A Hole - 도전과제 100%"
 classes: wide
 ---
