@@ -9,7 +9,7 @@ tags:
   - Transformer
   - 3D Vision
   - ICLR
-excerpt: "TreeMeshGPT 논문 리뷰 (ICLR 2025)"
+excerpt: "MeshAnything 논문 리뷰 (ICLR 2025)"
 use_math: true
 classes: wide
 ---
