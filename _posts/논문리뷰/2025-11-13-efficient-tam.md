@@ -72,7 +72,7 @@ $$
 
 $$
 \begin{equation}
-\tilde{k}_{ij} = \sum_{p = i \times l_w + 1}^{(i+1) \times l_w} \sum_{q = j \times l_h + 1}^{(j+1) \times l_h} \frac{k_{pq}}{l_w \times l_h}, \quad \tilde{v}_{ij} = \sum_{p = i \times l_w + 1}^{(i+1) \times l_w} \sum_{q = j \times l_h + 1}^{(j+1) \times l_h} \frac{v_{pq}}{l_w \times l_h} \\
+\tilde{k}_{ij} = \sum_{p = i \times l_w + 1}^{(i+1) \times l_w} \sum_{q = j \times l_h + 1}^{(j+1) \times l_h} \frac{k_{pq}}{l_w l_h}, \quad \tilde{v}_{ij} = \sum_{p = i \times l_w + 1}^{(i+1) \times l_w} \sum_{q = j \times l_h + 1}^{(j+1) \times l_h} \frac{v_{pq}}{l_w l_h} \\
 \textrm{where} \quad i = 1, \ldots, \tilde{w}, \quad j = 1, \ldots, \tilde{h}, \quad l_w = \frac{w}{\tilde{w}}, \quad l_h = \frac{h}{\tilde{h}}
 \end{equation}
 $$
@@ -101,7 +101,7 @@ Coarse한 메모리 토큰 $\bar{K}$와 $\bar{V}$에 대해 다음과 같이 효
 $$
 \begin{equation}
 \bar{\textbf{C}} (Q, K, V) = \textrm{softmax} \left( \frac{Q \bar{K}^\top}{\sqrt{d}} \right) \bar{V} = \textrm{softmax}(A) \tilde{V} \\
-\textrm{where} \quad A = [\frac{Q \tilde{K}_s^\top}{\sqrt{d}} + \ln (l_w l_h), \frac{QK_p^\top}{\sqrt{d}}] \in \mathbb{R}^{L \times (\tilde{w} \tilde{h} + P)}, \quad \tilde{V} = [\tilde{V}_s, V_p] \in \mathbb{R}^{(\tilde{w} \tilde{h} + P) \times d}
+\textrm{where} \quad A = [\frac{Q \tilde{K}_s^\top}{\sqrt{d}} + \ln (l_w l_h), \frac{QK_p^\top}{\sqrt{d}}] \in \mathbb{R}^{L \times (\tilde{w} \tilde{h} + P)}, \quad \tilde{V} = [\tilde{V}_s; V_p] \in \mathbb{R}^{(\tilde{w} \tilde{h} + P) \times d}
 \end{equation}
 $$
 
@@ -115,7 +115,7 @@ Pooling 후 공간 토큰에 대한 attention이 감소하는 것을 방지하�
 $$
 \begin{equation}
 \tilde{\textbf{C}} (Q, K, V) = \textrm{softmax} \left( \frac{Q \tilde{K}^\top}{\sqrt{d}} \right) \tilde{V} \\
-\textrm{where} \quad \tilde{K} = [\tilde{K}_s + \ln (l_w l_h), K_p] \in \mathbb{R}^{(\tilde{w} \tilde{h} + P) \times d}
+\textrm{where} \quad \tilde{K} = [\tilde{K}_s + \ln (l_w l_h); K_p] \in \mathbb{R}^{(\tilde{w} \tilde{h} + P) \times d}
 \end{equation}
 $$
 
