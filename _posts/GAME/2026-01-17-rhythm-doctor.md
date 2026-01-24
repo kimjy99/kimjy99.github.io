@@ -15,4 +15,4 @@ classes: wide
 <span style="display: block; margin: 1px 0;"></span>
 <center><img src='{{"/assets/img/game/rhythm-doctor/rhythm-doctor-2.webp" | relative_url}}' width="52%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/game/rhythm-doctor/rhythm-doctor-3.jpg" | relative_url}}' width="80%"></center>
+<center><img src='{{"/assets/img/game/rhythm-doctor/rhythm-doctor-3.jpg" | relative_url}}' width="70%"></center>
