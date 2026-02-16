@@ -7,7 +7,7 @@ tags:
   - Game
 use_math: true
 teaser: "/assets/img/game/teaser/cult-of-the-lamb.jpg"
-excerpt: "Cult of the Lamb - 도전과제 100%"
+excerpt: "Cult of the Lamb + 포근쉼터 DLC - 도전과제 100%"
 classes: wide
 ---
 
