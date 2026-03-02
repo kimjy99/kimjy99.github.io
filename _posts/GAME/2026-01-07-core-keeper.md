@@ -14,3 +14,7 @@ classes: wide
 <center><img src='{{"/assets/img/game/core-keeper/core-keeper-1.webp" | relative_url}}' width="100%"></center>
 <span style="display: block; margin: 1px 0;"></span>
 <center><img src='{{"/assets/img/game/core-keeper/core-keeper-2.webp" | relative_url}}' width="52%"></center>
+
+#### 1.2 Update - Void and Voltage (26.03.02)
+<span style="display: block; margin: 1px 0;"></span>
+<center><img src='{{"/assets/img/game/core-keeper/core-keeper-3.webp" | relative_url}}' width="67%"></center>
