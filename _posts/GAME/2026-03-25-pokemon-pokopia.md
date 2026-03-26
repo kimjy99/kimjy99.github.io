@@ -1,5 +1,5 @@
 ---
-title: "[PC] Pokémon Pokopia"
+title: "[NS2] Pokémon Pokopia"
 last_modified_at: 2026-03-25
 categories:
   - GAME
