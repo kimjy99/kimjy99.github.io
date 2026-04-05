@@ -7,8 +7,11 @@ tags:
   - Game
 use_math: true
 teaser: "/assets/img/game/teaser/pokemon-pokopia.jpg"
-excerpt: "Pokémon Pokopia - 포켓몬 도감 100%"
+excerpt: "Pokémon Pokopia - 도감 100%"
 classes: wide
+slider_images:
+  - /assets/img/game/pokemon-pokopia/pokemon-pokopia-1.jpg
+  - /assets/img/game/pokemon-pokopia/pokemon-pokopia-2.jpg
 ---
 
-<center><img src='{{"/assets/img/game/pokemon-pokopia/pokemon-pokopia-1.jpg" | relative_url}}' width="100%"></center>
+{% include slider.html slider_images=page.slider_images width="100%" %}
