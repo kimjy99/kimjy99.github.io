@@ -8,12 +8,13 @@ tags:
   - Autoregressive
   - Transformer
   - 3D Vision
-excerpt: "Mesh Silksong 논문 리뷰"
+  - ICLR
+excerpt: "Mesh Silksong 논문 리뷰 (ICLR 2026)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2025. [[Paper](https://arxiv.org/abs/2507.02477)] [[Page](https://gaochao-s.github.io/pages/MeshSilksong/)] [[Github](https://github.com/gaochao-s/Mesh-Silksong)]  
+> ICLR 2026. [[Paper](https://arxiv.org/abs/2507.02477)] [[Page](https://gaochao-s.github.io/pages/MeshSilksong/)] [[Github](https://github.com/gaochao-s/Mesh-Silksong)]  
 > Gaochao Song, Zibo Zhao, Haohan Weng, Jingbo Zeng, Rongfei Jia, Shenghua Gao  
 > University of Hong Kong | Tencent Hunyuan 3D | Math Magic  
 > 3 Jul 2025  

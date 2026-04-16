@@ -10,12 +10,13 @@ tags:
   - Pose Estimation
   - Monocular Depth Estimation
   - Gaussian Splatting
-excerpt: "Depth Anything 3 (DA3) 논문 리뷰"
+  - ICLR
+excerpt: "Depth Anything 3 (DA3) 논문 리뷰 (ICLR 2026 Oral)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2025. [[Paper](https://arxiv.org/abs/2511.10647)] [[Page](https://depth-anything-3.github.io/)] [[Github](https://github.com/ByteDance-Seed/Depth-Anything-3)]  
+> ICLR 2026 (Oral). [[Paper](https://arxiv.org/abs/2511.10647)] [[Page](https://depth-anything-3.github.io/)] [[Github](https://github.com/ByteDance-Seed/Depth-Anything-3)]  
 > Haotong Lin, Sili Chen, Junhao Liew, Donny Y. Chen, Zhenyu Li, Guang Shi, Jiashi Feng, Bingyi Kang  
 > ByteDance Seed  
 > 13 Nov 2025  

@@ -7,12 +7,13 @@ tags:
   - Novel View Synthesis
   - 3D Vision
   - Gaussian Splatting
-excerpt: "MeshSplatting 논문 리뷰"
+  - CVPR
+excerpt: "MeshSplatting 논문 리뷰 (CVPR 2026)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2025. [[Paper](https://arxiv.org/abs/2512.06818)] [[Page](https://meshsplatting.github.io/)] [[Github](https://github.com/meshsplatting/mesh-splatting)]  
+> CVPR 2026. [[Paper](https://arxiv.org/abs/2512.06818)] [[Page](https://meshsplatting.github.io/)] [[Github](https://github.com/meshsplatting/mesh-splatting)]  
 > Jan Held, Sanghyun Son, Renaud Vandeghen, Daniel Rebain, Matheus Gadelha, Yi Zhou, Anthony Cioppa, Ming C. Lin, Marc Van Droogenbroeck, Andrea Tagliasacchi  
 > University of Liège | Simon Fraser University | University of Maryland | University of British Columbia | University of Toronto | Adobe Research  
 > 7 Dec 2025  

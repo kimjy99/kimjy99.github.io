@@ -8,12 +8,13 @@ tags:
   - Novel View Synthesis
   - 3D Reconstruction
   - 3D Vision
-excerpt: "Spherical Voronoi 논문 리뷰"
+  - CVPR
+excerpt: "Spherical Voronoi 논문 리뷰 (CVPR 2026)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2025. [[Paper](https://arxiv.org/abs/2512.14180)] [[Page](https://sphericalvoronoi.github.io/)]  
+> CVPR 2026. [[Paper](https://arxiv.org/abs/2512.14180)] [[Page](https://sphericalvoronoi.github.io/)]  
 > Francesco Di Sario, Daniel Rebain, Dor Verbin, Marco Grangetto, Andrea Tagliasacchi  
 > University of Torino | Simon Fraser University | University of British Columbia | University of Toronto | Google DeepMind  
 > 16 Dec 2025  
