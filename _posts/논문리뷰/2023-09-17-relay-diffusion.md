@@ -54,7 +54,7 @@ Diffusion model에는 각 단계에서 Gaussian noise의 양을 제어하기 위
 Noise schedule은 diffusion model에 매우 중요하며 해상도에 따라 다르다. 위 그림의 (a)와 (b)의 첫 번째 행을 보면, 64$\times$64 이미지를 적절하게 손상시키는 특정 noise level은 256$\times$256 이미지를 손상시키지 못할 수 있다. 저자들은 주파수 스펙트럼 관점의 분석이 이 현상을 잘 이해하는 데 도움이 될 수 있음을 발견했다.
 
 ##### Diffusion process의 푸리에 스펙트럼 분석
-다양한 해상도의 자연 이미지를 다양한 주파수로 샘플링된 시각적 신호의 결과로 볼 수 있다. 64$\times$64 이미지와 256$\times256 이미지의 주파수 특성을 비교하기 위해 64$\times$64 이미지를 256$\times$256으로 업샘플링하고 Discrete Cosine Transformation (DCT)를 수행한 후 256-point DCT 스펙트럼에서 비교할 수 있다. 위 그림의 (a)의 두 번째 행은 다양한 주파수와 diffusion step에서의 신호 대 잡음비 (SNR)를 보여준다. 위 그림의 (b)를 보면 더 높은 해상도에서 동일한 noise level이 주파수 영역 (저주파 부분)에서 더 높은 SNR을 가져온다는 것을 분명히 알 수 있다. 
+다양한 해상도의 자연 이미지를 다양한 주파수로 샘플링된 시각적 신호의 결과로 볼 수 있다. 64$\times$64 이미지와 256$\times$256 이미지의 주파수 특성을 비교하기 위해 64$\times$64 이미지를 256$\times$256으로 업샘플링하고 Discrete Cosine Transformation (DCT)를 수행한 후 256-point DCT 스펙트럼에서 비교할 수 있다. 위 그림의 (a)의 두 번째 행은 다양한 주파수와 diffusion step에서의 신호 대 잡음비 (SNR)를 보여준다. 위 그림의 (b)를 보면 더 높은 해상도에서 동일한 noise level이 주파수 영역 (저주파 부분)에서 더 높은 SNR을 가져온다는 것을 분명히 알 수 있다. 
 
 특정 diffusion step에서 SNR이 높다는 것은 학습 중에 신경망이 입력 이미지를 더 정확하게 가정하지만 SNR이 증가한 후에는 초기 단계에서 그렇게 정확한 이미지를 생성하지 못할 수도 있음을 의미한다. 이러한 학습-inference 불일치는 샘플링 중에 step별로 누적되어 성능 저하로 이어진다.
 

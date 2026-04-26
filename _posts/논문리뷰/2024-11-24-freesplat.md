@@ -54,7 +54,7 @@ $$
 \end{equation}
 $$
 
-$$\textrm{Trans} (P^{t_n}, P^t)$$는 뷰 $t_n$에서 $t$로의 transformation matrix이다. Cost volume $$F_\textrm{cv}^t$ \in \mathbb{R}^{K \times \frac{H}{4} \times \frac{W}{4}}$$는 다음과 같이 정의된다. 
+$$\textrm{Trans} (P^{t_n}, P^t)$$는 뷰 $t_n$에서 $t$로의 transformation matrix이다. Cost volume $$F_\textrm{cv}^t \in \mathbb{R}^{K \times \frac{H}{4} \times \frac{W}{4}}$$는 다음과 같이 정의된다. 
 
 $$
 \begin{equation}

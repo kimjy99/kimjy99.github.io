@@ -25,7 +25,7 @@ Diffusion model은 특히 대규모 데이터셋에 대해 학습할 때 text-to
 
 저자들은 단일 포인트 Dirac 분포를 variational distribution으로 사용하여 SDS가 VSD의 특별 케이스임을 보였다. 이 통찰력은 SDS에서 생성된 3D 장면의 제한된 다양성과 충실도를 설명한다. 또한 단일 입자를 사용하더라도 VSD는 parametric score model을 학습할 수 있어 잠재적으로 SDS보다 뛰어난 일반화를 제공한다. 또한 저자들은 다른 3D 요소를 분리하는 identity rendering function을 사용하여 2D 공간에서 SDS와 VSD를 실증적으로 비교하였다. Diffusion model의 ancestral sampling과 유사하게 VSD는 일반 CFG 가중치(ex. 7.5)를 사용하여 현실적인 샘플을 생성할 수 있다. 대조적으로, SDS는 over-saturation과 over-smoothing과 같은 text-to-3D에서 이전에 관찰된 것과 동일한 문제를 공유하여 좋지 못한 결과를 나타낸다. 
 
-저자들은 text-to-3D를 위한 알고리즘과 직교하는 다른 요소들을 체계적으로 연구하고 명확한 디자인 공간을 제시하였다. 구체적으로, 학습 중 512$\times512의 높은 렌더링 해상도와 시각적 품질 개선을 위한 어닐링된 distilling time schedule을 제안하였다. 또한 복잡한 장면 생성에 중요한 장면 초기화를 제안하였다. 본 논문의 접근 방식은 충실도가 높고 다양한 3D 결과를 생성할 수 있다. 저자들은 이 모델을 **ProlificDreamer**라고 부른다. 
+저자들은 text-to-3D를 위한 알고리즘과 직교하는 다른 요소들을 체계적으로 연구하고 명확한 디자인 공간을 제시하였다. 구체적으로, 학습 중 512$\times$512의 높은 렌더링 해상도와 시각적 품질 개선을 위한 어닐링된 distilling time schedule을 제안하였다. 또한 복잡한 장면 생성에 중요한 장면 초기화를 제안하였다. 본 논문의 접근 방식은 충실도가 높고 다양한 3D 결과를 생성할 수 있다. 저자들은 이 모델을 **ProlificDreamer**라고 부른다. 
 
 ## Variational Score Distillation
 <center><img src='{{"/assets/img/prolificdreamer/prolificdreamer-fig2.webp" | relative_url}}' width="100%"></center>

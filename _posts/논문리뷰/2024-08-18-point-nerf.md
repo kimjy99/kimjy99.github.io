@@ -46,7 +46,7 @@ $$
 Radiance field는 모든 3D 위치에서 $\sigma$와 $r$을 나타낸다. NeRF는 이러한 radiance field를 학습하기 위해 MLP를 사용한다. 본 논문은 대신 볼륨 속성을 계산하기 위해 neural point cloud를 활용하여 더 빠르고 고품질의 렌더링을 달성하였다. 
 
 ##### 포인트 기반 radiance field
-Neural point cloud는 $P = \{(p_i, f_i, \gamma_i)\}_{i=1}^N$로 나타낼 수 있다. $p_i$는 각 포인트 $i$의 위치, $f_i$는 로컬 장면 콘텐츠를 인코딩하는 feature 벡터, $\gamma_i$는 실제 장면 표면 근처에 해당 포인트가 위치할 가능성을 나타내는 신뢰도 값이다. 이 point cloud에서 radiance를 예측한다. 
+Neural point cloud는 $$P = \{(p_i, f_i, \gamma_i)\}_{i=1}^N$$로 나타낼 수 있다. $p_i$는 각 포인트 $i$의 위치, $f_i$는 로컬 장면 콘텐츠를 인코딩하는 feature 벡터, $\gamma_i$는 실제 장면 표면 근처에 해당 포인트가 위치할 가능성을 나타내는 신뢰도 값이다. 이 point cloud에서 radiance를 예측한다. 
 
 3D 위치 $x$가 주어지면, 특정 반경 내에서 그 주변의 $K$개의 이웃 neural point를 쿼리한다. 포인트 기반 radiance field는 volume density $\sigma$와 뷰 방향 $d$에 대한 radiance $r$을 모든 shading 위치 $x$의 이웃 neural point에서 예측하는 신경망으로 추상화될 수 있다. 
 

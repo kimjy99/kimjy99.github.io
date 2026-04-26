@@ -77,7 +77,7 @@ $$
 
 일반적으로 $$\textbf{L}_\textrm{dir} (\boldsymbol{\omega}_i)$$는 $H \times W \times 3$ environment map으로 표현되며, $$\textbf{L}_\textrm{ind} (\textbf{x}, \boldsymbol{\omega}_i)$$는 Spherical Harmonic (SH) 계수들로 표현된다.
 
-본 논문의 목표는 효과적인 light transport 모델링을 달성하는 것이다. 이를 위한 핵심은 occlusion 항 $$O(\textbf{x}, \boldsymbol{\omega}_i)$$를 정확하고 효율적으로 추정하는 것이다. 기존의 3DGS 기반 inverse rendering 방식은 일반적으로 occlusion 항을 연속적인 값 $$O_\textrm{3dgs} (\textbf{x}, \boldsymbol{\omega}_i) \in [0, 1]$$로 모델링하고, 광선 $\textbf{r}(t) = \textbf{x} + t \boldsymbol{\omega}_i$$를 따라 Gaussian 불투명도를 누적하여 추정한다. 이는 계산량이 많고 효율성이 낮다.
+본 논문의 목표는 효과적인 light transport 모델링을 달성하는 것이다. 이를 위한 핵심은 occlusion 항 $$O(\textbf{x}, \boldsymbol{\omega}_i)$$를 정확하고 효율적으로 추정하는 것이다. 기존의 3DGS 기반 inverse rendering 방식은 일반적으로 occlusion 항을 연속적인 값 $$O_\textrm{3dgs} (\textbf{x}, \boldsymbol{\omega}_i) \in [0, 1]$$로 모델링하고, 광선 $$\textbf{r}(t) = \textbf{x} + t \boldsymbol{\omega}_i$$를 따라 Gaussian 불투명도를 누적하여 추정한다. 이는 계산량이 많고 효율성이 낮다.
 
 <center><img src='{{"/assets/img/geo-splatting/geo-splatting-fig4.webp" | relative_url}}' width="57%"></center>
 <br>

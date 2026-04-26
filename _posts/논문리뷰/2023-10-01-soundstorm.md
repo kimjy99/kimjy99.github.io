@@ -57,8 +57,8 @@ SoundStorm은 컨디셔닝 신호를 나타내는 이산 토큰 시퀀스를 입
 
 이에 따라 학습을 위한 마스킹 체계를 설계한다. 음성 프롬프팅을 활성화하기 위해 timestep $$t \in \{1, \ldots, T\}$$를 랜덤하게 샘플링한다. 여기서 $T$는 최대 시퀀스 길이를 나타내며 이 timestep 이전에는 토큰을 마스킹하지 않는다. 컨디셔닝 토큰은 절대 마스킹되지 않는다. $$Y \in \{1, \ldots, C\}^{T \times Q}$$는 SoundStream 토큰을 나타내며, 여기서 $C$는 $Q$개의 level 중 각 RVQ level에서 사용되는 코드북 크기를 나타낸다. 마스킹 체계는 다음과 같이 진행된다.
 
-- 프롬프트 구분 기호 timestep $t \sim \mathcal{U}\{0, T-1\}$를 샘플링
-- 현재 RVQ level $q \sim \mathcal{U} \{1, Q\}$를 샘플링
+- 프롬프트 구분 기호 timestep $$t \sim \mathcal{U}\{0, T-1\}$$를 샘플링
+- 현재 RVQ level $$q \sim \mathcal{U} \{1, Q\}$$를 샘플링
 - $q$에 대한 cosine schedule에 따라 마스크 $$M \in \{0, 1\}^T$$를 샘플링  
 (즉, $u \sim \mathcal{U}[0, \pi/2]$, $p = \cos (u)$, $M_i \sim \textrm{Bernoulli}(p)$)
 - $q$에서 선택된 비 프롬프트 토큰 ($M_{t'} = 1$이고 $t' > t$이면 $Y$_{t',q}를 마스킹)과 finer RVQ level의 모든 비 프롬프트 토큰 ($Y_{> t, > q}$)을 마스킹

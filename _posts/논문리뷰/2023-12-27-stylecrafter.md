@@ -62,7 +62,7 @@ F_\textrm{out}^i = \textrm{TCA} (F_\textrm{in}^i, F_t) + s^i \cdot \textrm{LN} (
 \end{equation}
 $$
 
-$$F_\textrm{in}^i$$는 레이어 $i$의 backbone feature이고, LN$은 layer normalization이며, TCA와 SCA는 각각 텍스트 기반 cross-attention과 스타일 기반 cross-attention이다. $s^i$는 텍스트 기반 feature와 스타일 기반 feature의 크기의 균형을 맞추기 위해 scale factor 예측 네트워크에 의해 학습된 scale factor이다. 
+$$F_\textrm{in}^i$$는 레이어 $i$의 backbone feature이고, $$\textrm{LN}$$은 layer normalization이며, TCA와 SCA는 각각 텍스트 기반 cross-attention과 스타일 기반 cross-attention이다. $s^i$는 텍스트 기반 feature와 스타일 기반 feature의 크기의 균형을 맞추기 위해 scale factor 예측 네트워크에 의해 학습된 scale factor이다. 
 
 여기서 동기는 서로 다른 스타일 장르가 콘텐츠 표현에 대해 서로 다른 강세를 가질 수 있다는 것이다. 예를 들어, 추상적 스타일은 내용의 구체성을 감소시키는 경향이 있는 반면, 사실주의 스타일은 내용의 정확성과 특수성을 강조하는 경향이 있다. 따라서 저자들은 텍스트와 스타일 이미지에 따라 fusion scale factor를 예측하는 context-aware scale factor 예측 네트워크를 제안하였다. 구체적으로, 학습 가능한 factor query를 생성하고, 텍스트 feature $F_t$와 스타일 feature $F_s$와 상호 작용하여 Q-Former를 통해 스케일 feature를 생성한 다음 레이어별 scale factor $s \in \mathbb{R}^{16}$에 project된다. 
 

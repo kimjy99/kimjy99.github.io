@@ -58,7 +58,7 @@ Temporal KNN-patch Loss (TK-Loss)는 프레임 전반에 걸쳐 간단하고 유
 
 <center><img src='{{"/assets/img/maskfreevis/maskfreevis-fig3.webp" | relative_url}}' width="100%"></center>
 
-**1) Patch Candidate Extraction:** $X_p^t$를 프레임 $t$의 공간 위치 $p = (x, y)$에 중심을 둔 $N \times N$ 타겟 이미지 패치라 하자. 본 논문의 목표는 동일한 객체 영역을 나타내는 프레임 번호 $\hat{t}$에서 대응되는 위치 집합 $$S_p^{t \rightarrow \hat{t}} = \{\hat{p}_i\}_i$$를 찾는 것이다. 이를 위해 먼저 $\| p − \hat{p} \| \le R$이 되는 반경 $R$ 내에서 후보 위치 $\hat{p}$를 선택한다. 이러한 윈도우 패치 검색은 철저한 글로벌 검색을 피하기 위해 인접 프레임 간의 공간적 근접성을 활용한다. 빠른 구현을 위해 모든 타겟 이미지 패치 $X_p^t$에 대해 윈도우 검색이 병렬로 수행된다. 
+**1) Patch Candidate Extraction:** $X_p^t$를 프레임 $t$의 공간 위치 $p = (x, y)$에 중심을 둔 $N \times N$ 타겟 이미지 패치라 하자. 본 논문의 목표는 동일한 객체 영역을 나타내는 프레임 번호 $\hat{t}$에서 대응되는 위치 집합 $$$S_p^{t \rightarrow \hat{t}} = \{\hat{p}_i\}_i$$$를 찾는 것이다. 이를 위해 먼저 $\| p − \hat{p} \| \le R$이 되는 반경 $R$ 내에서 후보 위치 $\hat{p}$를 선택한다. 이러한 윈도우 패치 검색은 철저한 글로벌 검색을 피하기 위해 인접 프레임 간의 공간적 근접성을 활용한다. 빠른 구현을 위해 모든 타겟 이미지 패치 $X_p^t$에 대해 윈도우 검색이 병렬로 수행된다. 
 
 **2) Temporal KNN-Matching**: 간단한 거리 계산을 통해 후보 패치들을 매칭한다.
 
@@ -68,7 +68,7 @@ d_{p \rightarrow \hat{p}}^{t \rightarrow \hat{t}} \| X_p^t - X_{\hat{p}}^{\hat{t
 \end{equation}
 $$
 
-저자들은 실험을 통해 $L_2$-norm이 가장 효과적인 패치 매칭 메트릭임을 알아냈다. 가장 작은 패치 거리 $$d_{p \rightarrow \hat{p}}^{t \rightarrow \hat{t}}$$와 일치하는 상위 $K$개를 선택한다. 마지막으로 최대 패치 거리 $D$를 $$d_{p \rightarrow \hat{p}}^{t \rightarrow \hat{t}} < D$$로 적용하여 신뢰도가 낮은 매칭 항목을 제거한다. 나머지 매칭 항목들은 각 위치 $p$에 대해 집합 $S_p^{t \rightarrow \hat{t}} = \{\hat{p}_i\}_i$을 형성한다.
+저자들은 실험을 통해 $L_2$-norm이 가장 효과적인 패치 매칭 메트릭임을 알아냈다. 가장 작은 패치 거리 $$d_{p \rightarrow \hat{p}}^{t \rightarrow \hat{t}}$$와 일치하는 상위 $K$개를 선택한다. 마지막으로 최대 패치 거리 $D$를 $$d_{p \rightarrow \hat{p}}^{t \rightarrow \hat{t}} < D$$로 적용하여 신뢰도가 낮은 매칭 항목을 제거한다. 나머지 매칭 항목들은 각 위치 $p$에 대해 집합 $$S_p^{t \rightarrow \hat{t}} = \{\hat{p}_i\}_i$$을 형성한다.
 
 **3) Consistency loss:** $M_p^t \in [0,1]$를 프레임 $t$의 위치 $p$에서 평가된 객체의 예측된 이진 인스턴스 마스크라 하자. 시간적 마스크 일관성 제약을 보장하기 위해 시공간적 지점 $(p, t)$와 $S_p^{t \rightarrow \hat{t}}$에서 추정된 해당 지점 사이의 일관되지 않은 마스크 예측에 페널티를 적용한다. 특히 다음 목적 함수를 사용한다.
 

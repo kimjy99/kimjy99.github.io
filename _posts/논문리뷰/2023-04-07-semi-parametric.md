@@ -214,8 +214,7 @@ FID는 "얼굴 영역에 둔감"한 것으로 나타났기 때문에 CLIP 기반
 ### 3. Zero-Shot Text-Guided Stylization by Exchanging the Database
 Semi-parametric model에서 검색 데이터베이스 $\mathcal{D}$는 합성 모델의 명시적인 부분이다. 이를 통해 학습 후 이 데이터베이스를 교체하여 모델과 그 출력을 수정하는 것과 같은 새로운 애플리케이션이 가능하다. 
 
-다음은 ImageNet-RDM의 $$\mathcal{D}_\textrm{train}$$을 WikiArt 데이터셋의 모든 이미지로 구성된 $\mathcal{D}_\textrm{style}$로 교체하여 zero-shot text-guided stylization을 수행한 샘플들이다. 하단 행은 $
-$\mathcal{D}_\textrm{train}$$을 사용하여 동일한 절차로 얻은 샘플을 보여준다.
+다음은 ImageNet-RDM의 $$\mathcal{D}_\textrm{train}$$을 WikiArt 데이터셋의 모든 이미지로 구성된 $$\mathcal{D}_\textrm{style}$$로 교체하여 zero-shot text-guided stylization을 수행한 샘플들이다. 하단 행은 $$\mathcal{D}_\textrm{train}$$을 사용하여 동일한 절차로 얻은 샘플을 보여준다.
 
 <center><img src='{{"/assets/img/semi-parametric/semi-parametric-fig11.webp" | relative_url}}' width="80%"></center>
 <br>

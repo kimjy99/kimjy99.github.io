@@ -65,7 +65,7 @@ $$
 \end{equation}
 $$
 
-($f_i$는 각 면의 vertex 좌표, $N4은 $\mathcal{M}$에 있는 면의 수)
+($f_i$는 각 면의 vertex 좌표, $N$은 $\mathcal{M}$에 있는 면의 수)
 
 그런 다음, 인코더 $E$는 각 면에 대한 feature 벡터를 추출한다.
 

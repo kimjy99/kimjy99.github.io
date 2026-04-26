@@ -107,7 +107,7 @@ Feature distillation 후의 표현에는 훨씬 더 많은 대각선 패턴이 �
   - learning rate: $1.2 \times 10^{-3}$
   - weight decay: 0.05
   - batch size: 2048
-  - drop path rate: $\{0.1, 0.2, 0.3, 0.4\}$에서 선택
+  - drop path rate: $$\{0.1, 0.2, 0.3, 0.4\}$$에서 선택
 - 사전 학습 방법: DINO, EsViT, CLIP, DeiT, MAE
 
 ### 1. Main Results

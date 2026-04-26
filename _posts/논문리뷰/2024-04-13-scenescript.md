@@ -73,7 +73,7 @@ Transformer 학습에는 막대한 양의 데이터가 필요하기 때문에 10
 인코더는 장면의 동영상에서 1D 시퀀스 형태로 latent code를 계산한다. 디코더는 이러한 1D 시퀀스를 입력으로 사용하도록 설계되었다. 이를 통해 통합 프레임워크 내에서 다양한 입력 양식을 통합할 수 있다. 각 장면에 대해 $M$개의 포즈를 아는 카메라의 이미지 $$\{\textbf{I}_1, \ldots, \textbf{I}_M\}$$를 사용할 수 있다고 가정하자 (ex. SLAM 출력). 
 
 #### Point Clouds
-포인트 클라우드 $\textbf{P} = \{\textbf{p}_1, \ldots, \textbf{p}_N\}$는 $N$개의 포인트로 구성되며, SLAM, SfM, RGB-D / Lidar 센서로부터 얻을 수 있다. 
+포인트 클라우드 $$\textbf{P} = \{\textbf{p}_1, \ldots, \textbf{p}_N\}$$는 $N$개의 포인트로 구성되며, SLAM, SfM, RGB-D / Lidar 센서로부터 얻을 수 있다. 
 
 저자들은 Aria의 흑백 카메라와 IMU를 사용하는 SLAM 시스템에서 얻은 Project Aria의 Machine Perception Services의 포인트 클라우드를 사용하였다. 포인트 클라우드를 5cm 해상도로 분리한 다음 sparse 3D convolution 라이브러리를 사용하여 풀링된 feature를 생성한다. 인코더 $$\mathcal{E}_\textrm{geo}$$는 일련의 down convolution을 적용하여 최하위 레벨의 포인트 수를 줄인다. 
 

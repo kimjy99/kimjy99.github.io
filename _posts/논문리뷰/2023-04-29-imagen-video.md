@@ -29,7 +29,7 @@ classes: wide
 Imagen Video는 video diffusion model의 계단식 모델이며, 텍스트 조건부 동영상 생성, 공간적 SR, 시간적 SR을 수행하는 7개의 하위 모델로 구성된다. 전체 계단식 모델에서 Imagen Video는 초당 24프레임으로 128프레임($\approx$ 5.3초)의 고화질 1280$\times$768 동영상(약 1억 2600만 픽셀)을 생성한다. 
 
 ### 1. Diffusion Models
-연속 시간에서의 diffusion model은 데이터 $x \sim p(x)$에서 시작하는 forward process $q(z \vert x)$를 따르는 latent $z = \{z_t \vert t \in [0, 1]\}$$를 갖는 생성 모델이다. Forward process는 Markovian 구조를 만족하는 Gaussian process이다. 
+연속 시간에서의 diffusion model은 데이터 $x \sim p(x)$에서 시작하는 forward process $q(z \vert x)$를 따르는 latent $$z = \{z_t \vert t \in [0, 1]\}$$를 갖는 생성 모델이다. Forward process는 Markovian 구조를 만족하는 Gaussian process이다. 
 
 $$
 \begin{equation}

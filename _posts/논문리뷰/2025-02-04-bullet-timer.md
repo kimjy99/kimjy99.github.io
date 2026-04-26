@@ -43,7 +43,7 @@ classes: wide
   - Monocular 동영상 ($N$개의 이미지): $$\mathcal{I} = \{\mathbf{I}_i \in \mathbb{R}^{H \times W \times 3}\}_{i=1}^N$$
   - 카메라 포즈: $$\mathcal{P} = \{\mathbf{P}_i \in \mathbb{SE}(3)\}_{i=1}^N$$
   - intrinsic
-  - 타임스탬프: $\mathcal{T} = \{t_i \in \mathbb{R}\}_{i=1}^N$
+  - 타임스탬프: $$\mathcal{T} = \{t_i \in \mathbb{R}\}_{i=1}^N$$
 - 목표: 임의의 타임스탬프 $t \in [t_1, t_N]$에서 고품질의 새로운 뷰를 렌더링할 수 있는 feed-forward 모델을 구축
 
 본 논문의 핵심은 **BTimer**라는 이름의 transformer 기반 bullet-time 재구성 모델로, 컨텍스트 프레임 $$\mathcal{I}_c \subset \mathcal{I}$$과 해당 포즈 $$\mathcal{P}_c \subset \mathcal{P}$$과 타임스탬프 $$\mathcal{T}_c \subset \mathcal{T}$$를 받아 지정된 bullet 타임스탬프 $$t_b \in [\min_{\mathcal{T}_c}, \max_{\mathcal{T}_c}]$$에서 고정된 완전한 3DGS 장면을 출력한다. 모든 $t_b \in \mathcal{T}$를 반복하면 3DGS 시퀀스로 표현된 전체 동영상 재구성이 생성된다. 
