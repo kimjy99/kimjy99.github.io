@@ -155,6 +155,7 @@ L_\theta = \max (\|x - \hat{x}_t\|_2^2, \| \epsilon - \hat{\epsilon}_t \|_2^2) =
 \end{equation}
 $$
 
+{:start="2"}
 2. 'SNR + 1' weighting:
 
 $$

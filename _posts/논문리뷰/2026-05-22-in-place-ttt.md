@@ -81,6 +81,7 @@ $$
 \end{equation}
 $$
 
+{:start="2"}
 2. **Update Operation**: Fast weight $$\textbf{W}_\textrm{down}^{(i)}$$은 $$\textbf{Z}_{[i]}$$를 key로, $\textbf{V}_{[i]}$를 value로 사용하여 업데이트되며, 이는 loss function $\mathcal{L}$과 learning rate $\eta$를 사용한 gradient descent step을 통해 수행된다.
 
 $$
