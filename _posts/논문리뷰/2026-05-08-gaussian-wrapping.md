@@ -31,11 +31,11 @@ classes: wide
 ##### Objects as Volumes
 명확하게 정의된 표면을 재구성하려면 occupancy function $\mathcal{O} : \mathbb{R}^3 \rightarrow [0, 1]$과 같은 적절하게 정의된 geometric field가 필요하지만, NeRF와 3DGS의 핵심인 볼륨 렌더링은 날카로운 경계가 아닌 연속적이고 반투명한 볼륨에서 작동한다. [Objects as Volumes (OaV)](https://arxiv.org/abs/2312.15406)는 장면을 확률적 표면으로 해석함으로써 이러한 간극을 메웠다.
 
-구체적으로, exponential light transport를 가정할 때, 이 프레임워크는 Nerual SDF의 이론적 정당성을 뒷받침하고, vacancy $$v(\textbf{x}) = 1 − \mathcal{O}(\textbf{x})$$ ($\textbf{x} \in \mathbb{R}^3$가 비어 있을 확률)를 volumetric ray-marching의 attenuation (또는 density) $\sigma$와 연결한다.
+구체적으로, exponential light transport를 가정할 때, 이 프레임워크는 Nerual SDF의 이론적 정당성을 뒷받침하고, vacancy $$v(\textbf{x}) = 1 − \mathcal{O}(\textbf{x})$$를 volumetric ray-marching의 attenuation (또는 density) $\sigma$와 연결한다.
 
 $$
 \begin{equation}
-\forall (\textbf{x}, \textbf{w}) \in \mathbb{R}^2 \times \mathcal{S}^2, \quad \sigma (\textbf{x}, \textbf{w}) = \vert \textbf{w} \cdot \nabla \log v (\textbf{x}) \vert
+\forall (\textbf{x}, \textbf{w}) \in \mathbb{R}^3 \times \mathcal{S}^2, \quad \sigma (\textbf{x}, \textbf{w}) = \vert \textbf{w} \cdot \nabla \log v (\textbf{x}) \vert
 \end{equation}
 $$
 
@@ -125,7 +125,7 @@ $$
 $$
 \begin{equation}
 v (\textbf{x}) = \max_{(\textbf{o}, \textbf{w}) \in \mathcal{T}_c} \left\{ \prod_{i=1}^N \left(1 - \bar{G}_{\textbf{o}, \textbf{w}}^{(i)} (t) \right) \, : \, \textbf{x} = \textbf{o} + t \textbf{w}, \, t > 0 \right\} \\
-\textrm{where} \quad \bar{G}_{\textbf{o}, \textbf{w}}^{(i)} (t) = G_i (\textbf{o} + \min (t, t_{\textbf{o}, \textbf{w}}^{G_i}) \textbf{w}), \; t_{\textbf{o}, \textbf{w}}^{G_i} = \underset{t \ge 0}{\arg \max} G_i (\textbf{o} + t \textbf{w})
+\textrm{where} \quad \bar{G}_{\textbf{o}, \textbf{w}}^{(i)} (t) = G_i (\textbf{o} + \min (t, t_{\textbf{o}, \textbf{w}}^{G_i}) \textbf{w}), \quad t_{\textbf{o}, \textbf{w}}^{G_i} = \underset{t \ge 0}{\arg \max} G_i (\textbf{o} + t \textbf{w})
 \end{equation}
 $$
 
@@ -148,6 +148,7 @@ x_{i+1} = x_i + \frac{1}{2} (0.5 - v(x_i)) \mathcal{N}(x_i)
 \end{equation}
 $$
 
+{:start="3"}
 3. **필터링**: $\vert 0.5 − v(x) \vert > \epsilon$인 vertex $x$는 outlier로 간주되어 제거된다. 더 이상 제거되는 점이 없을 때까지 1~3단계를 반복한다.
 4. **Delaunay**: 남은 vertex들에 대해 Delaunay tetrahedralization을 계산하고, 랜덤 샘플링된 내부 점의 vacancy 값을 기준으로 각 사면체를 내부 또는 외부로 분류한다.
 5. **메쉬 추출**: 최종 표면 메쉬는 내부 사면체와 외부 사면체를 분리하는 삼각형 면을 추출하여 얻는다.
