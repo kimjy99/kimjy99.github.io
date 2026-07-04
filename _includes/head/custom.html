@@ -62,6 +62,104 @@
     background: #6f777d;
     border-color: #6f777d;
   }
+  .code-block {
+    margin-bottom: 1em;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #263238;
+  }
+  .code-block__header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: #1e272c;
+  }
+  .code-block__dot { width: 12px; height: 12px; border-radius: 50%; }
+  .code-block__dot.red { background: #f5655b; }
+  .code-block__dot.yellow { background: #f6bd3b; }
+  .code-block__dot.green { background: #43c645; }
+  .code-block__file {
+    margin-left: 8px;
+    color: #b0bec5;
+    font-size: 13px;
+    font-family: Menlo, Consolas, monospace;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .code-block__copy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    padding: 0 12px;
+    height: 32px;
+    color: #cfd8dc;
+    background: #ffffff17;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .code-block__copy:hover { background: #ffffff30; }
+  .code-block .highlighter-rouge,
+  .code-block figure.highlight {
+    margin: 0;
+    border-radius: 0;
+    max-height: 600px;
+    overflow: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #6a7a80 #1e272c;
+  }
+  .code-block ::-webkit-scrollbar { width: 8px; height: 8px; }
+  .code-block ::-webkit-scrollbar-track { background: #1e272c; }
+  .code-block ::-webkit-scrollbar-thumb { border-radius: 4px; background-color: #6a7a80; }
+  .code-block ::-webkit-scrollbar-thumb:hover { background-color: #7e9199; }
+  .code-block ::-webkit-scrollbar-corner { background: #1e272c; }
 </style>
+
+<script>
+  var CODE_COPY_ICON = `<svg width="14" height="14" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.5 0.125H3.5C3.40054 0.125 3.30516 0.164509 3.23484 0.234835C3.16451 0.305161 3.125 0.400544 3.125 0.5V3.125H0.5C0.400544 3.125 0.305161 3.16451 0.234835 3.23484C0.164509 3.30516 0.125 3.40054 0.125 3.5V11.5C0.125 11.5995 0.164509 11.6948 0.234835 11.7652C0.305161 11.8355 0.400544 11.875 0.5 11.875H8.5C8.59946 11.875 8.69484 11.8355 8.76517 11.7652C8.83549 11.6948 8.875 11.5995 8.875 11.5V8.875H11.5C11.5995 8.875 11.6948 8.83549 11.7652 8.76517C11.8355 8.69484 11.875 8.59946 11.875 8.5V0.5C11.875 0.400544 11.8355 0.305161 11.7652 0.234835C11.6948 0.164509 11.5995 0.125 11.5 0.125ZM8.125 11.125H0.875V3.875H8.125V11.125ZM11.125 8.125H8.875V3.5C8.875 3.40054 8.83549 3.30516 8.76517 3.23484C8.69484 3.16451 8.59946 3.125 8.5 3.125H3.875V0.875H11.125V8.125Z" fill="currentColor"/></svg>`;
+  var CODE_CHECK_ICON = `<svg width="14" height="14" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.47581 9.97581C4.4101 9.97593 4.34502 9.96309 4.28428 9.93804C4.22354 9.91299 4.16833 9.87621 4.12181 9.82981L0.121809 5.82981C0.0390555 5.73383 -0.00433599 5.61011 0.00034252 5.48347C0.00502103 5.35683 0.0574233 5.23664 0.147033 5.14703C0.236642 5.05742 0.356827 5.00502 0.483467 5.00034C0.610108 4.99566 0.733832 5.03906 0.829809 5.12181L4.47581 8.76881L11.1218 2.12181C11.2178 2.03906 11.3415 1.99566 11.4682 2.00034C11.5948 2.00502 11.715 2.05742 11.8046 2.14703C11.8942 2.23664 11.9466 2.35683 11.9513 2.48347C11.956 2.61011 11.9126 2.73383 11.8298 2.82981L4.82981 9.82981C4.78329 9.87621 4.72808 9.91299 4.66734 9.93804C4.6066 9.96309 4.54151 9.97593 4.47581 9.97581Z" fill="currentColor"/></svg>`;
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('div.highlighter-rouge, figure.highlight').forEach(function(block) {
+      var wrap = document.createElement('div');
+      wrap.className = 'code-block';
+      block.parentNode.insertBefore(wrap, block);
+
+      var header = document.createElement('div');
+      header.className = 'code-block__header';
+      header.innerHTML = '<span class="code-block__dot red"></span><span class="code-block__dot yellow"></span><span class="code-block__dot green"></span>';
+
+      var fileEl = block.hasAttribute('data-file') ? block : block.querySelector('[data-file]');
+      var name = fileEl ? fileEl.getAttribute('data-file') : '';
+      if (name) {
+        var file = document.createElement('span');
+        file.className = 'code-block__file';
+        file.textContent = name;
+        header.appendChild(file);
+      }
+
+      var copy = document.createElement('button');
+      copy.type = 'button';
+      copy.className = 'code-block__copy';
+      copy.innerHTML = CODE_COPY_ICON;
+      copy.addEventListener('click', function() {
+        var codeEl = block.querySelector('code') || block.querySelector('pre');
+        var text = codeEl ? codeEl.innerText : '';
+        navigator.clipboard.writeText(text).then(function() {
+          copy.innerHTML = CODE_CHECK_ICON;
+          setTimeout(function() { copy.innerHTML = CODE_COPY_ICON; }, 1000);
+        });
+        copy.blur();
+      });
+      header.appendChild(copy);
+
+      wrap.appendChild(header);
+      wrap.appendChild(block);
+    });
+  });
+</script>
 
 <!-- end custom head snippets -->
