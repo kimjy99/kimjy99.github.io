@@ -6,7 +6,7 @@ categories:
 tags:
   - Game
 use_math: true
-teaser: "/assets/img/game/teaser/ghost-of-yotei.png"
+teaser: "/assets/img/game/teaser/ghost-of-yotei.webp"
 excerpt: "Ghost of Yōtei - 플래티넘 트로피"
 classes: wide
 ---

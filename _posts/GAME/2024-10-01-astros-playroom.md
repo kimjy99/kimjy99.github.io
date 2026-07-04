@@ -6,7 +6,7 @@ categories:
 tags:
   - Game
 use_math: true
-teaser: "/assets/img/game/teaser/astros-playroom.png"
+teaser: "/assets/img/game/teaser/astros-playroom.webp"
 excerpt: "Astro's Playroom - 플래티넘 트로피"
 classes: wide
 ---

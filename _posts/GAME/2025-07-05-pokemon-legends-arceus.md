@@ -6,7 +6,7 @@ categories:
 tags:
   - Game
 use_math: true
-teaser: "/assets/img/game/teaser/pokemon-legends-arceus.png"
+teaser: "/assets/img/game/teaser/pokemon-legends-arceus.webp"
 excerpt: "Pokémon LEGENDS Arceus - 도감 100%"
 classes: wide
 slider_images:
