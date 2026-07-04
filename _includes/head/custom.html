@@ -9,4 +9,59 @@
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff">
 
+<style>
+  .pagination--center {
+    position: sticky;
+    bottom: 0.5em;
+    z-index: 100;
+    width: 100%;
+    text-align: center;
+    float: none;
+    clear: none;
+    margin: 2em 0 -2em;
+    padding: 0;
+    border-top: 0;
+    pointer-events: none;
+  }
+  .pagination--center::after { display: none; }
+  .pagination--center ul {
+    display: inline-flex;
+    gap: 0.25em;
+    padding: 0.4em 0.55em;
+    background: rgba(255, 255, 255, 0.85);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 999px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+    pointer-events: auto;
+  }
+  .pagination--center li { float: none; margin: 0; }
+  .pagination--center li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.2em;
+    height: 2.2em;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 50% !important;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  .pagination--center li a:hover { background: rgba(0, 0, 0, 0.06); }
+  .pagination--center li a.current,
+  .pagination--center li a.current.disabled {
+    color: #fff;
+    background: #6f777d;
+  }
+  .page__taxonomy-item.tag-selected,
+  .page__taxonomy-item.tag-selected:hover {
+    color: #fff;
+    background: #6f777d;
+    border-color: #6f777d;
+  }
+</style>
+
 <!-- end custom head snippets -->

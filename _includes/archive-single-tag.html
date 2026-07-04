@@ -42,7 +42,7 @@
       <i class="fas fa-fw fa-tags" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].tags_label | default: "Tags:" }}
       <span itemprop="keywords">
       {% for tag_word in tags_sorted %}
-        <a href="javascript:tagify.addTags([findOriginal('{{ tag_word | slugify }}')])" class="page__taxonomy-item p-category" rel="tag">{{ tag_word }}</a>{% unless forloop.last %}<span class="sep">, </span>{% endunless %}
+        <a href="javascript:toggleTag('{{ tag_word | slugify }}')" class="page__taxonomy-item p-category" rel="tag" data-tag="{{ tag_word | slugify }}">{{ tag_word }}</a>{% unless forloop.last %}<span class="sep">, </span>{% endunless %}
       {% endfor %}
       </span>
     </p>

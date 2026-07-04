@@ -46,7 +46,7 @@
                     {% assign cnt = cnt | plus: 1 %}
                   {% endif %}
                 {% endfor %}
-                <li><a href="/categories/논문리뷰/{{sep[1]}}" class="">{{sep[2]}} ({{cnt}})</a></li>
+                <li><a href="/categories/논문리뷰/?tags={{ sep[0] | slugify }}" class="">{{sep[2]}} ({{cnt}})</a></li>
               {% endif %}
             {% endfor %}
           </ul>

@@ -91,6 +91,7 @@ classes: wide
 
     tagify.on('add', function(e) {
       var currentTag = e.detail.data.value.toLowerCase().replaceAll(' ', '-');
+      if (findOriginal(currentTag) === null) return;
       selects.push(currentTag);
       filter();
     })

@@ -6,11 +6,9 @@ layout: archive
 
 <h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
 
-{% if paginator %}
-  {% assign posts = paginator.posts %}
-{% else %}
-  {% assign posts = site.posts %}
-{% endif %}
+{% assign pagenum = page.pagenum | default: 1 %}
+{% assign offset = pagenum | minus: 1 | times: 5 %}
+{% assign posts = site.posts | slice: offset, 5 %}
 
 {% assign entries_layout = page.entries_layout | default: 'list' %}
 <div class="entries-{{ entries_layout }}">
@@ -19,4 +17,17 @@ layout: archive
   {% endfor %}
 </div>
 
-{% include paginator.html %}
+<nav class="pagination pagination--center">
+  <ul>
+    {% for index in (1..5) %}
+      {% if index == pagenum %}
+        <li><a href="#" class="disabled current">{{ index }}</a></li>
+      {% elsif index == 1 %}
+        <li><a href="{{ '/' | relative_url }}">1</a></li>
+      {% else %}
+        {% capture page_path %}/page{{ index }}/{% endcapture %}
+        <li><a href="{{ page_path | relative_url }}">{{ index }}</a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</nav>
