@@ -8,7 +8,7 @@ tags:
   - 3D Reconstruction
   - Pose Estimation
   - CVPR
-  - Meta AI
+  - Meta
 excerpt: "VGGT-Ω 논문 리뷰 (CVPR 2026 Oral)"
 use_math: true
 classes: wide
