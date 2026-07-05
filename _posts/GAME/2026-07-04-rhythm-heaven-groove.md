@@ -20,4 +20,4 @@ slider_images:
 
 {% include slider.html slider_images=page.slider_images width="100%" %}
 <span style="display: block; margin: 1px 0;"></span>
-<center>메달 80/80 | 퍼펙트 24/80</center>
+<center>메달 80/80 | 퍼펙트 48/80</center>
