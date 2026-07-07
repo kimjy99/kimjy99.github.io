@@ -1,15 +1,16 @@
 ---
 title: "[NS2] 리듬 천국 미라클 스타즈"
-last_modified_at: 2026-07-04
+last_modified_at: 2026-07-07
 categories:
   - GAME
 tags:
   - Game
 use_math: true
 teaser: "/assets/img/game/teaser/rhythm-heaven-groove.webp"
-excerpt: "Rhythm Heaven Groove - ALL MEDAL"
+excerpt: "Rhythm Heaven Groove - ALL PERFECT"
 classes: wide
 slider_images:
+  - /assets/img/game/rhythm-heaven-groove/rhythm-heaven-groove-7.jpg
   - /assets/img/game/rhythm-heaven-groove/rhythm-heaven-groove-1.jpg
   - /assets/img/game/rhythm-heaven-groove/rhythm-heaven-groove-2.jpg
   - /assets/img/game/rhythm-heaven-groove/rhythm-heaven-groove-3.jpg
@@ -19,5 +20,3 @@ slider_images:
 ---
 
 {% include slider.html slider_images=page.slider_images width="100%" %}
-<span style="display: block; margin: 1px 0;"></span>
-<center>메달 80/80 | 퍼펙트 74/80</center>
