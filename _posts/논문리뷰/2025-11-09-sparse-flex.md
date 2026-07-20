@@ -5,6 +5,7 @@ categories:
   - 논문리뷰
 tags:
   - Mesh Generation
+  - Mesh Optimization
   - 3D Vision
   - ICCV
 excerpt: "SparseFlex (TripoSF) 논문 리뷰 (ICCV 2025 Oral)"
