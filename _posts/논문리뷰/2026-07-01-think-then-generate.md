@@ -7,6 +7,7 @@ tags:
   - Diffusion
   - Image Generation
   - Reinforcement Learning
+  - GRPO
   - Computer Vision
   - ICML
 excerpt: "Think-Then-Generate (T2G) 논문 리뷰 (ICML 2026)"

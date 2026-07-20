@@ -7,6 +7,7 @@ tags:
   - NLP
   - LLM
   - Reinforcement Learning
+  - GRPO
   - ICLR
 excerpt: "RL Conductor 논문 리뷰 (ICLR 2026)"
 use_math: true

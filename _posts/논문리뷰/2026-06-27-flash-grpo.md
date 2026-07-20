@@ -7,6 +7,7 @@ tags:
   - Diffusion
   - Video Generation
   - Reinforcement Learning
+  - GRPO
   - Computer Vision
   - ICML
 excerpt: "Flash-GRPO 논문 리뷰 (ICML 2026)"
