@@ -20,3 +20,5 @@ slider_images:
 ---
 
 {% include slider.html slider_images=page.slider_images width="100%" %}
+<span style="display: block; margin: 1px 0;"></span>
+<center>무지개 하트 35/80 | 나이트 모드 12/80</center>
