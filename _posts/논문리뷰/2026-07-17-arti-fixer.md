@@ -62,7 +62,7 @@ $$
 
 이 전략은 $\textbf{R}$과 $\textbf{O}$를 VAE 인코딩하는 대안보다 계산 효율성이 더 높으며, 입력 렌더링이 완전히 비어 있는 경우에도 카메라 제어를 제공한다.
 
-추가적인 장면 컨텍스트를 제공하기 위해, batch 차원을 따라 이미지별로 patchify된 고정된 VAE를 사용하여 깨끗한 레퍼런스 뷰를 인코딩한다. 각 transformer block은 타겟 토큰 $Q$에서 concat된 레퍼런스 토큰으로 cross-attention을 수행하며, 이 레퍼런스 토큰은 추가 linear projection $K_n$과 $V_n$을 통해 key와 value로 매핑된다. Cross-attention 출력은 Wan 2.1의  image-to-video 모델을 따라 타겟 토큰 $Q$에 다시 더해진다. 저자들은 [PRoPE](https://arxiv.org/abs/2507.10496)를 이 cross-attention 내에서만 적용하였으며, $Q$에는 타겟 intrinsics/extrinsics을, $K_n$, $V_n$에는 레퍼런스 intrinsics/extrinsics들을 사용한다. $f_r$, $f_o$, $V_n$은 모두 사전 학습된 가중치와의 호환성을 보장하기 위해 0으로 초기화된다.
+추가적인 장면 컨텍스트를 제공하기 위해, batch 차원을 따라 이미지별로 patchify된 고정된 VAE를 사용하여 깨끗한 레퍼런스 뷰를 인코딩한다. 각 transformer block은 타겟 토큰 $Q$에서 concat된 레퍼런스 토큰으로 cross-attention을 수행하며, 이 레퍼런스 토큰은 추가 linear projection $K_n$과 $V_n$을 통해 key와 value로 매핑된다. Cross-attention 출력은 Wan 2.1의 image-to-video 모델을 따라 타겟 토큰 $Q$에 다시 더해진다. 저자들은 [PRoPE](https://kimjy99.github.io/논문리뷰/prope)를 이 cross-attention 내에서만 적용하였으며, $Q$에는 타겟 intrinsics/extrinsics을, $K_n$, $V_n$에는 레퍼런스 intrinsics/extrinsics들을 사용한다. $f_r$, $f_o$, $V_n$은 모두 사전 학습된 가중치와의 호환성을 보장하기 위해 0으로 초기화된다.
 
 ##### 불투명도 혼합
 기존 방법 대부분은 Gaussian noise $$\boldsymbol{\epsilon} \sim \mathcal{N}(0, \textbf{I})$$에서 시작하여 채널 concat 또는 [classifier-free guidance](https://kimjy99.github.io/논문리뷰/cfdg)를 통해 초기 열화된 렌더링의 latent $$\textbf{z}_\textrm{deg}$$로 생성 프로세스를 컨디셔닝한다. 결과적으로 생성된 latent $$\textbf{z}_\textrm{enh}$$는 $$\textbf{z}_\textrm{deg}$$와 semantic하게 유사한 경향이 있지만, 특히 아티팩트가 많은 영역에서는 상당한 불일치가 발생한다. 몇몇 방법은 noise 대신 $$\textbf{z}_\textrm{deg}$$에서 직접 시작하여 더 강력한 일관성을 보장하였지만, 완전히 처음 보는 영역에서 mode collapse 문제가 발생하고, 렌더링을 extrapolation하는 능력을 저해한다.
@@ -103,7 +103,7 @@ $$
 양방향 teacher 모델의 가중치를 사용하여 causal model을 초기화한다. 학습 안정화를 위해, teacher 모델로부터 ODE 궤적 데이터셋을 생성해야 하는 기존 방법의 ODE 초기화 프로토콜보다 간단한 전략을 사용한다. 구체적으로, block-causal mask를 적용하고, [Diffusion Forcing](https://kimjy99.github.io/논문리뷰/diffusion-forcing)에서처럼 각 입력 프레임에 서로 다른 noise level을 적용한다. 그 외에는 teacher 모델과 동일한 입력 및 학습 프로토콜을 사용한다.
 
 ##### Autoregressive rollout
-초기화 후, [Self Forcing](https://arxiv.org/abs/2506.08009)과 유사한 학습 전략을 채택하였다. 동영상 청크를 순차적으로 생성하고 KV caching을 통해 이전에 생성된 청크로 컨디셔닝한다. 단, 카메라 제어 및 순수 noise로부터의 생성이 성능 저하를 초래하기 때문에 dropout을 계속 적용한다. 모델을 4-step으로 변환하기 위해 [Distribution Matching Distillation (DMD)](https://kimjy99.github.io/논문리뷰/dmd)을 적용한다.
+초기화 후, [Self Forcing](https://kimjy99.github.io/논문리뷰/self-forcing)과 유사한 학습 전략을 채택하였다. 동영상 청크를 순차적으로 생성하고 KV caching을 통해 이전에 생성된 청크로 컨디셔닝한다. 단, 카메라 제어 및 순수 noise로부터의 생성이 성능 저하를 초래하기 때문에 dropout을 계속 적용한다. 모델을 4-step으로 변환하기 위해 [Distribution Matching Distillation (DMD)](https://kimjy99.github.io/논문리뷰/dmd)을 적용한다.
 
 ##### 긴 동영상 생성
 기존 방법들은 긴 동영상 rollout에서 오차 누적을 최소화하기 위해 long-horizon training에 의존한다. 이러한 전략들을 본 방법에도 적용할 수 있지만, 실제로는 컨디셔닝 신호만으로도 오차 누적을 방지하기에 충분하다. 따라서 저자들은 양방향 모델 학습과 동일한 프레임 수로 학습하고 inference 시에 rolling KV cache를 사용한다. 이 접근 방식은 간단하지만 주어진 계산 예산 내에서 더 다양하고 짧은 동영상 세트를 사용하여 학습하기 때문에 학습 수렴 속도를 높이고, 임의 길이의 동영상에도 일반화 성능을 보인다.

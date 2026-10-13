@@ -10,15 +10,15 @@ tags:
   - Reinforcement Learning
   - NVIDIA
   - ICLR
-excerpt: "DiffusionNFT 논문 리뷰 (ICLR 2026)"
+excerpt: "DiffusionNFT 논문 리뷰 (ICLR 2026 Oral)"
 use_math: true
 classes: wide
 ---
 
-> ICLR 2026. [[Paper](https://arxiv.org/abs/2509.16117)] [[Page](https://research.nvidia.com/labs/cosmos-lab/diffusionnft/)] [[Github](https://github.com/NVlabs/DiffusionNFT)]  
+> ICLR 2026 (Oral). [[Paper](https://arxiv.org/abs/2509.16117)] [[Page](https://research.nvidia.com/labs/cosmos-lab/diffusionnft/)] [[Github](https://github.com/NVlabs/DiffusionNFT)]  
 > Kaiwen Zheng, Huayu Chen, Haotian Ye, Haoxiang Wang, Qinsheng Zhang, Kai Jiang, Hang Su, Stefano Ermon, Jun Zhu, Ming-Yu Liu  
 > Tsinghua University | NVIDIA | Stanford University  
-> 23 May 2025  
+> 19 Sep 2025  
 
 <center><img src='{{"/assets/img/diffusion-nft/diffusion-nft-fig1.webp" | relative_url}}' width="88%"></center>
 
@@ -80,7 +80,7 @@ $$
 이러한 정의는 [Classifier-Free Guidance (CFG)](https://kimjy99.github.io/논문리뷰/cfdg)와 같은 diffusion guidance의 형태와 유사하다. $$\Delta (\textbf{x}_t, \textbf{c}, t) \in \mathbb{R}^n$$을 **reinforcement guidance**라 부르고, $1/\beta \in \mathbb{R}$을 guidance strength라고 부른다.
 
 ### 2. Negative-aware Diffusion Reinforcement with Forward Process
-$\Delta$는 개선된 policy와 원래 policy의 분포 변화에 해당한다. 이를 정형화하기 위해, 먼저 $$\pi^{+} \succ \pi^\textrm{old} \succ ≻ \pi^{-}$$ 사이의 분포 차이를 살펴보자.
+$\Delta$는 개선된 policy와 원래 policy의 분포 변화에 해당한다. 이를 정형화하기 위해, 먼저 $$\pi^{+} \succ \pi^\textrm{old} \succ \pi^{-}$$ 사이의 분포 차이를 살펴보자.
 
 ##### Improvement Direction
 Policy triplet $\pi^+$, $\pi^-$, $\pi_{\text{old}}$에 대한 diffusion model $v^+$, $v^-$, $v_{\text{old}}$를 고려해 보자. 이 모델들 간의 방향적 차이는 비례 관계에 있다.
@@ -117,7 +117,7 @@ $$
 \end{equation}
 $$
 
-이 방법은 Policy Gradient를 적용하는 대신 supervised learning (SL) loss를 채택하되, negative 데이터 $$\mathcal{D}^{-}$를 활용한 추가 학습을 수행한다. 이러한 방식은 알고리즘의 범용성을 높여 기존 SL 방법들과 호환될 수 있게 한다. 이 방법을 언어 모델 분야의 [NFT](https://kimjy99.github.io/논문리뷰/nft)와 개념적으로 유사하기 때문에 DiffusionNFT라 부른다.
+이 방법은 Policy Gradient를 적용하는 대신 supervised learning (SL) loss를 채택하되, negative 데이터 $$\mathcal{D}^{-}$$를 활용한 추가 학습을 수행한다. 이러한 방식은 알고리즘의 범용성을 높여 기존 SL 방법들과 호환될 수 있게 한다. 이 방법은 언어 모델 분야의 [NFT](https://kimjy99.github.io/논문리뷰/nft)와 개념적으로 유사하기 때문에 DiffusionNFT라 부른다.
 
 <center><img src='{{"/assets/img/diffusion-nft/diffusion-nft-fig4.webp" | relative_url}}' width="92%"></center>
 <br>
@@ -154,7 +154,7 @@ $$
 파라미터 $\eta$는 학습 속도와 안정성 간의 trade-off를 조절한다. 엄격한 on-policy 방식($\eta = 0$)은 초기 학습은 빠르지만 심각한 불안정성을 보이기 쉽다. 반면, offline 방식에 가까운 방식($\eta \rightarrow 1$)은 안정성은 뛰어나지만 수렴 속도가 지나치게 느려 실용적이지 않다.
 
 ##### Adaptive Loss Weighting
-일반적인 diffusion loss는 time-dependent weighting $w(t)$를 포함한다. 저자들은 수동적인 튜닝 대신 적응형 방식을 채택하였다. Velocity predictor $$\textbf{v}_\theta$$는 $$\textbf{x}_0$$ predictor $$\textbf{x}_\theta$로 등가 변환될 수 있다. 저자들은 diffusion distillation 기법인 [DMD](https://kimjy99.github.io/논문리뷰/dmd)에서 착안하여, 해당 가중치를 다음과 같이 대체하였다.
+일반적인 diffusion loss는 time-dependent weighting $w(t)$를 포함한다. 저자들은 수동적인 튜닝 대신 적응형 방식을 채택하였다. Velocity predictor $$\textbf{v}_\theta$$는 $$\textbf{x}_0$$ predictor $$\textbf{x}_\theta$$로 등가 변환될 수 있다. 저자들은 diffusion distillation 기법인 [DMD](https://kimjy99.github.io/논문리뷰/dmd)에서 착안하여, 해당 가중치를 다음과 같이 대체하였다.
 
 $$
 \begin{equation}

@@ -105,7 +105,7 @@ Inference 시에는 프레임은 시간 순서대로 처리된다. 그러나 피
 1. ODE 초기화 단계에서는 causal attention mask를 적용하여 모델에 인과성을 주입한다.
 2. DMD 학습을 통한 비대칭 distillation 단계에서는 self-rollout을 통해 인과성을 더욱 강화하고 VSD loss를 적용하여 multi-step 모델을 few-step 모델로 distillation한다.
 
-비대칭 distillation 단계에서는 각 rollout 내에서 attention 패턴을 동적으로 변화시키는 stochastic chunking 전략을 도입한다. 프레임 인덱스 집합을 경계 설정을 통해 연속적으로 분할하고, 학습 중에 청크 분할 $$\textbf{a}_t$$를 무작위로 샘플링한 다음, 이러한 유연한 청크에 동적으로 rollout을 적용한다. 모든 프레임 $$\textbf{x}_0 = \{x0^i\}_{i=1}^F$$의 latent들이 각 rollout에 대해 모두 적용된 후, 다음과 같이 gradient를 취하여 generator $$G_\theta$$를 학습시킨다.
+비대칭 distillation 단계에서는 각 rollout 내에서 attention 패턴을 동적으로 변화시키는 stochastic chunking 전략을 도입한다. 프레임 인덱스 집합을 경계 설정을 통해 연속적으로 분할하고, 학습 중에 청크 분할 $$\textbf{a}_t$$를 무작위로 샘플링한 다음, 이러한 유연한 청크에 동적으로 rollout을 적용한다. 모든 프레임 $$\textbf{x}_0 = \{x_0^i\}_{i=1}^F$$의 latent들이 각 rollout에 대해 모두 적용된 후, 다음과 같이 gradient를 취하여 generator $$G_\theta$$를 학습시킨다.
 
 $$
 \begin{equation}
@@ -140,11 +140,11 @@ $$
 \end{equation}
 $$
 
-Projection은 attention 연산 중에 즉시 적용되며, 캐싱된 KV 텐서나 KV 캐시의 gradient propogation을 수정하지 않는다. Inference 시에는 깨끗한 KV state가 한 번 저장되고 timestep에 따라 동적으로 projection된다. 이러한 설계는 KV 캐싱의 효율성 이점을 유지하면서 인과적 및 비인과적 상황 모두에서 안정적이고 유연한 inference를 가능하게 한다.
+Projection은 attention 연산 중에 즉시 적용되며, 캐싱된 KV 텐서나 KV 캐시의 gradient propagation을 수정하지 않는다. Inference 시에는 깨끗한 KV state가 한 번 저장되고 timestep에 따라 동적으로 projection된다. 이러한 설계는 KV 캐싱의 효율성 이점을 유지하면서 인과적 및 비인과적 상황 모두에서 안정적이고 유연한 inference를 가능하게 한다.
 
 ## Applications of Flex-Forcing
 ### 1. Inference Flexibility: Better Speed, Better Quality
-Flex-Forcing은 가변적인 청크 크기를 허용함으로써 Flex-Forcing은 다양한 컴퓨팅 예산과 다양한 길이의 동영상에 맞춰 조정할 수 있는 적응형 청크 구성을 지원하며, 품질과 효율성 간의 더욱 유리한 trade-off를 제공한다.
+Flex-Forcing은 가변적인 청크 크기를 허용함으로써 다양한 컴퓨팅 예산과 다양한 길이의 동영상에 맞춰 조정할 수 있는 적응형 청크 구성을 지원하며, 품질과 효율성 간의 더욱 유리한 trade-off를 제공한다.
 
 저자들은 5초 분량의 동영상에 대해 3개의 청크로 구성된 최적의 청크 구성을 찾기 위해 brute-force search를 수행했다. 구체적으로, 21개의 latent 프레임을 3개의 청크로 분할하는 모든 유효한 경우를 테스트했으며, 청크에 프레임이 하나만 포함된 경우는 제외했다.
 

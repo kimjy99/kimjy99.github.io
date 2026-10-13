@@ -112,7 +112,7 @@ Depth Anything V2를 학습시키기 위한 최종 파이프라인은 세 단계
 #### 2. 디테일
 <center><img src='{{"/assets/img/depth-anything-v2/depth-anything-v2-table7.webp" | relative_url}}' width="47%"></center>
 <br>
-위 표에 나열된 것처럼 학습을 위해 5개의 합성 데이터셋과 8개의 pseudo-label이 있는 대규모의 실제 데이터셋을 사용힌다. 
+위 표에 나열된 것처럼 학습을 위해 5개의 합성 데이터셋과 8개의 pseudo-label이 있는 대규모의 실제 데이터셋을 사용한다. 
 
 Depth Anything V1과 동일하게, pseudo-label이 있는 각 샘플에 대해 loss가 높은 상위 10%의 영역을 무시한다. 모델은 affine-invariant inverse depth를 생성한다. 
 

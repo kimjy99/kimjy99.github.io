@@ -8,12 +8,12 @@ tags:
   - 3D Reconstruction
   - 3D Vision
   - ECCV
-excerpt: "GaussianGPT 논문 리뷰 (ECCV 2026)"
+excerpt: "GaussianGPT 논문 리뷰 (ECCV 2026 Oral)"
 use_math: true
 classes: wide
 ---
 
-> ECCV 2026. [[Paper](https://arxiv.org/abs/2603.26661)] [[Page](https://nicolasvonluetzow.github.io/GaussianGPT/)] [[Github](https://github.com/nicolasvonluetzow/gaussiangpt)]  
+> ECCV 2026 (Oral). [[Paper](https://arxiv.org/abs/2603.26661)] [[Page](https://nicolasvonluetzow.github.io/GaussianGPT/)] [[Github](https://github.com/nicolasvonluetzow/gaussiangpt)]  
 > Nicolas von Lützow, Barbara Rössle, Katharina Schmid, Matthias Nießner  
 > Technical University of Munich  
 > 27 Mar 2026  
@@ -38,7 +38,7 @@ classes: wide
 3. Latent 표현을 vector quantization
 
 ##### Sparse 3D Feature Grid
-3DGS 알고리즘에 따라, 입력은 Gaussian 집합으로 표현되는 장면이다. 각 Gaussian은 위치, 불투명도, 크기, 회전, 색상과 같은 continuous한 속성 집합으로 정의된다. 월드 좌표계로 그리드를 정의하고, 각 위치에 따라 해당 voxel에 Gaussian을 할당한다. Gaussian 위치를 voxel 중심로부터의 상대적 offset으로 대체하고, 하나의 voxel에 여러 개의 Gaussian이 존재하는 경우 무작위로 서브샘플링하여 입력 3D Gaussian 장면을 얻는다.
+3DGS 알고리즘에 따라, 입력은 Gaussian 집합으로 표현되는 장면이다. 각 Gaussian은 위치, 불투명도, 크기, 회전, 색상과 같은 continuous한 속성 집합으로 정의된다. 월드 좌표계로 그리드를 정의하고, 각 위치에 따라 해당 voxel에 Gaussian을 할당한다. Gaussian 위치를 voxel 중심으로부터의 상대적 offset으로 대체하고, 하나의 voxel에 여러 개의 Gaussian이 존재하는 경우 무작위로 서브샘플링하여 입력 3D Gaussian 장면을 얻는다.
 
 각 voxel에 대해, 가벼운 인코딩 head를 사용하여 각 Gaussian feature를 인코딩한 다음, 결과를 통합 벡터로 concat하여 sparse한 입력 feature grid를 생성한다. 대칭적으로, 3D CNN을 통과한 후, feature별 디코딩 head를 사용하여 예측된 voxel별 feature 벡터를 개별 Gaussian 속성으로 다시 변환한다.
 

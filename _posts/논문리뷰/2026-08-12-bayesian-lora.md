@@ -4,7 +4,7 @@ last_modified_at: 2026-08-12
 categories:
   - 논문리뷰
 tags:
-  - Low-Rank Adaptation
+  - LoRA
   - NLP
   - ICML
 excerpt: "Bayesian-LoRA 논문 리뷰 (ICML 2026)"
@@ -20,7 +20,7 @@ classes: wide
 <center><img src='{{"/assets/img/bayesian-lora/bayesian-lora-fig1.webp" | relative_url}}' width="75%"></center>
 
 ## Introduction
-LLM을 fine-tuning하는 데 있어, [Low-Rank Adaptation (LoRA)](https://kimjy99.github.io/논문리뷰/lora)와 같은 파라미터 효율적인 방법을 사용하는 것이 표준 관행이 되었다. 사전 학습된 모델은 기본적으로 calibration, 즉 확률적 신뢰도 정렬이 상당히 잘 되어 있지만, 도메인별 fine-tuning을 거치면 calibration 상태가 종종 저하되고 결과적으로 모델이 과신하는 경향이 있다. 따라서 LLM 학습 중에 확률 calibration을 유지하거나 개선할 수 있는 calibration-aware fine-tuning 방법이 필요하다. 그러나 완전한 Bayesian inference는 LLM 규모에서 계산적으로 불가능하며, Laplace 방법과 같은 효율적인 근사법은 학습 후 calibration를 수정한다.
+LLM을 fine-tuning하는 데 있어, [Low-Rank Adaptation (LoRA)](https://kimjy99.github.io/논문리뷰/lora)와 같은 파라미터 효율적인 방법을 사용하는 것이 표준 관행이 되었다. 사전 학습된 모델은 기본적으로 calibration, 즉 확률적 신뢰도 정렬이 상당히 잘 되어 있지만, 도메인별 fine-tuning을 거치면 calibration 상태가 종종 저하되고 결과적으로 모델이 과신하는 경향이 있다. 따라서 LLM 학습 중에 확률 calibration을 유지하거나 개선할 수 있는 calibration-aware fine-tuning 방법이 필요하다. 그러나 완전한 Bayesian inference는 LLM 규모에서 계산적으로 불가능하며, Laplace 방법과 같은 효율적인 근사법은 학습 후 calibration을 수정한다.
 
 Sparse Gaussian Process (SGP) inference에서 Kronecker-factorized conditional distribution은 가중치 업데이트 $M_W(U) = T_r U T_c$를 생성하는데, 이는 full matrix를 직접 업데이트하지 않고 factorized form으로 업데이트를 제한한다는 점에서 LoRA와 구조적으로 대응된다. 본 논문에서는 이러한 관찰에서 파생된 calibration-aware fine-tuning 프레임워크인 **Bayesian-LoRA**를 제안하였다. 
 
@@ -46,7 +46,7 @@ p(U) = \mathcal{N} (\textrm{vec}(U) \mid \textbf{0}, K_U), \quad K_U = K_c \otim
 \end{equation}
 $$
 
-($K_r \in \mathbb{R}^{r \times r}$과 $K_c \in \mathbb{R}^{c \times c}$는 학습 가능한 covariance factor, $\otimes$는  Kronecker product)
+($K_r \in \mathbb{R}^{r \times r}$과 $K_c \in \mathbb{R}^{c \times c}$는 학습 가능한 covariance factor, $\otimes$는 Kronecker product)
 
 Variational posterior는 다음과 같다.
 
@@ -57,7 +57,7 @@ q(U) = \mathcal{N} (\textrm{vec} (U) \mid \textbf{m}, \textbf{S})
 $$
 
 ##### 주어진 $U$에 대한 $W$의 조건부 분포
-주어진 $U$에 대해, 가중치 행렬 $W$는 조건부 Gaussian 분포을 따른다.
+주어진 $U$에 대해, 가중치 행렬 $W$는 조건부 Gaussian 분포를 따른다.
 
 $$
 \begin{equation}
@@ -71,7 +71,7 @@ Covariance factor는 다음과 같이 parameterize된다.
 
 $$
 \begin{equation}
-K_r = Z_r Z_r^\top + D_r^2, \quad K_r = Z_c Z_c^\top + D_c^2
+K_r = Z_r Z_r^\top + D_r^2, \quad K_c = Z_c Z_c^\top + D_c^2
 \end{equation}
 $$
 
@@ -91,7 +91,7 @@ $W$에 대한 marginal distribution은 $U$에 대한 적분으로 얻을 수 있
 
 $$
 \begin{equation}
-q(W) = \int p (W \mid U) p(U) dU
+q(W) = \int p (W \mid U) q(U) dU
 \end{equation}
 $$
 
@@ -109,7 +109,7 @@ LoRA는 deterministic한 rank-$r$ 업데이트를 사용한다.
 
 $$
 \begin{equation}
-\Delta W_\textrm{LoRA} = \frac{\alpha}{r} BA, \quad B \in \mathbb{R}^{d_\textrm{out} \times r}, \; A \in \mathbb{R}^{r \times d_\textrm{out}}
+\Delta W_\textrm{LoRA} = \frac{\alpha}{r} BA, \quad B \in \mathbb{R}^{d_\textrm{out} \times r}, \; A \in \mathbb{R}^{r \times d_\textrm{in}}
 \end{equation}
 $$
 

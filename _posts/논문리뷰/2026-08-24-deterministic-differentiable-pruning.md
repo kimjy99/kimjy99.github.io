@@ -14,7 +14,7 @@ classes: wide
 
 > ICML 2026. [[Paper](https://arxiv.org/abs/2603.08065)] [[Github](https://github.com/yellowtree123/Deterministic-Differentiable-Pruning)]  
 > Weiyu Huang, Pengle Zhang, Xiaolu Zhang, Jun Zhou, Jun Zhu, Jianfei Chen  
-> Carnegie Mellon University | AMD | William & Mary | MBZUAI  
+> Tsinghua University | Ant Group  
 > 9 Mar 2026  
 
 ## Introduction
@@ -47,7 +47,7 @@ Dense LLM의 경우, 이를 attention head와 MLP block 모두에 적용한다. 
 
 $$
 \begin{equation}
-\min_{\textbf{m}} \mathcal{L}_\textrm{ce} (\theta, \mathcal{m}) + \lambda \| \textbf{m} \|_0
+\min_{\textbf{m}} \mathcal{L}_\textrm{ce} (\theta, \textbf{m}) + \lambda \| \textbf{m} \|_0
 \end{equation}
 $$
 
@@ -104,7 +104,7 @@ Hard-concrete 방법에서 사용되는 loss는 다음과 같다.
 
 $$
 \begin{equation}
-\min_\textbf{z} \mathbb{E}_{\textbf{u} \sim \mathcal{U}(0, 1)} \left[ \mathcal{L}_\textrm{ce} (\theta, \mathcal{m}) + \mathcal{L}_\textrm{sparsity} (\| \textbf{m} \|_0) \right]
+\min_\textbf{z} \mathbb{E}_{\textbf{u} \sim \mathcal{U}(0, 1)} \left[ \mathcal{L}_\textrm{ce} (\theta, \textbf{m}) + \mathcal{L}_\textrm{sparsity} (\| \textbf{m} \|_0) \right]
 \end{equation}
 $$
 
@@ -127,7 +127,7 @@ $$
 
 이는 마스크 공간을 $m_k \in [0, \infty)$까지 확장하여 구성 요소 기여도의 continuous scaling을 가능하게 하는 동시에 부호 반전 및 원치 않는 상쇄를 유발할 수 있는 음수 마스크 값을 방지한다.
 
-또한, 확률적 샘플링을 도입하지 않고 $$\ell_0$$ norm의 미분 불가능성을 해결하기 위해, ALM sparsity 항을 계산할 때 사용되는 retention score $\textbf{s} \in [0, 1]$를 사용한다. $\textbf{s}$는 $\textbf{z}$로 부터 deterministic하게 $$\textbf{s} = \phi (\textbf{z}; \mu_t)$$로 매핑된다.
+또한, 확률적 샘플링을 도입하지 않고 $$\ell_0$$ norm의 미분 불가능성을 해결하기 위해, ALM sparsity 항을 계산할 때 사용되는 retention score $\textbf{s} \in [0, 1]$를 사용한다. $\textbf{s}$는 $\textbf{z}$로부터 deterministic하게 $$\textbf{s} = \phi (\textbf{z}; \mu_t)$$로 매핑된다.
 
 $$
 \begin{equation}
@@ -216,8 +216,8 @@ $$
 
 이를 통해 layer 전체 또는 각 MoE expert 내에서 균일한 sparsity를 확보할 수 있으며, 보다 규칙적이고 하드웨어 친화적인 패턴을 생성하여 속도 향상을 가져오는 경우가 많다.
 
-## Expertiments
-- sparsity ratio $\alpha = 1 - rho$
+## Experiments
+- sparsity ratio $\alpha = 1 - \rho$
 - 데이터셋: FineWeb-Edu 30M 토큰
 - 구현 디테일
   - Dense base model: LLaMA, Qwen3

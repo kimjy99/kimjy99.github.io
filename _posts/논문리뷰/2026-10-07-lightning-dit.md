@@ -14,7 +14,7 @@ classes: wide
 ---
 
 > CVPR 2025 (Oral). [[Paper](https://arxiv.org/abs/2501.01423)] [[Github](https://github.com/hustvl/LightningDiT)]  
-> Yongsheng Yu, Wei Xiong, Weili Nie, Yichen Sheng, Shiqiu Liu, Jiebo Luo  
+> Jingfeng Yao, Bin Yang, Xinggang Wang  
 > Huazhong University of Science and Technology  
 > 2 Jan 2025  
 
@@ -96,9 +96,9 @@ $$
 적응형 가중치의 목적은 서로 다른 VAE 학습 파이프라인에서 loss 스케일을 빠르게 일치시키는 것이다. 이를 기반으로 hyperparameter $$w_\textrm{hyper}$$를 사용하여 성능을 더욱 향상시킬 수 있다.
 
 ## LightningDiT
-DiT는 ImageNet에서의 수렴 속도가 상당히 느려 많은 비용이 소요된다는 한계가 있다. 본 논문에서 DiT 아키텍처의 잠재력을 확장하고 DiT가 도달할 수 있는 성능의 한계를 탐구하였다.
+DiT는 ImageNet에서의 수렴 속도가 상당히 느려 많은 비용이 소요된다는 한계가 있다. 본 논문에서는 DiT 아키텍처의 잠재력을 확장하고 DiT가 도달할 수 있는 성능의 한계를 탐구하였다.
 
-본 논문에서는 visual tokenizer로 f8d4의 [SD-VAE](https://kimjy99.github.io/논문리뷰/ldm)를 사용하고, 모델로는 DiT-XL/2를 채택했다. 최적화 절차는  다음 표와 같다.
+본 논문에서는 visual tokenizer로 f8d4의 [SD-VAE](https://kimjy99.github.io/논문리뷰/ldm)를 사용하고, 모델로는 DiT-XL/2를 채택했다. 최적화 절차는 다음 표와 같다.
 
 <center><img src='{{"/assets/img/lightning-dit/lightning-dit-table1.webp" | relative_url}}' width="56%"></center>
 <br>

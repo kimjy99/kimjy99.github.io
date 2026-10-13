@@ -54,7 +54,7 @@ Diffusion model을 컨디셔닝하기 위해 두 가지 방법으로 이미지 �
 1. 이미지를 학습된 인코더 $\mathcal{E}^\ast$로 인코딩하고 noisy한 입력 feature에 concatenate한다. 인코더 $\mathcal{E}^\ast$는 사전 학습된 인코더 $\mathcal{E}$와 동일한 아키텍처를 사용하지만 랜덤하게 초기화되고 3채널 feature를 제공한다. Latent 차원으로 단순하게 다운스케일링하면 고주파 디테일이 손실된다. 고정된 사전 학습된 인코더 $\mathcal{E}$를 사용하면 성능이 떨어지므로 재료 추정 시에는 최적의 예측을 위해 다른 feature 세트가 필요하다. 
 2. Cross-attention conditioner로 CLIP 이미지 임베딩을 사용한다. 
 
-각 학습 step에서 albedo와 BRDF 맵이 있는 이미지 batch를 가져온다. 두 맵을 개별적으로 인코딩한 다음 latent space에서 concatenate하여 8채널의 material feature를 얻는다. 각 이미지에 대해 timestep $t \sim [1, 1000]$를 샘플링하고 material feature에 noise를 적용한다. 여기에 $\mathcal{E}^\ast$로 인코딩한 3채널의 컨디셔닝 feature를 concatenate하여 11채널로 모델에 입력한다. 모델은 추가된 noise $\epsilon$을 예측하며, 원본 nosie $\epsilon$와 예측된 noise $\epsilon_\theta$ 사이의 거리를 최소화하여 모델을 학습시킨다.
+각 학습 step에서 albedo와 BRDF 맵이 있는 이미지 batch를 가져온다. 두 맵을 개별적으로 인코딩한 다음 latent space에서 concatenate하여 8채널의 material feature를 얻는다. 각 이미지에 대해 timestep $t \sim [1, 1000]$를 샘플링하고 material feature에 noise를 적용한다. 여기에 $\mathcal{E}^\ast$로 인코딩한 3채널의 컨디셔닝 feature를 concatenate하여 11채널로 모델에 입력한다. 모델은 추가된 noise $\epsilon$을 예측하며, 원본 noise $\epsilon$와 예측된 noise $\epsilon_\theta$ 사이의 거리를 최소화하여 모델을 학습시킨다.
 
 $$
 \begin{equation}

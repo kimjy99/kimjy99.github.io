@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> CVPR 2025. [[Paper](https://arxiv.org/abs/2412.10958)] [[Github](https://github.com/deepseek-ai/DeepSpec)]  
+> CVPR 2025. [[Paper](https://arxiv.org/abs/2412.10958)] [[Github](https://github.com/Hhhhhhao/continuous_tokenizer)]  
 > Hao Chen, Ze Wang, Xiang Li, Ximeng Sun, Fangyi Chen, Jiang Liu, Jindong Wang, Bhiksha Raj, Zicheng Liu, Emad Barsoum  
 > Carnegie Mellon University | AMD | William & Mary | MBZUAI  
 > 14 Dec 2024  
@@ -97,7 +97,7 @@ $$
 - Configuration
   - SoftVQ-VAE: SoftVQ-S (45M), SoftVQ-B (173M), SoftVQ-BL (391M), SoftVQ-L (608M)
    - 각 configuration마다 $L = 32$와 $L = 64$ variant
-  - 생성 모델: [DiT](https://kimjy99.github.io/논문리뷰/dit), [SiT](https://arxiv.org/abs/2408.12245), [MAR](https://kimjy99.github.io/논문리뷰/mar)
+  - 생성 모델: [DiT](https://kimjy99.github.io/논문리뷰/dit), [SiT](https://arxiv.org/abs/2401.08740), [MAR](https://kimjy99.github.io/논문리뷰/mar)
 
 ### 1. Main Results
 다음은 ImageNet 256$\times$256 조건부 생성에 대한 시스템 수준의 비교 결과이다.
@@ -122,7 +122,7 @@ $$
 
 <center><img src='{{"/assets/img/softvq-vae/softvq-vae-fig3.webp" | relative_url}}' width="60%"></center>
 <br>
-다음은 인코더 출력 $$\hat{\textbf{z}}$$ 디코더 입력 $\textbf{z}$를 시각화한 것이다.
+다음은 인코더 출력 $$\hat{\textbf{z}}$$와 디코더 입력 $\textbf{z}$를 시각화한 것이다.
 
 <center><img src='{{"/assets/img/softvq-vae/softvq-vae-fig4.webp" | relative_url}}' width="90%"></center>
 

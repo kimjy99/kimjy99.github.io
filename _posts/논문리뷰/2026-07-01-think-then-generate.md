@@ -58,7 +58,7 @@ $$
 
 $$
 \begin{equation}
-\textbf{o} = \{ z_1, \cdots, z_\ell x_{\ell+1}, \cdots, x_{\ell+m} \}
+\textbf{o} = \{ z_1, \cdots, z_\ell, x_{\ell+1}, \cdots, x_{\ell+m} \}
 \end{equation}
 $$
 
@@ -145,7 +145,7 @@ $$
 
 <center><img src='{{"/assets/img/think-then-generate/think-then-generate-table2.webp" | relative_url}}' width="92%"></center>
 <br>
-다음은 동일한 프롬프트에 대해 T2I 모델들이 생성된 이미지들을 비교한 것이다.
+다음은 동일한 프롬프트에 대해 T2I 모델들이 생성한 이미지들을 비교한 것이다.
 
 <center><img src='{{"/assets/img/think-then-generate/think-then-generate-fig2.webp" | relative_url}}' width="100%"></center>
 

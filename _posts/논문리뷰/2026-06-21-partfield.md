@@ -58,7 +58,7 @@ $$
 ### 2. Contrastive Learning with Negative Sampling
 Contrastive triplet loss의 핵심 아이디어는 part proposal 내에서 positive point $$\textbf{p}_a$$와 $$\textbf{p}_b$$가 서로 가깝도록 유도하고, negative point $$\textbf{p}_c$$는 서로 멀리 떨어지도록 하는 것이다. 그러나 part 레이블링의 계층적이고 스케일이 모호한 특성으로 인해 이러한 loss의 설계 및 scaling이 복잡해진다.
 
-즉, 유효한 두 part proposal이 세분화 수준에 따라 동일한 part 또는 다른 part에 점을 할당할 수 있다. 기존 방법에서는 공간에 명시적인 scale 파라미터를 사용하였지만, 데이터 전반에 걸쳐 이 scale를 일관되게 설정하는 것은 어려울 수 있다.
+즉, 유효한 두 part proposal이 세분화 수준에 따라 동일한 part 또는 다른 part에 점을 할당할 수 있다. 기존 방법에서는 공간에 명시적인 scale 파라미터를 사용하였지만, 데이터 전반에 걸쳐 이 scale을 일관되게 설정하는 것은 어려울 수 있다.
 
 <center><img src='{{"/assets/img/partfield/partfield-fig4.webp" | relative_url}}' width="67%"></center>
 <br>

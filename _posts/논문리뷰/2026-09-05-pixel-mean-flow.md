@@ -18,7 +18,7 @@ classes: wide
 > 29 Jan 2026  
 
 ## Introduction
-본 논문에서는 1-step으로 latent 없이 이미지를 생성하기 위한 **pixel MeanFlow (pMF)**을 제안하였다. pMF는 순간 속도 $\textbf{v}$의 space에서 정의된 loss를 사용하여 average velocity field $\textbf{u}$를 학습하는 [improved MeanFlow (iMF)](https://arxiv.org/abs/2512.02012)을 따른다. 한편, [JiT](https://kimjy99.github.io/논문리뷰/jit)를 따라 pMF는 이미지 공간에서 예측을 수행한다 ($\textbf{x}$-prediction). 두 가지 방식을 모두 수용하기 위해, $\textbf{v}$, $\textbf{u}$, $\textbf{x}$를 연결하는 변환식을 도입하였다.
+본 논문에서는 1-step으로 latent 없이 이미지를 생성하기 위한 **pixel MeanFlow (pMF)**를 제안하였다. pMF는 순간 속도 $\textbf{v}$의 space에서 정의된 loss를 사용하여 average velocity field $\textbf{u}$를 학습하는 [improved MeanFlow (iMF)](https://arxiv.org/abs/2512.02012)를 따른다. 한편, [JiT](https://kimjy99.github.io/논문리뷰/jit)를 따라 pMF는 이미지 공간에서 예측을 수행한다 ($\textbf{x}$-prediction). 두 가지 방식을 모두 수용하기 위해, $\textbf{v}$, $\textbf{u}$, $\textbf{x}$를 연결하는 변환식을 도입하였다.
 
 일반적으로 pMF는 noise가 포함된 입력을 이미지 픽셀에 직접 매핑하는 네트워크를 학습시킨다. 이는 다단계 또는 latent 기반 방식에서는 불가능한 "보는 그대로의 결과"라는 특성을 가능하게 한다. 이러한 특성 덕분에 perceptual loss를 pMF에 자연스럽게 적용할 수 있으며, 생성 품질을 더욱 향상시킬 수 있다.
 
@@ -53,7 +53,7 @@ $$
 <br>
 위 그림은 사전 학습된 Flow Matching (FM) 모델에서 얻은 하나의 ODE 궤적을 시뮬레이션하여 $\textbf{u}$ field와 $\textbf{x}$ field를 시각화한 것이다. 그림에서 볼 수 있듯이, $\textbf{u}$는 noise와 데이터 성분을 모두 포함하고 있기 때문에 noise가 섞인 이미지로 나타난다. 반면, $\textbf{x}$는 denoising된 이미지처럼 보인다. 즉, 거의 깨끗한 이미지이거나, noise가 과도하게 제거되어 흐릿하게 보이는 이미지이다.
 
-JiT에서는 저차원 매니폴드 상에 존재한다고 가정되는 denoising된 이미지를 직접 예측한다. 저자들이 도입한 $\textbf{x}$에 매니폴드 가설을 어떻게 일반화할 수 있는지 살펴보자. MeanFlow에서 timestep $r$은 $0 \le r \le t$를 만족하므로, 먼저 $r = t$과 $r = 0$에서 매니폴드 가설을 근사적으로 만족할 수 있음을 보이고, 그 다음 $0 < r < t$인 경우를 살펴보자.
+JiT에서는 저차원 매니폴드 상에 존재한다고 가정되는 denoising된 이미지를 직접 예측한다. 저자들이 도입한 $\textbf{x}$에 매니폴드 가설을 어떻게 일반화할 수 있는지 살펴보자. MeanFlow에서 timestep $r$은 $0 \le r \le t$를 만족하므로, 먼저 $r = t$와 $r = 0$에서 매니폴드 가설을 근사적으로 만족할 수 있음을 보이고, 그 다음 $0 < r < t$인 경우를 살펴보자.
 
 ##### Boundary case I: $r = t$
 $r = t$일 때, $\textbf{u}$는 $\textbf{v}$가 된다. 즉, $$\textbf{u}(\textbf{z}_t, t, t) = \textbf{v}(\textbf{z}_t, t)$$이다. 이 경우, $\textbf{x}$는 다음과 같다.
@@ -127,7 +127,7 @@ $$
 
 <center><img src='{{"/assets/img/pixel-mean-flow/pixel-mean-flow-table2.webp" | relative_url}}' width="53%"></center>
 
-### 2. Ablations Studies
+### 2. Ablation Studies
 다음은 (a) optimizer와 (b) perceptual loss에 대한 ablation 결과이다.
 
 <center><img src='{{"/assets/img/pixel-mean-flow/pixel-mean-flow-fig3.webp" | relative_url}}' width="100%"></center>

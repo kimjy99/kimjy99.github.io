@@ -20,7 +20,7 @@ classes: wide
 <center><img src='{{"/assets/img/learning-convex-decomposition/learning-convex-decomposition-fig1.webp" | relative_url}}' width="40%"></center>
 
 ## Introduction
-Convex decomposition은 3D shape을 입력으로 받아 해당 shape을 정밀하게 근사하는 convex body들의 집합을 출력다. 본 논문은 고품질 convex decomposition 결과를 직접 생성하는 feedforward 모델을 학습시킬 수 있는 새로운 convex decomposition 공식을 제안하였다.
+Convex decomposition은 3D shape을 입력으로 받아 해당 shape을 정밀하게 근사하는 convex body들의 집합을 출력한다. 본 논문은 고품질 convex decomposition 결과를 직접 생성하는 feedforward 모델을 학습시킬 수 있는 새로운 convex decomposition 공식을 제안하였다.
 
 핵심 아이디어는 feature learning 방식을 도입하는 것이다. Primitive 집합을 직접 최적화하거나 학습하는 대신, shape을 따라 정의된 continuous한 feature를 활용하여, 이를 클러스터링했을 때 우수한 convex decomposition 결과가 도출되도록 하는 feature 집합을 구성한다. 이를 실현하기 위해, '두 점을 잇는 선분이 shape 내부에 포함되어야 한다'는 convexity의 정의에서 영감을 얻은 새로운 feature 기반 self-supervised contrastive loss를 도입하였다.
 
@@ -78,7 +78,7 @@ $$
 \end{equation}
 $$
 
-이때 $\vert \vert f \vert \vert = 1$$이라는 제약을 두어 값이 무한히 커지는 것을 방지한다. 머신러닝 관점에서 볼 때 이 objective는 self-supervised 방식이다. 즉, 입력 shape의 geometry만을 활용하여 좋은 feature 집합을, 나아가 좋은 decomposition 결과를 얻도록 최적화를 수행할 수 있게 해준다.
+이때 $$\vert \vert f \vert \vert = 1$$이라는 제약을 두어 값이 무한히 커지는 것을 방지한다. 머신러닝 관점에서 볼 때 이 objective는 self-supervised 방식이다. 즉, 입력 shape의 geometry만을 활용하여 좋은 feature 집합을, 나아가 좋은 decomposition 결과를 얻도록 최적화를 수행할 수 있게 해준다.
 
 실제 최적화 과정에서는 먼저 shape 위의 점들로 이루어진 다수의 쌍 $(x, y)$을 샘플링하고, 두 점을 잇는 선분이 shape 내부에 포함되는지 여부를 바탕으로 각 쌍이 $\mathcal{C}(\mathcal{M})$에 속하는지 기하학적으로 판별한 뒤, objective를 최소화하는 방향으로 feature를 최적화시킨다.
 
@@ -94,13 +94,13 @@ $$
 ($\tau$는 temperature hyperparameter)
 
 ##### Triplet Sampling과 Hard Negatives
-먼저 object 표면에서 기준 샘플 $x \in \mathcal{M}$을 균등하게 선택한다. $x$와 positive pair를 이루는 샘플 $p \in \mathbb{M}$을 얻기 위해, $x$의 표면 normal 방향과 반대되는 반구 방향, 즉 shape 내부를 향해 랜덤 광선을 쏘고, 이 광선이 표면 밖으로 나가는 지점을 $p$로 취한다.
+먼저 object 표면에서 기준 샘플 $x \in \mathcal{M}$을 균등하게 선택한다. $x$와 positive pair를 이루는 샘플 $p \in \mathcal{M}$을 얻기 위해, $x$의 표면 normal 방향과 반대되는 반구 방향, 즉 shape 내부를 향해 랜덤 광선을 쏘고, 이 광선이 표면 밖으로 나가는 지점을 $p$로 취한다.
 
 <center><img src='{{"/assets/img/learning-convex-decomposition/learning-convex-decomposition-fig4.webp" | relative_url}}' width="45%"></center>
 <br>
-$x$와 negative pair을 이루는 샘플 $n \in \mathcal{M}$을 얻을 때는 rejection sampling을 수행한다. $\mathcal{M}$의 표면에서 후보점들을 생성한 뒤 $x$와 $n$을 잇는 선분이 shape 외부로 나가는지 여부를 확인한다. 표면상의 점들을 단순히 균등하게 수집하기보다는 $x$와 공간적으로 가까운 샘플을 선호하며, 따라서 유클리드 거리에 반비례하는 확률 $$P(n) = \frac{1}{\| n-x \|^2}$$에 따라 샘플링을 수행한다. 이를 통해 feature 최적화를 더욱 효율적으로 수행할 수 있다.
+$x$와 negative pair를 이루는 샘플 $n \in \mathcal{M}$을 얻을 때는 rejection sampling을 수행한다. $\mathcal{M}$의 표면에서 후보점들을 생성한 뒤 $x$와 $n$을 잇는 선분이 shape 외부로 나가는지 여부를 확인한다. 표면상의 점들을 단순히 균등하게 수집하기보다는 $x$와 공간적으로 가까운 샘플을 선호하며, 따라서 유클리드 거리에 반비례하는 확률 $$P(n) = \frac{1}{\| n-x \|^2}$$에 따라 샘플링을 수행한다. 이를 통해 feature 최적화를 더욱 효율적으로 수행할 수 있다.
 
-이 샘플링 절차의 효율적이고 robust하게 구현될 수 있는데, 이는 샘플링 포인트 추출과 ray casting만 필요로 하기 때문이다. 특히 ray casting 연산은 Intel Embree나 NVIDIA OptiX와 같은 라이브러리를 통해 하드웨어 가속을 활용함으로써, 실시간으로 빠르게 triplet을 생성할 수 있다.
+이 샘플링 절차는 효율적이고 robust하게 구현될 수 있는데, 이는 샘플링 포인트 추출과 ray casting만 필요로 하기 때문이다. 특히 ray casting 연산은 Intel Embree나 NVIDIA OptiX와 같은 라이브러리를 통해 하드웨어 가속을 활용함으로써, 실시간으로 빠르게 triplet을 생성할 수 있다.
 
 ### 4. Feedforward Model
 Feature 기반의 접근 방식은 segmentation이나 임베딩 등을 위한 대규모 학습의 프레임워크로서 널리 활용되어 왔다. Convex decomposition을 feature learning 문제로 재구성하면 이러한 접근 방식을 적용할 수 있게 된다. 이를 통해 방대한 3D shape 데이터셋을 활용한 self-supervised learning으로 입력 shape $\mathcal{M}$에 따른 field $f$를 예측하는 feedforward 모델을 학습시킬 수 있다. 본 논문에서 제안하는 self-supervised loss는 고품질의 GT 데이터가 부족한 문제를 우회하여, 오직 shape의 geometry만으로 학습을 가능하게 하는 핵심적인 역할을 한다.
@@ -118,7 +118,7 @@ Feature 기반의 접근 방식은 segmentation이나 임베딩 등을 위한 �
 ### 5. Recursive Decomposition on Features
 Inference 시, 학습된 모델은 feature field $f : \mathcal{M} \rightarrow \mathbb{R}^k$를 생성하는데, 이때 유사한 feature들은 convex decomposition 과정에서 함께 나타나야 하는 표면 영역을 나타낸다. 
 
-구체적으로, 예측된 field를 사용하여 입력 shape $S$의 표면에서 feature를 샘플링하고, 클러스터링 알고리즘을 적용하여 $S$를 $$\{S_i\}$$로 분할한다. 원칙적으로 어떤 클러스터링 알고리즘이든 사용할 수 있으며, 일반적으로 빠른 성능을 위해 $k$-means 클러스터링을 사용하거나, 연결성을 고려하기 위해 agglomerative clustering을 사용한다. 메쉬 기반 입력의 경우, 각 face별로 feature를 샘플링하고 메쉬 연결성을 고려한 agglomerative clustering을 사용한다. 포인트 클라우드와 같은 다른 모달리티의 경우, feature space 거리와 유클리드 거리를 혼합하여 $k$-means 클러스터링을 적용한다. 마지막으로, 각 클러스터에 대해 convex hull $\{\textrm{hull}(S_i)\}$$을 계산하고, 이 convex hull들의 합집합은 입력 shape을 근사한다.
+구체적으로, 예측된 field를 사용하여 입력 shape $S$의 표면에서 feature를 샘플링하고, 클러스터링 알고리즘을 적용하여 $S$를 $$\{S_i\}$$로 분할한다. 원칙적으로 어떤 클러스터링 알고리즘이든 사용할 수 있으며, 일반적으로 빠른 성능을 위해 $k$-means 클러스터링을 사용하거나, 연결성을 고려하기 위해 agglomerative clustering을 사용한다. 메쉬 기반 입력의 경우, 각 face별로 feature를 샘플링하고 메쉬 연결성을 고려한 agglomerative clustering을 사용한다. 포인트 클라우드와 같은 다른 모달리티의 경우, feature space 거리와 유클리드 거리를 혼합하여 $k$-means 클러스터링을 적용한다. 마지막으로, 각 클러스터에 대해 convex hull $$\{\textrm{hull}(S_i)\}$$을 계산하고, 이 convex hull들의 합집합은 입력 shape을 근사한다.
 
 Decomposition 시 클러스터의 개수를 결정하는 명확한 전략은 존재하지 않으므로, 본 논문에서는 사용자가 지정한 concavity threshold에 도달할 때까지 binary clustering을 반복적으로 수행하는 재귀적 전략을 채택하였다. 이 threshold를 통해 결과물의 세밀도를 조절할 수 있는데, 중요한 점은 이러한 세밀도 설정이 클러스터링 후처리 단계에서만 이루어지면 되며, 학습된 feature는 임의의 세밀도 수준에서의 decomposition에 활용될 수 있다는 것이다.
 

@@ -8,6 +8,7 @@ tags:
   - Diffusion
   - Image Editing
   - ICLR
+  - NVIDIA
 excerpt: "ChronoEdit 논문 리뷰 (ICLR 2026)"
 use_math: true
 classes: wide
@@ -70,7 +71,7 @@ $$
 
 <center><img src='{{"/assets/img/chrono-edit/chrono-edit-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
-첫 번째 단계에서는 깨끗한 입력 토큰 $$\textbf{z}_\textbf{c}$$, 샘플링된 추론 토큰 $\textbf{r}$, 그리고 noise가 포함된 샘플링된 출력 토큰 $$\textbf{z}_\textbf{p}$$를 하나의 시간 시퀀스로 concat한다. Image-to-video 생성과 유사하게, 모델은 $$\textbf{z}_\textbf{c}$$ 토큰을 수정하지 않고 concat된 시퀀스에 대해 denoising을 수행한다. 깨끗한 latent 토큰이 나올 때까지 완전히 denoising하는 대신, $N_r$ step의 denoising을 수행하고, $$\textbf{z}_\textbf{p}$$에 해당하는 시간 시퀀스의 마지막 부분에서 부분적으로 denoise된 latent를 다음 step으로 전달힌다.
+첫 번째 단계에서는 깨끗한 입력 토큰 $$\textbf{z}_\textbf{c}$$, 샘플링된 추론 토큰 $\textbf{r}$, 그리고 noise가 포함된 샘플링된 출력 토큰 $$\textbf{z}_\textbf{p}$$를 하나의 시간 시퀀스로 concat한다. Image-to-video 생성과 유사하게, 모델은 $$\textbf{z}_\textbf{c}$$ 토큰을 수정하지 않고 concat된 시퀀스에 대해 denoising을 수행한다. 깨끗한 latent 토큰이 나올 때까지 완전히 denoising하는 대신, $N_r$ step의 denoising을 수행하고, $$\textbf{z}_\textbf{p}$$에 해당하는 시간 시퀀스의 마지막 부분에서 부분적으로 denoise된 latent를 다음 step으로 전달한다.
 
 두 번째 단계에서는 부분적으로 denoise된 출력 latent를 깨끗한 입력 latent 뒤에 concat하고, 나머지 $N-N_r$ step 동안 완전히 denoising한다. 학습 시와 마찬가지로, 출력 latent는 video VAE의 시간 압축에 맞춰 4개의 반복 프레임에 해당한다. RGB로 디코딩하면 4개의 프레임은 일반적으로 동일한 이미지로 합쳐지며, 마지막 프레임을 최종 편집 결과로 사용한다.
 

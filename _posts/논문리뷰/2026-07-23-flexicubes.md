@@ -96,11 +96,11 @@ $$
 두 식은 의도적으로 convex combination으로 설계되었으므로, 결과적으로 추출된 vertex 위치는 해당 cell vertex의 convex hull 내에 반드시 위치하게 된다. 또한, convex cell이 여러 개의 dual vertex를 생성할 때, dual vertex들이 위치하는 해당 primal face들은 서로 교차하지 않으므로, 결과 메쉬에서 거의 모든 self-intersection을 방지할 수 있다.
 
 ### 3. Flexible Quad Splitting
-Dual Marching Cubes와 FlexiCubes는 평면이 아닌 면을 가진 순수 사각형 메쉬를 추출하는데, 이러한 메쉬는 응용 분야에서의 원할한 사용을 위해 일반적으로 삼각형으로 분할된다. 임의의 대각선을 따라 단순히 분할하면 곡선 영역에서 상당한 아티팩트가 발생할 수 있으며, 일반적으로 모든 geometry를 표현하기 위해 평면이 아닌 사각형을 분할하는 데 이상적인 방법은 없다.
+Dual Marching Cubes와 FlexiCubes는 평면이 아닌 면을 가진 순수 사각형 메쉬를 추출하는데, 이러한 메쉬는 응용 분야에서의 원활한 사용을 위해 일반적으로 삼각형으로 분할된다. 임의의 대각선을 따라 단순히 분할하면 곡선 영역에서 상당한 아티팩트가 발생할 수 있으며, 일반적으로 모든 geometry를 표현하기 위해 평면이 아닌 사각형을 분할하는 데 이상적인 방법은 없다.
 
 <center><img src='{{"/assets/img/flexicubes/flexicubes-fig8.webp" | relative_url}}' width="87%"></center>
 <br>
-따라서 저자들은 분할 선택을 유연하게 만들고 연속적인 자유도로 최적화하기 위해 추가 파라미터를 도입하였다. 구체적으로, 각 cell에 가중치 $$\gamma \in \mathbb{R}_{> 0}$$을 정의하고, 이 가중치는 추출된 메쉬의 vertex로 전파된다. 최적화 시점에만 각 사각형 메쉬 면은 중간점 vertex $v_d$를 삽입하여 4개의 삼각형으로 분할된다. 이 중간점의 위치는 다음과 같이 계산된다.
+따라서 저자들은 분할 선택을 유연하게 만들고 연속적인 자유도로 최적화하기 위해 추가 파라미터를 도입하였다. 구체적으로, 각 cell에 가중치 $$\gamma \in \mathbb{R}_{> 0}$$을 정의하고, 이 가중치는 추출된 메쉬의 vertex로 전파된다. 최적화 시점에만 각 사각형 메쉬 면은 중간점 vertex $$\bar{v}_d$$를 삽입하여 4개의 삼각형으로 분할된다. 이 중간점의 위치는 다음과 같이 계산된다.
 
 $$
 \begin{equation}
@@ -108,7 +108,7 @@ $$
 \end{equation}
 $$
 
-이는 면의 두 대각선의 중간점들의 가중 조합이며, 가중치는 해당 vertex의 $\gamma$ 파라미터에서 가져온다. 직관적으로, $\gamma$ 가중치를 조정하면 두 가지 가능한 분할에서 생성되는 geometry 사이를 부드럽게 interpolation할 수 있다. $\gamma$를 최적화하면 알맞는 분할을 선택할 수 있다. 최적화가 완료된 후 최종 추출 단계에서는 중간점 꼭짓점 $$\bar{v}_d$$를 삽입하지 않고, $\gamma$ 값의 곱이 더 큰 대각선을 따라 각 사각형을 분할한다.
+이는 면의 두 대각선의 중간점들의 가중 조합이며, 가중치는 해당 vertex의 $\gamma$ 파라미터에서 가져온다. 직관적으로, $\gamma$ 가중치를 조정하면 두 가지 가능한 분할에서 생성되는 geometry 사이를 부드럽게 interpolation할 수 있다. $\gamma$를 최적화하면 알맞은 분할을 선택할 수 있다. 최적화가 완료된 후 최종 추출 단계에서는 중간점 꼭짓점 $$\bar{v}_d$$를 삽입하지 않고, $\gamma$ 값의 곱이 더 큰 대각선을 따라 각 사각형을 분할한다.
 
 ### 4. Flexible Grid Deformation
 [DefTet](https://arxiv.org/abs/2011.01437)와 [DMTet](https://kimjy99.github.io/논문리뷰/dmtet)에서 영감을 받아, 저자들은 기본 그리드의 vertex들이 각 vertex에서 변위 $\delta \in \mathbb{R}^3$에 따라 변형될 수 있도록 했다. 이러한 변형을 통해 그리드는 얇은 부분에 로컬하게 정렬될 수 있으며, vertex 위치 지정에 추가적인 유연성을 제공한다. Cell이 반전되지 않도록 변형의 최댓값은 그리드 간격의 절반으로 제한된다.
@@ -148,7 +148,7 @@ $$
 
 이 항은 추출된 연결성을 정규화하고, vertex들이 cell의 중심 근처에 위치하도록 하여 유연하게 변화하고 적응할 수 있는 여유 공간을 확보한다.
 
-두 번째 항은 supervision을 받지 않는 영역에서 잘못된 geometry가 발생하는 것을 방지한다. 저자들은 [NVDiffRec](https://arxiv.org/abs/2111.12503)을 따라, 모든 grid edge에서 부호 변화에 페널티를 부여하였다. Grid edge의 vertex $(a, b)$의 $s$ 값이 $(s_a, s_a)$라고 할 때, $$\mathcal{E}_g$$를 $$\textrm{sign}(s_a) \ne \textrm{sign}(s_b)$$를 만족하는 $(s_a, s_b)$ 쌍들의 집합이라고 정의하자. 그러면 loss는 다음과 같이 주어진다.
+두 번째 항은 supervision을 받지 않는 영역에서 잘못된 geometry가 발생하는 것을 방지한다. 저자들은 [NVDiffRec](https://arxiv.org/abs/2111.12503)을 따라, 모든 grid edge에서 부호 변화에 페널티를 부여하였다. Grid edge의 vertex $(a, b)$의 $s$ 값이 $(s_a, s_b)$라고 할 때, $$\mathcal{E}_g$$를 $$\textrm{sign}(s_a) \ne \textrm{sign}(s_b)$$를 만족하는 $(s_a, s_b)$ 쌍들의 집합이라고 정의하자. 그러면 loss는 다음과 같이 주어진다.
 
 $$
 \begin{equation}

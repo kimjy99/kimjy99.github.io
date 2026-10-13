@@ -31,7 +31,7 @@ Self Forcing은 순차적인 특성으로 인해 병렬 학습이 불가능하�
 
 ## Method
 ### 1. Autoregressive Diffusion Post-Training via Self-Rollout
-Self Forcing의 핵심 아이디어는 inference 시점의 레시피를 따라 학습 중에 autoregressive self-rollout을 통해 동영상을 생성하는 것이다. 구체적으로, 동영상들의 batch을 샘플링한다.
+Self Forcing의 핵심 아이디어는 inference 시점의 레시피를 따라 학습 중에 autoregressive self-rollout을 통해 동영상을 생성하는 것이다. 구체적으로, 동영상들의 batch를 샘플링한다.
 
 $$
 \begin{equation}
@@ -74,7 +74,7 @@ Autoregressive self-rollout은 inference 분포에서 직접 샘플을 생성하
 
 반면, causal attention을 사용하는 모델은 KV caching을 활용하여 효율성을 향상시킬 수 있다. 그러나 기존 구현에서는 연속적인 sliding window 사이의 겹치는 프레임에 대해 KV 캐시를 다시 계산해야 한다. 이로 인해 dense sliding window를 사용할 경우 $O(L^2 + TL)$의 복잡도가 발생한다. 결과적으로 기존 구현에서는 계산 비용을 줄이기 위해 최소한의 겹침으로 더 큰 stride를 채택했는데, 이는 각 window 시작 부분의 프레임이 상당히 제한된 과거 컨텍스트에 의존하게 되어 시간적 일관성을 저해한다.
 
-저자들은 KV 캐시를 재계산할 필요 없이 무한히 긴 동영상을 생성할 수 있는 **rolling KV cache** 메커니즘을 제안하였다. 가장 최근 $L$개 프레임의 토큰에 대한 KV 임베딩을 저장하는 고정 크기의 KV 캐시를 유지한다. 새로운 프레임을 생성할 때, 먼저 KV 캐시가 가득 찼는지 확인한다. 가득 찼다면, 새 entry를 추가하기 전에 가장 오래된 KV 캐시 entry 항목을 제거한다. 이를 통해 각 새 프레임을 생성할 때 충분한 컨텍스트 길이를 유지하면서 $O(TL)$의 시간 복잡도로 무한히 프레임을 생성할 수 있다. 
+저자들은 KV 캐시를 재계산할 필요 없이 무한히 긴 동영상을 생성할 수 있는 **rolling KV cache** 메커니즘을 제안하였다. 가장 최근 $L$개 프레임의 토큰에 대한 KV 임베딩을 저장하는 고정 크기의 KV 캐시를 유지한다. 새로운 프레임을 생성할 때, 먼저 KV 캐시가 가득 찼는지 확인한다. 가득 찼다면, 새 entry를 추가하기 전에 가장 오래된 KV 캐시 entry를 제거한다. 이를 통해 각 새 프레임을 생성할 때 충분한 컨텍스트 길이를 유지하면서 $O(TL)$의 시간 복잡도로 무한히 프레임을 생성할 수 있다. 
 
 하지만 이 메커니즘을 단순하게 구현하면 분포 불일치로 인해 심각한 깜빡임 현상이 발생한다. 특히 첫 번째 latent 프레임은 다른 프레임과 통계적 특성이 다르다. 즉, 시간 압축을 수행하지 않고 첫 번째 이미지만 인코딩한다. 모델은 학습 과정에서 항상 첫 번째 프레임을 이미지 latent로 인식해 왔기 때문에, rolling KV cache 시나리오에서 이 이미지 latent가 더 이상 보이지 않을 때 일반화에 실패한다. 따라서 저자들은 학습 과정에서 attention window를 제한하여 모델이 마지막 청크의 denoising 시 첫 번째 청크에 attention하지 못하도록 함으로써 긴 동영상 생성 시 발생하는 조건을 시뮬레이션하였다.
 

@@ -8,12 +8,12 @@ tags:
   - Reinforcement Learning
   - Tokenization
   - ICML
-excerpt: "You Can Learn Tokenization End-to-End with Reinforcement Learning 논문 리뷰 (ICLR 2026 Spotlight)"
+excerpt: "You Can Learn Tokenization End-to-End with Reinforcement Learning 논문 리뷰 (ICML 2026)"
 use_math: true
 classes: wide
 ---
 
-> ICLR 2026 Spotlight. [[Paper](https://arxiv.org/abs/2602.13940)] [[Github](https://github.com/SamD770/bitter-lesson-tokenization)]  
+> ICML 2026. [[Paper](https://arxiv.org/abs/2602.13940)] [[Github](https://github.com/SamD770/bitter-lesson-tokenization)]  
 > Sam Dauncey, Roger Wattenhofer  
 > ETH Zurich  
 > 15 Feb 2026  
@@ -62,7 +62,7 @@ $$
 
 $$
 \begin{equation}
-X^\prime = \textrm{downsample} (X, a) \in \mathbb{R}^{M \times d_\textrm{mid}}, \quad \textrm{where} \; $M = \sum_{i=0}^N a_i
+X^\prime = \textrm{downsample} (X, a) \in \mathbb{R}^{M \times d_\textrm{mid}}, \quad \textrm{where} \; M = \sum_{i=0}^N a_i
 \end{equation}
 $$
 
@@ -93,7 +93,7 @@ y \sim \textrm{decode} (Y)
 \end{equation}
 $$
 
-위의 모든 연산은 autoregressive해야 한다. 예를 들어 $\textrm{decode}$ 함수는 위치 $j$에서의 다운샘플링된 표현인 $$X_j^\prime$$가 이전 byte $X \le i$에만 의존해야 한다. 여기서 $i$는 $j = \sum_{k=0}^i a_k$를 만족하는 최소 토큰 인덱스이다.
+위의 모든 연산은 autoregressive해야 한다. 예를 들어 $\textrm{decode}$ 함수는 위치 $j$에서의 다운샘플링된 표현인 $$X_j^\prime$$가 이전 byte $X_{\le i}$에만 의존해야 한다. 여기서 $i$는 $j = \sum_{k=0}^i a_k$를 만족하는 최소 토큰 인덱스이다.
 
 Score function 추정치는 위 함수들의 모든 구현에 유연하게 적용할 수 있다. 구체적으로, 저자들은 $\textrm{mid}$는 full attention을 사용하는 decoder-only transformer이고, $\textrm{encode}$와 $\textrm{decode}$는 sliding window attention과 linear embedding/unembedding 행렬을 사용하는 decoder-only transformer이다. $\textrm{downsample}$ 구현에서는 단순히 $a_i = 1$ 값에 해당하는 $X^\prime$ 값을 선택한다.
 
@@ -214,11 +214,11 @@ $$
 
 저자들은 $l_i$의 계산 비용이 전체 forward pass에 비해 무시할 수 있을 정도로 작으면서도, 토큰 경계 휴리스틱을 모델이 학습할 수 있을 만큼 충분히 표현력이 높도록 설계했다. 명시적인 학습이 없더라도 모델은 이미 내부 표현에 시퀀스에 대한 풍부한 정보를 인코딩하고 있다. 그럼에도 불구하고, 고정된 striding 전략을 표현하기 위해서는 모델이 이전 토큰 경계의 sliding window에 접근할 수 있어야 한다.
 
-구체적으로, linear projection $$W_j \in \mathbb{R}^{1 \times d_\textrm{model}}$$을 byte-level 표현 $X_i$에 적용하여 logit의 기본값과 window 내 각 토큰 경계에 따른 조건부 항들을 얻어 raw logit $$l_i^\textrm{raw}$$를 계산한다. 이 연산은 모든 $i, k$에 대해 단일 행렬 곱셈으로 $W_k X_i$를 미리 계산한 후 빠른 scan 연산을 수행함으로써 최신 하드웨어에서 빠른 계산이 가능하다.
+구체적으로, linear projection $$W_j \in \mathbb{R}^{1 \times d_\textrm{model}}$$을 byte-level 표현 $X_i$에 적용하여 logit의 기본값과 window 내 각 토큰 경계에 따른 조건부 항들을 얻어 raw logit $$l_i^\textrm{raw}$$를 계산한다. 이 연산은 모든 $i, j$에 대해 단일 행렬 곱셈으로 $W_j X_i$를 미리 계산한 후 빠른 scan 연산을 수행함으로써 최신 하드웨어에서 빠른 계산이 가능하다.
 
 $$
 \begin{equation}
-l_i^\textrm{raw} = W_0 X_i +  \sum_{j=1}^w a_{i-j} W_k X_i
+l_i^\textrm{raw} = W_0 X_i +  \sum_{j=1}^w a_{i-j} W_j X_i
 \end{equation}
 $$
 
@@ -243,7 +243,7 @@ l_i = \textrm{softcap} (l_i^\textrm{scaled})
 $$
 
 ### 6. Downsample Rate Targeting
-본 논문에서는 batch 내 모든 logit $l_{i,b}$에 걸쳐 균일한 압력을 가함으로써 다운샘플링 비율을 목표값 $$\bar{\pi}_\textrm{target}$$에 가깝게 유지하는 메커니즘을 제시하였다. 토큰 경계 확률에 직접 압력을 가하는 방식은 sigmoid 함수의 gradient 크기가 고르지 않아 불안정한 결과를 초래할 수 있으므로, 본 논문에서는 토큰 경계 확률에 직접 압력을 가하는 방식을 제안하였다.
+본 논문에서는 batch 내 모든 logit $l_{i,b}$에 걸쳐 균일한 압력을 가함으로써 다운샘플링 비율을 목표값 $$\bar{\pi}_\textrm{target}$$에 가깝게 유지하는 메커니즘을 제시하였다. 토큰 경계 확률에 직접 압력을 가하는 방식은 sigmoid 함수의 gradient 크기가 고르지 않아 불안정한 결과를 초래할 수 있으므로, 본 논문에서는 logit에 직접 압력을 가하는 방식을 제안하였다.
 
 구체적으로, batch 평균 logit $\bar{l}$에 대해 평균 토큰 경계 확률 $\bar{p}$가 목표 다운샘플링 비율 $$\bar{\pi}_\textrm{target}$$를 초과하면 음의 압력을, 미달하면 양의 압력을 가한다. 이러한 메커니즘은 다음 loss를 통해 구현된다.
 
@@ -274,7 +274,7 @@ $$
 
 ($$\lambda_\pi = \lambda_\textrm{target} = 0.01$$, $$\lambda_\textrm{early} = 0.1$$)
 
-## Expertiments
+## Experiments
 - 데이터셋: FineWeb
 
 ### 1. Learned Tokenization Strategies for Natural Language
