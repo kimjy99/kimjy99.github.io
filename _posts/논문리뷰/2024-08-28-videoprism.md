@@ -21,7 +21,7 @@ classes: wide
 <center><img src='{{"/assets/img/videoprism/videoprism-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
-동영상은 다양한 도메인에 걸쳐 있는 현실 경험의 풍부하고 역동적인 아카이브이다. Video foundation model은 이 광대한 코퍼스 내에서 새로운 통찰력을 끌어낼 엄청난 잠재력을 가지고 있다. 이전 연구들은 일반적인 동영상 이해를 향해 큰 진전을 이루었지만 video foundation model을 구축하는 것은 여전히 ​​어렵다. 기존 모델들은 종종 외관 중심 추론과 모션 중심 추론의 균형을 맞추는 데 어려움을 겪으며 많은 벤치마크에서 task에 맞춰진 전문 모델보다 뒤처진다. 
+동영상은 다양한 도메인에 걸쳐 있는 현실 경험의 풍부하고 역동적인 아카이브이다. Video foundation model은 이 광대한 코퍼스 내에서 새로운 통찰력을 끌어낼 엄청난 잠재력을 가지고 있다. 이전 연구들은 일반적인 동영상 이해를 향해 큰 진전을 이루었지만 video foundation model을 구축하는 것은 여전히 어렵다. 기존 모델들은 종종 외관 중심 추론과 모션 중심 추론의 균형을 맞추는 데 어려움을 겪으며 많은 벤치마크에서 task에 맞춰진 전문 모델보다 뒤처진다. 
 
 본 논문은 classification, localization, retrieval, captioning, QA를 포함한 광범위한 동영상 이해 task를 처리하도록 설계된 범용 동영상 인코더인 **VideoPrism**을 소개한다. 컴퓨터 비전 데이터셋과 과학 도메인 데이터셋에서 광범위하게 평가된 VideoPrism은 하나의 고정 모델을 사용하여 최소한의 적응으로 SOTA 성능을 달성하였다. 
 

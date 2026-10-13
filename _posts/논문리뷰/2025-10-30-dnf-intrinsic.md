@@ -25,7 +25,7 @@ classes: wide
 
 2. 일반적으로 랜덤 noise를 intrinsic에 매핑하기 위해 많은 수의 denoising step이 필요하기 때문에 inference 속도가 일반적으로 느리다.
 1. Noise-to-intrinsic 패러다임을 사용하면 intrinsic 예측을 위해 완전한 이미지 구조와 외형 정보를 활용할 수 없기 때문에 고품질 결과를 robust하게 생성할 수 없다. 
-3. 예측된 ​intrinsic에서 이미지를 재구성하는 데 대한 명시적 제약이 없기 때문에 물리적으로 설득력 있는 inverse rendering을 달성하지 못할 수 있다.
+3. 예측된 intrinsic에서 이미지를 재구성하는 데 대한 명시적 제약이 없기 때문에 물리적으로 설득력 있는 inverse rendering을 달성하지 못할 수 있다.
 
 이러한 한계를 해결하기 위해, 본 논문에서는 실내 장면의 robust하고 효율적이며 물리적으로 설득력 있는 diffusion 기반 inverse rendering 방식인 **DNF-Intrinsic**을 제시하였다. 기존 방식처럼 이미지 조건부 noise-to-intrinsic 매핑을 학습하는 대신, 본 논문에서는 Gaussian noise 대신 원본 이미지를 입력으로 사용하여 flow matching을 통해 deterministic한 방식으로 intrinsic을 예측하는 image-to-intrinsic 매핑을 제안하였다. 이를 통해 원본 이미지의 비전 정보를 최대한 활용하여 더 나은 intrinsic 예측 성능을 얻을 수 있을 뿐만 아니라, 많은 denoising step에서 발생하는 높은 계산 비용을 피할 수 있다. Generative renderer는 예측된 intrinsic으로부터 원본 이미지를 재구성할 수 있도록 명시적으로 제한함으로써 물리적으로 의미 있는 inverse rendering을 달성하도록 추가로 설계되었다.
 
@@ -86,7 +86,7 @@ $$
 \end{equation}
 $$
 
-본 논문에서는 5가지 intrinsic을 공동으로 추정하는 inverse rendering을 달성하고자 하였다. 이를 위해 각 intrinsic의 텍스트 프롬프트를 트리거로 사용하여 아키텍처를 수정하지 않고도 여러 intrinsic을 예측하기 위한 하나의 사전 학습된 diffusion model을 적용한다. 구체적으로, inverse rendering을 동일한 latent code $Z$에서 시작하여 다양한 latent intrinsic $Z_i$를 향해 서로 다른 intrinsic 궤적을 따라 발산하는 deterministic한 일대다 분포 매핑 문제로 설정한다. 따라서 텍스트 프롬프트를 intrinsic 궤적의 방향을 제어하는 ​​간단한 트리거로 사용한다. 학습 loss는 다음과 같이 정의된다.
+본 논문에서는 5가지 intrinsic을 공동으로 추정하는 inverse rendering을 달성하고자 하였다. 이를 위해 각 intrinsic의 텍스트 프롬프트를 트리거로 사용하여 아키텍처를 수정하지 않고도 여러 intrinsic을 예측하기 위한 하나의 사전 학습된 diffusion model을 적용한다. 구체적으로, inverse rendering을 동일한 latent code $Z$에서 시작하여 다양한 latent intrinsic $Z_i$를 향해 서로 다른 intrinsic 궤적을 따라 발산하는 deterministic한 일대다 분포 매핑 문제로 설정한다. 따라서 텍스트 프롬프트를 intrinsic 궤적의 방향을 제어하는 간단한 트리거로 사용한다. 학습 loss는 다음과 같이 정의된다.
 
 $$
 \begin{equation}
@@ -125,7 +125,7 @@ $$
 재구성 loss에서 조명 부족을 해결하기 위해, 학습 과정에서 다양한 조명을 샘플링한다. 이는 가능한 모든 조명을 통합하는 것과 동일하다. 따라서 재구성 loss를 최소화함으로써, 모델은 조명 효과를 제거하는 방향으로 학습되고, 최종적으로 조명에 독립적인 고유 속성으로 수렴한다.
 
 ### 4. Inference
-Inference 시에 VAE 인코더 $\mathcal{E}$는 입력 이미지 $I$를 latent code $Z$로 인코딩한다. 그러면 intrinsic 궤적의 방향은 특정 ​​텍스트 프롬프트 $p$에 의해 결정된다. 프롬프트 $p_i$를 사용하여 $Z_0 = Z$에서 시작하여, 다음과 같이 타겟 latent intrinsic을 향해 점진적으로 전환할 수 있다.
+Inference 시에 VAE 인코더 $\mathcal{E}$는 입력 이미지 $I$를 latent code $Z$로 인코딩한다. 그러면 intrinsic 궤적의 방향은 특정 텍스트 프롬프트 $p$에 의해 결정된다. 프롬프트 $p_i$를 사용하여 $Z_0 = Z$에서 시작하여, 다음과 같이 타겟 latent intrinsic을 향해 점진적으로 전환할 수 있다.
 
 $$
 \begin{equation}

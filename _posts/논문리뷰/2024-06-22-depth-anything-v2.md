@@ -33,13 +33,13 @@ Depth Anything은 discriminative model을 기반으로 하며 Marigold는 생성
 
 <center><img src='{{"/assets/img/depth-anything-v2/depth-anything-v2-table1.webp" | relative_url}}' width="80%"></center>
 <br>
-본 논문에서는 이러한 모든 요소를 ​​고려하여 위 표에 나열된 모든 강점을 달성할 수 있는 MDE를 위한 foundation model을 구축하는 것을 목표로 한다. 
+본 논문에서는 이러한 모든 요소를 고려하여 위 표에 나열된 모든 강점을 달성할 수 있는 MDE를 위한 foundation model을 구축하는 것을 목표로 한다. 
 
 1. 복잡한 장면에 대한 강력한 예측을 생성한다. (복잡한 레이아웃, 투명한 물체, 반사 표면 등)
 2. 예측 depth map에 미세한 디테일이 포함되어 있다. (얇은 물체, 작은 구멍 등)
 3. 광범위한 애플리케이션을 지원하기 위해 다양한 모델 스케일과 추론 효율성을 제공한다.
 
-MDE는 discriminative task이므로 본 논문에서는 Depth Anything V1의 강점을 유지하고 약점을 수정하는 것을 목표로 한다. 가장 중요한 부분은 여전히 ​​데이터이다. 레이블이 없는 대규모 데이터를 활용하여 데이터 확장 속도를 높이고 데이터 범위를 늘리는 V1의 데이터 중심 동기와 동일하다. 
+MDE는 discriminative task이므로 본 논문에서는 Depth Anything V1의 강점을 유지하고 약점을 수정하는 것을 목표로 한다. 가장 중요한 부분은 여전히 데이터이다. 레이블이 없는 대규모 데이터를 활용하여 데이터 확장 속도를 높이고 데이터 범위를 늘리는 V1의 데이터 중심 동기와 동일하다. 
 
 본 논문은 세 가지 주요 질문에 답을 하였다. 
 

@@ -166,7 +166,7 @@ VGGT-Ω는 동적 장면 재구성을 지원하며, 이는 훨씬 더 많은 학
 ### 4. Self-supervised Training
 저자들은 레이블이 없는 동영상을 사용한 self-supervised learning을 위해 teacher-student 전략을 사용하였다. 구체적으로, gradient descent로 업데이트되는 student 네트워크와, student 네트워크의 EMA로만 업데이트되는 teacher 네트워크를 유지한다. 두 네트워크 모두 supervised learning으로 학습된 VGGT-Ω 체크포인트를 사용하여 초기화된다.
 
-동영상 시퀀스가 ​​주어지면, 동일한 프레임 세트를 두 네트워크에 입력하지만, color jittering, blurring, 랜덤 90° 회전, 랜덤 패치 마스킹, 랜덤 프레임 순서 변경 (참조 프레임 선택에 영향을 줌) 등의 독립적인 확률적 augmentation을 적용한다. 두 스트림을 공통 순서로 복원한 후, student 네트워크가 두 가지 방식으로 teacher 네트워크와 일치하도록 요구한다.
+동영상 시퀀스가 주어지면, 동일한 프레임 세트를 두 네트워크에 입력하지만, color jittering, blurring, 랜덤 90° 회전, 랜덤 패치 마스킹, 랜덤 프레임 순서 변경 (참조 프레임 선택에 영향을 줌) 등의 독립적인 확률적 augmentation을 적용한다. 두 스트림을 공통 순서로 복원한 후, student 네트워크가 두 가지 방식으로 teacher 네트워크와 일치하도록 요구한다.
 
 1. $$\ell_2$$ feature-matching loss: 여러 layer에 걸쳐 student 네트워크의 토큰과 teacher 네트워크의 토큰을 정렬한다
 2. Regression loss: 카메라 및 깊이 정보를 학습시킨다.
@@ -177,7 +177,7 @@ VGGT-Ω는 동적 장면 재구성을 지원하며, 이는 훨씬 더 많은 학
 - 데이터셋
   - Aria, Bedlam, BEHAVIOR-1K, Co3Dv2, uCo3D, DL3DV, Dynamic Replica, EDEN, EFM3D, HOT3D, Habitat, Hypersim, Mapfree, Mapillary Metropolis, MPSD, Megadepth, Megasynth, Mid-Air, Mvssynth, ParallelDomain-4D, Replica, SAIL-VOS, ScanNet Series, TartanAirV2, TartanGround, Taskonomy, UnrealStereo4K, Virtual KITTI, Waymo, WildRGBD
   - VGGT에서 사용했던 Kubric과 PointOdyssey는 배경 geometry가 가짜라 제외
-  - 총 약 300만 개의 시퀀스가 ​​포함, 각 시퀀스에는 10 ~ 20,000개 사이의 이미지가 포함
+  - 총 약 300만 개의 시퀀스가 포함, 각 시퀀스에는 10 ~ 20,000개 사이의 이미지가 포함
 - 데이터 주석 생성 파이프라인
   - 4천만 개의 원본 동영상을 수십만 개 규모의 고품질 3D 학습 데이터로 정제
   - VLM 기반 사전 필터링 → 동적 object 제거 → feature matching, tracking → COLMAP, VGGT 기반 reconstruction → 멀티뷰 일관성 검증 → classifier 기반 품질 필터링

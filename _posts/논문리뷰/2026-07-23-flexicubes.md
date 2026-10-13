@@ -59,7 +59,7 @@ u_e = \frac{s(x_b) x_a - s (x_a) x_b}{s(x_b) - s(x_a)}
 \end{equation}
 $$
 
-일반적인 Dual Marching Cubes는 추출된 각 vertex의 위치를 ​​해당 primal face의 중심점으로 정의한다.
+일반적인 Dual Marching Cubes는 추출된 각 vertex의 위치를 해당 primal face의 중심점으로 정의한다.
 
 $$
 \begin{equation}
@@ -71,7 +71,7 @@ $$
 
 <center><img src='{{"/assets/img/flexicubes/flexicubes-fig6.webp" | relative_url}}' width="62%"></center>
 <br>
-이 표현에 추가적인 유연성을 도입하기 위해, 먼저 각 cell마다 큐브 꼭짓점에 연결되는 가중치 집합 $$\alpha \in \mathbb{R}_{>0}^8$$를 정의한다. 이 가중치는 각 모서리를 따라 교차점의 위치를 다음과 같이 ​​조정한다.
+이 표현에 추가적인 유연성을 도입하기 위해, 먼저 각 cell마다 큐브 꼭짓점에 연결되는 가중치 집합 $$\alpha \in \mathbb{R}_{>0}^8$$를 정의한다. 이 가중치는 각 모서리를 따라 교차점의 위치를 다음과 같이 조정한다.
 
 $$
 \begin{equation}
@@ -81,7 +81,7 @@ $$
 
 저자들은 $\alpha$의 범위를 $[0, 2]$로 제한하기 위해 $\textrm{tanh}(\cdot) + 1$을 적용하였다.
 
-마찬가지로, dual vertex를 primal face의 중심에 단순히 배치하는 대신, 각 cell마다 큐브 모서리에 연결되는 가중치 집합 $$\beta \in \mathbb{R}_{>0}^{12}$$를 정의한다. 이 가중치는 각 면 내부에서 dual vertex의 위치를 ​​다음과 같이 조정한다.
+마찬가지로, dual vertex를 primal face의 중심에 단순히 배치하는 대신, 각 cell마다 큐브 모서리에 연결되는 가중치 집합 $$\beta \in \mathbb{R}_{>0}^{12}$$를 정의한다. 이 가중치는 각 면 내부에서 dual vertex의 위치를 다음과 같이 조정한다.
 
 $$
 \begin{equation}

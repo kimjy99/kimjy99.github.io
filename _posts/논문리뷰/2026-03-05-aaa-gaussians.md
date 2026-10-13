@@ -21,7 +21,7 @@ classes: wide
 <center><img src='{{"/assets/img/aaa-gaussians/aaa-gaussians-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
-[3D Gaussian Splatting (3DGS)](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)의 2D splat 평가는 매우 효율적이지만, 3D에서 2D Gaussian으로의 projection은 여전히 ​​근사치에 불과하여 넓은 시야각과 같은 비표준 카메라 설정에서 특히 두드러지는 아티팩트가 발생한다. 또한, 3DGS는 2D splat이 현재 뷰 평면에 평행하다고 가정하여 렌더링을 더욱 근사화하므로 간단한 카메라 회전에서도 블렌딩 순서 불일치 및 popping 아티팩트가 발생한다.
+[3D Gaussian Splatting (3DGS)](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)의 2D splat 평가는 매우 효율적이지만, 3D에서 2D Gaussian으로의 projection은 여전히 근사치에 불과하여 넓은 시야각과 같은 비표준 카메라 설정에서 특히 두드러지는 아티팩트가 발생한다. 또한, 3DGS는 2D splat이 현재 뷰 평면에 평행하다고 가정하여 렌더링을 더욱 근사화하므로 간단한 카메라 회전에서도 블렌딩 순서 불일치 및 popping 아티팩트가 발생한다.
 
 몇몇 연구에서는 먼저 screen space에서 3D Gaussian의 경계를 설정한 다음 3D에서 각 광선에 대한 기여도를 계산함으로써 2D splatting과 3D ray tracing 사이의 간극을 메우려고 시도했다. 이러한 접근 방식은 3DGS의 특정 한계를 해결하지만 screen space 계산에 의존하기 때문에 특히 학습 데이터와 크게 다른 시점이나 파라미터를 렌더링할 때 아티팩트가 발생하기 쉽다.
 

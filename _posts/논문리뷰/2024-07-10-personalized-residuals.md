@@ -32,7 +32,7 @@ classes: wide
 
 저자들은 주어진 이미지를 개인화하기 위한 macro class의 선택이 성능에 영향을 미친다는 것을 보여주었다. 예를 들어 "Lamborghini" 대신 "car"를 사용하는 것은 결과의 품질에 영향을 미친다. 이미지의 필요성을 제거하면 추가 종속성이 제거되고 수동 선택의 필요성이 줄어든다. 
 
-또한 많은 개인화 방법들은 대상 개념에 어느 정도 overfitting되어 특정 배경을 렌더링하거나 새 물체를 추가하는 데 어려움을 겪는다. 이러한 시나리오를 위해 본 논문에서는 원본 모델과 함께 fine-tuning된 residual을 사용하여 각각 개념과 이미지의 나머지 부분을 생성할 수 있는 **localized attention-guided (LAG) sampling**을 제안하였다. 각 timestep에서 diffusion model의 cross-attention layer의 attention map을 사용하여 생성된 이미지에서 개념의 위치를 ​​예측한 다음 personalized residual로부터 생성된 feature를 예측 영역에만 적용한다. 이미지의 나머지 부분은 원본 모델에 의해 생성된다. 따라서 overfitting으로 인해 특정 배경이나 관련 없는 물체를 생성하는 능력을 잃지 않도록 보장한다. 또한 이 샘플링 방식에는 추가 학습이나 데이터가 필요하지 않으며 추가 모델 평가가 필요하지 않으므로 샘플링 시간이 늘어나지 않는다. 
+또한 많은 개인화 방법들은 대상 개념에 어느 정도 overfitting되어 특정 배경을 렌더링하거나 새 물체를 추가하는 데 어려움을 겪는다. 이러한 시나리오를 위해 본 논문에서는 원본 모델과 함께 fine-tuning된 residual을 사용하여 각각 개념과 이미지의 나머지 부분을 생성할 수 있는 **localized attention-guided (LAG) sampling**을 제안하였다. 각 timestep에서 diffusion model의 cross-attention layer의 attention map을 사용하여 생성된 이미지에서 개념의 위치를 예측한 다음 personalized residual로부터 생성된 feature를 예측 영역에만 적용한다. 이미지의 나머지 부분은 원본 모델에 의해 생성된다. 따라서 overfitting으로 인해 특정 배경이나 관련 없는 물체를 생성하는 능력을 잃지 않도록 보장한다. 또한 이 샘플링 방식에는 추가 학습이나 데이터가 필요하지 않으며 추가 모델 평가가 필요하지 않으므로 샘플링 시간이 늘어나지 않는다. 
 
 본 논문의 모델은 정규화 이미지에 의존하지 않고 훨씬 더 적은 수의 파라미터를 사용하며 학습 속도가 더 빠르면서도 현재의 SOTA와 동등하거나 더 나은 성능을 발휘한다. 
 

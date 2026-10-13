@@ -51,7 +51,7 @@ Constrained Generation은 에러를 유발하는 토큰을 즉시 마스킹하�
 
 문제는 이 과정을 통해 확률이 낮은 샘플이 크게 증폭되는 경우가 있다는 것이다. Running example에서 AB가 샘플링될 확률은 1/2이기 때문에 이상적인 확률인 1/3보다 1.5배 증폭된다.
 
-이러한 왜곡은 엔트로피가 낮은 시나리오에서 더욱 심각하다. $P(B \vert A)$가 0.0001로 낮아지더라도 AB를 샘플링할 확률은 여전히 ​​1/2이다. 이러한 증폭 효과는 시퀀스 길이가 길어질수록 기하급수적으로 증가한다.
+이러한 왜곡은 엔트로피가 낮은 시나리오에서 더욱 심각하다. $P(B \vert A)$가 0.0001로 낮아지더라도 AB를 샘플링할 확률은 여전히 1/2이다. 이러한 증폭 효과는 시퀀스 길이가 길어질수록 기하급수적으로 증가한다.
 
 #### Adaptive Sampling with Approximate Expected Futures (ASAp)
 <center><img src='{{"/assets/img/approx-aligned-decoding/approx-aligned-decoding-fig2.webp" | relative_url}}' width="35%"></center>
@@ -85,7 +85,7 @@ AprAD는 에러를 발견한 후에만 SpecSample을 호출하기 때문에 일�
 
 ## Experiments
 ### 1. Simulated Model with Known Ideal Distribution
-저자들은 세 가지 토큰 A, B, C 중 하나를 동일한 확률로 반환하는 모의 언어 모델을 사용하여 testbench를 구축하였다. 길이가 3인 시퀀스 $k$개를 에러로 정의하고, 각 샘플링 방법을 사용하여 길이가 3인 시퀀스 10,000개를 샘플링하였다. 이상적인 분포는 에러가 아닌 시퀀스가 ​​나올 확률이 모두 $\frac{1}{27-k}$이다. 
+저자들은 세 가지 토큰 A, B, C 중 하나를 동일한 확률로 반환하는 모의 언어 모델을 사용하여 testbench를 구축하였다. 길이가 3인 시퀀스 $k$개를 에러로 정의하고, 각 샘플링 방법을 사용하여 길이가 3인 시퀀스 10,000개를 샘플링하였다. 이상적인 분포는 에러가 아닌 시퀀스가 나올 확률이 모두 $\frac{1}{27-k}$이다. 
 
 다음은 관찰된 분포와 이상적인 분포 사이의 KL-divergence (KL-div)와 출력 길이 대비 모델을 평가해야 하는 횟수 (Ratio)를 비교한 결과이다.
 

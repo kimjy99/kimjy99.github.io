@@ -78,7 +78,7 @@ $$
 <center><img src='{{"/assets/img/convex-splatting/convex-splatting-fig3.webp" | relative_url}}' width="100%"></center>
 
 ##### 포인트 기반 3D convex shape 표현
-카메라 평면 projection에서는 3D convex의 평면 기반 표현이 비실용적이다. CvxNet과 달리, 본 논문에서는 3D convex를 3D 점 집합 $$\mathbb{S} = \{p_1, p_2, \ldots, p_K\}$$의 convex hull로 정의한다. 최적화 과정에서 3D 점들은 자유롭게 움직일 수 있으므로, convex의 위치를 ​​유연하게 조정하고 형태를 변형할 수 있다. 여기서 $K$개의 점 집합은 볼록 다면체의 특정 꼭짓점에 해당하는 것이 아니라, 3D convex의 convex hull을 나타낸다.
+카메라 평면 projection에서는 3D convex의 평면 기반 표현이 비실용적이다. CvxNet과 달리, 본 논문에서는 3D convex를 3D 점 집합 $$\mathbb{S} = \{p_1, p_2, \ldots, p_K\}$$의 convex hull로 정의한다. 최적화 과정에서 3D 점들은 자유롭게 움직일 수 있으므로, convex의 위치를 유연하게 조정하고 형태를 변형할 수 있다. 여기서 $K$개의 점 집합은 볼록 다면체의 특정 꼭짓점에 해당하는 것이 아니라, 3D convex의 convex hull을 나타낸다.
 
 ##### 2D 이미지 평면으로의 미분 가능한 projection
 효율성을 위해 3D convex hull을 명시적으로 구성하고 2D로 projection하는 대신, 3D 점들을 2D로 projection한 다음 2D convex hull을 구성한다. 구체적으로, pinhole 카메라 모델을 사용하여 각 3D 점 $$\textbf{p}_k \in \mathbb{S}$$를 2D 이미지 평면에 projection한다. 이 projection에는 intrinsic $\textbf{K}$와 extrinsic $[\textbf{R} \vert \textbf{t}]$가 사용된다.

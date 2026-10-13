@@ -28,7 +28,7 @@ classes: wide
 
 서로 다른 뷰에서의 Gaussian에 대한 제약 조건을 적용하기 위해, 모든 Gaussian을 사용하여 렌더링된 깊이가 total variance loss를 통해 매끄럽도록 보장한다. 또한 두 이미지에서 해당 픽셀의 Gaussian 위치가 유사하도록 보장하기 위해 flow 기반 loss를 사용한다. 
 
-최적화를 돕기 위해 기존 monocular depth 예측 모델을 사용하여 Gaussian의 위치를 ​​초기화한다. 이러한 모델은 고품질 깊이 추정치를 제공하지만 monocular depth는 상대적이며 뷰 전체에서 일관성이 없다. 깊이 기반 초기화는 Gaussian을 world-space에서 적절하게 배치하는 반면, 정규화된 최적화는 특히 위치에 대한 업데이트가 일관되고 매끄럽도록 장려한다. 추가로, Gaussian이 3D 공간에서 자유롭게 움직이는 것을 방지하기 때문에 가려진 영역을 쉽게 식별하고 인페인팅하여 고품질 텍스처와 형상으로 채울 수 있다. 
+최적화를 돕기 위해 기존 monocular depth 예측 모델을 사용하여 Gaussian의 위치를 초기화한다. 이러한 모델은 고품질 깊이 추정치를 제공하지만 monocular depth는 상대적이며 뷰 전체에서 일관성이 없다. 깊이 기반 초기화는 Gaussian을 world-space에서 적절하게 배치하는 반면, 정규화된 최적화는 특히 위치에 대한 업데이트가 일관되고 매끄럽도록 장려한다. 추가로, Gaussian이 3D 공간에서 자유롭게 움직이는 것을 방지하기 때문에 가려진 영역을 쉽게 식별하고 인페인팅하여 고품질 텍스처와 형상으로 채울 수 있다. 
 
 ## Method
 <center><img src='{{"/assets/img/coherent-gs/coherent-gs-fig2.webp" | relative_url}}' width="100%"></center>
@@ -38,7 +38,7 @@ $N$개의 이미지 (ex. 3개 또는 4개)가 주어지면, 본 논문의 목표
 ### 1. Coherent 3D Gaussian Optimization
 <center><img src='{{"/assets/img/coherent-gs/coherent-gs-fig3.webp" | relative_url}}' width="80%"></center>
 <br>
-3D에서 자유롭게 움직이는 Gaussian 입자에 일관성을 도입하는 것은 어려운 일이다. 주요 아이디어는 2D 이미지 도메인에서 보다 구조화된 형태로 표현을 변환하는 것이다. 이를 위해 모든 입력 이미지의 각 픽셀에 하나의 Gaussian을 할당한다. 또한 각 픽셀에서 Gaussian의 움직임을 카메라 중심과 해당 픽셀을 연결하는 광선으로 제한한다. 이 표현에서 각 Gaussian의 위치는 스칼라 깊이 값을 사용하여 제어할 수 있다. 구체적으로, 각 픽셀에서 초기 깊이 추정치가 주어지면 다음과 같이 residual depth를 통해 각 Gaussian의 위치를 ​​업데이트한다. 
+3D에서 자유롭게 움직이는 Gaussian 입자에 일관성을 도입하는 것은 어려운 일이다. 주요 아이디어는 2D 이미지 도메인에서 보다 구조화된 형태로 표현을 변환하는 것이다. 이를 위해 모든 입력 이미지의 각 픽셀에 하나의 Gaussian을 할당한다. 또한 각 픽셀에서 Gaussian의 움직임을 카메라 중심과 해당 픽셀을 연결하는 광선으로 제한한다. 이 표현에서 각 Gaussian의 위치는 스칼라 깊이 값을 사용하여 제어할 수 있다. 구체적으로, 각 픽셀에서 초기 깊이 추정치가 주어지면 다음과 같이 residual depth를 통해 각 Gaussian의 위치를 업데이트한다. 
 
 $$
 \begin{equation}

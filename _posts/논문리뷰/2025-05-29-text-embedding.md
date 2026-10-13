@@ -58,7 +58,7 @@ T^\prime = \frac{1}{L_e H_e} \sum_{\ell = 1}^{L_e} \sum_{h=1}^{H_e} T^{(\ell, h)
 \end{equation}
 $$
 
-`<bos>` 토큰과 `<eos>` 토큰에 할당된 높은 ​​attention 확률로 인해 해당 값을 제거하고 각 행을 다음과 같이 재정규화한다.
+`<bos>` 토큰과 `<eos>` 토큰에 할당된 높은 attention 확률로 인해 해당 값을 제거하고 각 행을 다음과 같이 재정규화한다.
 
 $$
 \begin{equation}

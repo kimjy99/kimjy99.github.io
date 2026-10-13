@@ -104,7 +104,7 @@ $$\{T_k\}_{k=1}^N$$은 SLAT Flow로 전송되어 디테일한 생성을 위해 �
 3. 렌더링을 고려한 픽셀 정렬 기반 정밀화 (inference 단계에서만)
 
 ##### Reconstruction-conditioned Flow 
-Reconstruction prior를 생성에 통합하기 위해 TRELLIS의 SS Flow와 SLAT Flow는 각각 글로벌한 geometry 조건 $T_g$와 로컬한 뷰별 ​​조건 $$\{T_k\}_{k=1}^N$$을 사용하여 coarse diffusion과 fine diffusion을 가이드한다. 첫 번째 단계에서는 각 SS DiT block에서 조건 $T_g$와 noisy SS latent 간의 cross-attention을 계산한다. 두 번째 단계에서는 noisy SLAT과 ​​각 뷰의 조건 $T_k$ 간의 cross-attention을 수행하고 각 SLAT DiT block에서 가중 합을 수행한다.
+Reconstruction prior를 생성에 통합하기 위해 TRELLIS의 SS Flow와 SLAT Flow는 각각 글로벌한 geometry 조건 $T_g$와 로컬한 뷰별 조건 $$\{T_k\}_{k=1}^N$$을 사용하여 coarse diffusion과 fine diffusion을 가이드한다. 첫 번째 단계에서는 각 SS DiT block에서 조건 $T_g$와 noisy SS latent 간의 cross-attention을 계산한다. 두 번째 단계에서는 noisy SLAT과 각 뷰의 조건 $T_k$ 간의 cross-attention을 수행하고 각 SLAT DiT block에서 가중 합을 수행한다.
 
 $$
 \begin{equation}

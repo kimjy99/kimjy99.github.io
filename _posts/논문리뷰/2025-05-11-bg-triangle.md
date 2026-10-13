@@ -37,7 +37,7 @@ BG-Triangle은 전반적인 렌더링 품질을 저하시키지 않으면서도 
 ### 1. Bézier Patches
 Bézier 삼각형 표면은 Bézier 곡선을 3차원으로 확장하는 표면의 한 유형으로, 삼각형 도메인에서 정의된다. 복잡한 표면과 곡선을 효율적으로 표현하여 기존 메쉬 표현에서처럼 과도한 삼각형 면의 필요성을 줄이며, 잘 정의된 무게중심 좌표계(barycentric coordinate)를 갖는다. 
 
-구체적으로, degree $n$의 Bézier 삼각형 $\textbf{S}$는 control point $$\textbf{p}_{i,j,k} \in \mathbb{R}^3$$로 정의된다. 여기서 $i + j + k = n$이고 $i, j, k \ge 0$이다. $u + v + w = ​​1$이고 $u, v, w \ge 0$인 중심 좌표 $(u, v, w)$를 사용하면 Bézier 삼각형에 있는 점 $\textbf{S}(u, v, w) \in \mathbb{R}^3$은 barycentric interpolation 공식을 통해 고유하게 결정될 수 있다.
+구체적으로, degree $n$의 Bézier 삼각형 $\textbf{S}$는 control point $$\textbf{p}_{i,j,k} \in \mathbb{R}^3$$로 정의된다. 여기서 $i + j + k = n$이고 $i, j, k \ge 0$이다. $u + v + w = 1$이고 $u, v, w \ge 0$인 중심 좌표 $(u, v, w)$를 사용하면 Bézier 삼각형에 있는 점 $\textbf{S}(u, v, w) \in \mathbb{R}^3$은 barycentric interpolation 공식을 통해 고유하게 결정될 수 있다.
 
 $$
 \begin{equation}

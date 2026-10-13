@@ -173,7 +173,7 @@ $$
 $$W_\textrm{early}$$의 가중치를 최종 출력 head의 가중치와 동일하게 초기화하여 쉬운 전송을 가능하게 한다.
 
 ##### Time discounting
-위에서 언급한 reward들을 합산하여 advantage를 계산하는 방식은 여전히 ​​분산이 너무 크고 reward attribution 문제로 어려움을 겪는다. long-horizon RL에서 이 문제를 해결하는 일반적인 방법은 advantage를 계산할 때 reward에 time discounting을 적용하는 것이다. 즉, policy gradient에 약간의 편향을 도입하여 분산을 크게 줄이는 것이다. 직관적으로, 이는 시퀀스의 멀리 떨어진 부분에 주어지는 advantage를 분리하여 시퀀스당 토큰 경계에 대해 거의 독립적인 여러 학습 자극을 제공한다.
+위에서 언급한 reward들을 합산하여 advantage를 계산하는 방식은 여전히 분산이 너무 크고 reward attribution 문제로 어려움을 겪는다. long-horizon RL에서 이 문제를 해결하는 일반적인 방법은 advantage를 계산할 때 reward에 time discounting을 적용하는 것이다. 즉, policy gradient에 약간의 편향을 도입하여 분산을 크게 줄이는 것이다. 직관적으로, 이는 시퀀스의 멀리 떨어진 부분에 주어지는 advantage를 분리하여 시퀀스당 토큰 경계에 대해 거의 독립적인 여러 학습 자극을 제공한다.
 
 $$
 \begin{equation}

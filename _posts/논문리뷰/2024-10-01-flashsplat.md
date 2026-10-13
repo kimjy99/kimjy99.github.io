@@ -22,7 +22,7 @@ classes: wide
 
 이러한 격차를 해소하기 위해 본 논문은 명시적으로 설계된 간단하지만 전역적으로 최적인 해를 찾는 solver인 **FlashSplat**을 소개한다. FlashSplat은 재구성된 3D-GS에서 분할된 2D 이미지를 렌더링하는 프로세스가 각 Gaussian의 누적 기여도에 관한 선형 함수로 단순화될 수 있다는 통찰력을 활용한다. 이를 통해 문제를 closed form으로 해결할 수 있는 linear integer programming으로 구성할 수 있으며, splatting 프로세스에 내재된 알파 블렌딩 항에만 의존할 수 있다. 이 발견은 반복적 최적화의 필요성을 우회하고 최적의 레이블 할당으로 직접 이어져 segmentation task를 상당히 간소화한다. 
 
-또한, 목적 함수에 background bias를 통합함으로써 3D segmentation에서 2D 마스크 노이즈에 대한 robustness를 더욱 향상시킨다. 이러한 개선은 robustness를 강화할 뿐만 아니라 더 광범위한 장면과 조건에서의 적용성도 강화한다. FlashSplat은 정확도나 global optimality를 희생하지 않고도 약 30초 만에 최적화를 완료하며, 기존 방법보다 50배 더 ​​빠르다. 
+또한, 목적 함수에 background bias를 통합함으로써 3D segmentation에서 2D 마스크 노이즈에 대한 robustness를 더욱 향상시킨다. 이러한 개선은 robustness를 강화할 뿐만 아니라 더 광범위한 장면과 조건에서의 적용성도 강화한다. FlashSplat은 정확도나 global optimality를 희생하지 않고도 약 30초 만에 최적화를 완료하며, 기존 방법보다 50배 더 빠르다. 
 
 ## Method
 ### 1. Binary Segmentation as Integer Linear Programming

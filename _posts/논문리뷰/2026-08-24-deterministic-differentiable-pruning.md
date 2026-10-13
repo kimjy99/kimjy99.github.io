@@ -80,7 +80,7 @@ $$
 $$
 
 ##### Hard-Concrete Relaxation
-ALM은 $$\ell_0$$ 정규화 항이 미분 불가능하다는 근본적인 어려움이 여전히 ​​남아 있다. 기존 방법들에서는 hard-concrete relaxation 기법을 채택하여 $\textbf{m}$을 $$\ell_0$$ norm을 모델링하는 0과 1 사이의 확률 변수로 재정의했다. Forward pass에서 마스크 $\textbf{m}$은 hard-concrete 매핑 $$\Phi (\textbf{z}, \textbf{u})$$를 사용하여 생성되며, 보조 변수 $\textbf{u}$를 통해 랜덤성이 주입된다.
+ALM은 $$\ell_0$$ 정규화 항이 미분 불가능하다는 근본적인 어려움이 여전히 남아 있다. 기존 방법들에서는 hard-concrete relaxation 기법을 채택하여 $\textbf{m}$을 $$\ell_0$$ norm을 모델링하는 0과 1 사이의 확률 변수로 재정의했다. Forward pass에서 마스크 $\textbf{m}$은 hard-concrete 매핑 $$\Phi (\textbf{z}, \textbf{u})$$를 사용하여 생성되며, 보조 변수 $\textbf{u}$를 통해 랜덤성이 주입된다.
 
 $$
 \begin{aligned}

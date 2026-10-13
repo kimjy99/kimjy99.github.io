@@ -59,7 +59,7 @@ $T$ 프레임의 동영상과 언어 query가 주어졌을 때, 모델의 전체
 5. 각 object에 해당하는 출력 feature와 프레임별 feature map을 내적하여 마스크 시퀀스 $$\{\textbf{m}^t\}_{t=1}^T$$을 생성한다.
 
 ### 1. Grounding-guided Deformable Mask Decoder
-이 디코더는 object feature를 입력으로 받아 각 프레임에 대해 픽셀 단위 예측을 생성한다. 단순히 원래 box head에 mask head를 병렬로 추가하는 대신, 마스크 디코더는 박스 ​​및 마스크 예측을 **grounding-deformation-segmentation** 파이프라인으로 구성한다. Box 예측을 위치 정보로 활용하여 마스크 예측을 반복적으로 향상시키고, 텍스트 프롬프트를 통합하여 더욱 정교하게 개선한다. 이 과정은 미분 가능하므로 마스크 학습이 box head로 피드백된다.
+이 디코더는 object feature를 입력으로 받아 각 프레임에 대해 픽셀 단위 예측을 생성한다. 단순히 원래 box head에 mask head를 병렬로 추가하는 대신, 마스크 디코더는 박스 및 마스크 예측을 **grounding-deformation-segmentation** 파이프라인으로 구성한다. Box 예측을 위치 정보로 활용하여 마스크 예측을 반복적으로 향상시키고, 텍스트 프롬프트를 통합하여 더욱 정교하게 개선한다. 이 과정은 미분 가능하므로 마스크 학습이 box head로 피드백된다.
 
 임의의 object feature를 $\tilde{\textbf{o}}$라 하자. 마스크 디코더에 앞서, o˜를 box head에 입력하여 bounding box $\textbf{b} \in \mathbb{R}^4$를 예측한다. 여기서 $$\textbf{b} = \{b_x, b_y, b_w, b_h\}$$는 정규화된 박스 중심 좌표, 박스 높이와 너비를 인코딩한다. 한편, $$\textbf{F}_\textrm{img}$$에  feature pyramid network(FPN)를 적용하여 고해상도 feature map $$\textbf{F}_\textrm{seg} \in \mathbb{R}^{\frac{H}{4} \times \frac{W}{4} \times d}$$를 생성한다.
 
@@ -154,7 +154,7 @@ $$
 ReferDINO는 궁극적으로 동영상-텍스트 쌍에 대해 $N_s$개의 object 예측 시퀀스 $$\textbf{p} = \{\textbf{p}_i\}_{i=1}^{N_s}$$을 생성하고 각 시퀀스는 $$\textbf{p}_i = \{\textbf{c}_i^t, \textbf{b}_i^t, \textbf{m}_i^t\}_{t=1}^T$$로 표현된다. 각각 $t$번째 프레임의 $i$번째 object query에 대한 binary classification 확률, bounding box, 마스크를 나타낸다.
 
 ##### 학습
-GT object 시퀀스를 ​$$\textbf{y} = \{\textbf{c}^t, \textbf{b}^t, \textbf{m}^t\}_{t=1}^T$$라고 하자. 기존 방법들을 따라 인스턴스 매칭에 Hungarian 알고리즘을 적용한다. 구체적으로, 매칭 비용이 가장 낮은 인스턴스 시퀀스를 positive로 선택하고 나머지 시퀀스를 negative로 지정한다. 매칭 비용은 다음과 같이 정의된다.
+GT object 시퀀스를 $$\textbf{y} = \{\textbf{c}^t, \textbf{b}^t, \textbf{m}^t\}_{t=1}^T$$라고 하자. 기존 방법들을 따라 인스턴스 매칭에 Hungarian 알고리즘을 적용한다. 구체적으로, 매칭 비용이 가장 낮은 인스턴스 시퀀스를 positive로 선택하고 나머지 시퀀스를 negative로 지정한다. 매칭 비용은 다음과 같이 정의된다.
 
 $$
 \begin{equation}

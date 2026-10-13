@@ -50,7 +50,7 @@ $$
 $$
 
 ##### 3DGS와 동등한 attenuation 모델 찾기
-통계적 독립성과 겹치지 않는 Gaussian primitive를 가정할 때, 알파 블렌딩에 기반한 3DGS ​​모델은 다음과 같은 attenuation을 갖는 ray-marching 볼륨 렌더링 모델과 동등하다.
+통계적 독립성과 겹치지 않는 Gaussian primitive를 가정할 때, 알파 블렌딩에 기반한 3DGS 모델은 다음과 같은 attenuation을 갖는 ray-marching 볼륨 렌더링 모델과 동등하다.
 
 $$
 \begin{equation}

@@ -62,7 +62,7 @@ $$
 이러한 간단한 수정만으로도 SoftVQ-VAE는 재구성 품질과 latent space의 높은 품질을 유지하면서 latent 토큰 길이를 크게 줄일 수 있다. SoftVQ-VAE는 완전 미분 가능하므로 인코더와 codebook을 직접 최적화할 수 있으며, latent space에 다양한 형태의 정규화를 더 쉽게 적용할 수 있고, codebook loss와 commit loss가 더 이상 필요 없다.
 
 ### 3. Representation Alignment of Latent Space
-Tokenizer의 재구성 품질도 중요하지만, 후속적인 denoising 기반 생성 모델링을 위해서는 고품질의 latent space를 학습시키는 것이 더욱 중요하다. 그러나 VQ-VAE의 discrete quantization과 KL-VAE의 Gaussian 제약 조건으로 인해 latent space에 효과적인 정규화를 적용하는 것은 여전히 ​​어렵다.
+Tokenizer의 재구성 품질도 중요하지만, 후속적인 denoising 기반 생성 모델링을 위해서는 고품질의 latent space를 학습시키는 것이 더욱 중요하다. 그러나 VQ-VAE의 discrete quantization과 KL-VAE의 Gaussian 제약 조건으로 인해 latent space에 효과적인 정규화를 적용하는 것은 여전히 어렵다.
 
 SoftVQ-VAE의 완전 미분 가능성 덕분에 이제 latent space에 직접 정규화를 적용할 수 있다. 저자들은 [REPA](https://kimjy99.github.io/논문리뷰/repa)에서 영감을 받아, latent 코드의 표현을 사전 학습된 [DINOv2](https://kimjy99.github.io/논문리뷰/dinov2) 비전 인코더와 정렬하는 방법을 제안하였다. 생성 모델의 중간 layer에서 표현을 정렬하는 REPA와 달리, 본 논문에서는 tokenizer의 latent space에서 feature를 정렬하며, 생성 모델의 입력 공간에서 REPA를 수행하는 것과 동일하다. 구체적으로, latent 코드를 사전 학습된 비전 인코더의 이미지 토큰과 정렬하기 위해 각 latent 토큰을 $N/L$번 복제한다.
 

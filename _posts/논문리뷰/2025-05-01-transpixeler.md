@@ -101,7 +101,7 @@ $$
 ##### Text-Attend-to-RGB & RGB-Attend-to-Text
 두 attention 메커니즘은 왼쪽 위 2$\times$2 섹션을 나타내며 원래 RGB 생성 모델에 존재하는 계산이다. 이 계산 부분이 영향을 받지 않도록 하면 원래 RGB 생성 성능을 복제할 수 있다. 따라서 LoRA의 영향 범위를 제한하여 텍스트와 RGB 토큰 모두에 대한 원래 QKV 값을 유지하고 두 도메인에 대한 사전 학습된 모델의 동작을 보존한다. 
 
-LoRA 외에도, 텍스트 토큰과 RGB 토큰은 query와​ key로 알파 토큰과 상호 작용해야 하므로 이 2$\times$2 attention 행렬의 계산이 변경됩니다. 따라서, 저자들은 RGB 생성에 영향을 미치는 두 가지 추가 attention 계산을 추가로 분석하였다.
+LoRA 외에도, 텍스트 토큰과 RGB 토큰은 query와 key로 알파 토큰과 상호 작용해야 하므로 이 2$\times$2 attention 행렬의 계산이 변경됩니다. 따라서, 저자들은 RGB 생성에 영향을 미치는 두 가지 추가 attention 계산을 추가로 분석하였다.
 
 ##### Text-Attend-to-Alpha
 저자들은 Text-attend-to-Alpha가 생성 품질에 해롭다는 것을 발견했다. 모델은 원래 텍스트와 RGB 데이터로 학습되었기 때문에 텍스트에서 알파로의 attention를 도입하면 알파와 RGB 사이의 도메인 차이로 인해 간섭이 발생한다. 구체적으로, 알파는 윤곽 정보만 제공하고 텍스트 프롬프트와 관련된 풍부한 텍스처, 색상, semantic 디테일이 부족하여 생성 품질이 저하된다. 이를 완화하기 위해, 앞서 설명한 대로 이 계산을 차단하는 attention mask를 사용한다.

@@ -49,7 +49,7 @@ $$
 단순한 입력-출력 매핑을 넘어, 입력 이미지 $\textbf{c}$와 출력 이미지 $\textbf{p}$ 간의 변화 과정을 명시적으로 모델링한다. 이 접근 방식의 목표는 급격한 변화를 초래하기 쉬운 single step 이미지 생성 대신, 모델이 그럴듯한 변화 경로를 상상하도록 유도하는 것이다. 중간 state를 거쳐 추론함으로써 모델은 object의 identity, geometry, 물리적 일관성을 더 잘 유지할 수 있다. 구체적으로는 $$\textbf{z}_\textbf{c}$$와 $$\textbf{z}_\textbf{p}$$ 사이에 중간 latent 프레임들을 삽입한다. 이 프레임들은 초기에는 랜덤 noise로 설정되지만, 이후 출력 프레임의 latent들과 함께 공동으로 denoising process를 거친다. 이 프레임들은 모델이 그럴듯한 변화 과정을 생각하도록 돕는 중간 가이드 역할을 하기 때문에, 시간적 추론 토큰 $\textbf{r}$이라고 부른다.
 
 ##### 이미지 쌍과 동영상의 통합
-이미지 편집용 denoiser를 $$\textbf{F}_\theta (\textbf{z}_{\textbf{p},t}, t; \textbf{y}, \textbf{z}_\textbf{c})$$로 정의한다. 이렇게 정의하면 통합된 프레임워크 내에서 이미지 편집 쌍과 전체 동영상 시퀀스 모두를 활용한 학습을 ​​자연스럽게 지원한다.
+이미지 편집용 denoiser를 $$\textbf{F}_\theta (\textbf{z}_{\textbf{p},t}, t; \textbf{y}, \textbf{z}_\textbf{c})$$로 정의한다. 이렇게 정의하면 통합된 프레임워크 내에서 이미지 편집 쌍과 전체 동영상 시퀀스 모두를 활용한 학습을 자연스럽게 지원한다.
 
 이미지 편집 데이터셋의 경우, 각 쌍 $(\textbf{c}, \textbf{p}, \textbf{y})$은 2프레임 동영상으로 해석된다. 이때 $\textbf{c}$는 첫 번째 프레임, $\textbf{p}$는 마지막 프레임이 되어 instruction 기반 편집을 직접적으로 학습시킨다. 동영상의 경우, 데이터 구조가 추론 토큰 설계와 일치한다. 즉, 첫 번째 프레임은 $\textbf{c}$에, 마지막 프레임은 $\textbf{p}$에 대응하며, 그 사이의 모든 프레임은 추론 토큰 역할을 한다.
 
@@ -61,7 +61,7 @@ $$
 데이터셋은 상호 보완적인 세 가지 카테고리를 포괄한다.
 
 1. **고정 카메라, 동적 객체**: Text-to-video 모델([Wan](https://arxiv.org/abs/2503.20314), [Cosmos](https://arxiv.org/abs/2501.03575))로 생성된 동영상 클립이다. 프롬프트에 "The camera remains stationary throughout the video."라는 문구를 추가하고 [ViPE](https://kimjy99.github.io/논문리뷰/vipe)를 사용하여 불안정한 클립을 필터링했다.
-2. **1인칭 주행 장면**: [Cosmos-Drive-Dreams](https://arxiv.org/abs/2506.09042)에 HDMap을 조건으로 생성한 동영상이다. 카메라를 고정하는 동시에 bounding box를 통해 차량의 움직임을 명시적으로 제어하는 ​​중요한 월드 시뮬레이션 시나리오이다.
+2. **1인칭 주행 장면**: [Cosmos-Drive-Dreams](https://arxiv.org/abs/2506.09042)에 HDMap을 조건으로 생성한 동영상이다. 카메라를 고정하는 동시에 bounding box를 통해 차량의 움직임을 명시적으로 제어하는 중요한 월드 시뮬레이션 시나리오이다.
 3. **동적 카메라, 정적 장면**: [GEN3C](https://kimjy99.github.io/논문리뷰/gen3c)로 생성한 동영상 클립이다. 장면의 내용은 고정된 상태에서 카메라의 궤적을 정밀하게 제어할 수 있다.
 
 저자들은 instruction $\textbf{y}$를 생성하기 위해 VLM을 활용하여 각 동영상에 편집 instruction을 캡션으로 달았다. 이 instruction은 입력 프레임에서 출력 프레임으로의 변화 과정을 요약한다.

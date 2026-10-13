@@ -72,7 +72,7 @@ $$
 
 학습 과정에서 $$\textbf{T}_i^\textrm{cam}$$, $$\textbf{T}_i^\textrm{intr}$$, $$\textbf{T}_i^\textrm{depth}$$의 각 토큰을 0.5의 확률로 독립적으로 랜덤하게 제거하고, 제거된 토큰의 값을 0으로 설정한다. 이를 통해 inference 시 입력 방식에 대한 유연한 제어가 가능하다.
 
-저자들은 모달리티의 특성에 따라 각 모달리티를 다르게 처리하였다. 포즈와 intrinsic은 글로벌한 속성이므로 concat이 자연스럽다. 하지만 depth map은 공간적으로 dense하여, 이를 concat하면 토큰 수가 두 배로 늘어나고 attention 비용이 제곱으로 증가한다. 또한, 동일한 병합된 시퀀스가 ​​모달리티별 branch 없이 모든 예측 head에 입력된다. 이러한 특성 덕분에 새로운 모달리티는 아키텍처를 수정하지 않고 해당 tokenizer를 추가하는 것만으로 간단하게 통합할 수 있다.
+저자들은 모달리티의 특성에 따라 각 모달리티를 다르게 처리하였다. 포즈와 intrinsic은 글로벌한 속성이므로 concat이 자연스럽다. 하지만 depth map은 공간적으로 dense하여, 이를 concat하면 토큰 수가 두 배로 늘어나고 attention 비용이 제곱으로 증가한다. 또한, 동일한 병합된 시퀀스가 모달리티별 branch 없이 모든 예측 head에 입력된다. 이러한 특성 덕분에 새로운 모달리티는 아키텍처를 수정하지 않고 해당 tokenizer를 추가하는 것만으로 간단하게 통합할 수 있다.
 
 ### 2. Unified Spatial Prediction
 저자들은 진정한 의미의 통합 멀티태스킹 프레임워크를 구현하기 위해, 한 번의 feed-forward pass 내에서 point map, 카메라 파라미터, depth map, 표면 normal 벡터, 3D Gaussian을 동시에 예측하는 포괄적인 아키텍처를 설계했다. 그러나 이러한 task들을 동시에 최적화하는 것은 상당한 어려움을 수반한다. Geometry와 외형 학습의 상호 연관성으로 인해 개별 task 성능이 제한되는 경우가 많기 때문이다. 이러한 문제를 해결하기 위해, geometry 예측과 외형 재구성을 분리하는 모델링 전략과, 학습 과정에서 task 난이도를 점진적으로 균형 있게 조절하는 커리큘럼 학습 방식을 도입했다.
@@ -104,7 +104,7 @@ Gaussian 속성, 포인트 클라우드 위치, 카메라 파라미터를 동시
 2. Normal 예측을 공동 학습 체계에 통합한다.
 3. 모든 모델 파라미터를 고정하고 3DGS 속성 예측을 위한 3DGS head만 단독으로 학습한다.
 
-이러한 점진적인 task 순서 전략은 어떤 ​​prior 조합에서도 범용적인 geometry 예측을 위한 효과적인 학습을 보장한다. 모든 task를 공동으로 학습할 경우 모델이 geometry와 외형 정보를 구분하기 어려워 최적의 성능을 달성하지 못한다.
+이러한 점진적인 task 순서 전략은 어떤 prior 조합에서도 범용적인 geometry 예측을 위한 효과적인 학습을 보장한다. 모든 task를 공동으로 학습할 경우 모델이 geometry와 외형 정보를 구분하기 어려워 최적의 성능을 달성하지 못한다.
 
 ### 3. Model Training
 모델은 모든 예측 task에 대한 supervision을 통합하는 복합 loss function $\mathcal{L}$을 최소화하는 방식으로 end-to-end 학습된다.

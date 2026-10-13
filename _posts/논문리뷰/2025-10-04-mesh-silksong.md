@@ -86,7 +86,7 @@ $$
 ##### Token Packing
 <center><img src='{{"/assets/img/mesh-silksong/mesh-silksong-fig5d.webp" | relative_url}}' width="34%"></center>
 <br>
-Layer $L$의 $M$개 vertex에 대해 세 가지 유형의 토큰, 즉 vertex 토큰 $V_{(L,i)}$와 topology 토큰 $S_{(L,i)}$, $B_{(L,i)}$가 있다. Vertex 토큰 $V_{(L,i)}$는 vertex의 위치를 ​​압축하고 일반적으로 quantize된 x-y-z 좌표를 나타내는 3개의 sub-token을 포함한다. [BPT](https://arxiv.org/abs/2411.07025)의 block-wise indexing을 사용하면 sub-token 수를 2개로 줄어든다. 두 개의 topology 토큰 $S_{(L,i)}$와 $B_{(L,i)}$는 일반적으로 서로 하나의 sub-token을 포함한다. 
+Layer $L$의 $M$개 vertex에 대해 세 가지 유형의 토큰, 즉 vertex 토큰 $V_{(L,i)}$와 topology 토큰 $S_{(L,i)}$, $B_{(L,i)}$가 있다. Vertex 토큰 $V_{(L,i)}$는 vertex의 위치를 압축하고 일반적으로 quantize된 x-y-z 좌표를 나타내는 3개의 sub-token을 포함한다. [BPT](https://arxiv.org/abs/2411.07025)의 block-wise indexing을 사용하면 sub-token 수를 2개로 줄어든다. 두 개의 topology 토큰 $S_{(L,i)}$와 $B_{(L,i)}$는 일반적으로 서로 하나의 sub-token을 포함한다. 
 
 학습을 위한 전체 시퀀스를 얻으려면 메쉬의 연결 요소를 나타내는 토큰 **C**에서 시작한다. 메쉬에 $N_C$개의 연결 요소가 있는 경우 $N_C$개의 **C** 토큰이 있고 앞서 설명한 알고리즘들은 각 연결 요소에 대해 총 $N_C$번 수행된다. Vertex $$\mathcal{V}_i^L$$에 대해 $V_{(L,i)}$, $S_{(L,i)}$, $B_{(L,i)}$를 함께 묶고, 각 vertex의 토큰을 layer order에 따라 배열한다. $$\mathcal{V}_1^0$$에 대한 vertex 토큰은 맨 처음에 배치되며, topology 토큰은 없다. 각 layer의 토큰은 "up-layer" 제어 토큰 **U**로 구분되고, 마지막 토큰은 연결 요소의 끝을 나타내는 다른 제어 토큰 **E**로 대체된다.
 

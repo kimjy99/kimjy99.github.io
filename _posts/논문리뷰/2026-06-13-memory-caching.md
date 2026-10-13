@@ -21,7 +21,7 @@ classes: wide
 <center><img src='{{"/assets/img/memory-caching/memory-caching-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
-RNN은 입력 시퀀스를 압축하기 위해 고정 크기의 메모리를 유지한다. 시퀀스가 ​​길어짐에 따라 메모리 오버플로가 발생하고 성능이 저하된다. 반대로 attention은 과거의 모든 토큰을 캐싱하므로 메모리는 증가하지만 계산 비용은 제곱에 비례한다.
+RNN은 입력 시퀀스를 압축하기 위해 고정 크기의 메모리를 유지한다. 시퀀스가 길어짐에 따라 메모리 오버플로가 발생하고 성능이 저하된다. 반대로 attention은 과거의 모든 토큰을 캐싱하므로 메모리는 증가하지만 계산 비용은 제곱에 비례한다.
 
 본 논문에서는 RNN 모델의 유효 메모리가 시퀀스 길이에 따라 증가할 수 있도록 하는 일반적인 기법인 **Memory Caching (MC)**을 소개한다. MC는 메모리 state의 체크포인트를 캐싱함으로써 구현된다. MC는 표준 RNN과 attention 메커니즘 사이의 유연한 중간 지점을 제공하며, $$\mathcal{O}(NL)$$의 제어 가능한 복잡도를 갖는다. 이를 통해 RNN의 $\mathcal{O}(L)$ 복잡도와 Transformer의 $\mathcal{O}(L^2)$ 복잡도 사이에서 유연한 interpolation이 가능하다.
 

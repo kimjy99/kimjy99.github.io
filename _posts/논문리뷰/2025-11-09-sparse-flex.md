@@ -28,7 +28,7 @@ classes: wide
 1. 메모리 사용량을 크게 줄여 고해상도 모델링을 가능하게 한다.
 2. 열린 경계 근처의 voxel을 효과적으로 잘라내어 열린 표면을 표현할 수 있다.
 
-SparseFlex의 능력을 최대한 활용하기 위해, **frustum-aware sectional voxel training**을 제안하였다. 이 접근법은 각 학습 iteration에서 카메라의 viewing frustum 내에 있는 SparseFlex voxel의 하위 집합만 활성화한다. 또한, frustum의 파라미터를 제어하는 ​​적응형 전략을 도입하여 메모리 사용량을 더욱 최적화한다. 이를 통해 연산 및 메모리 오버헤드를 크게 줄일 수 있을 뿐만 아니라, 카메라의 적절한 위치 조정을 통해 렌더링 loss만으로 메쉬 내부를 재구성할 수 있게 되었다.
+SparseFlex의 능력을 최대한 활용하기 위해, **frustum-aware sectional voxel training**을 제안하였다. 이 접근법은 각 학습 iteration에서 카메라의 viewing frustum 내에 있는 SparseFlex voxel의 하위 집합만 활성화한다. 또한, frustum의 파라미터를 제어하는 적응형 전략을 도입하여 메모리 사용량을 더욱 최적화한다. 이를 통해 연산 및 메모리 오버헤드를 크게 줄일 수 있을 뿐만 아니라, 카메라의 적절한 위치 조정을 통해 렌더링 loss만으로 메쉬 내부를 재구성할 수 있게 되었다.
 
 저자들은 SparseFlex와 frustum-aware training을 기반으로 완전한 3D shape 모델링 파이프라인을 제시하였다. [TRELLIS](https://arxiv.org/abs/2412.01506)에서 영감을 얻었지만 주요 수정 사항이 있는 VAE 아키텍처를 사용한다. 첫째, 고충실도 geometry에 중점을 두기 때문에 VAE에 포인트 클라우드를 입력으로 사용하여 표면을 직접적이고 상세하게 표현한다. 또한, 디코더 내에 **self-pruning upsampling** 모듈을 도입하여 sparse voxel 구조를 더욱 세분화하는데, 이는 특히 열린 표면을 표현하는 데 유용하다. 그런 다음, 학습된 latent space에서 [rectified flow](https://kimjy99.github.io/논문리뷰/rectified-flow) transformer를 학습시켜 고품질의 이미지를 조건으로 3D shape을 생성한다.
 

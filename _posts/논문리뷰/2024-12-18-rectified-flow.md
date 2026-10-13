@@ -74,7 +74,7 @@ $v$를 구한 후, $Z_0 \sim \pi_0$에서 시작하여 $\pi_0$를 $\pi_1$로 옮
 데이터 쌍 $(X_0, X_1)$은 $\pi_0$, $\pi_1$의 임의의 결합이 될 수 있으며, 실제 문제에서 의미 있게 쌍을 이룬 관찰이 부족하기 때문에 일반적으로 독립적이다 (즉, $(X_0, X_1) \sim \pi_0 \times \pi_1$). 이에 비해 $(Z_0, Z_1)$은 ODE 모델에서 구성되므로 deterministic한 종속성이 있다. $(Z_0, Z_1) = \textrm{Rectify}((X_0, X_1))$로 $(X_0, X_1)$에서 $(Z_0, Z_1)$로의 매핑을 표시하면, $\textrm{Rectify}(\cdot)$는 임의의 결합을 더 낮은 convex transport cost를 가지는 deterministic한 결합으로 변환한다.
 
 ##### 직선인 flow는 빠른 시뮬레이션을 제공한다.
-$\textrm{Rectify}(\cdot)$를 재귀적으로 적용하면 rectified flow의 시퀀스 $\textbf{Z}^{k+1} = (Z_0^{k+1}, Z_1^{k+1}) = \textrm{RectFlow}((Z_0^k, Z_1^k))$가 ​​생성되고 여기서 $(Z_0^0, Z_1^0) = (X_0, X_1)$이 된다. 여기서 $\textbf{Z}^k$는 $(X_0, X_1)$에서 유도된 $k$번째 rectified flow ($k$-rectified flow)이다.
+$\textrm{Rectify}(\cdot)$를 재귀적으로 적용하면 rectified flow의 시퀀스 $\textbf{Z}^{k+1} = (Z_0^{k+1}, Z_1^{k+1}) = \textrm{RectFlow}((Z_0^k, Z_1^k))$가 생성되고 여기서 $(Z_0^0, Z_1^0) = (X_0, X_1)$이 된다. 여기서 $\textbf{Z}^k$는 $(X_0, X_1)$에서 유도된 $k$번째 rectified flow ($k$-rectified flow)이다.
 
 이 **reflow** 절차는 transport cost를 줄일 뿐만 아니라 rectified flow의 경로를 직선화하는 중요한 효과가 있다. 이는 거의 직선 경로를 가진 flow가 수치적 시뮬레이션에서 작은 시간 discretization 오차를 발생시키기 때문에 계산적으로 매우 매력적이다. 완벽하게 직선인 경로는 하나의 Euler step으로 정확하게 시뮬레이션할 수 있으며 1-step 모델이다. 이는 기존 continuous-time ODE/SDE 모델의 높은 inference 비용 문제를 해결한다.
 
@@ -251,7 +251,7 @@ $$
 Reflow를 한 번만 적용하여도 거의 직선적인 flow가 되어 하나의 Euler step으로 시뮬레이션할 때 좋은 성능을 낼 수 있다. 너무 많은 reflow를 적용하면 $v^X$에 대한 추정 오차가 누적될 수 있어 권장되지 않는다. 
 
 ##### Distillation
-$k$-rectified flow $\textbf{Z}^k$를 얻은 후, $(Z_0^k, Z_1^k)$의 관계를 신경망 $\hat{T}$로 distillation하여 flow를 시뮬레이션하지 않고도 $Z_0^k$에서 $Z_1^k$를 직접 예측함으로써 inference 속도를 더욱 향상시킬 수 있다. Flow가 ​​이미 거의 직선이라 1-step으로 잘 근사되기 때문에 distillation을 효율적으로 수행할 수 있다. 특히 $\hat{T} (z_0) = z_0 + v(z_0, 0)$인 경우 $\textbf{Z}^k$를 distillation하기 위한 loss function은
+$k$-rectified flow $\textbf{Z}^k$를 얻은 후, $(Z_0^k, Z_1^k)$의 관계를 신경망 $\hat{T}$로 distillation하여 flow를 시뮬레이션하지 않고도 $Z_0^k$에서 $Z_1^k$를 직접 예측함으로써 inference 속도를 더욱 향상시킬 수 있다. Flow가 이미 거의 직선이라 1-step으로 잘 근사되기 때문에 distillation을 효율적으로 수행할 수 있다. 특히 $\hat{T} (z_0) = z_0 + v(z_0, 0)$인 경우 $\textbf{Z}^k$를 distillation하기 위한 loss function은
 
 $$
 \begin{equation}
@@ -281,7 +281,7 @@ $$
 $$
 
 ### 3. A Nonlinear Extension
-저자들은 linear interpolation $X_t$를 $X_0$와 $X_1$을 연결하는 시간 미분 가능한 곡선으로 대체하는 rectified flow의 비선형 버전을 제시하였다. 이러한 일반화된 rectified flow는 여전히 ​$​\pi_0$를 $\pi_1$로 전송할 수 있지만, 더 이상 convex transport cost를 감소시키거나 직선화 효과를 보장하지 않는다. 중요한 점은 probability flow ODE와 DDIM은 이 프레임워크의 특수한 경우로 대략적으로 볼 수 있으며, 이러한 방법들과의 연결과 이점을 명확히 할 수 있다는 것이다.
+저자들은 linear interpolation $X_t$를 $X_0$와 $X_1$을 연결하는 시간 미분 가능한 곡선으로 대체하는 rectified flow의 비선형 버전을 제시하였다. 이러한 일반화된 rectified flow는 여전히 $\pi_0$를 $\pi_1$로 전송할 수 있지만, 더 이상 convex transport cost를 감소시키거나 직선화 효과를 보장하지 않는다. 중요한 점은 probability flow ODE와 DDIM은 이 프레임워크의 특수한 경우로 대략적으로 볼 수 있으며, 이러한 방법들과의 연결과 이점을 명확히 할 수 있다는 것이다.
 
 $$\textbf{X} = \{X_t : t \in \}$$가 $X_0$와 $X_1$을 연결하는 시간 미분 가능한 임의의 프로세스라고 하자. $\textbf{X}$에서 유도된 rectified flow는 다음과 같이 정의된다.
 

@@ -57,7 +57,7 @@ Conductor reward를 활용한 end-to-end 학습은 본질적으로 모든 RL 알
 
 ### 2. Extending the RL Conductor
 ##### Adaptive worker selection
-사용 가능한 worker 풀의 변화에 ​​​​강인하게 대응하기 위해, 본 프레임워크는 커스터마이징 가능한 모델들의 부분집합에서 작동하도록 확장되었다. 이를 위해 사전 학습된 Conductor를 fine-tuning하여, 각 질문에 대해 전체 $n$개 worker 풀에서 랜덤 샘플링된 $k$개 모델 부분집합으로 제한하고 입력 instruction을 그에 따라 수정한다. 학습 후, 이러한 설계는 Conductor가 $k \le n$개의 특정 모델 부분집합에서 일반화하고 강력한 성능을 발휘하도록 하여, 특정 제약 조건 및 비용 선호도에 맞춰 작동할 수 있도록 한다. Conductor는 임의의 agent 집합의 다양한 시너지 효과에 따라 문제 해결 방식을 재구성하는 방법을 학습한다.
+사용 가능한 worker 풀의 변화에 강인하게 대응하기 위해, 본 프레임워크는 커스터마이징 가능한 모델들의 부분집합에서 작동하도록 확장되었다. 이를 위해 사전 학습된 Conductor를 fine-tuning하여, 각 질문에 대해 전체 $n$개 worker 풀에서 랜덤 샘플링된 $k$개 모델 부분집합으로 제한하고 입력 instruction을 그에 따라 수정한다. 학습 후, 이러한 설계는 Conductor가 $k \le n$개의 특정 모델 부분집합에서 일반화하고 강력한 성능을 발휘하도록 하여, 특정 제약 조건 및 비용 선호도에 맞춰 작동할 수 있도록 한다. Conductor는 임의의 agent 집합의 다양한 시너지 효과에 따라 문제 해결 방식을 재구성하는 방법을 학습한다.
 
 ##### Recursive topologies and test-time scaling
 저자들은 **recursive agent workflow**를 도입하여 Conductor가 자신의 능력을 활용해 다른 worker agent를 보완할 수 있도록 확장하였다. 각 내부 재귀 호출 시, Conductor는 호출이 시작된 부모 agent의 출력과 이전 agent의 응답을 추가 입력으로 제공받는다. 이러한 컨텍스트를 바탕으로 Conductor는 새로운 agent workflow를 시작하거나 최종 subtask 솔루션을 사용자에게 직접 반환하여 루프를 종료할 수 있다. 초기 root Conductor 호출 이후 재귀 호출은 지정된 최대 횟수까지만 허용하여 무한 루프를 방지한다.

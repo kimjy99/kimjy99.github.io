@@ -21,7 +21,7 @@ classes: wide
 <center><img src='{{"/assets/img/shortcut-model/shortcut-model-fig1.webp" | relative_url}}' width="95%"></center>
 
 ## Introduction
-본 논문은 한 번의 학습을 통해 one-step denoiser가 획득되는 end-to-end 설정을 고려하였다. 이전의 2단계 방법들은 이미 학습된 diffusion model을 추가로 one-step model로 distillation한다. 이는 복잡성을 도입하고 대규모 합성 데이터셋을 생성하거나 일련의 teacher 및 student 네트워크를 통해 전파해야 한다. [Consistency model](https://kimjy99.github.io/논문리뷰/consistency-model)은 end-to-end에 한 걸음 더 가까워졌지만 대량의 부트스트래핑에 대한 의존성으로 인해 학습하는 동안​​ 신중한 schedule이 필요하다. 이러한 방법들은 학습을 종료하고 distillation을 시작할 시기를 지정해야 한다. 반면에 end-to-end 방법은 지속적으로 성능을 개선하기 위해 무기한으로 학습시킬 수 있다.
+본 논문은 한 번의 학습을 통해 one-step denoiser가 획득되는 end-to-end 설정을 고려하였다. 이전의 2단계 방법들은 이미 학습된 diffusion model을 추가로 one-step model로 distillation한다. 이는 복잡성을 도입하고 대규모 합성 데이터셋을 생성하거나 일련의 teacher 및 student 네트워크를 통해 전파해야 한다. [Consistency model](https://kimjy99.github.io/논문리뷰/consistency-model)은 end-to-end에 한 걸음 더 가까워졌지만 대량의 부트스트래핑에 대한 의존성으로 인해 학습하는 동안 신중한 schedule이 필요하다. 이러한 방법들은 학습을 종료하고 distillation을 시작할 시기를 지정해야 한다. 반면에 end-to-end 방법은 지속적으로 성능을 개선하기 위해 무기한으로 학습시킬 수 있다.
 
 본 논문은 이러한 end-to-end로 학습되는 one-step 생성 모델 클래스인 **shortcut model**을 제시하였다. 핵심 통찰력은 신경망을 noise level뿐만 아니라 원하는 step 크기로 컨디셔닝하여 denoising process에서 정확하게 앞으로 갈 수 있도록 하는 것이다. Shortcut model은 학습 시간 동안 자체 distillation을 수행하는 것으로 볼 수 있으므로 별도의 distillation 단계가 필요하지 않으며 한 번의 학습만이 필요하다. 또한 신중한 학습 schedule이나 warm-up이 필요하지 않다. Shortcut model은 학습이 효율적이며 기본 diffusion model보다 약 16% 더 많은 컴퓨팅만 필요하다.
 
@@ -38,7 +38,7 @@ x_{t+d}^\prime = x_t + s(x_t, t, d) d
 \end{equation}
 $$
 
-본 논문의 목표는 $x_t$, $t$, $d$의 모든 조합에 대한 shortcut을 학습한 shortcut model ​​$s_\theta (x_t, t, d)$를 학습시키는 것이다. 따라서 shortcut model은 더 큰 step 크기에 대한 flow-matching model의 일반화로 볼 수 있다. flow-matching model은 순간 속도만 학습하는 반면, shortcut model은 추가로 더 큰 점프를 하는 법을 학습한다. $d \rightarrow 0$이면 shortcut은 flow와 동등하다.
+본 논문의 목표는 $x_t$, $t$, $d$의 모든 조합에 대한 shortcut을 학습한 shortcut model $s_\theta (x_t, t, d)$를 학습시키는 것이다. 따라서 shortcut model은 더 큰 step 크기에 대한 flow-matching model의 일반화로 볼 수 있다. flow-matching model은 순간 속도만 학습하는 반면, shortcut model은 추가로 더 큰 점프를 하는 법을 학습한다. $d \rightarrow 0$이면 shortcut은 flow와 동등하다.
 
 $s_\theta (x_t, t, d)$를 학습시키기 위한 target을 계산하는 단순한 방법은 충분히 작은 step 크기로 ODE forward를 완전히 시뮬레이션하는 것이다. 그러나 이 접근 방식은 특히 end-to-end 학습의 경우 계산 비용이 많이 든다. 대신, shortcut model의 고유한 자기 일관성 (self-consistency) 속성을 활용한다. 즉, 하나의 shortcut step은 크기가 절반인 두 개의 연속된 shortcut step과 같다.
 

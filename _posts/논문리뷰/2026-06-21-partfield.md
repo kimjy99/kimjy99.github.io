@@ -23,11 +23,11 @@ classes: wide
 ## Introduction
 본 논문에서는 3D part와 그 계층 구조를 학습하는 **PartField** 모델을 제안하였다. 3D shape을 입력으로 받으면, PartField는 feedforward 방식으로 continuous 3D feature field를 예측한다. Part 템플릿이나 텍스트에 의존하는 대신, PartField feature 간의 거리를 통해 part의 개념을 도출한다. 즉, 유사한 feature를 가진 점들은 같은 part에 속할 가능성이 높다. 학습된 feature는 어느 위치에서든 continuous하게 조회할 수 있으며, 클러스터링을 통해 shape의 계층 구조를 생성하거나 다른 다운스트림 응용 분야에 활용할 수 있다.
 
-PartField는 기존 2D foundation model에서 이미지 마스크로 예측된 ​part proposal 또는 기존 데이터셋에서 제공된 명시적인 3D supervision을 사용하여 part proposal들을 매칭하도록 학습된다. 이러한 part proposal에는 제약 조건이 없으며, 다양한 기준에 따라 어떤 세분성 수준에서도 정의할 수 있다. PartField는 신중하게 선택된 contrastive objective를 활용하여 동일한 part의 샘플이 서로 다른 part의 샘플보다 더 유사하도록 유도한다. 이는 다양한 part 세분성과 part 개념의 차이를 극복하여 대규모 데이터셋에서 학습을 가능하게 한다.
+PartField는 기존 2D foundation model에서 이미지 마스크로 예측된 part proposal 또는 기존 데이터셋에서 제공된 명시적인 3D supervision을 사용하여 part proposal들을 매칭하도록 학습된다. 이러한 part proposal에는 제약 조건이 없으며, 다양한 기준에 따라 어떤 세분성 수준에서도 정의할 수 있다. PartField는 신중하게 선택된 contrastive objective를 활용하여 동일한 part의 샘플이 서로 다른 part의 샘플보다 더 유사하도록 유도한다. 이는 다양한 part 세분성과 part 개념의 차이를 극복하여 대규모 데이터셋에서 학습을 가능하게 한다.
 
 3D feedforward 모델을 사용함으로써 PartField는 inference 속도를 획기적으로 향상시킬 뿐만 아니라 일관성이 없고 노이즈가 많은 레이블에 대한 robustness도 확보하였다. Shape 간 supervision을 명시적으로 통합하지는 않았지만, PartField 모델이 shape에 관계없이 일관된 feature space를 생성한다. 이는 다운스트림 응용 분야에 유용한 특성이다.
 
-PartField는 class-agnostic part segmentation task에서 최신 baseline 모델들보다 성능이 20% 이상 향상되었으며, 속도는 10배 이상 빨라졌다. 이를 통해 고품질의 계층적 part 분해가 가능하다. 모델은 실제 환경의 메쉬, 포인트 클라우드, 3D Gaussian splat 등 다양한 모달리티에 적용할 수 있다. Feature field의 ​​일관성은 part segmentation 외에도 co-segmentation, 선택, correspondence 설정과 같은 다양한 용도로 활용될 수 있도록 한다.
+PartField는 class-agnostic part segmentation task에서 최신 baseline 모델들보다 성능이 20% 이상 향상되었으며, 속도는 10배 이상 빨라졌다. 이를 통해 고품질의 계층적 part 분해가 가능하다. 모델은 실제 환경의 메쉬, 포인트 클라우드, 3D Gaussian splat 등 다양한 모달리티에 적용할 수 있다. Feature field의 일관성은 part segmentation 외에도 co-segmentation, 선택, correspondence 설정과 같은 다양한 용도로 활용될 수 있도록 한다.
 
 <center><img src='{{"/assets/img/partfield/partfield-fig2.webp" | relative_url}}' width="62%"></center>
 

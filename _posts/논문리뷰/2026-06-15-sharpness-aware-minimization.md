@@ -22,7 +22,7 @@ classes: wide
 ## Introduction
 본 논문에서는 loss 값과 loss sharpness를 동시에 최소화하여 모델 일반화 성능을 향상시키는 새로운 방법인 **Sharpness-Aware Minimization (SAM)**을 소개한다. SAM은 loss 값이 낮은 파라미터만을 찾는 것이 아니라, loss 값이 균일하게 낮은 주변 영역에 있는 파라미터를 찾는 방식으로 작동한다. 또한 효율적이고 쉽게 구현할 수 있다.
 
-SAM을 사용하면 널리 연구되어 온 다양한 컴퓨터 비전 task 및 모델에서 모델의 일반화 능력이 향상된다. 또한, SAM은 noisy label 환경을 ​특별히 겨냥해서 만든 SOTA 기법과 비슷한 수준의 robustness를 제공한다.
+SAM을 사용하면 널리 연구되어 온 다양한 컴퓨터 비전 task 및 모델에서 모델의 일반화 능력이 향상된다. 또한, SAM은 noisy label 환경을 특별히 겨냥해서 만든 SOTA 기법과 비슷한 수준의 robustness를 제공한다.
 
 ## Method
 분포 $\mathcal{D}$에서 독립적으로 추출된 학습 데이터셋 $$\mathcal{S} = \bigcup_{i=1}^n (\{\textbf{x}_i, \textbf{y}_i\})$$가 주어졌을 때, 본 논문의 목표는 일반화 성능이 우수한 모델을 학습하는 것이다. 특히, 파라미터 $\textbf{w}$를 갖는 모델을 고려할 때, 데이터 포인트별 loss function $l$이 주어지면, 학습 데이터셋 loss $$L_\mathcal{S} (\textbf{w})$$와 모집단 loss $$L_\mathcal{D} (\textbf{w})$$를 다음과 같이 정의한다.

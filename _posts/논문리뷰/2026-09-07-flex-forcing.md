@@ -160,7 +160,7 @@ Flex-Forcing은 가변적인 청크 크기를 허용함으로써 다양한 컴�
 Flex-Forcing을 통해 기존의 autoregressive 패러다임으로는 불가능했던 두 가지 새로운 형태의 편집 방식을 구현할 수 있다.
 
 ##### Autoregressive any-timestep editing
-저자들은 글로벌 일관성을 유지하기 위해, low-level timestep에만 편집을 제한하는 구조 보존 편집 전략을 채택하였다. 이러한 분리는 글로벌 구조 형성과 로컬 디테일 수정을 명시적으로 분리하여 기존의 autoregressive 편집 방법보다 일관성을 크게 향상시킨다. Self-Forcing에서는 글로벌하게 결합된 생성 역학으로 인해 작은 로컬 편집조차도 프레임 간에 전파되어 최종 출력에서 ​​큰 편차를 초래하는 경우가 많다.
+저자들은 글로벌 일관성을 유지하기 위해, low-level timestep에만 편집을 제한하는 구조 보존 편집 전략을 채택하였다. 이러한 분리는 글로벌 구조 형성과 로컬 디테일 수정을 명시적으로 분리하여 기존의 autoregressive 편집 방법보다 일관성을 크게 향상시킨다. Self-Forcing에서는 글로벌하게 결합된 생성 역학으로 인해 작은 로컬 편집조차도 프레임 간에 전파되어 최종 출력에서 큰 편차를 초래하는 경우가 많다.
 
 <center><img src='{{"/assets/img/flex-forcing/flex-forcing-fig6.webp" | relative_url}}' width="92%"></center>
 

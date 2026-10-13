@@ -45,7 +45,7 @@ $$
 그러나 기존의 대부분의 VAE는 RGB 프레임으로 사전 학습되어 있어 normal map에는 최적화되어 있지 않다. 따라서 본 논문에서는 재구성 품질을 향상시키기 위해 normal 데이터에 맞춰 VAE 디코더를 fine-tuning하였다.
 
 ##### Diffusion 기반 normal 추정
-Diffusion 프레임워크에서 normal 추정은 단순 noise 분포에서 입력 동영상 latent $z^c$에 컨디셔닝된 데이터 분포 $p(z^n \vert z^c)$로의 변환이다. 한편, $p(z^n \vert z^c)$를 noise 분포로 매핑하기 위해 각 timestep $t$에서 분산 $\sigma_t^2$를 갖는 Gaussian noise를 latent normal 시퀀스 $z_0^n$에 주입하는 forward diffusion 시퀀스가 ​​적용된다.
+Diffusion 프레임워크에서 normal 추정은 단순 noise 분포에서 입력 동영상 latent $z^c$에 컨디셔닝된 데이터 분포 $p(z^n \vert z^c)$로의 변환이다. 한편, $p(z^n \vert z^c)$를 noise 분포로 매핑하기 위해 각 timestep $t$에서 분산 $\sigma_t^2$를 갖는 Gaussian noise를 latent normal 시퀀스 $z_0^n$에 주입하는 forward diffusion 시퀀스가 적용된다.
 
 $$
 \begin{equation}

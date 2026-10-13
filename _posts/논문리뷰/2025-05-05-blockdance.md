@@ -26,7 +26,7 @@ classes: wide
 1. 새로운 스케줄러 설계 또는 step distillation을 통해 샘플링 step 수를 줄인다. 
 2. 모델 pruning, 모델 distillation, 중복 계산 완화를 사용하여 step당 계산 오버헤드를 최소화한다.
 
-본 논문은 중복 계산을 완화하여 DiT를 가속화하는 것을 목표로 하였다. 이 패러다임은 다양한 모델과 task에 plug-and-play가 가능하다. Feature 중복성은 비전 task에서 널리 사용되며, 최근 diffusion model의 denoising process에서 그 존재를 확인했지만 DiT 내의 feature 중복성과 이 중복 계산을 완화하기 위한 잠재적 전략은 여전히 ​​다뤄지지 않았다.
+본 논문은 중복 계산을 완화하여 DiT를 가속화하는 것을 목표로 하였다. 이 패러다임은 다양한 모델과 task에 plug-and-play가 가능하다. Feature 중복성은 비전 task에서 널리 사용되며, 최근 diffusion model의 denoising process에서 그 존재를 확인했지만 DiT 내의 feature 중복성과 이 중복 계산을 완화하기 위한 잠재적 전략은 여전히 다뤄지지 않았다.
 
 이를 위해 저자들은 인접한 timestep에서 DiT 블록 간의 feature 간 거리를 다시 살펴보고, 매우 유사한 feature를 캐싱하고 재사용하여 중복 계산을 줄이는 학습이 필요 없는 가속 방법인 **BlockDance**를 제안하였다. 이전의 feature 재사용 방법은 유사도 수준이 다른 다양한 스케일의 feature에 대한 맞춤형 재사용 전략이 부족하다. 결과적으로 종종 유사도가 낮은 feature가 재사용되어 이미지의 구조적 왜곡과 프롬프트와의 정렬 불량이 발생한다. 
 
@@ -53,7 +53,7 @@ DiT-XL/2, PixArt-α, Open-Sora를 포함한 다양한 DiT 모델에서 denoising
 
 <center><img src='{{"/assets/img/blockdance/blockdance-fig3.webp" | relative_url}}' width="80%"></center>
 <br>
-이를 확인하기 위해, 저자들은 PCA를 사용하여 PixArt-α의 블록 feature를 시각화하였다. 초기 denoising step에서 네트워크는 주로 인간 포즈와 기타 기본 형태와 같은 구조적 콘텐츠를 생성하는 데 중점을 둔다. Denoising process가 진행됨에 따라 네트워크의 얕은 블록과 중간 블록은 여전히 ​​저주파 구조적 콘텐츠를 생성하는 데 집중하는 반면, 더 깊은 블록은 구름이나 군중과 같은 더 복잡한 고주파 텍스처 정보를 생성하는 데 중점을 둔다. 
+이를 확인하기 위해, 저자들은 PCA를 사용하여 PixArt-α의 블록 feature를 시각화하였다. 초기 denoising step에서 네트워크는 주로 인간 포즈와 기타 기본 형태와 같은 구조적 콘텐츠를 생성하는 데 중점을 둔다. Denoising process가 진행됨에 따라 네트워크의 얕은 블록과 중간 블록은 여전히 저주파 구조적 콘텐츠를 생성하는 데 집중하는 반면, 더 깊은 블록은 구름이나 군중과 같은 더 복잡한 고주파 텍스처 정보를 생성하는 데 중점을 둔다. 
 
 결과적으로 구조가 확립된 후 위 그림에서 파란색 상자로 강조 표시된 feature map은 인접한 step에서 높은 일관성을 보인다. 이 계산을 중복 계산으로 정의하고, 이러한 매우 유사한 feature를 활용하여 중복 계산을 줄이고 denoising process를 가속화하는 전략을 설계할 수 있다.
 

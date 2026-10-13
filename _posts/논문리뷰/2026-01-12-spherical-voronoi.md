@@ -87,7 +87,7 @@ Temperature 파라미터 $$\tau_k > 0$$는 선명도를 제어한다. 작은 $$\
 
 <center><img src='{{"/assets/img/spherical-voronoi/spherical-voronoi-fig6.webp" | relative_url}}' width="50%"></center>
 <br>
-Softmax function은 ​​모든 위치에 대해 잘 정의된 gradient를 보장하고, temperature를 통해 표현의 선명도를 조정할 수 있으며, 결과적으로 생성되는 분할은 SG나 SB와 같은 표현에서 나타나는 겹치는 커널 간의 경쟁을 방지하는 깨끗하고 겹치지 않는 구면의 분해를 유도한다.
+Softmax function은 모든 위치에 대해 잘 정의된 gradient를 보장하고, temperature를 통해 표현의 선명도를 조정할 수 있으며, 결과적으로 생성되는 분할은 SG나 SB와 같은 표현에서 나타나는 겹치는 커널 간의 경쟁을 방지하는 깨끗하고 겹치지 않는 구면의 분해를 유도한다.
 
 ### 3. View-direction parameterization
 고전적인 radiance field 학습을 위해, 저자들은 view-dependent한 표현을 SV로 대체하였다. 뷰 방향 $\omega$가 주어지면, primitive와 관련된 radiance는 $$f_\textrm{SV}$$로 평가되며, 함수의 공역은 RGB 색상이다. 3DGS의 경우, 이는 각 Gaussian에 추가 파라미터 $$\{\tau_k\}$$, $$\{s_k\}$$, $$\{c_k\}$$가 부여됨을 의미하며, 모든 파라미터는 학습 가능하고 공동으로 최적화된다.

@@ -23,7 +23,7 @@ classes: wide
 <center><img src='{{"/assets/img/flash-grpo/flash-grpo-fig1.webp" | relative_url}}' width="95%"></center>
 
 ## Introduction
-Video diffusion model을 미적 품질, 물리적 타당성, 프롬프트를 충실히 만족하는 지 등 인간의 선호도에 맞추는 것은 여전히 ​​중요한 과제이다. [Flow-GRPO](https://kimjy99.github.io/논문리뷰/flow-grpo)나 [Dance-GRPO](https://arxiv.org/abs/2505.07818)와 같은 최근 방법들은 GRPO를 동영상 생성에 성공적으로 적용하여 생성 품질을 크게 향상시켰다.
+Video diffusion model을 미적 품질, 물리적 타당성, 프롬프트를 충실히 만족하는 지 등 인간의 선호도에 맞추는 것은 여전히 중요한 과제이다. [Flow-GRPO](https://kimjy99.github.io/논문리뷰/flow-grpo)나 [Dance-GRPO](https://arxiv.org/abs/2505.07818)와 같은 최근 방법들은 GRPO를 동영상 생성에 성공적으로 적용하여 생성 품질을 크게 향상시켰다.
 
 그러나 근본적인 계산상의 장벽이 여전히 존재한다. Video diffusion model은 긴 denoising 궤적에 걸쳐 시공간 latent를 통해 gradient를  backpropagation해야 한다. 기존 GRPO 방식들은 모든 timestep에서 전체 궤적에 대한 gradient를 계산해야 한다. 이는 엄청난 메모리 소비를 초래하고 학습 처리량을 심각하게 제한한다. 14B 동영상 모델을 정렬하는 데에는 일반적으로 수백 일의 GPU hour가 소요된다.
 

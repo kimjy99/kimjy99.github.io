@@ -43,7 +43,7 @@ classes: wide
 
 <center><img src='{{"/assets/img/2d-gaussian-splatting/2d-gaussian-splatting-fig3.webp" | relative_url}}' width="50%"></center>
 <br>
-위 그림에서 볼 수 있듯이, 2D splat은 중심 $$\textbf{p}_k$$, 두 개의 주 접선 벡터 $$\textbf{t}_u$$와 $$\textbf{t}_v$$, 그리고 2D Gaussian의 분산을 제어하는 ​​scaling 벡터 $\textbf{S} = (s_u, s_v)$로 특징지어진다. Normal은 $$\textbf{t}_w = \textbf{t}_u \times \textbf{t}_v$$로 정의된다. 2D splat의 방향을 $3 \times 3$ 회전 행렬 $$R = [\textbf{t}_u, \textbf{t}_v, \textbf{t}_w]$$로, scaling factor를 마지막 entry가 0인 $3 \times 3$ 대각 행렬 $\textbf{S}$로 정의할 수 있다.
+위 그림에서 볼 수 있듯이, 2D splat은 중심 $$\textbf{p}_k$$, 두 개의 주 접선 벡터 $$\textbf{t}_u$$와 $$\textbf{t}_v$$, 그리고 2D Gaussian의 분산을 제어하는 scaling 벡터 $\textbf{S} = (s_u, s_v)$로 특징지어진다. Normal은 $$\textbf{t}_w = \textbf{t}_u \times \textbf{t}_v$$로 정의된다. 2D splat의 방향을 $3 \times 3$ 회전 행렬 $$R = [\textbf{t}_u, \textbf{t}_v, \textbf{t}_w]$$로, scaling factor를 마지막 entry가 0인 $3 \times 3$ 대각 행렬 $\textbf{S}$로 정의할 수 있다.
 
 따라서 2D Gaussian은 다음과 같이 world space의 local tangent plane에서 정의된다.
 

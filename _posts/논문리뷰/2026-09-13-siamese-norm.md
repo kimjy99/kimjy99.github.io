@@ -19,7 +19,7 @@ classes: wide
 <center><img src='{{"/assets/img/siamese-norm/siamese-norm-fig1.webp" | relative_url}}' width="90%"></center>
 
 ## Introduction
-Pre-Norm은 최신 Transformer 모델을 매우 큰 규모로 scaling하는 데 놀라운 성공을 거두었지만, 정규화 패러다임 선택은 여전히 ​​해결되지 않은 문제이다. 특히 최근 연구에 따르면 Pre-Norm 모델에서 깊은 layer의 상당 부분을 pruning해도 성능 저하는 미미한 수준에 그치는 경우가 많다. 이는 Pre-Norm이 뛰어난 학습 안정성을 제공하지만, layer 활용도와 유효 깊이가 제한적일 수 있음을 시사한다.
+Pre-Norm은 최신 Transformer 모델을 매우 큰 규모로 scaling하는 데 놀라운 성공을 거두었지만, 정규화 패러다임 선택은 여전히 해결되지 않은 문제이다. 특히 최근 연구에 따르면 Pre-Norm 모델에서 깊은 layer의 상당 부분을 pruning해도 성능 저하는 미미한 수준에 그치는 경우가 많다. 이는 Pre-Norm이 뛰어난 학습 안정성을 제공하지만, layer 활용도와 유효 깊이가 제한적일 수 있음을 시사한다.
 
 반면 Post-Norm은 안정적으로 최적화될 경우 더 나은 최종 성능을 보이는 경우가 많다. 그러나 모델 크기가 커질수록 Post-Norm Transformer의 안정적이고 효율적인 학습을 보장하는 것은 점점 더 어려워진다. 또한, Post-Norm 기반 모델은 hyperparameter에 매우 민감하다. 따라서 표준 Pre-Norm 학습 방법을 Post-Norm 아키텍처에 직접 적용하면 종종 발산하거나 최적 성능을 달성하지 못한다.
 
@@ -75,7 +75,7 @@ $$\textbf{I} + \textbf{J}_{F_j}$$가 well-conditioned matrix라도, $$\textbf{J}
 기존의 하이브리드 방식은 Pre-Norm과 Post-Norm 동작을 서로 다른 layer 또는 submodule에 할당함으로써 이러한 긴장을 부분적으로 완화하였다. 그러나 모든 업데이트가 여전히 하나의 공유 메인 경로를 따라 누적되기 때문에 동일한 표현 방식이 두 가지 상충되는 역할을 동시에 수행해야 한다. 즉, 안정적인 최적화를 위해 정규화되지 않은 identity-gradient 경로를 유지하면서, residual의 magnitude를 제어하기 위해 반복적인 정규화를 적용해야 한다. 이 두 가지 요구 사항을 하나의 스트림 내에서 충족하기는 어렵다. 따라서 하나의 residual 경로 내에서 Pre-Norm과 Post-Norm 연산을 직접 혼합하는 대신, 이러한 역할을 구조적으로 분리하되 서로 연결된 스트림으로 구성하는 것이 본 논문의 목표이다.
 
 ## Method
-SiameseNorm은 $X_i$와 $Y_i$로 표시되는 두 개의 연결된 residual 스트림을 유지한다. $X_i$ 스트림은 각 residual 업데이트 후 정규화되며, 이는 hidden-state magnitude를 제어하는 ​​Post-Norm 경로와 유사하다. $Y_i$ 스트림은 메인 경로에서 정규화 없이 residual 업데이트를 누적하며, 이는 안정적인 gradient 전파를 위한 identity 경로를 유지하는 Pre-Norm 경로와 유사하다. 각 layer에서 두 스트림은 공유 residual block $F_i$를 통해 상호작용하므로, 이 아키텍처는 무시할 수 있는 수준의 파라미터 오버헤드를 발생시킨다.
+SiameseNorm은 $X_i$와 $Y_i$로 표시되는 두 개의 연결된 residual 스트림을 유지한다. $X_i$ 스트림은 각 residual 업데이트 후 정규화되며, 이는 hidden-state magnitude를 제어하는 Post-Norm 경로와 유사하다. $Y_i$ 스트림은 메인 경로에서 정규화 없이 residual 업데이트를 누적하며, 이는 안정적인 gradient 전파를 위한 identity 경로를 유지하는 Pre-Norm 경로와 유사하다. 각 layer에서 두 스트림은 공유 residual block $F_i$를 통해 상호작용하므로, 이 아키텍처는 무시할 수 있는 수준의 파라미터 오버헤드를 발생시킨다.
 
 <center><img src='{{"/assets/img/siamese-norm/siamese-norm-algo1.webp" | relative_url}}' width="36%"></center>
 

@@ -111,7 +111,7 @@ $$
 <center><img src='{{"/assets/img/self-consistency/self-consistency-table5.webp" | relative_url}}' width="75%"></center>
 
 ### 3. Compare to other existing approaches
-생성 품질을 개선하기 위해 일반적으로 사용되는 접근 방식 중 하나는 sample-and-rank이다. Sample-and-rank는 여러 시퀀스가 ​​디코더에서 샘플링된 다음 각 시퀀스의 로그 확률에 따라 순위가 매겨진다. 다음은 sample-and-rank와 self-consistency를 비교한 그래프이다. (GPT-3 code-davinci-001)
+생성 품질을 개선하기 위해 일반적으로 사용되는 접근 방식 중 하나는 sample-and-rank이다. Sample-and-rank는 여러 시퀀스가 디코더에서 샘플링된 다음 각 시퀀스의 로그 확률에 따라 순위가 매겨진다. 다음은 sample-and-rank와 self-consistency를 비교한 그래프이다. (GPT-3 code-davinci-001)
 
 <center><img src='{{"/assets/img/self-consistency/self-consistency-fig3.webp" | relative_url}}' width="90%"></center>
 <br>

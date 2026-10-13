@@ -37,7 +37,7 @@ Low-cost Cross-View Aggregation에서는 저비용 feature 추출 및 매칭을 
 <center><img src='{{"/assets/img/freesplat/freesplat-fig2.webp" | relative_url}}' width="100%"></center>
 
 ### 1. Overview
-RGB 이미지 시퀀스가 ​​주어지면, 근처 뷰 간에 cost volume을 적응적으로 구축하고, depth map을 예측하여 2D feature map을 3D Gaussian triplet으로 unprojection한다. 그런 다음 Pixel-wise Triplet Fusion (PTF) 모듈로 global Gaussian triplet을 local Gaussian triplet과 점진적으로 정렬하여 latent feature space에서 중복된 3D Gaussian을 융합하고 디코딩하기 전에 cross-view Gaussian feature를 집계할 수 있다. FreeSplat은 cost volume을 통해 cross-view feature를 효율적으로 교환하고, cross-view alignment와 adaptive fusion을 통해 뷰별 3D Gaussian을 점진적으로 집계할 수 있다.
+RGB 이미지 시퀀스가 주어지면, 근처 뷰 간에 cost volume을 적응적으로 구축하고, depth map을 예측하여 2D feature map을 3D Gaussian triplet으로 unprojection한다. 그런 다음 Pixel-wise Triplet Fusion (PTF) 모듈로 global Gaussian triplet을 local Gaussian triplet과 점진적으로 정렬하여 latent feature space에서 중복된 3D Gaussian을 융합하고 디코딩하기 전에 cross-view Gaussian feature를 집계할 수 있다. FreeSplat은 cost volume을 통해 cross-view feature를 효율적으로 교환하고, cross-view alignment와 adaptive fusion을 통해 뷰별 3D Gaussian을 점진적으로 집계할 수 있다.
 
 ### 2. Low-cost Cross-View Aggregation
 ##### 효율적인 2D feature 추출

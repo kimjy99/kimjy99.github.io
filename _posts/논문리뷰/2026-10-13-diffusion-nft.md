@@ -23,9 +23,9 @@ classes: wide
 <center><img src='{{"/assets/img/diffusion-nft/diffusion-nft-fig1.webp" | relative_url}}' width="88%"></center>
 
 ## Introduction
-GRPO 방식의 diffusion RL은 여전히 ​​다음과 같은 근본적인 한계에 직면해 있다.
+GRPO 방식의 diffusion RL은 여전히 다음과 같은 근본적인 한계에 직면해 있다.
 
-1. **Forward 불일치**: Reverse process에만 집중하면 forward process를 준수하지 못하게 되어 모델이 cascaded Gaussian으로 퇴화할 ​​위험이 있다.
+1. **Forward 불일치**: Reverse process에만 집중하면 forward process를 준수하지 못하게 되어 모델이 cascaded Gaussian으로 퇴화할 위험이 있다.
 2. **Solver 제약**: 데이터 수집 과정은 first-order SDE sampler에 의존하므로, flow model에 기본적으로 사용되고 효율성에 유리한 ODE 또는 high-order solver를 충분히 활용할 수 없다.
 3. **복잡한 CFG 통합**: Diffusion model은 conditional 모델과 unconditional 모델 모두를 학습해야 하는 [CFG](https://kimjy99.github.io/논문리뷰/cfdg)에 크게 의존한다. 현재의 RL 방식은 일반적으로 CFG를 post-training에 통합하여 복잡하고 비효율적인 두 모델 최적화 방식을 사용한다.
 

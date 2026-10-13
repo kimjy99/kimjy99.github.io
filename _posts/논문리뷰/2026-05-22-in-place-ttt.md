@@ -90,7 +90,7 @@ $$
 \end{equation}
 $$
 
-이 chunk-wise update 전략은 최신 하드웨어에 최적화되어 있다. 또한, MLP를 in-place로 적용함으로써 큰 ​chunk 크기 $C$를 사용하여 대량의 토큰들을 한 번에 처리할 수 있으며, 이를 통해 병렬 처리를 극대화하고 GPU 또는 TPU의 연산 능력을 활용할 수 있다.
+이 chunk-wise update 전략은 최신 하드웨어에 최적화되어 있다. 또한, MLP를 in-place로 적용함으로써 큰 chunk 크기 $C$를 사용하여 대량의 토큰들을 한 번에 처리할 수 있으며, 이를 통해 병렬 처리를 극대화하고 GPU 또는 TPU의 연산 능력을 활용할 수 있다.
 
 ### 2. LM-Aligned Objective
 기존 TTT 접근 방식은 일반적으로 reconstruction objective, 예를 들어 $$\mathcal{L} (f_\textbf{W} (k), v)$$와 같이 사용하는데, 여기서 $k$와 $v$는 모두 동일한 입력 토큰 $x$의 linear projection 출력이다. 이는 모델이 현재 토큰의 표현을 단순히 암기하도록 유도한다. 저자들은 이것이 언어 모델링 task에 최적의 방법이 아니라고 주장하며, 대신 LLM의 next-token prediction (NTP)에 맞춰 objective를 정렬할 것을 제안하였다.

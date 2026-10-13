@@ -21,7 +21,7 @@ classes: wide
 <center><img src='{{"/assets/img/guidedvd-3dgs/guidedvd-3dgs-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
-[3DGS](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)에서 sparse한 입력을 사용한 장면 모델링은 여전히 ​​상당한 과제이며, 두 가지 중요한 문제가 존재한다.
+[3DGS](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)에서 sparse한 입력을 사용한 장면 모델링은 여전히 상당한 과제이며, 두 가지 중요한 문제가 존재한다.
 
 1. **Extrapolation**: 시야 밖에 있는 영역이 여전히 존재할 수 있다.
 2. **Occlusion**: 학습 입력 뷰에서 약간이라도 벗어난 새로운 뷰에서 occlusion이 자주 발생한다. 최적화된 3DGS로 렌더링할 때 심각한 아티팩트가 발생하여 이미지 품질이 크게 저하될 수 있다.
@@ -35,7 +35,7 @@ classes: wide
 
 저자들은 video diffusion model에서 학습된 prior를 최대한 활용하기 위해, 생성된 시퀀스 내 불일치 문제를 해결하는 방법을 추가로 탐구하였다. 프레임별로 학습 가능한 외형 임베딩을 할당하여 외형 불일치를 해결하는 기존 방법과 달리, video diffusion model을 길들여 일관성 있는 시퀀스를 직접 생성하는 데 중점을 두었다. 
 
-저자들은 diffusion model을 추가로 fine-tuning하지 않고도 일관된 생성을 보장하기 위해 **scene-grounding guidance**라는 새로운 전략을 도입하였다. 구체적으로, scene-grounding guidance는 최적화된 3DGS에서 렌더링된 시퀀스를 기반으로 한다. Denoising process의 각 step에서 noise가 있는 시퀀스는 렌더링된 시퀀스의 supervision으로부터 gradient를 받는다. 렌더링된 시퀀스가 ​​완벽한 guidance를 제공하지는 않지만, 불일치 문제를 해결하기 위해 이를 사용하는 데 있어 핵심적인 통찰력은 두 가지이다.
+저자들은 diffusion model을 추가로 fine-tuning하지 않고도 일관된 생성을 보장하기 위해 **scene-grounding guidance**라는 새로운 전략을 도입하였다. 구체적으로, scene-grounding guidance는 최적화된 3DGS에서 렌더링된 시퀀스를 기반으로 한다. Denoising process의 각 step에서 noise가 있는 시퀀스는 렌더링된 시퀀스의 supervision으로부터 gradient를 받는다. 렌더링된 시퀀스가 완벽한 guidance를 제공하지는 않지만, 불일치 문제를 해결하기 위해 이를 사용하는 데 있어 핵심적인 통찰력은 두 가지이다.
 
 1. 렌더링된 시퀀스 내 인접 프레임은 카메라 이동이 제한되어 있어 매우 일관성이 있다.
 2. 렌더링된 시퀀스는 장면에 존재하지 않는 요소가 생성되는 것을 방지하기 위해 diffusion model을 가이드할 수 있다.
@@ -83,12 +83,12 @@ $$
 
 이 guidance 항은 denoising 샘플링 동안 일관성 타겟을 달성하기 위해 denoising process에 추가된다.
 
-남은 문제는 일관성 타겟 $\mathcal{Q}$를 어떻게 정의할 것인가에 있다. 본 논문에서는 최적화된 3DGS 모델 $\mathcal{R}$의 렌더링된 시퀀스를 사용하여 타겟을 설정하였다. 렌더링된 시퀀스가 ​​완벽하지는 않지만, 본 연구의 주요 통찰력은 다음과 같다.
+남은 문제는 일관성 타겟 $\mathcal{Q}$를 어떻게 정의할 것인가에 있다. 본 논문에서는 최적화된 3DGS 모델 $\mathcal{R}$의 렌더링된 시퀀스를 사용하여 타겟을 설정하였다. 렌더링된 시퀀스가 완벽하지는 않지만, 본 연구의 주요 통찰력은 다음과 같다.
 
 1. 인접 프레임의 렌더링된 이미지는 카메라 움직임이 일반적으로 미미하기 때문에 매우 일관성이 높다.
 2. 렌더링된 프레임은 장면에 어떤 요소가 존재하는지 명확하게 나타낸다.
 
-따라서 렌더링된 시퀀스는 생성된 시퀀스가 ​​일관성 타겟을 달성하는 데 효과적인 guidance 역할을 할 수 있다.
+따라서 렌더링된 시퀀스는 생성된 시퀀스가 일관성 타겟을 달성하는 데 효과적인 guidance 역할을 할 수 있다.
 
 시퀀스 생성을 위한 카메라 궤적 $$\{\phi_j\}_{j=1}^L$$이 주어지면, 먼저 최적화된 3DGS를 사용하여 시퀀스 $$\textbf{S} = \{S_j\}_{j=1}^L \in \mathbb{R}^{L \times H \times W \times 3}$$과, sparse한 입력에 의해 가려지지 않는 영역을 나타내는 마스크 시퀀스 $$\textbf{M} = \{M_j\}_{j=1}^L \in \mathbb{R}^{L \times H \times W \times 1}$$을 렌더링한다. 마스크를 얻기 위해 먼저 opacity에 알파 블렌딩을 적용하여 얻은 transmittance map을 렌더링한다. 각 픽셀 $x_p$에 대해 알파 블렌딩은 다음과 같다.
 

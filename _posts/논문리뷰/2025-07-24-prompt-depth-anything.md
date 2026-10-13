@@ -51,7 +51,7 @@ Prompt Depth Anything은 모든 데이터셋과 metric에서 지속적으로 SOT
 
 - **Adaptive LayerNorm**: 컨디셔닝 입력에 따라 인코더 블록의 layer normalization 파라미터를 조정
 - **CrossAttention**: 각 self-attention block 뒤에 cross-attention block을 삽입하고 cross-attention 메커니즘을 통해 컨디셔닝 입력을 통합
-- **​​ControlNet**: 인코더 블록을 복사하고 복사된 블록에 제어 신호를 입력하여 출력 깊이를 제어
+- **ControlNet**: 인코더 블록을 복사하고 복사된 블록에 제어 신호를 입력하여 출력 깊이를 제어
 
 실험 결과, 이러한 디자인들은 제안된 융합 블록만큼 성능이 좋지 않았다. 그럴듯한 이유는 이러한 디자인이 모달리티 간 정보를 통합하도록 설계되었기 때문이며, 이는 입력 저해상도 LiDAR와 출력 깊이 간의 픽셀 정렬 특성을 효과적으로 활용하지 못하기 때문이다. 
 
@@ -73,7 +73,7 @@ LiDAR depth map은 해상도가 낮고 노이즈가 많다. 이를 시뮬레이�
 저자들은 [Zip-NeRF](https://arxiv.org/abs/2304.06706)를 사용하여 고품질 depth map을 복원하는 방법을 제안하였다. 구체적으로, ScanNet++에서 각 장면에 대해 Zip-NeRF를 학습시키고 pseudo GT depth 정보를 다시 렌더링한다. Zip-NeRF에 고품질의 dense한 관측값을 제공하기 위해, Scannet++ iPhone 동영상에서 흐릿하지 않은 프레임을 검출하고, DSLR 동영상을 활용하여 고품질의 dense-view 이미지를 제공하였다.
 
 ##### 실제 데이터: Edge-aware depth loss
-Zip-NeRF는 고품질 edge 깊이를 생성할 수 있지만, 텍스처가 없고 반사되는 영역을 재구성하는 것은 여전히 ​​어렵다. 반면, 이러한 영역은 일반적으로 평면이고 occlusion이 거의 없으며, 메쉬에서 얻은 깊이는 이러한 영역에서 양호하다. 따라서 두 가지의 장점을 모두 활용하고자 edge-aware depth loss를 사용한다. 구체적으로, 메쉬에서 얻은 깊이와 pseudo GT depth의 gradient를 사용하여 각각 출력 깊이와 출력 깊이의 gradient를 학습시킨다.
+Zip-NeRF는 고품질 edge 깊이를 생성할 수 있지만, 텍스처가 없고 반사되는 영역을 재구성하는 것은 여전히 어렵다. 반면, 이러한 영역은 일반적으로 평면이고 occlusion이 거의 없으며, 메쉬에서 얻은 깊이는 이러한 영역에서 양호하다. 따라서 두 가지의 장점을 모두 활용하고자 edge-aware depth loss를 사용한다. 구체적으로, 메쉬에서 얻은 깊이와 pseudo GT depth의 gradient를 사용하여 각각 출력 깊이와 출력 깊이의 gradient를 학습시킨다.
 
 $$
 \begin{aligned}

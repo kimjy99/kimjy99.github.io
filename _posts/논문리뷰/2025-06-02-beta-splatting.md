@@ -86,7 +86,7 @@ $$
 
 <center><img src='{{"/assets/img/beta-splatting/beta-splatting-fig2.webp" | relative_url}}' width="100%"></center>
 <br>
-​​파라미터 $b \in \mathbb{R}$를 변경하면 커널 모양이 변형되며, $b = 0$일 때 Gaussian 함수와 거의 동일한 함수가 생성된다. 최적화가 진행됨에 따라 커널이 Gaussian 함수와 유사한 모양에서 더 날카로운 모서리와 평평한 표면을 포착할 수 있는 모양으로 동적으로 조정될 수 있도록 한다.
+파라미터 $b \in \mathbb{R}$를 변경하면 커널 모양이 변형되며, $b = 0$일 때 Gaussian 함수와 거의 동일한 함수가 생성된다. 최적화가 진행됨에 따라 커널이 Gaussian 함수와 유사한 모양에서 더 날카로운 모서리와 평평한 표면을 포착할 수 있는 모양으로 동적으로 조정될 수 있도록 한다.
 
 외관 모델링을 위해 각 primitive는 시점에 따라 달라지는 색상 정보를 인코딩하는 feature 벡터 $f \in \mathbb{R}^d$를 갖는다. 이 벡터는 복잡한 조명 상호작용을 표현하는 데 필수적이다.
 
@@ -147,7 +147,7 @@ SB는 반사도 모델링 측면에서 Spherical Gaussian (SG)과 유사하지�
 그러나 이러한 휴리스틱 전략과 scale 조정은 본질적으로 Gaussian 함수의 속성과 연결되어 있어 임의의 커널에 직접 적용하기 어렵다. 이러한 한계를 해결하기 위해, 본 논문은 3DGS-MCMC에서 구축된 프레임워크를 기반으로 **Kernel-Agnostic MCMC**를 제안하였다.
 
 ##### 최적화
-탐색을 촉진하고 overfitting을 방지하기 위해, 최적화 과정에서 primitive들의 위치를 ​​교란하는 noise 항 $\epsilon$을 채택한다. 그러면 primitive의 위치 $\boldsymbol{\mu}$는 다음과 같이 업데이트된다.
+탐색을 촉진하고 overfitting을 방지하기 위해, 최적화 과정에서 primitive들의 위치를 교란하는 noise 항 $\epsilon$을 채택한다. 그러면 primitive의 위치 $\boldsymbol{\mu}$는 다음과 같이 업데이트된다.
 
 $$
 \begin{equation}

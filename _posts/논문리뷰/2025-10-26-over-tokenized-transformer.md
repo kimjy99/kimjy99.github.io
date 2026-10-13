@@ -38,13 +38,13 @@ Over-encoding에 많은 양의 임베딩 파라미터를 도입했지만, 임베
 
 ## Method
 ### 1. Insights from Synthetic Experiments
-저자들은 Context-Free Grammar (CFG)을 대상 언어로 사용하여 최대 729자 길이의 3개의 서로 다른 문자로 구성된 시퀀스를 생성했다. 이 설정을 통해 실제 언어 분포를 완전히 파악할 수 있으므로 언어 ​​모델을 정확하게 평가할 수 있다. 저자들은 CFG에서 생성된 샘플에 대해 next-token prediction loss를 사용하여 다양한 크기의 GPT-2 모델을 학습시키고, 유효 생성 비율을 측정하는 모델 생성 시퀀스의 정확도를 기반으로 모델을 평가했다.
+저자들은 Context-Free Grammar (CFG)을 대상 언어로 사용하여 최대 729자 길이의 3개의 서로 다른 문자로 구성된 시퀀스를 생성했다. 이 설정을 통해 실제 언어 분포를 완전히 파악할 수 있으므로 언어 모델을 정확하게 평가할 수 있다. 저자들은 CFG에서 생성된 샘플에 대해 next-token prediction loss를 사용하여 다양한 크기의 GPT-2 모델을 학습시키고, 유효 생성 비율을 측정하는 모델 생성 시퀀스의 정확도를 기반으로 모델을 평가했다.
 
 첫 번째 실험은 다양한 세분성 수준의 tokenizer를 사용하는 언어 모델의 성능을 비교하는 것을 목표로 하였다. Baseline tokenizer는 CFG에서 정의한 3개의 문자를 사용하여 vocabulary를 구성하고, 문장을 문자 단위로 tokenize하는데, 이를 1-gram tokenizer라고 한다. 또한, n개의 연속된 문자의 가능한 조합 $3^n$개로 구성된 vocabulary를 갖는 $n$-gram tokenizer를 정의한다. 두 tokenizer를 각각 사용하여 크고 작은 GPT-2 모델을 모두 학습시켰다.
 
 <center><img src='{{"/assets/img/over-tokenized-transformer/over-tokenized-transformer-fig2a.webp" | relative_url}}' width="30%"></center>
 <br>
-위 그림에서 볼 수 있듯이, tokenizer의 크기가 클수록 더 큰 모델의 성능은 향상되지만, 작은 모델에는 부정적인 영향을 미치는 것을 확인할 수 있다. 특히, tokenizer의 크기가 클수록 학습 시퀀스가 ​​짧아져 학습 비용이 크게 절감된다. 따라서 3-gram tokenizer를 사용하여 더 큰 모델을 학습시키면 학습 비용이 절감될 뿐만 아니라 모델 성능도 향상된다. 직관적인 통찰력은 더 큰 모델이 더 많은 vocabulary를 사용할수록 학습 효율성과 성능이 향상된다는 것이다.
+위 그림에서 볼 수 있듯이, tokenizer의 크기가 클수록 더 큰 모델의 성능은 향상되지만, 작은 모델에는 부정적인 영향을 미치는 것을 확인할 수 있다. 특히, tokenizer의 크기가 클수록 학습 시퀀스가 짧아져 학습 비용이 크게 절감된다. 따라서 3-gram tokenizer를 사용하여 더 큰 모델을 학습시키면 학습 비용이 절감될 뿐만 아니라 모델 성능도 향상된다. 직관적인 통찰력은 더 큰 모델이 더 많은 vocabulary를 사용할수록 학습 효율성과 성능이 향상된다는 것이다.
 
 <center><img src='{{"/assets/img/over-tokenized-transformer/over-tokenized-transformer-fig3.webp" | relative_url}}' width="55%"></center>
 <br>
@@ -61,7 +61,7 @@ Over-encoding에 많은 양의 임베딩 파라미터를 도입했지만, 임베
 ### 2. Over-Tokenized Transformer
 기본 tokenizer의 vocabulary 크기가 $V$라면 (보통 $10^5$), 크기가 $V^n$ 인 $n$-gram vocabulary는 지나치게 커지고 비실용적이 된다는 문제가 발생한다. 이 문제를 해결하기 위해, 저자들은 일련의 행렬 분해를 통해 큰 임베딩 테이블을 근사화하는 방법을 제안하였다.
 
-기본 tokenizer에서 입력 ID 시퀀스 $x_1, \ldots, x_t$가 ​​주어지면 다음과 같이 $n$-gram 입력 토큰 $x_i^{(-n)}$를 정의한다.
+기본 tokenizer에서 입력 ID 시퀀스 $x_1, \ldots, x_t$가 주어지면 다음과 같이 $n$-gram 입력 토큰 $x_i^{(-n)}$를 정의한다.
 
 $$
 \begin{equation}

@@ -23,7 +23,7 @@ classes: wide
 <center><img src='{{"/assets/img/shape-of-motion/shape-of-motion-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
-최근 몇 년 동안 정적인 3D 장면 모델링에서 인상적인 진전이 있었지만, 특히 하나의 동영상에서 복잡하고 동적인 3D 장면의 형상과 모션을 복구하는 것은 여전히 ​​열린 문제로 남아 있다. 여러 동적 재구성 및 novel view synthesis (NVS) 접근법이 이 문제를 해결하려고 시도했다. 그러나 대부분의 방법은 동기화된 멀티뷰 동영상 또는 추가 LIDAR/깊이 센서에 의존한다. 최근의 monocular 접근 방식은 일반 동적 동영상에서 작동할 수 있지만 일반적으로 짧은 거리의 scene flow 또는 deformation field로 3D 장면 모션을 모델링하므로 동영상에 지속되는 3D 모션 궤적을 캡처하지 못한다. 
+최근 몇 년 동안 정적인 3D 장면 모델링에서 인상적인 진전이 있었지만, 특히 하나의 동영상에서 복잡하고 동적인 3D 장면의 형상과 모션을 복구하는 것은 여전히 열린 문제로 남아 있다. 여러 동적 재구성 및 novel view synthesis (NVS) 접근법이 이 문제를 해결하려고 시도했다. 그러나 대부분의 방법은 동기화된 멀티뷰 동영상 또는 추가 LIDAR/깊이 센서에 의존한다. 최근의 monocular 접근 방식은 일반 동적 동영상에서 작동할 수 있지만 일반적으로 짧은 거리의 scene flow 또는 deformation field로 3D 장면 모션을 모델링하므로 동영상에 지속되는 3D 모션 궤적을 캡처하지 못한다. 
 
 일반적인 동영상에 대한 오랜 과제는 재구성 문제의 제약이 부족하다는 것이다. 저자들은 두 가지 주요 통찰력을 통해 이 문제를 해결하였다. 첫 번째는 이미지 공간에서의 역학은 복잡하고 불연속적일 수 있지만 3D 모션은 연속적인 단순 rigid motion의 합이라는 것이다. 두 번째는 데이터 기반 prior가 3D 장면 형상과 모션에 글로벌하게 일관된 표현으로 잘 통합되는 보완적인 단서라는 것이다. 
 
@@ -143,7 +143,7 @@ L_\textrm{rigidity} = \| \textrm{dist} (\hat{\mathbf{X}}_t, \mathcal{C}_k (\hat{
 \end{equation}
 $$
 
-$$\hat{\textbf{X}}_t$$와 $$\hat{\textbf{X}}_{t^\prime}$$은 시간 $t$ 및 $t^\prime$에서 Gaussian의 위치를 ​​나타내고 $$\mathcal{C}_k(\hat{\textbf{X}}_t)$$는 $$\hat{\textbf{X}}_t$$의 k-nearest neighbor들을 나타낸다. $\textrm{dist}(\cdot,\cdot)$는 Euclidean distance이다. 
+$$\hat{\textbf{X}}_t$$와 $$\hat{\textbf{X}}_{t^\prime}$$은 시간 $t$ 및 $t^\prime$에서 Gaussian의 위치를 나타내고 $$\mathcal{C}_k(\hat{\textbf{X}}_t)$$는 $$\hat{\textbf{X}}_t$$의 k-nearest neighbor들을 나타낸다. $\textrm{dist}(\cdot,\cdot)$는 Euclidean distance이다. 
 
 ## Experiments
 - 구현 디테일
@@ -190,7 +190,7 @@ $$\hat{\textbf{X}}_t$$와 $$\hat{\textbf{X}}_{t^\prime}$$은 시간 $t$ 및 $t^\
 <center><img src='{{"/assets/img/shape-of-motion/shape-of-motion-table3.webp" | relative_url}}' width="75%"></center>
 
 ## Limitations
-1. 대부분의 이전 monocular 동적 NVS 방법과 유사하게 여전히 ​​장면별 test-time 최적화가 필요하다. 
+1. 대부분의 이전 monocular 동적 NVS 방법과 유사하게 여전히 장면별 test-time 최적화가 필요하다. 
 2. 카메라 시점의 큰 변화를 처리할 수 없다. 
 3. 기존 알고리즘에서 얻은 정확한 카메라 파라미터에 의존하여 텍스처가 없는 영역이나 움직이는 물체가 지배하는 장면에서 잠재적인 오차가 발생한다. 
 4. 움직이는 물의 마스크를 생성하기 위해 사용자 입력에 의존한다. 

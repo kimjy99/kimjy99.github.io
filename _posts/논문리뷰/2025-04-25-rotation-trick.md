@@ -86,7 +86,7 @@ STE를 Hessian 근사나 이중 forward pass로 대체하여 $\frac{\partial \ma
 ## The Rotation Trick
 <center><img src='{{"/assets/img/rotation-trick/rotation-trick-algo1.webp" | relative_url}}' width="32%"></center>
 <br>
-STE에서 qauntize된 영역 내에서 $e$의 위치는 $q$에 가깝든 멀리 떨어져 있든 인코더에 대한 gradient 업데이트에 영향을 미치지 않으며, 이는 정보를 잃는 것이다. 이 정보를 캡처하는 것, 즉 $q$에 대한 $e$의 위치를 ​​사용하여 gradient를 $\frac{\partial q}{\partial e}$를 통해 변환하는 것은 인코더의 gradient 업데이트에 유익할 수 있으며 STE보다 개선될 수 있다.
+STE에서 qauntize된 영역 내에서 $e$의 위치는 $q$에 가깝든 멀리 떨어져 있든 인코더에 대한 gradient 업데이트에 영향을 미치지 않으며, 이는 정보를 잃는 것이다. 이 정보를 캡처하는 것, 즉 $q$에 대한 $e$의 위치를 사용하여 gradient를 $\frac{\partial q}{\partial e}$를 통해 변환하는 것은 인코더의 gradient 업데이트에 유익할 수 있으며 STE보다 개선될 수 있다.
 
 기하학적으로 볼 때, gradient $$\nabla_q \mathcal{L}$$을 $q$에서 $e$로 어떻게 움직일지, 그리고 이 움직임 동안 $$\nabla_q \mathcal{L}$$과 $q$의 어떤 특성을 보존해야 하는지가 중요하다. STE는 gradient를 $q$에서 $e$로 옮겨 방향과 크기가 보존되도록 한다. 그러나 본 논문은 $$\nabla_q \mathcal{L}$$을 $e$로 이동시킬 때 $$\nabla_q \mathcal{L}$$과 $q$ 사이의 각도가 보존되도록 한다. 이 접근 방식을 **rotation trick**이라 부른다.
 

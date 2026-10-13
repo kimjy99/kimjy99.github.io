@@ -75,7 +75,7 @@ SoundStream tokenizer는 2.125초의 오디오를 임베딩하여 4단계의 res
 <br>
 구체적으로, SR transformer는 세 개의 transformer layer block으로 구성되며, 각 레이어는 공간적 수직 공간적 수평, 시간 축 중 하나에 맞춰진 local window에서 self-attention을 수행한다. Cross-attention layer는 저해상도(LR) 토큰 시퀀스에 attention되고 local window로 나뉘며, self-attention layer의 window와 동일한 모양이다. 모든 block에는 텍스트 임베딩에 대한 cross-attention도 포함된다. 커스텀 MAGVIT의 아키텍처는 위 그림과 같다. 
 
-더 큰 vocabulary 크기를 설명하기 위해, [MAGVIT-v2](https://kimjy99.github.io/논문리뷰/magvit-v2)를 따르고 $k = 2$ factor의 token factorization을 사용하여 SR transformer를 학습시킨다. 이는 262, 144-way classification 문제를 두 개의 512-way classification 문제로 변환한다. LR 토큰 시퀀스는 GT 동영상의 bicubic 다운샘플링 버전을 tokenize하고 discrete한 latent space에 noise augmentation을 적용하여 실제 동영상과 생성된 동영상 간의 분포 불일치를 완화한다. 특히, LR 토큰의 랜덤한 부분집합의 값을 무작위로 리샘플링하고 학습 샘플의 10%에 대해 LR 조건과 텍스트 임베딩을 독립적으로 제거한다. Inference 시에는 LR 조건과 텍스트 임베딩 모두에 대해 classifier-free guidance를 사용한 non-autoregressive sampling을 사용한다. VideoPoet의 224$\times$128 기본 출력에서 ​​896$\times$512 해상도의 동영상을 생성하기 위해 두 개의 2$\times$의 cascade를 사용한다. 
+더 큰 vocabulary 크기를 설명하기 위해, [MAGVIT-v2](https://kimjy99.github.io/논문리뷰/magvit-v2)를 따르고 $k = 2$ factor의 token factorization을 사용하여 SR transformer를 학습시킨다. 이는 262, 144-way classification 문제를 두 개의 512-way classification 문제로 변환한다. LR 토큰 시퀀스는 GT 동영상의 bicubic 다운샘플링 버전을 tokenize하고 discrete한 latent space에 noise augmentation을 적용하여 실제 동영상과 생성된 동영상 간의 분포 불일치를 완화한다. 특히, LR 토큰의 랜덤한 부분집합의 값을 무작위로 리샘플링하고 학습 샘플의 10%에 대해 LR 조건과 텍스트 임베딩을 독립적으로 제거한다. Inference 시에는 LR 조건과 텍스트 임베딩 모두에 대해 classifier-free guidance를 사용한 non-autoregressive sampling을 사용한다. VideoPoet의 224$\times$128 기본 출력에서 896$\times$512 해상도의 동영상을 생성하기 위해 두 개의 2$\times$의 cascade를 사용한다. 
 
 ## LLM Pretraining for Generation
 ### 1. Task Prompt Design
@@ -93,7 +93,7 @@ SoundStream tokenizer는 2.125초의 오디오를 임베딩하여 4단계의 res
 
 모델은 prefix로 컨디셔닝되며, loss는 출력에만 적용된다. 각 task의 경우 입력 시퀀스에는 텍스트 임베딩(T5), 비주얼 토큰(MAGVIT-v2), 오디오 토큰(SoundStream)의 세 가지 유형의 값이 포함될 수 있다. 모델은 비주얼 토큰과 오디오 토큰의 두 가지 유형의 토큰을 출력한다. VideoPoet은 학습을 용이하게 하기 위해 특수 토큰을 사용한다. 
 
-Task 유형을 나타내기 위해, 각 고유한 출력에 대해 고유한 값을 갖는 `<task>` 토큰으로 컨디셔닝한다. 모든 task에 독립적인 `<task>`가 필요한 것은 아니다. 모델은 동일한 출력에 대해 다른 컨텍스트 신호에 적응한다. 예를 들어, T2V, I2V, Unconditioned video generation은 동일한 `<task>`를 공유한다. Task에 특정 modality가 없는 경우 관련된 입출력 토큰과 특수 토큰이 제외되어 시퀀스가 ​​단축된다. 
+Task 유형을 나타내기 위해, 각 고유한 출력에 대해 고유한 값을 갖는 `<task>` 토큰으로 컨디셔닝한다. 모든 task에 독립적인 `<task>`가 필요한 것은 아니다. 모델은 동일한 출력에 대해 다른 컨텍스트 신호에 적응한다. 예를 들어, T2V, I2V, Unconditioned video generation은 동일한 `<task>`를 공유한다. Task에 특정 modality가 없는 경우 관련된 입출력 토큰과 특수 토큰이 제외되어 시퀀스가 단축된다. 
 
 ##### 이미지를 동영상으로 표현
 Text-to-image 사전 학습 시 입력 시퀀스에서 `<eos>`와 `<eov_o>` 토큰을 생략하여 더 긴 동영상의 추론을 위한 지속적인 토큰 생성을 가능하게 한다. 이 접근 방식은 동영상과 이미지 생성 task 간의 경계를 모호하게 만들어 modality 사이의 정보 공유를 향상시킨다. 이 디자인은 더 높은 품질의 초기 프레임을 예측하고 후속 프레임의 아티팩트를 줄인다. 

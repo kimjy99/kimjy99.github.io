@@ -67,7 +67,7 @@ $$
 $$
 
 ### 3. Light Transport Modeling
-입사광 $$\textbf{L}_i (\textbf{x}, \boldsymbol{\omega}_i)$$를 정확하게 모델링하는 것은 여전히 ​​어려운데, 이는 $$\textbf{L}_i (\textbf{x}, \boldsymbol{\omega}_i)$$가 환경 조명뿐만 아니라 inter-reflection에 의한 간접 조명까지 포함하기 때문이다. 그림자와 inter-reflection과 같은 효과를 포착하려면 효과적인 light transport 모델링이 필요하다. 기존 접근법은 1번 반사하는 모델로 조명을 근사하여 $$\textbf{L}_i (\textbf{x}, \boldsymbol{\omega}_i)$$를 두 가지 성분, 즉 환경 조명을 나타내는 직접 조명 항 $$\textbf{L}_\textrm{dir} (\boldsymbol{\omega})$$와 inter-reflection을 고려하는 간접 조명 항 $$\textbf{L}_\textrm{ind} (\textbf{x}, \boldsymbol{\omega}_i)$$로 분리한다. Self-occlusion을 모델링하기 위해 스칼라 $$O(\textbf{x}, \boldsymbol{\omega}_i)$$를 도입하여 이 두 조명 성분 간의 비율에 가중치를 부여한다.
+입사광 $$\textbf{L}_i (\textbf{x}, \boldsymbol{\omega}_i)$$를 정확하게 모델링하는 것은 여전히 어려운데, 이는 $$\textbf{L}_i (\textbf{x}, \boldsymbol{\omega}_i)$$가 환경 조명뿐만 아니라 inter-reflection에 의한 간접 조명까지 포함하기 때문이다. 그림자와 inter-reflection과 같은 효과를 포착하려면 효과적인 light transport 모델링이 필요하다. 기존 접근법은 1번 반사하는 모델로 조명을 근사하여 $$\textbf{L}_i (\textbf{x}, \boldsymbol{\omega}_i)$$를 두 가지 성분, 즉 환경 조명을 나타내는 직접 조명 항 $$\textbf{L}_\textrm{dir} (\boldsymbol{\omega})$$와 inter-reflection을 고려하는 간접 조명 항 $$\textbf{L}_\textrm{ind} (\textbf{x}, \boldsymbol{\omega}_i)$$로 분리한다. Self-occlusion을 모델링하기 위해 스칼라 $$O(\textbf{x}, \boldsymbol{\omega}_i)$$를 도입하여 이 두 조명 성분 간의 비율에 가중치를 부여한다.
 
 $$
 \begin{equation}

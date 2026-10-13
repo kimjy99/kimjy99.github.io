@@ -54,7 +54,7 @@ MeshAnything은 $p(\mathcal{M} \vert \mathcal{S})$를 학습하는 것을 목표
 
 따라서, 학습 과정에서 GT $\mathcal{M}$에서 추출된 $\mathcal{S}$가 inference 과정에서 추출된 $\mathcal{S}$와 유사한 도메인을 갖도록 해야 한다. 도메인을 더 가깝게 만들기 위해, AM으로부터 의도적으로 coarse한 메쉬를 구성한다. 먼저 $\mathcal{M}$에서 SDF를 추출한 다음, Marching Cubes를 사용하여 GT 토폴로지를 파괴하는 비교적 coarse한 메쉬로 변환한다. 마지막으로, coarse한 메쉬에서 포인트 클라우드와 그 normal을 샘플링한다. 이러한 접근 방식은 일반적으로 AM의 면 수가 적고 각 면이 여러 점을 샘플링할 수 있기 때문에 overfitting을 방지하는 데에도 도움이 된다. 네트워크는 점들이 동일 평면에 있는지 여부를 판단하여 GT 토폴로지를 쉽게 인식할 수 있다.
 
-거의 모든 3D 표현은 Marching Cubes를 사용하여 coarse한 메쉬로 변환하거나 포인트 클라우드로 샘플링할 수 있으므로, 학습 및 추론 과정에서 $\mathcal{S}$의 도메인이 일관되게 유지된다. $\mathcal{S}$로 추출된 포인트 클라우드를 $\mathcal{M}$과 쌍으로 연결하여 학습용 데이터 $$\{(\mathcal{M}_i, \mathcal{S}_i)\}_i$$를 ​​생성한다.
+거의 모든 3D 표현은 Marching Cubes를 사용하여 coarse한 메쉬로 변환하거나 포인트 클라우드로 샘플링할 수 있으므로, 학습 및 추론 과정에서 $\mathcal{S}$의 도메인이 일관되게 유지된다. $\mathcal{S}$로 추출된 포인트 클라우드를 $\mathcal{M}$과 쌍으로 연결하여 학습용 데이터 $$\{(\mathcal{M}_i, \mathcal{S}_i)\}_i$$를 생성한다.
 
 ### 2. VQ-VAE with Noise-Resistant Decoder
 [MeshGPT](https://kimjy99.github.io/논문리뷰/mesh-gpt)를 따라, 임베딩 vocabulary를 학습시키기 위해 VQ-VAE를 먼저 학습시킨다. Graph convolutional network와 ResNet을 각각 인코더와 디코더로 사용하는 MeshGPT와 달리, 인코더와 디코더 모두에 동일한 구조를 가진 transformer를 사용한다. VQ-VAE를 학습시킬 때, 메쉬는 discretize되어 일련의 삼각형 면으로 입력된다.

@@ -103,7 +103,7 @@ $$
 대규모 monocular 이미지 코퍼스에서 사전 학습된 $L$개의 블록이 있는 [DINOv2](https://kimjy99.github.io/논문리뷰/dinov2)를 사용한다. 입력 토큰을 재배열하여 구현된 input-adaptive self-attention을 통해 아키텍처 변경 없이 cross-view 추론이 가능하다. 저자들은 transformer를 $L_s$와 $L_g$의 두 그룹으로 나누었다 ($L = L_s + L_g$). 처음 $L_s$개의 layer는 각 이미지 내에서 self-attention을 적용하는 반면, 이후 $L_g$개의 layer는 텐서 재정렬을 통해 모든 토큰에 공동으로 작동하면서 뷰 사이의 attention과 뷰 내의 attention을 번갈아 가며 작동한다. 실제로는 $L_s : L_g = 2 : 1$로 설정한다. 이 구성은 다른 배열에 비해 성능과 효율성 간에 최적의 균형을 제공한다.
 
 ##### 카메라 조건 주입
-포즈를 아는 입력 이미지와 모르는 입력 이미지를 모두 원활하게 처리하기 위해 각 뷰 앞에 카메라 토큰 $$\textbf{c}_i$$를 추가한다. 카메라 파라미터 $$(\textbf{K}_i, \textbf{R}_i, \textbf{t}_i)$$를 ​​사용할 수 있는 경우, MLP $$\mathcal{E}_c$$를 통해 토큰을 얻는다.
+포즈를 아는 입력 이미지와 모르는 입력 이미지를 모두 원활하게 처리하기 위해 각 뷰 앞에 카메라 토큰 $$\textbf{c}_i$$를 추가한다. 카메라 파라미터 $$(\textbf{K}_i, \textbf{R}_i, \textbf{t}_i)$$를 사용할 수 있는 경우, MLP $$\mathcal{E}_c$$를 통해 토큰을 얻는다.
 
 $$
 \begin{equation}
@@ -263,7 +263,7 @@ DA3 backbone은 두 가지 요구 사항을 모두 충족한다. 포즈를 사�
 정확한 표면 geometry와 렌더링 품질 간의 trade-off를 줄이기 위해 GS-DPT head에서 추가적인 depth offset을 예측한다. 실제 환경에서의 robustness를 높이기 위해, 3D Gaussian 색상을 spherical harmonic 계수로 대체하여 view-dependent한 표면 모델링을 통해 geometry와의 충돌을 줄였다.
 
 ##### 향상된 학습 전략
-불안정한 학습을 ​​방지하기 위해 사전 학습된 가중치를 사용하여 DA3 backbone을 초기화하고 고정한 후, GS-DPT head만 튜닝한다. 실제 환경에서의 성능을 향상시키기 위해 다양한 이미지 해상도와 다양한 컨텍스트 뷰 개수를 사용하여 학습시켰다. 특히, 고해상도 입력에는 더 적은 컨텍스트 뷰를, 저해상도 입력에는 더 많은 뷰를 사용하여 학습을 안정화하는 동시에 다양한 평가 시나리오를 지원하였다.
+불안정한 학습을 방지하기 위해 사전 학습된 가중치를 사용하여 DA3 backbone을 초기화하고 고정한 후, GS-DPT head만 튜닝한다. 실제 환경에서의 성능을 향상시키기 위해 다양한 이미지 해상도와 다양한 컨텍스트 뷰 개수를 사용하여 학습시켰다. 특히, 고해상도 입력에는 더 적은 컨텍스트 뷰를, 저해상도 입력에는 더 많은 뷰를 사용하여 학습을 안정화하는 동시에 다양한 평가 시나리오를 지원하였다.
 
 ## Experiments
 ### 1. Comparison with State of the Art

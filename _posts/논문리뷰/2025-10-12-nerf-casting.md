@@ -24,7 +24,7 @@ classes: wide
 ## Introduction
 [NeRF](https://kimjy99.github.io/논문리뷰/nerf)는 신경망을 사용하여 3D 장면의 geometry와 색상을 표현하여, 관찰되지 않은 새로운 장면을 렌더링하는 것을 목표로 한다. 최근 NeRF 방법은 큰 MLP를 voxel grid와 유사한 데이터 구조 또는 grid와 작은 MLP의 조합으로 대체하여 NeRF의 효율성을 높이는 데 중점을 두고 있다. 이러한 방법을 통해 NeRF는 세부적인 대규모 장면을 표현할 수 있도록 확장할 수 있었지만, 그 이점은 3D geometry와 주로 diffuse color에 국한되었다.
 
-NeRF가 view-dependent한 사실적인 외형을 모델링하는 능력을 확장하는 것은 여전히 ​​어려운 과제이다. SOTA 모델은 두 가지 측면에서 한계가 있다. 
+NeRF가 view-dependent한 사실적인 외형을 모델링하는 능력을 확장하는 것은 여전히 어려운 과제이다. SOTA 모델은 두 가지 측면에서 한계가 있다. 
 
 1. 먼 거리의 environment illumination에 대한 정확한 반사만 합성할 수 있고, 근처 장면 콘텐츠의 설득력 있는 반사를 렌더링하는 데 어려움을 겪는다. 
 2. 특정 지점에서 view-dependent한 outgoing radiance를 표현하기 위해 큰 MLP에 의존하고, 세부적인 반사를 포함하는 더 큰 실제 장면으로 확장하는 데 어려움을 겪는다.
