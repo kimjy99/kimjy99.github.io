@@ -48,7 +48,7 @@ $$
 \end{equation}
 $$
 
-위치 및 공분산 행렬 외에도 각 Gaussian에는 불투명도 값 $\alpha_b \in \mathbb{R}$과 spherical harmonics(SH) 계수 집합 $$\mathbf{z}_b = (z_{m,l})_{l: 0 \le \ell \le \ell_\textrm{max}}^{m:−\ell \le m \le \ell}$$가 할당되며, 장면 형상과 모양을 나타낸다. 뷰에 따른 색상을 얻으려면 SH 계수에 뷰 방향에서 투영된 SH basis function을 더 곱해야 한다. 3D semantic 정보를 표현하기 위해 각 포인트에는 semantic logit $$\boldsymbol{\beta}_b \in \mathbb{R}^M$$이 추가된다. 여기서 $M$은 semantic 클래스의 수이다.
+위치 및 공분산 행렬 외에도 각 Gaussian에는 불투명도 값 $\alpha_b \in \mathbb{R}$과 spherical harmonics(SH) 계수 집합 $$\mathbf{z}_b = (z_{m,l})_{l: 0 \le \ell \le \ell_\textrm{max}}^{m:-\ell \le m \le \ell}$$가 할당되며, 장면 형상과 모양을 나타낸다. 뷰에 따른 색상을 얻으려면 SH 계수에 뷰 방향에서 투영된 SH basis function을 더 곱해야 한다. 3D semantic 정보를 표현하기 위해 각 포인트에는 semantic logit $$\boldsymbol{\beta}_b \in \mathbb{R}^M$$이 추가된다. 여기서 $M$은 semantic 클래스의 수이다.
 
 #### Object model
 $N$개의 움직이는 차량이 포함된 장면을 생각해 보자. 각 객체는 최적화 가능한 차량 포즈 세트와 포인트 클라우드로 표현되며, 각 포인트에는 3D Gaussian, semantic logit, 동적 외관 모델이 할당된다.

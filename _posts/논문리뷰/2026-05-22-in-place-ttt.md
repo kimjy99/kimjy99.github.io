@@ -71,7 +71,7 @@ $$
 \end{aligned}
 $$
 
-$$W_\textrm{down}^{(i)}$$을 chunk $i \in [k]$를 처리하기 전의 빠른 fast weight state라고 하고, $$W_\textrm{down}^{(0)} = W_\textrm{down}$$이라고 하자. 각 chunk $i$에 대해 두 가지 순차적인 연산을 수행한다.
+$$W_\textrm{down}^{(i)}$$을 chunk $i \in [k]$를 처리하기 전의 fast weight state라고 하고, $$W_\textrm{down}^{(0)} = W_\textrm{down}$$이라고 하자. 각 chunk $i$에 대해 두 가지 순차적인 연산을 수행한다.
 
 1. **Apply Operation**: Fast weight $$\textbf{W}_\textrm{down}^{(i)}$$의 현재 state는 chunk $$\textbf{Z}_{[i]}$$를 처리하는 데 사용된다.
 
@@ -86,7 +86,7 @@ $$
 
 $$
 \begin{equation}
-\textbf{W}_\textrm{down}^{(i+1)} = \textbf{W}_\textrm{down}^{(i)} - \eta \nabla_\textbf{W} \mathcal{L} \left( \textbf{Z}_{[i]} (\textbf{W}_\textrm{down}^{(i)})^\top, \textbf{V}_{i} \right)
+\textbf{W}_\textrm{down}^{(i+1)} = \textbf{W}_\textrm{down}^{(i)} - \eta \nabla_\textbf{W} \mathcal{L} \left( \textbf{Z}_{[i]} (\textbf{W}_\textrm{down}^{(i)})^\top, \textbf{V}_{[i]} \right)
 \end{equation}
 $$
 
@@ -95,7 +95,7 @@ $$
 ### 2. LM-Aligned Objective
 기존 TTT 접근 방식은 일반적으로 reconstruction objective, 예를 들어 $$\mathcal{L} (f_\textbf{W} (k), v)$$와 같이 사용하는데, 여기서 $k$와 $v$는 모두 동일한 입력 토큰 $x$의 linear projection 출력이다. 이는 모델이 현재 토큰의 표현을 단순히 암기하도록 유도한다. 저자들은 이것이 언어 모델링 task에 최적의 방법이 아니라고 주장하며, 대신 LLM의 next-token prediction (NTP)에 맞춰 objective를 정렬할 것을 제안하였다.
 
-이를 위해 target $v$에 미래 토큰 정보를 한다. 구체적으로, target $\hat{\textbf{V}}$는 다음과 같이 계산한다.
+이를 위해 target $v$에 미래 토큰 정보를 포함시킨다. 구체적으로, target $\hat{\textbf{V}}$는 다음과 같이 계산한다.
 
 $$
 \begin{equation}
@@ -123,7 +123,7 @@ Update rule의 결합법칙적 성질로 인해 In-Place TTT는 Context Parallel
 
 1. 모든 chunk $$i \in \{1, \ldots, T\}$$에 대해 중간 activation $$\textbf{Z}_{[i]}$$와 fast weight 업데이트 $$\Delta \textbf{W}_\textrm{down}^{(i)} = (\hat{\textbf{V}}_{[i]})^\top \textbf{Z}_{[i]}$$를 병렬로 계산한다.
 2. 각 chunk에 대한 업데이트 $$\Delta \textbf{S}_i = \sum_{j=1}^{i-1} \Delta \textbf{W}_j$$를 계산하기 위해, $$[\ldots, \Delta \textbf{W}_\textrm{down}^{(i)}, \Delta \textbf{W}_\textrm{down}^{(i+1)}, \ldots]$$에 대해 한 번의 prefix sum이 수행되며, 이는 최신 가속기에서 매우 효율적이다.
-3. 각 chunk에 대한 유효 fast weight $$\textbf{W}_\textrm{down}^{(i-1)} = \textbf{W}_\textrm{down}^{(0)} + \eta \Delta \textbf{S}_i$$와 해당 출력 $$\textbf{O}_{[i]} = \textbf{Z}_{[i]} (\textbf{W}_\textrm{down}^{(i−1)})^\top$$를 병렬로 계산한다.
+3. 각 chunk에 대한 유효 fast weight $$\textbf{W}_\textrm{down}^{(i-1)} = \textbf{W}_\textrm{down}^{(0)} + \eta \Delta \textbf{S}_i$$와 해당 출력 $$\textbf{O}_{[i]} = \textbf{Z}_{[i]} (\textbf{W}_\textrm{down}^{(i-1)})^\top$$를 병렬로 계산한다.
 
 ##### 인과관계 (causality) 및 경계 처리
 Chunk $i$ 자체에 대한 update delta에 미래 정보가 포함되지 않도록 하기 위해, 값을 생성할 때 1D convolution에 causal padding을 적용한다. 이를 통해 각 update delta 계산이 해당 chunk에 격리되어 병렬 스캔이 수학적으로 순차적 업데이트와 동일하게 된다. 또한, 문서 경계에서 fast weight는 사전 학습된 state로 재설정되어 독립적인 시퀀스 간의 컨텍스트 누출을 방지한다.
@@ -137,7 +137,7 @@ Chunk $i$ 자체에 대한 update delta에 미래 정보가 포함되지 않도�
 <center><img src='{{"/assets/img/in-place-ttt/in-place-ttt-table2.webp" | relative_url}}' width="65%"></center>
 
 ### 2. Pre-training from Scratch: A Comparative Analysis
-다음은 500M 모델과 1.5B 모델에 대한 Sliding Window Perplexity를 비교한 그래프이다. (SWA: sliding window attention를 사용하는 표준 Transformer)
+다음은 500M 모델과 1.5B 모델에 대한 Sliding Window Perplexity를 비교한 그래프이다. (SWA: sliding window attention을 사용하는 표준 Transformer)
 
 <center><img src='{{"/assets/img/in-place-ttt/in-place-ttt-fig2.webp" | relative_url}}' width="92%"></center>
 <br>

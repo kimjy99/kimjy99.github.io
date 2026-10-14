@@ -46,7 +46,7 @@ $$
 
 $$
 \begin{equation}
-\hat{x}_\theta (z_t) = \frac{z_t − \sigma_t \epsilon_\theta (z_t)}{\alpha_t}
+\hat{x}_\theta (z_t) = \frac{z_t - \sigma_t \epsilon_\theta (z_t)}{\alpha_t}
 \end{equation}
 $$
 
@@ -55,7 +55,7 @@ space에서 MSE를 사용하여 $\epsilon_\theta$를 학습시킨다. 이는 스
 
 $$
 \begin{equation}
-\epsilon_\theta (z_t) \approx − \sigma_t \nabla_{z_t} \log p(z_t)
+\epsilon_\theta (z_t) \approx - \sigma_t \nabla_{z_t} \log p(z_t)
 \end{equation}
 $$
 

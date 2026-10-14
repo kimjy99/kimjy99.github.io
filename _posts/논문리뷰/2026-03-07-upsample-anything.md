@@ -7,12 +7,13 @@ tags:
   - Gaussian Splatting
   - Computer Vision
   - Microsoft
-excerpt: "Upsample Anything 논문 리뷰"
+  - CVPR
+excerpt: "Upsample Anything 논문 리뷰 (CVPR 2026)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2025. [[Paper](https://arxiv.org/abs/2511.16301)] [[Page](https://seominseok0429.github.io/Upsample-Anything/)] [[Github](https://github.com/seominseok0429/Upsample-Anything_Pytorch)]  
+> CVPR 2026. [[Paper](https://arxiv.org/abs/2511.16301)] [[Page](https://seominseok0429.github.io/Upsample-Anything/)] [[Github](https://github.com/seominseok0429/Upsample-Anything_Pytorch)]  
 > Minseok Seo, Mark Hamilton, Changick Kim  
 > KAIST | MIT | Microsoft  
 > 20 Nov 2025  
@@ -35,7 +36,7 @@ classes: wide
 Splatting 가중치는 공간-범위 유사성에만 의존하기 때문에, 이 전송은 자연스럽게 도메인에 구애받지 않으며, 학습된 커널이 범용 업샘플링 연산자로 작동할 수 있도록 한다. Feature 추출 시간을 제외하면, 224$\times$224 이미지에 대한 전체 최적화 및 inference에는 약 0.419초가 소요된다.
 
 ### 2. Algorithm Design
-본 논문의 디자인은 고전적인 **Joint Bilateral Upsampling (JBU)**에서 영감을 받았다. JBU의 핵심 장점은 새로운 값을 만들어내는 것이 아니라, 인접한 샘플을 얼마나 혼합할지 결정하는 혼합 가중치를 학습하여 자연스럽게 모델과 task에 독립적이다. 그러나 표준 JBU는 글로벌하고 isotropic한 커널에 의해 제한되어 복잡한 구조 근처에서 표현력이 감소한다.
+본 논문의 디자인은 고전적인 **Joint Bilateral Upsampling (JBU)**에서 영감을 받았다. JBU의 핵심 장점은 새로운 값을 만들어내는 것이 아니라, 인접한 샘플을 얼마나 혼합할지 결정하는 혼합 가중치를 학습한다는 것이며, 따라서 자연스럽게 모델과 task에 독립적이다. 그러나 표준 JBU는 글로벌하고 isotropic한 커널에 의해 제한되어 복잡한 구조 근처에서 표현력이 감소한다.
 
 ##### Per-pixel anisotropic kernels
 이러한 한계를 극복하기 위해 Upsample Anything은 각 저해상도 위치 $q$에 대해 파라미터 $$\{\sigma_x(q), \sigma_y(q), \theta(q), \sigma_r(q)\}$$를 갖는 저해상도 픽셀 단위의 anisotropic Gaussian을 할당한다. 공간 공분산을 다음과 같이 정의한다.

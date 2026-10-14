@@ -129,7 +129,7 @@ p_\theta (x_{1:T}) = p_\theta (x_T) \prod_{t=1}^T p_\theta (x_{t-1} \vert x_t)
 \end{equation}
 $$
 
-$$L_\textrm{DPO-Diffusion} (\theta)$$를 $p_\theta$와 $p_\textrm{ref}$를 역분해로 대체하고 Jensen’s inequality와 $− \log \sigma$이 볼록 함수임을 활용하여 기대값을 밖으로 밀어낸다. 이를 통해 다음과 같은 경계를 얻는다.
+$$L_\textrm{DPO-Diffusion} (\theta)$$를 $p_\theta$와 $p_\textrm{ref}$를 역분해로 대체하고 Jensen’s inequality와 $- \log \sigma$이 볼록 함수임을 활용하여 기대값을 밖으로 밀어낸다. 이를 통해 다음과 같은 경계를 얻는다.
 
 $$
 \begin{equation}
@@ -137,7 +137,7 @@ L_\textrm{DPO-Diffusion} (\theta) \le - \mathbb{E}_{\substack{(x_0^w, x_0^l) \si
 \end{equation}
 $$
 
-이제 gradient descent를 통한 효율적인 학습이 가능하다. 그러나 $p_\theta (x_{t−1}, x_t \vert x_0, c)$로부터의 샘플링은 여전히 다루기 어렵고 $r(c, x_0)$는 $p_\theta (x_{1:T} \vert x_0)$에 대한 기대값으로 계산된다. 따라서 reverse process $p_\theta (x_{1:T} \vert x_0)$를 forward process $q(x_{1:T} \vert x_0)$로 근사화한다. 
+이제 gradient descent를 통한 효율적인 학습이 가능하다. 그러나 $p_\theta (x_{t-1}, x_t \vert x_0, c)$로부터의 샘플링은 여전히 다루기 어렵고 $r(c, x_0)$는 $p_\theta (x_{1:T} \vert x_0)$에 대한 기대값으로 계산된다. 따라서 reverse process $p_\theta (x_{1:T} \vert x_0)$를 forward process $q(x_{1:T} \vert x_0)$로 근사화한다. 
 
 $$
 \begin{aligned}

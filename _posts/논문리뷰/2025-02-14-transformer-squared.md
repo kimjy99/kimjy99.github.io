@@ -70,7 +70,7 @@ $U$, $\Sigma$, $V$의 magnitude를 수정하면 원칙적이고 효과적인 정
 ### 2. End-to-end optimization with RL
 RL로 임의의 언어 모델 $$\pi_{\theta_W}$$를 fine-tuning하기 위해 SVF 벡터의 집합 $$\theta_z = \{z_1, \cdots, z_{N \times M}\}$$을 학습시켜 task 성능을 위해 직접 최적화한다. 여기서 $$\theta_W = \{W_1, \cdots, W_{N \times M}\}$$은 가중치 행렬의 집합이며, $N$은 레이어의 수이고 $M$은 레이어당 fine-tuning할 가중치 행렬의 수이다. 
 
-저자들은 REINFORCE 알고리즘을 사용하였고, 각 프롬프트 $x_i \in D$에 대해 생성된 답변 $y_i$에 정확성에 따른 reward $$r \in \{−1, 1\}$$을 할당하였다. 추가로 원래 모델의 동작에서 벗어나는 데 대한 KL 페널티를 목적 함수에 추가하였다. 따라서 최종 목적 함수는 다음과 같다.
+저자들은 REINFORCE 알고리즘을 사용하였고, 각 프롬프트 $x_i \in D$에 대해 생성된 답변 $y_i$에 정확성에 따른 reward $$r \in \{-1, 1\}$$을 할당하였다. 추가로 원래 모델의 동작에서 벗어나는 데 대한 KL 페널티를 목적 함수에 추가하였다. 따라서 최종 목적 함수는 다음과 같다.
 
 $$
 \begin{equation}

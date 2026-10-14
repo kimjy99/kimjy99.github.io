@@ -77,7 +77,7 @@ f(z_1, \ldots, z_n) = \sum_{i=1}^n z_i p^{i-1}
 \end{equation}
 $$
 
-여기서 $p \ge V$이면 $f$는 전단사 함수이다. 일반적으로 $f$의 범위를 최대한 작게 유지하기 위해 $p$를 $V$로 설정한다. $x_i^{(−1)} = x_i$는 표준 transformer 입력에 해당한다.
+여기서 $p \ge V$이면 $f$는 전단사 함수이다. 일반적으로 $f$의 범위를 최대한 작게 유지하기 위해 $p$를 $V$로 설정한다. $x_i^{(-1)} = x_i$는 표준 transformer 입력에 해당한다.
 
 ##### 일반적인 $n$-gram embedder
 유연한 $n$-gram embedder 모듈을 설계하는 핵심은 vocabulary 크기 $m$을 설정 가능하도록 만드는 것이다. 저자들은 간단한 tiled matrix parameterization 방식을 사용하여 이를 효율적으로 달성하였다. 구체적으로, tiled matrix parameterization은 $m \times d$ 크기의 임베딩 테이블을 타일링을 통해 $V^n \times d$ 크기의 임베딩 테이블로 확장한다. 실제로 lookup 과정은 간단하다. 입력 토큰 $x^{(n)}$은 m에 대한 나머지 연산으로 매핑된다.

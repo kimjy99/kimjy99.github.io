@@ -23,20 +23,20 @@ classes: wide
 <center><img src='{{"/assets/img/flash-grpo/flash-grpo-fig1.webp" | relative_url}}' width="95%"></center>
 
 ## Introduction
-Video diffusion model을 미적 품질, 물리적 타당성, 프롬프트를 충실히 만족하는 지 등 인간의 선호도에 맞추는 것은 여전히 중요한 과제이다. [Flow-GRPO](https://kimjy99.github.io/논문리뷰/flow-grpo)나 [Dance-GRPO](https://arxiv.org/abs/2505.07818)와 같은 최근 방법들은 GRPO를 동영상 생성에 성공적으로 적용하여 생성 품질을 크게 향상시켰다.
+Video diffusion model을 미적 품질, 물리적 타당성, 프롬프트를 충실히 만족하는지 등 인간의 선호도에 맞추는 것은 여전히 중요한 과제이다. [Flow-GRPO](https://kimjy99.github.io/논문리뷰/flow-grpo)나 [Dance-GRPO](https://arxiv.org/abs/2505.07818)와 같은 최근 방법들은 GRPO를 동영상 생성에 성공적으로 적용하여 생성 품질을 크게 향상시켰다.
 
-그러나 근본적인 계산상의 장벽이 여전히 존재한다. Video diffusion model은 긴 denoising 궤적에 걸쳐 시공간 latent를 통해 gradient를  backpropagation해야 한다. 기존 GRPO 방식들은 모든 timestep에서 전체 궤적에 대한 gradient를 계산해야 한다. 이는 엄청난 메모리 소비를 초래하고 학습 처리량을 심각하게 제한한다. 14B 동영상 모델을 정렬하는 데에는 일반적으로 수백 일의 GPU hour가 소요된다.
+그러나 근본적인 계산상의 장벽이 여전히 존재한다. Video diffusion model은 긴 denoising 궤적에 걸쳐 시공간 latent를 통해 gradient를 backpropagation해야 한다. 기존 GRPO 방식들은 모든 timestep에서 전체 궤적에 대한 gradient를 계산해야 한다. 이는 엄청난 메모리 소비를 초래하고 학습 처리량을 심각하게 제한한다. 14B 동영상 모델을 정렬하는 데에는 일반적으로 수백 GPU day가 소요된다.
 
 효율성 개선 방법들은 sliding window 서브샘플링을 통해 계산 비용을 줄이려고 시도하였다. 즉, 연속적인 timestep 중 일부만을 사용하여 학습하는 것이다. 이러한 방식은 계산량을 줄여주지만, 심각한 학습 불안정성을 보이며 최적화 성능을 저해한다. 핵심 문제는 두 가지이다.
 
-1. Advantage 그룹 내에서 timestep을 혼합하면 실제 policy 신호를 가리는 혼란스러운 분산이 발생시킨다.
+1. Advantage 그룹 내에서 timestep을 혼합하면 실제 policy 신호를 가리는 혼란스러운 분산을 발생시킨다.
 2. Timestep에 따라 변하는 gradient scaling factor로 인해 서로 다른 timestep이 파라미터 업데이트에 일관성 없이 기여하여 최적화가 불안정해진다.
 
 본 논문에서는 one-step 학습 프레임워크인 **Flash-GRPO**를 제시하였다. Flash-GRPO는 학습당 단 하나의 timestep만을 사용하여 전체 궤적 성능을 달성하였다.
 
 첫 번째 문제를 해결하기 위해, 저자들은 iso-temporal grouping을 제안하였다. 이는 주어진 프롬프트에 대한 모든 rollout이 동일한 timestep을 공유하도록 하면서 초기 noise만 다르게 하는 방법이다. 이를 통해 advantage 계산이 분해되어 policy로 인한 분산과 timestep으로 인한 분산을 분리하고, 동일한 denoising 조건에서 상대적 성능 비교가 이루어지도록 한다. 시간적 다양성은 전체 batch에 걸쳐 계층적 샘플링을 통해 보존된다.
 
-저자들은 policy gradient가 SDE discretization에서 발생하는 time-dependent scaling factor를 내재적으로 포함하며, timestep에 따라 큰 차이가 난다는 점을 발견했다. 이는 초기 timestep이 실제 중요도와 관계없이 파라미터 업데이트를 지배하는 심각한 최적화 불균형을 초래한다. 따라서 모든 timestep의 기여도를 균등하게 하고 discretization으로 인한 편향을 제거하기 위해, 명시적인 1로 정규화하는 temporal gradient rectification을 도입하였다.
+저자들은 policy gradient가 SDE discretization에서 발생하는 time-dependent scaling factor를 내재적으로 포함하며, timestep에 따라 큰 차이가 난다는 점을 발견했다. 이는 초기 timestep이 실제 중요도와 관계없이 파라미터 업데이트를 지배하는 심각한 최적화 불균형을 초래한다. 따라서 모든 timestep의 기여도를 균등하게 하고 discretization으로 인한 편향을 제거하기 위해, 명시적으로 1로 정규화하는 temporal gradient rectification을 도입하였다.
 
 ## Method
 ### 1. Iso-Temporal Grouping for Precise Credit Assignment
@@ -62,7 +62,7 @@ $$
 \end{equation}
 $$
 
-각 프롬프트 그룹은 서로 다른 timestep을 가질 수 있으며, 이를 통해 전체 batch에 걸쳐 시간적 다양성을 확보한다. Denoising 시에서 각 프롬프트 그룹은 지정된 timestep $t_k$에서 single-step ODE-to-SDE를 수행한다. 선택된 timestep은 탐색 및 gradient 계산을 위해 SDE 샘플링을 사용하고, 나머지 모든 timestep은 더 높은 품질의 생성과 더 정확한 reward 신호를 생성하기 위해 ODE를 사용한다.
+각 프롬프트 그룹은 서로 다른 timestep을 가질 수 있으며, 이를 통해 전체 batch에 걸쳐 시간적 다양성을 확보한다. Denoising 시 각 프롬프트 그룹은 지정된 timestep $t_k$에서 single-step ODE-to-SDE를 수행한다. 선택된 timestep은 탐색 및 gradient 계산을 위해 SDE 샘플링을 사용하고, 나머지 모든 timestep은 더 높은 품질의 생성과 더 정확한 reward 신호를 생성하기 위해 ODE를 사용한다.
 
 각 프롬프트 그룹 내에서 동일한 timestep을 적용함으로써 policy 성능을 timestep 난이도와 분리한다. 즉, 동일한 그룹 내의 샘플은 동일한 denoising 조건에서 비교되므로, 성능 향상은 timestep에 따른 교란 요인이 아닌 생성 품질을 반영한다.
 
@@ -97,7 +97,7 @@ $$
 \nabla_\theta \log p_\theta (\textbf{x}_{t-1} \mid \textbf{x}_t)
 &= \nabla_\theta \left( - \frac{\| \textbf{x}_{t-1} - \boldsymbol{\mu}_\theta (\textbf{x}_t, t) \|^2}{2 \sigma_t^2 \Delta t} \right) \\
 &= \frac{\textbf{x}_{t-1} - \boldsymbol{\mu}_\theta (\textbf{x}_t, t)}{\sigma_t^2 \Delta t} \nabla_\theta \boldsymbol{\mu}_\theta (\textbf{x}_t, t) \\
-&= \frac{\sigma_t \sqrt{\Delta t} \boldsymbol{\epsilon}}{\sigma_t^2 \Delta t} \textbf{x}_{t-1} - \boldsymbol{\mu}_\theta (\textbf{x}_t, t) \\
+&= \frac{\sigma_t \sqrt{\Delta t} \boldsymbol{\epsilon}}{\sigma_t^2 \Delta t} \nabla_\theta \boldsymbol{\mu}_\theta (\textbf{x}_t, t) \\
 &= \frac{\boldsymbol{\epsilon}}{\sigma_t \sqrt{\Delta t}} \cdot \Delta t \left( 1 + \frac{\sigma_t^2 (1-t)}{2t} \right) \nabla_\theta \textbf{v}_\theta (\textbf{x}_t, t) \\
 &= \underbrace{\left( \frac{\sqrt{\Delta t}}{\sigma_t} + \frac{\sigma_t \sqrt{\Delta t} (1-t)}{2t} \right)}_{\lambda (t)} \boldsymbol{\epsilon} \cdot \nabla_\theta \textbf{v}_\theta (\textbf{x}_t, t)
 \end{aligned}

@@ -7,12 +7,12 @@ tags:
   - Computer Vision
   - ICLR
   - Google
-excerpt: "Sharpness-Aware Minimization 논문 리뷰 (ICLR 2021)"
+excerpt: "Sharpness-Aware Minimization 논문 리뷰 (ICLR 2021 Spotlight)"
 use_math: true
 classes: wide
 ---
 
-> ICLR 2021. [[Paper](https://arxiv.org/abs/2010.01412)] [[Github](https://github.com/google-research/sam)]  
+> ICLR 2021 (Spotlight). [[Paper](https://arxiv.org/abs/2010.01412)] [[Github](https://github.com/google-research/sam)]  
 > Pierre Foret, Ariel Kleiner, Hossein Mobahi, Behnam Neyshabur  
 > Google Research | Blueshift, Alphabet  
 > 3 Oct 2020  
@@ -25,7 +25,7 @@ classes: wide
 SAM을 사용하면 널리 연구되어 온 다양한 컴퓨터 비전 task 및 모델에서 모델의 일반화 능력이 향상된다. 또한, SAM은 noisy label 환경을 특별히 겨냥해서 만든 SOTA 기법과 비슷한 수준의 robustness를 제공한다.
 
 ## Method
-분포 $\mathcal{D}$에서 독립적으로 추출된 학습 데이터셋 $$\mathcal{S} = \bigcup_{i=1}^n (\{\textbf{x}_i, \textbf{y}_i\})$$가 주어졌을 때, 본 논문의 목표는 일반화 성능이 우수한 모델을 학습하는 것이다. 특히, 파라미터 $\textbf{w}$를 갖는 모델을 고려할 때, 데이터 포인트별 loss function $l$이 주어지면, 학습 데이터셋 loss $$L_\mathcal{S} (\textbf{w})$$와 모집단 loss $$L_\mathcal{D} (\textbf{w})$$를 다음과 같이 정의한다.
+분포 $\mathcal{D}$에서 독립적으로 추출된 학습 데이터셋 $$\mathcal{S} = \bigcup_{i=1}^n \{(\textbf{x}_i, \textbf{y}_i)\}$$가 주어졌을 때, 본 논문의 목표는 일반화 성능이 우수한 모델을 학습하는 것이다. 특히, 파라미터 $\textbf{w}$를 갖는 모델을 고려할 때, 데이터 포인트별 loss function $l$이 주어지면, 학습 데이터셋 loss $$L_\mathcal{S} (\textbf{w})$$와 모집단 loss $$L_\mathcal{D} (\textbf{w})$$를 다음과 같이 정의한다.
 
 $$
 \begin{equation}
@@ -33,9 +33,9 @@ L_\mathcal{S} (\textbf{w}) = \frac{1}{n} \sum_{i=1}^n l (\textbf{w}, \textbf{x}_
 \end{equation}
 $$
 
-모델 학습의 목표는 관찰된 데이터셋 $\mathcal{S}$만을 사용하여 모집단 loss $$L_\mathcal{D} (\textbf{w})$$가 낮은 모델 파라미터 $\textbf{w}$를 선택하는 것이다. 안타깝게도 현대 모델에서 $$L_\mathcal{S} (\textbf{w})$$는 일반적으로 $\textbf{w}$에 대하여 non-convex function이며, 유사한 $$L_\mathcal{S} (\textbf{w})$$를 가지면서도 일반화 성능, 즉 상당히 다른 $$L_\mathcal{D}$$를 보이는 여러 local minima 또는 global minima를 가질 수 있다.
+모델 학습의 목표는 관찰된 데이터셋 $\mathcal{S}$만을 사용하여 모집단 loss $$L_\mathcal{D} (\textbf{w})$$가 낮은 모델 파라미터 $\textbf{w}$를 선택하는 것이다. 안타깝게도 현대 모델에서 $$L_\mathcal{S} (\textbf{w})$$는 일반적으로 $\textbf{w}$에 대하여 non-convex function이며, 유사한 $$L_\mathcal{S} (\textbf{w})$$를 가지면서도 상당히 다른 일반화 성능, 즉 $$L_\mathcal{D}$$를 보이는 여러 local minima 또는 global minima를 가질 수 있다.
 
-Loss landscape가 날카로울수록 일반화 능력이 향상된다는 점에 착안하여, 본 논문에서는 다른 접근 방식을 제안하였다. 단순히 $$L_\mathcal{S} (\textbf{w})$$가 낮은 파라미터 $\textbf{w}$를 찾는 대신, 주변 영역 전체가 균일하게 낮은 학습 loss 값을 갖는 파라미터, 즉 loss 값과 곡률이 모두 낮은 영역을 찾는 것이다.
+Loss landscape가 평평할수록 일반화 능력이 향상된다는 점에 착안하여, 본 논문에서는 다른 접근 방식을 제안하였다. 단순히 $$L_\mathcal{S} (\textbf{w})$$가 낮은 파라미터 $\textbf{w}$를 찾는 대신, 주변 영역 전체가 균일하게 낮은 학습 loss 값을 갖는 파라미터, 즉 loss 값과 곡률이 모두 낮은 영역을 찾는 것이다.
 
 분포 $\mathcal{D}$에서 생성된 $\mathcal{S}$에 대해 높은 확률로, 임의의 $\rho > 0$에 대해, 다음 정리가 성립한다.
 
@@ -57,7 +57,7 @@ $$
 
 대괄호 안의 항은 $\textbf{w}$에서 $$L_\mathcal{S}$$의 sharpness를 나타내며, $\textbf{w}$에서 인접한 파라미터 값으로 이동할 때 학습 loss가 얼마나 빠르게 증가하는지를 측정한다. 이 sharpness 항은 $$L_\mathcal{S}$$ 값 자체와 $\textbf{w}$의 크기에 대한 정규화 항과 합산된다. $h$는 $$\lambda \| \textbf{w} \|_2^2$$로 대체한다.
 
-따라서, 저자들은 다음과 같은 SharpnessAware Minimization (SAM) 문제를 해결하여 파라미터 값을 선택하는 방법을 제안하였다.
+따라서, 저자들은 다음과 같은 Sharpness-Aware Minimization (SAM) 문제를 해결하여 파라미터 값을 선택하는 방법을 제안하였다.
 
 $$
 \begin{equation}
@@ -95,7 +95,7 @@ $$
 \end{aligned}
 $$
 
-$$\nabla_\textbf{w} L_\mathcal{S}^\textrm{SAM} (\textbf{w})$$에 대한 이 근사값은 JAX, TensorFlow, PyTorch와 같은 일반적인 라이브러리에 구현된 자동 미분을 통해 간단하게 계산할 수 있다. $$\hat{\boldsymbol{\epsilon}} (\textbf{w})$$ 자체가 $$\nabla_\textbf{w} L_\mathcal{S}(\textbf{w})$$의 함수이기 때문에 이 계산은 $$L_\mathcal{S}(\textbf{w})$$의 Hessian에 의존하지만, Hessian은 Hessian을 직접 생성하지 않고도 계산 가능한 Hessian-vector product을 통해서만 나타난다. 그럼에도 불구하고 계산 속도를 더욱 높이기 위해 2차 항을 제거하여 최종 gradient 근사값을 얻는다.
+$$\nabla_\textbf{w} L_\mathcal{S}^\textrm{SAM} (\textbf{w})$$에 대한 이 근사값은 JAX, TensorFlow, PyTorch와 같은 일반적인 라이브러리에 구현된 자동 미분을 통해 간단하게 계산할 수 있다. $$\hat{\boldsymbol{\epsilon}} (\textbf{w})$$ 자체가 $$\nabla_\textbf{w} L_\mathcal{S}(\textbf{w})$$의 함수이기 때문에 이 계산은 $$L_\mathcal{S}(\textbf{w})$$의 Hessian에 의존하지만, Hessian은 Hessian을 직접 생성하지 않고도 계산 가능한 Hessian-vector product를 통해서만 나타난다. 그럼에도 불구하고 계산 속도를 더욱 높이기 위해 2차 항을 제거하여 최종 gradient 근사값을 얻는다.
 
 $$
 \begin{equation}

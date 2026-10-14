@@ -41,7 +41,7 @@ $$
 $$
 
 ##### Loss weighting
-Autoregressive objective $$\mathcal{L}_\textrm{AR}$$과 masked diffusion objective $$\mathcal{L}_\textrm{MD}$$ 사이의 균형은 hyperparameter $\alpha$에 의해 제어된다. 이는 학습 효율성과 overfitting robustness 사이의 절충점을 찾는 데 매우 중요한다.
+Autoregressive objective $$\mathcal{L}_\textrm{AR}$$과 masked diffusion objective $$\mathcal{L}_\textrm{MD}$$ 사이의 균형은 hyperparameter $\alpha$에 의해 제어된다. 이는 학습 효율성과 overfitting robustness 사이의 절충점을 찾는 데 매우 중요하다.
 
 실제로, 두 objective를 하나의 batch 내에서 단순히 혼합하면 처리량이 감소할 수 있다. 이러한 이유로, 저자들은 각 GPU에 하나의 objective를 할당하여 계산 그래프를 단순하고 정적으로 유지하고 효율적으로 컴파일할 수 있도록 하였다. 구체적으로, 각 모델의 학습을 256개의 장치에 분산시켜 256 + 1개의 $\alpha$ 값 중에서 선택할 수 있도록 하였다.
 
@@ -52,7 +52,7 @@ $$
 $$
 
 ##### Diffusion as next-token prediction
-본 논문의 목표는 $$\mathcal{L}_\textrm{AR}$$과 $$\mathcal{L}_\textrm{MD}$$를 하나의 transformer 모델로 parameterize할 수 있도록 정렬하는 것이다. 이를 위해 [masked next-token prediction (MNTP)](https://arxiv.org/abs/2311.07468)이라는 masked language modeling의 약간 수정된 버전을 사용한다. 이 접근 방식에서 모델은 항상 $i$번째 위치의 hidden state를 사용하여 $i+1$번째 위치의 다음 토큰을 예측한다. 이러한 방식으로 두 가지 작동 모드는 모두 next-token prediction을 수행하므로 원할하게 통합된다.
+본 논문의 목표는 $$\mathcal{L}_\textrm{AR}$$과 $$\mathcal{L}_\textrm{MD}$$를 하나의 transformer 모델로 parameterize할 수 있도록 정렬하는 것이다. 이를 위해 [masked next-token prediction (MNTP)](https://arxiv.org/abs/2311.07468)이라는 masked language modeling의 약간 수정된 버전을 사용한다. 이 접근 방식에서 모델은 항상 $i$번째 위치의 hidden state를 사용하여 $i+1$번째 위치의 다음 토큰을 예측한다. 이러한 방식으로 두 가지 작동 모드는 모두 next-token prediction을 수행하므로 원활하게 통합된다.
 
 <center><img src='{{"/assets/img/dual-objective/dual-objective-fig2.webp" | relative_url}}' width="92%"></center>
 

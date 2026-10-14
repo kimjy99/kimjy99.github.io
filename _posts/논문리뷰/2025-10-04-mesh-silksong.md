@@ -48,21 +48,21 @@ Autoregressive한 메쉬 생성의 핵심은 autoregressive 모델의 강력한 
 ### 2. Vertexes Layering and Sorting
 <center><img src='{{"/assets/img/mesh-silksong/mesh-silksong-fig5a.webp" | relative_url}}' width="50%"></center>
 <br>
-Manifold 메쉬 $\mathcal{M}$과 시작 half-edge가 주어지면 모든 vertex $\mathcal{V}$에 고유한 좌표 $(L, i)$를 할당할 수 있으며, vertex를 $$\mathcal{V}_i^L$$로 표시한다. 시작 half-edge의 두 vertex는 $$\mathcal{V}_1^0$$과 $$\mathcal{V}_1^1$$로 표시한다. Layer 번호 $L$은 $\mathcal{M}$의 edge만으로 초기 vertex $$\mathcal{V}_1^0$$에 대한 최단 경로를 나타내며 BFS 탐색으로 쉽게 얻을 수 있다. Layer order $i$는 같은 layer $L$에 있는 vertex의 순서를 나타내며 layer $L − 1$에 있는 vertex의 로컬한 순서를 기반으로 얻을 수 있다. 
+Manifold 메쉬 $\mathcal{M}$과 시작 half-edge가 주어지면 모든 vertex $\mathcal{V}$에 고유한 좌표 $(L, i)$를 할당할 수 있으며, vertex를 $$\mathcal{V}_i^L$$로 표시한다. 시작 half-edge의 두 vertex는 $$\mathcal{V}_1^0$$과 $$\mathcal{V}_1^1$$로 표시한다. Layer 번호 $L$은 $\mathcal{M}$의 edge만으로 초기 vertex $$\mathcal{V}_1^0$$에 대한 최단 경로를 나타내며 BFS 탐색으로 쉽게 얻을 수 있다. Layer order $i$는 같은 layer $L$에 있는 vertex의 순서를 나타내며 layer $L - 1$에 있는 vertex의 로컬한 순서를 기반으로 얻을 수 있다. 
 
 <center><img src='{{"/assets/img/mesh-silksong/mesh-silksong-fig4.webp" | relative_url}}' width="31%"></center>
 <br>
 위 그림을 예로 들면, layer $L$의 vertex a에 대해 이웃 vertex는 먼저 half-edge 데이터 구조에 따라 시계 반대 방향으로 배열할 수 있으므로 layer $L + 1$에 대한 3개 vertex의 순서 (g, h, b)가 결정된다. 또한, layer $L$의 모든 정렬된 vertex가 주어지면, $L + 1$ 층의 모든 vertex의 순서는 다음과 같은 방식으로 결정될 수 있다. 메쉬의 시작 half-edge $$\mathcal{V}_1^0$$과 $$\mathcal{V}_1^1$$이 주어지면, 각 layer의 정렬된 vertex의 순서는 차례대로 결정될 수 있다. 실제로는 주어진 메쉬의 모든 half-edge를 y-z-x 순서로 정렬하고 가장 작은 half-edge를 시작 half-edge로 선택한다.
 
 ### 3. Layer Adjacency Matrices Compression
-Vertex layering 및 정렬 후, 메쉬 vertex의 연결은 **self-layer** 연결 또는 **between-layer** 연결의 두 가지 상황으로 분류된다. Self-layer 연결은 연결된 두 vertex가 같은 layer $L$에 속하는 것을 의미하고, between-layer 연결은 연결된 두 vertex가 서로 다른 layer $L$과 $(L−1)$에 속하는 것을 의미한다. 따라서, layer $L$의 vertex가 주어졌을 때, Self-Layer Matrix $$\mathcal{S}_L$$과 Between-Layer Matrix $$\mathcal{B}_L$$이라는 두 인접 행렬을 통해 관련 위상 연결을 설명한다.
+Vertex layering 및 정렬 후, 메쉬 vertex의 연결은 **self-layer** 연결 또는 **between-layer** 연결의 두 가지 상황으로 분류된다. Self-layer 연결은 연결된 두 vertex가 같은 layer $L$에 속하는 것을 의미하고, between-layer 연결은 연결된 두 vertex가 서로 다른 layer $L$과 $(L-1)$에 속하는 것을 의미한다. 따라서, layer $L$의 vertex가 주어졌을 때, Self-Layer Matrix $$\mathcal{S}_L$$과 Between-Layer Matrix $$\mathcal{B}_L$$이라는 두 인접 행렬을 통해 관련 위상 연결을 설명한다.
 
 ##### Self-Layer Matrix 압축
 <center><img src='{{"/assets/img/mesh-silksong/mesh-silksong-fig5b.webp" | relative_url}}' width="80%"></center>
 <br>
 Self-Layer Matrix $$\mathcal{S}_L$$은 $M \times M$의 0-1 대칭 행렬이며, 여기서 $M$은 layer $L$의 vertex 번호를 나타낸다. 목표는 행렬의 $M$개 행을 $M$개의 토큰으로 압축하는 것이다. 여기서 행 $i$의 토큰 인덱스는 $S_{(L,i)}$로 나타낸다. $$\mathcal{S}_L$$을 압축하는 쉬운 방법은 모든 행에 binary coding을 직접 적용하는 것이다. 그러나 토큰의 word table은 $2m$개가 되며, 여기서 $m$은 모든 layer의 최대 vertex 수이다. 이렇게 큰 word table은 허용되지 않지만, 행렬의 sparsity는 효율적인 압축을 위한 단서를 제공한다. 
 
-1. 대칭 행렬을 $M \times 2M$으로 확장한다. 이때 행렬의 $(i, i)$는 쓸모가 없으며, 각 행의 유효한 값 번호는 위 그림의 노란색으로 표시된 $M − 1$개씩이다.
+1. 대칭 행렬을 $M \times 2M$으로 확장한다. 이때 행렬의 $(i, i)$는 쓸모가 없으며, 각 행의 유효한 값 번호는 위 그림의 노란색으로 표시된 $M - 1$개씩이다.
 2. 크기가 $W$인 window를 행 $(i, i + 1)$에서 $(i, i + 1 + W)$까지 배치하여 binary coding을 계산한다 (그림에서 $W=3$인 빨간색 상자). 이는 self-layer 연결이 인접한 vertex에서 발생하는 경향이 있기 때문이다.
 
 실제로 $W$는 8로 설정되고, window는 일반적으로 window 외부에 "1"이 나타나지 않으므로 슬라이드되지 않는다. 위 그림에서 (1, 6)과 같은 위치의 window 외부에 있는 "1"은 실제로 (6, 7)의 "1"로 반복되며, 실제로는 제거된다. Self-Layer Matrix의 초기 word table 크기는 $2^W$이다. "1"이 window 외부에 나타나는 특수한 상황에서는 word table 크기를 $2^W + m$으로 확장하여 처리한다.
@@ -70,7 +70,7 @@ Self-Layer Matrix $$\mathcal{S}_L$$은 $M \times M$의 0-1 대칭 행렬이며, 
 ##### Between-Layer Matrix 압축
 <center><img src='{{"/assets/img/mesh-silksong/mesh-silksong-fig5c.webp" | relative_url}}' width="85%"></center>
 <br>
-Between-Layer Matrix $$\mathcal{B}_L$$은 크기가 $M \times N$인 0-1 행렬이다. 여기서 $M$은 layer $L$의 vertex 개수이고, $N$은 layer $L-1$의 vertex 개수이다. 연결 규칙이 Self-Layer Matrix와 다르다는 점을 고려하여 다른 압축 방식을 적용한다. "1"은 각 행에 연속적으로 나타나는 경향이 있다. 예를 들어, 행 3의 경우 (3, 4), (3, 5), (3, 6)에 연속된 세 개의 "1"이 있으므로 먼저 행 3을 $(x, y) = (4, 3)$으로 표시한다. 여기서 $x \in [1, m]$은 "1"의 시작 열 인덱스를 나타내고, $y \in [1, Y]$는 연속된 "1"의 개수를 나타내며, $Y$는 미리 정의된 최대로 연속되는 "1"의 개수이다. 그러면 $B_{(L,i)}$의 토큰 인덱스는 $x \cdot Y + y − 1$이어야 한다. 위 그림에 표시된 단순화된 상황에서 Between-Layer Matrix의 word table 크기는 $m \cdot Y$이다.
+Between-Layer Matrix $$\mathcal{B}_L$$은 크기가 $M \times N$인 0-1 행렬이다. 여기서 $M$은 layer $L$의 vertex 개수이고, $N$은 layer $L-1$의 vertex 개수이다. 연결 규칙이 Self-Layer Matrix와 다르다는 점을 고려하여 다른 압축 방식을 적용한다. "1"은 각 행에 연속적으로 나타나는 경향이 있다. 예를 들어, 행 3의 경우 (3, 4), (3, 5), (3, 6)에 연속된 세 개의 "1"이 있으므로 먼저 행 3을 $(x, y) = (4, 3)$으로 표시한다. 여기서 $x \in [1, m]$은 "1"의 시작 열 인덱스를 나타내고, $y \in [1, Y]$는 연속된 "1"의 개수를 나타내며, $Y$는 미리 정의된 최대로 연속되는 "1"의 개수이다. 그러면 $B_{(L,i)}$의 토큰 인덱스는 $x \cdot Y + y - 1$이어야 한다. 위 그림에 표시된 단순화된 상황에서 Between-Layer Matrix의 word table 크기는 $m \cdot Y$이다.
 
 실제로 "1"은 두 번 이상 연속해서 나타나므로, $Y$는 다음과 같다.
 

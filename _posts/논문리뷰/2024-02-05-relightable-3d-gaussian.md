@@ -142,7 +142,7 @@ $$
 \mathcal{C}_\textrm{target} &= w \cdot \mathcal{C}_h + (1 - w) \cdot \mathcal{C}_s \\
 \mathcal{C}_s &= 1 - (1 - \mathcal{C}) \cdot (1 - \mathcal{C}) \\
 \mathcal{C}_h &= \mathcal{C} \cdot \mathcal{C} \\
-w &= 1/(1 + \exp(−\psi(\mathcal{C}_v − 0.5)))
+w &= 1/(1 + \exp(-\psi(\mathcal{C}_v - 0.5)))
 \end{aligned}
 $$
 
@@ -190,7 +190,7 @@ $$
 \end{equation}
 $$
 
-광선에 따른 투과율 방정식 $T_i = \prod_{j=1}^{i−1} (1 − \alpha_j)$을 고려하면 $\alpha_j$의 순서가 $T_i$에 영향을 미치지 않는다는 것이 분명하다. 이는 광선을 따라 가우시안이 만나는 순서가 전반적인 투과율에 영향을 미치지 않음을 나타낸다. 
+광선에 따른 투과율 방정식 $T_i = \prod_{j=1}^{i-1} (1 - \alpha_j)$을 고려하면 $\alpha_j$의 순서가 $T_i$에 영향을 미치지 않는다는 것이 분명하다. 이는 광선을 따라 가우시안이 만나는 순서가 전반적인 투과율에 영향을 미치지 않음을 나타낸다. 
 
 <center><img src='{{"/assets/img/relightable-3d-gaussian/relightable-3d-gaussian-fig3.webp" | relative_url}}' width="55%"></center>
 <br>

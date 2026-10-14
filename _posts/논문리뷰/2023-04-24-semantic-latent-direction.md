@@ -125,7 +125,7 @@ $\quad$ 을 풀어 $x_t + \gamma v_i$에서 파생될 수 있는 해당 편집 �
 
 $$
 \begin{equation}
-\epsilon_t^\theta (x_t') \approx \epsilon_t^\theta (x_t) + \nabla_{x_t} \epsilon_t^\theta (x_t) \cdot (x_t' − x_t)
+\epsilon_t^\theta (x_t') \approx \epsilon_t^\theta (x_t) + \nabla_{x_t} \epsilon_t^\theta (x_t) \cdot (x_t' - x_t)
 \end{equation}
 $$
 

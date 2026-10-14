@@ -134,8 +134,8 @@ TTS 모델과 함께 duration 예측, 학습 가능한 업샘플링 레이어, �
 <br>
 위 그림과 같이 음성 시퀀스에서 얻은 posterior와 음소 시퀀스에서 얻은 prior 사이에 정보 격차가 있기 때문에 prior $p(z' \vert y; \theta_\textrm{pri})$의 용량을 향상시키거나 posterior encoder $\phi$에 대해 posterior $q(z \vert x; \phi)$의 복잡성을 줄이기 위해 양방향 prior/posterior 모듈을 설계한다. 양방향 prior/posterior 모듈 $\theta_\textrm{bpp}$로 flow model을 선택한다. 이는 최적화하기 쉽고 가역성이 좋기 때문이다.
 
-#### Reduce Posterior $q(z \vert x; \phi)$ with Backward Mapping $f^{−1}$
-양방향 prior/posterior 모듈은 backward 매핑 $f^{−1} (z; \theta_\textrm{bpp})$을 통해 $q(z \vert x; \phi)$에서 $q(z' \vert x; \phi, \theta_\textrm{bpp})$로 posterior 복잡도를 줄일 수 있다. 목적 함수는 다음과 같이 KL divergence loss를 사용하여 단순화된 posterior $q(z' \vert x; \phi, \theta_\textrm{bpp})$를 prior $p(z' \vert y; \theta_\textrm{pri})$와 일치시킨다.
+#### Reduce Posterior $q(z \vert x; \phi)$ with Backward Mapping $f^{-1}$
+양방향 prior/posterior 모듈은 backward 매핑 $f^{-1} (z; \theta_\textrm{bpp})$을 통해 $q(z \vert x; \phi)$에서 $q(z' \vert x; \phi, \theta_\textrm{bpp})$로 posterior 복잡도를 줄일 수 있다. 목적 함수는 다음과 같이 KL divergence loss를 사용하여 단순화된 posterior $q(z' \vert x; \phi, \theta_\textrm{bpp})$를 prior $p(z' \vert y; \theta_\textrm{pri})$와 일치시킨다.
 
 $$
 \begin{aligned}

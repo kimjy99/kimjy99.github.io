@@ -49,7 +49,7 @@ $$
 \end{equation}
 $$
 
-데이터 분포에서 샘플을 생성하기 위해 먼저 초기 샘플 $$\textbf{x}_0 ∼ p(\textbf{x}; \sigma_\textrm{max})$$를 추출한다. 여기서 $$\sigma_\textrm{max}$$는 $$p(\textbf{x}; \sigma_\textrm{max})$$가 순수 Gaussian 분포와 거의 같아 샘플링이 용이하도록 충분히 크게 선택한다. 그런 다음 ODE를 따라 $$\textbf{x}_0$$를 $\sigma = 0$, 즉 데이터 분포로 진화시킨다.
+데이터 분포에서 샘플을 생성하기 위해 먼저 초기 샘플 $$\textbf{x}_0 \sim p(\textbf{x}; \sigma_\textrm{max})$$를 추출한다. 여기서 $$\sigma_\textrm{max}$$는 $$p(\textbf{x}; \sigma_\textrm{max})$$가 순수 Gaussian 분포와 거의 같아 샘플링이 용이하도록 충분히 크게 선택한다. 그런 다음 ODE를 따라 $$\textbf{x}_0$$를 $\sigma = 0$, 즉 데이터 분포로 진화시킨다.
 
 CFG는 conditional ODE와 unconditional ODE의 선형 결합으로 정의되는 $$\textrm{d} \textbf{x} / \textrm{d} \sigma$$를 가지는 수정된 ODE를 구성하는 것으로 생각할 수 있다.
 

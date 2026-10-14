@@ -213,7 +213,7 @@ x_T = \sqrt{1 - \beta_{T-1}} x_{T-1} + \sqrt{\beta_{T-1}} \epsilon
 \end{equation}
 $$
 
-의 forward step이 뒤따르는 하나의 reverse sampling $x_{T −1}$의 $N$번의 iteration을 수행한다. 다음 step의 기울기는 loss에 의해 쉽게 영향을 받는다. 이 초기 리샘플링 전략을 통해 경험적으로 reverse step의 수를 줄일 수 있는 초기 $x_T$를 찾을 수 있다.
+의 forward step이 뒤따르는 하나의 reverse sampling $x_{T -1}$의 $N$번의 iteration을 수행한다. 다음 step의 기울기는 loss에 의해 쉽게 영향을 받는다. 이 초기 리샘플링 전략을 통해 경험적으로 reverse step의 수를 줄일 수 있는 초기 $x_T$를 찾을 수 있다.
 
 ### 5. Total Loss
 모두 종합하면 text-guided reverse diffusion의 최종 loss는 다음과 같다.

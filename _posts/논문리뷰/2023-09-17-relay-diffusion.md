@@ -83,7 +83,7 @@ $$
 \end{equation}
 $$
 
-여기서 $$\textrm{Block}[s] (\epsilon)_{x,y}$$는 위치 $(x, y)$의 block noise이고 $\epsilon_{−x} = \epsilon_{x_\textrm{max} − x}$이다. 위 그림의 (c)는 256$\times$256에서 커널 크기 $s = 4$인 block noise가 64$\times$64 이미지의 독립적인 Gaussian noise와 유사한 주파수 스펙트럼을 가짐을 보여준다. 
+여기서 $$\textrm{Block}[s] (\epsilon)_{x,y}$$는 위치 $(x, y)$의 block noise이고 $\epsilon_{-x} = \epsilon_{x_\textrm{max} - x}$이다. 위 그림의 (c)는 256$\times$256에서 커널 크기 $s = 4$인 block noise가 64$\times$64 이미지의 독립적인 Gaussian noise와 유사한 주파수 스펙트럼을 가짐을 보여준다. 
 
 위의 분석은 초기 diffusion step에서 block noise를 도입하여 고해상도 이미지에 대한 end-to-end 모델을 설계할 수 있는 반면 계단식 모델은 이미 큰 성공을 거두었음을 나타내는 것으로 보인다. 따라서 계단식 모델의 재검토가 필요하다.
 
@@ -137,7 +137,7 @@ d_n = \frac{x_n - x_\theta (x_n, \sigma_{t_n})}{\sigma_{t_n}}
 \end{equation}
 $$
 
-에 의해 제어된다. Correction step에서는 평균 기울기 항 $\frac{d_n + d_{n−1}}{2}$로 현재 상태를 업데이트한다. Heun's method는 $t_n$과 $t_{n−1}$ 사이의 기울기 항 $\frac{dx}{dt}$의 변화를 고려한다. 따라서 더 적은 샘플링 step을 허용하면서 더 높은 품질을 달성한다.
+에 의해 제어된다. Correction step에서는 평균 기울기 항 $\frac{d_n + d_{n-1}}{2}$로 현재 상태를 업데이트한다. Heun's method는 $t_n$과 $t_{n-1}$ 사이의 기울기 항 $\frac{dx}{dt}$의 변화를 고려한다. 따라서 더 적은 샘플링 step을 허용하면서 더 높은 품질을 달성한다.
 
 본 논문은 [DDIM](https://kimjy99.github.io/논문리뷰/ddim)의 변형을 따라 RDM의 super-resolution 단계의 blurring diffusion에 EDM sampler를 적용한다. 이미지의 noisy한 상태 $$\{x_i\}_{i=0}^N$$에 대응하여 샘플링 step의 인덱스를 $$\{t_i\}_{i=0}^N$$으로 정의한다. Blurring diffusion을 적용하기 위해 이미지는 DCT에 의해 $u_i = V^\top x_i$로 주파수 공간으로 변환된다. DDIM은 inference 분포를 사용하여 diffusion process를 설명한다. 이를 blurring diffusion을 위해 다음과 같이 쓸 수 있다.
 
@@ -155,7 +155,7 @@ q_\delta (u_{n-1} \vert u_n, u_0) = \mathcal{N} (u_{n-1} \vert \frac{1}{\sigma_{
 \end{equation}
 $$
 
-정규 분포의 평균은 $q(u_n \vert u_0) = \mathcal{N} (u_n \vert D_{t_n}^p u_0, \sigma_{t_n}^2 I)$인 blurring diffusion 공식과 일치하도록 forward process를 보장한다. 인덱스 벡터 $\delta$가 0이면 sampler는 ODE sampler로 변환된다. 저자들은 sampler에 대해 $\delta_n = \eta \sigma_{t_{n−1}}$을 설정했다. 여기서 $\eta \in [0, 1)$는 샘플링 중에 주입된 랜덤성의 스케일을 제어하는 고정 스칼라이다. 이 정의를 위 식에 치환하면 sampler 함수를 다음과 같이 얻을 수 있다.
+정규 분포의 평균은 $q(u_n \vert u_0) = \mathcal{N} (u_n \vert D_{t_n}^p u_0, \sigma_{t_n}^2 I)$인 blurring diffusion 공식과 일치하도록 forward process를 보장한다. 인덱스 벡터 $\delta$가 0이면 sampler는 ODE sampler로 변환된다. 저자들은 sampler에 대해 $\delta_n = \eta \sigma_{t_{n-1}}$을 설정했다. 여기서 $\eta \in [0, 1)$는 샘플링 중에 주입된 랜덤성의 스케일을 제어하는 고정 스칼라이다. 이 정의를 위 식에 치환하면 sampler 함수를 다음과 같이 얻을 수 있다.
 
 $$
 \begin{equation}
@@ -191,6 +191,6 @@ RDM의 super-resolution 단계에 대한 stochastic sampler는 Algorithm 1에 �
 
 <center><img src='{{"/assets/img/relay-diffusion/relay-diffusion-table3.webp" | relative_url}}' width="50%"></center>
 <br>
-다음은 다양한 샘플링 step 수에 대한 FID를 ImageNet에서 비교한 그래프이다. $N$은 NFE이고, $10n+ (\frac{N}{2} −n)$은 첫 번째 단계에서 $10n$, 두 번째 단계에서 $\frac{N}{2} − n$을 의미한다. 
+다음은 다양한 샘플링 step 수에 대한 FID를 ImageNet에서 비교한 그래프이다. $N$은 NFE이고, $10n+ (\frac{N}{2} -n)$은 첫 번째 단계에서 $10n$, 두 번째 단계에서 $\frac{N}{2} - n$을 의미한다. 
 
 <center><img src='{{"/assets/img/relay-diffusion/relay-diffusion-fig5.webp" | relative_url}}' width="48%"></center>

@@ -39,7 +39,7 @@ Concept Sliders는 모듈식이며 합성 가능하다. 저자들은 출력 품�
 ## Method
 <center><img src='{{"/assets/img/concept-sliders/concept-sliders-fig2.webp" | relative_url}}' width="65%"></center>
 <br>
-Concept Sliders는 위 그림과 같이 개념을 타겟으로 하는 이미지 제어를 가능하게 하기 위해 diffusion model에서 [LoRA](https://kimjy99.github.io/논문리뷰/lora) 어댑터를 fine-tuning하는 방법이다. 타겟 개념으로 컨디셔닝될 때 특정 속성의 표현을 늘리거나 줄이는 low-rank 파라미터 방향을 학습한다. 타겟 개념 $c_t$와 모델 $\theta$가 주어지면 $c_t$로 컨디셔닝될 때 이미지 $X$에서 속성 $c_{+}$와 $c_{−}$의 likelihood를 수정하는 $\theta^\ast$를 얻는 것이 목표이다. 즉, 속성 $c_{+}$의 likelihood를 높이고 속성 $c_{−}$의 likelihood를 줄이는 것이 목표이다. 
+Concept Sliders는 위 그림과 같이 개념을 타겟으로 하는 이미지 제어를 가능하게 하기 위해 diffusion model에서 [LoRA](https://kimjy99.github.io/논문리뷰/lora) 어댑터를 fine-tuning하는 방법이다. 타겟 개념으로 컨디셔닝될 때 특정 속성의 표현을 늘리거나 줄이는 low-rank 파라미터 방향을 학습한다. 타겟 개념 $c_t$와 모델 $\theta$가 주어지면 $c_t$로 컨디셔닝될 때 이미지 $X$에서 속성 $c_{+}$와 $c_{-}$의 likelihood를 수정하는 $\theta^\ast$를 얻는 것이 목표이다. 즉, 속성 $c_{+}$의 likelihood를 높이고 속성 $c_{-}$의 likelihood를 줄이는 것이 목표이다. 
 
 $$
 \begin{equation}
@@ -73,7 +73,7 @@ $$
 \end{equation}
 $$
 
-위 식에서 제안된 score function은 타겟 개념 $c_t$의 분포를 이동하여 더 많은 $c_{+}$ 속성과 더 적은 $c_{−}$ 속성을 나타낸다. 실제로 하나의 프롬프트 쌍이 원하지 않는 속성과 얽힌 방향을 식별할 수 있는 경우가 있다. 따라서 최적화를 제약하기 위해 일련의 보존 개념 $p \in \mathcal{P}$를 통합한다 (ex. 연령을 편집하는 동안 인종 이름들을 통합). 단순히 $P_\theta (c_{+} \vert X)$를 늘리는 대신 모든 $p$에 대해 $P_\theta ((c_{+}, p) \vert X)$를 늘리고 $P_\theta ((c_{−}, p) \vert X)$를 줄이는 것을 목표로 한다. 이는 disentanglement 목적 함수로 이어진다.
+위 식에서 제안된 score function은 타겟 개념 $c_t$의 분포를 이동하여 더 많은 $c_{+}$ 속성과 더 적은 $c_{-}$ 속성을 나타낸다. 실제로 하나의 프롬프트 쌍이 원하지 않는 속성과 얽힌 방향을 식별할 수 있는 경우가 있다. 따라서 최적화를 제약하기 위해 일련의 보존 개념 $p \in \mathcal{P}$를 통합한다 (ex. 연령을 편집하는 동안 인종 이름들을 통합). 단순히 $P_\theta (c_{+} \vert X)$를 늘리는 대신 모든 $p$에 대해 $P_\theta ((c_{+}, p) \vert X)$를 늘리고 $P_\theta ((c_{-}, p) \vert X)$를 줄이는 것을 목표로 한다. 이는 disentanglement 목적 함수로 이어진다.
 
 $$
 \begin{equation}

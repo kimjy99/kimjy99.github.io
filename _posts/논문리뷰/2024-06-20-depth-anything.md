@@ -98,7 +98,7 @@ $$
 
 $M$은 직사각형 영역이 1로 설정된 바이너리 마스크이다. 
 
-Unlabeled loss $$\mathcal{L}_u$$는 각각 $M$과 $1 − M$으로 정의된 유효 영역에서 affine-invariant loss를 계산하여 얻는다. 
+Unlabeled loss $$\mathcal{L}_u$$는 각각 $M$과 $1 - M$으로 정의된 유효 영역에서 affine-invariant loss를 계산하여 얻는다. 
 
 $$
 \begin{aligned}

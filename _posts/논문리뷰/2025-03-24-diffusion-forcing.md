@@ -45,7 +45,7 @@ Next-token prediction model과 마찬가지로 CDF는 가변 길이 시퀀스를
 ### 1. Noising as partial masking
 <center><img src='{{"/assets/img/diffusion-forcing/diffusion-forcing-fig2.webp" | relative_url}}' width="80%"></center>
 <br>
-일반성을 잃지 않고 순차적이든 아니든 모든 토큰 모음을 $t$로 인덱싱된 순서 있는 집합으로 볼 수 있다. Teacher forcing으로 next-token prediction을 학습시키는 것은 시간 $t$에서 각 토큰 $$\textbf{x}_t$$를 마스킹하고 과거 $$\textbf{x}_{1:t−1}$$로부터 예측하는 것으로 해석할 수 있다. 이러한 모든 기법을 시간 축을 따라 마스킹하는 것으로 간주한다. 
+일반성을 잃지 않고 순차적이든 아니든 모든 토큰 모음을 $t$로 인덱싱된 순서 있는 집합으로 볼 수 있다. Teacher forcing으로 next-token prediction을 학습시키는 것은 시간 $t$에서 각 토큰 $$\textbf{x}_t$$를 마스킹하고 과거 $$\textbf{x}_{1:t-1}$$로부터 예측하는 것으로 해석할 수 있다. 이러한 모든 기법을 시간 축을 따라 마스킹하는 것으로 간주한다. 
 
 또한 full-sequence forward diffusion, 즉 데이터 $$\textbf{x}_{1:T}^0 = \textbf{x}_{1:T}$$에 점진적으로 noise를 추가하는 과정을 부분 마스킹의 한 형태로 볼 수 있으며, 이를 노이즈 축을 따라 마스킹하는 것이라고 부른다. 실제로, $K$ step의 noise 추가 후 $$\textbf{x}_{1:T}^K$$는 대략적으로 원본 데이터에 대한 정보가 없는 순수한 noise가 된다.
 

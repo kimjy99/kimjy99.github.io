@@ -172,7 +172,7 @@ LoRA를 사용하면 파라미터 수가 크게 줄어들어 다양한 pruning �
 
 <center><img src='{{"/assets/img/tinyfusion/tinyfusion-fig8.webp" | relative_url}}' width="70%"></center>
 <br>
-이 문제를 해결하기 위해, 저자들은 지식 전달 과정에서 이러한 극단적인 activation을 선택적으로 배제하는 **Masked RepKD**을 제안하였다. 간단하게 $$\vert x − \mu_x \vert < k \sigma_x$$로 thresholding하여 극단적인 activation과 관련된 loss를 무시한다. 
+이 문제를 해결하기 위해, 저자들은 지식 전달 과정에서 이러한 극단적인 activation을 선택적으로 배제하는 **Masked RepKD**을 제안하였다. 간단하게 $$\vert x - \mu_x \vert < k \sigma_x$$로 thresholding하여 극단적인 activation과 관련된 loss를 무시한다. 
 
 다음은 복구를 위한 fine-tuning 전략을 비교한 표이다. 
 

@@ -86,7 +86,7 @@ DepthCrafter를 학습시키려면 대량의 고품질 동영상-깊이 시퀀�
 
 1. 동영상을 길이가 최대 110프레임인 중첩된 세그먼트로 나눈다. 
 2. 각 세그먼트에 대한 깊이 시퀀스를 추정한다. 입력 latent를 Gaussian noise $$\epsilon \sim \mathcal{N}(0, \sigma_\textrm{max}^2 I)$$로 초기화하는 대신, 이전 세그먼트의 denoise된 latent에 noise를 추가한 것으로 중첩된 프레임의 latent를 초기화하여 깊이 분포의 scale과 shift를 고정한다. 
-3. 세그먼트 전체의 시간적 부드러움을 더욱 보장하기 위해 연속된 두 세그먼트에서 중첩된 프레임 $o_i$의 latent를 가중치 $w_i$와 $1−w_i$를 사용하여 interpolation한다. 여기서 $w_i$는 1에서 0으로 선형적으로 감소한다. 최종 깊이 시퀀스는 VAE 디코더 $\mathcal{D}$를 사용하여 스티칭된 latent를 디코딩하여 얻는다. 
+3. 세그먼트 전체의 시간적 부드러움을 더욱 보장하기 위해 연속된 두 세그먼트에서 중첩된 프레임 $o_i$의 latent를 가중치 $w_i$와 $1-w_i$를 사용하여 interpolation한다. 여기서 $w_i$는 1에서 0으로 선형적으로 감소한다. 최종 깊이 시퀀스는 VAE 디코더 $\mathcal{D}$를 사용하여 스티칭된 latent를 디코딩하여 얻는다. 
 
 ## Experiments
 - 구현 디테일

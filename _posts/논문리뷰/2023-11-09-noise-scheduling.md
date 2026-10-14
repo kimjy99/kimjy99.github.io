@@ -32,7 +32,7 @@ Noise schedule의 중요성은 위 그림의 예에서 확인할 수 있다. 이
 ### 1. Strategy 1: changing noise schedule functions
 <center><img src='{{"/assets/img/noise-scheduling/noise-scheduling-algo1.webp" | relative_url}}' width="70%"></center>
 <br>
-첫 번째 전략은 1차원 함수를 사용하여 parameterize된 noise schedule을 만드는 것이다. 여기에서는 temperature scheduling과 함께 코사인 또는 시그모이드 함수의 일부를 기반으로 한 함수를 사용한다. 이 두 가지 유형의 함수 외에 저자들은 $\gamma (t) = 1 − t$인 간단한 선형 noise schedule 함수를 추가로 제안한다. Algorithm 1은 연속 시간 noise schedule 함수 $\gamma(t)$의 인스턴스화에 대한 코드를 제공한다. 
+첫 번째 전략은 1차원 함수를 사용하여 parameterize된 noise schedule을 만드는 것이다. 여기에서는 temperature scheduling과 함께 코사인 또는 시그모이드 함수의 일부를 기반으로 한 함수를 사용한다. 이 두 가지 유형의 함수 외에 저자들은 $\gamma (t) = 1 - t$인 간단한 선형 noise schedule 함수를 추가로 제안한다. Algorithm 1은 연속 시간 noise schedule 함수 $\gamma(t)$의 인스턴스화에 대한 코드를 제공한다. 
 
 <center><img src='{{"/assets/img/noise-scheduling/noise-scheduling-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
@@ -51,14 +51,14 @@ Scaling factor $b$를 줄이면 아래 그림에서 볼 수 있듯이 noise leve
 
 <center><img src='{{"/assets/img/noise-scheduling/noise-scheduling-fig4.webp" | relative_url}}' width="90%"></center>
 <br>
-$b \ne 1$일 때 $x_0$의 평균과 분산이 같더라도 $x_t$의 분산은 변경될 수 있으며 이로 인해 성능이 저하될 수 있다. 이 경우, 분산이 고정된 상태로 유지되도록 하기 위해 $x_t$를 $\frac{1}{(b^2 − 1)\gamma(t)+1}$의 factor로 스케일링할 수 있다. 그러나 저자들은 실제로는 $x_t$를 분산으로 정규화하여 $x_t$를 denoising network $f(\cdot)$에 공급하기 전에 단위 분산을 가지도록 보장하면 잘 작동한다는 것을 알 수 있다. 이 분산 정규화 연산은 denoising network의 첫 번째 레이어로도 볼 수 있다.
+$b \ne 1$일 때 $x_0$의 평균과 분산이 같더라도 $x_t$의 분산은 변경될 수 있으며 이로 인해 성능이 저하될 수 있다. 이 경우, 분산이 고정된 상태로 유지되도록 하기 위해 $x_t$를 $\frac{1}{(b^2 - 1)\gamma(t)+1}$의 factor로 스케일링할 수 있다. 그러나 저자들은 실제로는 $x_t$를 분산으로 정규화하여 $x_t$를 denoising network $f(\cdot)$에 공급하기 전에 단위 분산을 가지도록 보장하면 잘 작동한다는 것을 알 수 있다. 이 분산 정규화 연산은 denoising network의 첫 번째 레이어로도 볼 수 있다.
 
 <center><img src='{{"/assets/img/noise-scheduling/noise-scheduling-fig5.webp" | relative_url}}' width="45%"></center>
 <br>
 이 입력 스케일링 전략은 위의 noise scheduling 함수 $\gamma(t)$를 변경하는 것과 유사하지만, 위 그림에 표시된 것처럼 특히 $t$가 0에 가까울 때 코사인 및 시그모이드 schedule과 비교할 때 logSNR에서 약간 다른 효과를 얻는다. 실제로 입력 scheduling은 모양을 변경하지 않고 유지하면서 y축을 따라 logSNR을 이동하는데, 이는 위에서 고려한 모든 noise schedule 함수와 다르다. 입력 크기 조정을 피하기 위해 다른 방법으로 $\gamma(t)$ 함수를 동등하게 parameterize할 수도 있다. 
 
 ### 3. Putting it together: a simple compound noise scheduling strategy
-저자들은 $\gamma(t) = 1−t$와 같은 단일 noise schedule 함수를 사용하고 $b$의 factor로 입력을 스케일링하여 이 두 가지 전략을 결합하는 것을 제안하였다. 학습 및 inference 전략은 다음과 같다.
+저자들은 $\gamma(t) = 1-t$와 같은 단일 noise schedule 함수를 사용하고 $b$의 factor로 입력을 스케일링하여 이 두 가지 전략을 결합하는 것을 제안하였다. 학습 및 inference 전략은 다음과 같다.
 
 ##### 학습 전략
 Algorithm 2는 결합된 noise scheduling 전략을 diffusion model 학습에 통합하는 방법을 보여주며 주요 변경 사항은 파란색으로 강조 표시되어 있다. 

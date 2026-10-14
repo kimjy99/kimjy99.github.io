@@ -20,9 +20,9 @@ classes: wide
 <center><img src='{{"/assets/img/light-a-video/light-a-video-fig1.webp" | relative_url}}' width="90%"></center>
 
 ## Introduction
-본 논문에서는 추가적인 학습이나 최적화 과정 없이 부드럽고 고품질의 relighting된 동영상을 생성할 수 있는 **Light-A-Video**을 제안하였다. 동영상에 대한 일반적인 설명과 조명 조건을 제공하는 텍스트 프롬프트가 주어지면, Light-A-Video 파이프라인은 이미지 기반 모델의 relighting 능력과 video diffusion model (VDM)의 모션 prior를 최대한 활용하여 zero-shot 방식으로 입력 동영상을 relighting할 수 있다. 
+본 논문에서는 추가적인 학습이나 최적화 과정 없이 부드럽고 고품질의 relighting된 동영상을 생성할 수 있는 **Light-A-Video**를 제안하였다. 동영상에 대한 일반적인 설명과 조명 조건을 제공하는 텍스트 프롬프트가 주어지면, Light-A-Video 파이프라인은 이미지 기반 모델의 relighting 능력과 video diffusion model (VDM)의 모션 prior를 최대한 활용하여 zero-shot 방식으로 입력 동영상을 relighting할 수 있다. 
 
-프레임별로 이미지 relighting 모델을 적용하면 생성된 광원이 동영상 프레임 간에 불안정하다. 이러한 불안정성은 외형의 relighting 불일치와 프레임 간 심한 깜빡임 현상을 초래한다. 저자들은 생성된 광원을 안정화하고 일관된 결과를 보장하기 위해 이미지 relighting 모델의 self-attention layer내에 **Consistent Light Attention (CLA)** 모듈을 설계했다. CLA는 시간적으로 평균화된 feature들을 attention 연산에 통합함으로써 프레임 간 상호작용을 촉진하고 구조적으로 안정적인 광원을 생성한다.
+프레임별로 이미지 relighting 모델을 적용하면 생성된 광원이 동영상 프레임 간에 불안정하다. 이러한 불안정성은 외형의 relighting 불일치와 프레임 간 심한 깜빡임 현상을 초래한다. 저자들은 생성된 광원을 안정화하고 일관된 결과를 보장하기 위해 이미지 relighting 모델의 self-attention layer 내에 **Consistent Light Attention (CLA)** 모듈을 설계했다. CLA는 시간적으로 평균화된 feature들을 attention 연산에 통합함으로써 프레임 간 상호작용을 촉진하고 구조적으로 안정적인 광원을 생성한다.
 
 프레임 간 외형 안정성을 더욱 향상시키기 위해, 본 논문에서는 **Progressive Light Fusion (PLF)** 전략을 통해 VDM의 모션 prior를 활용하였다. Light transport에 대한 물리적 원리를 따르는 PLF는 linear blending을 점진적으로 사용하여 CLA에서 relighting된 외형을 각 원본 denoising target에 통합함으로써 동영상 denoising process를 원하는 relighting 방향으로 점진적으로 유도한다.
 
@@ -97,7 +97,7 @@ a_t = \sqrt{\frac{1 - \bar{\alpha}_{t-1}}{1 - \bar{\alpha}_t}}, \quad b_t  = \sq
 \end{equation}
 $$
 
-융합된 target $$\tilde{\textbf{z}}_{0 \leftarrow t}$$는 새로운 denoising 방향 $$\tilde{\textbf{v}}_t$$을 결정한다.
+융합된 target $$\tilde{\textbf{z}}_{0 \leftarrow t}$$는 새로운 denoising 방향 $$\tilde{\textbf{v}}_t$$를 결정한다.
 
 $$
 \begin{equation}

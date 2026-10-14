@@ -48,7 +48,7 @@ $$
 
 ($$\bar{\alpha}_t$$는 noise schedule, $x_t$는 timestep $t$에서 noise가 적용된 이미지, $\epsilon \sim \mathcal{N}(0,I)$는 Gaussian noise)
 
-Denoising process는 $x_t$의 noise를 점진적으로 제거하여 $x_{t−1}$을 얻는다.
+Denoising process는 $x_t$의 noise를 점진적으로 제거하여 $x_{t-1}$을 얻는다.
 
 $$
 \begin{equation}

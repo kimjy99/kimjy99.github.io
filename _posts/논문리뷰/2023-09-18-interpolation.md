@@ -58,11 +58,11 @@ Latent space와 텍스트 임베딩 보간에는 구형 선형 보간 (slerp)을
 
 $$
 \begin{equation}
-\mathcal{L} (c_\textrm{text}) = \| \hat{\epsilon}_\theta (\alpha_t z_0 + \sigma_t \epsilon; t, c_\textrm{text}) − \epsilon \|
+\mathcal{L} (c_\textrm{text}) = \| \hat{\epsilon}_\theta (\alpha_t z_0 + \sigma_t \epsilon; t, c_\textrm{text}) - \epsilon \|
 \end{equation}
 $$
 
-와 $10^{−4}$의 learning rate로 경사 하강법을 100~500회 반복한다. 레이아웃이 복잡하거나 텍스트 프롬프트로 표현하기 어려운 스타일이 있는 이미지의 경우 반복 횟수를 늘릴 수 있다.
+와 $10^{-4}$의 learning rate로 경사 하강법을 100~500회 반복한다. 레이아웃이 복잡하거나 텍스트 프롬프트로 표현하기 어려운 스타일이 있는 이미지의 경우 반복 횟수를 늘릴 수 있다.
 
 본 논문에서는 두 입력 이미지에 대해 동일한 초기 프롬프트를 지정하지만 완전히 자동화된 접근 방식을 캡션 모델로 대체할 수도 있다. 긍정 및 부정 텍스트 프롬프트가 모두 사용되고 최적화되며 각 이미지 쌍에 대해 부정 프롬프트를 공유한다. 사용자 지정 토큰이 필요하지 않으므로 전체 텍스트 임베딩을 최적화하도록 선택한다.
 

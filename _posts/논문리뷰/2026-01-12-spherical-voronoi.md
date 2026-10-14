@@ -9,12 +9,13 @@ tags:
   - 3D Reconstruction
   - 3D Vision
   - CVPR
+  - Google
 excerpt: "Spherical Voronoi 논문 리뷰 (CVPR 2026)"
 use_math: true
 classes: wide
 ---
 
-> CVPR 2026. [[Paper](https://arxiv.org/abs/2512.14180)] [[Page](https://sphericalvoronoi.github.io/)]  
+> CVPR 2026. [[Paper](https://arxiv.org/abs/2512.14180)] [[Page](https://sphericalvoronoi.github.io/)] [[Github](https://github.com/sphericalvoronoi/sphericalvoronoi)]  
 > Francesco Di Sario, Daniel Rebain, Dor Verbin, Marco Grangetto, Andrea Tagliasacchi  
 > University of Torino | Simon Fraser University | University of British Columbia | University of Toronto | Google DeepMind  
 > 16 Dec 2025  
@@ -74,7 +75,7 @@ $s_k$는 principal direction이고, $$\alpha_k, \beta_k > 0$$는 모양을 제�
 ### 2. Spherical Voronoi (SV)
 <center><img src='{{"/assets/img/spherical-voronoi/spherical-voronoi-fig5.webp" | relative_url}}' width="50%"></center>
 <br>
-이러한 한계들을 극복하기 위해, 본 논문은 Spherical Voronoi (SV) 표현을 도입하였다. SV는 directional site $s_1, \ldots, s_K \in \mathbb{R}^2$와 관련 함수 값 $c_1, \ldots, c_K \in \mathbb{R}^C$의 집합으로 구성된다. 방향 $\omega$에서의 함수 평가는 각 site 값의 가중합으로 얻어진다.
+이러한 한계들을 극복하기 위해, 본 논문은 Spherical Voronoi (SV) 표현을 도입하였다. SV는 directional site $s_1, \ldots, s_K \in \mathbb{S}^2$와 관련 함수 값 $c_1, \ldots, c_K \in \mathbb{R}^C$의 집합으로 구성된다. 방향 $\omega$에서의 함수 평가는 각 site 값의 가중합으로 얻어진다.
 
 $$
 \begin{equation}
@@ -93,7 +94,7 @@ Softmax function은 모든 위치에 대해 잘 정의된 gradient를 보장하�
 고전적인 radiance field 학습을 위해, 저자들은 view-dependent한 표현을 SV로 대체하였다. 뷰 방향 $\omega$가 주어지면, primitive와 관련된 radiance는 $$f_\textrm{SV}$$로 평가되며, 함수의 공역은 RGB 색상이다. 3DGS의 경우, 이는 각 Gaussian에 추가 파라미터 $$\{\tau_k\}$$, $$\{s_k\}$$, $$\{c_k\}$$가 부여됨을 의미하며, 모든 파라미터는 학습 가능하고 공동으로 최적화된다.
 
 ### 4. Reflection-based Parameterization
-[Ref-NeRF](https://kimjy99.github.io/논문리뷰/refnerf)는 광택 표면에서 뷰 방향을 이용하여 방출되는 radiance를 계산할 때 sparse한 측정값으로부터 복잡한 함수를 학습해야 한다는 점을 보여주었다. 그 대신 표면의 normal 벡터 $n$을 함께 학습하고, 반사된 뷰 방향을 따라 측정된 radiance $$\omega_r = 2 (\omega \cdot n) n − \omega$$라는 더 간단한 함수를 사용하여 추론하는 방법을 제안했다.
+[Ref-NeRF](https://kimjy99.github.io/논문리뷰/refnerf)는 광택 표면에서 뷰 방향을 이용하여 방출되는 radiance를 계산할 때 sparse한 측정값으로부터 복잡한 함수를 학습해야 한다는 점을 보여주었다. 그 대신 표면의 normal 벡터 $n$을 함께 학습하고, 반사된 뷰 방향을 따라 측정된 radiance $$\omega_r = 2 (\omega \cdot n) n - \omega$$라는 더 간단한 함수를 사용하여 추론하는 방법을 제안했다.
 
 SV 함수는 표현력이 풍부하며, 특히 날카로운 조명 영역을 표현하는 데 매우 적합하다. 따라서 SV 함수는 부드러운 view-dependent한 효과 $f(\omega)$를 표현하는 데 적합할 뿐만 아니라 미세한 반사광 $$f(\omega_r)$$을 학습하는 데에도 적합하다.
 
@@ -125,7 +126,7 @@ C_\textrm{spec} = \alpha C_n + (1 - \alpha) C_f
 \end{equation}
 $$
 
-원거리 항 $C_f$는 원거리 조명을 나타내며 반사 방향 $$\omega_r = 2(\omega \cdot N)N − \omega$$에서 평가되는 학습 가능한 cubemap으로 구현된다.
+원거리 항 $C_f$는 원거리 조명을 나타내며 반사 방향 $$\omega_r = 2(\omega \cdot N)N - \omega$$에서 평가되는 학습 가능한 cubemap으로 구현된다.
 
 근거리 항 $C_n$은 학습 가능한 Voronoi light probe들을 사용하여 공간적으로 변화하는 반사를 포착한다. 각 probe $i$는 위치 $p_i \in \mathbb{R}^3$, 혼합 가중치 $$\alpha_i \in [0, 1]$$, 그리고 SV 함수의 파라미터($$\tau_i$$, $s_i$, $c_i$)로 parameterize된다. 모든 파라미터는 학습 중에 최적화된다. 표면 위의 점 $P$에 대해, 해당 점의 $k$개의 가장 가까운 probe를 쿼리하고, inverse-distance weight을 계산한다.
 

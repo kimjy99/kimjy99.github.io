@@ -114,7 +114,7 @@ $$
 \end{equation}
 $$
 
-여기서 $Q, K, V \in \mathbb{R}^{M^2 \times d}$는 각각 query, key, value 행렬이며 $d$는 query와 key의 차원이다. $M^2$은 window의 패치 수이다. 각 축을 따라 상대적 위치가 $[-M+1, M-1]$ 범위에 있기 때문에 더 작은 크기의 바이어스 행렬 $\hat{B} \in \mathbb{R}^{(2M−1) \times (2M−1)}$을 parameterize하고 $B$의 값은 $\hat{B}$에서 가져온다. 
+여기서 $Q, K, V \in \mathbb{R}^{M^2 \times d}$는 각각 query, key, value 행렬이며 $d$는 query와 key의 차원이다. $M^2$은 window의 패치 수이다. 각 축을 따라 상대적 위치가 $[-M+1, M-1]$ 범위에 있기 때문에 더 작은 크기의 바이어스 행렬 $\hat{B} \in \mathbb{R}^{(2M-1) \times (2M-1)}$을 parameterize하고 $B$의 값은 $\hat{B}$에서 가져온다. 
 
 사전 학습 시 학습된 상대적 위치 바이어스는 bi-cubic interpolation을 통해 다른 window 크기의 fine-tuning을 위한 모델을 초기화하는 데에도 사용할 수 있다. 
 

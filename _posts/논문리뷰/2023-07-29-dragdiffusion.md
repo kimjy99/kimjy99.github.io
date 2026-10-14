@@ -65,7 +65,7 @@ $$
 
 $$
 \begin{equation}
-\Omega (h_i^k, r_1) = \{(x, y): \vert x − x_i^k \vert \le r_1, \vert y − y_i^k \vert \le r_1\}
+\Omega (h_i^k, r_1) = \{(x, y): \vert x - x_i^k \vert \le r_1, \vert y - y_i^k \vert \le r_1\}
 \end{equation}
 $$
 
@@ -94,7 +94,7 @@ Motion supervision 업데이트가 $$\hat{z}_t^k$$를 변경하기 때문에 핸
 
 $$
 \begin{equation}
-\Omega (h_i^k, r_2) = \{(x, y): \vert x − x_i^k \vert \le r_2, \vert y − y_i^k \vert \le r_2\}
+\Omega (h_i^k, r_2) = \{(x, y): \vert x - x_i^k \vert \le r_2, \vert y - y_i^k \vert \le r_2\}
 \end{equation}
 $$
 

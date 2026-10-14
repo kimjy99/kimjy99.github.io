@@ -15,7 +15,7 @@ classes: wide
 
 > ICCV 2025 (Highlight). [[Paper](https://arxiv.org/abs/2504.12811)] [[Page](https://derthomy.github.io/AAA-Gaussians/)] [[Github](https://github.com/DerThomy/AAA-Gaussians)]  
 > Michael Steiner, Thomas Köhler, Lukas Radl, Felix Windisch, Dieter Schmalstieg, Markus Steinberger  
-> ETH Zurich | Stanford University | Microsoft  
+> Graz University of Technology | University of Stuttgart | Huawei Technologies  
 > 17 Apr 2025  
 
 <center><img src='{{"/assets/img/aaa-gaussians/aaa-gaussians-fig1.webp" | relative_url}}' width="100%"></center>
@@ -42,7 +42,7 @@ classes: wide
 
 <center><img src='{{"/assets/img/aaa-gaussians/aaa-gaussians-fig3.webp" | relative_url}}' width="50%"></center>
 <br>
-이러한 한계를 해결하기 위해 2D screen scape Mip 필터를 3D 평가 방법과 원활하게 통합되는 완전한 3D 필터링 접근 방식으로 대체하여 저주파 앨리어싱을 효과적으로 방지한다. 단순한 접근 방식은 각 렌더링 뷰에 대해 3D smoothing 필터를 다시 계산하는 것이지만, 이는 Gaussian이 지나치게 투명해지는 문제를 야기한다. 이 문제는 진폭이 부피 변화에 따라 감소하는 반면, Gaussian은 광선 $\textbf{d}$를 따라 완전히 적분되는 것이 아니라 최대 기여 지점에서만 평가되기 때문에 발생한다.
+이러한 한계를 해결하기 위해 2D screen space Mip 필터를 3D 평가 방법과 원활하게 통합되는 완전한 3D 필터링 접근 방식으로 대체하여 저주파 앨리어싱을 효과적으로 방지한다. 단순한 접근 방식은 각 렌더링 뷰에 대해 3D smoothing 필터를 다시 계산하는 것이지만, 이는 Gaussian이 지나치게 투명해지는 문제를 야기한다. 이 문제는 진폭이 부피 변화에 따라 감소하는 반면, Gaussian은 광선 $\textbf{d}$를 따라 완전히 적분되는 것이 아니라 최대 기여 지점에서만 평가되기 때문에 발생한다.
 
 $$
 \begin{equation}
@@ -98,7 +98,7 @@ $$
 
 $$
 \begin{equation}
-\hat{v}^\prime = \min (\hat{v}_\textrm{min}, \hat{v})
+\hat{v}^\prime = \min (\hat{v}_\textrm{train}, \hat{v})
 \end{equation}
 $$
 
@@ -111,7 +111,7 @@ Rasterizer에서 3D Gaussian을 효율적으로 평가하려면 불필요한 평
 
 <center><img src='{{"/assets/img/aaa-gaussians/aaa-gaussians-fig5.webp" | relative_url}}' width="47%"></center>
 <br>
-본 논문에서는 view space에서 평면 $$\boldsymbol{\pi}_\theta = (\cos(\theta), 0, -\sin(\theta), 0)^\top$$와$$\boldsymbol{\pi}_\phi = (0, \cos(\phi), −\sin(\phi), 0)^\top$$을 사용하여 plane fitting을 수행하고 $\theta$와 $\phi$를 구했다.
+본 논문에서는 view space에서 평면 $$\boldsymbol{\pi}_\theta = (\cos(\theta), 0, -\sin(\theta), 0)^\top$$와 $$\boldsymbol{\pi}_\phi = (0, \cos(\phi), -\sin(\phi), 0)^\top$$을 사용하여 plane fitting을 수행하고 $\theta$와 $\phi$를 구했다.
 
 $$
 \begin{aligned}

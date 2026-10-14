@@ -21,7 +21,7 @@ classes: wide
 ## Introduction
 본 연구에서는 통합된 미분 가능한 boolean 연산자를 개발하고, 이 연산자를 이용하여 각 내부 CSG 노드에 대한 discrete한 boolean 연산 선택을 continuous한 최적화 변수로 변환함으로써 CSG 최적화를 더욱 완화하는 방법을 제시하였다. 기존의 boolean 연산자(최소/최대 연산자)는 SDF에 대해 연산하는 반면, fuzzy boolean 연산자는 결과가 soft occupancy function으로 유지되도록 보장한다. 이러한 soft occupancy function에 대한 fuzzy boolean 연산은 CSG를 다양한 shape 모델링에 자연스럽게 일반화한다.
 
-저자들은 사면체 barycentric interpolation을 사용하여 개별 fuzzy boolean 연산들을 결합하는 통합된 fuzzy boolean 연산자를 구성하였다. 본 논문에서는 제안하는 통합 연산자가 미분 가능하고, gradient vanishing 문제를 방지하며, 단조성을 만족하여 gradient 기반 최적화에 특히 적합하다. 제안된 연산자를 CSG 최적화에 적용한 결과, 기존 방법들에 비해 생성된 트리의 정확도가 크게 향상되었다.
+저자들은 사면체 barycentric interpolation을 사용하여 개별 fuzzy boolean 연산들을 결합하는 통합된 fuzzy boolean 연산자를 구성하였다. 본 논문에서 제안하는 통합 연산자는 미분 가능하고, gradient vanishing 문제를 방지하며, 단조성을 만족하여 gradient 기반 최적화에 특히 적합하다. 제안된 연산자를 CSG 최적화에 적용한 결과, 기존 방법들에 비해 생성된 트리의 정확도가 크게 향상되었다.
 
 <center><img src='{{"/assets/img/fuzzy-boolean/fuzzy-boolean-fig2.webp" | relative_url}}' width="55%"></center>
 
@@ -49,7 +49,7 @@ Product fuzzy boolean 함수는 입력 $x$와 $y$에 대해 미분 가능하다.
 
 <center><img src='{{"/assets/img/fuzzy-boolean/fuzzy-boolean-fig.webp" | relative_url}}' width="32%"></center>
 <br>
-위 그림에서 볼 수 있듯이, 괴델의 max 연산자으로 합집합을 정의하면 $\frac{\partial}{\partial y} = 0$이 된다. 반면, product fuzzy boolean으로 합집합을 정의하면 여전히 $x$와 $y$ 모두에 대해 0이 아닌 기울기를 가지고 있다.
+위 그림에서 볼 수 있듯이, 괴델의 max 연산자로 합집합을 정의하면 $\frac{\partial}{\partial y} = 0$이 된다. 반면, product fuzzy boolean으로 합집합을 정의하면 여전히 $x$와 $y$ 모두에 대해 0이 아닌 기울기를 가지고 있다.
 
 <center><img src='{{"/assets/img/fuzzy-boolean/fuzzy-boolean-fig4.webp" | relative_url}}' width="55%"></center>
 
@@ -83,7 +83,7 @@ $$
 \mathcal{B}_{1,0,0,0} (x, y) &= xy &= f_{X \cap Y} \\
 \mathcal{B}_{0,1,0,0} (x, y) &= x + y - xy &= f_{X \cup Y} \\
 \mathcal{B}_{0,0,1,0} (x, y) &= x - xy &= f_{X \setminus Y} \\
-\mathcal{B}_{0,0,0,1} (x, y) &= y - xy &= f_{X \setminus Y}
+\mathcal{B}_{0,0,0,1} (x, y) &= y - xy &= f_{Y \setminus X}
 \end{aligned}
 $$
 
@@ -107,7 +107,7 @@ $$
 
 $$
 \begin{equation}
-\textbf{c} = \textrm{softmax} (\sin (\omega \tilde{\textbf{c}}) \cdot t), \quad $\tilde{\textbf{c}} \in \mathbb{R}^4$, \; \omega = 10, \; t = 10^3
+\textbf{c} = \textrm{softmax} (\sin (\omega \tilde{\textbf{c}}) \cdot t), \quad \tilde{\textbf{c}} \in \mathbb{R}^4, \; \omega = 10, \; t = 10^3
 \end{equation}
 $$
 

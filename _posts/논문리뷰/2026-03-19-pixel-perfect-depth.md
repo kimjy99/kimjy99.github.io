@@ -32,7 +32,7 @@ classes: wide
 ### 1. Generative Formulation
 본 논문에서는 깊이 추정 프레임워크의 생성 핵심으로 Flow Matching을 채택하였다. Flow Matching은 1차 상미분 방정식(ODE)을 통해 Gaussian noise에서 데이터 샘플로의 연속적인 변환을 학습한다. 본 논문에서는 Gaussian noise에서 깊이 샘플로의 변환을 모델링한다.
 
-구체적으로, 깨끗한 깊이 샘플 $x_0 \sim \mathcal{D}$와 Gaussian noise $x_1 \sim \mathcal{N}(0,1)$이 주어졌을 때, 시간 $t \in [0, 1]에$서의 보간된 샘플을 다음과 같이 정의한다.
+구체적으로, 깨끗한 깊이 샘플 $x_0 \sim \mathcal{D}$와 Gaussian noise $x_1 \sim \mathcal{N}(0,1)$이 주어졌을 때, 시간 $t \in [0, 1]$에서의 보간된 샘플을 다음과 같이 정의한다.
 
 $$
 \begin{equation}
@@ -60,7 +60,7 @@ Inference 단계에서는 noise $$\textbf{x}_1$$에서 시작하여 시간 간�
 
 $$
 \begin{equation}
-\textbf{x}_{t_{i-1}} = \textbf{x}_{t_i} + \textbf{v}_\theta (\textbf{x}_t, t, \textbf{c}) (\textbf{t}_{i-1} - \textbf{t}_i)
+\textbf{x}_{t_{i-1}} = \textbf{x}_{t_i} + \textbf{v}_\theta (\textbf{x}_{t_i}, t_i, \textbf{c}) (t_{i-1} - t_i)
 \end{equation}
 $$
 
@@ -116,7 +116,7 @@ SP-DiT는 정확도 성능을 크게 향상시키지만, 픽셀 공간에서 직
 
 이 과정의 효율성과 효과를 최적화하기 위해 초기 DiT block에서는 큰 patch size를 사용한다. 이러한 디자인은 처리해야 하는 토큰 수를 크게 줄여 계산 비용을 낮춘다. 또한, 모델이 글로벌한 이미지 구조와 저주파 정보를 학습하고 모델링하는 데 우선순위를 두도록 유도하여 입력 이미지에서 추출한 고수준 semantic 표현과 더 잘 부합하도록 한다. 후반부 DiT block에서는 토큰 수를 늘리는데, 이는 더 작은 patch size를 사용하는 것과 같다. 이를 통해 모델은 미세한 공간적 디테일에 더 집중할 수 있다. 결과적으로 이 coarse-to-fine 디자인은 시각적 인식의 계층적 특성을 반영하여 깊이 추정의 효율성과 정확도를 모두 향상시킨다.
 
-구체적으로, 총 $N$개의 DiT block으로 구성된 diffusion model의 경우, 처음 $N/2$개의 block은 더 큰 patch size를 갖는 coarse stage를 구성하고, 나머지 N/2개의 block(즉, SP-DiT)은 더 작은 patch size를 사용하는 fine stage를 구성한다.
+구체적으로, 총 $N$개의 DiT block으로 구성된 diffusion model의 경우, 처음 $N/2$개의 block은 더 큰 patch size를 갖는 coarse stage를 구성하고, 나머지 $N/2$개의 block(즉, SP-DiT)은 더 작은 patch size를 사용하는 fine stage를 구성한다.
 
 ### 4. Implementation Details
 ##### 모델 아키텍처 디테일

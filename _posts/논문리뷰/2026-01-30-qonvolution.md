@@ -69,10 +69,10 @@ QNN 아키텍처의 뚜렷한 장점은 좌표별로 평가하는 대신 전체 
 <span style="display: block; margin: 1px 0;"></span>
 <center><img src='{{"/assets/img/qonvolution/qonvolution-fig6.webp" | relative_url}}' width="100%"></center>
 <br>
-다음은 QNN의 scalability 나타낸 그래프이다. (Mip-NeRF 360)
+다음은 QNN의 scalability를 나타낸 그래프이다. (Mip-NeRF 360)
 
 <center><img src='{{"/assets/img/qonvolution/qonvolution-fig4.webp" | relative_url}}' width="34%"></center>
 <br>
 다음은 PSNR<sub>edge</sub>를 비교한 결과이다. PSNR<sub>edge</sub>는 Canny edge detector로 edge를 식별한 뒤, 커널 크기 3의 disk dilation을 수행하여 계산된다. (Mip-NeRF 360)
 
-<center><img src='{{"/assets/img/qonvolution/qonvolution-table4.webp" | relative_url}}' width="45%"></center>j
+<center><img src='{{"/assets/img/qonvolution/qonvolution-table4.webp" | relative_url}}' width="45%"></center>

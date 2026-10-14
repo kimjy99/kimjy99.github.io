@@ -159,7 +159,7 @@ NeRF의 밀도를
 
 $$
 \begin{equation}
-\sigma_\textrm{init} (\mu) = \lambda_\sigma (1 − \frac{\| \mu \|_2}{r})
+\sigma_\textrm{init} (\mu) = \lambda_\sigma (1 - \frac{\| \mu \|_2}{r})
 \end{equation}
 $$
 

@@ -110,20 +110,20 @@ $$\hat{x}_\theta (z_t)$$가 약간의 smoothness 조건을 충족하는 경우 p
 <br>
 표준 방식으로 학습하여 얻은 teacher diffusion model을 사용하여 progressive distillation 절차를 시작한다. Progressive distillation을 반복할 때마다 동일한 파라미터와 동일한 모델 정의를 모두 사용하여 teacher의 복사본으로 student model을 초기화한다. 표준 학습에서와 같이 학습 데이터셋에서 데이터를 샘플링하고 noise를 추가한 다음 이 noisy한 데이터 $z_t$에 student denoising model을 적용하여 학습 loss를 형성한다. 
 
-Progressive distillation의 주요 차이점은 denoising model의 목적 함수를 설정하는 방법에 있다. 원래 데이터 $x$ 대신 student DDIM step 1개가 teacher DDIM step 2개와 일치하도록 만드는 타겟 $\tilde{x}$를 향한 student model denoise가 있다. $z_t$에서 시작하여 $z_{t−1/N}$에서 끝나는 teacher를 사용하여 2개의 DDIM 샘플링 step을 실행하여 이 타겟 값을 계산한다. 여기서 $N$은 student 샘플링 step의 수이다. DDIM의 step 1개를 반전시켜 단일 step에서 $z_t$에서 $z_{t-1/N}$으로 이동하기 위해 student model이 예측해야 하는 값을 계산한다. 결과 타겟 값 $\tilde{x} (z_t)$는 주어진 teacher model과 시작점 $z_t$에 따라 완전히 결정되며, 이를 통해 student model은 $z_t$에서 평가될 때 예리한 예측을 할 수 있다. 대조적으로, 원래 데이터 포인트 $x$는 주어진 $z_t$에서 완전히 결정되지 않는다. 이것은 원래의 denoising model이 가능한 $x$ 값의 가중 평균을 예측하여 흐릿한 예측을 생성한다는 것을 의미한다. 더 예리한 예측을 통해 학생 모델은 샘플링을 더 빠르게 진행할 수 있다.
+Progressive distillation의 주요 차이점은 denoising model의 목적 함수를 설정하는 방법에 있다. 원래 데이터 $x$ 대신 student DDIM step 1개가 teacher DDIM step 2개와 일치하도록 만드는 타겟 $\tilde{x}$를 향한 student model denoise가 있다. $z_t$에서 시작하여 $z_{t-1/N}$에서 끝나는 teacher를 사용하여 2개의 DDIM 샘플링 step을 실행하여 이 타겟 값을 계산한다. 여기서 $N$은 student 샘플링 step의 수이다. DDIM의 step 1개를 반전시켜 단일 step에서 $z_t$에서 $z_{t-1/N}$으로 이동하기 위해 student model이 예측해야 하는 값을 계산한다. 결과 타겟 값 $\tilde{x} (z_t)$는 주어진 teacher model과 시작점 $z_t$에 따라 완전히 결정되며, 이를 통해 student model은 $z_t$에서 평가될 때 예리한 예측을 할 수 있다. 대조적으로, 원래 데이터 포인트 $x$는 주어진 $z_t$에서 완전히 결정되지 않는다. 이것은 원래의 denoising model이 가능한 $x$ 값의 가중 평균을 예측하여 흐릿한 예측을 생성한다는 것을 의미한다. 더 예리한 예측을 통해 학생 모델은 샘플링을 더 빠르게 진행할 수 있다.
 
 $N$개의 샘플링 step을 통해 student model을 학습하기 위해 distillation을 실행한 후 $N/2$ step으로 절차를 반복할 수 있다. 그러면 student model이 새 teacher가 되고 새 student model이 이 모델의 복사본을 만들어 초기화된다.
 
 원래 모델을 학습하는 절차와 달리 항상 discrete time에 progressive distillation을 실행한다. 이 discrete time을 샘플링하여 가장 높은 시간 인덱스가 0의 SNR, 즉 $\alpha_1 = 0$에 해당하도록 샘플링한다. 저자들은 이것이 0이 아닌 SNR에서 시작하는 것보다 약간 더 잘 작동한다는 것을 발견했다. 원본 모델을 학습하고 progressive distillation를 수행할 때 모두 사용한다.
 
 ## Diffusion Model Parameterization and Training Loss
-$\sigma_t^2 = 1 − \alpha_t^2$인 표준 variance-preserving diffusion process를 가정하며, 이는 variance-exploding과 같은 다른 diffusion process에서도 동등하게 고려될 수 있다. Cosine schedule $\alpha_t = \cos (0.5 \pi t)$를 사용한다.
+$\sigma_t^2 = 1 - \alpha_t^2$인 표준 variance-preserving diffusion process를 가정하며, 이는 variance-exploding과 같은 다른 diffusion process에서도 동등하게 고려될 수 있다. Cosine schedule $\alpha_t = \cos (0.5 \pi t)$를 사용한다.
 
 DDPM과 다른 연구의 대부분은 암시적으로
 
 $$
 \begin{equation}
-\hat{x}_\theta (z_t) = \frac{1}{\alpha_t} (z_t − \sigma_t \hat{\epsilon}_\theta (z_t))
+\hat{x}_\theta (z_t) = \frac{1}{\alpha_t} (z_t - \sigma_t \hat{\epsilon}_\theta (z_t))
 \end{equation}
 $$
 

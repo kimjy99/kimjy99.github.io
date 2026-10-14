@@ -64,7 +64,7 @@ C = \sum_{i \in N} T_i c_i \alpha_i \quad \textrm{with} \quad T_i = \prod_{j=1}^
 \end{equation}
 $$
 
-$c_i$는 각 포인트의 색상이고 $T_i$는 투과율이다. $α_i \in [0, 1]$는 $1 − \exp(−\sigma_i \delta_i)$로 정의된다. 여기서 $\sigma_i$와 $\delta_i$는 각각 포인트의 밀도와 광선에서의 간격이다.
+$c_i$는 각 포인트의 색상이고 $T_i$는 투과율이다. $α_i \in [0, 1]$는 $1 - \exp(-\sigma_i \delta_i)$로 정의된다. 여기서 $\sigma_i$와 $\delta_i$는 각각 포인트의 밀도와 광선에서의 간격이다.
 
 ### 2. Deblurring 3D Gaussians
 #### Motivation

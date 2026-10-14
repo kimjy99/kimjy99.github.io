@@ -38,7 +38,7 @@ classes: wide
 ### 1. Stage1: Layout Generation
 이 단계에서 목표는 bounding box를 활용하여 키워드의 레이아웃을 결정하는 것이다 (사용자 프롬프트에서 지정한 따옴표로 묶음). Layout Transformer에서 영감을 받아 Transformer 아키텍처를 활용하여 키워드 레이아웃을 얻는다. 
 
-토큰화된 프롬프트를 $\mathcal{P} = (p_0, p_1, \ldots, p_{L−1})$로 표시하자. 여기서 $L$은 토큰의 최대 길이를 의미한다. [LDM](https://kimjy99.github.io/논문리뷰/ldm)을 따라 CLIP과 2개의 linear layer를 사용하여 시퀀스를 $\textrm{CLIP}(\mathcal{P}) \in \mathbb{R}^{L \times d}$로 인코딩한다. 여기서 $d$는 latent space의 차원이다. 키워드를 다른 키워드와 구별하기 위해 두 개의 entry (즉, keyword와 non-keyword)로 키워드 임베딩 $\textrm{Key}(\mathcal{P}) \in \mathbb{R}^{L \times d}$를 설계한다. 또한 임베딩 레이어 $\textrm{Width}(\mathcal{P}) \in \mathbb{R}^{L \times d}$로 키워드의 너비를 인코딩한다. 학습 가능한 위치 임베딩 $\textrm{Pos}(\mathcal{P}) \in \mathbb{R}^{L \times d}$와 함께 다음과 같이 전체 임베딩을 구성한다.
+토큰화된 프롬프트를 $\mathcal{P} = (p_0, p_1, \ldots, p_{L-1})$로 표시하자. 여기서 $L$은 토큰의 최대 길이를 의미한다. [LDM](https://kimjy99.github.io/논문리뷰/ldm)을 따라 CLIP과 2개의 linear layer를 사용하여 시퀀스를 $\textrm{CLIP}(\mathcal{P}) \in \mathbb{R}^{L \times d}$로 인코딩한다. 여기서 $d$는 latent space의 차원이다. 키워드를 다른 키워드와 구별하기 위해 두 개의 entry (즉, keyword와 non-keyword)로 키워드 임베딩 $\textrm{Key}(\mathcal{P}) \in \mathbb{R}^{L \times d}$를 설계한다. 또한 임베딩 레이어 $\textrm{Width}(\mathcal{P}) \in \mathbb{R}^{L \times d}$로 키워드의 너비를 인코딩한다. 학습 가능한 위치 임베딩 $\textrm{Pos}(\mathcal{P}) \in \mathbb{R}^{L \times d}$와 함께 다음과 같이 전체 임베딩을 구성한다.
 
 $$
 \begin{equation}

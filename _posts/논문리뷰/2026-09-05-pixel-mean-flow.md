@@ -60,7 +60,7 @@ $r = t$일 때, $\textbf{u}$는 $\textbf{v}$가 된다. 즉, $$\textbf{u}(\textb
 
 $$
 \begin{equation}
-\textbf{x} (\textbf{z}_t, t, t) = \textbf{z}_t − t \cdot \textbf{v} (\textbf{z}_t, t)
+\textbf{x} (\textbf{z}_t, t, t) = \textbf{z}_t - t \cdot \textbf{v} (\textbf{z}_t, t)
 \end{equation}
 $$
 

@@ -66,7 +66,7 @@ $$
 
 $$
 \begin{equation}
-\mathbf{r} = 2(\omega_o \cdot \mathbf{n}) \mathbf{n} − \omega_o
+\mathbf{r} = 2(\omega_o \cdot \mathbf{n}) \mathbf{n} - \omega_o
 \end{equation}
 $$
 

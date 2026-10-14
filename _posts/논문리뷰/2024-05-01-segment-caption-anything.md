@@ -73,7 +73,7 @@ SAM은 쿼리 기반 feature mixer를 핵심 구성 요소로 사용하지만 �
 SAM은 마스크 예측을 위한 feature를 혼합하기 위해 자체 쿼리 토큰 $M$을 보유했다. 2-layer feature mixer $E_R^\textrm{SAM}$을 사용하여 해당 feature를 인코딩한다. 텍스트 예측을 위해 새로운 쿼리 토큰 $Q$ 세트를 추가하고 $E_R^\textrm{SAM}$로 인코딩된 프롬프트 토큰과 이미지 토큰을 $E_R^\textrm{Cap}$에 넣어준다. 
 
 #### Regional feature decoder
-ROI feature를 얻은 후 이를 텍스트 디코더 $$D_\textrm{Cap}$$로 보내 영역 캡션을 생성할 수 있다. 텍스트 디코더는 예측된 이전 텍스트 토큰 $$\mathcal{T}_{1:k−1}$$을 기반으로 텍스트 토큰 $T_k$를 예측하는 Transformer 디코더이다. 
+ROI feature를 얻은 후 이를 텍스트 디코더 $$D_\textrm{Cap}$$로 보내 영역 캡션을 생성할 수 있다. 텍스트 디코더는 예측된 이전 텍스트 토큰 $$\mathcal{T}_{1:k-1}$$을 기반으로 텍스트 토큰 $T_k$를 예측하는 Transformer 디코더이다. 
 
 $$
 \begin{equation}

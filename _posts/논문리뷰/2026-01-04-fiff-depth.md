@@ -53,7 +53,7 @@ $$
 \end{equation}
 $$
 
-이 과정에서 [v-prediction re-parameterization](progressive-distillation)을 사용하여 loss를 정의한다.
+이 과정에서 [v-prediction re-parameterization](https://kimjy99.github.io/논문리뷰/progressive-distillation)을 사용하여 loss를 정의한다.
 
 $$
 \begin{equation}

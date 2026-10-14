@@ -94,7 +94,7 @@ $$
 \end{equation}
 $$
 
-$\omega$와 $n$은 각각 $$[\omega_\textrm{min}, \omega_\textrm{max}]$$와 $$\{1, \ldots, N−1\}$$에서 균일하게 샘플링된다. $$\hat{z}_{t_n}^{\Psi, \omega}$$는 다음과 같이 새로운 noise 모델 $$\hat{\epsilon}_\theta (z_t, \omega, c, t)$$를 사용하여 추정된다. 
+$\omega$와 $n$은 각각 $$[\omega_\textrm{min}, \omega_\textrm{max}]$$와 $$\{1, \ldots, N-1\}$$에서 균일하게 샘플링된다. $$\hat{z}_{t_n}^{\Psi, \omega}$$는 다음과 같이 새로운 noise 모델 $$\hat{\epsilon}_\theta (z_t, \omega, c, t)$$를 사용하여 추정된다. 
 
 $$
 \begin{aligned}
@@ -107,7 +107,7 @@ $$
 마찬가지로 DDIM, DPM-Solver, DPM-Solver++를 PF-ODE solver $\Psi$로 사용할 수 있다. 
 
 ### 3. Accelerating Distillation with Skipping Time Steps
-이산적인 diffusion model은 일반적으로 고품질 생성 결과를 얻기 위해 긴 timestep schedule $$\{t_i\}_i$$를 사용하여 noise 예측 모델을 학습시킨다. 예를 들어 Stable Diffusion (SD)의 schedule 길이는 1,000이다. 그러나 이렇게 schedule이 길어지면 Latent Consistency Distillation (LCD)를 SD에 직접 적용하는 것은 문제가 될 수 있다. 모델은 1,000개의 timestep 전체에 걸쳐 샘플링해야 하며 consistency loss는 LCM 모델의 예측 $f_\theta (z_{t_{n+1}}, c, t_{n+1})$을 이후 step의 예측 $f_\theta (z_{t_n}, c, t_n)$와 정렬하려고 시도한다. $t_n − t_{n+1}$은 작기 때문에 $z_{t_n}$과 $z_{t_{n+1}}$은 이미 서로 가까워서 약간의 consistency loss가 발생한다. 따라서 수렴 속도가 느려진다. 이 문제를 해결하기 위해 저자들은 생성 품질을 유지하면서 빠른 수렴을 달성하기 위해 schedule의 길이를 상당히 단축하는 **Skipping-Step** 방법을 도입하였다.
+이산적인 diffusion model은 일반적으로 고품질 생성 결과를 얻기 위해 긴 timestep schedule $$\{t_i\}_i$$를 사용하여 noise 예측 모델을 학습시킨다. 예를 들어 Stable Diffusion (SD)의 schedule 길이는 1,000이다. 그러나 이렇게 schedule이 길어지면 Latent Consistency Distillation (LCD)를 SD에 직접 적용하는 것은 문제가 될 수 있다. 모델은 1,000개의 timestep 전체에 걸쳐 샘플링해야 하며 consistency loss는 LCM 모델의 예측 $f_\theta (z_{t_{n+1}}, c, t_{n+1})$을 이후 step의 예측 $f_\theta (z_{t_n}, c, t_n)$와 정렬하려고 시도한다. $t_n - t_{n+1}$은 작기 때문에 $z_{t_n}$과 $z_{t_{n+1}}$은 이미 서로 가까워서 약간의 consistency loss가 발생한다. 따라서 수렴 속도가 느려진다. 이 문제를 해결하기 위해 저자들은 생성 품질을 유지하면서 빠른 수렴을 달성하기 위해 schedule의 길이를 상당히 단축하는 **Skipping-Step** 방법을 도입하였다.
 
 Consistency model(CM)은 연속 시간 EDM schedule을 사용하고 Euler 또는 Heun Solver를 수치적 PF-ODE solver로 사용한다. LCM의 경우 Stable Diffusion의 이산적인 schedule에 적응하기 위해 DDIM, DPM-Solver, DPM-Solver++를 ODE solver로 사용한다. 이러한 고급 solver들은 PF-ODE를 효율적으로 풀 수 있다. 
 

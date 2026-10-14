@@ -36,7 +36,7 @@ Naive한 샘플링 방법은 각 테스트 이미지에 대해 여러 샘플링�
 ### 1. Diffusion Models
 Diffusion model은 샘플링된 가우시안 noise를 데이터 분포의 샘플 $x_0$로 변환한다. 이 매핑은 $x_0$에서 $x_t$로의 noising process를 점진적으로 역전시키는 denoising 신경망 $f_\theta$를 학습시켜 수행된다. 조건부 diffusion model은 입력 신호에 대한 denoising process를 컨디셔닝한다. 특히 image-to-image diffusion model은 $x$와 $y$가 모두 이미지인 $p(y \vert x)$ denoising step을 수행한다. 
 
-Diffusion model은 $T$ denoising step을 통해 타겟 이미지 $y_0$를 생성한다. 가우시안 noise $y_T \sim \mathcal{N}(0,I)$에서 시작하여 모델은 $y_0 ~ p(y \vert x)$에 도달할 때까지 학습된 transition 분포 $p_\theta (y_{t−1} \vert y_t, x)$를 사용하여 이미지를 반복적으로 정제한다. 이 반복 프로세스는 이미지 생성에 여러 네트워크 평가가 필요하므로 시간과 컴퓨팅 집약적이다. 
+Diffusion model은 $T$ denoising step을 통해 타겟 이미지 $y_0$를 생성한다. 가우시안 noise $y_T \sim \mathcal{N}(0,I)$에서 시작하여 모델은 $y_0 ~ p(y \vert x)$에 도달할 때까지 학습된 transition 분포 $p_\theta (y_{t-1} \vert y_t, x)$를 사용하여 이미지를 반복적으로 정제한다. 이 반복 프로세스는 이미지 생성에 여러 네트워크 평가가 필요하므로 시간과 컴퓨팅 집약적이다. 
 
 대부분의 이미지 diffusion model은 denoising step을 학습하기 위해 U-Net을 사용하며, 현재 단계 $t$는 인코딩되어 $y_t$와 함께 네트워크로 전달된다. 이미지를 컨디셔닝할 때 가우시안 noise 이미지에서 시작하는 대신 입력 이미지를 일부 $t \in [0, T)$로만 diffuse하는 경우가 많으며, 이는 원래 입력 신호의 일부를 보존하기 위한 것이다. 
 
@@ -109,7 +109,7 @@ $$
 #### Sampling-based Bounds
 Diffusion model은 분포 근사 기능이 뛰어나기 때문에 bound 추정을 위한 자연스러운 후보이다. 따라서 사전 학습된 diffusion model의 대략적인 분포에서 샘플링하여 구간을 구성할 수 있다. 특히 특정 복원 작업(ex. super-resolution, inpainting)에 대해 학습된 diffusion model이 주어지면 손상된 각 calibration 항목 $x_i$에 대해 여러 재구성된 변형 $$SV_i = \{ \hat{y_i}_j \}_{j=1}^J$$을 샘플링하여 이미지 분포를 근사화한다. $SV_i$에서 각 픽셀의 upper bound와 lower bound의 quantile을 얻어 구간의 bound를 추출한다. 
 
-예를 들어, $\alpha = 0.1$이라고 가정하면 $\tilde{l} = \alpha / 2 = 0.05$와 $\tilde{u} = 1 − \alpha / 2 = 0.95$가 초기 간격의 bound로 둔다. 모든 이미지에서 추출한 bound $\tilde{U}, \tilde{L}$의 집합을 사용하여 $\hat{\lambda} \tilde{U} = \hat{U}$와 $\hat{\lambda} \tilde{L} = \hat{L}$이 되도록 $\hat{\lambda}$를 선택한다. Inference 시 새로운 손상된 입력 $x$가 주어지면 샘플링된 $SV$를 구성하고 $\tilde{u}, \tilde{l}$을 추출한다. 마지막으로 calibration 단계에서 $\hat{\lambda}$를 사용하여 $\hat{u}$와 $\hat{l}$을 반환한다. 
+예를 들어, $\alpha = 0.1$이라고 가정하면 $\tilde{l} = \alpha / 2 = 0.05$와 $\tilde{u} = 1 - \alpha / 2 = 0.95$가 초기 간격의 bound로 둔다. 모든 이미지에서 추출한 bound $\tilde{U}, \tilde{L}$의 집합을 사용하여 $\hat{\lambda} \tilde{U} = \hat{U}$와 $\hat{\lambda} \tilde{L} = \hat{L}$이 되도록 $\hat{\lambda}$를 선택한다. Inference 시 새로운 손상된 입력 $x$가 주어지면 샘플링된 $SV$를 구성하고 $\tilde{u}, \tilde{l}$을 추출한다. 마지막으로 calibration 단계에서 $\hat{\lambda}$를 사용하여 $\hat{u}$와 $\hat{l}$을 반환한다. 
 
 이 방법은 $ADM_{UQ}$로 구성한 것보다 더 엄격한 범위를 생성하며 이를 $DM_{SB}$라고 한다. 그러나 샘플링을 통해 범위를 추정하는 것이 $ADM_{UQ}$를 능가하지만 calibration과 inference 중에 각 항목의 여러 변형을 샘플링해야 한다. 각 변형을 생성하기 위해 여러 denoising step이 필요하다는 점을 감안할 때 1개의 inference 이미지에 대한 범위를 추출하려면 수천 번의 forward pass가 필요하므로 실제 사용이 불가능하다. 
 

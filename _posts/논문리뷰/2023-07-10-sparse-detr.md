@@ -66,7 +66,7 @@ S = \vert \Omega_s^\rho \vert = \rho \cdot \vert \Omega_q \vert \ll \vert \Omega
 \end{equation}
 $$
 
-그러면 $i$번째 인코더 레이어는 다음과 같이 feature $x_{i−1}$을 업데이트한다.
+그러면 $i$번째 인코더 레이어는 다음과 같이 feature $x_{i-1}$을 업데이트한다.
 
 $$
 \begin{equation}

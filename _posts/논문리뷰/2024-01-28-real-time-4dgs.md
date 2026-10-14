@@ -162,7 +162,7 @@ Z_{nl}^m (t, \theta, \phi) = \cos \bigg( \frac{2\pi n}{T} t \bigg) Y_l^m (\theta
 \end{equation}
 $$
 
-여기서 $Y_l^m$은 3D SH이다. $l \ge 0$은 degree를 나타내며, $m$은 $−l \le m \le l$을 만족하는 order이다. $n$은 푸리에 급수(Fourier series)의 차수이다. 4DSH는 spherindrical 좌표계에서 orthonormal basis를 형성한다.
+여기서 $Y_l^m$은 3D SH이다. $l \ge 0$은 degree를 나타내며, $m$은 $-l \le m \le l$을 만족하는 order이다. $n$은 푸리에 급수(Fourier series)의 차수이다. 4DSH는 spherindrical 좌표계에서 orthonormal basis를 형성한다.
 
 ### 3. Training
 3D Gaussian Splatting을 따라 학습 중에 중간 최적화와 밀도 제어를 수행한다. 본 논문의 최적화 프로세스는 완전히 end-to-end이며, 기존의 프레임별 또는 다단계 학습 접근 방식과 달리 언제든지 샘플링하고 볼 수 있는 기능을 통해 전체 동영상을 처리할 수 있다.

@@ -75,7 +75,7 @@ Canonical space에서 직접 예측하는 것은 여러 가지 이점을 제공�
 
 1. **Global Intrinsic Embedding - Addition**: 카메라 intrinsic $k = [f_x, f_y, c_x, c_y]$를 linear layer에 넣어 글로벌 feature를 얻는다. 이 feature는 ViT의 패치 임베딩 레이어 뒤에 있는 RGB 이미지 feature에 더해진다.
 2. **Global Intrinsic Embedding - Concat**: 글로벌 feature를 얻은 후에는 이를 추가적인 intrinsic 토큰으로 취급하고 모든 이미지 토큰과 concat한다.
-3. **Dense Intrinsic Embedding**: 입력 뷰의 각 픽셀 $p_j$에 대해 카메라 광선 방향을 $K^{−1} p_j$로 얻고, 픽셀별 카메라 광선을 spherical harmonics를 사용하여 더 높은 차원 feature로 변환 후 네트워크 입력인 RGB 이미지와 concat한다. 
+3. **Dense Intrinsic Embedding**: 입력 뷰의 각 픽셀 $p_j$에 대해 카메라 광선 방향을 $K^{-1} p_j$로 얻고, 픽셀별 카메라 광선을 spherical harmonics를 사용하여 더 높은 차원 feature로 변환 후 네트워크 입력인 RGB 이미지와 concat한다. 
 
 기본적으로 저자들은 가장 좋은 성능을 보이는 intrinsic 토큰 옵션을 활용하였다. 
 

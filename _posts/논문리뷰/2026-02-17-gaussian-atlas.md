@@ -36,7 +36,7 @@ Diffusion model 학습을 위해서는 다양한 형식의 3D object에 대해 �
 1. 뷰 속성 쿼리를 위한 MLP에서 뷰 속성을 제외하여 뷰에 덜 민감한 애플리케이션을 구현할 수 있도록 했다.
 2. Fitting당 Gaussian 개수를 제한하는 방식을 사용하였다.
 
-다양한 3D object는 각기 다른 geometry와 외형을 가질 수 있으며, 이로 인해 3DGS fitting 결과가 매우 가변적이다. 일반적인 접근 방식은 fitting당 일정한 수의 Gaussian을 사용하는 것인데, 이는 모든 3D object는에 걸쳐 Gaussian 개수가 균일하게 분포되도록 한다. 결과적으로, 폴리곤 수가 적고 단순한 object는 과도하게 parameterize되어, scale과 opacity 값이 낮지만 0은 아닌 값을 가질 수 있다. 본 논문에서는 Gaussian 개수를 일정하게 제한하는 대신, fitting되는 Gaussian 개수를 파라미터 $\tau$로 제한하는 **visibility ranking** 전략을 도입하였다. 
+다양한 3D object는 각기 다른 geometry와 외형을 가질 수 있으며, 이로 인해 3DGS fitting 결과가 매우 가변적이다. 일반적인 접근 방식은 fitting당 일정한 수의 Gaussian을 사용하는 것인데, 이는 모든 3D object에 걸쳐 Gaussian 개수가 균일하게 분포되도록 한다. 결과적으로, 폴리곤 수가 적고 단순한 object는 과도하게 parameterize되어, scale과 opacity 값이 낮지만 0은 아닌 값을 가질 수 있다. 본 논문에서는 Gaussian 개수를 일정하게 제한하는 대신, fitting되는 Gaussian 개수를 파라미터 $\tau$로 제한하는 **visibility ranking** 전략을 도입하였다. 
 
 구체적으로, 3DGS fitting 과정에서 각 Gaussian의 opacity를 추적하여 무작위로 선택된 카메라 시점에서의 visibility를 평가한다. Densification 후 Gaussian 개수가 $\tau$를 초과하면, opacity를 기준으로 정렬하고 가장 낮은 값을 가진 Gaussian들을 제거한다. 이 pruning 전략은 완전히 보이지 않는 Gaussian만 제거하는 기존 방식과 다르다. 또한, Scaffold-GS의 디자인과 일관성을 유지하기 위해 앵커의 visibility를 기반으로 동일한 ranking 및 pruning 방식을 적용하였다. 최종적으로 두 가지 visibility의 순위를 평균하여 선택한다.
 
@@ -85,7 +85,7 @@ Latent Diffusion (LD)은 수십억 쌍의 텍스트-이미지 데이터가 풍�
 
 $$
 \begin{equation}
-\sqrt{N} \times \sqrt{N} \times (\| \textbf{x} - \textbf{x} \| + \| \textbf{c} \| + \| \textbf{o} \| + \| \textbf{s} \| + \| \textbf{r} \|)
+\sqrt{N} \times \sqrt{N} \times (\| \textbf{x} - \textbf{s} \| + \| \textbf{c} \| + \| \textbf{o} \| + \| \textbf{s} \| + \| \textbf{r} \|)
 \end{equation}
 $$
 
@@ -100,7 +100,7 @@ LD의 표준 fine-tuning 방식은 VAE 기반 인코딩 및 디코딩을 포함�
 
 따라서 저자들은 전체 GaussianVerse에서 계산된 픽셀별 평균과 표준 편차를 사용하여 2D atlas를 표준화하였다. 이러한 정규화는 극단적으로 높거나 낮은 주파수의 픽셀 값을 방지하는 동시에 원래 VAE로 인코딩된 이미지 latent의 특성을 보존하여 궁극적으로 fine-tuning 프로세스를 가속화한다.
 
-3D Gaussian은 3D 위치 $\textbf{x} \in \mathbb{R}^3$, albedo $\textbf{c} \in \mathbb{R}^3$, scale $\textbf{s} \in \mathbb{R}^3$, opacity $\textbf{o} \in \mathbb{R}$, $\textbf{r} \in \mathbb{R}^4$의 다섯 가지 속성으로 특징지어진다. LD UNet은 원래 4채널 latent를 사용하여 학습되었으므로, 각 3채널 속성에 1채널 opacity를 추가하고 UNet의 입력 레이어를 네 번 반복하여 모든 속성을 입력으로 사용한다. UNet의 fine-tuning에 사용되는 최종 Gaussian Atlas는 크기가 128$\times$128$\times$16이다. 렌더링 과정에서 각 속성을 적절히 unpack하고 세 opacity 값을 평균화한다.
+3D Gaussian은 3D 위치 $\textbf{x} \in \mathbb{R}^3$, albedo $\textbf{c} \in \mathbb{R}^3$, scale $\textbf{s} \in \mathbb{R}^3$, opacity $\textbf{o} \in \mathbb{R}$, rotation $\textbf{r} \in \mathbb{R}^4$의 다섯 가지 속성으로 특징지어진다. LD UNet은 원래 4채널 latent를 사용하여 학습되었으므로, 각 3채널 속성에 1채널 opacity를 추가하고 UNet의 입력 레이어를 네 번 반복하여 모든 속성을 입력으로 사용한다. UNet의 fine-tuning에 사용되는 최종 Gaussian Atlas는 크기가 128$\times$128$\times$16이다. 렌더링 과정에서 각 속성을 적절히 unpack하고 세 opacity 값을 평균화한다.
 
 Denoising된 Gaussian의 렌더링 결과와 레퍼런스 이미지 간의 diffusion loss와 perceptual loss를 조합하여 LD UNet $F$를 fine-tuning한다.
 
@@ -111,7 +111,7 @@ $$
 \end{equation}
 $$
 
-($$\mathcal{L}_\textrm{mask}$$는 렌더링된 opacity map에 대하 L1 loss)
+($$\mathcal{L}_\textrm{mask}$$는 렌더링된 opacity map에 대한 L1 loss)
 
 ## Experiments
 - 구현 디테일

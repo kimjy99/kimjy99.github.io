@@ -47,7 +47,7 @@ $$
 \end{equation}
 $$
 
-여기서, $\alpha_i = 1 - \exp(-\sigma_i \delta_i)$는 $i$번째 광선 세그먼트의 불투명도이고, $\delta_i = t_{i+1} − t_i$는 인접한 샘플 사이의 거리이며, $T_i = \prod_{j=1}^{i−1} (1 − \alpha_j)$는 카메라에 도달하는 빛의 비율을 나타내는 누적 투과율이다. 네트워크를 supervise하기 위해 입력 이미지 $c$와 렌더링된 이미지 $\hat{c}$ 사이에 color loss가 사용된다.
+여기서, $\alpha_i = 1 - \exp(-\sigma_i \delta_i)$는 $i$번째 광선 세그먼트의 불투명도이고, $\delta_i = t_{i+1} - t_i$는 인접한 샘플 사이의 거리이며, $T_i = \prod_{j=1}^{i-1} (1 - \alpha_j)$는 카메라에 도달하는 빛의 비율을 나타내는 누적 투과율이다. 네트워크를 supervise하기 위해 입력 이미지 $c$와 렌더링된 이미지 $\hat{c}$ 사이에 color loss가 사용된다.
 
 $$
 \begin{equation}
@@ -106,7 +106,7 @@ $$
 
 여기서 $N$은 샘플링된 포인트의 총 개수이다. End-to-end 최적화를 허용하려면 SDF 예측 $f(x)$에 대한 이중 역방향 연산이 필요하다.
 
-SDF의 표면 법선 $\nabla f(x)$를 계산하는 사실상의 방법은 해석적 기울기 (analytical gradient)를 사용하는 것이다. 그러나 위치에 대한 해시 인코딩의 해석적 기울기는 trilinear interpolation 하에서 공간 전체에 걸쳐 연속적이지 않다. 복셀 그리드에서 샘플링 위치를 찾기 위해 각 3D 포인트 $x_i$는 먼저 그리드 해상도 $V_l$에 의해 크기 조정되고 $x_{i,l} = x_i \cdot V_l$로 작성된다. Trilinear interpolation에 대한 계수를 $\beta = x_{i,l} − \lfloor x_{i,l} \rfloor$로 둔다. 결과 feature 벡터는 다음과 같다. 
+SDF의 표면 법선 $\nabla f(x)$를 계산하는 사실상의 방법은 해석적 기울기 (analytical gradient)를 사용하는 것이다. 그러나 위치에 대한 해시 인코딩의 해석적 기울기는 trilinear interpolation 하에서 공간 전체에 걸쳐 연속적이지 않다. 복셀 그리드에서 샘플링 위치를 찾기 위해 각 3D 포인트 $x_i$는 먼저 그리드 해상도 $V_l$에 의해 크기 조정되고 $x_{i,l} = x_i \cdot V_l$로 작성된다. Trilinear interpolation에 대한 계수를 $\beta = x_{i,l} - \lfloor x_{i,l} \rfloor$로 둔다. 결과 feature 벡터는 다음과 같다. 
 
 $$
 \begin{equation}

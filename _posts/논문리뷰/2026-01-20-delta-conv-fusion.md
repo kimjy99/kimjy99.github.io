@@ -36,7 +36,7 @@ Diffusion model은 특히 고해상도 이미지 생성에서 제곱에 비례�
 
 이러한 통찰력을 바탕으로, 저자들은 self-attention 메커니즘을 **Pyramid Convolution Blocks (∆ConvBlocks)**으로 대체하는 새로운 CNN 기반 아키텍처인 **∆ConvFusion**을 제안하였다. ∆ConvFusion은 multi-scale convolution을 활용하여 시각적 feature를 효율적으로 처리하는 동시에 diffusion model에서 관찰되는 attention 패턴을 재현한다. Self-attention 메커니즘의 두 가지 핵심 요소와 일치하도록, ∆ConvBlocks는 거리 의존적 고주파 성분을 포착하는 pyramid convolution 구조와 저주파 성분을 근사하는 average pooling branch를 포함한다. 이를 통해 ∆ConvBlocks는 self-attention map의 공간적 특성을 효과적으로 재현할 수 있다.
 
-∆ConvFusion은 diffusion model의 self-attention 블록을 ∆ConvBlocks로 대체하여 구축한다. 효율적인 학습을 위해, 다른 모든 구성 요소는 고정하고 ∆ConvBlocks만 업데이트한다. 또한 저자들은 두 가지 레벨에서 knowledge distillation를 적용하였다.
+∆ConvFusion은 diffusion model의 self-attention 블록을 ∆ConvBlocks로 대체하여 구축한다. 효율적인 학습을 위해, 다른 모든 구성 요소는 고정하고 ∆ConvBlocks만 업데이트한다. 또한 저자들은 두 가지 레벨에서 knowledge distillation을 적용하였다.
 
 1. Feature 레벨에서는 모든 layer에 걸쳐 ∆ConvBlocks와 원래의 self-attention 모듈 간의 불일치를 최소화한다.
 2. 출력 레벨에서는 $\epsilon$-prediction objective를 사용하여 모델의 최종 출력을 정렬한다.
@@ -164,10 +164,10 @@ $$
 
 ($\downarrow 2^i$는 다운샘플링 scale이 $2^i$인 average pooling layer, $\uparrow 2^i$는 업샘플링 scale이 $2^i$인 bilinear interpolation)
 
-마지막으로 1$\times$1 convolution layer을 적용한다.
+마지막으로 1$\times$1 convolution layer를 적용한다.
 
 ### 2. Average Pooling as Attention Bias
-∆ConvBlock의 두 번째 구성 요소는 저주파 성분을 포착하는 average pooling branch이다. 이는 1$\times$1 average pooling layer와 그 뒤에 오는 1$\times$1 convolution layer $$\psi_p$$로 구성된다\dots
+∆ConvBlock의 두 번째 구성 요소는 저주파 성분을 포착하는 average pooling branch이다. 이는 1$\times$1 average pooling layer와 그 뒤에 오는 1$\times$1 convolution layer $$\psi_p$$로 구성된다.
 
 $$
 \begin{equation}
@@ -204,7 +204,7 @@ $$
 
 $$
 \begin{equation}
-\mathcal{L}_z = \min (\gamma \cdot (\sigma_t^z / \sigma_t^\epsilon)^2, 1) \cdot (\| \tilde{\epsilon} - \hat{\epsilon} )
+\mathcal{L}_z = \min (\gamma \cdot (\sigma_t^z / \sigma_t^\epsilon)^2, 1) \cdot (\| \tilde{\epsilon} - \hat{\epsilon} \|^2 + \| \epsilon - \hat{\epsilon} \|^2)
 \end{equation}
 $$
 

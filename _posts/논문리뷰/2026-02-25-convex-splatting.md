@@ -26,7 +26,7 @@ classes: wide
 1. 물리적 경계가 명확하게 정의되어 있지 않아 평면을 정확하게 표현하거나 물리적으로 의미 있는 장면 분해를 가능하게 하는 데 적합하지 않다.
 2. Gaussian은 날카로운 모서리나 기하학적 구조를 포착하는 데 부적합하다. 각 Gaussian은 대칭 분포를 갖는 타원체와 유사하게 동작하며, 각진 경계나 평면에 정확하게 밀착하기 어렵다.
 
-이러한 내재적 한계는 sphere packing 문제에서 나타나는데, 구형이나 타원형을 조밀하게 채우면 틈이 생겨 특히 평평하거나 날카로운 모서리 부분에서 비효율적인 커버리지가 발생한다. 구체나 타원체와 마찬가지로 틈 없이 공간을 채우려면 비현실적으로 많은 수의 Gaussian이 필요하게 되어 메모리 사용량과 계산 오버헤드가 증가하다.
+이러한 내재적 한계는 sphere packing 문제에서 나타나는데, 구형이나 타원형을 조밀하게 채우면 틈이 생겨 특히 평평하거나 날카로운 모서리 부분에서 비효율적인 커버리지가 발생한다. 구체나 타원체와 마찬가지로 틈 없이 공간을 채우려면 비현실적으로 많은 수의 Gaussian이 필요하게 되어 메모리 사용량과 계산 오버헤드가 증가한다.
 
 이러한 한계를 극복하기 위해, 본 논문에서는 멀티뷰 이미지로부터 기하학적으로 정확한 radiance field를 모델링하고 재구성하기 위한 primitive로 **3D smooth convex**를 활용하는 새로운 방법인 **3D Convex Splatting (3DCS)**을 제안하였다. 3D smooth convex는 Gaussian보다 유연성이 뛰어나며, 더 적은 primitive를 사용하여 날카로운 모서리와 세밀한 표면을 정확하게 형성할 수 있다. 또한, smoothness와 sharpness 파라미터를 도입하여 smooth convex의 곡률과 확산을 각각 제어할 수 있다. 
 
@@ -131,7 +131,7 @@ $$
 ($\lambda = 0.2$, $\beta = 0.0005$)
 
 ##### Adaptive convex shape refinement
-초기 smooth convex들은 SfM을 통해 얻은 sparse 포인트 클라우드부터 생성돤다. 이 초기 smooth convex들의 개수는 복잡한 장면을 정확하게 표현하기에 불충분하므로, 적응형 제어 메커니즘을 사용하여 smooth convex를 동적으로 추가한다. 3DGS에서는 view-space positional gradient가 큰 Gaussian을 분할하거나 복제하여 추가 Gaussian을 도입하였다. 그러나 3DCS에서는 positional gradient가 under-reconstruction된 영역이나 over-reconstruction된 영역과 일관되게 일치하지 않는다. 오히려 3DCS는 under-reconstruction된 영역과 over-reconstruction된 영역 모두에서 큰 sharpness $\sigma$를 나타낸다.
+초기 smooth convex들은 SfM을 통해 얻은 sparse 포인트 클라우드로부터 생성된다. 이 초기 smooth convex들의 개수는 복잡한 장면을 정확하게 표현하기에 불충분하므로, 적응형 제어 메커니즘을 사용하여 smooth convex를 동적으로 추가한다. 3DGS에서는 view-space positional gradient가 큰 Gaussian을 분할하거나 복제하여 추가 Gaussian을 도입하였다. 그러나 3DCS에서는 positional gradient가 under-reconstruction된 영역이나 over-reconstruction된 영역과 일관되게 일치하지 않는다. 오히려 3DCS는 under-reconstruction된 영역과 over-reconstruction된 영역 모두에서 큰 sharpness $\sigma$를 나타낸다.
 
 <center><img src='{{"/assets/img/convex-splatting/convex-splatting-fig5.webp" | relative_url}}' width="45%"></center>
 <br>

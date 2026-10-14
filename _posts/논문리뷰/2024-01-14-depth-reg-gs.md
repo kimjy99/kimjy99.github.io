@@ -42,7 +42,7 @@ D_{\textrm{sparse}, i} = p_z \in [0, \infty]^{H \times W}
 \end{equation}
 $$
 
-본 논문의 접근 방식은 3DGS를 기반으로 한다. Color loss $$\mathcal{L}_\textrm{color}$$와 D-SSIM loss $$\mathcal{L}_\textrm{D−SSIM}$$을 사용하여 렌더링된 이미지를 기반으로 Gaussian splat을 최적화한다. 3DGS 최적화에 앞서 깊이 추정 네트워크를 사용하여 각 이미지의 깊이 맵을 추정하고 sparse한 깊이 맵을 피팅한다. Color rasterization 프로세스를 활용하여 Gaussian splatting 집합에서 깊이를 렌더링하고 dense한 깊이 prior를 사용하여 깊이 제약 조건을 추가한다. 인접한 픽셀의 깊이 사이의 부드러움을 위해 추가 제약 조건을 추가하고 few-shot 설정에 대한 최적화 옵션을 개선한다. 
+본 논문의 접근 방식은 3DGS를 기반으로 한다. Color loss $$\mathcal{L}_\textrm{color}$$와 D-SSIM loss $$\mathcal{L}_\textrm{D-SSIM}$$을 사용하여 렌더링된 이미지를 기반으로 Gaussian splat을 최적화한다. 3DGS 최적화에 앞서 깊이 추정 네트워크를 사용하여 각 이미지의 깊이 맵을 추정하고 sparse한 깊이 맵을 피팅한다. Color rasterization 프로세스를 활용하여 Gaussian splatting 집합에서 깊이를 렌더링하고 dense한 깊이 prior를 사용하여 깊이 제약 조건을 추가한다. 인접한 픽셀의 깊이 사이의 부드러움을 위해 추가 제약 조건을 추가하고 few-shot 설정에 대한 최적화 옵션을 개선한다. 
 
 ### 1. Preparing Dense Depth Prior
 Gaussian splat의 locality로 인해 splat을 그럴듯한 형상으로 가이드하려는 목표로 글로벌한 기하학 정보를 제공해야 한다. 밀도 깊이는 유망한 geometry prior 중 하나이지만 이를 구성하는 데 어려움이 있다. SfM 포인트의 밀도는 이미지 수에 따라 달라지므로 유효한 포인트 수가 너무 적어 few-shot 설정에서 dense한 깊이를 직접 추정할 수 없다. 최신 깊이 완성 모델조차도 상당한 정보 격차로 인해 dense한 깊이를 완성하지 못한다. 

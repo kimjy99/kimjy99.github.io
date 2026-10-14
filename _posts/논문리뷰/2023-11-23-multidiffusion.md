@@ -66,7 +66,7 @@ J_T, J_{T-1}, \ldots, J_0, \quad \textrm{s.t.} \quad J_{t-1} = \Psi (J_t \vert z
 \end{equation}
 $$
 
-본 논문의 핵심 아이디어는 $\Psi$를 $\Phi$와 가능한 한 일치하도록 정의하는 것이다. 보다 구체적으로, 타겟 이미지 공간과 참조 이미지 공간 사이의 매핑 집합 $F_i : \mathcal{J} \rightarrow \mathcal{I}$와 조건 공간 사이의 대응되는 매핑 집합 $\lambda_i : \mathcal{Z} \rightarrow \mathcal{Y}$를 정의한다. 여기서 $$i \in = \{1, \ldots, N\}$$이다. 이러한 매핑은 애플리케이션에 따라 다르다. 본 논문의 목표는 모든 MultiDiffuser step $J_{t−1} = \Psi (J_t \vert z)$가 가능한 한 가깝게 $\Phi (I_t^i \vert y_i), i \in [n]$, 즉 $\Phi$의 denoising step을 따르도록 만드는 것이다. 
+본 논문의 핵심 아이디어는 $\Psi$를 $\Phi$와 가능한 한 일치하도록 정의하는 것이다. 보다 구체적으로, 타겟 이미지 공간과 참조 이미지 공간 사이의 매핑 집합 $F_i : \mathcal{J} \rightarrow \mathcal{I}$와 조건 공간 사이의 대응되는 매핑 집합 $\lambda_i : \mathcal{Z} \rightarrow \mathcal{Y}$를 정의한다. 여기서 $$i \in = \{1, \ldots, N\}$$이다. 이러한 매핑은 애플리케이션에 따라 다르다. 본 논문의 목표는 모든 MultiDiffuser step $J_{t-1} = \Psi (J_t \vert z)$가 가능한 한 가깝게 $\Phi (I_t^i \vert y_i), i \in [n]$, 즉 $\Phi$의 denoising step을 따르도록 만드는 것이다. 
 
 $$
 \begin{equation}
@@ -107,11 +107,11 @@ F_i (J_T) \sim P_\mathcal{I}, \quad \forall i \in [n]
 \end{equation}
 $$
 
-를 만족하는 확률 분포 $$P_\mathcal{J}$$를 선택하고 $J_{t−1} = \Psi (J_t \vert z)$를 계산한다. FTC loss가 0에 도달하면, 즉 $$\mathcal{L}_\textrm{FTD} (J_{t−1} \vert J_t, z) = 0$$이면 다음이 성립한다. 
+를 만족하는 확률 분포 $$P_\mathcal{J}$$를 선택하고 $J_{t-1} = \Psi (J_t \vert z)$를 계산한다. FTC loss가 0에 도달하면, 즉 $$\mathcal{L}_\textrm{FTD} (J_{t-1} \vert J_t, z) = 0$$이면 다음이 성립한다. 
 
 $$
 \begin{equation}
-I_{t−1}^i = F_i (J_t) = \Phi (I_t^i \vert y_i)
+I_{t-1}^i = F_i (J_t) = \Phi (I_t^i \vert y_i)
 \end{equation}
 $$
 

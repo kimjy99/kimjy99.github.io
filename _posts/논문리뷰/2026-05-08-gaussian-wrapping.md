@@ -8,12 +8,13 @@ tags:
   - Gaussian Splatting
   - Novel View Synthesis
   - 3D Reconstruction
-excerpt: "Gaussian Wrapping 논문 리뷰"
+  - ECCV
+excerpt: "Gaussian Wrapping 논문 리뷰 (ECCV 2026)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2026. [[Paper](https://arxiv.org/abs/2604.07337)] [[Page](https://diego1401.github.io/BlobsToSpokesWebsite/)] [[Github](https://github.com/diego1401/GaussianWrapping)]  
+> ECCV 2026. [[Paper](https://arxiv.org/abs/2604.07337)] [[Page](https://diego1401.github.io/BlobsToSpokesWebsite/)] [[Github](https://github.com/diego1401/GaussianWrapping)]  
 > Diego Gomez, Antoine Guédon, Nissim Maruani, Bingchen Gong, Maks Ovsjanikov  
 > LIX | Inria  
 > 8 Apr 2026  
@@ -31,7 +32,7 @@ classes: wide
 ##### Objects as Volumes
 명확하게 정의된 표면을 재구성하려면 occupancy function $\mathcal{O} : \mathbb{R}^3 \rightarrow [0, 1]$과 같은 적절하게 정의된 geometric field가 필요하지만, NeRF와 3DGS의 핵심인 볼륨 렌더링은 날카로운 경계가 아닌 연속적이고 반투명한 볼륨에서 작동한다. [Objects as Volumes (OaV)](https://arxiv.org/abs/2312.15406)는 장면을 확률적 표면으로 해석함으로써 이러한 간극을 메웠다.
 
-구체적으로, exponential light transport를 가정할 때, 이 프레임워크는 Nerual SDF의 이론적 정당성을 뒷받침하고, vacancy $$v(\textbf{x}) = 1 − \mathcal{O}(\textbf{x})$$를 volumetric ray-marching의 attenuation (또는 density) $\sigma$와 연결한다.
+구체적으로, exponential light transport를 가정할 때, 이 프레임워크는 Neural SDF의 이론적 정당성을 뒷받침하고, vacancy $$v(\textbf{x}) = 1 - \mathcal{O}(\textbf{x})$$를 volumetric ray-marching의 attenuation (또는 density) $\sigma$와 연결한다.
 
 $$
 \begin{equation}
@@ -129,7 +130,7 @@ v (\textbf{x}) = \max_{(\textbf{o}, \textbf{w}) \in \mathcal{T}_c} \left\{ \prod
 \end{equation}
 $$
 
-직관적으로, 이 계산은 점 $x$에 도달하는 가장 방해받지 않는 광선을 찾는 것과 같다. 엄밀히 말하면, 이 표현식은 실제 vacancy에 대한 하한값이며 본질적으로 robust하다. 곱셈 결과는 광선을 따라서 감소만할 수 있으므로, geometry 내부에 숨겨진 Gaussian이 vacancy 추정치를 부풀릴 수 없다.
+직관적으로, 이 계산은 점 $x$에 도달하는 가장 방해받지 않는 광선을 찾는 것과 같다. 엄밀히 말하면, 이 표현식은 실제 vacancy에 대한 하한값이며 본질적으로 robust하다. 곱셈 결과는 광선을 따라서 감소만 할 수 있으므로, geometry 내부에 숨겨진 Gaussian이 vacancy 추정치를 부풀릴 수 없다.
 
 ##### Pivot-Based Marching Tetrahedra
 표면은 각 Gaussian의 중심과 저밀도 영역 사이에서 교차하며 oriented plane에 평행하다. 따라서 각 Gaussian에 대해 중심 $$\mu_i$$와 $$\mu_i + 2 s_i n_i$$, 두 개의 Delaunay pivot을 생성한다. 여기서 $$s_i = \vert \vert S_i R_i^\top n_i \vert \vert_2$$이다. 그런 다음 Delaunay tetrahedralization 결과에 Marching Tetrahedra를 적용하고 binary search를 통해 vertex들을 0.5-isosurface로 다듬는다.
@@ -149,7 +150,7 @@ x_{i+1} = x_i + \frac{1}{2} (0.5 - v(x_i)) \mathcal{N}(x_i)
 $$
 
 {:start="3"}
-3. **필터링**: $\vert 0.5 − v(x) \vert > \epsilon$인 vertex $x$는 outlier로 간주되어 제거된다. 더 이상 제거되는 점이 없을 때까지 1~3단계를 반복한다.
+3. **필터링**: $\vert 0.5 - v(x) \vert > \epsilon$인 vertex $x$는 outlier로 간주되어 제거된다. 더 이상 제거되는 점이 없을 때까지 1~3단계를 반복한다.
 4. **Delaunay**: 남은 vertex들에 대해 Delaunay tetrahedralization을 계산하고, 랜덤 샘플링된 내부 점의 vacancy 값을 기준으로 각 사면체를 내부 또는 외부로 분류한다.
 5. **메쉬 추출**: 최종 표면 메쉬는 내부 사면체와 외부 사면체를 분리하는 삼각형 면을 추출하여 얻는다.
 

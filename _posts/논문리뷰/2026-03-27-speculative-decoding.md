@@ -35,8 +35,8 @@ Inference 속도를 높이려는 타겟 모델 $M_p$에서 얻은 분포를 $$p(
 
 1. 근사 모델 $M_q$를 사용하여 $\gamma \in \mathbb{Z}^{+}$개의 토큰을 autoregressive하게 생성한다.
 2. 타겟 모델 $M_p$를 사용하여 $M_q$에서 얻은 모든 추측과 해당 확률 $p(x)$을 병렬로 평가한다.
-3. $q(x) \le p(x)$이면 해당 추측을 유지하고, $q(x) > p(x)$이면 $1 − \frac{p(x)}{q(x)}$의 확률로 해당 추측을 거부한다.
-4. 거부된 첫 번째 토큰에 대해 조정된 분포 $p^\prime (x) = \textrm{norm}(\max(0, p(x) − q(x)))$에서 추가 토큰을 샘플링하거나, 모든 토큰이 수용된 경우 추가 토큰을 추가한다.
+3. $q(x) \le p(x)$이면 해당 추측을 유지하고, $q(x) > p(x)$이면 $1 - \frac{p(x)}{q(x)}$의 확률로 해당 추측을 거부한다.
+4. 거부된 첫 번째 토큰에 대해 조정된 분포 $p^\prime (x) = \textrm{norm}(\max(0, p(x) - q(x)))$에서 추가 토큰을 샘플링하거나, 모든 토큰이 수용된 경우 추가 토큰을 추가한다.
 
 이렇게 하면 $M_p$의 각 병렬 실행은 적어도 하나의 새로운 토큰을 생성한다. 따라서 타겟 모델의 실행 횟수는 최악의 경우에도 단순 autoregressive 방법보다 클 수 없다. 하지만 $M_q$가 $M_p$를 얼마나 잘 근사하는지에 따라 최대 $\gamma + 1$까지 많은 새로운 토큰을 생성할 수 있다. 또한 임의의 분포 $p(x)$와 $q(x)$, 그리고 이와 같이 샘플링된 $x$에 대해 $x \sim p(x)$임을 보일 수 있다. 
 
@@ -88,7 +88,7 @@ $$
 ### 3. Walltime Improvement
 Cost coefficient $c$를 $M_q$ 한 번 실행에 걸리는 시간과 $M_p$ 한 번 실행에 걸리는 시간의 비율이라고 하자. Algorithm 1을 한 번 실행하는데, 즉 평균 $\frac{1 - \alpha^{\gamma+1}}{1 - \alpha}$개의 토큰을 생성하는데 $M_p$ 한 번 실행에 걸리는 시간의 $(\gamma c + 1)$배의 시간이 소요된다. 따라서 전체 실행 시간은 $M_p$ 대비 $\frac{1 - \alpha^{\gamma+1}}{(1 - \alpha) (\gamma c + 1)}$배 향상된다.
 
-$\gamma = 1$이면 이 값은 $\frac{1 - \alpha^2}{(1 - \alpha)(c+1)} = \frac{1 + \alpha}{1 + c}$이기 때문에, $\alpha > c$이면 실행 시간이 개선되는 $\gamma$가 항상 존재하며, 이 때 개선 비율은 적어도 $\frac{1 + \alpha}{1 + c}$이다.
+$\gamma = 1$이면 이 값은 $\frac{1 - \alpha^2}{(1 - \alpha)(c+1)} = \frac{1 + \alpha}{1 + c}$이기 때문에, $\alpha > c$이면 실행 시간이 개선되는 $\gamma$가 항상 존재하며, 이때 개선 비율은 적어도 $\frac{1 + \alpha}{1 + c}$이다.
 
 ### 4. Number of Arithmetic Operations
 $M_q$의 토큰당 산술 연산 횟수와 $M_p$의 토큰당 산술 연산 횟수의 비율을 $\hat{c}$라고 하자. Algorithm 1을 한 번 실행하는데 $M_p$의 토큰당 연산 횟수의 $(\gamma \hat{c} + \gamma + 1)$배의 연산이 수행된다. 따라서 전체 연산 횟수는 $M_p$ 대비 $\frac{(1 - \alpha)(\gamma \hat{c} + \gamma + 1)}{1 - \alpha^{\gamma + 1}}$배이다. $\alpha$ 값이 낮을수록, 즉 $M_q$의 성능이 좋지 않을수록 산술 연산 횟수 증가율이 높아진다.

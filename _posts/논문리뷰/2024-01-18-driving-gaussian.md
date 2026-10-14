@@ -100,7 +100,7 @@ m_o^{-1} = R_o^{-1} S_o^{-1}
 \end{equation}
 $$
 
-여기서 $R_o^{−1}$와 $S_o^{−1}$는 각 객체에 해당하는 rotation 행렬과 translation 행렬이다.
+여기서 $R_o^{-1}$와 $S_o^{-1}$는 각 객체에 해당하는 rotation 행렬과 translation 행렬이다.
 
 동적 Gaussian graph의 모든 노드를 최적화한 후 Composite Gaussian Graph를 사용하여 동적 객체와 정적 배경을 결합한다. 각 노드의 Gaussian 분포는 bounding box 위치와 방향을 기준으로 시간순으로 정적 Gaussian field로 연결된다. 여러 동적 객체 사이에 occlusion이 있는 경우 카메라 중심으로부터의 거리를 기준으로 불투명도를 조정한다. 객체에 가까울수록 불투명도가 더 높다.
 

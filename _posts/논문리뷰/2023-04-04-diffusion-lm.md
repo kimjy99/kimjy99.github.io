@@ -106,13 +106,13 @@ $$
 
 $$
 \begin{equation}
-\mathcal{L}_{x_0 - \textrm{simple}}^\textrm{e2e} (x_0) = \sum_{t=1}^T \mathbb{E}_{x_t} \| f_\theta (x_t, t) − x_0 \|^2
+\mathcal{L}_{x_0 - \textrm{simple}}^\textrm{e2e} (x_0) = \sum_{t=1}^T \mathbb{E}_{x_t} \| f_\theta (x_t, t) - x_0 \|^2
 \end{equation}
 $$
 
 를 유도하였으며, 여기서 모델 $f_\theta (x_t, t)$는 $x_0$을 직접 예측한다. 이것은 신경망이 모든 항에서 $x_0$를 예측하도록 강제하고 저자들은 이 목적 함수로 학습된 모델이 $x_0$가 단어 임베딩의 중심에 정확하게 위치해야 한다는 것을 빠르게 학습한다는 것을 발견했다. 
 
-Reparametrization이 모델 학습에 어떻게 도움이 될 수 있는지 설명했지만, 저자들은 clamping trick이라고 하는 테크닉에서 디코딩 시간에 동일한 직관이 사용될 수 있음을 발견했다. 모델은 먼저 $f_\theta (x_t, t)$를 통해 $x_0$의 추정치를 계산한 다음 이 추정치에 따라 $x_{t−1}$을 샘플링하여 $x_t$에서 $x_{t−1}$로 denoise한다. 
+Reparametrization이 모델 학습에 어떻게 도움이 될 수 있는지 설명했지만, 저자들은 clamping trick이라고 하는 테크닉에서 디코딩 시간에 동일한 직관이 사용될 수 있음을 발견했다. 모델은 먼저 $f_\theta (x_t, t)$를 통해 $x_0$의 추정치를 계산한 다음 이 추정치에 따라 $x_{t-1}$을 샘플링하여 $x_t$에서 $x_{t-1}$로 denoise한다. 
 
 $$
 \begin{equation}
@@ -153,13 +153,13 @@ $$
 
 첫번째 항은 Diffusion-LM으로 parametrize되고 두번재 항은 신경망 classifier로 parametrize된다. 
 
-이미지에서의 연구와 유사하게 diffusion latent variable에 대한 classifier를 학습시키고 latent space $x_{t-1}$에서 기울기 업데이트를 하여 제어를 충족하도록 조정한다. 이미지 diffusion 연구에서는 diffusion step당 $\nabla_{x_{t-1}} \log p(c \vert x_{t−1})$ 방향으로 기울기 step을 한 번 취한다. 저자들은 텍스트의 성능을 개선하고 디코딩 속도를 높이기 위해 fluency regularization와 multiple gradient step이라는 두 가지 주요 수정 사항을 도입했다. 
+이미지에서의 연구와 유사하게 diffusion latent variable에 대한 classifier를 학습시키고 latent space $x_{t-1}$에서 기울기 업데이트를 하여 제어를 충족하도록 조정한다. 이미지 diffusion 연구에서는 diffusion step당 $\nabla_{x_{t-1}} \log p(c \vert x_{t-1})$ 방향으로 기울기 step을 한 번 취한다. 저자들은 텍스트의 성능을 개선하고 디코딩 속도를 높이기 위해 fluency regularization와 multiple gradient step이라는 두 가지 주요 수정 사항을 도입했다. 
 
 유창한 텍스트를 생성하기 위해 저자들은 fluency regularization을 사용하여 제어 목적 함수에 기울기 업데이트를 실행한다
 
 $$
 \begin{equation}
-\lambda \log p(x_{t-1} \vert x_t) + \log p(c \vert x_{t−1}) 
+\lambda \log p(x_{t-1} \vert x_t) + \log p(c \vert x_{t-1}) 
 \end{equation}
 $$
 

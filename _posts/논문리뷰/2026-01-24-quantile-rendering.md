@@ -42,7 +42,7 @@ classes: wide
 <br>
 2D foundation model의 지식을 활용하여 3D 신경망을 학습시키려면 렌더링 과정이 필수적이다. 볼륨 렌더링을 사용하면 고차원 Gaussian feature를 렌더링할 때 상당한 연산 능력이 요구될 수 있다. 이는 볼륨 렌더링이 광선을 따라 고차원 Gaussian feature $\mathcal{F}$를 반복적으로 누적하기 때문이다. $N$을 각 픽셀에 대한 Gaussian 개수, $C$를 feature 차원이라고 하면, 볼륨 렌더링의 시간 복잡도는 $\mathcal{O}(NC)$이다.
 
-저자들은 이 문제를 해결하기 위해 quantile 기반 샘플링 전략을 도입하였다. Quantile은 sparse하면서도 대표성을 갖는 샘플링을 가능하게 한다. Quantile Rendering은 기존 볼륨 렌더링에서 신중하게 선택된 Gaussian의 분포를 부분집합으로 근사화함으로써, 대표성을 유지하면서 효율적인 렌더링을 구한다.
+저자들은 이 문제를 해결하기 위해 quantile 기반 샘플링 전략을 도입하였다. Quantile은 sparse하면서도 대표성을 갖는 샘플링을 가능하게 한다. Quantile Rendering은 기존 볼륨 렌더링에서 신중하게 선택된 Gaussian의 분포를 부분집합으로 근사화함으로써, 대표성을 유지하면서 효율적인 렌더링을 구현한다.
 
 먼저, 3D Gaussian을 rasterization하고 splatting하여 각 픽셀 광선 $\vec{p}$에 대한 3D Gaussian 인덱스 $I$를 얻는다. 그런 다음, Q-Render는 Quantile Gaussian 샘플링, 알파 블렌딩, feature 정규화의 세 가지 하위 단계를 실행하여 각 광선을 따라 $K$개의 Quantile Gaussian을 샘플링한다 ($K$는 hyperparameter).
 
@@ -145,7 +145,7 @@ $$
 또한, 3D 신경망의 inductive bias는 공간적으로 부드러운 Gaussian feature 예측을 촉진한다. 따라서 광선을 따라 dense한 샘플링을 렌더링하는 것은 불필요해진다. Q-Render는 렌더링 및 backward pass 모두에서 계산 오버헤드를 크게 줄이면서도 높은 정확도의 feature 매핑을 수행하기에 충분하다.
 
 ### 3. Training loss
-본 논문에서는 ScanNet 데이터셋과 LeRF-OVS 데이터셋 두 가지를 사용하여 open-vocabulary 3D semantic segmentation task에서 GS-Net의 성능을 검증하였다. 기존 연구들을 따라, CLIP 비전 인코더의 feature 벡터를 distillation 타겟으로 사용한다. 먼저 [Grounded-SAM2](https://github.com/IDEA-Research/Grounded-SAM-2)를 사용하여 마스트 $$\{\textbf{m}\}$$을 추출하고, 해당 마스크에서 CLIP 임베딩 $\textbf{f}^\textrm{CLIP}$을 추출한다.
+본 논문에서는 ScanNet 데이터셋과 LeRF-OVS 데이터셋 두 가지를 사용하여 open-vocabulary 3D semantic segmentation task에서 GS-Net의 성능을 검증하였다. 기존 연구들을 따라, CLIP 비전 인코더의 feature 벡터를 distillation 타겟으로 사용한다. 먼저 [Grounded-SAM2](https://github.com/IDEA-Research/Grounded-SAM-2)를 사용하여 마스크 $$\{\textbf{m}\}$$을 추출하고, 해당 마스크에서 CLIP 임베딩 $\textbf{f}^\textrm{CLIP}$을 추출한다.
 
 학습 데이터 쌍 $$\{\textbf{m}_i, \textbf{f}_i^\textrm{CLIP}\}$$이 주어졌을 때, 3D 신경망은 렌더링된 feature 벡터 $$\tilde{\textbf{f}}^Q$$와 CLIP 임베딩 $$\textbf{f}^\textrm{CLIP}$$ 간의 차이를 최소화하도록 학습되며, 이는 다음과 같은 contrastive loss의 형태로 표현된다.
 
@@ -168,7 +168,7 @@ $$
 ### 2. LeRF-OVS dataset
 다음은 LeRF-OVS 데이터셋에 대한 open-vocabulary 3D semantic segmentation 성능을 비교한 결과이다.
 
-<center><img src='{{"/assets/img/quantile-rendering/quantile-rendering-fig2.webp" | relative_url}}' width="100%"></center>
+<center><img src='{{"/assets/img/quantile-rendering/quantile-rendering-fig5.webp" | relative_url}}' width="100%"></center>
 <span style="display: block; margin: 1px 0;"></span>
 <center><img src='{{"/assets/img/quantile-rendering/quantile-rendering-table3.webp" | relative_url}}' width="55%"></center>
 

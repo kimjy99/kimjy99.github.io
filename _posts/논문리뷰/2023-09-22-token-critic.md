@@ -50,7 +50,7 @@ Token-Critic의 목표는 non-autoregressive transformer 기반 generator의 반
 ### 1. Training the Token-Critic
 Token-Critic의 학습 절차는 간단하다. 마스킹된 이미지와 생성적 non-autoregressive transformer에 의한 완성된 이미지가 주어지면 Token-Critic은 결과 이미지의 어떤 토큰이 원래 마스킹되었는지 구별하도록 학습된다. 
 
-실제 VQ 이미지를 $x_0$, 랜덤 이진 마스크를 $m_t$, 결과 마스크 이미지를 $x_t = x_0 \odot m_t$라 하자. 인덱스 $t$는 마스킹 비율을 나타낸다. 먼저, $\theta$로 parameterize된 transformer $G_\theta$는 마스킹된 토큰을 예측하는 데 사용된다. 즉, 클래스 인덱스 $c$를 조건으로 $$p_\theta (\hat{x}_0 \vert x_t, c)$$에서 $$\tilde{x}_0$$를 샘플링한다. 여기서 flatten된 시각적 토큰 집합에 클래스 토큰을 추가한다. $x_t$의 마스킹되지 않은 토큰은 $$\hat{x}_0 = \tilde{x}_0 \odot (1 − m_t) + x_0 \odot m_t$$ 형식으로 출력에 복사된다. 
+실제 VQ 이미지를 $x_0$, 랜덤 이진 마스크를 $m_t$, 결과 마스크 이미지를 $x_t = x_0 \odot m_t$라 하자. 인덱스 $t$는 마스킹 비율을 나타낸다. 먼저, $\theta$로 parameterize된 transformer $G_\theta$는 마스킹된 토큰을 예측하는 데 사용된다. 즉, 클래스 인덱스 $c$를 조건으로 $$p_\theta (\hat{x}_0 \vert x_t, c)$$에서 $$\tilde{x}_0$$를 샘플링한다. 여기서 flatten된 시각적 토큰 집합에 클래스 토큰을 추가한다. $x_t$의 마스킹되지 않은 토큰은 $$\hat{x}_0 = \tilde{x}_0 \odot (1 - m_t) + x_0 \odot m_t$$ 형식으로 출력에 복사된다. 
 
 $\phi$로 parameterize된 Token-Critic transformer는 $$\hat{x}_0$$를 입력으로 받아 $m_t$에 대해 예측된 이진 마스크를 출력한다. 학습 중에 파라미터 $\phi$는 다음 목적 함수를 최소화하도록 최적화된다.
 
@@ -83,7 +83,7 @@ MaskGIT의 마스크 계산은 예측 점수 $p_\theta (x_0 \vert x_t, c)$에만
 <br>
 샘플링 프로세스는 Algorithm 2에서 제공된다. 각 step의 마스킹 비율은 스케줄링 함수 $\gamma (t)$에 의해 제공된다 ($t = T-1, \ldots, 0$). 여기서 높은 값의 $t$는 더 많은 마스킹에 해당한다. 각 단계에서 $m_t$를 예측한 후 가장 낮은 Token-Critic 점수를 가진 $R = \lceil \gamma (t/T) \cdot N \rceil$개의 토큰을 마스킹한다. 다음으로, 첫 번째 step에서 무작위성을 도입하기 위해 순위를 매기기 전에 Token-Critic 점수에 작은 "선택 노이즈" $n(t)$를 추가한다. 이 선택 noise는 $n(t) = K \cdot u \cdot (t/T)$에 따라 어닐링되며, 여기서 $K$는 hyperparameter이고 $u \in [-0.5, 0.5]^N$이다. 또한 각 토큰의 샘플링 temperature는 linear schedule $T(t) = a \cdot (t/T) + b$에 따라 어닐링된다. 
 
-샘플링 식에서 주어진 $x_0$에 대해 $x_{t−1}$이 $x_t$와 독립적으로 만들어진다는 가정을 사용한다. 이 가정은 이전 마스크 $m_t$를 $$\hat{x}_0$$에 concat하여 Token-Critic의 입력을 간단히 조정함으로써 삭제할 수 있다. 그러나 실제로는 이것이 더 나은 결과를 가져오지 않는다. 실제로 Token-Critic은 이전 마스크를 무시함으로써 더 이상 최신 컨텍스트에 맞지 않을 가능성이 있는 이전에 샘플링된 토큰을 수정할 수 있는 능력이 있다. 이는 MaskGIT 모델의 greedy한 마스크 선택을 해결한다. 
+샘플링 식에서 주어진 $x_0$에 대해 $x_{t-1}$이 $x_t$와 독립적으로 만들어진다는 가정을 사용한다. 이 가정은 이전 마스크 $m_t$를 $$\hat{x}_0$$에 concat하여 Token-Critic의 입력을 간단히 조정함으로써 삭제할 수 있다. 그러나 실제로는 이것이 더 나은 결과를 가져오지 않는다. 실제로 Token-Critic은 이전 마스크를 무시함으로써 더 이상 최신 컨텍스트에 맞지 않을 가능성이 있는 이전에 샘플링된 토큰을 수정할 수 있는 능력이 있다. 이는 MaskGIT 모델의 greedy한 마스크 선택을 해결한다. 
 
 ### 3. Relation to Discrete Diffusion Processes
 Token-Critic의 역할은 마스킹에 의해 점차적으로 정보를 파괴하는 확률적 과정이 존재한다고 가정하는 discrete diffusion process의 관점에서도 이해할 수 있다. 이 설정에서 reverse process는 마스킹된 토큰을 실제 분포에 따라 VQ 코드북의 요소로 점진적으로 대체하는 것을 목표로 한다. 본 논문의 경우 이것은 샘플링 절차의 각 step에서 generator $G_\theta$가 하는 일이다. 이상적으로 각 중간 결과는 $G_\theta$를 학습하는 데 사용되는 분포이므로 부분적으로 마스킹된 실제 이미지의 분포 내에 있어야 한다. Token-Critic의 역할은 중간 샘플을 이러한 영역으로 가이드하는 것이다.

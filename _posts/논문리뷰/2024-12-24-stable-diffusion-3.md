@@ -216,7 +216,7 @@ $$
 을 사용한다. 
 
 ### 1. Tailored SNR Samplers for RF models
-RF loss는 $[0, 1]$의 모든 timestep에서 속도 $v_\Theta$를 균일하게 학습시킨다. 그러나 직관적으로 예측해야 하는 속도 $\epsilon − x_0$는 $[0, 1]$의 중간에 있는 $t$에 대해 더 어렵다. $t = 0$의 경우 최적 예측은 $p_1$의 평균이고 $t = 1$의 경우 최적 예측은 $p_0$의 평균이기 때문이다. 
+RF loss는 $[0, 1]$의 모든 timestep에서 속도 $v_\Theta$를 균일하게 학습시킨다. 그러나 직관적으로 예측해야 하는 속도 $\epsilon - x_0$는 $[0, 1]$의 중간에 있는 $t$에 대해 더 어렵다. $t = 0$의 경우 최적 예측은 $p_1$의 평균이고 $t = 1$의 경우 최적 예측은 $p_0$의 평균이기 때문이다. 
 
 일반적으로 $t$에 대한 분포를 uniform distribution $\mathcal{U}(t)$에서 density가 $\pi(t)$인 분포로 변경하는 것은 $$\mathcal{L}_{w_t^\pi}$$와 동일하다.
 
@@ -347,11 +347,11 @@ $$
 
 $$
 \begin{equation}
-z_t = (1 − t) c \unicode{x1D7D9} + t \epsilon
+z_t = (1 - t) c \unicode{x1D7D9} + t \epsilon
 \end{equation}
 $$
 
-$z_t$는 확률 변수 $Y = (1 − t)c + t\eta$에 대한 $n$개의 관측치를 제공한다. $\eta \sim \mathcal{N}(0,1)$이므로 $\mathbb{E}(Y) = (1 − t)c$이고 $\sigma(Y) = t$이다. 
+$z_t$는 확률 변수 $Y = (1 - t)c + t\eta$에 대한 $n$개의 관측치를 제공한다. $\eta \sim \mathcal{N}(0,1)$이므로 $\mathbb{E}(Y) = (1 - t)c$이고 $\sigma(Y) = t$이다. 
 
 따라서 $c = \frac{1}{1-t} \mathbb{E}(Y)$를 통해 $c$를 복구할 수 있다. $Y$의 표준 오차는 $\frac{t}{\sqrt{n}}$이기 때문에, $c$와 샘플 추정치 $\hat{c} = \frac{1}{1-t} \sum_{i=1}^n z_{t,i}$ 간의 오차는 $\sigma(t, n) = \frac{t}{1-t} \sqrt{\frac{1}{n}}$의 표준 편차를 갖는다. 따라서 이미 이미지 $z_0$가 픽셀 전체에서 일정하다는 것을 알고 있다면 $\sigma(t, n)$은 $z_0$에 대한 불확실성의 정도를 나타낸다. 예를 들어, 너비와 높이를 두 배로 하면 불확실성이 절반으로 줄어든다. 
 

@@ -79,7 +79,7 @@ $$
 ### 2. Gaussian grounded inter-reflection
 Inter-reflection은 반사 물체를 렌더링하는 데 중요한 역할을 한다. 이를 위해 위 식의 두 번째 항을 직접광 $$L_\textrm{dir}$$과 간접광 $$L_\textrm{ind}$$으로 별도로 모델링하여 specular 성분을 더욱 향상시킨다. 직접광 $$L_\textrm{dir}$$은 반사가 어떤 장면 요소에도 차단되지 않는 것을 나타내고 나머지는 간접광 $$L_\textrm{ind}$$로 정의된다.
 
-구체적으로, 반사 방향 $$R = 2(\omega_o \cdot N) N − \omega_o$$를 따라 물체가 스스로 가려지는 지 여부에 따라 입사광의 visibility $$V \in \{0, 1\}$$를 근사한다. 가려진 부분에서 나오는 간접광을 $$L_\textrm{ind}$$로 표현한다.
+구체적으로, 반사 방향 $$R = 2(\omega_o \cdot N) N - \omega_o$$를 따라 물체가 스스로 가려지는 지 여부에 따라 입사광의 visibility $$V \in \{0, 1\}$$를 근사한다. 가려진 부분에서 나오는 간접광을 $$L_\textrm{ind}$$로 표현한다.
 
 $$
 \begin{equation}

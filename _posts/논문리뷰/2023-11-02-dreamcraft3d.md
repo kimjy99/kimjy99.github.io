@@ -83,7 +83,7 @@ $$
 
 $$
 \begin{equation}
-\mathcal{L}_\textrm{rgb} = \| \hat{m} \odot (\hat{x} − g(\theta; \hat{c})) \|_2
+\mathcal{L}_\textrm{rgb} = \| \hat{m} \odot (\hat{x} - g(\theta; \hat{c})) \|_2
 \end{equation}
 $$
 

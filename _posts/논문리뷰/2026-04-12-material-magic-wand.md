@@ -84,10 +84,10 @@ s(p_i, p_j) = - \| x_i - x_j \|_1
 \end{equation}
 $$
 
-그러면 쿼리 part $p_i$가 주어졌을 때, part 그룹 $$\{p_j \vert s(p_i, p_j) \le λ\}$$을 선택할 수 있다. Threshold $\lambda$가 높을수록 더 많은 part를 포함하여 그룹화가 느슨해지고, $\lambda$가 낮을수록 가장 유사한 part으로 선택 범위가 제한된다.
+그러면 쿼리 part $p_i$가 주어졌을 때, part 그룹 $$\{p_j \vert s(p_i, p_j) \le \lambda\}$$을 선택할 수 있다. Threshold $\lambda$가 높을수록 더 많은 part를 포함하여 그룹화가 느슨해지고, $\lambda$가 낮을수록 가장 유사한 part로 선택 범위가 제한된다.
 
 #### View selection
-Part 수준 표현을 인코딩하기 위해 각 part를 단독 part, 컨텍스트가 있는 part, 전체 object에 대해 렌더링한다. 단독 part 뷰 $$I_i^\textrm{part}$$에서는 part $p_i$만 강조 표시되고 다른 part는 숨겨진다. 컨텍스트가 있는 part 뷰 $$I_i^\textrm{ctx}$$에서는 part $p_i$와 메쉬의 다른 part들을 모두 렌더링하지만, $p_i$만 강조 표시된다. 렌더링된 뷰에서 $p_i$가 이미지의 너비나 높이 중 하나의 약 25\%를 차지하도록 카메라 거리를 조정한다. 전체 object 뷰 $$I_i^\textrm{full}$$에서는 전체 메쉬를 렌더링하고 $p_i$도 강조 표시된다.
+Part 수준 표현을 인코딩하기 위해 각 part를 단독 part, 컨텍스트가 있는 part, 전체 object에 대해 렌더링한다. 단독 part 뷰 $$I_i^\textrm{part}$$에서는 part $p_i$만 강조 표시되고 다른 part는 숨겨진다. 컨텍스트가 있는 part 뷰 $$I_i^\textrm{ctx}$$에서는 part $p_i$와 메쉬의 다른 part들을 모두 렌더링하지만, $p_i$만 강조 표시된다. 렌더링된 뷰에서 $p_i$가 이미지의 너비나 높이 중 하나의 약 25%를 차지하도록 카메라 거리를 조정한다. 전체 object 뷰 $$I_i^\textrm{full}$$에서는 전체 메쉬를 렌더링하고 $p_i$도 강조 표시된다.
 
 $$I_i^\textrm{ctx}$$의 경우, part를 둘러싼 반구상에서 16개의 후보 카메라 위치를 샘플링하고 렌더링된 이미지에서 part의 보이는 영역을 최대화하는 뷰를 선택한다. 만약 part가 모든 후보 시점에서 심하게 가려진다면, 카메라를 해당 part 쪽으로 확대하여 컨텍스트 영역을 축소한다. $$I_i^\textrm{part}$$의 경우, $$I_i^\textrm{ctx}$$와 동일한 시점을 사용하지만 카메라가 해당 part를 확대한다. $$I_i^\textrm{full}$$의 경우, 카메라를 object 중심에서 part 중심 방향으로 배치한다. 본 방법은 텍스처가 없는 메쉬를 대상으로 하므로 렌더링 전에 모든 material과 텍스처를 제거한다.
 
@@ -95,7 +95,7 @@ $$I_i^\textrm{ctx}$$의 경우, part를 둘러싼 반구상에서 16개의 후�
 메쉬는 본질적으로 동일하지만 크기와 방향이 다른 변환을 거친 중복된 part를 가질 수 있다. Rigid transformation에서 중복된 part를 식별하는 것은 히스토그램 매칭 알고리즘을 사용하면 비교적 쉽다. 따라서 각 메쉬에서 동일한 part를 그룹화하고, 각 그룹에서 무작위로 하나의 대표 part를 선택하여 그룹 내 모든 part에 대한 임베딩을 계산하기 위해 알고리즘을 실행한다. 이러한 중복 제거 단계는 계산 비용을 줄여준다.
 
 #### Training dataset
-본 논문에서는 각 part에 material ID가 부여된 대규모 3D 데이터셋을 필요로 하며, 동일한 material ID는 여러 part에서 공유되어야 한다. 따라서 Objaverse에서 material이 할당된 22,000개의 메쉬로 구성된 part 집합을 선별했다. Objaverse는 세밀한 part 분할을 제공하지 않으므로, 메쉬에서  vertex merging을 수행하여 분할된 connected component를 방지한 후 connected component를 사용하여 part를 추출한다. 각 part에는 해당 part를 구성하는 face에 대해 가장 많이 사용된 material 레이블을 선택하여 material ID를 할당한다. Material ID는 각 메쉬마다 독립적으로 정의된다. 
+본 논문에서는 각 part에 material ID가 부여된 대규모 3D 데이터셋을 필요로 하며, 동일한 material ID는 여러 part에서 공유되어야 한다. 따라서 Objaverse에서 material이 할당된 22,000개의 메쉬로 구성된 part 집합을 선별했다. Objaverse는 세밀한 part 분할을 제공하지 않으므로, 메쉬에서 vertex merging을 수행하여 분할된 connected component를 방지한 후 connected component를 사용하여 part를 추출한다. 각 part에는 해당 part를 구성하는 face에 대해 가장 많이 사용된 material 레이블을 선택하여 material ID를 할당한다. Material ID는 각 메쉬마다 독립적으로 정의된다. 
 
 Objaverse의 메쉬는 material 분포가 불균형한 경우가 있다. 예를 들어, material의 99%가 한 part에만 사용되거나, 하나의 material이 99%의 part에 사용되는 경우이다. 저자들은 메쉬 내 불균형과 메쉬 간 불균형을 완화하기 위해 데이터 균형 조정 전략을 적용하여 메쉬와 material ID 모두에 걸쳐 보다 균일한 분포를 얻었다.
 

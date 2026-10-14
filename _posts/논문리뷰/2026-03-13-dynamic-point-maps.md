@@ -113,7 +113,7 @@ $$
 
 $$
 \begin{equation}
-L_\textrm{conf} (\hat{P}, P) = \frac{1}{HW} \sum_{i=1}^{HW} C_i L_\textrm{reg} (\hat{P}, P, i) - \alpha \log C_i
+L_\textrm{conf} (\hat{P}, P) = \frac{1}{HW} \sum_{i=1}^{HW} \left( C_i L_\textrm{reg} (\hat{P}, P, i) - \alpha \log C_i \right)
 \end{equation}
 $$
 

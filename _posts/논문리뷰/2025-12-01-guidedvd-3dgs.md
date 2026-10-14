@@ -112,7 +112,7 @@ $$
 
 $$
 \begin{equation}
-\textbf{x}_{0 \vert t} = \frac{\textbf{x}_t − \sqrt{1 - \bar{\alpha}_t} \epsilon_\theta (\textbf{x}_t, t)}{\sqrt{\vphantom{1} \bar{\alpha}_t}} 
+\textbf{x}_{0 \vert t} = \frac{\textbf{x}_t - \sqrt{1 - \bar{\alpha}_t} \epsilon_\theta (\textbf{x}_t, t)}{\sqrt{\vphantom{1} \bar{\alpha}_t}} 
 \end{equation}
 $$
 

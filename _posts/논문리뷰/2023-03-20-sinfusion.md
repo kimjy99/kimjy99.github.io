@@ -102,7 +102,7 @@ Projector model의 역할은 Predictor에서 생성된 프레임을 수정하는
 SinFusion은 입력 동영상을 추정할 수 있을 뿐만 아니라 원본 동영상 사이에 새 프레임을 생성하여 보간할 수도 있다. 이것은 DDPM Frame Interpolator를 학습시켜 2개의 인접 프레임에서 각 프레임을 예측하고 inference에서 이를 적용하여 연속 프레임 사이를 보간함으로써 수행된다. 보간된 프레임의 모양은 DDPM Frame Projector에 의해 수정된다. 
 
 #### Single-Image Applications
-단일 입력 이미지에서 단일 이미지 DDPM을 학습시킬 때 프레임워크는 다양한 이미지 생성, 스케치 기반 이미지 생성, 이미지 편집 등의 표준 단일 이미지 생성과 조작 task로 축소된다. 다양한 이미지 생성은 noisy한 이미지 $x_T \sim \mathcal{N}(0,I)$를 샘플링하고 $x_{t−1} = G(x_t)$와 같은 학습된 모델을 사용하여 반복적으로 denoise함으로써 수행된다. Backbone DDPM network는 fully convolutional이기 때문에 원하는 크기의 noisy한 이미지에서 시작하여 모든 크기의 이미지를 생성하는 데 사용할 수 있다. 
+단일 입력 이미지에서 단일 이미지 DDPM을 학습시킬 때 프레임워크는 다양한 이미지 생성, 스케치 기반 이미지 생성, 이미지 편집 등의 표준 단일 이미지 생성과 조작 task로 축소된다. 다양한 이미지 생성은 noisy한 이미지 $x_T \sim \mathcal{N}(0,I)$를 샘플링하고 $x_{t-1} = G(x_t)$와 같은 학습된 모델을 사용하여 반복적으로 denoise함으로써 수행된다. Backbone DDPM network는 fully convolutional이기 때문에 원하는 크기의 noisy한 이미지에서 시작하여 모든 크기의 이미지를 생성하는 데 사용할 수 있다. 
 
 또한 SinFusion은 이미지의 위치 간에 crop을 coarse하게 이동하여 입력 이미지를 편집한 다음 모델이 이미지를 수정하도록 할 수 있다. 유사하게 스케치를 그리고 모델이 입력 이미지의 유사한 디테일로 스케치를 채우도록 할 수 있다. 모델은 이미지에 noise를 추가한 다음 일관된 이미지를 얻을 때까지 입력 이미지의 noise를 제거하여 편집된 이미지/스케치에 적용된다.
 

@@ -50,7 +50,7 @@ $$
 \end{equation}
 $$
 
-($\theta \in \mathbb{R}^{H \times W \times 3}$는 최적화 가능한 파라미터로 구성된 2D 벡터 그리드, $W$는 bilinear interpolation 가중치)
+($\theta \in \mathbb{R}^{H \times W \times 2}$는 최적화 가능한 파라미터로 구성된 2D 벡터 그리드, $W$는 bilinear interpolation 가중치)
 
 이러한 그리드 기반 방법은 $W$가 sparse하고 그리드 해상도를 높이면 더 복잡한 함수를 모델링할 수 있으므로 표현력이 풍부하고 효율적이다. 그러나 그리드 기반 방법은 렌즈 왜곡을 제대로 모델링하는 데 필요한 부드러움이 부족하여 overfitting으로 이어진다.
 
@@ -86,14 +86,14 @@ $$
 <center><img src='{{"/assets/img/self-cali-gs/self-cali-gs-fig2.webp" | relative_url}}' width="60%"></center>
 
 #### Single-Planar Projection
-기존 방법은 SfM에서 추정된 파라미터를 사용하여 원본 이미지를 perspective 이미지로 reprojection한다. 이렇게 reprojection된 이미지는 NeRF 또는 3DGS와 같은 perspective 기반 파이프라인을 통해 재구성하는 데 사용된다. 그러나 이 과정에서 주변 영역의 픽셀이 늘어나며, 이미지가 더 큰 FOV로 reprojection될수록 그 효과가 더욱 두드러진다. Reprojection된 FOV가 110°일 때 (파랑색) 업샘플링률은 약 1.4이지만, FOV가 170°로 증가하면 (주황색) 이 비율은 11.4로 증가하여 재구성에 필요한 고주파 정보의 상당 부분을 불가피하게 희생하게 된다.
+기존 방법은 SfM에서 추정된 파라미터를 사용하여 원본 이미지를 perspective 이미지로 reprojection한다. 이렇게 reprojection된 이미지는 NeRF 또는 3DGS와 같은 perspective 기반 파이프라인을 통해 재구성하는 데 사용된다. 그러나 이 과정에서 주변 영역의 픽셀이 늘어나며, 이미지가 더 큰 FOV로 reprojection될수록 그 효과가 더욱 두드러진다. Reprojection된 FOV가 110°일 때 (파란색) 업샘플링률은 약 1.4이지만, FOV가 170°로 증가하면 (주황색) 이 비율은 11.4로 증가하여 재구성에 필요한 고주파 정보의 상당 부분을 불가피하게 희생하게 된다.
 
 또한, 중심부의 디테일을 보존하기 위해서는 보정된 이미지의 해상도가 더 높아야 한다. 원본 이미지 중심부의 픽셀 밀도가 보정된 이미지의 픽셀 밀도와 이상적으로 일치해야 하기 때문이다. 일반적인 해결책은 COLMAP의 방법처럼 주변부를 잘라내는 것이지만, 이는 광각 정보를 캡처하기 위해 fisheye 렌즈 카메라를 사용하는 의도와 상반된다.
 
 #### Multi-Planar Projections
 본 논문에서는 90°의 FOV를 커버하고 서로 직교하는 cubemap projection을 이용하여 초광각 렌더링을 표현하는 방식을 제안하였다. Cubemap 면을 따라 리샘플링함으로써 180°보다 큰 FOV에서도 왜곡된 이미지를 렌더링할 수 있다. 먼저 rasterization을 통해 cubemap의 각 면을 얻는다. 렌더링된 각 픽셀에 대해, 생성된 cubemap에서 해당 위치를 찾는다. 그런 다음, hybrid distortion field가 리샘플링하여 왜곡된 렌더링을 구현한다. 실제로는 카메라 렌즈의 FOV에 따라 cubemap 면의 개수가 달라질 수 있으므로, cubemap의 모든 면을 한 번에 렌더링할 필요는 없다.
 
-리샘플링 단계는 hybrid distortion field와 함께 간단한 좌표 변환만을 포함한다. 공유 카메라 중심에서 각 평면까지의 거리는 1로 정규화된다. 예를 들어, 90° FOV 외부의 픽셀 $(x, y)$을 렌더링하려면 ($x > 1$, $\vert y \vert < 1$), 오른쪽 면의 픽셀은 오른쪽을 바라보는 카메라 좌표계에서 $(-\frac{1}{x}, \frac{y}{x})$로 얻을 수 있다. 렌즈 왜곡 $$(x^\prime, y^\prime) = \mathcal{D}_\theta (x, y)$$을 고려하면, 오른쪽 면의 조회 위치가 $(-\frac{1}{x^\prime}, \frac{y^\prime}{x^\prime})$으로 변경된다. 이렇게 전체 distortion field를 cubemap에 직접 적용하여 넓은 FOV 렌더링을 수행할 수 있다.
+리샘플링 단계는 hybrid distortion field와 함께 간단한 좌표 변환만을 포함한다. 공유 카메라 중심에서 각 평면까지의 거리는 1로 정규화된다. 예를 들어, 90° FOV 외부의 픽셀 $(x, y)$를 렌더링하려면 ($x > 1$, $\vert y \vert < 1$), 오른쪽 면의 픽셀은 오른쪽을 바라보는 카메라 좌표계에서 $(-\frac{1}{x}, \frac{y}{x})$로 얻을 수 있다. 렌즈 왜곡 $$(x^\prime, y^\prime) = \mathcal{D}_\theta (x, y)$$을 고려하면, 오른쪽 면의 조회 위치가 $(-\frac{1}{x^\prime}, \frac{y^\prime}{x^\prime})$으로 변경된다. 이렇게 전체 distortion field를 cubemap에 직접 적용하여 넓은 FOV 렌더링을 수행할 수 있다.
 
 #### Gaussian Sorting
 3DGS는 알파 블렌딩 전에 Gaussian들을 이미지 평면에 대한 orthogonal projection 거리를 기준으로 정렬한다. 그러나 cubemap 표현 방식에서는 Gaussian이 두 면 사이의 경계를 넘나들 수 있어, cubemap 전체에 걸쳐 정렬 순서가 일관되지 않은 여러 개의 projection이 발생할 수 있다. 이러한 불일치는 경계면에서 불연속성을 유발한다.

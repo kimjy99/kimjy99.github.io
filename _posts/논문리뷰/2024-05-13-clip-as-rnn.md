@@ -34,7 +34,7 @@ Bounding box나 마스크 주석은 비용이 많이 들기 때문에 기존 연
 ### 1. Overview
 <center><img src='{{"/assets/img/clip-as-rnn/clip-as-rnn-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
-위와 같은 학습 없는 프레임워크는 모든 timestep에서 고정된 가중치의 segmenter를 공유하여 반복적인 방식으로 작동한다. $t$번째 timestep에서 segmenter는 이미지 $x_t \in \mathbb{R}^{3 \times H \times W}$와 이전 step의 텍스트 쿼리 집합 $h_{t−1}$을 입력으로 받는다. 그런 다음 $N_{t−1}$개의 입력 텍스트 쿼리에 해당하는 마스크 집합 $y_t \in [0, 1]^{N_{t-1} \times H \times W}$와 후속 step에 대한 업데이트된 텍스트 쿼리 $h_t$를 출력한다. Image segmentation의 경우 모든 timestep은 동일한 $x_t$를 공유한다. 
+위와 같은 학습 없는 프레임워크는 모든 timestep에서 고정된 가중치의 segmenter를 공유하여 반복적인 방식으로 작동한다. $t$번째 timestep에서 segmenter는 이미지 $x_t \in \mathbb{R}^{3 \times H \times W}$와 이전 step의 텍스트 쿼리 집합 $h_{t-1}$을 입력으로 받는다. 그런 다음 $N_{t-1}$개의 입력 텍스트 쿼리에 해당하는 마스크 집합 $y_t \in [0, 1]^{N_{t-1} \times H \times W}$와 후속 step에 대한 업데이트된 텍스트 쿼리 $h_t$를 출력한다. Image segmentation의 경우 모든 timestep은 동일한 $x_t$를 공유한다. 
 
 $$
 \begin{equation}
@@ -50,7 +50,7 @@ x_t^\prime = v (x_t, y_t)
 \end{equation}
 $$
 
-$x_t^\prime$은 비주얼 프롬프트가 포함된 $N_{t−1}$개의 이미지이다. 그런 다음 $x_t^\prime$은 텍스트 쿼리 $h_{t−1}$과 함께 사전 학습된 가중치 $W_g$의 mask classifier $g$에 전달되며, 유사도 행렬 $P_t$가 계산된다. Mask classifier의 전체 프로세스는 다음과 같이 정의할 수 있다. 
+$x_t^\prime$은 비주얼 프롬프트가 포함된 $N_{t-1}$개의 이미지이다. 그런 다음 $x_t^\prime$은 텍스트 쿼리 $h_{t-1}$과 함께 사전 학습된 가중치 $W_g$의 mask classifier $g$에 전달되며, 유사도 행렬 $P_t$가 계산된다. Mask classifier의 전체 프로세스는 다음과 같이 정의할 수 있다. 
 
 $$
 \begin{equation}
@@ -58,7 +58,7 @@ P_t = g(x_t^\prime, h_{t-1}; W_g)
 \end{equation}
 $$
 
-마지막으로 thresholding 함수 $\sigma$를 거친 후 유사도 점수가 threshold $\theta$보다 낮은 텍스트 쿼리를 제거하여 다음 step $t$에 대한 텍스트 쿼리 $h_t = \sigma (P_t)$를 얻는다. $h_t$는 $h_{t−1}$의 부분 집합이다. 이 반복 프로세스는 연속된 step 사이에서 텍스트 쿼리가 변경되지 않을 때까지, 즉 $h_t = h_{t−1}$일 때까지 계속된다. 이 최종 timestep을 $T$로 나타낸다. 마지막으로, $T$에서 생성된 mask proposal $y_T$에 후처리를 적용한다. 
+마지막으로 thresholding 함수 $\sigma$를 거친 후 유사도 점수가 threshold $\theta$보다 낮은 텍스트 쿼리를 제거하여 다음 step $t$에 대한 텍스트 쿼리 $h_t = \sigma (P_t)$를 얻는다. $h_t$는 $h_{t-1}$의 부분 집합이다. 이 반복 프로세스는 연속된 step 사이에서 텍스트 쿼리가 변경되지 않을 때까지, 즉 $h_t = h_{t-1}$일 때까지 계속된다. 이 최종 timestep을 $T$로 나타낸다. 마지막으로, $T$에서 생성된 mask proposal $y_T$에 후처리를 적용한다. 
 
 Algorithm 1은 PyTorch 스타일의 pseudo-code이다. 
 
@@ -68,12 +68,12 @@ Algorithm 1은 PyTorch 스타일의 pseudo-code이다.
 Mask proposal generator가 먼저 각 텍스트 쿼리에 대한 마스크를 예측한 다음 mask classifier가 관련 마스크와의 정렬 정도에 따라 관련 없는 텍스트 쿼리를 필터링한다. CLIP의 지식을 완전히 보존하기 위해 proposal generator와 classifier 모두에 사전 학습된 CLIP 모델의 고정된 가중치를 사용한다. 
 
 #### Mask proposal generator
-Mask proposal $y_t$를 예측하기 위해 사전 학습된 CLIP에 gradCAM (gradient-based Class-Activation Map)이 적용된다. 이미지 $x_t$와 텍스트 쿼리 $h_{t−1}$이 먼저 CLIP에 입력되어 이미지와 각 텍스트 사이의 점수를 얻는다. 그런 다음 CLIP 이미지 인코더의 feature map에서 각 텍스트 쿼리(즉, 클래스) 점수의 기울기를 역전파하여 히트맵을 얻는다. 저자들은 [CLIP-ES](https://arxiv.org/abs/2212.09506)를 mask proposal generator로 사용하였다. 현재 step의 텍스트 쿼리와 별도로 텍스트 쿼리에 존재하지 않는 카테고리를 설명하는 일련의 배경 쿼리를 명시적으로 추가하고 해당 기울기를 계산한다. 이는 후속 마스크 분류 프로세스에서 관련 없는 텍스트의 활성화를 억제하는 데 도움이 된다. 
+Mask proposal $y_t$를 예측하기 위해 사전 학습된 CLIP에 gradCAM (gradient-based Class-Activation Map)이 적용된다. 이미지 $x_t$와 텍스트 쿼리 $h_{t-1}$이 먼저 CLIP에 입력되어 이미지와 각 텍스트 사이의 점수를 얻는다. 그런 다음 CLIP 이미지 인코더의 feature map에서 각 텍스트 쿼리(즉, 클래스) 점수의 기울기를 역전파하여 히트맵을 얻는다. 저자들은 [CLIP-ES](https://arxiv.org/abs/2212.09506)를 mask proposal generator로 사용하였다. 현재 step의 텍스트 쿼리와 별도로 텍스트 쿼리에 존재하지 않는 카테고리를 설명하는 일련의 배경 쿼리를 명시적으로 추가하고 해당 기울기를 계산한다. 이는 후속 마스크 분류 프로세스에서 관련 없는 텍스트의 활성화를 억제하는 데 도움이 된다. 
 
 #### Mask classifier
 Proposal generator의 마스크는 입력 텍스트가 제한되지 않은 어휘에서 나온 것이고 입력 이미지에 존재하지 않는 개체를 참조할 수 있기 때문에 잡음이 있을 수 있다. 이러한 유형의 proposal을 제거하기 위해 다른 CLIP 모델을 적용하여 각 쿼리와 관련 mask proposal 간의 유사도 점수를 계산한다. 빨간색 원, bounding box, 배경 blur, 회색 배경과 같은 다양한 시각적 프롬프트를 적용하여 CLIP 모델이 전경 영역에 초점을 맞추도록 가이드한다. 
 
-이러한 비주얼 프롬프트를 이미지에 적용하기 전에 먼저 threshold $\eta$를 기준으로 mask proposal $y_t$를 바이너리로 만든다. 비주얼 프롬프트를 적용한 후 $N_{t−1}$개의 텍스트 쿼리 $h_{t−1}$에 해당하는 $N_{t−1}$개의 프롬프팅된 이미지를 얻는다. 이러한 이미지와 텍스트 쿼리를 CLIP classifier $g$에 입력한 다음 텍스트 쿼리 차원을 따라 softmax 연산을 수행하여 유사도 행렬 $P_t \in \mathbb{R}^{N_{t-1} \times N_{t-1}}$을 얻는다. $i$번째 마스크와 $i$번째 쿼리 사이의 매칭 점수로 $P_t$의 대각 성분만 유지한다. 점수가 threshold $\theta$보다 낮으면 쿼리와 해당 마스크가 필터링된다. Thresholding 함수 $\sigma$는 다음과 같이 정의된다. 
+이러한 비주얼 프롬프트를 이미지에 적용하기 전에 먼저 threshold $\eta$를 기준으로 mask proposal $y_t$를 바이너리로 만든다. 비주얼 프롬프트를 적용한 후 $N_{t-1}$개의 텍스트 쿼리 $h_{t-1}$에 해당하는 $N_{t-1}$개의 프롬프팅된 이미지를 얻는다. 이러한 이미지와 텍스트 쿼리를 CLIP classifier $g$에 입력한 다음 텍스트 쿼리 차원을 따라 softmax 연산을 수행하여 유사도 행렬 $P_t \in \mathbb{R}^{N_{t-1} \times N_{t-1}}$을 얻는다. $i$번째 마스크와 $i$번째 쿼리 사이의 매칭 점수로 $P_t$의 대각 성분만 유지한다. 점수가 threshold $\theta$보다 낮으면 쿼리와 해당 마스크가 필터링된다. Thresholding 함수 $\sigma$는 다음과 같이 정의된다. 
 
 $$
 \begin{equation}

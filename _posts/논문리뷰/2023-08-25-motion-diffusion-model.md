@@ -88,7 +88,7 @@ $$
 간단한 transformer 인코더 아키텍처로 $G$를 구현한다. Transformer 아키텍처는 시간적으로 인식되어 임의 길이 모션을 학습할 수 있으며 모션 도메인에 대해 잘 입증되었다. Denoising step $t$와 조건 코드 $c$는 각각 별도의 feed-forward network에 의해 transformer 차원으로 project된 다음 합산되어 토큰 $z_{tk}$를 생성한다. Noisy한 입력 $x_t$의 각 프레임은 transformer 차원으로 선형적으로 project되고 표준 위치 임베딩과 합산된다. $z_{tk}$와 project된 프레임은 인코더에 공급된다. 첫 번째 출력 토큰을 제외하고 인코더 결과는 원래 모션 차원으로 다시 project되며 예측 $$\hat{x}_0$$로 사용된다. CLIP 텍스트 인코더를 사용하여 텍스트 프롬프트를 $c$로 인코딩하여 text-to-motion을 구현하고 클래스별로 학습된 임베딩을 사용하여 action-to-motion을 구현한다.
 
 #### Sampling
-$p(x_0 \vert c)$에서의 샘플링은 DDPM에 따라 반복적인 방식으로 수행된다. 모든 timestep $t$에서 깨끗한 샘플 $$\hat{x}_0 = G(x_t, t, c)$$를 예측하고 다시 $x_{t−1}$로 noise 처리한다. 이것은 $x_0$가 될 때까지 $t = T$에서 반복된다. [Classifier-free guidance](https://kimjy99.github.io/논문리뷰/cfdg)를 사용하여 모델 $G$를 학습한다. 실제로 $G$는 $G(x_t, t, \emptyset)$가 $p(x_0)$에 가까워지도록 샘플의 10%에 대해 $c = \emptyset$를 임의로 설정하여 조건부 분포와 unconditional 분포를 모두 학습한다. 그런 다음 $G$를 샘플링할 때 $s$를 사용하여 두 변형을 보간하거나 외삽하여 다양성과 충실도를 절충할 수 있다.
+$p(x_0 \vert c)$에서의 샘플링은 DDPM에 따라 반복적인 방식으로 수행된다. 모든 timestep $t$에서 깨끗한 샘플 $$\hat{x}_0 = G(x_t, t, c)$$를 예측하고 다시 $x_{t-1}$로 noise 처리한다. 이것은 $x_0$가 될 때까지 $t = T$에서 반복된다. [Classifier-free guidance](https://kimjy99.github.io/논문리뷰/cfdg)를 사용하여 모델 $G$를 학습한다. 실제로 $G$는 $G(x_t, t, \emptyset)$가 $p(x_0)$에 가까워지도록 샘플의 10%에 대해 $c = \emptyset$를 임의로 설정하여 조건부 분포와 unconditional 분포를 모두 학습한다. 그런 다음 $G$를 샘플링할 때 $s$를 사용하여 두 변형을 보간하거나 외삽하여 다양성과 충실도를 절충할 수 있다.
 
 $$
 \begin{equation}

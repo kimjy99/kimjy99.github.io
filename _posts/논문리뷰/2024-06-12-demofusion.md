@@ -81,7 +81,7 @@ $$
 
 따라서 저자들은 skip residual을 일반적인 솔루션으로 도입하였다. 이는 일련의 서로 다른 $t$를 갖는 여러 "upsample-diffusedenoise" 루프의 가중 융합으로 간주될 수 있다.
 
-각 생성 단계 $s$에 대해 이미 $t \in [1,T]$를 사용하여 $${\mathbf{z}^\prime}_0^s$$의 $${\mathbf{z}^\prime}_t^s$$로의 일련의 noise-inverse된 버전을 얻었다. Denoising process에서 해당 noise-inverse된 버전을 skip residual로 도입한다. 즉, $$p_\theta (\mathbf{z}_{t−1} \vert \mathbf{z}_t)$$를 $$p_\theta (\mathbf{z}_{t−1} \vert \hat{\mathbf{z}}_t)$$로 수정한다. 
+각 생성 단계 $s$에 대해 이미 $t \in [1,T]$를 사용하여 $${\mathbf{z}^\prime}_0^s$$의 $${\mathbf{z}^\prime}_t^s$$로의 일련의 noise-inverse된 버전을 얻었다. Denoising process에서 해당 noise-inverse된 버전을 skip residual로 도입한다. 즉, $$p_\theta (\mathbf{z}_{t-1} \vert \mathbf{z}_t)$$를 $$p_\theta (\mathbf{z}_{t-1} \vert \hat{\mathbf{z}}_t)$$로 수정한다. 
 
 $$
 \begin{equation}

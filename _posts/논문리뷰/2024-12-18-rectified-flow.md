@@ -45,7 +45,7 @@ $$
 \end{equation}
 $$
 
-이는 $Z_0$를 $\pi_0$에서 $\pi_1$을 따르는 $Z_1$로 변환한다. Drift force $v : \mathbb{R}^d \rightarrow \mathbb{R}^d$는 가능한 한 flow가 $X_0$에서 $X_1$을 가리키는 선형 경로의 방향 $X_1 − X_0$를 따르도록 하며, 간단한 최소 제곱 회귀 문제를 풀어서 얻을 수 있다.
+이는 $Z_0$를 $\pi_0$에서 $\pi_1$을 따르는 $Z_1$로 변환한다. Drift force $v : \mathbb{R}^d \rightarrow \mathbb{R}^d$는 가능한 한 flow가 $X_0$에서 $X_1$을 가리키는 선형 경로의 방향 $X_1 - X_0$를 따르도록 하며, 간단한 최소 제곱 회귀 문제를 풀어서 얻을 수 있다.
 
 $$
 \begin{equation}
@@ -53,13 +53,13 @@ $$
 \end{equation}
 $$
 
-$X_t$는 $\textrm{d}X_t = (X_1 − X_0) \textrm{d}t$의 ODE를 따르는데, 이는 $X_t$의 업데이트에 최종 지점 $X_1$의 정보가 필요하기 때문에 non-causal, 즉 미래를 알아야 한다. Rectified flow는 drift $v$를 $X_1 − X_0$에 fitting하여 $X_t$의 경로를 미래를 보지 않고도 시뮬레이션할 수 있는 ODE flow를 생성한다.
+$X_t$는 $\textrm{d}X_t = (X_1 - X_0) \textrm{d}t$의 ODE를 따르는데, 이는 $X_t$의 업데이트에 최종 지점 $X_1$의 정보가 필요하기 때문에 non-causal, 즉 미래를 알아야 한다. Rectified flow는 drift $v$를 $X_1 - X_0$에 fitting하여 $X_t$의 경로를 미래를 보지 않고도 시뮬레이션할 수 있는 ODE flow를 생성한다.
 
 <center><img src='{{"/assets/img/rectified-flow/rectified-flow-algo1.webp" | relative_url}}' width="80%"></center>
 <br>
 실제로는 신경망이나 다른 비선형 모델로 $v$를 parameterize하고, stochastic gradient descent (SGD)와 같은 최적화 도구로 위의 최적화 문제를 푼다. 
 
-$v$를 구한 후, $Z_0 \sim \pi_0$에서 시작하여 $\pi_0$를 $\pi_1$로 옮기려면 ODE를 풀면 되고, $Z_1 \sim \pi_1$에서 시작하여 $\pi_1$을 $\pi_0$으로 옮기려면 ODE를 역방향으로 풀면 된다. 구체적으로, 역방향 샘플링의 경우, $$X_t = \tilde{X}_{1-t}$$로 설정하고 $$\tilde{X}_0 \sim \pi_1$$에서 초기화한 뒤 $$\textrm{d}\tilde{X}_t = −v(\tilde{X}_t, t)\textrm{d}t$$를 풀면 된다. 순방향 샘플링과 역방향 샘플링은 학습 알고리즘에서 동등하게 선호되는데, 그 이유는 위 최적화 문제에서 $X_0$와 $X_1$를 바꾸고 $v$의 부호를 뒤집으면 동등한 문제를 생성한다는 점에서 시간 대칭적이기 때문이다.
+$v$를 구한 후, $Z_0 \sim \pi_0$에서 시작하여 $\pi_0$를 $\pi_1$로 옮기려면 ODE를 풀면 되고, $Z_1 \sim \pi_1$에서 시작하여 $\pi_1$을 $\pi_0$으로 옮기려면 ODE를 역방향으로 풀면 된다. 구체적으로, 역방향 샘플링의 경우, $$X_t = \tilde{X}_{1-t}$$로 설정하고 $$\tilde{X}_0 \sim \pi_1$$에서 초기화한 뒤 $$\textrm{d}\tilde{X}_t = -v(\tilde{X}_t, t)\textrm{d}t$$를 풀면 된다. 순방향 샘플링과 역방향 샘플링은 학습 알고리즘에서 동등하게 선호되는데, 그 이유는 위 최적화 문제에서 $X_0$와 $X_1$를 바꾸고 $v$의 부호를 뒤집으면 동등한 문제를 생성한다는 점에서 시간 대칭적이기 때문이다.
 
 ##### Flow들은 서로 교차하지 않는다.
 <center><img src='{{"/assets/img/rectified-flow/rectified-flow-fig2.webp" | relative_url}}' width="100%"></center>
@@ -79,7 +79,7 @@ $\textrm{Rectify}(\cdot)$를 재귀적으로 적용하면 rectified flow의 시�
 이 **reflow** 절차는 transport cost를 줄일 뿐만 아니라 rectified flow의 경로를 직선화하는 중요한 효과가 있다. 이는 거의 직선 경로를 가진 flow가 수치적 시뮬레이션에서 작은 시간 discretization 오차를 발생시키기 때문에 계산적으로 매우 매력적이다. 완벽하게 직선인 경로는 하나의 Euler step으로 정확하게 시뮬레이션할 수 있으며 1-step 모델이다. 이는 기존 continuous-time ODE/SDE 모델의 높은 inference 비용 문제를 해결한다.
 
 ### 2. Main Results and Properties
-주어진 입력 쌍 $(X_0, X_1)$의 경우, 최적화 문제의 정확한 최소값은 시간 $t$에서 $X_t = x$를 지나는 선 방향 $X_1 − X_0$의 기대값이다. 
+주어진 입력 쌍 $(X_0, X_1)$의 경우, 최적화 문제의 정확한 최소값은 시간 $t$에서 $X_t = x$를 지나는 선 방향 $X_1 - X_0$의 기대값이다. 
 
 $$
 \begin{equation}
@@ -255,7 +255,7 @@ $k$-rectified flow $\textbf{Z}^k$를 얻은 후, $(Z_0^k, Z_1^k)$의 관계를 �
 
 $$
 \begin{equation}
-\mathbb{E} \left[ \| (Z_1^k − Z_0^k) − v(Z_0^k, 0) \|^2 \right]
+\mathbb{E} \left[ \| (Z_1^k - Z_0^k) - v(Z_0^k, 0) \|^2 \right]
 \end{equation}
 $$
 
@@ -272,7 +272,7 @@ v^X (z, t) = \mathbb{E}_{X_1 \sim \pi_1} \left[ \frac{X_1-z}{1-t} \eta_t (X_1, z
 \end{equation}
 $$
 
-이는 $X_0 = \frac{z−tX_1}{1−t}$이고 $X_1 − X_0 = \frac{X_1−z}{1-t}$인 경우로 볼 수 있다. 따라서 $\rho$가 항상 양의 값을 가지고 모든 곳에서 연속이면 $v^X$는 잘 정의되고 $$\mathbb{R}^d \times [0, 1)$$에서 연속이다. 또한 $$\log \eta_t$$가 $z$에 대해 미분 가능하면 다음 식이 성립한다. 
+이는 $X_0 = \frac{z-tX_1}{1-t}$이고 $X_1 - X_0 = \frac{X_1-z}{1-t}$인 경우로 볼 수 있다. 따라서 $\rho$가 항상 양의 값을 가지고 모든 곳에서 연속이면 $v^X$는 잘 정의되고 $$\mathbb{R}^d \times [0, 1)$$에서 연속이다. 또한 $$\log \eta_t$$가 $z$에 대해 미분 가능하면 다음 식이 성립한다. 
 
 $$
 \begin{equation}
@@ -301,7 +301,7 @@ $$
 
 여기서 $w_t : (0, 1) \rightarrow (0, +\infty)$는 양의 가중치 시퀀스이다. 이 방법으로 유도된 flow $\textbf{Z}$는 여전히 $\textbf{X}$의 marginal distribution을 보존한다. 
 
-간단한 interpolation 방법은 $$X_t = \alpha_t X_1 + \beta_t X_0$$이다. 여기서 $$\alpha_t$$와 $$\beta_t$$는 $$\alpha_1 = \beta_0 = 1$$과 $$\alpha_0 = \beta_1 = 0$$을 만족하는 두 미분 가능한 수열로, 이 과정은 시작점과 끝점에서 $X_0$, $X_1$과 같다. 이 경우 위 식에서 $$\dot{X}_t = \dot{\alpha}_t X_1 + \dot{\beta}_t X_0$$가 된다. 곡선의 모양은 $$\alpha_t$$와 $$\beta_t$$의 관계에 의해 제어된다. 모든 $t$에 대해 $$\beta_t = 1 − \alpha_t$$를 취하면 $X_t$는 직선 경로를 가지지만 일정한 속도로 이동하지는 않는다. 
+간단한 interpolation 방법은 $$X_t = \alpha_t X_1 + \beta_t X_0$$이다. 여기서 $$\alpha_t$$와 $$\beta_t$$는 $$\alpha_1 = \beta_0 = 1$$과 $$\alpha_0 = \beta_1 = 0$$을 만족하는 두 미분 가능한 수열로, 이 과정은 시작점과 끝점에서 $X_0$, $X_1$과 같다. 이 경우 위 식에서 $$\dot{X}_t = \dot{\alpha}_t X_1 + \dot{\beta}_t X_0$$가 된다. 곡선의 모양은 $$\alpha_t$$와 $$\beta_t$$의 관계에 의해 제어된다. 모든 $t$에 대해 $$\beta_t = 1 - \alpha_t$$를 취하면 $X_t$는 직선 경로를 가지지만 일정한 속도로 이동하지는 않는다. 
 
 #### Probability Flow ODE (PF-ODE)
 모든 종류의 PF-ODE는 $$X_t = \alpha_t X_1 + \beta_t \xi$$로 볼 수 있다. 이때 $$\alpha_1 = 1$$, $$\beta_1 = 0$$인 $$\alpha_t$$, $$\beta_t$$에 대해 $\xi \sim \mathcal{N}(0,I)$은 표준 Gaussian 확률 변수이다.
@@ -361,11 +361,11 @@ VE ODE의 경우 $$\alpha_t = 1$$, $$\beta_t = \sigma_\textrm{min} \sqrt{r^{2(1-
 ### 2. Image-to-Image Translation
 Image-to-image translation의 주요 목표는 좋은 시각적 결과를 얻는 것이므로, $X_0 \sim \pi_0$를 $\pi_1$을 정확히 따르는 $X_1$로 충실하게 옮기는 데 관심이 없다. 그 대신, 이미지에서 identity를 유지하면서 이미지 스타일을 옮기는 데 관심이 있다. 
 
-이를 위해, $h(x)$를 전송하고자 하는 스타일을 나타내는 이미지 $x$의 feature mapping이라고 하자. $X_t = tX_1 + (1 − t)X_0$라고 하면, $H_t = h(X_t)$는 다음과 같은 ODE를 따른다. 
+이를 위해, $h(x)$를 전송하고자 하는 스타일을 나타내는 이미지 $x$의 feature mapping이라고 하자. $X_t = tX_1 + (1 - t)X_0$라고 하면, $H_t = h(X_t)$는 다음과 같은 ODE를 따른다. 
 
 $$
 \begin{equation}
-\textrm{d}H_t = \nabla h (X_t)^\top (X_1 − X_0) \textrm{d}t
+\textrm{d}H_t = \nabla h (X_t)^\top (X_1 - X_0) \textrm{d}t
 \end{equation}
 $$
 

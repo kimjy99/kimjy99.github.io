@@ -54,7 +54,7 @@ Neural highlighter를 MLP로 표현하면 연속적인 localization이 생성되
 
 $$
 \begin{equation}
-C_v = p_v \cdot H + (1 − p_v) \cdot G
+C_v = p_v \cdot H + (1 - p_v) \cdot G
 \end{equation}
 $$
 

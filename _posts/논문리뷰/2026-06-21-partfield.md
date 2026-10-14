@@ -40,7 +40,7 @@ PartField는 class-agnostic part segmentation task에서 최신 baseline 모델�
 ##### Part Proposals
 본 논문에서는 2D 및 3D 데이터 모두에서 part proposal을 추출하였다. Part proposal은 어떤 점들을 그룹화하여 하나의 part를 구성해야 하는지에 대한 힌트를 제공한다. 각 part proposal $P$는 shape의 부분집합에 레이블을 지정하며, 이는 shape의 해당 부분이 동일한 부분에 속함을 나타낸다. 미리 정의된 part 템플릿을 가정하지 않으므로, part proposal은 반드시 semantic하게 연관될 필요는 없다. Part proposal은 다양한 세분성으로 제공될 수 있으며, 다양한 기준에 따라 정의될 수 있다.
 
-2D proposal의 경우, 대규모의 레이블 없는 데이터셋에서 3D shape의 멀티뷰 RGB 이미지와 normal 이미지를 렌더링한다. 그런 다음 [SAM2](https://kimjy99.github.io/논문리뷰/)를 적용하여 2D 마스크를 예측하고, 이를 다시 shape에 projection한다. 포인트 프롬프트를 dense하게 샘플링하고, 각 마스크는 하나의 proposal을 생성한다. 여러 마스크에서 생성된 proposal은 서로 겹칠 수 있으며, 다양한 세분성 수준을 포함한다. 3D proposal의 경우, 기존 3D 데이터셋에서 제공되는 part 주석을 활용한다. 마찬가지로, 레이블이 계층적 구조를 갖는 경우 proposal이 겹칠 수 있다.
+2D proposal의 경우, 대규모의 레이블 없는 데이터셋에서 3D shape의 멀티뷰 RGB 이미지와 normal 이미지를 렌더링한다. 그런 다음 [SAM2](https://kimjy99.github.io/논문리뷰/segment-anything-2)를 적용하여 2D 마스크를 예측하고, 이를 다시 shape에 projection한다. 포인트 프롬프트를 dense하게 샘플링하고, 각 마스크는 하나의 proposal을 생성한다. 여러 마스크에서 생성된 proposal은 서로 겹칠 수 있으며, 다양한 세분성 수준을 포함한다. 3D proposal의 경우, 기존 3D 데이터셋에서 제공되는 part 주석을 활용한다. 마찬가지로, 레이블이 계층적 구조를 갖는 경우 proposal이 겹칠 수 있다.
 
 2D proposal과 3D proposal은 서로를 보완한다. SAM2에서 생성된 2D proposal은 대규모의 레이블 없는 데이터셋에서의 학습을 가능하게 하고 모델에 오픈월드 처리 능력을 부여하는 반면, 3D proposal은 내부 구조에 대한 완벽한 supervision을 제공하고 유용한 인간의 semantic 주석을 포착한다.
 
@@ -56,7 +56,7 @@ $$
 2D proposal의 경우, triplet의 모든 점은 해당 뷰에서 shape의 보이는 2D 픽셀에서 샘플링된 다음, 알려진 카메라 포즈와 depth를 사용하여 3D로 unprojection된다. 이는 2D 마스크가 형상의 보이는 표면에 대한 supervision에만 기여한다는 것을 의미한다. 3D proposal의 경우, 점들은 shape 및 part의 내부 공간을 포함하여 3D geometry에서 직접 샘플링된다.
 
 ### 2. Contrastive Learning with Negative Sampling
-Contrastive triplet loss의 핵심 아이디어는 part proposal 내에서 positive point $$\textbf{p}_a$$와 $$\textbf{p}_b$$가 서로 가깝도록 유도하고, negative point $$\textbf{p}_c$$는 서로 멀리 떨어지도록 하는 것이다. 그러나 part 레이블링의 계층적이고 스케일이 모호한 특성으로 인해 이러한 loss의 설계 및 scaling이 복잡해진다.
+Contrastive triplet loss의 핵심 아이디어는 part proposal 내에서 positive point $$\textbf{p}_a$$와 $$\textbf{p}_b$$가 서로 가깝도록 유도하고, negative point $$\textbf{p}_c$$는 $$\textbf{p}_a$$, $$\textbf{p}_b$$로부터 멀리 떨어지도록 하는 것이다. 그러나 part 레이블링의 계층적이고 스케일이 모호한 특성으로 인해 이러한 loss의 설계 및 scaling이 복잡해진다.
 
 즉, 유효한 두 part proposal이 세분화 수준에 따라 동일한 part 또는 다른 part에 점을 할당할 수 있다. 기존 방법에서는 공간에 명시적인 scale 파라미터를 사용하였지만, 데이터 전반에 걸쳐 이 scale을 일관되게 설정하는 것은 어려울 수 있다.
 
@@ -116,7 +116,7 @@ Inference 시에는 학습된 신경망을 한 번 적용하여 feature field tr
 <span style="display: block; margin: 1px 0;"></span>
 <center><img src='{{"/assets/img/partfield/partfield-table1.webp" | relative_url}}' width="100%"></center>
 <br>
-다음은 PartNetE test set에 class-agnostic part segmentation 결과이다.
+다음은 PartNetE test set에 대한 class-agnostic part segmentation 결과이다.
 
 <center><img src='{{"/assets/img/partfield/partfield-table2.webp" | relative_url}}' width="60%"></center>
 

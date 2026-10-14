@@ -31,7 +31,7 @@ RNN은 입력 시퀀스를 압축하기 위해 고정 크기의 메모리를 유
 $$
 \begin{equation}
 \textbf{k}_t = x_t W_k, \quad \textbf{v}_t = x_t W_v, \quad \textbf{q}_t = x_t W_q \\
-\mathcal{M}_t^{(s)} = f \left( \mathcal{M}_{t-1}^{(s)}; \textbf{k}_t, \textbf{v}_t \right), \quad \textrm{where} \; 1 \le t \; L^{(s)}
+\mathcal{M}_t^{(s)} = f \left( \mathcal{M}_{t-1}^{(s)}; \textbf{k}_t, \textbf{v}_t \right), \quad \textrm{where} \; 1 \le t \le L^{(s)}
 \end{equation}
 $$
 
@@ -92,7 +92,7 @@ $$
 $\textrm{MeanPooling}(\cdot)$은 세그먼트 컨텍스트를 모든 토큰의 평균으로 간단하게 표현하며, 다른 풀링 프로세스로 대체할 수도 있다. 또한 저자들은 softmax를 사용하여 $$\gamma_t^{(i)}$$를 정규화하였다.
 
 ##### 메모리 복잡도
-검색 과정에서는 현재의 온라인 메모리와 이전 모든 세그먼트의 캐싱된 메모리를 사용한다. 따라서 고정된 학습 시퀀스 길이에 대해 캐싱된 메모리의 수는 세그먼트 길이에 비례한다. 메모리 업데이트 프로세스 자체는 변하지 않으므로 $\mathcal{O}(L)$ 연산이 필요하지만, 검색 과정에서는 모든 캐싱된 메모리를 순방향으로 순회해야 하므로 토큰당 $\mathcal{O}(N)$ 연산이 필요하다. 따라서 모델의 시간 복잡도는 $\mathcal{O}(NL)$이 되며, $1 \le N \le L$이다.
+검색 과정에서는 현재의 온라인 메모리와 이전 모든 세그먼트의 캐싱된 메모리를 사용한다. 따라서 고정된 학습 시퀀스 길이에 대해 캐싱된 메모리의 수는 세그먼트 길이의 함수이다. 메모리 업데이트 프로세스 자체는 변하지 않으므로 $\mathcal{O}(L)$ 연산이 필요하지만, 검색 과정에서는 모든 캐싱된 메모리를 순방향으로 순회해야 하므로 토큰당 $\mathcal{O}(N)$ 연산이 필요하다. 따라서 모델의 시간 복잡도는 $\mathcal{O}(NL)$이 되며, $1 \le N \le L$이다.
 
 $N = 1$인 경우에는 캐싱할 필요가 없으므로 단순한 RNN 모델이 된다. $N = L$인 경우에는 각 토큰이 별개의 세그먼트로 취급되므로 이전 모든 토큰의 메모리 state가 캐싱된다. 이는 attention 메커니즘의 강력한 성능을 뒷받침하는 직관적인 설명과 일맥상통한다.
 
@@ -102,7 +102,7 @@ $N = 1$인 경우에는 캐싱할 필요가 없으므로 단순한 RNN 모델이
 $$
 \begin{equation}
 \mathcal{M}_t^{(s)} = f \left( \mathcal{M}_{t-1}^{(s)}; \textbf{k}_t, \textbf{v}_t \right), \quad \textrm{where} \; 1 \le t \le L^{(s)} \\
-\textbf{y}_t = \mathcal{M}_t^\ast (\textbf{q}_t) \quad \textrm{where} \; \theta_{\mathcal{M}_t^\ast} = \left\{ \sum_{i=1}^s \gamma_t^{(i)} W_i^{(i)}, \ldots, \sum_{i=1}^s \gamma_t^{(i)} W_c^{(i)} \right\}
+\textbf{y}_t = \mathcal{M}_t^\ast (\textbf{q}_t) \quad \textrm{where} \; \theta_{\mathcal{M}_t^\ast} = \left\{ \sum_{i=1}^s \gamma_t^{(i)} W_1^{(i)}, \ldots, \sum_{i=1}^s \gamma_t^{(i)} W_c^{(i)} \right\}
 \end{equation}
 $$
 
@@ -147,7 +147,7 @@ SSC에 대한 흥미로운 해석 중 하나는 이를 sparse한 통합 메모�
 ### 4. Caching Checkpoints or Independent Compressors?
 단일 메모리의 체크포인트를 캐싱할 것인지, 아니면 각 세그먼트의 정보를 압축하기 위해 독립적인 메모리 모듈의 집합을 사용할지에 대한 설계상의 선택이 있다. 즉, 여기에는 두 가지 관점이 있다.
 
-**최적화 관점**. 연상 메모리를 학습하시키는 과정이며 시퀀스 내의 토큰들은 학습 데이터 샘플에 해당한다. 따라서 과거 지식을 잊어버리는 것을 방지하기 위해, 학습(최적화 과정) 전반에 걸쳐 메모리의 체크포인트를 캐싱한다.
+**최적화 관점**. 연상 메모리를 학습시키는 과정이며 시퀀스 내의 토큰들은 학습 데이터 샘플에 해당한다. 따라서 과거 지식을 잊어버리는 것을 방지하기 위해, 학습(최적화 과정) 전반에 걸쳐 메모리의 체크포인트를 캐싱한다.
 
 $$
 \begin{equation}

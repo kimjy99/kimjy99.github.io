@@ -63,7 +63,7 @@ $$
 #### A naive solution
 Diffusion model은 전례 없는 이미지 품질을 합성하는 데 있어 눈에 띄는 진전을 이루었으며 많은 텍스트 기반 이미지 편집 task에 성공적으로 적용되었다. 예시 기반 이미지 편집 task의 경우 순진한 해결책은 텍스트 조건을 레퍼런스 이미지 조건으로 직접 바꾸는 것이다.
 
-구체적으로 diffusion model은 Markov forward process를 점진적으로 reverse하여 이미지 $y$를 생성한다. $y_0 = x_s$에서 시작하여 forward process는 noise가 증가하는 이미지 시퀀스 $$\{y_t \vert t \in [1, T]\}$$를 생성한다. 여기서 $y_t = \alpha_t y_0 + (1 − \alpha_t) \epsilon$이고 $\epsilon$는 Gaussian noise이고 $\alpha_t$는 timestep $t$에 따라 감소한다. 생성 프로세스의 경우 diffusion model은 다음 loss function을 최소화하여 조건 $c$가 주어지면 마지막 step에서 이미지를 점진적으로 denoise한다.
+구체적으로 diffusion model은 Markov forward process를 점진적으로 reverse하여 이미지 $y$를 생성한다. $y_0 = x_s$에서 시작하여 forward process는 noise가 증가하는 이미지 시퀀스 $$\{y_t \vert t \in [1, T]\}$$를 생성한다. 여기서 $y_t = \alpha_t y_0 + (1 - \alpha_t) \epsilon$이고 $\epsilon$는 Gaussian noise이고 $\alpha_t$는 timestep $t$에 따라 감소한다. 생성 프로세스의 경우 diffusion model은 다음 loss function을 최소화하여 조건 $c$가 주어지면 마지막 step에서 이미지를 점진적으로 denoise한다.
 
 $$
 \begin{equation}
@@ -100,7 +100,7 @@ $$
 Self-supervised 학습의 또 다른 잠재적인 문제는 학습과 테스트 간의 도메인 차이다. 이러한 학습-테스트 불일치는 두 가지 측면에서 발생한다.
 
 #### Reference image augmentation
-첫 번째 불일치는 레퍼런스 이미지 $x_r$이 학습 중에 소스 이미지 $x_s$에서 파생된다는 것인데, 이는 테스트 시에는 거의 발생하지 않는다. 차이를 줄이기 위해 레퍼런스 이미지에 여러 가지 data augmentation 기술 (뒤집기, 회전, 흐림, 탄성 변환 등)을 채택하여 원본 이미지와의 연결을 끊는다. 이러한 data augmentation 을 $\mathcal{A}$로 표시한다. Diffusion model에 제공되는 조건은 다음과 같이 표시된다.
+첫 번째 불일치는 레퍼런스 이미지 $x_r$이 학습 중에 소스 이미지 $x_s$에서 파생된다는 것인데, 이는 테스트 시에는 거의 발생하지 않는다. 차이를 줄이기 위해 레퍼런스 이미지에 여러 가지 data augmentation 기술 (뒤집기, 회전, 흐림, 탄성 변환 등)을 채택하여 원본 이미지와의 연결을 끊는다. 이러한 data augmentation을 $\mathcal{A}$로 표시한다. Diffusion model에 제공되는 조건은 다음과 같이 표시된다.
 
 $$
 \begin{equation}

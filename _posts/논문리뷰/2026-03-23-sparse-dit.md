@@ -30,18 +30,18 @@ classes: wide
 2. DiT의 아키텍처는 layer 간에 글로벌 feature 초점과 로컬 feature 초점 사이를 본질적으로 번갈아 수행하며, 이 패턴은 모든 샘플링 step에서 일관적이다.
 3. Denoising이 진행됨에 따라 모델은 로컬 디테일을 점점 더 우선시하며, 후반 step에서 디테일에 대한 요구가 높아짐에 따라 동적으로 적응한다.
 
-이러한 통찰력을 바탕으로, 저자들은 토큰 밀도 관리를 공간적 layer와 시간적 timestep 모두에 걸쳐 적응하는 동적 프로세스로 재해석한 **SparseDiT**를 제안하였다. 공간적으로, 얕은 layer는 부드럽고 글로벌한 feature를 포착하므로 복잡한 self-attention의 효율성이 떨어진다. 이후 layer들은 고주파의 로컬 디테일과 저주파의 글로벌 정보를 번갈아 처리하며, sprase token들은 글로벌 feature를 효율적으로 포착하고, dense token들은 로컬 디테일을 정교하게 다듬는다. 시간적으로, denoising이 진행됨에 따라 로컬 디테일에 대한 필요성이 증가하므로 동적인 토큰 조정 전략이 필요하다. 이 이중 layer 적응은 각 샘플링 step 내에서 효율성과 디테일의 균형을 맞추는 layer별 토큰 변조와 토큰 밀도를 동적으로 조정하는 timestep-wise pruning rate 전략을 통합한다. 이러한 공간적 및 시간적 적응을 통해 SparseDiT는 높은 수준의 디테일을 희생하지 않고도 계산 효율성을 달성할 수 있다.
+이러한 통찰력을 바탕으로, 저자들은 토큰 밀도 관리를 공간적 layer와 시간적 timestep 모두에 걸쳐 적응하는 동적 프로세스로 재해석한 **SparseDiT**를 제안하였다. 공간적으로, 얕은 layer는 부드럽고 글로벌한 feature를 포착하므로 복잡한 self-attention의 효율성이 떨어진다. 이후 layer들은 고주파의 로컬 디테일과 저주파의 글로벌 정보를 번갈아 처리하며, sparse token들은 글로벌 feature를 효율적으로 포착하고, dense token들은 로컬 디테일을 정교하게 다듬는다. 시간적으로, denoising이 진행됨에 따라 로컬 디테일에 대한 필요성이 증가하므로 동적인 토큰 조정 전략이 필요하다. 이 이중 layer 적응은 각 샘플링 step 내에서 효율성과 디테일의 균형을 맞추는 layer별 토큰 변조와 토큰 밀도를 동적으로 조정하는 timestep-wise pruning rate 전략을 통합한다. 이러한 공간적 및 시간적 적응을 통해 SparseDiT는 높은 수준의 디테일을 희생하지 않고도 계산 효율성을 달성할 수 있다.
 
 SparseDiT의 아키텍처는 각 layer가 포착하는 feature에 맞춰 토큰 밀도를 조정하는 3단계 디자인을 채택하였다. Bottom layer에서는 self-attention을 poolingformer 구조로 대체하여 average pooling을 통해 광범위한 글로벌 feature를 포착하여 계산량을 줄이고 필수적인 구조를 보존한다. Middle layer에서는 **Sparse-Dense Token Module (SDTM)**을 도입하여 글로벌 구조를 위한 sparse token들과 로컬 디테일을 위한 dense token을 결합한다. Top layer에서는 모든 토큰을 dense하게 처리하여 고주파 디테일에 집중함으로써 더욱 정교한 출력 품질을 구현한다.
 
-SparseDiT의 timestep-wise pruning rate 전략은 공간적 조정과 더불어 denoising step 전반에 걸쳐 토큰 밀도를 조절한다. 초기 step에서는 넓고 저주파 구조가 지배적이므로 SparseDiT는 높은 pruning 비을 적용하여 리소스를 절약한다. 프로세스가 진행됨에 따라 복잡한 디테일이 드러나면 pruning 비을 낮추어 토큰 밀도를 점진적으로 높인다. 이러한 조정은 각 step의 복잡성에 맞춰 계산 노력을 조절하고 효율성과 디테일의 균형을 동적으로 유지하여 고품질 출력을 위한 리소스를 최적화한다.
+SparseDiT의 timestep-wise pruning rate 전략은 공간적 조정과 더불어 denoising step 전반에 걸쳐 토큰 밀도를 조절한다. 초기 step에서는 넓고 저주파 구조가 지배적이므로 SparseDiT는 높은 pruning 비율을 적용하여 리소스를 절약한다. 프로세스가 진행됨에 따라 복잡한 디테일이 드러나면 pruning 비율을 낮추어 토큰 밀도를 점진적으로 높인다. 이러한 조정은 각 step의 복잡성에 맞춰 계산 노력을 조절하고 효율성과 디테일의 균형을 동적으로 유지하여 고품질 출력을 위한 리소스를 최적화한다.
 
 ## Method
 ### 1. SparseDiT
 ##### 전체 아키텍처
 <center><img src='{{"/assets/img/sparse-dit/sparse-dit-fig2.webp" | relative_url}}' width="90%"></center>
 <br>
-DiT 기반 모델의 transformer layer는 bottom, middle, top의 세 그룹으로 나뉜다. Bottom layer는 poolingformer를 활용하여 글로벌 feature를 효율적으로 포착한다. Middle layer는 여러 개의 sparse-dense token modules (SDTM)을 포함하며, sprase token과 dense token을 각각 사용하여 표현 과정을 글로벌 구조 포착과 로컬 디테일 강화로 분리한다. Top layer는 표준 transformer를 유지하며, 각 샘플링 step에서 최종 예측을 생성하기 위해 dense token을 처리한다. 주요 계산 효율성 향상은 sparse token을 통해 달성되므로 효율성을 극대화하기 위해 대부분의 transformer layer가 중간 부분에 위치한다.
+DiT 기반 모델의 transformer layer는 bottom, middle, top의 세 그룹으로 나뉜다. Bottom layer는 poolingformer를 활용하여 글로벌 feature를 효율적으로 포착한다. Middle layer는 여러 개의 sparse-dense token modules (SDTM)을 포함하며, sparse token과 dense token을 각각 사용하여 표현 과정을 글로벌 구조 포착과 로컬 디테일 강화로 분리한다. Top layer는 표준 transformer를 유지하며, 각 샘플링 step에서 최종 예측을 생성하기 위해 dense token을 처리한다. 주요 계산 효율성 향상은 sparse token을 통해 달성되므로 효율성을 극대화하기 위해 대부분의 transformer layer가 중간 부분에 위치한다.
 
 ##### Bottom layer에서의 Poolingformer
 Bottom layer의 attention score는 거의 균일한 분포를 보이며, 각 토큰은 global average pooling처럼 글로벌 feature를 고르게 추출한다.
@@ -63,11 +63,11 @@ $\bar{V}$는 $N$ 차원을 따라 평균을 나타낸 $\bar{v} = \frac{1}{N} \su
 ##### Sparse-dense token module
 본 논문에서는 해당 transformer layer에서 처리되는 sparse token과 dense token을 생성하는 **sparse-dense token module (SDTM)**을 제시하였다. 핵심 아이디어는 글로벌 구조 추출과 로컬 디테일 추출을 분리하는 것이다. Sparse token은 글로벌 구조 정보를 포착하고 계산 비용을 줄이는 반면, dense token은 로컬 디테일을 강화하고 학습을 안정화한다. Sparse token과 dense token은 SDTM 내에서 서로 변환된다.
 
-먼저 sparse token 집합 $X_s \in \mathbb{R}^{M \times C}$를 도입한다. 여기서 $M$은 sparse token의 개수이며, 일반적으로 $M \ll N$이다. 이러한 sparse token은 dense token X를 적응적으로 pooling하여 초기화할 수 있다. Sparsity 정도를 나타내기 위해 pruning rate $r = 1 − M/N$으로 정의한다. 구조 정보를 저장하기 위해 먼저 dense token $X \in \mathbb{R}^{N \times C}$를 latent shape으로 reshape한다. 예를 들어 입력이 이미지인 경우, 이를 $H \times W \times C$로 reshape한 다음 공간 차원에 걸쳐 pooling하여 $H^\prime \times W^\prime \times C$로 만든다. 여기서 $H^\prime \times W^\prime = M$이다.
+먼저 sparse token 집합 $X_s \in \mathbb{R}^{M \times C}$를 도입한다. 여기서 $M$은 sparse token의 개수이며, 일반적으로 $M \ll N$이다. 이러한 sparse token은 dense token $X$를 적응적으로 pooling하여 초기화할 수 있다. Sparsity 정도를 나타내기 위해 pruning rate $r = 1 - M/N$으로 정의한다. 구조 정보를 저장하기 위해 먼저 dense token $X \in \mathbb{R}^{N \times C}$를 latent shape으로 reshape한다. 예를 들어 입력이 이미지인 경우, 이를 $H \times W \times C$로 reshape한 다음 공간 차원에 걸쳐 pooling하여 $H^\prime \times W^\prime \times C$로 만든다. 여기서 $H^\prime \times W^\prime = M$이다.
 
 공간적 pooling 초기화의 목적은 두 가지이다. 
 
-1. 초기 sprase token을 공간에 균일하게 분포시킬 수 있고, 각 sparse token의 표현을 특정 공간적 위치와 연결할 수 있어 이미지 편집과 같은 후속 task에 유리하다.
+1. 초기 sparse token을 공간에 균일하게 분포시킬 수 있고, 각 sparse token의 표현을 특정 공간적 위치와 연결할 수 있어 이미지 편집과 같은 후속 task에 유리하다.
 2. Semantic token이 후속 layer에서 한 점으로 수렴되는 것을 방지할 수 있다.
 
 Sparse token은 attention layer를 통해 dense token과 상호 작용하여 글로벌 정보를 통합한다.
@@ -82,7 +82,7 @@ $$
 
 생성된 sparse token은 sparse transformer라고 하는 후속 transformer layer에 입력된다. $M \ll N$이므로, SDTM은 계산 비용을 크게 줄일 수 있다.
 
-이어서 sparse token으로부터 dense token을 복원한다. 먼저 sparse token $X_s \in \mathbb{R}^{M \times C}$를 $H^\prime \times W^\prime \times C$로 reshape하고, 이를 입력 dense token와 동일한 shape $H \times W \times C$로 업샘플링한다. Sparse token의 업샘플링과 dense token의 업샘플링을 결합하기 위해 두 개의 linear layer를 도입한다.
+이어서 sparse token으로부터 dense token을 복원한다. 먼저 sparse token $X_s \in \mathbb{R}^{M \times C}$를 $H^\prime \times W^\prime \times C$로 reshape하고, 이를 입력 dense token과 동일한 shape $H \times W \times C$로 업샘플링한다. Sparse token의 업샘플링과 dense token의 업샘플링을 결합하기 위해 두 개의 linear layer를 도입한다.
 
 $$
 \begin{equation}

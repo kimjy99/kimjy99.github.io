@@ -37,7 +37,7 @@ VGGT와 비교했을 때, VGGT-Ω는 register 사용 방식을 비롯한 여러 
 
 이 세 가지 변경 사항은 학습 중 GPU 메모리를 70% 절약하고 inference 속도를 약간 향상시킨다.
 
-효율성 외에도, 저자들은 학습 데이터의 양, 다양성, 그리고 품질이 scalability에 매우 중요하다는 것을 발견했다. 특히, 동적 콘텐츠 처리는 동영상을 훨씬 더 많이 학습에 활용할 수 있게 해주기 때문에 필수적이다. 따라서, 저자들은 고정된 동영상과 동적 동영상 모두에 대해 대규모로 주석을 생성할 수 있는 고품질 데이터 주석 생성 파이프라인을 개발했다. 이 파이프라인은 VLM 기반 사전 필터링, VGGT, COLMAP, 최신 이미지 매칭 모델, 그리고 기하학적 사후 필터링을 통합한다. 기존 데이터셋과 결합하면, 정확한 주석이 달린 총 400만 개의 다양한 장면/시퀀스를 얻을 수 있으며, 이는 VGGT보다 15배 이상 많은 수치이다.
+효율성 외에도, 저자들은 학습 데이터의 양, 다양성, 그리고 품질이 scalability에 매우 중요하다는 것을 발견했다. 특히, 동적 콘텐츠 처리는 동영상을 훨씬 더 많이 학습에 활용할 수 있게 해주기 때문에 필수적이다. 따라서, 저자들은 정적 동영상과 동적 동영상 모두에 대해 대규모로 주석을 생성할 수 있는 고품질 데이터 주석 생성 파이프라인을 개발했다. 이 파이프라인은 VLM 기반 사전 필터링, VGGT, COLMAP, 최신 이미지 매칭 모델, 그리고 기하학적 사후 필터링을 통합한다. 기존 데이터셋과 결합하면, 정확한 주석이 달린 총 400만 개의 다양한 장면/시퀀스를 얻을 수 있으며, 이는 VGGT보다 15배 이상 많은 수치이다.
 
 저자들은 일반화 성능을 더욱 향상시키기 위해 self-supervised learning 프로토콜을 도입하였다. Teacher 모델과 student 모델은 supervised learning으로 학습된 VGGT-Ω 체크포인트에서 초기화된다. 두 모델은 서로 다른 augmentation과 프레임 순열을 적용하여 동일한 입력 시퀀스를 처리한다. Student 모델은 프레임 순서를 정렬한 후 teacher 모델의 예측 및 feature 분포와 일치하도록 학습되고, teacher 모델은 student 모델의 EMA를 통해 업데이트된다. 이 프로토콜을 사용하여 1,800만 개의 레이블이 없는 동영상을 학습시켰다.
 
@@ -55,7 +55,7 @@ $$
 \end{equation}
 $$
 
-($D_i \in \mathbb{R}^{H \times W}$는 depth map, $$\textbf{g}_i = (\textbf{q}_i, \textbf{t}_i, \textbf{f}_i) \in \mathbb{R}^9$$는  rotation quaternion $$\textbf{q}_i \in \mathbb{R}^4$$, translation $$\textbf{t}_i \in \mathbb{R}^3$$, FOV $$\textbf{f}_i \in \mathbb{R}^2$$의 concat)
+($D_i \in \mathbb{R}^{H \times W}$는 depth map, $$\textbf{g}_i = (\textbf{q}_i, \textbf{t}_i, \textbf{f}_i) \in \mathbb{R}^9$$는 rotation quaternion $$\textbf{q}_i \in \mathbb{R}^4$$, translation $$\textbf{t}_i \in \mathbb{R}^3$$, FOV $$\textbf{f}_i \in \mathbb{R}^2$$의 concat)
 
 Principal point는 이미지의 중심에 있다고 가정한다. 따라서 문제 정의는 VGGT와 유사하지만, 모델이 point map이나 tracking feature를 직접 예측하지는 않는다. 네트워크 $f$는 각 이미지를 토큰으로 인코딩하고, alternating attention을 사용하여 여러 시점의 feature를 통합하고, 경량 head를 사용하여 토큰을 최종 예측값으로 매핑한다.
 
@@ -81,7 +81,7 @@ $$
 $$
 
 #### 1.2 Register Attention
-VGGT는 각 이미지 내의 frame-wise self-attention과 모든 이미지에 걸친 global self-attention을 번갈아 적용되는 alternating-attention 방식을 사용한다. Global attention은 서로 다른 프레임들이 상호 작용하는 부분이며, 따라서 여러 프레임 장면 정보가 형성되는 부분이다. 동시에, global attention은 모든 프레임의 모든 토큰에 attention하기 때문에 계산 비용이 많이 들며, 그 비용은 전체 토큰 수의 제곱에 비례한다. 또한, 아래 그림에서 볼 수 있듯이 global attention map은 일반적으로 sparse한데, 이는 적은 수의 토큰만으로도 해당 정보를 교환하기에 충분할 수 있음을 시사한다.
+VGGT는 각 이미지 내의 frame-wise self-attention과 모든 이미지에 걸친 global self-attention을 번갈아 적용하는 alternating-attention 방식을 사용한다. Global attention은 서로 다른 프레임들이 상호 작용하는 부분이며, 따라서 여러 프레임 장면 정보가 형성되는 부분이다. 동시에, global attention은 모든 프레임의 모든 토큰에 attention하기 때문에 계산 비용이 많이 들며, 그 비용은 전체 토큰 수의 제곱에 비례한다. 또한, 아래 그림에서 볼 수 있듯이 global attention map은 일반적으로 sparse한데, 이는 적은 수의 토큰만으로도 해당 정보를 교환하기에 충분할 수 있음을 시사한다.
 
 <center><img src='{{"/assets/img/vggt-omega/vggt-omega-fig3.webp" | relative_url}}' width="85%"></center>
 <br>
@@ -143,7 +143,7 @@ Point map은 각 픽셀에 기준 카메라 프레임에서 해당하는 3D 점�
 
 $$
 \begin{equation}
-e_i = \pi^{-1} (\hat{D}_i, \hat{\textbf{g}}_i) − P_i
+e_i = \pi^{-1} (\hat{D}_i, \hat{\textbf{g}}_i) - P_i
 \end{equation}
 $$
 
@@ -190,7 +190,7 @@ VGGT-Ω는 동적 장면 재구성을 지원하며, 이는 훨씬 더 많은 학
   - learning rate
     - supervised $2 \times 10^{-4}$, self-supervised $1 \times 10^{-4}$
     - 5% linear warm-up + 95% cosine decay
-  - 각 batch 마다 [1, 24]에서 프레임 수 샘플링
+  - 각 batch마다 [1, 24]에서 프레임 수 샘플링
   - 종횡비: [0.33, 1.33]에서 샘플링, 픽셀 수가 512$\times$512에 가깝게 유지
   - GPU: H100 96GB 128개
 

@@ -89,7 +89,7 @@ A_n^\textrm{local} (X_i, X_j) = a_n^{i-j}, \quad \textrm{where} \quad j \in \Ome
 \end{equation}
 $$
 
-여기서 $a_n \in \mathbb{R}^{t \times h \times w}$와 $X_j$는 $\Omega_i^{t \times h \times w}$의 이웃 토큰을 나타낸다. $(i − j)$는 합산 가중치를 결정하는 상대적인 토큰 인덱스를 의미한다. 얕은 레이어에서 인접한 토큰 사이의 동영상 콘텐츠는 미묘하게 다르므로 중복성을 줄이기 위해 로컬 연산자와 함께 세부 feature을 인코딩하는 것이 중요하다. 따라서 토큰 선호도는 토큰 간의 상대적인 3D 위치에만 값이 의존하는 학습 가능한 로컬 파라미터 행렬로 설계된다.
+여기서 $a_n \in \mathbb{R}^{t \times h \times w}$와 $X_j$는 $\Omega_i^{t \times h \times w}$의 이웃 토큰을 나타낸다. $(i - j)$는 합산 가중치를 결정하는 상대적인 토큰 인덱스를 의미한다. 얕은 레이어에서 인접한 토큰 사이의 동영상 콘텐츠는 미묘하게 다르므로 중복성을 줄이기 위해 로컬 연산자와 함께 세부 feature을 인코딩하는 것이 중요하다. 따라서 토큰 선호도는 토큰 간의 상대적인 3D 위치에만 값이 의존하는 학습 가능한 로컬 파라미터 행렬로 설계된다.
 
 #### Comparison to 3D Convolution Block
 저자들은 흥미롭게도 로컬 MHRA가 MobileNet 블록의 시공간적 확장으로 해석될 수 있음을 발견했다. 구체적으로, 선형 변환 $V(\cdot)$은 pointwise convolution (PWConv)으로 인스턴스화될 수 있다. 또한 로컬 토큰 선호도 $A_n^\textrm{local}$은 각 출력 채널 (또는 head) $V_n (X)$에서 작동하는 시공간 행렬이므로 relation aggregator $R_n (X) = A_n^\textrm{local} V_n (X)$는 depthwise convolution (DWConv)으로 설명할 수 있다. 마지막으로 모든 head는 선형 행렬 $U$에 의해 연결 및 융합되며 pointwise convolution (PWConv)으로도 인스턴스화할 수 있다. 

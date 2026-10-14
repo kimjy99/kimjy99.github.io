@@ -72,7 +72,7 @@ $$
 ### 5. Inference
 디코딩 알고리즘도 LM과 diffusion 두 가지 모드 사이를 전환한다. LM 모드에서는 예측된 분포에서 토큰별로 샘플링하는 표준 관행을 따른다. BOI 토큰을 샘플링하면 디코딩 알고리즘이 diffusion 모드로 전환되고, 여기서는 diffusion model에서 디코딩하는 표준 절차를 따른다. 
 
-구체적으로, $n$개의 이미지 패치 형태로 순수 noise $x_T$를 입력 시퀀스에 추가하고 $T$ step에 걸쳐 noise를 제거한다. 각 timestep $t$에서 noise 예측을 사용하여 $x_{t−1}$을 생성한 다음 시퀀스에서 $x_t$를 덮어쓴다. 즉, 모델은 항상 noise가 적용된 이미지의 마지막 timestep을 조건으로 하며 이전 timestep에는 attention할 수 없다. 
+구체적으로, $n$개의 이미지 패치 형태로 순수 noise $x_T$를 입력 시퀀스에 추가하고 $T$ step에 걸쳐 noise를 제거한다. 각 timestep $t$에서 noise 예측을 사용하여 $x_{t-1}$을 생성한 다음 시퀀스에서 $x_t$를 덮어쓴다. 즉, 모델은 항상 noise가 적용된 이미지의 마지막 timestep을 조건으로 하며 이전 timestep에는 attention할 수 없다. 
 
 Diffusion process가 끝나면 예측된 이미지에 EOI 토큰을 추가하고 LM 모드로 다시 전환한다. 이 알고리즘을 사용하면 텍스트와 이미지 모달리티를 혼합하여 생성할 수 있다.
 

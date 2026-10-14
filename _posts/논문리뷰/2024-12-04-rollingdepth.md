@@ -64,7 +64,7 @@ Inference 시에 모델은 입력 $\textbf{x}^i$와 Gaussian noise $$\textbf{d}_
 Multi-frame depth estimator는 $n$ 프레임의 짧은 snippet에서 작동하며, 여기서 $n \ll N_F$이다. Snippet은 독립적으로 처리되므로 각각 고유한 scale과 shift가 있다. 이는 Marigold를 포함한 affine-invariant 방법의 경우 임의적이지만 실제로는 metric depth estimator를 사용하더라도 완벽하게 정렬되지 않는다. 이러한 모호성을 해결하기 위해 서로 다른 dilation rate를 가진 겹치는 snippet들을 구성한다. 서로 다른 snippet 간에 공유되는 프레임은 이후 모든 깊이 예측을 공통된 shift와 scale에 맞추는 데 사용된다.
 
 ##### Dilated Rolling Kernel
-Dilated rolling kernel을 사용하여 multi-scale snippet들을 구성한다. 예를 들어, dilation rate (프레임 간격) $g$와 stride $h$를 갖는 3프레임 snippet의 경우, kernel은 입력 동영상에서 프레임 $$(\textbf{x}^{i−g}, \textbf{x}^i, \textbf{x}^{i+g})$$를 선택한다. Dilation rate를 변경하여 다른 프레임 레이트로 snippet을 샘플링하여 다른 시간 스케일에서 시간적 의존성을 포착한다. 그런 다음 $n$개 프레임의 각 snippet에 대해 multi-frame LDM을 사용하여 깊이를 예측하여 $n$ 프레임의 깊이 snippet을 얻는다.
+Dilated rolling kernel을 사용하여 multi-scale snippet들을 구성한다. 예를 들어, dilation rate (프레임 간격) $g$와 stride $h$를 갖는 3프레임 snippet의 경우, kernel은 입력 동영상에서 프레임 $$(\textbf{x}^{i-g}, \textbf{x}^i, \textbf{x}^{i+g})$$를 선택한다. Dilation rate를 변경하여 다른 프레임 레이트로 snippet을 샘플링하여 다른 시간 스케일에서 시간적 의존성을 포착한다. 그런 다음 $n$개 프레임의 각 snippet에 대해 multi-frame LDM을 사용하여 깊이를 예측하여 $n$ 프레임의 깊이 snippet을 얻는다.
 
 ##### Depth Co-alignment
 이 단계에서 $N_T$개의 depth snippet들을 생성한다. 각각은 고유한 scale 및 shift 파라미터 $$\{(s_k, t_k), k \in 1 \ldots T\}$$를 가지고 있으며, 이는 snippet을 구성하는 프레임 사이에서 공유된다. 

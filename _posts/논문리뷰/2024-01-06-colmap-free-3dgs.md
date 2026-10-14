@@ -31,7 +31,7 @@ classes: wide
 
 저자들은 한 번에 모든 프레임을 최적화하는 대신, 카메라가 움직일 때 한 번에 한 프레임씩 성장하는 지속적인 방식으로 장면의 3D Gaussian을 구축하는 것을 제안하였다. 이 과정에서 각 프레임에 대한 local 3D Gaussian 집합을 추출하고 전체 장면의 global 3D 가우스 집합도 유지 관리한다. $$t = \{1, \cdots, T\}$$ 프레임들을 순차적으로 반복한다고 가정하면 매번 2단계 절차를 수행한다. 
 
-1. 주어진 프레임 $t − 1$에 대해 local 3D Gaussian 집합을 구성하고 다음 근처 프레임 $t$를 샘플링한다. 프레임 $t$의 픽셀을 렌더링하기 위해 프레임 $t-1$의 3D Gaussian을 변환할 수 있는 affine transformation을 배우는 것이 목표이다. 뉴럴 렌더링은 기본적으로 프레임 $t - 1$과 $t$ 사이의 relative pose인 affine transformation을 최적화하기 위한 gradient를 제공한다. 명시적 포인트 클라우드 표현을 사용하면 NeRF에서는 불가능했던 affine transformation을 직접 적용할 수 있고 두 프레임이 가까워(시간적 연속성) transformation이 상대적으로 작아지기 때문에 이 최적화는 어렵지 않다. 
+1. 주어진 프레임 $t - 1$에 대해 local 3D Gaussian 집합을 구성하고 다음 근처 프레임 $t$를 샘플링한다. 프레임 $t$의 픽셀을 렌더링하기 위해 프레임 $t-1$의 3D Gaussian을 변환할 수 있는 affine transformation을 배우는 것이 목표이다. 뉴럴 렌더링은 기본적으로 프레임 $t - 1$과 $t$ 사이의 relative pose인 affine transformation을 최적화하기 위한 gradient를 제공한다. 명시적 포인트 클라우드 표현을 사용하면 NeRF에서는 불가능했던 affine transformation을 직접 적용할 수 있고 두 프레임이 가까워(시간적 연속성) transformation이 상대적으로 작아지기 때문에 이 최적화는 어렵지 않다. 
 2. 프레임 $t-1$과 $t$ 사이의 relative pose를 얻으면 첫 번째 프레임과 프레임 $t$ 사이의 relative pose를 추론할 수 있다. 이를 통해 현재 프레임 정보를 global 3D Gaussian 집합으로 집계할 수 있으며, 여기서 현재 및 모든 이전 프레임과 카메라 포즈로 최적화를 수행한다. 
 
 ## Method

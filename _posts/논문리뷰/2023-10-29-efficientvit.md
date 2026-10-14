@@ -111,7 +111,7 @@ X_{ij}^\prime = X_{ij} + \tilde{X}_{i (j-1)}, \quad 1 < j \le h
 \end{equation}
 $$
 
-여기서 $X_{ij}^\prime$는 $j$번째 입력 split $X_{ij}$와 $(j−1)$번째 head의 출력 $$\tilde{X}_{i(j−1)}$$의 합이다. 이는 self-attention을 계산할 때 $j$번째 head에 대한 새로운 입력 feature 역할을 하기 위해 $X_{ij}$를 대체한다. 게다가 $Q$ projection 이후에 또 다른 토큰 상호 작용 레이어가 적용되어 self-attention이 로컬 관계와 글로벌 관계를 공동으로 포착하고 feature 표현을 더욱 향상시킬 수 있다.
+여기서 $X_{ij}^\prime$는 $j$번째 입력 split $X_{ij}$와 $(j-1)$번째 head의 출력 $$\tilde{X}_{i(j-1)}$$의 합이다. 이는 self-attention을 계산할 때 $j$번째 head에 대한 새로운 입력 feature 역할을 하기 위해 $X_{ij}$를 대체한다. 게다가 $Q$ projection 이후에 또 다른 토큰 상호 작용 레이어가 적용되어 self-attention이 로컬 관계와 글로벌 관계를 공동으로 포착하고 feature 표현을 더욱 향상시킬 수 있다.
 
 이러한 계단식 디자인에는 두 가지 장점이 있다. 
 

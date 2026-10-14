@@ -75,7 +75,7 @@ Semantic segmentation의 경우 예측 개수 $N$이 카테고리 레이블 개�
 
 $$
 \begin{equation}
-−p_i (c_j^\textrm{gt}) + \mathcal{L}_\textrm{mask} (m_i, m_j^\textrm{gt})
+-p_i (c_j^\textrm{gt}) + \mathcal{L}_\textrm{mask} (m_i, m_j^\textrm{gt})
 \end{equation}
 $$
 

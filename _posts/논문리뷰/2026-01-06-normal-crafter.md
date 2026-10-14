@@ -15,7 +15,7 @@ classes: wide
 > ICCV 2025. [[Paper](https://arxiv.org/abs/2504.11427)] [[Page](https://normalcrafter.github.io/)] [[Github](https://github.com/Binyr/NormalCrafter)]  
 > Yanrui Bin, Wenbo Hu, Haoyuan Wang, Xinya Chen, Bing Wang  
 > The Hong Kong Polytechnic University | Tencent PCG | City University of Hong Kong | Huazhong University of Science and Technology  
-> 1 Dec 2024  
+> 15 Apr 2025  
 
 <center><img src='{{"/assets/img/normal-crafter/normal-crafter-fig1.webp" | relative_url}}' width="100%"></center>
 
@@ -75,18 +75,18 @@ SVD는 원래 단일 입력 이미지에 대한 컨디셔닝을 위해 설계되
 
 따라서 본 논문에서는 [REPA](https://arxiv.org/abs/2410.06940)에서 영감을 받아, 학습 과정 전반에 걸쳐 robust한 semantic 표현을 사용하여 SVD feature의 semantic 모호성을 해결하는 **Semantic Feature Regularization (SFR)** 기법을 제안하였다. 이러한 정렬을 통해 diffusion model은 입력 프레임의 semantics에 집중하게 되어 더욱 정확하고 세밀한 normal map을 생성할 수 있다. 또한, SFR은 학습 과정에서만 오버헤드를 발생시키며, inference 과정에는 추가적인 비용 부담을 주지 않는다.
 
-구체적으로, 먼저 입력 동영상 프레임 $c$로부터 DINO feature는 $$h_\textrm{dino} = f(c) \in \mathbb{R}^{N \times D}$$를 추출한다. 그런 다음, diffusion model의 $l$번째 레이어에서 중간 feature는 $h_l$을 추출하고, 학습 가능한 MLP $h_\phi$를 사용하여 이를 DINO feature space로 projection한다. 마지막으로, 패치별 cosine similarity를 최대화하여 projection된 feature들을 DINO feature와 일치하도록 정규화한다.
+구체적으로, 먼저 입력 동영상 프레임 $c$로부터 DINO feature $$h_\textrm{dino} = f(c) \in \mathbb{R}^{N \times D}$$를 추출한다. 그런 다음, diffusion model의 $l$번째 레이어에서 중간 feature $h_l$을 추출하고, 학습 가능한 MLP $h_\phi$를 사용하여 이를 DINO feature space로 projection한다. 마지막으로, 패치별 cosine similarity를 최대화하여 projection된 feature들을 DINO feature와 일치하도록 정규화한다.
 
 $$
 \begin{equation}
-\mathcal{L}_\textrm{reg} = - \mathbb{E}_c \left[ \frac{1}{N} \sum_{p=1}^P \textrm{cossim}(h_\textrm{dino}^{[p]}, h_\phi (h_l^{[p]})) \right]
+\mathcal{L}_\textrm{reg} = - \mathbb{E}_c \left[ \frac{1}{P} \sum_{p=1}^P \textrm{cossim}(h_\textrm{dino}^{[p]}, h_\phi (h_l^{[p]})) \right]
 \end{equation}
 $$
 
-($p$은 패치 인덱스, $\textrm{cossim}$은 cosine similarity function)
+($p$는 패치 인덱스, $\textrm{cossim}$은 cosine similarity function)
 
 ### 3. Two-Stage Training Protocol
-Loss $$\mathcal{L}_\textrm{DSM} + \mathcal{L}_\textrm{reg}$$를 사용하여 latent space에서 NormalCrafter를 학습시키는 것은 가능하지만, [E2E-FT](https://kimjy99.github.io/논문리뷰/e2e)에서 강조된 바와 같이 정확도나 효율성 측면에서 최적의 결과를 얻지 못할 수 있다. 대신, 본 논문에서는 깊이 및 normal 추정을 위한 단일 end-to-end step에서 이미지 diffusion model을 fine-tuning하여 이미지 공간에서 pixel-wise loss를 직접 최적화함으로써 향상된 효율성과 함께 우수한 공간적 충실도를 달성하는 방법을 제안하였다. 그러나 이러한 접근 방식을 동영상 normal 추정에 확장하면 loss을 계산하기 위해 latent normal 시퀀스를 픽셀 공간으로 디코딩하는 데 VAE를 사용해야 하므로 메모리 요구량이 급격히 증가하며, 학습 클립의 길이가 크게 제한된다.
+Loss $$\mathcal{L}_\textrm{DSM} + \mathcal{L}_\textrm{reg}$$를 사용하여 latent space에서 NormalCrafter를 학습시키는 것은 가능하지만, [E2E-FT](https://kimjy99.github.io/논문리뷰/e2e)에서 강조된 바와 같이 정확도나 효율성 측면에서 최적의 결과를 얻지 못할 수 있다. 대신, E2E-FT는 깊이 및 normal 추정을 위한 단일 end-to-end step에서 이미지 diffusion model을 fine-tuning하여 이미지 공간에서 pixel-wise loss를 직접 최적화함으로써 향상된 효율성과 함께 우수한 공간적 충실도를 달성하는 방법을 제안하였다. 그러나 이러한 접근 방식을 동영상 normal 추정에 확장하면 loss를 계산하기 위해 latent normal 시퀀스를 픽셀 공간으로 디코딩하는 데 VAE를 사용해야 하므로 메모리 요구량이 급격히 증가하며, 학습 클립의 길이가 크게 제한된다.
 
 이를 위해, 본 논문에서는 긴 시간적 컨텍스트 모델링의 필요성과 높은 정밀도의 공간적 충실도를 효과적으로 균형 있게 조절하는 2단계 학습 프로토콜을 제안하였다. 먼저 $$\mathcal{L}_\textrm{DSM} + \mathcal{L}_\textrm{reg}$$를 사용하여 latent space에서 NormalCrafter를 학습시킨다. 이 단계에서 시퀀스 길이는 $[1, 14]$에서 무작위로 샘플링되므로 NormalCrafter는 다양한 동영상 길이에 유연하게 적응할 수 있다. 또한, 이러한 설정은 단일 프레임 및 다중 프레임 동영상 데이터셋 모두에서 학습을 용이하게 한다.
 
@@ -111,7 +111,7 @@ $$
     - VAE: learning rate = $1 \times 10^{-5}$, 2만 iteration
     - U-Net 1단계: learning rate = $3 \times 10^{-5}$, 2만 iteration
     - U-Net 2단계: learning rate = $1 \times 10^{-5}$, 1만 iteration
-  - optimizer: AdamW (100-step wrarm-up, exponential decay)
+  - optimizer: AdamW (100-step warm-up, exponential decay)
   - batch size: 8 (GPU당 1)
   - VAE fine-tuning에 1일, U-Net fine-tuning에 1.5일 소요
 

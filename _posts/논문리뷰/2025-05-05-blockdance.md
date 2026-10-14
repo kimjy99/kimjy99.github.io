@@ -77,7 +77,7 @@ DiT-XL/2, PixArt-α, Open-Sora를 포함한 다양한 DiT 모델에서 denoising
 <br>
 BlockDance-Ada는 강화 학습을 활용하여 미분 불가능한 이진 결정을 처리하여 denoising process의 각 단계가 cache step인지 reuse step인지 동적으로 판별한다. 총 $s$개의 denoising step에 대해 latent $$\textbf{z}_T \sim \mathcal{N}(0,I)$$와 프롬프트 $\textbf{p}$의 텍스트 임베딩 $\textbf{c} = \tau (\textbf{p})$가 주어지면 처음에는 $\rho$개의 cache step을 수행하여 중간 latent $$\textbf{z}_\rho$$를 얻는다. 
 
-State space는 $$\textbf{z}_\rho$$와 $\textbf{c}$로 정의되고, 의사결정 모델 내의 action은 나머지 $s − \rho$ step의 각 단계가 cache step인지 reuse step인지 판별하도록 정의된다. 파라미터가 $w$인 의사결정 네트워크 $f_d$는 feature 유사도 분포를 학습한 다음, 이를 벡터 $m \in \mathbb{R}^{(s−\rho)}$에 매핑한다.
+State space는 $$\textbf{z}_\rho$$와 $\textbf{c}$로 정의되고, 의사결정 모델 내의 action은 나머지 $s - \rho$ step의 각 단계가 cache step인지 reuse step인지 판별하도록 정의된다. 파라미터가 $w$인 의사결정 네트워크 $f_d$는 feature 유사도 분포를 학습한 다음, 이를 벡터 $m \in \mathbb{R}^{(s-\rho)}$에 매핑한다.
 
 $$
 \begin{equation}
@@ -85,7 +85,7 @@ $$
 \end{equation}
 $$
 
-여기서 $m$의 각 entry는 [0, 1] 범위 내에 있도록 정규화되어 cache step를 수행할 가능성을 나타낸다. 저자들은 다음과 같이 $(s − \rho)$차원 베르누이 분포를 갖는 reuse policy $\pi^f (\textbf{u} \vert \textbf{z}_\rho, \textbf{c})$를 정의하였다.
+여기서 $m$의 각 entry는 [0, 1] 범위 내에 있도록 정규화되어 cache step를 수행할 가능성을 나타낸다. 저자들은 다음과 같이 $(s - \rho)$차원 베르누이 분포를 갖는 reuse policy $\pi^f (\textbf{u} \vert \textbf{z}_\rho, \textbf{c})$를 정의하였다.
 
 $$
 \begin{equation}

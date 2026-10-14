@@ -61,7 +61,7 @@ X_l = \textrm{softmax} (Q_l K_l^\top) V_l + X_{l-1}
 \end{equation}
 $$
 
-를 계산한다. 여기서 $l$은 레이어 인덱스이고, $X_l \in \mathbb{R}^{N \times C}$는 $l$번째 레이어의 $N$개의 $C$차원 query feature를 의미하며, $Q_l = f_Q (X_{l−1}) \in \mathbb{R}^{N \times C}$이다. $X_0$는 Transformer 디코더에 대한 입력 query feature를 나타낸다. $K_l, V_l \in \mathbb{R}^{H_l W_l \times C}$는 각각 $f_K (\cdot)$과 $f_V (\cdot)$로 변환된 이미지 feature이고, $H_l$과 $W_l$은 이미지 feature의 공간 해상도이다. $f_Q$, $f_K$, $f_V$는 선형 변환이다.
+를 계산한다. 여기서 $l$은 레이어 인덱스이고, $X_l \in \mathbb{R}^{N \times C}$는 $l$번째 레이어의 $N$개의 $C$차원 query feature를 의미하며, $Q_l = f_Q (X_{l-1}) \in \mathbb{R}^{N \times C}$이다. $X_0$는 Transformer 디코더에 대한 입력 query feature를 나타낸다. $K_l, V_l \in \mathbb{R}^{H_l W_l \times C}$는 각각 $f_K (\cdot)$과 $f_V (\cdot)$로 변환된 이미지 feature이고, $H_l$과 $W_l$은 이미지 feature의 공간 해상도이다. $f_Q$, $f_K$, $f_V$는 선형 변환이다.
 
 Masked attention은 다음과 같이 attention 행렬을 변조한다.
 
@@ -82,7 +82,7 @@ $$
 \end{equation}
 $$
 
-여기서, $$M_{l−1} \in \{0, 1\}^{N \times H_l W_l}$$은 이전 $(l − 1)$번째 Transformer 디코더 레이어의 resize된 마스크 예측의 이진화된 출력 (임계값 0.5)이다. $K_l$과 동일한 해상도로 resize된다. $M_0$은 $X_0$에서 얻은 이진 마스크 예측이다. 즉, query feature를 Transformer 디코더에 공급하기 전이다.
+여기서, $$M_{l-1} \in \{0, 1\}^{N \times H_l W_l}$$은 이전 $(l - 1)$번째 Transformer 디코더 레이어의 resize된 마스크 예측의 이진화된 출력 (임계값 0.5)이다. $K_l$과 동일한 해상도로 resize된다. $M_0$은 $X_0$에서 얻은 이진 마스크 예측이다. 즉, query feature를 Transformer 디코더에 공급하기 전이다.
 
 #### 2.2 High-resolution features
 고해상도 feature는 특히 작은 객체의 경우 모델 성능을 향상시킨다. 그러나 이는 계산적으로 까다롭다. 따라서 계산량 증가를 제어하면서 고해상도 feature를 도입하기 위한 효율적인 멀티스케일 전략을 제안한다. 항상 고해상도 feature map을 사용하는 대신 저해상도 feature와 고해상도 feature로 구성된 feature pyramid를 활용하고 멀티스케일 feature의 해상도를 한 번에 하나의 Transformer 디코더 레이어에 공급한다.

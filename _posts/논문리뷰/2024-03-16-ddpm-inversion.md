@@ -103,7 +103,7 @@ x_t = \sqrt{\vphantom{1} \bar{\alpha}_t} x_0 + \sqrt{1 - \bar{\alpha}_t} \tilde{
 \end{equation}
 $$
 
-여기서 $$\tilde{\epsilon}_t \sim \mathcal{N}(0,\textbf{I})$$는 통계적으로 독립적이다. 이 식과 diffusion process 사이의 표면적인 유사성에도 불구하고 둘은 근본적으로 다른 확률론적 프로세스를 설명한다. Diffusion process에서 연속적인 $\epsilon_t$의 모든 쌍은 높은 상관관계를 갖고 있는 반면, 위 식에서 $$\tilde{\epsilon}_t$$는 독립적이다. 이는 제안된 구성에서 $x_t$와 $x_{t−1}$이 일반적으로 diffusion process보다 서로 더 멀리 떨어져 있으므로 추출된 모든 $z_t$가 일반 생성 프로세스보다 더 높은 분산을 가질 것으로 예상됨을 의미한다. 이 방법의 pseudo-code는 Algorithm 1에 요약되어 있다.
+여기서 $$\tilde{\epsilon}_t \sim \mathcal{N}(0,\textbf{I})$$는 통계적으로 독립적이다. 이 식과 diffusion process 사이의 표면적인 유사성에도 불구하고 둘은 근본적으로 다른 확률론적 프로세스를 설명한다. Diffusion process에서 연속적인 $\epsilon_t$의 모든 쌍은 높은 상관관계를 갖고 있는 반면, 위 식에서 $$\tilde{\epsilon}_t$$는 독립적이다. 이는 제안된 구성에서 $x_t$와 $x_{t-1}$이 일반적으로 diffusion process보다 서로 더 멀리 떨어져 있으므로 추출된 모든 $z_t$가 일반 생성 프로세스보다 더 높은 분산을 가질 것으로 예상됨을 의미한다. 이 방법의 pseudo-code는 Algorithm 1에 요약되어 있다.
 
 <center><img src='{{"/assets/img/ddpm-inversion/ddpm-inversion-algo1.webp" | relative_url}}' width="48%"></center>
 <br>
@@ -122,7 +122,7 @@ $$
 
 <center><img src='{{"/assets/img/ddpm-inversion/ddpm-inversion-fig6.webp" | relative_url}}' width="75%"></center>
 <br>
-이미지 생성을 위한 diffusion model에서도 동일한 정성적 동작이 발생한다. 위 그림은 Imagenet에서 학습된 unconditional diffusion model의 100 step 샘플링에 대한 $z_t$의 픽셀당 분산과 $z_t$와 $z_{t−1}$ 사이의 상관 관계를 보여준다. 여기서 통계는 모델에서 가져온 10개의 이미지에 대해 계산되었다. 2D 예시와 마찬가지로 noise 벡터의 분산이 더 높으며 연속되는 step 간에 음의 상관 관계를 나타낸다. 이러한 속성은 noise 벡터를 더욱 편집하기 쉽게 만든다. 
+이미지 생성을 위한 diffusion model에서도 동일한 정성적 동작이 발생한다. 위 그림은 Imagenet에서 학습된 unconditional diffusion model의 100 step 샘플링에 대한 $z_t$의 픽셀당 분산과 $z_t$와 $z_{t-1}$ 사이의 상관 관계를 보여준다. 여기서 통계는 모델에서 가져온 10개의 이미지에 대해 계산되었다. 2D 예시와 마찬가지로 noise 벡터의 분산이 더 높으며 연속되는 step 간에 음의 상관 관계를 나타낸다. 이러한 속성은 noise 벡터를 더욱 편집하기 쉽게 만든다. 
 
 #### Image shifting
 <center><img src='{{"/assets/img/ddpm-inversion/ddpm-inversion-fig7.webp" | relative_url}}' width="90%"></center>
