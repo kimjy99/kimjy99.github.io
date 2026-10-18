@@ -122,7 +122,7 @@ $$
 \end{equation}
 $$
 
-이 likelihood의 gradient는 두 개의 개별 gradient의 합의 기대값으로 계산할 수 있다. 하나는 tokenization 전략에 따라 컨디셔닝된 표준 next-token cross-entropy loss이고, 다른 하나는 tokenization 전략 $$\pi_\theta$$에 REINFORCE를 적용한 것으로 해석할 수 있는 보정 항이다. 이 보정 항은 next-token cross-entropy를 reward로 한다.
+이 likelihood의 gradient는 두 개의 개별 gradient의 합의 기대값으로 계산할 수 있다. 하나는 tokenization 전략에 따라 컨디셔닝된 표준 next-token cross-entropy loss가고, 다른 하나는 tokenization 전략 $$\pi_\theta$$에 REINFORCE를 적용한 것으로 해석할 수 있는 보정 항이다. 이 보정 항은 next-token cross-entropy를 reward로 한다.
 
 $$
 \begin{aligned}

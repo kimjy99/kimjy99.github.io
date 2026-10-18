@@ -31,7 +31,7 @@ classes: wide
 영역 feature의 디테일 손실을 해결하기 위해, 본 논문은 영역적 디테일과 글로벌 컨텍스트를 모두 보존하는 **Describe Anything Model (DAM)**을 제안하였다. DAM은 두 가지 핵심 구성 요소를 통해 복잡한 장면 속 작은 물체에 대해서도 상세하고 정확한 캡션을 생성할 수 있다.
 
 1. **Focal Prompt**: 관심 영역을 dense한 토큰으로 인코딩
-2. **Localized Vision Backbone** 글로벌 컨텍스트를 통합하면서 정확한 위치 추정을 보장
+2. **Localized Vision Backbone**: 글로벌 컨텍스트를 통합하면서 정확한 위치 추정을 보장
 
 저자들은 고품질 DLC 데이터셋의 부족을 극복하기 위해, semi-supervised learning (SSL) 기반 데이터 파이프라인인 **DLC-SDP**를 도입하여 두 단계로 고품질 캡션을 생성하였다. 
 
@@ -44,7 +44,7 @@ LLM은 설명을 여러 세부 단위로 요약하여 고품질 캡션이 포함
 
 ## DAM: Describe Anything Model
 ### 1. Task Formulation
-DLC task는 이미지나 동영상 내의 특정 영역에만 초점을 맞춘 포괄적인 텍스트 설명을 생성하는 것이 목표이다. 구체적으로, $N$개의 입력 프레임 $I(i) \in \mathbb{R}^{H \times W \times 3}$외 각 프레임의 관심 영역을 나타내는 해당 바이너리 마스크 $$M(i) \in \{0, 1\}^{H \times W}$$가 주어졌을 때, 캡션 생성 모델을 통해 해당 영역 내 콘텐츠에 대한 상세 설명 $T$를 생성하는 것이 목표이다.
+DLC task는 이미지나 동영상 내의 특정 영역에만 초점을 맞춘 포괄적인 텍스트 설명을 생성하는 것이 목표이다. 구체적으로, $N$개의 입력 프레임 $I^{(i)} \in \mathbb{R}^{H \times W \times 3}$와 각 프레임의 관심 영역을 나타내는 해당 바이너리 마스크 $$M^{(i)} \in \{0, 1\}^{H \times W}$$가 주어졌을 때, 캡션 생성 모델을 통해 해당 영역 내 콘텐츠에 대한 상세 설명 $T$를 생성하는 것이 목표이다.
 
 $$
 \begin{equation}
@@ -52,7 +52,7 @@ T = \textrm{CaptioningModel} (\{ I^{(i)}, M^{(i)} \}_{i=1}^N)
 \end{equation}
 $$
 
-다른 형태의 localization은 [SAM](https://kimjy99.github.io/논문리뷰/segment-anything)이나 [SAM 2](https://kimjy99.github.io/논문리뷰/segment-anything-2)와 같은 segmentation model을 통해 마스크로 변환될 수 있으므로, 바이너리 마스크 $M(i)$를 localization 입력으로 사용하는 데 중점을 두었다. 
+다른 형태의 localization은 [SAM](https://kimjy99.github.io/논문리뷰/segment-anything)이나 [SAM 2](https://kimjy99.github.io/논문리뷰/segment-anything-2)와 같은 segmentation model을 통해 마스크로 변환될 수 있으므로, 바이너리 마스크 $M^{(i)}$를 localization 입력으로 사용하는 데 중점을 두었다. 
 
 ### 2. Model Architecture
 <center><img src='{{"/assets/img/describe-anything/describe-anything-fig3.webp" | relative_url}}' width="53%"></center>

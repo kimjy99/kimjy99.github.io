@@ -79,7 +79,7 @@ $$
 \end{equation}
 $$
 
-여기서 $$\mathcal{L}_\textrm{mask}$$는 이진 마스크 loss이다.
+여기서 $$\mathcal{L}_\textrm{mask}$$는 이진 마스크 loss가다.
 
 주어진 매칭으로 모델 파라미터를 학습하기 위해 기본 마스크 분류 loss $$\mathcal{L}_\textrm{mask-cls}$$는 각 예측 세그먼트에 대한 cross-entropy loss와 이진 마스크 loss $$\mathcal{L}_\textrm{mask}$$로 구성된다. 
 

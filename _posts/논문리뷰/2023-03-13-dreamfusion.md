@@ -29,7 +29,7 @@ Neural Radiance Fields (NeRF)는 volumetric raytracer가 공간 좌표에서 색
 
 많은 3D 생성 접근 방식은 NeRF와 같은 모델을 더 큰 생성 시스템 내의 구성 요소로 통합하는 데 성공했다. 이러한 접근 방식 중 하나는 Dream Fields로, CLIP의 고정 이미지-텍스트 결합 임베딩 모델과 최적화 기반 접근 방식을 사용하여 NeRF를 학습시킨다. 이 연구는 사전 학습된 2D 이미지-텍스트 모델이 3D 합성에 사용될 수 있음을 보여주었지만, 이 접근 방식으로 생성된 3D 개체는 현실감과 정확성이 부족한 경향이 있다. CLIP은 voxel grid 및 mesh를 기반으로 하는 다른 접근 방식을 guide하는 데 사용되었다. 
 
-본 논문은 Dream Fields와 유사한 접근 방식을 채택하지만 CLIP을 2D diffusion model의 distillation에서 파생된 loss로 대체한다. 본 논문의 loss는 확률 밀도 distillation를 기반으로 하며, diffusion의 forward process를 기반의 공유된 평균을 가지는 가우시안 분포 계열과 사전 학습된 diffusion model에서 학습한 score function 사이의 KL divergence를 최소화한다. Score Distillation Sampling (SDS) 방법은 미분 가능한 이미지 parameterization에서의 최적화를 통해 샘플링이 가능하다. 이 3D 생성 task에 맞게 조정된 NeRF와 SDS를 결합함으로써 DreamFusion은 다양한 텍스트 프롬프트에 대해 fidelity가 높은 일관된 3D 개체 및 scene을 생성한다.
+본 논문은 Dream Fields와 유사한 접근 방식을 채택하지만 CLIP을 2D diffusion model의 distillation에서 파생된 loss로 대체한다. 본 논문의 loss는 확률 밀도 distillation을 기반으로 하며, diffusion의 forward process를 기반의 공유된 평균을 가지는 가우시안 분포 계열과 사전 학습된 diffusion model에서 학습한 score function 사이의 KL divergence를 최소화한다. Score Distillation Sampling (SDS) 방법은 미분 가능한 이미지 parameterization에서의 최적화를 통해 샘플링이 가능하다. 이 3D 생성 task에 맞게 조정된 NeRF와 SDS를 결합함으로써 DreamFusion은 다양한 텍스트 프롬프트에 대해 fidelity가 높은 일관된 3D 개체 및 scene을 생성한다.
 
 ## Diffusion Models and Score Distillation Sampling
 Diffusion model은 tractable한 noise 분포에서 데이터 분포로 점진적으로 샘플을 변환하도록 학습된 모델이다. Diffusion model은 noise를 더해 데이터 $x$에서 천천히 구조를 제거하는 forward process $q$와 noise $z_t$에 천천히 구조를 더하는 reverse process로 구성된다. Forward process는 일반적으로 timestep $t$의 덜 noisy한 latent에서 $t+1$의 더 noisy한 latent로의 transition인 가우시안 분포이다. 데이터 $x$가 주어지면 latent의 주변 분포는 중간 timestep을 적분하여 구할 수 있다. 

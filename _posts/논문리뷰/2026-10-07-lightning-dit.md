@@ -77,7 +77,7 @@ $$
 각 쌍 $(i, j)$에 대해 대응하는 벡터 간 코사인 유사도 차이의 절댓값을 계산함으로써, 이들 상대적 구조가 더 밀접하게 정렬되도록 유도한다.
 
 ### 3. Adaptive Weighting
-원래의 재구성 loss와 KL loss는 모두 sum loss이므로 VF loss는 완전히 다른 스케일에 위치하게 되어 안정적인 학습을 위한 가중치 조정이 어렵다. 따라서 저자들은 적응형 가중치 메커니즘을 도입했다. Backpropagation 전에 다음과 같이 인코더의 마지막 convolutional layer에서 $$L_\textrm{vf}$$와 $$L_\textrm{rec}$$의 gradient를 계산한다. 적응형 가중치는 이 두 gradient의 비율로 설정하여 $$L_\textrm{vf}$$와 $$L_\textrm{rec}$$가 모델 최적화에 유사한 영향을 미치도록 한다.
+원래의 재구성 loss와 KL loss는 모두 sum loss가므로 VF loss는 완전히 다른 스케일에 위치하게 되어 안정적인 학습을 위한 가중치 조정이 어렵다. 따라서 저자들은 적응형 가중치 메커니즘을 도입했다. Backpropagation 전에 다음과 같이 인코더의 마지막 convolutional layer에서 $$L_\textrm{vf}$$와 $$L_\textrm{rec}$$의 gradient를 계산한다. 적응형 가중치는 이 두 gradient의 비율로 설정하여 $$L_\textrm{vf}$$와 $$L_\textrm{rec}$$가 모델 최적화에 유사한 영향을 미치도록 한다.
 
 $$
 \begin{equation}

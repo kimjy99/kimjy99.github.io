@@ -84,7 +84,7 @@ $$
 ($l \in \mathbb{R}^{(n+1)^2}$은 $$L_i (\omega_i)$$의 SH 계수, $d \in \mathbb{R}^{(n+1)^2}$은 $$D (x, \omega_i)$$의 SH 계수)
 
 ### 2. LumiGauss
-LumiGauss는 야외에서 촬영한 $c \le C$개의 이미지 $$\{\mathcal{I}_c\}_{c=1}^C$$과 연관된 카메라 $$\{\mathcal{C}_c\}_{c=1}^C$$서 2D Gaussian을 사용하여 relighting 가능한 모델의 3D 표현을 생성한다. 본 논문의 목표는 rasterization 후 해당 이미지를 재생성하는 Gaussian 파라미터
+LumiGauss는 야외에서 촬영한 $C$개의 이미지 $$\{\mathcal{I}_c\}_{c=1}^C$$과 연관된 카메라 $$\{\mathcal{C}_c\}_{c=1}^C$$에서 2D Gaussian을 사용하여 relighting 가능한 모델의 3D 표현을 생성한다. 본 논문의 목표는 rasterization 후 해당 이미지를 재생성하는 Gaussian 파라미터
 
 $$
 \begin{equation}
@@ -100,7 +100,7 @@ $$
 \end{equation}
 $$
 
-($$\mathcal{E} = \{e_c\}_{c=1}^C$$)는 학습 가능한 environment embedding, $$\ell_\textrm{rgb}$$은 reconstruction loss, $\mathcal{S}$는 렌더링 함수, $\mathcal{R}$은 정규화 항)
+($$\mathcal{E} = \{e_c\}_{c=1}^C$$는 학습 가능한 environment embedding, $$\ell_\textrm{rgb}$$은 reconstruction loss, $\mathcal{S}$는 렌더링 함수, $\mathcal{R}$은 정규화 항)
 
 [2DGS](https://arxiv.org/abs/2403.17888)와 대조적으로 각 Gaussian에 대해 기본 색상 $\rho$를 diffuse로 모델링하고 radiance transfer function $d$에 대해 SH 계수를 도입한다. 2DGS는 relighting을 가능하게 하는 부드러운 normal을 제공한다.
 
@@ -116,7 +116,7 @@ $$
 예측된 조명은 렌더링 프로세스에서 두 가지 방식, 즉 unshadowed와 shadowed 중 하나로 사용된다. 
 
 ##### Unshadowed model
-그림자가 없는 시나리오의 경우, 우리는 표면 normal 방향으로 반구에 걸쳐 빛을 적분한다. Normal $n_k$와 조명 파라미터 $l_c$가 주어진 각 Gaussian $G_k$에 대한 색상 $c_k$는 다음과 같다.
+그림자가 없는 시나리오의 경우, 표면 normal 방향으로 반구에 걸쳐 빛을 적분한다. Normal $n_k$와 조명 파라미터 $l_c$가 주어진 각 Gaussian $G_k$에 대한 색상 $c_k$는 다음과 같다.
 
 $$
 \begin{equation}
@@ -129,7 +129,7 @@ $$
 이 간단하면서도 효과적인 모델은 이미 모델에 relighting 기능을 부여한다. 그러나 그림자를 올바르게 포착하지 못해 출력의 충실도가 제한된다.
 
 ##### Shadowed model
-모델에서 그림자를 효과적으로 포착하기 위해 Gaussian의 출력 색상을 $$\tilde{c}_k$$ c˜k로 재정의한다. 
+모델에서 그림자를 효과적으로 포착하기 위해 Gaussian의 출력 색상을 $$\tilde{c}_k$$로 재정의한다. 
 
 $$
 \begin{equation}
@@ -183,7 +183,7 @@ $$
 
 $$
 \begin{equation}
-\mathcal{R} (\mathcal{G}) = \lambda_1 \ell_{1-0} + \lambda_2 \ell_{+} + \lambda_3 \ell_{◐ \leftrightarrow ⭘} + \lambda_4 \ell_{◐}
+\mathcal{R} (\mathcal{G}) = \lambda_1 \ell_{0-1} + \lambda_2 \ell_{+} + \lambda_3 \ell_{◐ \leftrightarrow ⭘} + \lambda_4 \ell_{◐}
 \end{equation}
 $$
 
@@ -192,7 +192,7 @@ $$
 
 $$
 \begin{equation}
-\ell_\textrm{rgb} = \lambda_\textrm{rec} (◐) \ell_\textrm{rec} (⭘) + \lambda_\textrm{rec} (◐) \ell_\textrm{rec} (⭘) \\
+\ell_\textrm{rgb} = \lambda_\textrm{rec} (◐) \ell_\textrm{rec} (◐) + \lambda_\textrm{rec} (⭘) \ell_\textrm{rec} (⭘) \\
 \textrm{where} \; \ell_\textrm{rec} (\{◐,⭘\}) = \ell_1 (\{◐,⭘\}) + \lambda \ell_\textrm{D-SSIM} (\{◐,⭘\})
 \end{equation}
 $$
@@ -202,9 +202,7 @@ $$
 더 복잡한 shadowed model을 처음부터 학습시키면 local minima에 도달하므로, $$\lambda_\textrm{rec} (◐) = 0.0$$와 $$\lambda_\textrm{rec} (⭘) = 1.0$$으로 학습을 시작하여 unshadowed model만 학습시킨다. Unshadowed model이 수렴하면, $$\lambda_\textrm{rec} (◐) = 1.0$$으로 $$\lambda_\textrm{rec} (⭘)$$를 작은 값으로 전환하여 shadowed model이 unshadowed model로 설명할 수 없는 이미지의 그림자 부분을 설명하도록 한다.
 
 ## Experiments
-- 데이터셋: Shiny Blender, Glossy Synthetic, Ref-Real
-
-### 1. Scene reconstruction and relightning
+### 1. Scene reconstruction and relighting
 다음은 장면 재구성 및 relighting 예시들이다. 
 
 <center><img src='{{"/assets/img/lumigauss/lumigauss-fig4.webp" | relative_url}}' width="100%"></center>

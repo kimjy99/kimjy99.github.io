@@ -39,7 +39,7 @@ Prompt Depth Anything은 모든 데이터셋과 metric에서 지속적으로 SOT
 <br>
 본 논문은 저비용 LiDAR의 저해상도 및 노이즈가 있는 depth map을 프롬프트로 DPT 기반 depth foundation model에 통합하기 위해 간결한 프롬프트 융합 아키텍처를 제안하였다. 프롬프트 융합 아키텍처는 DPT 디코더 내에서 여러 스케일의 저해상도 깊이 정보를 통합한다. 
 
-구체적으로, DPT 디코더의 각 스케일 $S_i$에 대해 저해상도 depth map $$\textbf{L} \in \mathbb{R}^{1 \times H_L \times W_L}$$을 먼저 bilinear interpolation하여 현재 scale의 차원 $\mathbb{R}^{1 \times H_i \times W_i}$과 일치시킨다. 그런 다음 resize된 depth map을 얕은 ConvNet에 전달하여 depth feature를 추출한다. 추출된 feature는 0으로 초기화된 convolutional layer를 사용하여 이미지 feature의 차원인 $F_i \in \mathbb{R}^{C_i \times H_i \times W_i}$로 projection된다. 마지막으로, depth feature들을 DPT 중간 feature들에 더해져 깊이 디코딩을 수행한다. 
+구체적으로, DPT 디코더의 각 스케일 $S_i$에 대해 저해상도 depth map $$\textbf{L} \in \mathbb{R}^{1 \times H_L \times W_L}$$을 먼저 bilinear interpolation하여 현재 scale의 차원 $\mathbb{R}^{1 \times H_i \times W_i}$과 일치시킨다. 그런 다음 resize된 depth map을 얕은 ConvNet에 전달하여 depth feature를 추출한다. 추출된 feature는 0으로 초기화된 convolutional layer를 사용하여 이미지 feature의 차원인 $F_i \in \mathbb{R}^{C_i \times H_i \times W_i}$로 projection된다. 마지막으로, depth feature들이 DPT 중간 feature들에 더해져 깊이 디코딩을 수행한다. 
 
 제안된 디자인은 다음과 같은 장점을 가지고 있다. 
 
@@ -68,7 +68,7 @@ LiDAR depth map은 해상도가 낮고 노이즈가 많다. 이를 시뮬레이�
 저자들은 노이즈를 시뮬레이션하기 위해 sparse anchor interpolation을 도입하였다. 구체적으로, 먼저 GT depth map을 저해상도(192$\times$256, iPhone ARKit Depth의 해상도)로 다운샘플링한다. 그런 다음, stride가 7인 왜곡된 그리드를 사용하여 이 depth map의 점들을 샘플링한다. 나머지 깊이 값은 KNN을 이용한 RGB 유사도를 사용하여 이 점들로부터 interpolation된다. 이 방법은 LiDAR 노이즈를 효과적으로 시뮬레이션하고 더 나은 깊이 예측을 가능하게 한다.
 
 ##### 실제 데이터: Pseudo GT depth 생성
-저자들은 실제 데이터도 학습 데이터에 추가하였다. ScanNet++의 주석이 달린 깊이 정보는 고출력 LiDAR 센서로 스캔한 메쉬를 기반으로 다시 렌더링된다. 장면에 많은 occlusion이 존재하기 때문에, 여러 스캔 위치로 인해 스캔된 메시가 불완전하게 생성되어, 수많은 구멍과 낮은 edge 품질을 가진 depth map이 생성되었다. 
+저자들은 실제 데이터도 학습 데이터에 추가하였다. ScanNet++의 주석이 달린 깊이 정보는 고출력 LiDAR 센서로 스캔한 메쉬를 기반으로 다시 렌더링된다. 장면에 많은 occlusion이 존재하기 때문에, 여러 스캔 위치로 인해 스캔된 메쉬가 불완전하게 생성되어, 수많은 구멍과 낮은 edge 품질을 가진 depth map이 생성되었다. 
 
 저자들은 [Zip-NeRF](https://arxiv.org/abs/2304.06706)를 사용하여 고품질 depth map을 복원하는 방법을 제안하였다. 구체적으로, ScanNet++에서 각 장면에 대해 Zip-NeRF를 학습시키고 pseudo GT depth 정보를 다시 렌더링한다. Zip-NeRF에 고품질의 dense한 관측값을 제공하기 위해, Scannet++ iPhone 동영상에서 흐릿하지 않은 프레임을 검출하고, DSLR 동영상을 활용하여 고품질의 dense-view 이미지를 제공하였다.
 

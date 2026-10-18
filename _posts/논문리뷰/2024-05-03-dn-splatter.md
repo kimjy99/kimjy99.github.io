@@ -115,7 +115,7 @@ $$
 \end{equation}
 $$
 
-$$\mathcal{L}_\textrm{rgb}$$는 3DGS에서 사용하는 photometric loss이고, 각 가중치는 $\lambda_\textrm{depth} = 0.2$, $\lambda_\textrm{smooth} = 0.5$, $\lambda_\textrm{normal} = 0.1$이다. 
+$$\mathcal{L}_\textrm{rgb}$$는 3DGS에서 사용하는 photometric loss가고, 각 가중치는 $\lambda_\textrm{depth} = 0.2$, $\lambda_\textrm{smooth} = 0.5$, $\lambda_\textrm{normal} = 0.1$이다. 
 
 ### 4. Meshing
 최적화 후 Poisson reconstruction을 적용하여 메쉬를 추출한다. 깊이 정규화의 맥락에서 이미 Gaussian의 위치가 장면 표면을 따라 잘 분산되고 정렬되도록 강제했기 때문에 학습 뷰에서 렌더링된 depth map과 normal map을 직접 back-projection하여 메쉬를 만들기 위한 포인트들을 선택한다. 

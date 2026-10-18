@@ -153,7 +153,7 @@ $$
 
 첫번째 항은 Diffusion-LM으로 parametrize되고 두번재 항은 신경망 classifier로 parametrize된다. 
 
-이미지에서의 연구와 유사하게 diffusion latent variable에 대한 classifier를 학습시키고 latent space $x_{t-1}$에서 기울기 업데이트를 하여 제어를 충족하도록 조정한다. 이미지 diffusion 연구에서는 diffusion step당 $\nabla_{x_{t-1}} \log p(c \vert x_{t-1})$ 방향으로 기울기 step을 한 번 취한다. 저자들은 텍스트의 성능을 개선하고 디코딩 속도를 높이기 위해 fluency regularization와 multiple gradient step이라는 두 가지 주요 수정 사항을 도입했다. 
+이미지에서의 연구와 유사하게 diffusion latent variable에 대한 classifier를 학습시키고 latent space $x_{t-1}$에서 기울기 업데이트를 하여 제어를 충족하도록 조정한다. 이미지 diffusion 연구에서는 diffusion step당 $\nabla_{x_{t-1}} \log p(c \vert x_{t-1})$ 방향으로 기울기 step을 한 번 취한다. 저자들은 텍스트의 성능을 개선하고 디코딩 속도를 높이기 위해 fluency regularization과 multiple gradient step이라는 두 가지 주요 수정 사항을 도입했다. 
 
 유창한 텍스트를 생성하기 위해 저자들은 fluency regularization을 사용하여 제어 목적 함수에 기울기 업데이트를 실행한다
 

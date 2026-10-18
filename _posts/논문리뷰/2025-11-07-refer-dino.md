@@ -61,7 +61,7 @@ $T$ 프레임의 동영상과 언어 query가 주어졌을 때, 모델의 전체
 ### 1. Grounding-guided Deformable Mask Decoder
 이 디코더는 object feature를 입력으로 받아 각 프레임에 대해 픽셀 단위 예측을 생성한다. 단순히 원래 box head에 mask head를 병렬로 추가하는 대신, 마스크 디코더는 박스 및 마스크 예측을 **grounding-deformation-segmentation** 파이프라인으로 구성한다. Box 예측을 위치 정보로 활용하여 마스크 예측을 반복적으로 향상시키고, 텍스트 프롬프트를 통합하여 더욱 정교하게 개선한다. 이 과정은 미분 가능하므로 마스크 학습이 box head로 피드백된다.
 
-임의의 object feature를 $\tilde{\textbf{o}}$라 하자. 마스크 디코더에 앞서, o˜를 box head에 입력하여 bounding box $\textbf{b} \in \mathbb{R}^4$를 예측한다. 여기서 $$\textbf{b} = \{b_x, b_y, b_w, b_h\}$$는 정규화된 박스 중심 좌표, 박스 높이와 너비를 인코딩한다. 한편, $$\textbf{F}_\textrm{img}$$에  feature pyramid network(FPN)를 적용하여 고해상도 feature map $$\textbf{F}_\textrm{seg} \in \mathbb{R}^{\frac{H}{4} \times \frac{W}{4} \times d}$$를 생성한다.
+임의의 object feature를 $\tilde{\textbf{o}}$라 하자. 마스크 디코더에 앞서, $\tilde{\textbf{o}}$를 box head에 입력하여 bounding box $\textbf{b} \in \mathbb{R}^4$를 예측한다. 여기서 $$\textbf{b} = \{b_x, b_y, b_w, b_h\}$$는 정규화된 박스 중심 좌표, 박스 너비와 높이를 인코딩한다. 한편, $$\textbf{F}_\textrm{img}$$에 feature pyramid network (FPN)를 적용하여 고해상도 feature map $$\textbf{F}_\textrm{seg} \in \mathbb{R}^{\frac{H}{4} \times \frac{W}{4} \times d}$$를 생성한다.
 
 그런 다음, 이러한 feature와 박스 예측을 object 정제 및 마스크 생성을 위해 마스크 디코더에 입력한다. 마스크 디코더는 $L_m$개의 block으로 구성되며, 각 block은 deformable cross-attention과 cross-modal attention으로 구성된다. 이미지 feature map(메모리)에 attention을 적용할 때, deformable cross-attention은 레퍼런스 포인트 주변의 작은 샘플링 포인트 집합을 적응적으로 샘플링하여 feature를 집계한다. MLP를 통해 레퍼런스 포인트를 생성하는 일반적인 deformable cross-attention과 달리, 예측된 박스 중심 $$\{b_x, b_y\}$$를 레퍼런스 포인트로 직접 사용한다.
 
@@ -162,7 +162,7 @@ $$
 \end{equation}
 $$
 
-이 매칭 비용은 개별 프레임에서 계산되고 프레임 수로 정규화된다. $$\lambda_\textrm{cls}$$는 binary classification 예측에 대한 focal loss이다. $$\mathcal{L}_\textrm{box}$$는 L1 loss와 GIoU loss의 합이다. $$\mathcal{L}_\textrm{mask}$$는 DICE loss, binary mask focal loss, projection loss의 조합이다. 이 모델은 positive 시퀀스의 총 loss $$\mathcal{L}_\textrm{total}$$을 최소화하고 negative 시퀀스의 $$\lambda_\textrm{cls}$$만 최소화하여 end-to-end로 최적화된다.
+이 매칭 비용은 개별 프레임에서 계산되고 프레임 수로 정규화된다. $$\mathcal{L}_\textrm{cls}$$는 binary classification 예측에 대한 focal loss이다. $$\mathcal{L}_\textrm{box}$$는 L1 loss와 GIoU loss의 합이다. $$\mathcal{L}_\textrm{mask}$$는 DICE loss, binary mask focal loss, projection loss의 조합이다. 이 모델은 positive 시퀀스의 총 loss $$\mathcal{L}_\textrm{total}$$을 최소화하고 negative 시퀀스의 $$\mathcal{L}_\textrm{cls}$$만 최소화하여 end-to-end로 최적화된다.
 
 ##### Inference
 Inference 단계에서는 다음과 같이 가장 높은 평균 classification 점수를 가진 최상의 시퀀스를 선택한다.

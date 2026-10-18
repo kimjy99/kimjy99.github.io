@@ -134,7 +134,7 @@ $$
 \end{equation}
 $$
 
-또한, 부분 형상이 항상 고정되어 있으므로 $z_0$에 영향을 미치는 모델 출력의 부분 집합을 마스킹하고 $$\tilde{\epsilon}(\tilde{x}_t, z_0, t)$$와 $$\tilde{x}_t$$에만 영향을 미치는 random noise 사이의 L2 거리를 최소화할 수 있다. 실제로 모델에 $z_0$와 $x_t$를 입력하고 $$x_{t-1}$$을 얻는다. 여기서 부분 집합 $$\tilde{x}_{t-1}$$만이 L2 loss에 사용된다. Shape completion에서 $$\tilde{x}_{t-1}$$은 $z_0$과 연결되어 다시 모델에 대한 입력이 된다. 이를 통해 정확히 동일한 학습 아키텍처가 단순히 목적 함수를 변경하여 생성과 shape completion를 모두 수행할 수 있다. 
+또한, 부분 형상이 항상 고정되어 있으므로 $z_0$에 영향을 미치는 모델 출력의 부분 집합을 마스킹하고 $$\tilde{\epsilon}(\tilde{x}_t, z_0, t)$$와 $$\tilde{x}_t$$에만 영향을 미치는 random noise 사이의 L2 거리를 최소화할 수 있다. 실제로 모델에 $z_0$와 $x_t$를 입력하고 $$x_{t-1}$$을 얻는다. 여기서 부분 집합 $$\tilde{x}_{t-1}$$만이 L2 loss에 사용된다. Shape completion에서 $$\tilde{x}_{t-1}$$은 $z_0$과 연결되어 다시 모델에 대한 입력이 된다. 이를 통해 정확히 동일한 학습 아키텍처가 단순히 목적 함수를 변경하여 생성과 shape completion을 모두 수행할 수 있다. 
 
 ## Experiments
 ### 1. Shape Generation

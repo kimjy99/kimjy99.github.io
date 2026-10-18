@@ -7,12 +7,13 @@ tags:
   - NLP
   - Reinforcement Learning
   - Microsoft
-excerpt: "rStar-Math 논문 리뷰 (ICML 2025)"
+  - ICML
+excerpt: "rStar-Math 논문 리뷰 (ICML 2025 Oral)"
 use_math: true
 classes: wide
 ---
 
-> ICML 2025. [[Paper](https://arxiv.org/abs/2501.04519)] [[Github](https://github.com/microsoft/rStar)]  
+> ICML 2025 (Oral). [[Paper](https://arxiv.org/abs/2501.04519)] [[Github](https://github.com/microsoft/rStar)]  
 > Xinyu Guan, Li Lyna Zhang, Yifei Liu, Ning Shang, Youran Sun, Yi Zhu, Fan Yang, Mao Yang  
 > Microsoft Research Asia  
 > 8 Jun 2025  
@@ -28,7 +29,7 @@ classes: wide
 
 마지막으로, 저자들은 policy 모델과 PPM을 처음부터 점진적으로 구축하는 4라운드 자가 진화 레시피를 제안하였다. 먼저 공개적으로 이용 가능한 소스에서 74.7만 개의 수학 문제 데이터셋을 큐레이팅하였다. 각 라운드에서 최신 policy 모델과 PPM을 사용하여 MCTS를 수행하고, 위의 두 가지 방법을 사용하여 다음 라운드를 위한 더욱 고품질의 학습 데이터를 생성한다. 각 라운드의 policy 모델, PPM, 추론 궤적, 학습 데이터 커버리지가 모두 점점 향상된다.
 
-8개의 궤적을 사용하는 MATH 벤치마크에서 rStar-Math는 Qwen2.5-Math-7B의 성능을 58.8%에서 89.4%로, Qwen2.5-Math-1.5B의 성능을 51.2%에서 87.8%로 향상시켰다. 64개의 궤적을 사용하는 경우, 점수는 각각 90%와 88.4%로 상승하여 o1-preview보다 각각 4.5%와 2.6% 높은 성능을 보이며 o1-mini의 90%와 비슷한 성능을 보였다. 올림피아드급 AIME 2024에서 rStar-Math는 평균 53.3%를 풀었으며, 이는 o1-preview를 포함한 모든 오픈소스 LLM보다 8.7% 더 높은 수치이다.
+8개의 궤적을 사용하는 MATH 벤치마크에서 rStar-Math는 Qwen2.5-Math-7B의 성능을 58.8%에서 89.4%로, Qwen2.5-Math-1.5B의 성능을 51.2%에서 87.8%로 향상시켰다. 64개의 궤적을 사용하는 경우, 점수는 각각 90%와 88.4%로 상승하여 o1-preview보다 각각 4.5%와 2.6% 높은 성능을 보이며 o1-mini의 90%와 비슷한 성능을 보였다. 올림피아드급 AIME 2024에서 rStar-Math는 평균 53.3%를 풀었으며, 이는 o1-preview와 모든 오픈소스 LLM보다 8.7% 더 높은 수치이다.
 
 ## Methodology
 본 논문에서는 두 개의 7B SLM을 사용하여 더 높은 품질의 학습 데이터를 생성하는 방법을 탐구하였다. 그러나 자가 생성 데이터는 SLM에 심각한 문제를 야기한다. SLM은 종종 정답을 생성하지 못하고, 최종 정답이 맞더라도 중간 step에 오류가 있거나 품질이 좋지 않은 경우가 많다. 더욱이 SLM은 GPT-4와 같은 고급 모델에 비해 더 적은 수의 문제를 해결한다.
@@ -47,7 +48,7 @@ classes: wide
 <br>
 기존 MCTS 접근법은 주로 자연어(NL) CoT를 생성하였다. 그러나 LLM은 종종 hallucination에 시달려 잘못되거나 관련 없는 step을 생성하면서도 우연히 정답에 도달하는 경우가 많다. 이러한 결함 있는 step은 감지하고 제거하기가 어렵다. 이를 해결하기 위해 본 논문에서는 **code-augmented CoT**를 제안하였다. Policy 모델은 해당 Python 코드와 함께 one-step 자연어 CoT를 생성하며, 자연어 CoT는 Python 주석으로 포함된다. Python 코드가 성공적으로 실행된 생성만 유효한 후보로 유지된다.
 
-구체적으로 루트 노드 $x$에서 시작하여 selection, expansion, simulation, back-propagation을 통해 여러 MCTS iteration을 수행한다. Step $i$에서 최신 추론 궤적 $x \oplus s1 \oplus \ldots \oplus s_{i-1}$을 현재 state로 수집한다. 이 state를 기반으로 policy 모델이 $n$개의 후보 $s_{i,0}, \ldots, s_{i,n-1}$을 생성한다. 그런 다음, Python 코드를 실행하여 유효한 노드를 필터링한다. 각 생성 $s_{i,j}$는 이전 모든 step의 코드와 연결되어 $s_1 \oplus \ldots \oplus s_{i-1} \oplus s_{i,j}$를 형성한다. 성공적으로 실행된 후보는 유효한 노드로 유지되고 PPM에서 점수를 매겨 Q-value $q(s_i)$를 할당한다. 그런 다음, UCT를 사용하여 $n$개의 후보 노드 중 최적의 노드를 선택한다. 
+구체적으로 루트 노드 $x$에서 시작하여 selection, expansion, simulation, back-propagation을 통해 여러 MCTS iteration을 수행한다. Step $i$에서 최신 추론 궤적 $x \oplus s_1 \oplus \ldots \oplus s_{i-1}$을 현재 state로 수집한다. 이 state를 기반으로 policy 모델이 $n$개의 후보 $s_{i,0}, \ldots, s_{i,n-1}$을 생성한다. 그런 다음, Python 코드를 실행하여 유효한 노드를 필터링한다. 각 생성 $s_{i,j}$는 이전 모든 step의 코드와 연결되어 $s_1 \oplus \ldots \oplus s_{i-1} \oplus s_{i,j}$를 형성한다. 성공적으로 실행된 후보는 유효한 노드로 유지되고 PPM에서 점수를 매겨 Q-value $q(s_i)$를 할당한다. 그런 다음, UCT를 사용하여 $n$개의 후보 노드 중 최적의 노드를 선택한다. 
 
 $$
 \begin{equation}
@@ -59,7 +60,7 @@ $$
 
 최종 답에 도달하거나 최대 트리 깊이에 도달하여 최종 노드에 도달할 때까지 이 과정을 반복한다. 이를 **rollout**이라고 한다. Rollout이 정답에 도달했는지 여부에 따라 back-propagation을 수행하여 궤적의 Q-value 점수를 업데이트한다.
 
-#### Extensive Rollouts for Q-value Annotation
+##### Extensive Rollouts for Q-value Annotation
 위 식에서 정확한 Q-value $Q(s)$는 MCTS가 올바른 문제 해결 경로를 안내하고 궤적 내에서 고품질 step을 식별하는 데 필수적이다. AlphaGo와 [rStar](https://arxiv.org/abs/2408.06195)를 따라, MCTS rollout을 수행하여 각 step에 Q-value를 할당한다. 그러나 rollout이 충분하지 않으면 최적이 아닌 step을 과대평가하는 등 잘못된 Q-value 할당이 발생할 수 있다. 
 
 이 문제를 완화하기 위해, 각 rollout 내에서 최종 정답 달성에 대한 각 step의 기여도를 기반으로 Q-value를 업데이트한다. 광범위한 MCTS rollout을 통해 지속적으로 정답으로 이어지는 step은 더 높은 Q-value를 얻고, 간헐적으로 성공하면 적당한 Q-value를 얻고, 지속적으로 잘못된 step은 낮은 Q-value를 얻는다. 
@@ -133,7 +134,7 @@ $$
 SLM의 성능이 약하기 때문에, 더 높은 품질의 데이터를 점진적으로 생성하기 위해 총 4라운드의 자가 진화를 수행한다. 각 라운드는 MCTS를 사용하여 step-by-step으로 검증된 추론 궤적을 생성하고, 이를 사용하여 새로운 policy SLM과 PPM을 학습시킨다. 이렇게 생성된 새로운 모델은 다음 라운드에서 사용된다.
 
 ##### Round 1: Bootstrapping an initial strong policy SLM-r1
-SLM이 상당히 좋은 학습 데이터를 스스로 생성할 수 있도록, 초기 강력한 policy 모델을 fine-tuning하기 위한 부트스트랩 라운드를 수행한다. DeepSeek-Coder-V2-Instruct(236B)를 사용하여 MCTS를 실행하여 supervised fine-tuning (SFT) 데이터를 수집한다. 이 라운드에서는 사용 가능한 reward 모델이 없으므로, Q-value에 대해 terminal-guided annotation을 사용하고 효율성을 위해 MCTS rollout 횟수를 8회로 제한한다. 정답을 도출하기 위해, 평균 Q-value가 가장 높은 상위 2개 궤적을 SFT 데이터로 선택하고, 이를 사용하여 첫 번째 policy SLM인 SLM-r1을 fine-tuning한다.
+SLM이 상당히 좋은 학습 데이터를 스스로 생성할 수 있도록, 초기 강력한 policy 모델을 fine-tuning하기 위한 부트스트랩 라운드를 수행한다. DeepSeek-Coder-V2-Instruct(236B)를 사용하여 MCTS를 실행하여 supervised fine-tuning (SFT) 데이터를 수집한다. 이 라운드에서는 사용 가능한 reward 모델이 없으므로, Q-value에 대해 terminal-guided annotation을 사용하고 효율성을 위해 MCTS rollout 횟수를 8회로 제한한다. 정답에 도달한 궤적 중에서 평균 Q-value가 가장 높은 상위 2개 궤적을 SFT 데이터로 선택하고, 이를 사용하여 첫 번째 policy SLM인 SLM-r1을 fine-tuning한다.
 
 ##### Round 2: Training a reliable PPM-r2
 2라운드에서는 policy 모델을 7B SLM-r1로 업데이트하여 더욱 신뢰할 수 있는 Q-value 주석을 위한 광범위한 MCTS rollout을 수행하고, 최초의 신뢰할 수 있는 reward 모델인 PPM-r2를 학습시킨다. 구체적으로, 문제당 16회의 MCTS rollout을 수행한다. Step-by-step으로 검증된 추론 경로는 품질과 Q-value 정밀도가 모두 상당히 향상된다.

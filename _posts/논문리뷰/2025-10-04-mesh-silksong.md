@@ -24,7 +24,7 @@ classes: wide
 ## Introduction
 Autoregressive한 메쉬 생성의 핵심은 autoregressive 모델의 강력한 생성 능력을 최대한 활용하는 효과적인 토큰 표현을 설계하는 것이다. Autoregressive 모델의 본질적인 불안정성을 고려할 때, 핵심 과제는 manifold topology, watertightness, 표면 normal 일관성과 같은 위상 구조를 유지하면서 메쉬의 정보를 효과적으로 압축하는 것이다.
 
-현재 효율적인 mesh-to-token 변환 알고리즘은 크게 트리 순회 기반(ex. [EdgeRunner](https://kimjy99.github.io/논문리뷰/edgerunner), [TreeMeshGPT](https://kimjy99.github.io/논문리뷰/tree-mesh-gpt))과 로컬 패치 기반(ex. [BPT](https://arxiv.org/abs/2411.07025), [Nautilus](https://arxiv.org/abs/2501.14317), [DeepMesh](https://arxiv.org/abs/2503.15265))의 두 가지 카테고리로 나눌 수 있다. 트리 순회 방식은 half-edge 데이터 구조를 활용하여 manifold topology를 보존하지만, 삼각형 순회 중 오차가 누적되어 메쉬 생성이 불안정해지는 문제가 있다. 반면, 로컬 패치 방식은 로컬 삼각형 패치를 독립적으로 처리하여 더 안정적인 메쉬를 생성하지만, 이러한 메쉬는 종종 non-manifold이기 때문에 UV unwrapping, 3D 프린팅, 물리 시뮬레이션 등에 응용하는 데에는 적합하지 않다.
+현재 효율적인 mesh-to-token 변환 알고리즘은 크게 트리 순회 기반(ex. [EdgeRunner](https://kimjy99.github.io/논문리뷰/edgerunner), [TreeMeshGPT](https://kimjy99.github.io/논문리뷰/tree-mesh-gpt))과 로컬 패치 기반(ex. [BPT](https://arxiv.org/abs/2411.07025), [Nautilus](https://arxiv.org/abs/2501.14317), [DeepMesh](https://kimjy99.github.io/논문리뷰/deepmesh))의 두 가지 카테고리로 나눌 수 있다. 트리 순회 방식은 half-edge 데이터 구조를 활용하여 manifold topology를 보존하지만, 삼각형 순회 중 오차가 누적되어 메쉬 생성이 불안정해지는 문제가 있다. 반면, 로컬 패치 방식은 로컬 삼각형 패치를 독립적으로 처리하여 더 안정적인 메쉬를 생성하지만, 이러한 메쉬는 종종 non-manifold이기 때문에 UV unwrapping, 3D 프린팅, 물리 시뮬레이션 등에 응용하는 데에는 적합하지 않다.
 
 또한, 두 카테고리의 접근 방식은 모두 다음과 같은 한계에 직면한다.
 
@@ -33,13 +33,13 @@ Autoregressive한 메쉬 생성의 핵심은 autoregressive 모델의 강력한 
 
 이러한 문제를 해결하기 위해, 본 논문에서는 새로운 메쉬 tokenization 알고리즘을 제안하였다. 주어진 시작 vertex까지의 그래프 거리를 기준으로 vertex를 여러 layer로 분류하고, layer별로 정렬한 후, layering되고 정렬된 vertex들을 기반으로 인접 행렬을 계산하여 topology를 인코딩한다. 그런 다음, 인접 행렬에서 압축된 vertex 토큰과 topology 토큰을 메쉬 표현을 위한 통합된 형식으로 정리한다. 기존 방식과 비교하여, 이 방법은 각 vertex를 한 번만 압축하여 중복 vertex 정보를 약 50% 줄인다. 
 
-본 논문에서 제안하는 방법을 BPT에서 제안하는 block-wise indexing (vertex당 토큰 3개에서 2개로 줄임)과 결합하면 최종 압축률이 0.26에서 0.22로 향상되어 메쉬 압축 효율을 높이고 동일한 토큰 길이 내에서 더욱 미세한 기하학적 디테일 묘사를 가능해진다. 또한, 메쉬의 연결 요소(connected component)에 대해 개별적으로 연산하고 특수 토큰을 사용하여 표시하기 때문에 메쉬의 연결 요소에 민감하다. 이를 통해 생성 모델은 전반적인 기하학적 위상에 집중하고, 간과되기 쉬운 작은 연결 요소들을 효과적으로 포착할 수 있다. Manifold 기반 메쉬 표현 방식인 본 논문의 접근법은 watertightness를 강력하게 지원하고 표면 normal 일관성에 대한 강력한 제약 조건을 적용하여 뛰어난 기하학적 특성을 보여준다.
+본 논문에서 제안하는 방법을 BPT에서 제안하는 block-wise indexing (vertex당 토큰 3개에서 2개로 줄임)과 결합하면 최종 압축률이 0.26에서 0.22로 향상되어 메쉬 압축 효율을 높이고 동일한 토큰 길이 내에서 더욱 미세한 기하학적 디테일 묘사가 가능해진다. 또한, 메쉬의 연결 요소(connected component)에 대해 개별적으로 연산하고 특수 토큰을 사용하여 표시하기 때문에 메쉬의 연결 요소에 민감하다. 이를 통해 생성 모델은 전반적인 기하학적 위상에 집중하고, 간과되기 쉬운 작은 연결 요소들을 효과적으로 포착할 수 있다. Manifold 기반 메쉬 표현 방식인 본 논문의 접근법은 watertightness를 강력하게 지원하고 표면 normal 일관성에 대한 강력한 제약 조건을 적용하여 뛰어난 기하학적 특성을 보여준다.
 
 ## Method
 ### 1. Non-manifold Edges Processing
 <center><img src='{{"/assets/img/mesh-silksong/mesh-silksong-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
-메쉬의 non-manifold edge 3개 이상의 면이 공유하는 edge를 말한다 (위 그림에서 edge 9-10). [EdgeRunner](https://kimjy99.github.io/논문리뷰/edgerunner)에서 한 것처럼 이를 제거하는 단순한 방법은 모든 삼각형 edge를 다시 탐색하고 세 번째로 발생하는 edge를 bounding edge로 표시하는 것이다. 그러나 이렇게 하면 삼각형이 나타나는 순서에 따라 여러 가지 결과가 발생할 수 있다. 예를 들어, (b)와 (c)에 나와 있듯이 두 결과 모두 non-manifold edge가 제거되었지만 (c)는 메쉬 표면의 완전성을 파괴하여 다음 단계들에 적합하지 않다.
+메쉬의 non-manifold edge는 3개 이상의 면이 공유하는 edge를 말한다 (위 그림에서 edge 9-10). [EdgeRunner](https://kimjy99.github.io/논문리뷰/edgerunner)에서 한 것처럼 이를 제거하는 단순한 방법은 모든 삼각형 edge를 다시 탐색하고 세 번째로 발생하는 edge를 bounding edge로 표시하는 것이다. 그러나 이렇게 하면 삼각형이 나타나는 순서에 따라 여러 가지 결과가 발생할 수 있다. 예를 들어, (b)와 (c)에 나와 있듯이 두 결과 모두 non-manifold edge가 제거되었지만 (c)는 메쉬 표면의 완전성을 파괴하여 다음 단계들에 적합하지 않다.
 
 이를 해결하기 위해 이 문제를 동등한 edge graph 분할 문제로 변환한다. Vertex $i$의 edge graph $$\mathcal{G}_i$$는 vertex를 포함한 모든 면으로 형성된 무향 그래프(undirected graph)를 나타낸다. (d)에 나와 있듯이, edge graph $$\mathcal{G}_9$$의 "node"는 메쉬에서 기준 vertex 9에 연결된 edge를 나타내고, edge graph의 "edge"는 "node"와 기준 vertex 9에 의해 형성된 메쉬의 면을 나타낸다. 메쉬의 manifold 구조를 보장하기 위해 각 메쉬 vertex의 edge graph는 분기가 없는 사이클 또는 체인 형태여야 하며, 연결 요소가 하나만 있어야 한다. 
 
@@ -60,9 +60,9 @@ Vertex layering 및 정렬 후, 메쉬 vertex의 연결은 **self-layer** 연결
 ##### Self-Layer Matrix 압축
 <center><img src='{{"/assets/img/mesh-silksong/mesh-silksong-fig5b.webp" | relative_url}}' width="80%"></center>
 <br>
-Self-Layer Matrix $$\mathcal{S}_L$$은 $M \times M$의 0-1 대칭 행렬이며, 여기서 $M$은 layer $L$의 vertex 번호를 나타낸다. 목표는 행렬의 $M$개 행을 $M$개의 토큰으로 압축하는 것이다. 여기서 행 $i$의 토큰 인덱스는 $S_{(L,i)}$로 나타낸다. $$\mathcal{S}_L$$을 압축하는 쉬운 방법은 모든 행에 binary coding을 직접 적용하는 것이다. 그러나 토큰의 word table은 $2m$개가 되며, 여기서 $m$은 모든 layer의 최대 vertex 수이다. 이렇게 큰 word table은 허용되지 않지만, 행렬의 sparsity는 효율적인 압축을 위한 단서를 제공한다. 
+Self-Layer Matrix $$\mathcal{S}_L$$은 $M \times M$의 0-1 대칭 행렬이며, 여기서 $M$은 layer $L$의 vertex 수를 나타낸다. 목표는 행렬의 $M$개 행을 $M$개의 토큰으로 압축하는 것이다. 여기서 행 $i$의 토큰 인덱스는 $S_{(L,i)}$로 나타낸다. $$\mathcal{S}_L$$을 압축하는 쉬운 방법은 모든 행에 binary coding을 직접 적용하는 것이다. 그러나 토큰의 word table은 $2^m$개가 되며, 여기서 $m$은 모든 layer의 최대 vertex 수이다. 이렇게 큰 word table은 허용되지 않지만, 행렬의 sparsity는 효율적인 압축을 위한 단서를 제공한다. 
 
-1. 대칭 행렬을 $M \times 2M$으로 확장한다. 이때 행렬의 $(i, i)$는 쓸모가 없으며, 각 행의 유효한 값 번호는 위 그림의 노란색으로 표시된 $M - 1$개씩이다.
+1. 대칭 행렬을 $M \times 2M$으로 확장한다. 이때 행렬의 $(i, i)$는 쓸모가 없으며, 각 행의 유효한 값 수는 위 그림의 노란색으로 표시된 $M - 1$개씩이다.
 2. 크기가 $W$인 window를 행 $(i, i + 1)$에서 $(i, i + 1 + W)$까지 배치하여 binary coding을 계산한다 (그림에서 $W=3$인 빨간색 상자). 이는 self-layer 연결이 인접한 vertex에서 발생하는 경향이 있기 때문이다.
 
 실제로 $W$는 8로 설정되고, window는 일반적으로 window 외부에 "1"이 나타나지 않으므로 슬라이드되지 않는다. 위 그림에서 (1, 6)과 같은 위치의 window 외부에 있는 "1"은 실제로 (6, 7)의 "1"로 반복되며, 실제로는 제거된다. Self-Layer Matrix의 초기 word table 크기는 $2^W$이다. "1"이 window 외부에 나타나는 특수한 상황에서는 word table 크기를 $2^W + m$으로 확장하여 처리한다.
@@ -86,7 +86,7 @@ $$
 ##### Token Packing
 <center><img src='{{"/assets/img/mesh-silksong/mesh-silksong-fig5d.webp" | relative_url}}' width="34%"></center>
 <br>
-Layer $L$의 $M$개 vertex에 대해 세 가지 유형의 토큰, 즉 vertex 토큰 $V_{(L,i)}$와 topology 토큰 $S_{(L,i)}$, $B_{(L,i)}$가 있다. Vertex 토큰 $V_{(L,i)}$는 vertex의 위치를 압축하고 일반적으로 quantize된 x-y-z 좌표를 나타내는 3개의 sub-token을 포함한다. [BPT](https://arxiv.org/abs/2411.07025)의 block-wise indexing을 사용하면 sub-token 수를 2개로 줄어든다. 두 개의 topology 토큰 $S_{(L,i)}$와 $B_{(L,i)}$는 일반적으로 서로 하나의 sub-token을 포함한다. 
+Layer $L$의 $M$개 vertex에 대해 세 가지 유형의 토큰, 즉 vertex 토큰 $V_{(L,i)}$와 topology 토큰 $S_{(L,i)}$, $B_{(L,i)}$가 있다. Vertex 토큰 $V_{(L,i)}$는 vertex의 위치를 압축하고 일반적으로 quantize된 x-y-z 좌표를 나타내는 3개의 sub-token을 포함한다. [BPT](https://arxiv.org/abs/2411.07025)의 block-wise indexing을 사용하면 sub-token 수가 2개로 줄어든다. 두 개의 topology 토큰 $S_{(L,i)}$와 $B_{(L,i)}$는 일반적으로 서로 하나의 sub-token을 포함한다. 
 
 학습을 위한 전체 시퀀스를 얻으려면 메쉬의 연결 요소를 나타내는 토큰 **C**에서 시작한다. 메쉬에 $N_C$개의 연결 요소가 있는 경우 $N_C$개의 **C** 토큰이 있고 앞서 설명한 알고리즘들은 각 연결 요소에 대해 총 $N_C$번 수행된다. Vertex $$\mathcal{V}_i^L$$에 대해 $V_{(L,i)}$, $S_{(L,i)}$, $B_{(L,i)}$를 함께 묶고, 각 vertex의 토큰을 layer order에 따라 배열한다. $$\mathcal{V}_1^0$$에 대한 vertex 토큰은 맨 처음에 배치되며, topology 토큰은 없다. 각 layer의 토큰은 "up-layer" 제어 토큰 **U**로 구분되고, 마지막 토큰은 연결 요소의 끝을 나타내는 다른 제어 토큰 **E**로 대체된다.
 
@@ -128,7 +128,7 @@ $$
   - optimizer: AdamW ($$\beta_1 = 0.9$$, $$\beta_2 = 0.99$$)
   - learning rate: $1 \times 10^{-4}$에서 $5 \times 10^{-5}$로 코사인으로 감소
 
-### 1. Comparation Results
+### 1. Comparison Results
 다음은 다른 메쉬 생성 방법들과 비교한 결과이다.
 
 <center><img src='{{"/assets/img/mesh-silksong/mesh-silksong-fig6.webp" | relative_url}}' width="100%"></center>
@@ -147,7 +147,7 @@ $$
 
 <center><img src='{{"/assets/img/mesh-silksong/mesh-silksong-fig8.webp" | relative_url}}' width="33%"></center>
 <br>
-Topology 토큰 예측 오차가 가끔 발생하여 빈틈이 없을 것으로 예상되는 메쉬 표면에 구멍이 생길 수 있다. 본 논문의 메쉬 표현 방식은 본질적으로 watertight 감지 및 복구를 어느 정도 지원한다. 아래 예시는 각 layer의 vertex를 등고선으로 시각화한 것이다. 표면 구멍은 Self-Layer Matrix 또는 Between-Layer Matrix의 특정 entryrk 1이 아닌 0으로 잘못 예측되어 발생하며, 쉽게 감지 및 복구할 수 있다.
+Topology 토큰 예측 오차가 가끔 발생하여 빈틈이 없을 것으로 예상되는 메쉬 표면에 구멍이 생길 수 있다. 본 논문의 메쉬 표현 방식은 본질적으로 watertight 감지 및 복구를 어느 정도 지원한다. 아래 예시는 각 layer의 vertex를 등고선으로 시각화한 것이다. 표면 구멍은 Self-Layer Matrix 또는 Between-Layer Matrix의 특정 entry가 1이 아닌 0으로 잘못 예측되어 발생하며, 쉽게 감지 및 복구할 수 있다.
 
 <center><img src='{{"/assets/img/mesh-silksong/mesh-silksong-fig9.webp" | relative_url}}' width="58%"></center>
 

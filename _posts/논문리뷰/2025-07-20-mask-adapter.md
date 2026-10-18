@@ -68,7 +68,7 @@ $$
 ### 2. Mask-Adapter
 <center><img src='{{"/assets/img/mask-adapter/mask-adapter-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
-$N$개의 클래스 독립적인 마스크 $M_p$가 주어지면, 2개의 strided 3$\times$3 convolutional layer로 구성된 단순한 블록을 통해 바이너리 마스크를 patchify하여 CLIP feature외 동일한 해상도를 갖는 마스크 feature $$\mathcal{F}_m$$을 생성한다. 그런 다음 CLIP feature $$\mathcal{F}_\textrm{clip}$$과 마스크 feature $$\mathcal{F}_m$$을 융합하여 마스크 영역 표현 $$\textbf{A}_m$$을 얻는다. 
+$N$개의 클래스 독립적인 마스크 $M_p$가 주어지면, 2개의 strided 3$\times$3 convolutional layer로 구성된 단순한 블록을 통해 바이너리 마스크를 patchify하여 CLIP feature와 동일한 해상도를 갖는 마스크 feature $$\mathcal{F}_m$$을 생성한다. 그런 다음 CLIP feature $$\mathcal{F}_\textrm{clip}$$과 마스크 feature $$\mathcal{F}_m$$을 융합하여 마스크 영역 표현 $$\textbf{A}_m$$을 얻는다. 
 
 $$
 \begin{equation}

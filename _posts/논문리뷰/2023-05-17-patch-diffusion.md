@@ -136,7 +136,7 @@ p(x) = \frac{1}{Z} \prod_{v \in \mathcal{V}} \phi_v (x_v) \prod_{e \in \mathcal{
 \end{equation}
 $$
 
-여기서 $\phi_v$와 $\phi_e$는 각각 node potential function와 edge potential function이다. $Z$는 정규화 항이고 $x_v$와 $x_e$는 첨자 $v$와 $e$로 확률 변수를 인덱싱한다. 
+여기서 $\phi_v$와 $\phi_e$는 각각 node potential function과 edge potential function이다. $Z$는 정규화 항이고 $x_v$와 $x_e$는 첨자 $v$와 $e$로 확률 변수를 인덱싱한다. 
 
 MRF parameterization의 score function은 다음과 같이 나타낼 수 있다.
 

@@ -30,7 +30,7 @@ classes: wide
 
 <center><img src='{{"/assets/img/uniformer/uniformer-fig1.webp" | relative_url}}' width="90%"></center>
 <br>
-위 그림에서 볼 수 있듯이 TimeSformer는 실제로 초기 레이어에서 상세한 동영상 표현을 학습하지만 매우 중복된 공간적 및 시간적 attention을 가진다. 특히, 공간적 attention는 주로 이웃한 토큰에 초점을 맞추는 반면, 동일한 프레임의 나머지 토큰에서는 아무것도 학습하지 않는다. 유사하게, 시간적 attention은 대부분 인접한 프레임의 토큰만 집계하고 먼 프레임의 토큰은 무시한다. 더 중요한 것은 이러한 로컬 표현은 모든 레이어에서 글로벌 토큰 간 유사성 비교를 통해 학습되므로 많은 계산 비용이 필요하다. 이 사실은 이러한 video transformer의 계산량-정확도 균형을 분명히 악화시킨다 (아래 그림 참조).
+위 그림에서 볼 수 있듯이 TimeSformer는 실제로 초기 레이어에서 상세한 동영상 표현을 학습하지만 매우 중복된 공간적 및 시간적 attention을 가진다. 특히, 공간적 attention은 주로 이웃한 토큰에 초점을 맞추는 반면, 동일한 프레임의 나머지 토큰에서는 아무것도 학습하지 않는다. 유사하게, 시간적 attention은 대부분 인접한 프레임의 토큰만 집계하고 먼 프레임의 토큰은 무시한다. 더 중요한 것은 이러한 로컬 표현은 모든 레이어에서 글로벌 토큰 간 유사성 비교를 통해 학습되므로 많은 계산 비용이 필요하다. 이 사실은 이러한 video transformer의 계산량-정확도 균형을 분명히 악화시킨다 (아래 그림 참조).
 
 <center><img src='{{"/assets/img/uniformer/uniformer-fig2.webp" | relative_url}}' width="85%"></center>
 <br>

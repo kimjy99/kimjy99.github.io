@@ -7,12 +7,12 @@ tags:
   - Novel View Synthesis
   - 3D Vision
   - ICCV
-excerpt: "Radiant Foam 논문 리뷰 (ICCV 2025)"
+excerpt: "Radiant Foam 논문 리뷰 (ICCV 2025 Highlight)"
 use_math: true
 classes: wide
 ---
 
-> ICCV 2025. [[Paper](https://arxiv.org/abs/2502.01157)] [[Page](https://radfoam.github.io/)] [[Github](https://github.com/theialab/radfoam)]  
+> ICCV 2025 (Highlight). [[Paper](https://arxiv.org/abs/2502.01157)] [[Page](https://radfoam.github.io/)] [[Github](https://github.com/theialab/radfoam)]  
 > Shrisudhan Govindarajan, Daniel Rebain, Kwang Moo Yi, Andrea Tagliasacchi  
 > Fudan University | ByteDance  
 > 3 Feb 2025  
@@ -20,7 +20,7 @@ classes: wide
 <center><img src='{{"/assets/img/radiant-foam/radiant-foam-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
-[NeRF](https://kimjy99.github.io/논문리뷰/nerf)는 2D 이미지 컬렉션에서 dense한 3D 표현을 추출할 수 있게 함으로써 3D 컴퓨터 비전에 혁명을 일으켰다. 초기 NeRF는 느린 렌더링 속도에 문제가 있었지만, 그 이후로 보다 효율적인 모델과 고효율 렌더링을 가능하게 하는 모델을 distillation하는 기술을 개발되었다. 특히, 실시간 렌더링 성능은 GPU 하드웨어에서 쉽게 사용할 수 있는 rasterization 파이프라인을 활용하여 가능해졌다. 그 후 rasterization을 학습 프로세스에 통합할 것이 제안되었고, 그 결과 [3D Gaussian Splatting (3DGS)](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)이 개발되었다.
+[NeRF](https://kimjy99.github.io/논문리뷰/nerf)는 2D 이미지 컬렉션에서 dense한 3D 표현을 추출할 수 있게 함으로써 3D 컴퓨터 비전에 혁명을 일으켰다. 초기 NeRF는 느린 렌더링 속도에 문제가 있었지만, 그 이후로 보다 효율적인 모델과 고효율 렌더링을 가능하게 하는 모델을 distillation하는 기술이 개발되었다. 특히, 실시간 렌더링 성능은 GPU 하드웨어에서 쉽게 사용할 수 있는 rasterization 파이프라인을 활용하여 가능해졌다. 그 후 rasterization을 학습 프로세스에 통합할 것이 제안되었고, 그 결과 [3D Gaussian Splatting (3DGS)](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)이 개발되었다.
 
 최근 3DGS에 대한 연구가 활발히 진행되고 있으며, 많은 연구가 rasterization으로 인해 발생하는 문제를 해결하려는 듯 보인다. 또한, 일부 연구에서는 3DGS와 ray tracing을 통합하여 렌더링 속도를 높이고 보다 복잡한 빛의 상호작용을 구현하기도 했다. 하지만 연구자들은 여전히 새로운 3D 표현 방식을 탐구하고 있다. 특히, 컴퓨터 그래픽스 분야에서 오랜 기간 핵심 역할을 해온 다각형 메쉬(polygonal mesh)에 대한 관심이 다시금 커지고 있다. 일부 연구에서는 메쉬를 활용하여 radiance field를 모델링하려는 흥미로운 시도를 보여주었다. 그러나 현실적으로 이러한 접근 방식이 3DGS를 대체할 만큼 강력한 radiance field 학습 표현으로 자리 잡지는 못했다.
 
@@ -49,7 +49,7 @@ $\sigma (\cdot)$와 $\textbf{c} (\cdot)$가 piecewise-constant인 경우, 적분
 $$
 \begin{aligned}
 \textbf{c}_\textbf{r} &= \sum_{n=1}^N T_n \cdot (1 - \exp (- \sigma_n \delta_n)) \cdot \textbf{c}_n dt \\
-T(t) &= \prod_{j=1}^n \exp (- \sigma_j \delta_j)
+T_n &= \prod_{j=1}^n \exp (- \sigma_j \delta_j)
 \end{aligned}
 $$
 
@@ -96,14 +96,14 @@ Delaunay triangulation이 최적화에서 불연속적이라면, 그 duality인 
 <br>
 한 가지 남은 문제는 ray tracing 알고리즘이 기본적으로 사면체 셀을 가정한다는 점이다. 따라서 저자들은 알고리즘을 보다 일반적인 볼록(convex) 셀을 처리할 수 있도록 수정하였다.
 
-Volume rendering을 하기 위해서는 광선을 따라 누적되는 셀들의 순서를 알아야 하며, 각 셀에 대한 세그먼트의 길이 $$\delta_n$$을 계산해야 한다. 즉, 어떤 셀로 광선이 들어갔을 때, 어디로 나가는 지를 계산해야 한다. 
+Volume rendering을 하기 위해서는 광선을 따라 누적되는 셀들의 순서를 알아야 하며, 각 셀에 대한 세그먼트의 길이 $$\delta_n$$을 계산해야 한다. 즉, 어떤 셀로 광선이 들어갔을 때, 어디로 나가는지를 계산해야 한다. 
 
 이를 위해, 현재 셀의 vertex와 인접한 vertex들에 대하여 각각 수직 이등분면을 계산하고, 각 수직 이등분면과 광선 사이의 교차점을 계산한다. 그러면, 수직 이등분면의 normal과 광선 방향 사이의 각도가 90°보다 작은 면 (위 그림에서 초록색 선) 중에서 교차점이 가장 가까운 점이 광선이 나가는 점이다. 자연스럽게 다음 셀이 특정되기 때문에 이 과정을 반복해서 다음 셀을 찾고 세그먼트의 길이 $$\delta_n$$을 계산할 수 있다. 
 
 <center><img src='{{"/assets/img/radiant-foam/radiant-foam-fig7.webp" | relative_url}}' width="45%"></center>
 
 ### 3. Optimization
-[3DGS](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)와 유사하게, Voronoi 셀의 로컬한 특성은 최적화를 local minima에 더 취약하게 만든다. 우리는 유사한 전략을 따르는데, 먼저 최적화를 신중하게 초기화한 다음 Voronoi site를 적응적으로 densify하고 pruning한다. 또한 표면과 같은 밀도의 형성을 촉진하기 위해 NeRF에서 일반적으로 사용하는 [distortion loss](https://kimjy99.github.io/논문리뷰/mipnerf360)와 유사한 정규화 loss도 사용한다.
+[3DGS](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)와 유사하게, Voronoi 셀의 로컬한 특성은 최적화를 local minima에 더 취약하게 만든다. 저자들은 유사한 전략을 따르는데, 먼저 최적화를 신중하게 초기화한 다음 Voronoi site를 적응적으로 densify하고 pruning한다. 또한 표면과 같은 밀도의 형성을 촉진하기 위해 NeRF에서 일반적으로 사용하는 [distortion loss](https://kimjy99.github.io/논문리뷰/mipnerf360)와 유사한 정규화 loss도 사용한다.
 
 (Voronoi site: Voronoi diagram에서 셀을 나누는 기준이 되는 점)
 
@@ -142,8 +142,8 @@ $$
 따라서 메쉬 재구축 사이에 optimizer가 여러 step을 수행할 수 있도록 한다. Densification 이후 초기에는 1:1 비율로 시작하고, 최적화가 수렴하면서 메쉬의 불연속적인 변화 빈도가 감소함에 따라 1:100까지 증가시킨다. 이러한 전략은 학습 속도와 상대적으로 정확한 메쉬 구조 유지를 균형 있게 조절하는 역할을 한다.
 
 ## Experiments
-- 3DGS와 마찬자기로 COLMAP의 sparse point cloud로 초기화
-- 전용 ray tracing 하드웨어나 OptiX를 의존하지 않는 커스텀 CUDA 커널을 만들어 사용
+- 3DGS와 마찬가지로 COLMAP의 sparse point cloud로 초기화
+- 전용 ray tracing 하드웨어나 OptiX에 의존하지 않는 커스텀 CUDA 커널을 만들어 사용
 - 학습 디테일
   - 포인트별 위치, density, 색상 (degree 3의 SH 사용)을 최적화
   - density가 $[0, \infty)$ 내에 있도록 $\beta = 10$인 softplus activation을 사용
@@ -158,7 +158,7 @@ $$
   - 마지막 2,000 iteration은 위치를 고정하고 density와 색상만 업데이트
 
 ### 1. Quantitative results
-다음은 novel view synthesis 성능을 비교한 표이다. FPS는 RTX 4090로 측정되었으며, 3DGRT만 RTX 6000 Ada로 측정되었다. 
+다음은 novel view synthesis 성능을 비교한 표이다. FPS는 RTX 4090으로 측정되었으며, 3DGRT만 RTX 6000 Ada로 측정되었다. 
 
 <center><img src='{{"/assets/img/radiant-foam/radiant-foam-table1.webp" | relative_url}}' width="62%"></center>
 

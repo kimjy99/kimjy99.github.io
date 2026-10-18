@@ -30,7 +30,7 @@ classes: wide
 
 Multimodal diffusion model 디자인의 어려움은 주로 다음 두 가지 측면에 있다. 첫째, 동영상와 오디오는 데이터 패턴이 서로 다르다. 특히 동영상은 일반적으로 공간과 시간적 차원 모두에서 RGB 값을 나타내는 3D 신호로 표현되는 반면 오디오는 시간적 차원에서 1D 파형 숫자로 표시된다. 하나의 joint diffusion model 내에서 병렬로 처리하는 방법은 여전히 문제로 남는다. 둘째, 동영상과 오디오는 실제 동영상에서 시간적 차원에서 동기화되므로 모델이 이 두 modality 간의 관련성을 캡처하고 서로에 대한 상호 영향을 미치도록 만들어야 한다. 
 
-이와 같은 어려움을 해결하기 위해 본 논문은 joint audio-video generation을 위한 첫번째 **M**ulti-**M**odal **Diffusion** model (**MM-Diffusion**)을 제안한다. Timestep $t - 1$에서 각 modality의 noise가 적은 샘플은 timestep $t$에서 denoise되어 두 modality의 출력이 생성된다. 이러한 디자인을 통해 두 modality에 대한 결합 분포를 학습할 수 있다. 의미론적 동기성을 더 배우기 위해, 생성된 동영상 프레임과 오디오 세그먼트가 매 순간 상관될 수 있도록 하는 새로운 cross-modal attention block을 제안한다. 주어진 동영상 프레임과 인접한 기간에 임의로 샘플링된 오디오 세그먼트 간에 cross-attention를 수행하는 효율적인 random-shift 메커니즘을 디자인하여 동영상과 오디오의 시간적 중복을 크게 줄이고 cross-modal 상호 작용을 효율적으로 촉진한다. 
+이와 같은 어려움을 해결하기 위해 본 논문은 joint audio-video generation을 위한 첫번째 **M**ulti-**M**odal **Diffusion** model (**MM-Diffusion**)을 제안한다. Timestep $t - 1$에서 각 modality의 noise가 적은 샘플은 timestep $t$에서 denoise되어 두 modality의 출력이 생성된다. 이러한 디자인을 통해 두 modality에 대한 결합 분포를 학습할 수 있다. 의미론적 동기성을 더 배우기 위해, 생성된 동영상 프레임과 오디오 세그먼트가 매 순간 상관될 수 있도록 하는 새로운 cross-modal attention block을 제안한다. 주어진 동영상 프레임과 인접한 기간에 임의로 샘플링된 오디오 세그먼트 간에 cross-attention을 수행하는 효율적인 random-shift 메커니즘을 디자인하여 동영상과 오디오의 시간적 중복을 크게 줄이고 cross-modal 상호 작용을 효율적으로 촉진한다. 
 
 ## Approach
 ### 1. Preliminaries of Vanilla Diffusion
@@ -78,7 +78,7 @@ Multi-modality 생성의 핵심 이점은 독립적인 가우스 분포에서 �
 특히 입력 오디오와 동영상을 텐서 쌍 $(a, v) \in (A, V)$로 공식화한다. $a \in \mathbb{R}^{C \times T}$는 오디오 입력을 의미하며, $C$와 $T$는 각각 채널과 시간 차원이다. $v \in \mathbb{R}^{F \times C \times H \times W}$는 동영상 입력을 나타내며, 여기서 $F$, $C$, $H$, $W$는 각각 프레임 번호, 채널, 높이, 너비 차원이다.
 
 #### Efficient Multi-Modal Blocks
-위 그림의 (b)와 같이 동영상 sub-network 디자인을 위해 공간과 시간 차원을 분해하여 공간과 시간 정보를 효율적으로 모델링한다. 무거운 3D convolution을 사용하는 대신 동영상 인코더로 1D convolution 다음에 2D convolution을 쌓는다. 마찬가지로 동영상 attention 모듈은 2D와 1D attention으로 구성된다. 동영상과비디오와 달리 오디오 신호는 장기 종속성 모델링에 대한 요구가 더 높은 긴 1D 시퀀스이다. 따라서 오디오 블록을 위한 두 가지 특수 설계가 있다. 먼저 순수한 1D convolution을 채택하는 대신 dilated convolution 레이어를 쌓는다. Dilation은 1에서 $2^N$으로 두 배가 된다. 여기서 $N$은 hyperparameter다. 둘째, 계산량이 많고 예비 실험에서 제한된 효과를 보인 오디오 블록의 모든 시간적 attention를 삭제한다. 
+위 그림의 (b)와 같이 동영상 sub-network 디자인을 위해 공간과 시간 차원을 분해하여 공간과 시간 정보를 효율적으로 모델링한다. 무거운 3D convolution을 사용하는 대신 동영상 인코더로 1D convolution 다음에 2D convolution을 쌓는다. 마찬가지로 동영상 attention 모듈은 2D와 1D attention으로 구성된다. 동영상과비디오와 달리 오디오 신호는 장기 종속성 모델링에 대한 요구가 더 높은 긴 1D 시퀀스이다. 따라서 오디오 블록을 위한 두 가지 특수 설계가 있다. 먼저 순수한 1D convolution을 채택하는 대신 dilated convolution 레이어를 쌓는다. Dilation은 1에서 $2^N$으로 두 배가 된다. 여기서 $N$은 hyperparameter다. 둘째, 계산량이 많고 예비 실험에서 제한된 효과를 보인 오디오 블록의 모든 시간적 attention을 삭제한다. 
 
 #### Random-Shift based Multi-Modal Attention
 오디오와 동영상의 두 sub-network를 연결하고 이들의 alignment를 공동으로 학습하기 위한 가장 간단한 방법은 둘의 feature에 대한 cross-attention을 수행하는 것이다. 그러나 이 두가지 modality에 대한 attention map은 $O((F \times H \times W) \times T)$의 복잡성을 가지므로 계산하기에 너무 크다. 한편, 동영상과 오디오는 모두 시간적으로 중복되므로 모든 cross-modal attention 계산이 필요한 것은 아니다. 
@@ -131,7 +131,7 @@ a_t, v_t &= \theta_{av} (a_{t+1}, \hat{v}_{t+1}), \\
 \end{aligned}
 $$
 
-이 공식은 $\lambda$가 컨디셔닝의 강도를 제어하는 기울기 가중치 역할을 하는 classifier-free conditional generation와도 유사하다. 주요 차이점은 전통적인 조건부 생성 모델은 조건 데이터에 맞추기 위해 종종 명시적 학습이 필요하다는 것이다. 따라서 샘플링 절차의 업데이트 프로세스는 조건을 변경할 필요가 없다. 반대로 unconditional한 학습 과정에 맞추려면 gradient-guided 방법의 조건부 입력은 reverse process가 진행됨에 따라 지속적인 교체가 필요하다. 결과적으로 조건부 입력에 적응하기 위해 추가 학습이 필요하지 않다. 
+이 공식은 $\lambda$가 컨디셔닝의 강도를 제어하는 기울기 가중치 역할을 하는 classifier-free conditional generation과도 유사하다. 주요 차이점은 전통적인 조건부 생성 모델은 조건 데이터에 맞추기 위해 종종 명시적 학습이 필요하다는 것이다. 따라서 샘플링 절차의 업데이트 프로세스는 조건을 변경할 필요가 없다. 반대로 unconditional한 학습 과정에 맞추려면 gradient-guided 방법의 조건부 입력은 reverse process가 진행됨에 따라 지속적인 교체가 필요하다. 결과적으로 조건부 입력에 적응하기 위해 추가 학습이 필요하지 않다. 
 
 ## Experiments
 <center><img src='{{"/assets/img/mm-diffusion/mm-diffusion-fig4.webp" | relative_url}}' width="95%"></center>

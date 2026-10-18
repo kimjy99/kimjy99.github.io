@@ -70,7 +70,7 @@ Mixing Block은 표준 window 기반 attention 블록에 두 가지 핵심 디�
 1. Attention 모듈의 입력이 다르다. 채널 상호 작용의 입력은 다른 병렬 분기에서 나오는 반면 SE layer는 동일한 분기에서 수행된다. 
 2. SE layer처럼 모듈의 출력에 채널 상호 작용을 적용하는 대신 local-window self-attention의 값에만 채널 상호 작용을 적용한다.
 
-또한 저자들은 **공간 상호 작용**을 위해 두 개의 1$\times$1 convolution layer와 BN, GELU로 구성된 간단한 디자인을 채택했다. 자세한 디자인은 위 그림에 나와 있다. 이 두 레이어는 채널 수를 하나로 줄인다. 마지막으로 시그모이드를 사용하여 공간 attention map을 생성한다. 채널 상호 작용에서 했던 것과 마찬가지로 공간 attention는 local-window self-attention이 적용되는 다른 분기에 의해 생성된다. 이는 depth-wise 3$\times$3 convolution보다 더 큰 커널 크기 (7$\times$7)를 가지며 공간 차원에 초점을 맞춰 depth-wise convolution 분기에 대한 강력한 공간적 단서를 제공한다.
+또한 저자들은 **공간 상호 작용**을 위해 두 개의 1$\times$1 convolution layer와 BN, GELU로 구성된 간단한 디자인을 채택했다. 자세한 디자인은 위 그림에 나와 있다. 이 두 레이어는 채널 수를 하나로 줄인다. 마지막으로 시그모이드를 사용하여 공간 attention map을 생성한다. 채널 상호 작용에서 했던 것과 마찬가지로 공간 attention은 local-window self-attention이 적용되는 다른 분기에 의해 생성된다. 이는 depth-wise 3$\times$3 convolution보다 더 큰 커널 크기 (7$\times$7)를 가지며 공간 차원에 초점을 맞춰 depth-wise convolution 분기에 대한 강력한 공간적 단서를 제공한다.
 
 #### Mixing Block
 위의 두 가지 디자인 덕분에 local-window self-attention의 두 가지 핵심 문제를 완화했다. 이를 통합하여 표준 window attention block 위에 새로운 transformer 블록인 Mixing Block을 구축한다. Mixing Block은 병렬 디자인, 양방향 상호 작용, Feed-Forward Network (FFN)로 구성된다. 이는 다음과 같이 공식화될 수 있다.

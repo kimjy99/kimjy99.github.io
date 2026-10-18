@@ -72,7 +72,7 @@ $$
 
 ($\textrm{top}(\textbf{S})$는 stack $\textbf{S}$의 현재 가장 위에 있는 모서리를 가져오고, $\backslash$는 모서리 제거)
 
-맨 처음에 stack은 메쉬의 가장 낮은 위치의 모서리으로 초기화된다 (모서리에 방향이 있으므로 2개가 stack에 포함됨). 그런 다음, 모든 삼각형을 방문할 때까지 순회가 진행된다. 
+맨 처음에 stack은 메쉬의 가장 낮은 위치의 모서리로 초기화된다 (모서리에 방향이 있으므로 2개가 stack에 포함됨). 그런 다음, 모든 삼각형을 방문할 때까지 순회가 진행된다. 
 
 메쉬는 여러 개의 연결 요소(connected component)로 구성될 수 있다. 연결 요소는 초기 모서리에서 시작하여 모서리가 stack에 추가됨에 따라 확장되고, stack이 비어 있으면 완전히 순회한 것으로 간주된다. 메쉬에 여러 연결 요소가 있는 경우, 첫 번째 연결 요소의 순회는 메쉬에서 가장 낮은 위치에 있는 모서리에서 시작하여 stack에 더 이상 모서리가 남지 않을 때까지 계속된다. 이후의 각 연결 요소는 나머지 방문하지 않은 면 중 가장 낮은 위치에 있는 모서리에서 시작한다.
 
@@ -97,7 +97,7 @@ $$
 이와 대조적으로, 본 논문에서는 계층적 MLP head를 사용하여 꼭짓점의 quantize된 $x$, $y$, $z$ 좌표를 하나의 시퀀스 길이로 예측한다. 이 계층적 방식은 $x$, $y$, $z$ 좌표를 예측할 때 순차적인 특성을 유지하며, $x$, $y$, $z$ 좌표를 동시에 예측하는 예측 head에 비해 좌표 샘플링이 더 쉽다.
 
 #### 장점
-Autoregressive Tree Sequencing은 트리 순회 과정에서 각 면이 두 개의 새로운 노드를 도입하기 때문에 삼각형 면당 두 개의 시퀀스 step만 추가한다. 또한 대부분의 메쉬는 적은 수의 연결 요소로만 구성되므로, 최소한의 보조 토큰만 사용한다. 이 효율적인 시퀀싱은 면당 9개의 토큰을 사용하는 단순 tokenization과 비교하여 대부분의 메쉬에서 약 22%의 압축률을 달성한며, MeshAnythingV2와 EdgeRunner의 약 두 배이다. 
+Autoregressive Tree Sequencing은 트리 순회 과정에서 각 면이 두 개의 새로운 노드를 도입하기 때문에 삼각형 면당 두 개의 시퀀스 step만 추가한다. 또한 대부분의 메쉬는 적은 수의 연결 요소로만 구성되므로, 최소한의 보조 토큰만 사용한다. 이 효율적인 시퀀싱은 면당 9개의 토큰을 사용하는 단순 tokenization과 비교하여 대부분의 메쉬에서 약 22%의 압축률을 달성하며, MeshAnythingV2와 EdgeRunner의 약 두 배이다. 
 
 또한, 입력 시퀀스를 관리하기 위해 동적 stack을 사용함으로써, Transformer가 각 step에서 로컬한 예측에만 집중할 수 있도록 하여 학습 효율성을 향상시킨다. 더 나아가, 강력한 normal 방향 제약 조건을 갖는 메쉬를 생성하여 MeshAnything과 MeshAnythingV2에서 흔히 발생하는 뒤집힌 normal을 최소화한다.
 
@@ -164,13 +164,13 @@ $\textbf{Z}$는 포인트 클라우드 컨디셔닝을 위해 첫 번째 [SOS] �
 <center><img src='{{"/assets/img/tree-mesh-gpt/tree-mesh-gpt-table2.webp" | relative_url}}' width="43%"></center>
 
 ### 2. Results on GSO Dataset
-다음은 Objaverse 데이터셋에서의 비교 결과이다. 
+다음은 GSO 데이터셋에서의 비교 결과이다. 
 
 <center><img src='{{"/assets/img/tree-mesh-gpt/tree-mesh-gpt-fig4.webp" | relative_url}}' width="100%"></center>
 <span style="display: block; margin: 1px 0;"></span>
 <center><img src='{{"/assets/img/tree-mesh-gpt/tree-mesh-gpt-table3.webp" | relative_url}}' width="42%"></center>
 <br>
-다음은 원본mesh decimation으로 면의 개수를 줄인 메쉬와 비교한 결과이다. 
+다음은 원본 메쉬를 mesh decimation으로 면의 개수를 줄인 메쉬와 비교한 결과이다. 
 
 <center><img src='{{"/assets/img/tree-mesh-gpt/tree-mesh-gpt-fig5.webp" | relative_url}}' width="53%"></center>
 

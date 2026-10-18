@@ -7,14 +7,13 @@ tags:
   - 3D Reconstruction
   - Gaussian Splatting
   - 3D Vision
-  - CVPR
   - ICCV
 excerpt: "QuickSplat 논문 리뷰 (ICCV 2025)"
 use_math: true
 classes: wide
 ---
 
-> ICCV 2025. [[Paper](https://arxiv.org/abs/2505.05591)] [[Page](https://liu115.github.io/quicksplat)]  
+> ICCV 2025. [[Paper](https://arxiv.org/abs/2505.05591)] [[Page](https://liu115.github.io/quicksplat)] [[Github](https://github.com/liu115/QuickSplat)]  
 > Yueh-Cheng Liu, Lukas Höllein, Matthias Nießner, Angela Dai  
 > Technical University of Munich  
 > 8 May 2025  
@@ -132,7 +131,7 @@ $$
 
 현재 iteration에서 추가할 수 있는 voxel 수를 $n(t) = s / 2^t$로 정의한다 ($s$ = 20,000). 즉, 초기 timestep에 대해 더 densify한 다음 점차 새로운 voxel 수를 줄인다. Inference 시에는 occupancy 예측에서 상위 $n(t)$개의 복셀을 선택한다.
 
-이 방법의 장점은 휴리스틱에 기반한 densification 전략을 설계할 필요가 없다는 것이다. Optimizer를 사용하여 densifier를 end-to-end로 학습시킴으로써, 현재 Gaussian 상태와 그 gradient를 새롭고 기여를 많이하는 Gaussian으로 매핑하는 방법을 학습시킨다.
+이 방법의 장점은 휴리스틱에 기반한 densification 전략을 설계할 필요가 없다는 것이다. Optimizer를 사용하여 densifier를 end-to-end로 학습시킴으로써, 현재 Gaussian 상태와 그 gradient를 새롭고 기여를 많이 하는 Gaussian으로 매핑하는 방법을 학습시킨다.
 
 ##### Densification-Optimization Loop
 Densification-optimization 루프에서는 $$\theta_D$$와 $$\theta_O$$ 두 네트워크 모두를 활용하여 여러 timestep에 걸쳐 latent voxel feature를 성장시키고 개선한다. 

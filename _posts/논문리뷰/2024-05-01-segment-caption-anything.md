@@ -89,7 +89,7 @@ L = \frac{1}{N_\mathcal{T} + 1} \sum_{k=1}^{N_\mathcal{T} + 1} \textrm{CE} (\mat
 \end{equation}
 $$
 
-CE는 0.1의 강도의 label smoothing을 사용한 cross-entropy loss이다. $$\mathcal{T}_0$$는 문장 시작(BOS) 토큰, $$\mathcal{T}_{N_\mathcal{T} + 1}$$은 문장 끝(EOS) 토큰이다. 
+CE는 0.1의 강도의 label smoothing을 사용한 cross-entropy loss가다. $$\mathcal{T}_0$$는 문장 시작(BOS) 토큰, $$\mathcal{T}_{N_\mathcal{T} + 1}$$은 문장 끝(EOS) 토큰이다. 
 
 ## Experiments
 - 데이터셋

@@ -52,7 +52,7 @@ NeRF가 view-dependent한 사실적인 외형을 모델링하는 능력을 확�
 ### 1. Reflection Cone Tracing
 <center><img src='{{"/assets/img/nerf-casting/nerf-casting-fig3.webp" | relative_url}}' width="70%"></center>
 <br>
-원점 $\textbf{o}$와 방향 $\textbf{d}$를 갖는 주어진 광선에 대해, 광선을 따라 $N$개의 점 $$\{\textbf{x}^{(𝑖)}\}_{i=1}^N$$을 샘플링하고, NeRF를 계산하여 표면 normal과 같은 3D 값들을 얻는다. 그런 다음, 이러한 값들을 알파 블렌딩하여 종료 지점 $\bar{\textbf{x}}$와 표면 normal $\bar{\textbf{n}}$을 구한다.
+원점 $\textbf{o}$와 방향 $\textbf{d}$를 갖는 주어진 광선에 대해, 광선을 따라 $N$개의 점 $$\{\textbf{x}^{(i)}\}_{i=1}^N$$을 샘플링하고, NeRF를 계산하여 표면 normal과 같은 3D 값들을 얻는다. 그런 다음, 이러한 값들을 알파 블렌딩하여 종료 지점 $\bar{\textbf{x}}$와 표면 normal $\bar{\textbf{n}}$을 구한다.
 
 $$
 \begin{equation}
@@ -74,7 +74,7 @@ $$
 1. 카메라에서 투사된 원래 픽셀 원뿔의 반경
 2. 카메라 광선의 예상 종료 지점에서 표면의 roughness
 
-먼저 반사 광선의 원뿔형 분포와 표면 거칠기로 인한 반사 방향의 분포를 거울 반사 방향 d′를 중심으로 하는 von Mises-Fisher (vMF) 분포, 즉 정규화된 spherical Gaussian 분포로 모델링한다. 카메라 광선의 예상 종료 지점에서 반사된 광선 원뿔은 vMF 분포 $\textrm{vMF}(\textbf{d}^\prime, \bar{\kappa})$로 모델링되며, 픽셀 원뿔 분포에 대한 vMF 너비 $1/\kappa$는 픽셀 광선 원뿔의 반경 $\dot{r}$과 primary ray에 따라 합성된 roughness의 합이다.
+먼저 반사 광선의 원뿔형 분포와 표면 거칠기로 인한 반사 방향의 분포를 거울 반사 방향 $\textbf{d}^\prime$을 중심으로 하는 von Mises-Fisher (vMF) 분포, 즉 정규화된 spherical Gaussian 분포로 모델링한다. 카메라 광선의 예상 종료 지점에서 반사된 광선 원뿔은 vMF 분포 $\textrm{vMF}(\textbf{d}^\prime, \bar{\kappa})$로 모델링되며, 픽셀 원뿔 분포에 대한 vMF 너비 $1/\kappa$는 픽셀 광선 원뿔의 반경 $\dot{r}$과 primary ray에 따라 합성된 roughness의 합이다.
 
 $$
 \begin{equation}
@@ -93,7 +93,7 @@ $$
 누적된 roughness $\bar{\rho}$가 0일 때 $\textbf{o}^\prime$은 표면의 반대쪽에 완벽하게 미러링된다.
 
 ### 2. Conical Reflected Features
-반사 광선에 대한 vMF 분포를 정의했으므로, vMF 분포에 대한 볼륨 렌더링된 feature 기댓값을 추정하여 반사된 색상으로 디코딩하는 것이다.
+반사 광선에 대한 vMF 분포를 정의했으므로, 다음 단계는 vMF 분포에 대한 볼륨 렌더링된 feature 기댓값을 추정하여 반사된 색상으로 디코딩하는 것이다.
 
 $$
 \begin{equation}
@@ -127,7 +127,7 @@ $$
 \end{equation}
 $$
 
-($\sigma (\textbf{x})$는 $\textbf{x}$에서의 원뿔의 스칼라 스케일, $\boldsymbol{nu}$는 NGP grid 해상도의 스케일을 나타내는 $\textbf{f}$와 동일한 차원의 벡터, $\odot$은 element-wise multiplication)
+($\sigma (\textbf{x})$는 $\textbf{x}$에서의 원뿔의 스칼라 스케일, $\boldsymbol{\nu}$는 NGP grid 해상도의 스케일을 나타내는 $\textbf{f}$와 동일한 차원의 벡터, $\odot$은 element-wise multiplication)
 
 큰 장면의 경우 contraction function $C$를 사용해야 하기 때문에, $C$의 비선형 영역에서 $\sigma (\textbf{x})$의 동작을 고려하는 것이 특히 중요하다.
 

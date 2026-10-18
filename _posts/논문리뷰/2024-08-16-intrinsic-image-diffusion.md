@@ -20,7 +20,7 @@ classes: wide
 <center><img src='{{"/assets/img/intrinsic-image-diffusion/intrinsic-image-diffusion-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
-Intrinsic image decomposition는 하나의 이미지에서 기하학적 속성, 재료 속성, 조명 속성을 예측하는 것을 목표로 한다. 그러나 근본적인 어려움은 조명과 재료의 복잡한 상호 작용의 결과로만 물체의 시각적 외형을 관찰할 수 있다는 사실에서 비롯되며, 이는 분해를 본질적으로 모호하게 만든다. 
+Intrinsic image decomposition은 하나의 이미지에서 기하학적 속성, 재료 속성, 조명 속성을 예측하는 것을 목표로 한다. 그러나 근본적인 어려움은 조명과 재료의 복잡한 상호 작용의 결과로만 물체의 시각적 외형을 관찰할 수 있다는 사실에서 비롯되며, 이는 분해를 본질적으로 모호하게 만든다. 
 
 최근의 데이터 기반 알고리즘은 사실적으로 렌더링된 대규모 합성 데이터셋을 활용하여 상당한 개선을 보여주었다. 이러한 알고리즘들은 전반적인 재료 속성을 예측하는 데 인상적인 결과를 달성하지만, 고주파 디테일을 정확하게 포착하는 것은 여전히 과제이다. 
 

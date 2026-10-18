@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> CVPR 2025. [[Paper](https://www.arxiv.org/abs/2503.13961)] [[Page](https://wuminye.github.io/projects/BG-Triangle/)] [[Github](https://github.com/wuminye/bg-triangle)]  
+> CVPR 2025. [[Paper](https://arxiv.org/abs/2503.13961)] [[Github](https://github.com/wuminye/bg-triangle)]  
 > Minye Wu, Haizhao Dai, Kaixin Yao, Tinne Tuytelaars, Jingyi Yu  
 > KU Leuven | ShanghaiTech University | Cellverse Co, Ltd  
 > 18 Mar 2025  
@@ -25,7 +25,7 @@ classes: wide
 
 이러한 한계점을 해결하기 위해, 저자들은 명시적으로 정의된 메쉬와 동등한 수준의 확실성을 가지면서도 확률적 모델과 같은 유연성과 미분 가능성을 유지하는 새로운 표현을 찾고자 했다. 본 논문은 Gaussian을 픽셀 레벨 primitive로 사용하는 하이브리드 표현인 **Bézier Gaussian Triangle (BG-Triangle)**을 제시하였다. 
 
-형상 레벨에서는 Bézier 표면을 3D 장면 표현으로 활용하며, 각 primitive는 control point와 속성 집합으로 정의된 장면의 로컬한 표면 영역을 parmeterize한다. 이러한 표면은 rasterization 파이프라인을 지원하고, 속성 버퍼를 생성하고, depth test를 수행하는 등의 연산을 위해 삼각형 메쉬로 테셀레이션될 수 있다. 픽셀 레벨에서는 속성 버퍼를 렌더링 프록시로 사용하여 픽셀 정렬된 Gaussian들을 생성하여 해상도에 무관한 렌더링을 구현한다. 이를 통해 렌더링 중 알파 블렌딩을 통한 시각적 보정이 가능해지고 최적화 중에 부드러운 gradient 계산이 용이해진다. 
+형상 레벨에서는 Bézier 표면을 3D 장면 표현으로 활용하며, 각 primitive는 control point와 속성 집합으로 정의된 장면의 로컬한 표면 영역을 parameterize한다. 이러한 표면은 rasterization 파이프라인을 지원하고, 속성 버퍼를 생성하고, depth test를 수행하는 등의 연산을 위해 삼각형 메쉬로 테셀레이션될 수 있다. 픽셀 레벨에서는 속성 버퍼를 렌더링 프록시로 사용하여 픽셀 정렬된 Gaussian들을 생성하여 해상도에 무관한 렌더링을 구현한다. 이를 통해 렌더링 중 알파 블렌딩을 통한 시각적 보정이 가능해지고 최적화 중에 부드러운 gradient 계산이 용이해진다. 
 
 BG-Triangle을 렌더링하기 위해, splatting을 수행한 후 Gaussian의 각 픽셀에 블렌딩 계수를 할당하여 해당 픽셀이 속한 BG-Triangle primitive의 영향을 반영하는 불연속성 기반의 렌더링 기법을 채택했다. 이 메커니즘은 primitive 영역 외부의 확률적 불확실성을 효과적으로 억제한다. 또한, 저자들은 실시간 성능을 위해 경계 기반의 렌더링 기법을 추가로 개발했다.
 
@@ -103,7 +103,7 @@ $$
 $$
 \begin{equation}
 w (\textbf{q}) = \begin{cases}
-0 & \textrm{if} \; \textbf{I}_{id} (\textbf{b}_i) <> g \\
+0 & \textrm{if} \; \textbf{I}_{id} (\textbf{b}_i) \ne g \\
 \gamma (\| \textbf{q} - \textbf{b}_i \|_2; \sigma_i) & \textrm{if} \; \textbf{I}_{id} (\textbf{b}_i) = \textbf{I}_{id} (\textbf{q}) \\
 1 - \gamma (\| \textbf{q} - \textbf{b}_i \|_2; \sigma_i) & \textrm{otherwise}
 \end{cases}
@@ -133,7 +133,7 @@ $$
 그런 다음, 포인트 기반 알파 블렌딩을 적용하여 픽셀의 최종 색상을 얻는다. 
 
 #### Rendering Acceleration
-블렌딩 계수 $w(\textbf{q})$를 계산하기 위해서는 모든 sub-primitive와 각 픽셀에 대해 $\mathcal{B}$의 각 boundary point를 반복하여 결과를 계산해야 때문에 계산 복잡도가 매우 높다. 따라서 $w(\textbf{q})$를 계산할 때 타일 기반 렌더링 알고리즘을 사용한다. 이 알고리즘은 이미지 공간을 여러 타일로 나누고 각 boundary point의 영향을 받는 타일의 범위를 미리 계산한다. 그런 다음 관련 타일로 검색 범위를 제한하여 가장 큰 영향을 미치는 boundary point, 즉 가장 작은 $\gamma$ 값을 생성하는 boundary point를 찾는다. 특정 primitive ID에 속하는 boundary point를 빠르게 찾기 위해 각 타일 내의 boundary point를 ID별로 정렬한다. 이렇게 하면 이진 탐색을 사용하여 목표점을 효율적으로 찾을 수 있다. 
+블렌딩 계수 $w(\textbf{q})$를 계산하기 위해서는 모든 sub-primitive와 각 픽셀에 대해 $\mathcal{B}$의 각 boundary point를 반복하여 결과를 계산해야 하기 때문에 계산 복잡도가 매우 높다. 따라서 $w(\textbf{q})$를 계산할 때 타일 기반 렌더링 알고리즘을 사용한다. 이 알고리즘은 이미지 공간을 여러 타일로 나누고 각 boundary point의 영향을 받는 타일의 범위를 미리 계산한다. 그런 다음 관련 타일로 검색 범위를 제한하여 가장 큰 영향을 미치는 boundary point, 즉 가장 작은 $\gamma$ 값을 생성하는 boundary point를 찾는다. 특정 primitive ID에 속하는 boundary point를 빠르게 찾기 위해 각 타일 내의 boundary point를 ID별로 정렬한다. 이렇게 하면 이진 탐색을 사용하여 목표점을 효율적으로 찾을 수 있다. 
 
 ### 3. Training and Optimization
 3DGS와 유사하게 BG-Triangle은 미분 가능 렌더링을 직접 지원하며, 3DGS와 동일한 photometric loss를 사용한다. 
@@ -193,6 +193,6 @@ Edge prior 측면에서는 학습 이미지에 edge detection을 적용하여 ed
 
 <center><img src='{{"/assets/img/bg-triangle/bg-triangle-fig8.webp" | relative_url}}' width="80%"></center>
 <br>
-다음은 필요한 메모리와 iteration 당 학습 시간(ms)을 나타낸 표이다. (전체 iteration 수 = 30,000)
+다음은 필요한 메모리와 iteration당 학습 시간(ms)을 나타낸 표이다. (전체 iteration 수 = 30,000)
 
 <center><img src='{{"/assets/img/bg-triangle/bg-triangle-table4.webp" | relative_url}}' width="45%"></center>

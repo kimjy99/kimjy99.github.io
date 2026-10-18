@@ -35,7 +35,7 @@ classes: wide
 DreamCraft3D는 복잡한 기하학적 구조와 360도에서 일관되게 렌더링된 사실적인 텍스처를 갖춘 창의적인 3D 에셋을 생성할 수 있다. 최적화 기반 접근 방식들과 비교하여 DreamCraft3D는 실질적으로 향상된 텍스처와 복잡성을 제공한다. 한편, image-to-3D 기술과 비교했을 때 DreamCraft3D는 360도 렌더링에서 전례 없는 사실적인 렌더링을 생성하는 데 탁월하다. 이러한 결과는 3D 콘텐츠 제작에 있어 새로운 창의적 가능성을 가능하게 하는 DreamCraft3D의 강력한 잠재력을 시사한다. 
 
 ## Preliminaries
-[DreamFusion](https://kimjy99.github.io/논문리뷰/dreamfusion)은 $\theta$로 parameterize된 3D 표현을 최적화할 떄 사전 학습된 text-to-image diffusion model $\epsilon_\phi$를 이미지 prior로 활용하여 text-to-3D 생성을 하였다. 렌더러에 의해 임의의 시점에서 렌더링된 이미지 $x = g(\theta)$는 사전 학습된 diffusion model에 의해 모델링된 텍스트 조건부 이미지 분포 $p(x \vert y)$에서 추출된 샘플을 나타낼 것으로 예상된다. Diffusion model $\phi$는 텍스트 프롬프트 $y$에 따라 noise level $t$에서 noisy한 이미지 $x_t$의 noise $\epsilon_\phi(x_t; y, t)$를 예측하도록 학습되었다. Score Distillation Sampling (SDS) loss는 렌더링된 이미지가 diffusion model에 의해 모델링된 분포와 일치하도록 장려한다. 특히 SDS loss는 기울기를 계산한다.
+[DreamFusion](https://kimjy99.github.io/논문리뷰/dreamfusion)은 $\theta$로 parameterize된 3D 표현을 최적화할 때 사전 학습된 text-to-image diffusion model $\epsilon_\phi$를 이미지 prior로 활용하여 text-to-3D 생성을 하였다. 렌더러에 의해 임의의 시점에서 렌더링된 이미지 $x = g(\theta)$는 사전 학습된 diffusion model에 의해 모델링된 텍스트 조건부 이미지 분포 $p(x \vert y)$에서 추출된 샘플을 나타낼 것으로 예상된다. Diffusion model $\phi$는 텍스트 프롬프트 $y$에 따라 noise level $t$에서 noisy한 이미지 $x_t$의 noise $\epsilon_\phi(x_t; y, t)$를 예측하도록 학습되었다. Score Distillation Sampling (SDS) loss는 렌더링된 이미지가 diffusion model에 의해 모델링된 분포와 일치하도록 장려한다. 특히 SDS loss는 기울기를 계산한다.
 
 $$
 \begin{equation}
@@ -140,7 +140,7 @@ $$
 
 텍스처 사실성을 높이기 위해 VSD loss를 사용한다. 이 단계에서는 고해상도 기울기를 제공하는 Stable Diffusion 모델로 전환한다. 사실적인 렌더링을 촉진하기 위해 사면체 그리드를 고정한 상태에서 mesh 텍스처를 독점적으로 최적화한다. 이 학습 단계에서는 텍스처 품질에 부정적인 영향을 미치기 때문에 Zero-1-to-3 모델을 3D prior 모델로 활용하지 않는다. 그럼에도 불구하고 일관되지 않은 텍스처가 다시 나타나 기괴한 3D 결과를 초래할 수 있다.
 
-저자들은 마지막 단계의 멀티뷰 렌더링이 약간의 흐릿함에도 불구하고 좋은 3D 일관성을 나타내는 것을 관찰했다. 한 가지 아이디어는 이러한 렌더링 결과를 사용하여 사전 학습된 2D diffusion model을 적용하여 모델이 장면의 주변 뷰에 대한 개념을 형성할 수 있도록 하는 것이다. 이를 고려하여 [DreamBooth](https://kimjy99.github.io/논문리뷰/dreambooth)를 사용하여 멀티뷰 이미지 렌더링 $$\{x\}$$로 diffusion mdoel을 fine-tuning한다. 특히, 고유 식별자와 대상의 클래스 이름이 포함된 텍스트 프롬프트를 통합한다 (ex. "A $[V]$ astronaut"). Fine-tuning 중에 각 뷰의 카메라 파라미터가 추가 조건으로 도입된다. 실제로 저자들은 증강된 이미지 렌더링 $x_r = r_{t^\prime} (x)$을 사용하여 DreamBooth를 학습시켰다. Diffusion timestep $t^\prime$에 맞는 Gaussian noise를 멀티뷰 렌더링에 도입하며 diffusion model을 사용하여 복원된다. 
+저자들은 마지막 단계의 멀티뷰 렌더링이 약간의 흐릿함에도 불구하고 좋은 3D 일관성을 나타내는 것을 관찰했다. 한 가지 아이디어는 이러한 렌더링 결과를 사용하여 사전 학습된 2D diffusion model을 적용하여 모델이 장면의 주변 뷰에 대한 개념을 형성할 수 있도록 하는 것이다. 이를 고려하여 [DreamBooth](https://kimjy99.github.io/논문리뷰/dreambooth)를 사용하여 멀티뷰 이미지 렌더링 $$\{x\}$$로 diffusion model을 fine-tuning한다. 특히, 고유 식별자와 대상의 클래스 이름이 포함된 텍스트 프롬프트를 통합한다 (ex. "A $[V]$ astronaut"). Fine-tuning 중에 각 뷰의 카메라 파라미터가 추가 조건으로 도입된다. 실제로 저자들은 증강된 이미지 렌더링 $x_r = r_{t^\prime} (x)$을 사용하여 DreamBooth를 학습시켰다. Diffusion timestep $t^\prime$에 맞는 Gaussian noise를 멀티뷰 렌더링에 도입하며 diffusion model을 사용하여 복원된다. 
 
 $$
 \begin{equation}
@@ -150,7 +150,7 @@ $$
 
 큰 $t^\prime$을 선택하면 이러한 증강된 이미지는 원본 렌더링에 대한 충실도를 희생하면서 고주파 디테일을 드러낸다. 이러한 증강된 렌더링으로 학습된 DreamBooth 모델은 텍스처 개선을 가이드하는 3D prior 역할을 할 수 있다.
 
-또한 저자들은 부트스트랩 최적화를 촉진하기 위해 3D 장면을 대안적으로 최적화하는 방법을 제안하였다. 처음에는 3D mesh가 흐릿한 멀티뷰 렌더링을 생성한다. 3D 불일치를 도입하면서 텍스처 품질을 높이기 위해 큰 $t^\prime$을 채택한다. 이러한 증강된 렌더링을 통해 학습된 DreamBooth 모델은 장면의 통합된 3D 개념을 획득하여 텍스처 개선을 가이드한다. 3D mesh가 더 세밀한 텍스처를 나타내면 이미지 렌더링에 발생하는 diffusion noise가 줄어드므로 DreamBooth 모델은 보다 일관된 렌더링을 통해 학습하고 진화하는 뷰에 충실한 이미지 분포를 더 잘 캡처한다. 이 순환 프로세스에서 3D mesh와 diffusion prior는 부트스트랩 방식으로 상호 향상된다. 다음과 같이 bootstrapped score distillation (BSD) loss을 사용하여 3D 최적화 기울기를 계산한다. 
+또한 저자들은 부트스트랩 최적화를 촉진하기 위해 3D 장면을 대안적으로 최적화하는 방법을 제안하였다. 처음에는 3D mesh가 흐릿한 멀티뷰 렌더링을 생성한다. 3D 불일치를 도입하면서 텍스처 품질을 높이기 위해 큰 $t^\prime$을 채택한다. 이러한 증강된 렌더링을 통해 학습된 DreamBooth 모델은 장면의 통합된 3D 개념을 획득하여 텍스처 개선을 가이드한다. 3D mesh가 더 세밀한 텍스처를 나타내면 이미지 렌더링에 발생하는 diffusion noise가 줄어드므로 DreamBooth 모델은 보다 일관된 렌더링을 통해 학습하고 진화하는 뷰에 충실한 이미지 분포를 더 잘 캡처한다. 이 순환 프로세스에서 3D mesh와 diffusion prior는 부트스트랩 방식으로 상호 향상된다. 다음과 같이 bootstrapped score distillation (BSD) loss를 사용하여 3D 최적화 기울기를 계산한다. 
 
 $$
 \begin{equation}

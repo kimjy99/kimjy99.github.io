@@ -69,7 +69,7 @@ $$
 \end{equation}
 $$
 
-Hard 및 Soft Depth Regularization를 모두 사용하여 가장 가까운 Gaussian이 불투명도가 높은 적절한 위치에 머물도록 제한하여 완전한 표면을 구성한다.
+Hard 및 Soft Depth Regularization을 모두 사용하여 가장 가까운 Gaussian이 불투명도가 높은 적절한 위치에 머물도록 제한하여 완전한 표면을 구성한다.
 
 ### 2. Global-Local Depth Normalization
 <center><img src='{{"/assets/img/dngaussian/dngaussian-fig4.webp" | relative_url}}' width="70%"></center>

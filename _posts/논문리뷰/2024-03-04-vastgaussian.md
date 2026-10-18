@@ -46,7 +46,7 @@ $$
 \end{equation}
 $$
 
-여기서 $\lambda$는 hyperparameter이고 $$\mathcal{L}_\textrm{D-SSIM}$$은 D-SSIM loss이다. 이 프로세스는 포인트의 누적 기울기가 특정 threshold에 도달할 때 발동되는 적응형 densification과 인터리브된다. 
+여기서 $\lambda$는 hyperparameter이고 $$\mathcal{L}_\textrm{D-SSIM}$$은 D-SSIM loss가다. 이 프로세스는 포인트의 누적 기울기가 특정 threshold에 도달할 때 발동되는 적응형 densification과 인터리브된다. 
 
 ## Method
 ### 1. Progressive Data Partitioning

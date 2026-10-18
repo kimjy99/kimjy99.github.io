@@ -40,7 +40,7 @@ classes: wide
 본 논문은 더 나은 MDE를 위해 레이블이 있는 이미지와 레이블이 없는 이미지를 모두 활용한다. 먼저 레이블이 있는 데이터셋 $$\mathcal{D}^l = \{(x_i, d_i)\}_{i=1}^M$$으로부터 teacher model $T$를 학습시킨다. 그런 다음 $T$를 활용하여 레이블이 없는 데이터셋 $$\mathcal{D}^u = \{u_i\}_{i=1}^N$$에 pseudo depth label을 할당한다. 마지막으로, 두 데이터셋을 결합하여 student model $S$를 학습시킨다. 
 
 ### 1. Learning Labeled Images
-깊이 값은 먼저 $d = 1/t$에 의해 disparity로 변환된 후 각 depth map에서 0∼1로 정규화된다. 여러 데이터셋에서 공동으로 학습시키기 위해 affine-invariant loss을 채택하였다. 
+깊이 값은 먼저 $d = 1/t$에 의해 disparity로 변환된 후 각 depth map에서 0∼1로 정규화된다. 여러 데이터셋에서 공동으로 학습시키기 위해 affine-invariant loss를 채택하였다. 
 
 $$
 \begin{equation}
@@ -49,7 +49,7 @@ $$
 \end{equation}
 $$
 
-여기서 $d_i^\ast$는 예측값이고 $d_i$는 GT이다. $\rho$는 affine-invariant mean absolute error loss이며, $t(d)$와 $s(d)$는 translation과 scale이다. 
+여기서 $d_i^\ast$는 예측값이고 $d_i$는 GT이다. $\rho$는 affine-invariant mean absolute error loss가며, $t(d)$와 $s(d)$는 translation과 scale이다. 
 
 $$
 \begin{equation}

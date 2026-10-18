@@ -24,7 +24,7 @@ classes: wide
 
 대부분의 fine-tuning 기반 접근 방식에는 소량의 타겟 speaker 음성 데이터가 필요하며 해당 음성과 쌍을 이루는 전사(transcript)가 필요할 수도 있다. AdaSpeech 2는 전사되지 않은 음성으로 사전 학습된 TTS 모델을 fine-tuning하기 위해 플러그형 mel-spectrogram 인코더 (mel encoder)를 제안한다. Fine-tuning 중에 텍스트 인코더를 대체하기 위해 mel encoder가 도입되었으므로 AdaSpeech 2는 타겟 speaker에서 디코더를 fine-tuning할 때 전사가 필요하지 않다. 그러나 그 결과는 적응적 TTS에만 국한되며 deterministic한 피드포워드 디코더로 인해 상대적으로 많은 양의 타겟 speaker 데이터를 요구하는 등의 한계를 보인다.
 
-Diffusion model에 대한 최근 연구는 몇 개의 이미지만으로 text-to-image 생성과 개인화에 강력한 결과를 보여주고 있으며 이러한 추세는 음성 합성과 적응형 TTS로 확장되고 있다. [Guided-TTS 2](https://kimjy99.github.io/논문리뷰/guided-tts2)는 diffusion mdoel의 fine-tuning 능력과 classifier guidance 기술을 활용하여 10초 길이의 전사되지 않은 음성만으로 고품질 적응형 TTS를 구축한다. 그러나 Guided-TTS 2는 unconditional 생성 모델의 학습이 필요하므로 일반적인 TTS 모델에 비해 학습이 더 어렵고 시간이 많이 걸린다.
+Diffusion model에 대한 최근 연구는 몇 개의 이미지만으로 text-to-image 생성과 개인화에 강력한 결과를 보여주고 있으며 이러한 추세는 음성 합성과 적응형 TTS로 확장되고 있다. [Guided-TTS 2](https://kimjy99.github.io/논문리뷰/guided-tts2)는 diffusion model의 fine-tuning 능력과 classifier guidance 기술을 활용하여 10초 길이의 전사되지 않은 음성만으로 고품질 적응형 TTS를 구축한다. 그러나 Guided-TTS 2는 unconditional 생성 모델의 학습이 필요하므로 일반적인 TTS 모델에 비해 학습이 더 어렵고 시간이 많이 걸린다.
 
 본 논문에서는 소량의 전사되지 않은 음성에 대해 사전 학습된 diffusion 기반 TTS 모델을 fein-tuning하여 개인화된 음성 합성을 수행하는 UnitSpeech를 제안한다. Fine-tuning을 위해 전사된 데이터가 필요한 spekaer 적응을 위한 backbone TTS 모델로 multi-speaker [Grad-TTS](https://kimjy99.github.io/논문리뷰/gradtts)를 사용한다. 마찬가지로 AdaSpeech 2에서는 전사 없이 음성 콘텐츠를 diffusion 기반 디코더에 제공하는 새로운 인코더 모델을 도입한다. AdaSpeech 2는 mel-spectrogram을 인코더의 입력으로 직접 사용하지만, 텍스트 인코더를 더 잘 대체하기 위해 speaker ID와 분리된 음성 콘텐츠를 포함하는 self-supervised unit 표현을 사용한다. 
 
@@ -147,4 +147,4 @@ $$
 1. 클러스터 $K$의 수는 TTS 결과에 큰 영향을 미치지 않는다. 그러나 unit을 직접 입력으로 사용하는 VC의 경우 $K$가 증가하면 발음이 보다 정밀하게 세분화되어 발음 정확도가 향상된다. 
 2. 더 많이 fine-tuning할수록 speaker 유사성이 점차 증가하고 결국 약 500 iteration으로 수렴된다. 또한 2,000 iteration 이상 fine-tuning하면 발음 정확도가 감소한다. 
 3. Fine-tuning에 사용된 레퍼런스 음성의 길이가 증가함에 따라 발음 정확도와 speaker 유사성이 모두 향상된다. 또한 5초 길이의 짧은 레퍼런스 음성으로도 충분한 발음 정확도와 speaker 유사성을 달성할 수 있다.
-4. 제안된 guidance 방법은 speaker 유사성이 약간 감소하는 대신 발음을 향상시킨다. Spekaer 유사성 감소를 최소화하면서 발음 향상을 최대화하는 gradient sclae $\gamma$는 TTS의 경우 1, VC의 경우 1.5이다. 
+4. 제안된 guidance 방법은 speaker 유사성이 약간 감소하는 대신 발음을 향상시킨다. Spekaer 유사성 감소를 최소화하면서 발음 향상을 최대화하는 gradient scale $\gamma$는 TTS의 경우 1, VC의 경우 1.5이다. 

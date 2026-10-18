@@ -25,7 +25,7 @@ classes: wide
 
 학습된 latent space에서 이미지를 표현하고 생성하는 것은 유망한 대안을 제공한다. Latent diffusion은 픽셀 space보다 차원이 낮은 latent feature space에서 denoising을 수행하므로 각 denoising step의 비용이 줄어든다. 그러나 실수 latent 표현을 회귀하는 것은 여전히 복잡하며 수백 개의 diffusion step을 필요로 한다. VAE는 반복적인 step 없이 이미지를 생성한다. 그러나 latent space의 정적 prior는 표현력을 제한하고 posterior collapse로 이어질 수 있다. 
 
-모델링 복잡성을 크게 증가시키지 않고 latent 분포의 유연성을 높이기 위해 VQ-VAE는 vector-quantized latent space를 도입한다. 여기에서 각 이미지는 학습된 코드북의 벡터를 가리키는 인덱스 시퀀스로 표시된다. 그런 다음 벡터 양자화 표현에 대한 prior는 일반적으로 autoregressive model로 parameterize되는 학습된 sampler에 의해 모델링된다. VQ-VAE의 성공은 가속 병렬 autoregressive model과 multinomial diffusion model과 같은 다른 모델로 코드북 인덱스의 이산적인 latent space를 모델링하는 일련의 연구들을 자극하였다. VQ 기반 생성 모델은 학습 불안정과 같은 문제 없이 GAN과 같은 보다 정교한 방법보다 우수한 놀라운 이미지 합성 성능과 모델 커버리지를 보여준다. 그러나 각 이미지 패치를 나타내기 위해 하나의 코드북 인덱스를 사용하는 엄격한 제한은 코드북 크기에 대한 trade-off를 도입한다. 왜냐하면 더 많은 이미지 패턴을 커버할 수 있을 만큼 충분히 큰 코드북은 sampler에 대해 지나치게 복잡한 multinomial latent distribution를 도입할 것이기 때문이다. 
+모델링 복잡성을 크게 증가시키지 않고 latent 분포의 유연성을 높이기 위해 VQ-VAE는 vector-quantized latent space를 도입한다. 여기에서 각 이미지는 학습된 코드북의 벡터를 가리키는 인덱스 시퀀스로 표시된다. 그런 다음 벡터 양자화 표현에 대한 prior는 일반적으로 autoregressive model로 parameterize되는 학습된 sampler에 의해 모델링된다. VQ-VAE의 성공은 가속 병렬 autoregressive model과 multinomial diffusion model과 같은 다른 모델로 코드북 인덱스의 이산적인 latent space를 모델링하는 일련의 연구들을 자극하였다. VQ 기반 생성 모델은 학습 불안정과 같은 문제 없이 GAN과 같은 보다 정교한 방법보다 우수한 놀라운 이미지 합성 성능과 모델 커버리지를 보여준다. 그러나 각 이미지 패치를 나타내기 위해 하나의 코드북 인덱스를 사용하는 엄격한 제한은 코드북 크기에 대한 trade-off를 도입한다. 왜냐하면 더 많은 이미지 패턴을 커버할 수 있을 만큼 충분히 큰 코드북은 sampler에 대해 지나치게 복잡한 multinomial latent distribution을 도입할 것이기 때문이다. 
 
 본 논문에서는 각 이미지 패치가 이제 binary 벡터로 표현되며, 이산적인 binary latent code로 prior가 맞춤형으로 개선된 binary diffusion model에 의해 효과적으로 모델링되는 binary latent space에서 이미지의 콤팩트하면서도 표현적인 표현을 탐색한다 베르누이 분포용. 특히, 이미지와 binary 표현 간의 양방향 매핑은 binary latent space를 가지는 feed-forward autoencoder에 의해 모델링된다. 이미지가 주어지면 인코더는 이제 독립적으로 분산된 베르누이 변수 시퀀스의 정규화된 파라미터를 출력한다. 여기에서 이 이미지의 binary 표현이 샘플링되고 이미지를 재구성하기 위해 디코더에 공급된다. 베르누이 분포의 불연속 샘플링은 자연스럽게 기울기 전파를 허용하지 않는다. 저자들은 높은 학습 효율성을 유지하면서 고품질 이미지 재구성에 간단한 straight-through gradient copy가 충분하다는 것을 발견했다. 
 
@@ -153,7 +153,7 @@ $$
 \end{equation}
 $$
 
-여기서 $\textrm{BCE}(\cdot, \cdot)$은 binary cross-entropy loss이다. 실제로는 최종 목적 함수를 $$\mathcal{L}_\textrm{residual}$$과 $$\mathcal{L}_\textrm{vlb}$$의 결합으로 설정하는 것이 좋다고 한다.
+여기서 $\textrm{BCE}(\cdot, \cdot)$은 binary cross-entropy loss가다. 실제로는 최종 목적 함수를 $$\mathcal{L}_\textrm{residual}$$과 $$\mathcal{L}_\textrm{vlb}$$의 결합으로 설정하는 것이 좋다고 한다.
 
 $$
 \begin{equation}

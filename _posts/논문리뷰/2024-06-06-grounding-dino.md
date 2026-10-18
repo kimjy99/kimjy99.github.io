@@ -57,7 +57,7 @@ Grounding DINO는 GLIP과 비교했을 때 몇 가지 장점이 있다.
 ## Method
 <center><img src='{{"/assets/img/grounding-dino/grounding-dino-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
-Grounding DINO는 주어진 이미지-텍스트 쌍에 대해 여러 쌍의 bounding box와 명사구를 출력한다. GLIP을 따라 object detection를 위한 입력 텍스트로 모든 카테고리 이름을 concatenate한다. REC에는 각 텍스트 입력에 bounding box가 필요하다. 가장 큰 점수를 가진 출력 물체를 REC task의 출력으로 사용한다. 
+Grounding DINO는 주어진 이미지-텍스트 쌍에 대해 여러 쌍의 bounding box와 명사구를 출력한다. GLIP을 따라 object detection을 위한 입력 텍스트로 모든 카테고리 이름을 concatenate한다. REC에는 각 텍스트 입력에 bounding box가 필요하다. 가장 큰 점수를 가진 출력 물체를 REC task의 출력으로 사용한다. 
 
 Grounded DINO는 이중 인코더-단일 디코더 아키텍처이다. 여기에는 이미지 feature 추출을 위한 이미지 backbone, 텍스트 특징 추출을 위한 텍스트 backbone, 이미지와 텍스트 feature 융합을 위한 feature enhancer, 쿼리 초기화를 위한 언어 기반 쿼리 선택 모듈, 박스 세분화를 위한 cross-modality 디코더가 포함되어 있다. 
 

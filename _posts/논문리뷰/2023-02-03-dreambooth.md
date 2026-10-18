@@ -34,7 +34,7 @@ classes: wide
 <br>
 본 논문의 목표는 피사체의 이미지 몇 개(~3-5)가 주어지면 모델의 출력 도메인에 피사체를 이식하여 고유 식별자로 합성할 수 있도록 하는 것이다. 이를 위해 저자들은 희귀한 토큰 식별자로 주어진 주제를 표현하고 두 단계로 작동하는 사전 학습된 diffusion 기반 text-to-image 프레임워크를 finetuning하는 기술을 제안한다. 텍스트에서 저해상도 이미지를 생성한 후 super-resolution (SR) diffusion model을 적용한다.
 
-먼저 입력 이미지와 클래스 이름이 뒤에 오는 고유 식별자를 포함하는 텍스트 프롬프트를 사용하여 저해상도 text-to-image 모델을 finetuning한다 (ex., "A [V] dog"). 모델이 클래스 이름(ex. "dog")을 특정 인스턴스와 연결하게 만드는 overfitting과 language drift를 방지하기 위해 클래스에 대한 semantic prior를 활용하는 autogenous, class-specific prior preservation loss을 제안한다. Semantic prior는 모델에 내장되어 있으며 주제와 동일한 클래스의 다양한 인스턴스를 생성하도록 권장한다.
+먼저 입력 이미지와 클래스 이름이 뒤에 오는 고유 식별자를 포함하는 텍스트 프롬프트를 사용하여 저해상도 text-to-image 모델을 finetuning한다 (ex., "A [V] dog"). 모델이 클래스 이름(ex. "dog")을 특정 인스턴스와 연결하게 만드는 overfitting과 language drift를 방지하기 위해 클래스에 대한 semantic prior를 활용하는 autogenous, class-specific prior preservation loss를 제안한다. Semantic prior는 모델에 내장되어 있으며 주제와 동일한 클래스의 다양한 인스턴스를 생성하도록 권장한다.
 
 두 번째 단계에서는 입력 이미지의 저해상도 버전과 고해상도 버전을 쌍으로 사용하여 super-resolution 부분을 finetuning한다. 이를 통해 모델은 주제의 작지만 중요한 세부 사항에 대해 높은 fidelity를 유지할 수 있다. 저자들은 사전 학습된 Imagen 모델을 실험의 기본 모델로 사용하지만 논문의 방법은 특정  text-to-image diffusion model에 제한되지 않는다. 
 

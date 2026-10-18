@@ -109,7 +109,7 @@ $$
 \end{equation}
 $$
 
-여기서 $D$는 dice loss이며, $P^\prime$은 $x$축과 $y$축에 대한 projection 함수이다. $M_p^t$와 $M_b^t$는 각각 프레임 $t$에서 예측된 인스턴스 마스크와 대응되는 ground-truth 박스 마스크이다. 여기서는 명확성을 위해 객체 인스턴스 인덱스를 생략했다.
+여기서 $D$는 dice loss가며, $P^\prime$은 $x$축과 $y$축에 대한 projection 함수이다. $M_p^t$와 $M_b^t$는 각각 프레임 $t$에서 예측된 인스턴스 마스크와 대응되는 ground-truth 박스 마스크이다. 여기서는 명확성을 위해 객체 인스턴스 인덱스를 생략했다.
 
 반면에 pairwise loss $$\mathcal{L}_\textrm{pair}$$는 단일 프레임의 이웃 픽셀을 공간적으로 제한한다. 색상 유사도가 $\sigma_\textrm{pixel}$인 위치 $p_i^\prime$와 $p_j^\prime$의 픽셀에 대해 다음과 같이 예측 마스크 레이블이 일관되도록 강제한다.
 

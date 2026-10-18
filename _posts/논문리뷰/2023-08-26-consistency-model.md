@@ -136,7 +136,7 @@ $$
 
 단순화를 위해 본 논문에서는 one-step ODE solver만 고려한다.
 
-PF ODE와 SDE 간의 연결로 인해 먼저 $x \sim p_\textrm{data}$를 샘플링한 다음 $x$에 Gaussian noise를 추가하여 ODE 궤적 분포를 따라 샘플링할 수 있다. 구체적으로, 데이터 포인트 $x$가 주어지면, 데이터셋에서 $x$를 샘플링하여 효율적으로 PF ODE 궤적에서 한 쌍의 인접한 데이터 포인트 $$(\hat{x}_{t_n}^\phi, x_{t_{n+1}})$$를 생성할 수 있다. SDE의 transition 밀도 $\mathcal{N} (x, t_{n+1}^2 I)$에서 $x_{t_{n+1}}$을 샘플링한 다음 numerical ODE solver의 하나의 discretization step을 사용하여 $$\hat{x}_{t_n}^\phi$$을 계산한다. 그런 다음 $$(\hat{x}_{t_n}^\phi, x_{t_{n+1}})$$에 대한 출력 차이를 최소화하여 consistency model을 학습시킨다. 이는 consistency model 학습을 위해 다음과 같은 consistency distillation (CD) loss을 사용하도록 동기를 부여하였다.
+PF ODE와 SDE 간의 연결로 인해 먼저 $x \sim p_\textrm{data}$를 샘플링한 다음 $x$에 Gaussian noise를 추가하여 ODE 궤적 분포를 따라 샘플링할 수 있다. 구체적으로, 데이터 포인트 $x$가 주어지면, 데이터셋에서 $x$를 샘플링하여 효율적으로 PF ODE 궤적에서 한 쌍의 인접한 데이터 포인트 $$(\hat{x}_{t_n}^\phi, x_{t_{n+1}})$$를 생성할 수 있다. SDE의 transition 밀도 $\mathcal{N} (x, t_{n+1}^2 I)$에서 $x_{t_{n+1}}$을 샘플링한 다음 numerical ODE solver의 하나의 discretization step을 사용하여 $$\hat{x}_{t_n}^\phi$$을 계산한다. 그런 다음 $$(\hat{x}_{t_n}^\phi, x_{t_{n+1}})$$에 대한 출력 차이를 최소화하여 consistency model을 학습시킨다. 이는 consistency model 학습을 위해 다음과 같은 consistency distillation (CD) loss를 사용하도록 동기를 부여하였다.
 
 $$
 \begin{equation}

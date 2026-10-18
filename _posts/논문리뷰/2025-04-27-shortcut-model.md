@@ -38,7 +38,7 @@ x_{t+d}^\prime = x_t + s(x_t, t, d) d
 \end{equation}
 $$
 
-본 논문의 목표는 $x_t$, $t$, $d$의 모든 조합에 대한 shortcut을 학습한 shortcut model $s_\theta (x_t, t, d)$를 학습시키는 것이다. 따라서 shortcut model은 더 큰 step 크기에 대한 flow-matching model의 일반화로 볼 수 있다. flow-matching model은 순간 속도만 학습하는 반면, shortcut model은 추가로 더 큰 점프를 하는 법을 학습한다. $d \rightarrow 0$이면 shortcut은 flow와 동등하다.
+본 논문의 목표는 $x_t$, $t$, $d$의 모든 조합에 대한 shortcut을 학습한 shortcut model $s_\theta (x_t, t, d)$를 학습시키는 것이다. 따라서 shortcut model은 더 큰 step 크기에 대한 flow-matching model의 일반화로 볼 수 있다. Flow-matching model은 순간 속도만 학습하는 반면, shortcut model은 추가로 더 큰 점프를 하는 법을 학습한다. $d \rightarrow 0$이면 shortcut은 flow와 동등하다.
 
 $s_\theta (x_t, t, d)$를 학습시키기 위한 target을 계산하는 단순한 방법은 충분히 작은 step 크기로 ODE forward를 완전히 시뮬레이션하는 것이다. 그러나 이 접근 방식은 특히 end-to-end 학습의 경우 계산 비용이 많이 든다. 대신, shortcut model의 고유한 자기 일관성 (self-consistency) 속성을 활용한다. 즉, 하나의 shortcut step은 크기가 절반인 두 개의 연속된 shortcut step과 같다.
 
@@ -53,7 +53,7 @@ $$
 $$
 \begin{equation}
 \mathcal{L}^S (\theta) = \mathbb{E}_{x_0 \sim \mathcal{N}, x_1 \sim \mathcal{D}, (t,d) \sim p(t,d)} \left[ \underbrace{\| s_\theta (x_t, t, 0) - (x_1 - x_0) \|^2}_{\textrm{Flow-Matching}} + \underbrace{\| s_\theta (x_t, t, 2d) - s_\textrm{target} \|^2}_{\textrm{Self-Consistency}} \right] \\
-\textrm{where} \quad s_\textrm{target} = \frac{s(x_t, t, d) + s(x_{t+d}^\prime, t, d)}{2} \; \textrm{and} \; x_t + s_\theta (x_t, t, d) d
+\textrm{where} \quad s_\textrm{target} = \frac{s(x_t, t, d) + s(x_{t+d}^\prime, t, d)}{2} \; \textrm{and} \; x_{t+d}^\prime = x_t + s_\theta (x_t, t, d) d
 \end{equation}
 $$
 
@@ -87,7 +87,7 @@ Flow-matching loss와 self-consistency loss는 학습 중에 공동으로 최적
 저자들은 shortcut model에서도 마찬가지로 $d = 0$에서의 loss의 분산이 $d = 1$에서 출력에 큰 진동을 일으킬 수 있음을 발견했다. Self-consistency target을 생성하기 위해 EMA 파라미터를 활용하면 이 문제가 완화된다.
 
 ##### Weight decay
-저자들은 안정적인 학습에 weight decay가 매우 중요하다는 것을 발견했으며, 특히 학습 초기에 그렇다. 학습 초기에는 shortcut model 생성하는 self-consistency target은 대부분 noise이다. 모델은 이러한 target에 걸려 아티팩트와 나쁜 학습이 발생할 수 있다. 적절한 weight decay는 discretization schedule이나 신중한 warm-up 없이 이러한 문제를 사라지게 한다. 
+저자들은 안정적인 학습에 weight decay가 매우 중요하다는 것을 발견했으며, 특히 학습 초기에 그렇다. 학습 초기에는 shortcut model이 생성하는 self-consistency target은 대부분 noise이다. 모델은 이러한 target에 걸려 아티팩트와 나쁜 학습이 발생할 수 있다. 적절한 weight decay는 discretization schedule이나 신중한 warm-up 없이 이러한 문제를 사라지게 한다. 
 
 ##### Discrete time sampling
 실제로, 관련된 timestep에서만 학습시킴으로써 shortcut model의 부담을 줄일 수 있다. 학습하는 동안, 먼저 $d$를 샘플링한 다음, shortcut model이 쿼리될 지점에서만 $t$를 샘플링한다. 즉, 샘플링된 $t$는 $d$의 배수이다. 이러한 timestep $t$에서만 self-consistency loss를 학습시킨다.
@@ -111,7 +111,7 @@ Flow-matching loss와 self-consistency loss는 학습 중에 공동으로 최적
 <center><img src='{{"/assets/img/shortcut-model/shortcut-model-fig5.webp" | relative_url}}' width="100%"></center>
 
 ### 4. Latent Space Interpolation
-저자들은 shortcut model의 latent space가 interpolation 가능한 지를 확인하고자 하였다. 초기 noise 샘플 쌍 ($x_0^0, x_0^1$)이 있을 때 다음 식과 같이 variance-preserving 방식으로 interpolation할 수 있다.
+저자들은 shortcut model의 latent space가 interpolation 가능한지를 확인하고자 하였다. 초기 noise 샘플 쌍 ($x_0^0, x_0^1$)이 있을 때 다음 식과 같이 variance-preserving 방식으로 interpolation할 수 있다.
 
 $$
 \begin{equation}
@@ -123,7 +123,7 @@ $$
 
 <center><img src='{{"/assets/img/shortcut-model/shortcut-model-fig6.webp" | relative_url}}' width="70%"></center>
 
-### 5. Nnon-image Domains
+### 5. Non-image Domains
 다음은 [diffusion policy](https://arxiv.org/abs/2303.04137)와 비슷한 방식으로 shortcut policy를 학습시킨 결과이다. 
 
 <div style="display: flex; align-items: start; justify-content: center">

@@ -70,7 +70,7 @@ $$
 $\textrm{Norm}$은 parameter가 없는 group normalization이다. $\gamma^i (x)$와 $\beta^i (x)$는 spatially-adaptive weight과 bias이다. SDM은 attention block, skip-connection, timestep embedding module을 포함하는 diffusion process를 위하여 디자인되었으므로 SPADE와 다르다. 
 
 ### 3. Loss functions
-SDM은 두가지 목적 함수로 학습된다. 첫번째 목적 함수는 simple diffusion loss이다. 레퍼런스 출력 이미지 $y$와 랜덤 timestep $$t \in \{0, 1, \cdots, T\}$$가 주어지면 $y$의 noisy한 버전 $\tilde{y}$는 다음과 같이 생성된다.
+SDM은 두가지 목적 함수로 학습된다. 첫번째 목적 함수는 simple diffusion loss가다. 레퍼런스 출력 이미지 $y$와 랜덤 timestep $$t \in \{0, 1, \cdots, T\}$$가 주어지면 $y$의 noisy한 버전 $\tilde{y}$는 다음과 같이 생성된다.
 
 $$
 \begin{equation}
@@ -110,7 +110,7 @@ $$
 \end{equation}
 $$
 
-$\lambda$는 loss function의 균형을 맞추기 위한 trade-off paramter이다.
+$\lambda$는 loss function의 균형을 맞추기 위한 trade-off parameter이다.
 
 ### 4. Classifier-free guidance.
 DDPM의 일반적이 샘플링 과정을 따르면 이미지가 다양하게 생성되지만 현실적이지 않으며 semantic label map과 강하게 연관되지 않는다. 저자들은 조건부 diffusion model이 조건부 입력을 샘플링 프로세스 중에 잘 다루지 못한다고 가정하였다. 이전 연구들은 조건부 diffusion model의 샘플을 로그 확률의 기울기
@@ -129,7 +129,7 @@ $$
 \end{equation}
 $$
 
-$s$는 guidance scale이라는 hyperparamter이며, 샘플 품질과 다양성을 절충한다.
+$s$는 guidance scale이라는 hyperparameter이며, 샘플 품질과 다양성을 절충한다.
 
 이전 연구에서는 추가로 학습된 classifier $p(x \vert y_t)$를 적용하여 샘플링 프로세스 중에 기울기를 제공한다. Classifier-free diffusion guidance 논문에서 영감을 받아, 학습에 추가 비용이 필요한 classifier model 대신 생성 모델 자체로 guidance를 얻는다. 주요 아이디어는 semantic label map $x$를 null label $\emptyset$로 교체하여 $\epsilon_\theta (y_t \vert \emptyset)$에서 $\epsilon_\theta (y_t \vert x)$의 guidance에 따라 추정된 noise를 분리한다. 분리된 요소는 로그 확률의 기울기를 암시적으로 추론한다. 
 

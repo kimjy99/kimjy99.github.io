@@ -21,7 +21,7 @@ classes: wide
 <center><img src='{{"/assets/img/focal-stable-dino/focal-stable-dino-fig1.webp" | relative_url}}' width="80%"></center>
 
 ## Introduction
-Object detection는 주로 모델 구조, 데이터 규모, 학습 전략의 개선에 힘입어 최근 몇 년 동안 크게 발전했다. 모델 레벨에서는 다양한 연구에서 더 나은 결과를 위해 모델 설계를 향상시키는 데 중점을 두었다. 마찬가지로, 모델 표현을 개선하기 위해 masked image modeling이나 image-text contrastive learning과 같은 고급 학습 전략이 채택되었다. 
+Object detection은 주로 모델 구조, 데이터 규모, 학습 전략의 개선에 힘입어 최근 몇 년 동안 크게 발전했다. 모델 레벨에서는 다양한 연구에서 더 나은 결과를 위해 모델 설계를 향상시키는 데 중점을 두었다. 마찬가지로, 모델 표현을 개선하기 위해 masked image modeling이나 image-text contrastive learning과 같은 고급 학습 전략이 채택되었다. 
 
 모델 디자인과 학습 전략이 정체기에 도달한 후, 최근 연구에서는 더 큰 규모의 사전 학습된 모델과 더 광범위한 데이터 볼륨, 특히 비공개 데이터셋을 사용하여 모델 성능을 지속적으로 향상시키는 방법을 모색하기 시작했다. 예를 들어 [EVA](https://arxiv.org/abs/2211.07636), [BEiT](https://kimjy99.github.io/논문리뷰/beit), [InternImage-DINO](https://kimjy99.github.io/논문리뷰/internimage)와 같은 작업은 COCO 2017 val2017과 test-dev에서 새로운 SOTA 결과를 달성하기 위해 매우 큰 backbone과 충분한 학습 데이터를 활용했다. 불행하게도 이러한 발전의 진행은 비공개 학습 데이터의 제한된 접근성으로 인해 방해를 받아 보고된 강력한 결과를 복제하는 것이 어려워졌다. 또한 복잡한 데이터 큐레이션 파이프라인 (ex. 여러 데이터셋 병합)과 정교하게 설계된 사전 학습 방법 (ex. masked image modeling, contrastive learning)으로 인해 연구자가 비공개 데이터와 코드에 액세스하지 않고는 이러한 기술을 재현하기가 어렵다.
 
@@ -29,7 +29,7 @@ Object detection에서 detector는 일반적으로 backbone과 detection head라
 
 위의 분석을 바탕으로 본 논문은 masked image modeling이나 비공개 데이터 또는 이미지-텍스트 쌍의 통합과 같은 복잡한 학습 방법에 의존하지 않고 **Focal-Stable-DINO**라는 강력한 object detector를 개발하였다. Focal-Stable-DINO는 강력할 뿐만 아니라 재현성이 뛰어나 연구 커뮤니티가 지속적으로 개선할 수 있는 강력한 모델이다. 이는 강력한 Focal-Huge backbone 기반과 고성능 Stable-DINO detector의 통합 덕분이다. 
 
-Swin-L backbone을 갖춘 Stable-DINO는 COCO test-dev 데이터셋에서 63.8이라는 인상적인 AP (average precision)를 달성하였다. Swin-L backbone을 Focal-Huge backbone으로 교체함으로써 Focal-Stable-DINO는 더욱 향상될 수 있으며 test time augmentation와 같은 테스트 기술 없이도 COCO val2017에서 64.6 AP, COCO test-dev에서 64.8 AP를 달성하였다.
+Swin-L backbone을 갖춘 Stable-DINO는 COCO test-dev 데이터셋에서 63.8이라는 인상적인 AP (average precision)를 달성하였다. Swin-L backbone을 Focal-Huge backbone으로 교체함으로써 Focal-Stable-DINO는 더욱 향상될 수 있으며 test time augmentation과 같은 테스트 기술 없이도 COCO val2017에서 64.6 AP, COCO test-dev에서 64.8 AP를 달성하였다.
 
 ## Method
 #### Architecture

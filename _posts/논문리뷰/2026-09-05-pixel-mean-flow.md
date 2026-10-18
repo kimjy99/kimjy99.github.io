@@ -108,7 +108,7 @@ $$
 
 ($$\textrm{JVP}_\textrm{sg}$$는 $$\frac{d}{dt} \textbf{u}_\theta$$를 계산하는 Jacobian-vector product에 stop-gradient)
 
-개념적으로 이는 $\textbf{x}$-prediction을 사용한 $\textbf{v}$-loss이며, $\textbf{x}$는 $\textbf{x} \rightarrow \textbf{u} \rightarrow \textbf{V}$ 관계에 의해 $\textbf{v}$-space로 변환된다.
+개념적으로 이는 $\textbf{x}$-prediction을 사용한 $\textbf{v}$-loss가며, $\textbf{x}$는 $\textbf{x} \rightarrow \textbf{u} \rightarrow \textbf{V}$ 관계에 의해 $\textbf{v}$-space로 변환된다.
 
 <center><img src='{{"/assets/img/pixel-mean-flow/pixel-mean-flow-algo1.webp" | relative_url}}' width="45%"></center>
 

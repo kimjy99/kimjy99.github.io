@@ -111,13 +111,13 @@ $$
 \end{aligned}
 $$
 
-여기서 앞의 두 loss 항 $$\mathcal{L}_\textrm{color}$$와 $$\mathcal{L}_\textrm{D-SSIM}$$은 원래 3DGS의 loss이다. 
+여기서 앞의 두 loss 항 $$\mathcal{L}_\textrm{color}$$와 $$\mathcal{L}_\textrm{D-SSIM}$$은 원래 3DGS의 loss가다. 
 
 ### 4. Modification for Few-Shot Learning
 저자들은 제한된 이미지로 3D 장면을 생성하기 위해 원래 논문의 두 가지 최적화 기술을 수정했다. 3DGS에 사용된 기술은 상당한 수의 이미지를 활용한다는 가정 하에 설계되었으므로 few-shot 설정에서 수렴을 방해할 가능성이 있다. 
 
 1. Spherical harmonics(SH)의 최대 degree를 1로 설정했다. 이는 정보 부족으로 인한 고주파수를 담당하는 SH 계수의 overfitting을 방지한다. 
-2. 깊이 loss를 기반으로 하는 early-stop 정책을 구현하였다. 저자들은 depth loss와 smoothness loss을 가이드로 사용하면서 주로 color loss에 의해 구동되도록 최종 loss를 구성하였다. 따라서 color loss의 주된 영향으로 인해 overfitting이 점차적으로 나타난다. Splat이 깊이 가이드에서 벗어나기 시작할 때 최적화를 중단하기 위해 moving averaged depth loss를 사용한다. 
+2. 깊이 loss를 기반으로 하는 early-stop 정책을 구현하였다. 저자들은 depth loss와 smoothness loss를 가이드로 사용하면서 주로 color loss에 의해 구동되도록 최종 loss를 구성하였다. 따라서 color loss의 주된 영향으로 인해 overfitting이 점차적으로 나타난다. Splat이 깊이 가이드에서 벗어나기 시작할 때 최적화를 중단하기 위해 moving averaged depth loss를 사용한다. 
 3. 주기적 재설정 프로세스를 제거하였다. 저자들은 모든 splat의 불투명도 $\alpha$를 재설정하면 되돌릴 수 없고 해로운 결과를 초래한다는 것을 관찰했다. 제한된 이미지의 정보 부족으로 인해 splat의 불투명도를 복원할 수 없어 모든 splat이 제거되거나 로컬한 최적 상태에 갇혀 예상치 못한 결과와 최적화 실패가 발생하는 시나리오가 발생했다. 
 
 ## Experiment

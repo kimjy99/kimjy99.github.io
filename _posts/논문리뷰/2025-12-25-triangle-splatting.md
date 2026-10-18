@@ -76,7 +76,7 @@ Rasterization 과정에서 각 삼각형에 대해 최대 볼륨 렌더링 블�
 <center><img src='{{"/assets/img/triangle-splatting/triangle-splatting-fig4.webp" | relative_url}}' width="85%"></center>
 
 ##### Densification
-저자들은 삼각형 추가를 위해 휴리스틱에 의존하는 대신, [3DGS-MCMC](https://kimjy99.github.io/논문리뷰/3dgs-mcmc)에서 제시한 MCMC 기반의 확률적 프레임워크를 채택하였다. 각 densification 단계에서 확률 분포에서 샘플링하여 새로운 삼각형을 추가할 위치를 결정한다. 불투명도 $o$와 smoothness $\sigma$는 모두 학습 과정에서 얻어지므로, 베르누이 샘플링에 $1/\sigma$와 $o$를 번갈아 사용함으로써 확률 분포를 직접 구축한다. 특히, $\sigma$ 값이 낮은 삼각형, 즉 속이 채워진 삼각형을 우선적으로 샘플링한다. Window function 덕분에 삼각형의 영향은 projection된 geomtery에 의해 제한되며 삼각형 내부에 국한된다.
+저자들은 삼각형 추가를 위해 휴리스틱에 의존하는 대신, [3DGS-MCMC](https://kimjy99.github.io/논문리뷰/3dgs-mcmc)에서 제시한 MCMC 기반의 확률적 프레임워크를 채택하였다. 각 densification 단계에서 확률 분포에서 샘플링하여 새로운 삼각형을 추가할 위치를 결정한다. 불투명도 $o$와 smoothness $\sigma$는 모두 학습 과정에서 얻어지므로, 베르누이 샘플링에 $1/\sigma$와 $o$를 번갈아 사용함으로써 확률 분포를 직접 구축한다. 특히, $\sigma$ 값이 낮은 삼각형, 즉 속이 채워진 삼각형을 우선적으로 샘플링한다. Window function 덕분에 삼각형의 영향은 projection된 geometry에 의해 제한되며 삼각형 내부에 국한된다.
 
 고밀도 영역에서는 각 픽셀에서 많은 삼각형이 겹쳐지므로 각 도형이 더 높은 $\sigma$ 값을 가지게 되어 더 부드러운 결과물을 얻을 수 있다. 반대로 저밀도 영역에서는 픽셀에 영향을 미치는 삼각형의 수가 적기 때문에 각 삼각형이 재구성 과정에 더 많은 기여를 해야 한다. 결과적으로 각 삼각형은 내부 영역에 걸쳐 기여도를 높이기 위해 더 낮은 $\sigma$ 값을 가지게 되며, 이를 통해 기하학적 경계 내에서 최대한의 영역을 커버하여 더욱 선명한 결과물을 만들어낸다.
 

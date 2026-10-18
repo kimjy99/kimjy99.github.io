@@ -71,7 +71,7 @@ l(x_0; s_\theta) := \mathbb{E}_{q_{\alpha_t} (x_t \vert x_0)} [d (x_0, \hat{x}_0
 \end{equation}
 $$
 
-$d(\cdot, \cdot)$은 두 샘플 사이의 LPIPS loss이다. 이 metric을 **minority score**라고 부른다. 아래 그림은 CelebA 학습 샘플에 대한 minority score의 유효성을 시각화한 것이다.
+$d(\cdot, \cdot)$은 두 샘플 사이의 LPIPS loss가다. 이 metric을 **minority score**라고 부른다. 아래 그림은 CelebA 학습 샘플에 대한 minority score의 유효성을 시각화한 것이다.
 
 <center><img src='{{"/assets/img/dont-play-favorites/dont-play-favorites-fig3.webp" | relative_url}}' width="55%"></center>
 <br>

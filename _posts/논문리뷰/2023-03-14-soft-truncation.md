@@ -127,7 +127,7 @@ $$
 \end{equation}
 $$
 
-이면, $\epsilon_\theta$는 $\epsilon$를 예측하는 신경망이며, 이는 DDPM loss이다. 따라서 NCSN과 DDPM는 서로 교환 가능하며, 본 논문에서는 NCSN loss를 loss의 기본 형태로 한다.
+이면, $\epsilon_\theta$는 $\epsilon$를 예측하는 신경망이며, 이는 DDPM loss가다. 따라서 NCSN과 DDPM는 서로 교환 가능하며, 본 논문에서는 NCSN loss를 loss의 기본 형태로 한다.
 
 가중치 함수가 $\lambda(t) = g^2 (t)$이면, NCSN loss는 다음과 같이 likelihood 학습과 연결된다. 
 

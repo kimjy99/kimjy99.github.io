@@ -20,7 +20,7 @@ classes: wide
 <center><img src='{{"/assets/img/ouroboros/ouroboros-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
-최근 [RGB↔X](https://kimjy99.github.io/논문리뷰/rgbx)는 입력 intrinsic 채널의 유연한 조합을 수용하는 최초의 forward rendering용 diffusion model을 제안했다. 최근 [DiffusionRenderer](diffusion-renderer)는 RGB↔X와 [Neural Gaffer](https://arxiv.org/abs/2406.07520)의 개념을 video diffusion에 통합하여 동영상에서의 intrinsic 분해 및 relighting에서 최고 수준의 성능을 달성했다. 이러한 발전에도 불구하고, 현재의 diffusion 기반 접근법은 두 가지 중요한 한계를 가지고 있다. 
+최근 [RGB↔X](https://kimjy99.github.io/논문리뷰/rgbx)는 입력 intrinsic 채널의 유연한 조합을 수용하는 최초의 forward rendering용 diffusion model을 제안했다. 최근 [DiffusionRenderer](https://kimjy99.github.io/논문리뷰/diffusion-renderer)는 RGB↔X와 [Neural Gaffer](https://arxiv.org/abs/2406.07520)의 개념을 video diffusion에 통합하여 동영상에서의 intrinsic 분해 및 relighting에서 최고 수준의 성능을 달성했다. 이러한 발전에도 불구하고, 현재의 diffusion 기반 접근법은 두 가지 중요한 한계를 가지고 있다. 
 
 1. 연산 비효율성
 2. Inverse rendering 및 forward rendering 간의 사이클 일관성 부족
@@ -36,7 +36,7 @@ classes: wide
 저자들은 [E2E](https://arxiv.org/abs/2409.11355)에서 영감을 받아, 사전 학습된 RGB↔X diffusion model을 fine-tuning하여 single-step inference를 통해 고품질 intrinsic map을 생성하였다. RGB 이미지 $I$와 intrinsic map 세트 $X$로 구성된 데이터 $(X, I)$가 주어졌을 때, diffusion model은 하나를 조건부 입력으로 사용하여 다른 하나를 생성한다. Fine-tuning 프레임워크에서 UNet을 제외한 대부분의 diffusion 모듈은 고정된다.
 
 ##### Finetuning pipeline
-효율적인 single-step 예측을 위해, 학습 과정에서 timestep을 $t = T$로 고정하여 모델이 가장 noise가 많은 상태에서 타겟 상태까지 한 번의 step로 noise를 제거하는 방법을 학습하도록 한다. 초기 상태로 noise가 없는 상태를 사용하는 [E2E](https://arxiv.org/abs/2409.11355)와 달리, timestep $T$에서 타겟 latent에 multi-resolution noise를 적용한다. 즉, single-step 모델은 deterministic하지 않다. 이러한 deterministic하지 않은 접근 방식은 깊이 추정이나 normal 추정처럼 더 명확한 GT를 갖는 task와는 달리, 본질적으로 여러 가지 가능한 해를 허용하는 intrinsic 분해에 특히 적합하다.
+효율적인 single-step 예측을 위해, 학습 과정에서 timestep을 $t = T$로 고정하여 모델이 가장 noise가 많은 상태에서 타겟 상태까지 한 번의 step으로 noise를 제거하는 방법을 학습하도록 한다. 초기 상태로 noise가 없는 상태를 사용하는 [E2E](https://arxiv.org/abs/2409.11355)와 달리, timestep $T$에서 타겟 latent에 multi-resolution noise를 적용한다. 즉, single-step 모델은 deterministic하지 않다. 이러한 deterministic하지 않은 접근 방식은 깊이 추정이나 normal 추정처럼 더 명확한 GT를 갖는 task와는 달리, 본질적으로 여러 가지 가능한 해를 허용하는 intrinsic 분해에 특히 적합하다.
 
 학습 중에 UNet 출력은 v-parameterization을 사용하여 latent 예측으로 변환된다.
 
@@ -46,12 +46,12 @@ $$
 \end{equation}
 $$
 
-($$\hat{\textbf{z}}_0$$는 예측된 denoised latent, $$\textbf{z}_T$$는 noise가 추가된 입력, $$\hat{\textbf{v}}_\theta$$는 diffusion Unet의 출력)
+($$\hat{\textbf{z}}_0$$는 예측된 denoised latent, $$\textbf{z}_T$$는 noise가 추가된 입력, $$\hat{\textbf{v}}_\theta$$는 diffusion UNet의 출력)
 
 이 예측된 latent는 이후 VAE 디코더를 통해 원래 공간으로 디코딩되어 실제 공간과 비교된다.
 
 ##### Task-specific loss functions
-일반적인 예측의 경우 추정된 normal $\hat{\textbf{n}}$과 GT normal $\textbf{n}$ 사이의 각도 차이에 따른 loss를 사용한다.
+Normal 예측의 경우 추정된 normal $\hat{\textbf{n}}$과 GT normal $\textbf{n}$ 사이의 각도 차이에 따른 loss를 사용한다.
 
 $$
 \begin{equation}
@@ -65,7 +65,7 @@ Irradiance 예측을 위해 affine-invariant loss function을 적용한다.
 
 $$
 \begin{equation}
-\mathcal{L}_\textbf{E} = \vert \textbf{E} - \textbf{S} \hat{\textbf{E}} - \textbf{T} \vert_F^2
+\mathcal{L}_\textbf{E} = \| \textbf{E} - \textbf{S} \hat{\textbf{E}} - \textbf{T} \|_F^2
 \end{equation}
 $$
 
@@ -77,7 +77,7 @@ RGB, albedo, roughness, metallic 등 다른 모든 map의 경우 MSE를 활용�
 
 $$
 \begin{equation}
-\mathcal{L}_\textrm{\{a, r, m, \textrm{RGB}\}} = \frac{1}{N} \sum_i \vert \textbf{y}_i - \hat{\textbf{y}}_i \vert_F^2
+\mathcal{L}_\textrm{\{a, r, m, \textrm{RGB}\}} = \frac{1}{N} \sum_i \| \textbf{y}_i - \hat{\textbf{y}}_i \|_F^2
 \end{equation}
 $$
 
@@ -90,7 +90,7 @@ Inverse rendering의 경우, 최종 loss는 이러한 개별 intrinsic map별 lo
 
 $$
 \begin{equation}
-\mathcal{L}_\textrm{cycle} = \mathcal{L}_{\textbf{X} \rightarrow \hat{\textbf{I}} \rightarrow \hat{\textbf{X}}} + \mathcal{L}_{\textbf{I} \rightarrow \hat{\textbf{X}} \rightarrow \hat{\textbf{I}}} = \vert \textbf{X} - \tilde{\textbf{X}} \vert^2 + \vert \textbf{I} - \tilde{\textbf{I}} \vert^2
+\mathcal{L}_\textrm{cycle} = \mathcal{L}_{\textbf{X} \rightarrow \hat{\textbf{I}} \rightarrow \tilde{\textbf{X}}} + \mathcal{L}_{\textbf{I} \rightarrow \hat{\textbf{X}} \rightarrow \tilde{\textbf{I}}} = \| \textbf{X} - \tilde{\textbf{X}} \|^2 + \| \textbf{I} - \tilde{\textbf{I}} \|^2
 \end{equation}
 $$
 

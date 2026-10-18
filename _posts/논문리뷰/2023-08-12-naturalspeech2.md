@@ -73,7 +73,7 @@ $$
 실제로 연속 벡터를 얻으려면 벡터 양자화가 필요하지 않고 오토인코더 또는 VAE만 필요하다. 그러나 정규화와 효율성을 위해 매우 많은 수의 quantizer와 코드북 토큰이 있는 RVQ를 사용하여 연속 벡터를 근사화한다. 이렇게 하면 두 가지 이점이 있다. 
 
 1. [LDM](https://kimjy99.github.io/논문리뷰/ldm)을 학습할 때 메모리 비용인 연속 벡터를 저장할 필요가 없다. 연속 벡터를 도출하는 데 사용되는 코드북 임베딩과 양자화 토큰 ID만 저장한다. 
-2. 연속 벡터를 예측할 때 이러한 양자화 토큰 ID를 기반으로 이산 분류에 regularization loss을 추가할 수 있다.
+2. 연속 벡터를 예측할 때 이러한 양자화 토큰 ID를 기반으로 이산 분류에 regularization loss를 추가할 수 있다.
 
 ### 2. Latent Diffusion Model with Non-Autoregressive Generation
 Diffusion model을 활용하여 텍스트 시퀀스 $y$로 컨디셔닝된 양자화된 latent 벡터 $z$를 예측한다. 음소 인코더, duration predictor, pitch predictor로 구성된 이전 모델을 활용하여 텍스트 입력을 처리하고 diffusion model의 조건으로 보다 유익한 hidden 벡터 $c$를 제공한다.
@@ -130,7 +130,7 @@ $$
 \end{aligned}
 $$
 
-여기서 첫 번째 항은 데이터 loss이다. 두 번째 항은 score loss이며 예측 score는 $$\Sigma_t^{-1} (\rho(\hat{z}_0, t) - z_t)$$로 계산되며 inference에서 역 샘플링에도 사용된다. 세 번째 항 $$\mathcal{L}_\textrm{ce-rvq}$$는 RVQ에 기반한 새로운 cross-entropy (CE) loss이다. 특히, 각 residual quantizer $j \in [1, R]$에 대해 먼저 residual vector $$\hat{z}_0 - \sum_{i=1}^{j-1} e_i$$를 얻는다. 여기서 $e_i$는 $i$번째 residual quantizer의 ground-truth 양자화된 임베딩이다. 그런 다음 각 코드북이 quantizer $j$에 임베딩된 residual vector 사이의 L2 거리를 계산하고 softmax 함수로 확률 분포를 구한 다음 ground-truth 양자화된 임베딩의 ID $e_j$와 이 확률 분포 사이의 cross-entropy loss를 계산한다. $$\mathcal{L}_\textrm{ce-rvq}$$는 모든 $R$개의 residual quantizer에서 cross-entropy loss의 평균이고 $\lambda_\textrm{ce-rvq}$는 학습 중에 0.1로 설정된다.
+여기서 첫 번째 항은 데이터 loss가다. 두 번째 항은 score loss가며 예측 score는 $$\Sigma_t^{-1} (\rho(\hat{z}_0, t) - z_t)$$로 계산되며 inference에서 역 샘플링에도 사용된다. 세 번째 항 $$\mathcal{L}_\textrm{ce-rvq}$$는 RVQ에 기반한 새로운 cross-entropy (CE) loss가다. 특히, 각 residual quantizer $j \in [1, R]$에 대해 먼저 residual vector $$\hat{z}_0 - \sum_{i=1}^{j-1} e_i$$를 얻는다. 여기서 $e_i$는 $i$번째 residual quantizer의 ground-truth 양자화된 임베딩이다. 그런 다음 각 코드북이 quantizer $j$에 임베딩된 residual vector 사이의 L2 거리를 계산하고 softmax 함수로 확률 분포를 구한 다음 ground-truth 양자화된 임베딩의 ID $e_j$와 이 확률 분포 사이의 cross-entropy loss를 계산한다. $$\mathcal{L}_\textrm{ce-rvq}$$는 모든 $R$개의 residual quantizer에서 cross-entropy loss의 평균이고 $\lambda_\textrm{ce-rvq}$는 학습 중에 0.1로 설정된다.
 
 #### Prior Model: Phoneme Encoder and Duration/Pitch Predictor
 음소 인코더는 표준 feed-forward network가 convolution network로 수정되어 음소 시퀀스의 로컬 의존성을 캡처하는 여러 Transformer 블록으로 구성된다. Duration과 pitch 예측 변수는 모두 여러 convolution 블록과 동일한 모델 구조를 공유하지만 모델 파라미터는 다르다. L1 duration loss $$\mathcal{L}_\textrm{dur}$$와 pitch loss $$\mathcal{L}_\textrm{pitch}$$와 함께 duration과 pitch 예측 변수를 학습하기 위한 목적 함수로 ground-truth duration과 pitch 정보가 사용된다. 학습 시 ground-truth duration을 사용하여 음소 인코더에서 hidden 시퀀스를 확장하여 프레임 레벨의 hidden 시퀀스를 얻은 다음 프레임 레벨의 hidden 시퀀스에 ground-truth pitch 정보를 추가하여 최종 조건 정보 $c$를 얻는다. Inference하는 동안 해당 duration과 pitch가 사용된다.
@@ -235,7 +235,7 @@ NaturalSpeech 2는 [NaturalSpeech](https://kimjy99.github.io/논문리뷰/natura
 ### 6. Zero-Shot Singing Synthesis
 저자들은 노래 데이터 수집을 위해 웹에서 여러 노래하는 목소리와 짝을 이룬 가사를 크롤링하였다. 노래 데이터 전처리를 위해 음성 처리 모델을 활용하여 노래에서 반주를 제거하고 ASR 모델을 사용하여 정렬이 어긋난 샘플을 필터링한다. 그런 다음 데이터셋은 음성 데이터와 동일한 프로세스를 사용하여 구성되며 궁극적으로 약 30시간의 노래 데이터를 포함한다. 데이터셋은 업샘플링되고 음성 데이터와 혼합된다.
 
-음성과 노래 데이터를 함께 사용하여 $5 \times 10^{-5}$의 learning rate로 NaturalSpeech 2를 학습시킨다. 더 나은 결과를 위해 diffusion step을 1000으로 설정한다. 노래하는 목소리를 합성하기 위해 노래를 부르는 다른 목소리의 ground-truth pitch와 duration를 사용하고 다른 노래 프롬프트를 사용하여 다른 가수 음색으로 노래하는 목소리를 생성한다. NaturalSpeech 2는 음성을 프롬프트로 사용하여 새로운 노래 음성을 생성할 수 있다.
+음성과 노래 데이터를 함께 사용하여 $5 \times 10^{-5}$의 learning rate로 NaturalSpeech 2를 학습시킨다. 더 나은 결과를 위해 diffusion step을 1000으로 설정한다. 노래하는 목소리를 합성하기 위해 노래를 부르는 다른 목소리의 ground-truth pitch와 duration을 사용하고 다른 노래 프롬프트를 사용하여 다른 가수 음색으로 노래하는 목소리를 생성한다. NaturalSpeech 2는 음성을 프롬프트로 사용하여 새로운 노래 음성을 생성할 수 있다.
 
 ### 7. Extension to Voice Conversion
 Zero-shot TTS와 노래 합성 외에도 NaturalSpeech 2는 프롬프트 오디오 $z_\textrm{prompt}$의 음성을 사용하여 소스 오디오 $z_\textrm{source}$를 타겟 오디오 $z_\textrm{target}$으로 변환하는 것을 목표로 하는 zero-shot 음성 변환도 지원한다. 먼저 source-aware diffusion process를 사용하여 소스 오디오 $z_\textrm{source}$를 유익한 Gaussian noise $z_1$로 변환하고 다음과 같이 target-aware denoising process를 사용하여 타겟 오디오 $z_\textrm{target}$을 생성한다.

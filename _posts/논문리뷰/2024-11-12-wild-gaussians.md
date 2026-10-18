@@ -81,7 +81,7 @@ $$
 따라서 저자들은 외형 변화에 더 robust한 새로운 불확실성 loss를 제안하였다. 
 
 1. 각 학습 이미지 $j$에 대해 먼저 DINOv2 feature를 추출한다. 
-2. DINOv2 feature에 학습 가능한 affine mapping을 적용한 다음 softplus activation function를 적용하여 불확실성을 예측한다. 
+2. DINOv2 feature에 학습 가능한 affine mapping을 적용한 다음 softplus activation function을 적용하여 불확실성을 예측한다. 
 3. Feature들은 패치 단위 (14$\times$14)이므로, 얻은 불확실성에 bilinear interpolation을 사용하여 원래 크기로 업스케일한다. 
 4. 불확실성을 $[0.1, \infty)$으로 clipping하여 각 픽셀에 최소한의 가중치가 지정되도록 한다. 
 

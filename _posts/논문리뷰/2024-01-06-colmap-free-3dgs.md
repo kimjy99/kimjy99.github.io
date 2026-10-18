@@ -110,7 +110,7 @@ $$
 
 <center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-fig3.webp" | relative_url}}' width="100%"></center>
 <br>
-다음은 Tanks and Temples에서의 pose estimation를 정량적으로 비교한 표이다. 
+다음은 Tanks and Temples에서의 pose estimation을 정량적으로 비교한 표이다. 
 
 <center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-table2.webp" | relative_url}}' width="100%"></center>
 
@@ -119,7 +119,7 @@ $$
 
 <center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-table3.webp" | relative_url}}' width="100%"></center>
 <br>
-다음은 CO3D V2에서의 pose estimation를 정량적으로 비교한 표이다. 
+다음은 CO3D V2에서의 pose estimation을 정량적으로 비교한 표이다. 
 
 <center><img src='{{"/assets/img/colmap-free-3dgs/colmap-free-3dgs-table4.webp" | relative_url}}' width="100%"></center>
 <br>

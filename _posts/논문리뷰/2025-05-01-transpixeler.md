@@ -22,7 +22,7 @@ classes: wide
 <center><img src='{{"/assets/img/transpixeler/transpixeler-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
-본 논문에서는 사전 학습된 동영상 모델을 확장하여 사전 학습된 모델의 원래 능력을 유지하면서 해당 알파 채널을 생성하는 방법을 살펴보았다. 저자들의 목표는 현재 RGBA 학습 데이터셋의 한계를 넘어 콘텐츠를 생성하는 것이다. 사전 학습된 생성 모델 가중치를 활용하면 dense한 예측에서 out-of-distribution이 크게 향상된다. 그러나 RGBA 동영상 생성의 맥락에서 이러한 접근 방식은 일반적으로 먼저 RGB 채널을 생성한 다음 별도의 알파 채널 예측이 필요하다. 결과적으로 정보는 RGB에서 알파로 단방향으로 흐르므로 두 프로세스가 거의 분리되어 있다. RGBA 동영상 데이터의 가용성이 제한되어 있기 때문에 이러한 불균형은 어려운 물체를 생성할 때 알파 예측이 충분하지 않다.
+본 논문에서는 사전 학습된 동영상 모델을 확장하여 사전 학습된 모델의 원래 능력을 유지하면서 해당 알파 채널을 생성하는 방법을 살펴보았다. 저자들의 목표는 현재 RGBA 학습 데이터셋의 한계를 넘어 콘텐츠를 생성하는 것이다. 사전 학습된 생성 모델 가중치를 활용하면 dense한 예측에서 out-of-distribution이 크게 향상된다. 그러나 RGBA 동영상 생성의 맥락에서 이러한 접근 방식은 일반적으로 먼저 RGB 채널을 생성한 다음 별도의 알파 채널 예측이 필요하다. 결과적으로 정보는 RGB에서 알파로 단방향으로 흐르므로 두 프로세스가 거의 분리되어 있다. RGBA 동영상 데이터의 가용성이 제한되어 있기 때문에 이러한 불균형으로 인해 어려운 물체를 생성할 때 알파 예측이 충분하지 않다.
 
 본 논문에서는 사전 학습된 RGB 동영상 모델을 효과적으로 조정하여 RGB 채널과 알파 채널을 동시에 생성하는 **TransPixeler**를 제안하였다. 저자들은 SOTA [DiT](https://kimjy99.github.io/논문리뷰/dit) 동영상 생성 모델을 활용하고, 알파 채널을 생성하기 위해 텍스트와 RGB 토큰 뒤에 새로운 토큰을 추가로 도입하였다. 수렴을 용이하게 하기 위해 알파 토큰의 위치 임베딩을 다시 초기화하고, 알파 토큰과 RGB 토큰을 구별하기 위해 0으로 초기화된 학습 가능한 도메인 임베딩을 도입하였다. 또한, 알파 토큰을 qkv 공간으로 projection하는 데만 적용되는 [LoRA](https://kimjy99.github.io/논문리뷰/lora) 기반 fine-tuning 체계를 채택하여 RGB 생성 품질을 유지하였다. 원래의 입출력 구조를 보존하고 LoRA를 통해 기존의 attention 메커니즘에 의존하면서 모달리티를 확장하였다.
 
@@ -32,7 +32,7 @@ classes: wide
 2. **RGB-attend-to-Alpha**: 기존 방법의 근본적인 한계는 이 attention 메커니즘이 부족하다는 것이다. 이 attention은 알파 정보를 기반으로 RGB 토큰을 정제하여 RGB-알파 정렬을 개선하는 데 필요하다. 
 3. **Text-attend-to-Alpha**: 제한된 학습 데이터로 인해 발생하는 위험을 줄이기 위해 이 attention 메커니즘을 제거하여 모델의 성능을 저하시킬 수 있다. 이 제거는 또한 모델의 원래 능력을 보존하는 데 도움이 된다.
 
-이러한 테크닉을 통합함으로써, TransPixeler은 강력한 RGB-알파 정렬을 유지하는 동시에 제한된 학습 데이터로 다양한 RGBA 생성을 달성하였다.
+이러한 테크닉을 통합함으로써, TransPixeler는 강력한 RGB-알파 정렬을 유지하는 동시에 제한된 학습 데이터로 다양한 RGBA 생성을 달성하였다.
 
 ## Method
 <center><img src='{{"/assets/img/transpixeler/transpixeler-fig3.webp" | relative_url}}' width="100%"></center>
@@ -49,7 +49,7 @@ $$
 
 ($\textbf{W}$는 transformer의 projection 행렬, $\textbf{f}$는 비주얼 토큰을 위한 projection과 positional encoding)
 
-시퀀스를 두 배로 늘리는 것 외에도 batch size나 잠재 차원을 늘리고 출력을 두 개의 도메인으로 분할하는 방법도 살펴보았습니다. 그러나 이러한 접근 방식은 나중에 논의할 제한된 데이터 세트에서는 효과성이 제한적인 것으로 나타났습니다.
+시퀀스를 두 배로 늘리는 것 외에도 batch size나 잠재 차원을 늘리고 출력을 두 개의 도메인으로 분할하는 방법도 살펴보았다. 그러나 이러한 접근 방식은 나중에 논의할 제한된 데이터셋에서는 효과성이 제한적인 것으로 나타났다.
 
 <center><img src='{{"/assets/img/transpixeler/transpixeler-fig4.webp" | relative_url}}' width="75%"></center>
 <br>
@@ -101,10 +101,10 @@ $$
 ##### Text-Attend-to-RGB & RGB-Attend-to-Text
 두 attention 메커니즘은 왼쪽 위 2$\times$2 섹션을 나타내며 원래 RGB 생성 모델에 존재하는 계산이다. 이 계산 부분이 영향을 받지 않도록 하면 원래 RGB 생성 성능을 복제할 수 있다. 따라서 LoRA의 영향 범위를 제한하여 텍스트와 RGB 토큰 모두에 대한 원래 QKV 값을 유지하고 두 도메인에 대한 사전 학습된 모델의 동작을 보존한다. 
 
-LoRA 외에도, 텍스트 토큰과 RGB 토큰은 query와 key로 알파 토큰과 상호 작용해야 하므로 이 2$\times$2 attention 행렬의 계산이 변경됩니다. 따라서, 저자들은 RGB 생성에 영향을 미치는 두 가지 추가 attention 계산을 추가로 분석하였다.
+LoRA 외에도, 텍스트 토큰과 RGB 토큰은 query와 key로 알파 토큰과 상호 작용해야 하므로 이 2$\times$2 attention 행렬의 계산이 변경된다. 따라서, 저자들은 RGB 생성에 영향을 미치는 두 가지 추가 attention 계산을 추가로 분석하였다.
 
 ##### Text-Attend-to-Alpha
-저자들은 Text-attend-to-Alpha가 생성 품질에 해롭다는 것을 발견했다. 모델은 원래 텍스트와 RGB 데이터로 학습되었기 때문에 텍스트에서 알파로의 attention를 도입하면 알파와 RGB 사이의 도메인 차이로 인해 간섭이 발생한다. 구체적으로, 알파는 윤곽 정보만 제공하고 텍스트 프롬프트와 관련된 풍부한 텍스처, 색상, semantic 디테일이 부족하여 생성 품질이 저하된다. 이를 완화하기 위해, 앞서 설명한 대로 이 계산을 차단하는 attention mask를 사용한다.
+저자들은 Text-attend-to-Alpha가 생성 품질에 해롭다는 것을 발견했다. 모델은 원래 텍스트와 RGB 데이터로 학습되었기 때문에 텍스트에서 알파로의 attention을 도입하면 알파와 RGB 사이의 도메인 차이로 인해 간섭이 발생한다. 구체적으로, 알파는 윤곽 정보만 제공하고 텍스트 프롬프트와 관련된 풍부한 텍스처, 색상, semantic 디테일이 부족하여 생성 품질이 저하된다. 이를 완화하기 위해, 앞서 설명한 대로 이 계산을 차단하는 attention mask를 사용한다.
 
 ##### RGB-Attend-to-Alpha
 대조적으로, RGB-attend-to-Alpha는 성공적인 공동 생성에 필수적이다. 모델은 이 attention을 통해 알파 정보를 고려하여 RGB 토큰을 정제하고 생성된 RGB와 알파 채널 간의 정렬을 용이하게 할 수 있다. 이 정제 프로세스는 알파 guidance에 기반한 RGB 정제를 위한 피드백 메커니즘이 부족했던 이전의 생성 후 예측 파이프라인에서 누락된 구성 요소이다. 

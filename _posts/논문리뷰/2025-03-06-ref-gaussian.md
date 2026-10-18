@@ -26,7 +26,7 @@ classes: wide
 위에서 언급한 모든 문제를 해결하기 위해, 본 논문은 **Reflective Gaussian splatting (Ref-Gaussian)** 프레임워크를 제안하여 복잡한 inter-reflection 효과를 고려하면서 반사 물체를 실시간으로 고품질로 렌더링한다. Ref-Gaussian은 두 가지 핵심 구성 요소로 구성된다. 
 
 1. **Physically based deferred rendering**: 픽셀 레벨의 재료 속성(BRDF)으로 렌더링 방정식을 계산하고, split-sum approximation으로 몬테카를로 샘플링의 무거운 계산을 피한다. 
-2. **Gaussian grounded inter-reflection**: 메쉬를 추출하여 Gaussian splatting에 대한 복잡한 inter-reflection를 계산한다. 
+2. **Gaussian grounded inter-reflection**: 메쉬를 추출하여 Gaussian splatting에 대한 복잡한 inter-reflection을 계산한다. 
 
 저자들은 형상 모델링을 강화하기 위해, 장면 표현으로 2D Gaussian을 선택하고, 초기 Gaussian shading 단계와 material-aware normal propagation process를 도입했다.
 
@@ -72,14 +72,14 @@ L_s (\omega_o) \approx \int_\Omega f_s (\omega_i, \omega_o) (\omega_i \cdot N) d
 \end{equation}
 $$
 
-여기서 첫 번째 항은 $$(\omega_i \cdot N)$$과 roughness $R$에만 의존하므로 결과를 미리 계산하여 2D 텍스처 맵에 저장할 수 있다. 두 번째 항은 specular lobe에 대한 입사 radiance의 적분을 나타내며, 각 학습 iteration의 시작 부분에서 여러 roughness 레벨에 대해 사전 통합할 수 있다. 이를 통해 반사 방향과 roughness를 파라미터로 사용하여 trilinear interpolation을 수행하여 환경 조명(environment lighting)을 나타내는 일련의 큐브맵을 효율적으로 사용할 수 있다. 
+여기서 첫 번째 항은 $$(\omega_i \cdot N)$$과 roughness $R$에만 의존하므로 결과를 미리 계산하여 2D 텍스처 맵에 저장할 수 있다. 두 번째 항은 specular lobe에 대한 입사 radiance의 적분을 나타내며, 각 학습 iteration의 시작 부분에서 여러 roughness 레벨에 대해 사전 적분할 수 있다. 이를 통해 반사 방향과 roughness를 파라미터로 사용하여 trilinear interpolation을 수행하여 환경 조명(environment lighting)을 나타내는 일련의 큐브맵을 효율적으로 사용할 수 있다. 
 
 두 번째 항은 직접광 $$L_\textrm{dir}$$에 해당한다. 
 
 ### 2. Gaussian grounded inter-reflection
 Inter-reflection은 반사 물체를 렌더링하는 데 중요한 역할을 한다. 이를 위해 위 식의 두 번째 항을 직접광 $$L_\textrm{dir}$$과 간접광 $$L_\textrm{ind}$$으로 별도로 모델링하여 specular 성분을 더욱 향상시킨다. 직접광 $$L_\textrm{dir}$$은 반사가 어떤 장면 요소에도 차단되지 않는 것을 나타내고 나머지는 간접광 $$L_\textrm{ind}$$로 정의된다.
 
-구체적으로, 반사 방향 $$R = 2(\omega_o \cdot N) N - \omega_o$$를 따라 물체가 스스로 가려지는 지 여부에 따라 입사광의 visibility $$V \in \{0, 1\}$$를 근사한다. 가려진 부분에서 나오는 간접광을 $$L_\textrm{ind}$$로 표현한다.
+구체적으로, 반사 방향 $$R = 2(\omega_o \cdot N) N - \omega_o$$를 따라 물체가 스스로 가려지는지 여부에 따라 입사광의 visibility $$V \in \{0, 1\}$$를 근사한다. 가려진 부분에서 나오는 간접광을 $$L_\textrm{ind}$$로 표현한다.
 
 $$
 \begin{equation}
@@ -91,7 +91,7 @@ $$
 
 Gaussian을 가로지르는 광선을 따라 visibility를 효율적으로 계산하는 것은 어려운 일이다. 저자들은 추출된 메쉬에 대해 즉석에서 ray tracing을 수행하였다. 최적화하는 동안, TSDF fusion을 사용하여 주기적으로 물체의 표면 메쉬를 추출한다. 메쉬가 구성되면 ray tracing을 사용하여 광선과 표면 사이의 교차점을 계산하여 각 픽셀이 가려졌는지 확인한다. 효율성을 위해 bounding volume hierarchy (BVH)를 사용하여 ray tracing을 가속화한다. 
 
-간접광 성분의 경우 각 Gaussian에 spherical harmonics (SH)로 모델링된 뷰에 따른 색상 $$l_\textrm{ind}$$로 할당된다. 렌더링 프로세스 동안 $$l_\textrm{ind}$$는 Gaussian 레벨에서 반사 방향으로 평가되고 알파 블렌딩이 적용되어 다음과 같이 간접광 map으로 집계된다.
+간접광 성분의 경우 각 Gaussian에 spherical harmonics (SH)로 모델링된 뷰에 따른 색상 $$l_\textrm{ind}$$가 할당된다. 렌더링 프로세스 동안 $$l_\textrm{ind}$$는 Gaussian 레벨에서 반사 방향으로 평가되고 알파 블렌딩이 적용되어 다음과 같이 간접광 map으로 집계된다.
 
 $$
 \begin{equation}

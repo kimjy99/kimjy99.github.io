@@ -128,7 +128,7 @@ $$
 \end{equation}
 $$
 
-위 식에서 $$\mathcal{L}_\textrm{color}$$는 렌더링된 이미지와 관찰된 이미지 간의 재구성 loss이다. $$\mathcal{L}_\textrm{sem}$$은 렌더링된 semantic logit과 입력 2D 의미론적 분할 예측 사이의 per-pixel softmaxcross-entropy loss이다. 잡음이 있는 semantic label 입력이 형상에 영향을 미치는 것을 방지하기 위해 $\mathcal{L}_\textrm{sem}$의 $\alpha$로의 기울기를 중지한다. $$\mathcal{L}_\textrm{reg}$$는 floater를 제거하고 분해 효과를 향상시키는 데 사용되는 엔트로피 정규화 항이다. 실제로 $$\lambda_1 = 0.1$$, $$\lambda_2 = 0.1$$로 설정했다. 
+위 식에서 $$\mathcal{L}_\textrm{color}$$는 렌더링된 이미지와 관찰된 이미지 간의 재구성 loss가다. $$\mathcal{L}_\textrm{sem}$$은 렌더링된 semantic logit과 입력 2D 의미론적 분할 예측 사이의 per-pixel softmaxcross-entropy loss가다. 잡음이 있는 semantic label 입력이 형상에 영향을 미치는 것을 방지하기 위해 $\mathcal{L}_\textrm{sem}$의 $\alpha$로의 기울기를 중지한다. $$\mathcal{L}_\textrm{reg}$$는 floater를 제거하고 분해 효과를 향상시키는 데 사용되는 엔트로피 정규화 항이다. 실제로 $$\lambda_1 = 0.1$$, $$\lambda_2 = 0.1$$로 설정했다. 
 
 ## Experiments
 - 데이터셋: Waymo Open Dataset, KITTI

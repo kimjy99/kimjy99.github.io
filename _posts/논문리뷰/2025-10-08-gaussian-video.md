@@ -37,7 +37,7 @@ classes: wide
 
 $$
 \begin{equation}
-\mu_n (t) = \sum_{t=0}^n N_{i,p}(t) \textbf{P}_{n,i}
+\mu_n (t) = \sum_{i=0}^n N_{i,p}(t) \textbf{P}_{n,i}
 \end{equation}
 $$
 
@@ -83,7 +83,7 @@ $$
   - Gaussian은 카메라 너비와 높이의 3배 radius로 랜덤 초기화
   - 15,000 iteration에 계층적 학습을 1번 사용
     - 10만 개의 새로운 Gaussian을 추가
-  - 5,000 iteration마다 어떠한 프레임에도 나타나지 않는 Gaussian을 첫 번쨰 프레임으로 보내 spline의 평균을 조정 (30,000 iteration까지)
+  - 5,000 iteration마다 어떠한 프레임에도 나타나지 않는 Gaussian을 첫 번째 프레임으로 보내 spline의 평균을 조정 (30,000 iteration까지)
 
 ### 1. Experimental Results
 다음은 다른 방법들과 비교한 결과이다.

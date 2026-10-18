@@ -8,12 +8,12 @@ tags:
   - Computer Vision
   - NVIDIA
   - CVPR
-excerpt: "DiffusionRenderer 논문 리뷰 (CVPR 2025)"
+excerpt: "DiffusionRenderer 논문 리뷰 (CVPR 2025 Oral)"
 use_math: true
 classes: wide
 ---
 
-> CVPR 2025. [[Paper](https://arxiv.org/abs/2501.18590)] [[Page](https://research.nvidia.com/labs/toronto-ai/DiffusionRenderer/)]  
+> CVPR 2025 (Oral). [[Paper](https://arxiv.org/abs/2501.18590)] [[Page](https://research.nvidia.com/labs/toronto-ai/DiffusionRenderer/)] [[Github](https://github.com/nv-tlabs/diffusion-renderer)]  
 > Ruofan Liang, Zan Gojcic, Huan Ling, Jacob Munkberg, Jon Hasselgren, Zhi-Hao Lin, Jun Gao, Alexander Keller, Nandita Vijaykumar, Sanja Fidler, Zian Wang  
 > NVIDIA | University of Toronto | Vector Institute | University of Illinois Urbana-Champaign   
 > 30 Jan 2025  
@@ -98,7 +98,7 @@ $$
 
 입력 동영상이 주어지면 inverse renderer는 하나의 모델을 사용하여 5가지 속성 $$\{\textbf{n}, \textbf{d}, \textbf{a}, \textbf{r}, \textbf{m}\}$$을 모두 생성한다. 고품질 생성을 유지하고 사전 학습된 지식을 최대한 활용하기 위해, 모든 속성을 한 번에 생성하는 대신 전용 pass에서 각 속성을 생성한다. 
 
-기존 방법들을 따라, 도메인 임베딩을 사용하여 모델에 어떤 속성을 생성해야 하는지 표시한다. 구체적으로, 최적화 가능한 도메인 임베딩 $$\textbf{c}_\textrm{emb} \in \mathbb{R}^{K_\textrm{emb} \times C_\textrm{emb}}$$을 도입한다. 여기서 $$\textrm{K}_\textrm{emb} = 5$$는 buffer 수이고 $$\textbf{C}_\textrm{emb}$$은 임베딩 벡터의 차원이다. 이미지 CLIP feature를 사용하는 cross-attention layer를 재활용하여 도메인 임베딩을 얻는다. $P$로 인덱싱된 속성을 추정할 때, 임베딩 $$\mathbb{c}_\textrm{emb}^P$$를 조건으로 제공하고 $$\textbf{f}_\theta (\textbf{g}_\tau^P; \textbf{z}, \textbf{c}_\textrm{emb}^P, \tau)$$로 diffusion target을 예측한다.
+기존 방법들을 따라, 도메인 임베딩을 사용하여 모델에 어떤 속성을 생성해야 하는지 표시한다. 구체적으로, 최적화 가능한 도메인 임베딩 $$\textbf{c}_\textrm{emb} \in \mathbb{R}^{K_\textrm{emb} \times C_\textrm{emb}}$$을 도입한다. 여기서 $$K_\textrm{emb} = 5$$는 buffer 수이고 $$C_\textrm{emb}$$은 임베딩 벡터의 차원이다. 이미지 CLIP feature를 사용하는 cross-attention layer를 재활용하여 도메인 임베딩을 얻는다. $P$로 인덱싱된 속성을 추정할 때, 임베딩 $$\textbf{c}_\textrm{emb}^P$$를 조건으로 제공하고 $$\textbf{f}_\theta (\textbf{g}_\tau^P; \textbf{z}, \textbf{c}_\textrm{emb}^P, \tau)$$로 diffusion target을 예측한다.
 
 ### 3. Data Strategy
 ##### 합성 데이터 선별
@@ -129,7 +129,7 @@ OptiX 기반의 커스텀 path tracer를 사용하여 동영상을 렌더링한�
 
 ### 4. Training pipeline
 ##### Neural inverse renderer
-먼저 합성 동영상 데이터셋인 InteriorVerse와 합성 이미지 데이터셋인 HyperSim의 조합으로 inverse renderer를 학습시킨다. HyperSim의 경우 이미지를 단일 프레임 동영상로 처리한다. 각 데이터 샘플은 동영상 $\textbf{I}$, 속성 인덱스 $P$, 장면 속성 맵 $\textbf{s}^P$로 구성된다. 장면 속성의 latent $$\textbf{g}_0^P = \mathcal{E}(\textbf{s}^P)$$에 noise가 추가되어 $$\textbf{g}_\tau^P$$가 생성된다. 모델은 다음 loss로 학습된다. 
+먼저 합성 동영상 데이터셋인 InteriorVerse와 합성 이미지 데이터셋인 HyperSim의 조합으로 inverse renderer를 학습시킨다. HyperSim의 경우 이미지를 단일 프레임 동영상으로 처리한다. 각 데이터 샘플은 동영상 $\textbf{I}$, 속성 인덱스 $P$, 장면 속성 맵 $\textbf{s}^P$로 구성된다. 장면 속성의 latent $$\textbf{g}_0^P = \mathcal{E}(\textbf{s}^P)$$에 noise가 추가되어 $$\textbf{g}_\tau^P$$가 생성된다. 모델은 다음 loss로 학습된다. 
 
 $$
 \begin{equation}
@@ -142,7 +142,7 @@ $$
 ##### Environment map encoder pre-training
 [Latent diffusion model](https://kimjy99.github.io/논문리뷰/ldm)의 접근 방식에 따라, 오토인코더와 유사하게 environment map에서 L2 reconstruction loss를 사용하여 environment map 인코더 및 디코더 $$\mathcal{E}_\textrm{env}$$와 $$\mathcal{D}_\textrm{env}$$를 사전 학습시킨다. 디코더 아키텍처는 업샘플링 레이어들로 구성된 UNet 디코더를 기반으로 한다. 학습 후, 디코더 $$\mathcal{D}_\textrm{env}$$를 버리고, forward renderer를 학습시키는 동안 인코더 $$\mathcal{E}_\textrm{env}$$를 고정하여 사용한다.
 
-#### Neural forward renderer
+##### Neural forward renderer
 합성 동영상 데이터셋과 pseudo-label이 붙은 실제 데이터의 조합에 대해 forward renderer를 학습시키고, G-buffer, 조명, RGB 동영상을 사용하여 학습시킨다. 실제 데이터는 충분한 품질이지만 여전히 부정확할 수 있다. 합성 데이터와 실제 데이터 간의 불일치를 해결하기 위해 실제 데이터로 학습시키는 동안 추가로 [LoRA](https://kimjy99.github.io/논문리뷰/lora) $\Delta \theta$를 도입한다. 
 
 RGB 동영상 $\textbf{I}$에 대한 latent $$\textbf{z}_0 = \mathcal{E}(\textbf{I})$$에 noise가 추가되어 $$\textbf{z}_\tau$$가 생성된다. 학습 loss는 다음과 같다.

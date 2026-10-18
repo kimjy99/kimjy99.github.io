@@ -44,7 +44,7 @@ StyleGAN은 ImageNet에서 잘 작동하는 기존 접근 방식에 비해 몇 �
 #### Regularization
 GAN 학습에서는 generator와 discriminator 모두에 대해 정규화를 사용하는 것이 일반적이다. 정규화는 FFHQ나 LSUN과 같은 unimodal 데이터셋에서 결과를 개선하는 반면 multi-modal 데이터셋에서는 해로울 수 있다. 따라서 가능하면 정규화를 피하는 것을 목표로 한다. 최신 StyleGAN3에서는 style mixing이 불필요하다는 것을 알게 되었다. 따라서 StyleGAN-XL도 style mixing을 비활성화한다. 
 
-Path length regularization는 복잡한 데이터셋에서 좋지 않은 결과를 초래할 수 있으며 기본적으로 StyleGAN3에서는 비활성화되어 있다. 그러나 path length regularization은 고품질 inversion을 가능하게 하므로 매력적이다. 또한 저자들은 실제로 path length regularization를 사용할 때 불안정한 동작과 발산을 관찰하였다. 저자들은 모델이 충분히 학습된 후에, 즉 20만 개의 이미지 이후에만 정규화를 적용함으로써 이 문제를 피하였다. 
+Path length regularization은 복잡한 데이터셋에서 좋지 않은 결과를 초래할 수 있으며 기본적으로 StyleGAN3에서는 비활성화되어 있다. 그러나 path length regularization은 고품질 inversion을 가능하게 하므로 매력적이다. 또한 저자들은 실제로 path length regularization을 사용할 때 불안정한 동작과 발산을 관찰하였다. 저자들은 모델이 충분히 학습된 후에, 즉 20만 개의 이미지 이후에만 정규화를 적용함으로써 이 문제를 피하였다. 
 
 Discriminator의 경우 Gradient Penalty 없이 Spectral Normalization을 사용한다. 또한 처음 20만 개의 이미지에 대해 $\sigma = 2$픽셀인 가우시안 필터로 모든 이미지를 흐리게 처리한다. StyleGAN3-R에 discriminator blurring이 도입되었으며, discriminator가 초기에 높은 주파수에 집중하는 것을 방지하여 저자들이 조사한 모든 설정에서 유익한 것으로 나타났다. 
 

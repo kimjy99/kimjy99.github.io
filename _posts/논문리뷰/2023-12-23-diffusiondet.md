@@ -139,6 +139,6 @@ DiffusionDet의 inference 절차는 noise에서 object box까지의 denoising pr
 <center><img src='{{"/assets/img/diffusiondet/diffusiondet-fig4.webp" | relative_url}}' width="60%"></center>
 
 ### 4. Full-training on CrowdHuman
-다음은 CrowdHuman에서 처음부터 학습하였을 떄의 성능을 다른 모델들과 비교한 표이다. 
+다음은 CrowdHuman에서 처음부터 학습하였을 때의 성능을 다른 모델들과 비교한 표이다. 
 
 <center><img src='{{"/assets/img/diffusiondet/diffusiondet-table7.webp" | relative_url}}' width="50%"></center>

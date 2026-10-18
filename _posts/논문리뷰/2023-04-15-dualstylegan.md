@@ -43,7 +43,7 @@ classes: wide
 ### 1. Facial Destylization
 <center><img src='{{"/assets/img/dualstylegan/dualstylegan-fig3.webp" | relative_url}}' width="60%"></center>
 <br>
-Facial destylization는 supervision으로서 고정된 얼굴-초상화 쌍을 형성하기 위해 예술적 초상화에서 사실적인 얼굴을 복구하는 것을 목표로 한다. 타겟 도메인의 예술적 초상화가 주어지면 얼굴 도메인에서 합리적인 상대를 찾는 것이 목표이다. 두 도메인의 외모 차이가 클 수 있기 때문에 사실적인 얼굴과 초상화에 대한 fidelity 사이의 균형을 맞추는 것이 쉽지 않다. 이 문제를 해결하기 위해 초상화의 사실성을 점진적으로 향상시키는 multi-level destylization 방법을 제안한다. 
+Facial destylization은 supervision으로서 고정된 얼굴-초상화 쌍을 형성하기 위해 예술적 초상화에서 사실적인 얼굴을 복구하는 것을 목표로 한다. 타겟 도메인의 예술적 초상화가 주어지면 얼굴 도메인에서 합리적인 상대를 찾는 것이 목표이다. 두 도메인의 외모 차이가 클 수 있기 때문에 사실적인 얼굴과 초상화에 대한 fidelity 사이의 균형을 맞추는 것이 쉽지 않다. 이 문제를 해결하기 위해 초상화의 사실성을 점진적으로 향상시키는 multi-level destylization 방법을 제안한다. 
 
 #### Stage I: Latent initialization
 예술적 초상화 $S$는 먼저 인코더 $E$에 의해 StyleGAN latent space에 포함된다. 여기서는 pSp 인코더를 사용하고 이를 수정하여 FFHQ 얼굴을 $\mathcal{Z}+$ space에 포함하도록 수정한다. $\mathcal{Z}+$ space는 AgileGAN에서 제안한 것처럼 원래 $\mathcal{W}+$ space보다 얼굴과 무관한 배경 디테일과 왜곡된 모양에 더 robust하다. 재구성된 얼굴 $g(z_e^{+})$의 예시는 위 그림의 (b)에 나와 있으며, $g$는 FFHQ에서 사전 학습된 StyleGAN이고 $z_e^{+} = E(S) \in \mathbb{R}^{18 \times 512}$는 latent code이다. $E$는 실제 얼굴에 대해 학습되었지만 $E(S)$는 인물 사진 $S$의 색상과 구조를 잘 포착한다. 
@@ -58,7 +58,7 @@ $$
 \end{aligned}
 $$
 
-$$\mathcal{L}_\textrm{perc}$$는 perceptual loss이고 $$\mathcal{L}_\textrm{ID}$$는 얼굴의 ID를 보존하기 위한 identity loss이다. $\sigma (z^{+})$는 $z^{+}$의 서로 다른 18개의 512차원 벡터의 표준 오차이다. $$\lambda_\textrm{ID} = 0.1$$이다. 
+$$\mathcal{L}_\textrm{perc}$$는 perceptual loss가고 $$\mathcal{L}_\textrm{ID}$$는 얼굴의 ID를 보존하기 위한 identity loss가다. $\sigma (z^{+})$는 $z^{+}$의 서로 다른 18개의 512차원 벡터의 표준 오차이다. $$\lambda_\textrm{ID} = 0.1$$이다. 
 
 위 그림의 (f)와 (g)에서와 같이 overfitting을 피하기 위해 $\hat{z}_e^{+}$를 잘 정의된 $\mathcal{Z}$ space로 끌어오도록 정규화 항을 설계하고 최적화 전에 $z^{+}$를 초기화하기 위해 평균 latent code 대신 $z_e^{+}$를 사용한다. 이는 위 그림의 (i)와 (j)에서와 같이 얼굴 구조를 정확하게 맞추는 데 도움이 된다.
 
@@ -106,7 +106,7 @@ $$
 \end{equation}
 $$
 
-여기서 $\mathcal{L}_\textrm{adv}$는 StyleGAN adversarial loss이다. $l$을 줄이면 $g(z_l^{+})$는 $\tilde{z}_2$에서 더 많은 구조 스타일을 갖게 된다. 따라서 extrinsic style path는 색상 외에 더 많은 구조 스타일을 캡처하고 전송하는 방법을 학습한다. 
+여기서 $\mathcal{L}_\textrm{adv}$는 StyleGAN adversarial loss가다. $l$을 줄이면 $g(z_l^{+})$는 $\tilde{z}_2$에서 더 많은 구조 스타일을 갖게 된다. 따라서 extrinsic style path는 색상 외에 더 많은 구조 스타일을 캡처하고 전송하는 방법을 학습한다. 
 
 #### Stage III: Style transfer on target domain
 마지막으로 타겟 도메인에서 DualStyleGAN을 fine-tuning한다. $\mathcal{L}_\textrm{perc} (G(z_i^{+}, z_e^{+}, 1), S)$로 $S$를 재구성하기 위해 예술적 초상화 예시 $S$의 style code $z_i^{+}$와 $z_e^{+}$를 원한다. 표준 예시 기반 style transfer 패러다임에서와 같이 임의의 intrinsic style code $z$에 대해 style loss를 적용한다. 
@@ -117,7 +117,7 @@ $$
 \end{equation}
 $$
 
-여기서 $$\mathcal{L}_\textrm{CX}$$는 contextual loss이고 $$\mathcal{L}_\textrm{FM}$$은 feature matching loss이다. Content loss의 경우 identity loss와 ModRes의 가중치 행렬의 $L_2$ regularization을 사용한다. 
+여기서 $$\mathcal{L}_\textrm{CX}$$는 contextual loss가고 $$\mathcal{L}_\textrm{FM}$$은 feature matching loss가다. Content loss의 경우 identity loss와 ModRes의 가중치 행렬의 $L_2$ regularization을 사용한다. 
 
 $$
 \begin{equation}

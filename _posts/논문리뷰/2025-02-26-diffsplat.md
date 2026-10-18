@@ -22,7 +22,7 @@ classes: wide
 <center><img src='{{"/assets/img/diffsplat/diffsplat-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
-Diffusion model의 개발로 최근 연구들은 다양한 3D 표현의 데이터셋에서 직접 3D 생성 네트워크를 학습시키거나, 미분 가능한 렌더링 기술의 도움으로 2D에서만을 학습시켰다. 이러한 모델들은 3D 일관성을 가지지만, 학습 스케일에 의해 제한을 받으며 사전 학습된 모델의 2D prior를 활용할 수 없다. 최신 방법들은 사전 학습된 2D diffusion model로 생성한 멀티뷰 이미지에서 3D 표현을 재구성한다. 이러한 2단계 방법은 멀티뷰 이미지에서 고품질 3D 콘텐츠를 재구성할 수 있지만, 2D diffusion model에서 생성된 이미지의 품질이 좋지 않거나 일관성이 없는 경우 신뢰할 수 있는 결과를 생성하지 못한다.
+Diffusion model의 개발로 최근 연구들은 다양한 3D 표현의 데이터셋에서 직접 3D 생성 네트워크를 학습시키거나, 미분 가능한 렌더링 기술의 도움으로 2D 데이터만으로 학습시켰다. 이러한 모델들은 3D 일관성을 가지지만, 학습 스케일에 의해 제한을 받으며 사전 학습된 모델의 2D prior를 활용할 수 없다. 최신 방법들은 사전 학습된 2D diffusion model로 생성한 멀티뷰 이미지에서 3D 표현을 재구성한다. 이러한 2단계 방법은 멀티뷰 이미지에서 고품질 3D 콘텐츠를 재구성할 수 있지만, 2D diffusion model에서 생성된 이미지의 품질이 좋지 않거나 일관성이 없는 경우 신뢰할 수 있는 결과를 생성하지 못한다.
 
 이전 연구들의 단점을 극복하기 위해, 본 논문은 멀티뷰 일관성을 보이고 대규모 이미지 데이터셋의 generative prior를 효과적으로 활용하는 새로운 3D 생성 프레임워크인 **DiffSplat**을 제시하였다. DiffSplat은 효율적인 렌더링과 품질 균형을 위해 3D 표현으로 [3D Gaussian Splatting (3DGS)](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)을 사용한다. 
 
@@ -81,13 +81,13 @@ $$
 
 $$
 \begin{equation}
-\mathcal{L}_\textrm{VAE} = \frac{1}{V_\textrm{in}} \sum_{v=1}^{V_\textrm{in}} \left( \mathcal{L}_\textrm{MSE} (\tilde{\textbf{G}}_i, \textbf{G}_i) \right) + \lambda_r \cdot \mathcal{L}_\textrm{render} (\tilde{\mathcal{G}})
+\mathcal{L}_\textrm{VAE} = \frac{1}{V_\textrm{in}} \sum_{i=1}^{V_\textrm{in}} \left( \mathcal{L}_\textrm{MSE} (\tilde{\textbf{G}}_i, \textbf{G}_i) \right) + \lambda_r \cdot \mathcal{L}_\textrm{render} (\tilde{\mathcal{G}})
 \end{equation}
 $$
 
 ($$\tilde{\textbf{G}}_i = D_{\phi_d} (E_{\phi_e} (\textbf{G}_i))$$는 VAE의 인코더 $$E_{\phi_e}$$와 디코더 $$D_{\phi_d}$$에 의해 오토인코딩된 $$\textbf{G}_i$$)
 
-$$V_\textrm{in}$$개의 입력 뷰에 대해 인코딩된 Gaussian splat grid $$\textbf{z} = \{\textbf{z}_i\}_{i=1}^{V_\textrm{in}} = \{\textbf{z}_i\}_{i=1}^{V_\textrm{in}}$$는 **splat latent**라고 하며, diffusion process와 denoising process를 거친다. 
+$$V_\textrm{in}$$개의 입력 뷰에 대해 인코딩된 Gaussian splat grid $$\textbf{z} = \{\textbf{z}_i\}_{i=1}^{V_\textrm{in}} = \{E_{\phi_e} (\textbf{G}_i)\}_{i=1}^{V_\textrm{in}}$$는 **splat latent**라고 하며, diffusion process와 denoising process를 거친다. 
 
 ### 3. DiffSplat Generative Model
 <center><img src='{{"/assets/img/diffsplat/diffsplat-fig2b.webp" | relative_url}}' width="72%"></center>
@@ -95,7 +95,7 @@ $$V_\textrm{in}$$개의 입력 뷰에 대해 인코딩된 Gaussian splat grid $$
 #### Model Architecture
 2D 그리드로 구성된 멀티뷰 splat latent 이미지 세트 $$\textbf{z} = \{\textbf{z}_i\}_{i=1}^{V_\textrm{in}}$$가 주어졌을 때, 멀티뷰 이미지 생성 방법 두 가지를 살펴보자. 이 방법은 텍스트 프롬프트나 단일 뷰 이미지에서 $\textbf{z}$를 전체로 동시에 생성하는 것으로, 각각 **view-concat**과 **spatial-concat**이라고 한다.
 
-View-concat 방식의 경우, 각각 모양이 $$\mathbb{R}^{d \times h \times w}$$인 $$V_\textrm{in}$$개의 splat latent들은 동영상 프레임처럼 처리되고 뷰 차원을 따라 $$\mathbb{R}^{V_\textrm{in} \times d \times h \times w}$$로 concat되어 denoising network에서 개별적으로 처리된다. 다만, self-attention 모듈에서는 $$\mathbb{R}^{(V_\textrm{in} \cdot h \cdot w) \times d}$$로 reshape되고 정수 시퀀스로 처리된다. 
+View-concat 방식의 경우, 각각 모양이 $$\mathbb{R}^{d \times h \times w}$$인 $$V_\textrm{in}$$개의 splat latent들은 동영상 프레임처럼 처리되고 뷰 차원을 따라 $$\mathbb{R}^{V_\textrm{in} \times d \times h \times w}$$로 concat되어 denoising network에서 개별적으로 처리된다. 다만, self-attention 모듈에서는 $$\mathbb{R}^{(V_\textrm{in} \cdot h \cdot w) \times d}$$로 reshape되고 하나의 전체 시퀀스로 처리된다. 
 
 Spatial concat 방식의 경우, splat latent들은 $r \times c$ 그리드로 구성되어 $$\mathbb{R}^{d \times (r \cdot h) \times (c \cdot w)}$$ 모양이 되며, $r \times c = V_\textrm{in}$이다. 
 
@@ -114,7 +114,7 @@ $$
 
 그러나 $$\mathcal{L}_\textrm{diff}$$로만 최적화하는 것은 3D 일관성을 보장하지 않는다. 이러한 제한은 모델이 본질적으로 Gaussian splat grid의 2D 공간에서 작동하고 $V_\textrm{in}$개의 뷰 사이의 대응 관계가 원래 단일 뷰 이미지에서 학습된 이미지 diffusion model의 fine-tuning 중에 암시적으로 학습되기 때문에 발생한다. 따라서 3D 일관된 학습을 위한 fine-tuning 프로세스가 덜 간단해진다. 또한 가벼운 재구성 모델 이후에 압축된 ground-truth 샘플로 splat latent들을 처리하는 것도 생성 모델의 상한을 제한한다. 실제 멀티뷰 데이터셋이 학습 프로세스에 관여하지 않고 재구성 및 오토인코딩 모델의 결과에 완전히 의존하기 때문이다.
 
-Diffusion process에서 splat latent들이 픽셀이 아니라 임의의 뷰에서 효율적으로 렌더링할 수 있는 자연스러운 3D 표현으로 처리되기 때문에, 추가 렌더링 loss $$\lambda_\textrm{render}$$를 $$\mathcal{L}_\textrm{diff}$$와 함께 통합하고, denoise된 splat latent들을 Gaussian splat 속성으로 다시 디코딩한 후 $V$개의 무작위 시점에서 렌더링하여 ground-truth 멀티뷰 이미지와 비교한다. 최종 loss는 다음과 같다.
+Diffusion process에서 splat latent들이 픽셀이 아니라 임의의 뷰에서 효율적으로 렌더링할 수 있는 자연스러운 3D 표현으로 처리되기 때문에, 추가 렌더링 loss $$\mathcal{L}_\textrm{render}$$를 $$\mathcal{L}_\textrm{diff}$$와 함께 통합하고, denoise된 splat latent들을 Gaussian splat 속성으로 다시 디코딩한 후 $V$개의 무작위 시점에서 렌더링하여 ground-truth 멀티뷰 이미지와 비교한다. 최종 loss는 다음과 같다.
 
 $$
 \begin{equation}

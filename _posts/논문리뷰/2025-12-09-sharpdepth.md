@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> CVPR 2025. [[Paper](https://arxiv.org/pdf/2411.18229)] [[Page](https://sharpdepth.github.io/)] [[Github](https://github.com/Qualcomm-AI-research/SharpDepth)]  
+> CVPR 2025. [[Paper](https://arxiv.org/abs/2411.18229)] [[Page](https://sharpdepth.github.io/)] [[Github](https://github.com/Qualcomm-AI-research/SharpDepth)]  
 > Duc-Hai Pham, Tung Do, Phong Nguyen, Binh-Son Hua, Khoi Nguyen, Rang Nguyen  
 > Qualcomm AI Research | Trinity College Dublin | VinAI  
 > 27 Nov 2024  
@@ -43,7 +43,7 @@ Diffusion model의 forward process에 단순하게 의존하는 대신, 불확�
 
 <center><img src='{{"/assets/img/sharpdepth/sharpdepth-fig4.webp" | relative_url}}' width="60%"></center>
 <br>
-구체적으로, metric depth 추정 모델로 [UniDepth](https://arxiv.org/abs/2403.18913)를, diffusion 기반 깊이 추정 모델로 [Lotus](https://kimjy99.github.io/논문리뷰/lotus)를 사용한다. UniDepth는 Lotus 보다 선명한 디테일이 부족하지만 상당히 정확한 깊이 예측을 제공한다. 위 그림에서 볼 수 있듯이, 먼저 이러한 예측을 정규화한 다음 두 개의 depth map 간의 difference map을 계산한다. Difference map에서 더 밝은 영역은 상당한 불일치가 있는 영역을 강조하여 추가 디테일이 필요한 영역을 나타낸다. 반대로, 어두운 영역은 두 깊이 추정 모델 간에 상호 동의가 있는 영역을 나타낸다. 이러한 영역도 깊이 개선의 이점을 얻을 수 있지만, 선명화 과정에서는 우선순위가 낮다.
+구체적으로, metric depth 추정 모델로 [UniDepth](https://arxiv.org/abs/2403.18913)를, diffusion 기반 깊이 추정 모델로 [Lotus](https://kimjy99.github.io/논문리뷰/lotus)를 사용한다. UniDepth는 Lotus보다 선명한 디테일이 부족하지만 상당히 정확한 깊이 예측을 제공한다. 위 그림에서 볼 수 있듯이, 먼저 이러한 예측을 정규화한 다음 두 개의 depth map 간의 difference map을 계산한다. Difference map에서 더 밝은 영역은 상당한 불일치가 있는 영역을 강조하여 추가 디테일이 필요한 영역을 나타낸다. 반대로, 어두운 영역은 두 깊이 추정 모델 간에 상호 동의가 있는 영역을 나타낸다. 이러한 영역도 깊이 개선의 이점을 얻을 수 있지만, 선명화 과정에서는 우선순위가 낮다.
 
 저자들은 초기 metric depth $d$의 정보를 $$\textbf{G}_\theta$$ 모델에 입력으로 통합하는 **Noise-aware Gating** 메커니즘을 제안하였다. 기존의 여러 논문들에서 관심 영역에 초점을 맞추도록 diffusion model을 유도하기 위해 명시적 마스크를 사용해 왔다. 저자들은 여기에 영감을 받아, 깨끗한 latent depth의 모든 픽셀에 Gaussian noise를 추가하는 것을 피하였다. 대신, 차이가 큰 영역에는 noise를 선택적으로 적용하고, 차이가 작은 영역에는 noise를 덜 적용한다. 이 전략은 $$\textbf{G}_\theta$$가 차이가 큰 영역에 초점을 맞추고, 차이가 작은 영역은 대부분 영향을 받지 않도록 효과적으로 제어한다.
 
@@ -86,7 +86,7 @@ $$
 ##### Noise-aware Reconstruction Loss
 본 논문의 distillation 목적은 $$\textbf{G}_\theta$$의 출력이 diffusion model $f_G$의 분포와 더욱 밀접하게 일치하도록 유도하여 매우 상세한 depth map을 생성하는 것이다. 그러나 이로 인해 네트워크는 $f_G$의 한계를 그대로 물려받게 되어 궁극적으로 metric depth 추정의 정확도가 저하된다. 이 문제를 해결하기 위해, 저자들은 $$\textbf{G}_\theta$$의 출력과 $f_D$의 출력 사이의 거리를 측정하여 metric depth 모델의 정확도를 유지하는 추가적인 reconstruction loss를 도입하였다.
 
-구체적으로, $d$와 $\hat{d}$가 유의미한 차이를 보이는 영역에 더 큰 gradient를 적용하기 위해 difference map $e$를 사용한다. 이는 명시적인 정규화 메커니즘으로 작용하여 $$\textbf{G}_\theta$$ 이러한 픽셀에 더 집중하도록 한다. Difference map은 차이가 거의 없는 영역은 거의 변하지 않도록 보장하지만, $\hat{d}$로 over-smoothing 아티팩트가 전파될 위험이 있다. Reconstruction loss는 다음과 같다.
+구체적으로, $d$와 $\hat{d}$가 유의미한 차이를 보이는 영역에 더 큰 gradient를 적용하기 위해 difference map $e$를 사용한다. 이는 명시적인 정규화 메커니즘으로 작용하여 $$\textbf{G}_\theta$$가 이러한 픽셀에 더 집중하도록 한다. Difference map은 차이가 거의 없는 영역은 거의 변하지 않도록 보장하지만, $\hat{d}$로 over-smoothing 아티팩트가 전파될 위험이 있다. Reconstruction loss는 다음과 같다.
 
 $$
 \begin{equation}
@@ -115,7 +115,7 @@ $$
   - batch size: 1
   - gradient accumulation step: 16
   - GPU: A100 40GB 2개로 약 1.5일 소요
-  - $f_D$의 metric depth는 VAE 인코더에 들어가지 전 $[-1, 1]$로 정규화, 디코딩 후 복원
+  - $f_D$의 metric depth는 VAE 인코더에 들어가기 전 $[-1, 1]$로 정규화, 디코딩 후 복원
 
 ### 1. Comparison with the State of the Art
 다음은 깊이 정확도를 비교한 결과이다.

@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> CVPR 2025. [[Paper](https://arxiv.org/abs/2411.17249)] [[Github](https://bufferanytime.github.io/)]  
+> CVPR 2025. [[Paper](https://arxiv.org/abs/2411.17249)] [[Page](https://bufferanytime.github.io/)]  
 > Zhengfei Kuang, Tianyuan Zhang, Kai Zhang, Hao Tan, Sai Bi, Yiwei Hu, Zexiang Xu, Milos Hasan, Gordon Wetzstein, Fujun Luan  
 > Stanford University | MIT | Adobe Research  
 > 26 Nov 2024  

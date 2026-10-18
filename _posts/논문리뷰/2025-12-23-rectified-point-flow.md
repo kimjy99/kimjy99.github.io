@@ -23,9 +23,9 @@ classes: wide
 ## Introduction
 Multi-part shape 조립은 본질적으로 제약이 부족하다. Part들은 종종 대칭적이거나, 상호 교환 가능하거나, 기하학적으로 모호하여 여러 가지 그럴듯한 로컬 구성이 발생한다. 결과적으로, 기존의 part별 registration은 로컬하게는 유효하지만 의도된 조립과 전체적으로는 일치하지 않는 뒤집히거나 정렬되지 않은 구성을 생성할 수 있다. 이러한 모호성을 극복하려면 강력한 supervision이나 휴리스틱에 의존하지 않고도 부품의 동일성, 상대적 배치, 그리고 전체적인 shape 일관성에 대해 공동으로 추론할 수 있는 모델이 필요하다.
 
-본 논문에서는 입력 geometry에 대한 연속적인 point-wise flow field을 학습하는 문제를 일반적인 포인트 클라우드 포즈 추정을 위한 생성적 접근법으로 제시하며, 이를 통해 조립된 shape들에 대한 prior를 효과적으로 포착한다. 본 논문에서 제안하는 **Rectified Point Flow**는 유클리드 공간에서 랜덤 Gaussian noise로부터 조립된 object들의 포인트 클라우드를 향해 이동하는 점들의 움직임을 모델링한다. 이렇게 학습된 flow는 part-level transformation을 암묵적으로 인코딩하여 하나의 프레임워크 내에서 포즈 추정과 생성적 shape 조립을 모두 가능하게 한다. Rectified Point Flow는 점별 feature를 추출하는 인코더와, 주어진 feature를 기반으로 최종 조립 위치를 예측하는 flow model로 구성된다.
+본 논문에서는 입력 geometry에 대한 연속적인 point-wise flow field를 학습하는 문제를 일반적인 포인트 클라우드 포즈 추정을 위한 생성적 접근법으로 제시하며, 이를 통해 조립된 shape들에 대한 prior를 효과적으로 포착한다. 본 논문에서 제안하는 **Rectified Point Flow**는 유클리드 공간에서 랜덤 Gaussian noise로부터 조립된 object들의 포인트 클라우드를 향해 이동하는 점들의 움직임을 모델링한다. 이렇게 학습된 flow는 part-level transformation을 암묵적으로 인코딩하여 하나의 프레임워크 내에서 포즈 추정과 생성적 shape 조립을 모두 가능하게 한다. Rectified Point Flow는 점별 feature를 추출하는 인코더와, 주어진 feature를 기반으로 최종 조립 위치를 예측하는 flow model로 구성된다.
 
-Part 간 관계에 대한 기하학적 인식을 심어주기 위해, 저자들은 대규모 3D shape 데이터셋을 사용하여 인코더를 사전 학습시켰다. 구체적으로, binary classification task로써 각 점마다 part 간 중첩을 예측한다. 다양한 task에 맞춰진 데이터 소스에 구애받지 않고 데이터를 생성할 수 있으며, 완벽한 메쉬나 시뮬레이션을 필요로 하지 않는다. 이는 포즈 추정을 위한 scalable한 사전 학습을 향한 중요한 단계이다.
+Part 간 관계에 대한 기하학적 인식을 심어주기 위해, 저자들은 대규모 3D shape 데이터셋을 사용하여 인코더를 사전 학습시켰다. 구체적으로, binary classification task로서 각 점마다 part 간 중첩을 예측한다. 다양한 task에 맞춰진 데이터 소스에 구애받지 않고 데이터를 생성할 수 있으며, 완벽한 메쉬나 시뮬레이션을 필요로 하지 않는다. 이는 포즈 추정을 위한 scalable한 사전 학습을 향한 중요한 단계이다.
 
 본 논문의 flow 기반 포즈 추정은 세 가지 측면에서 기존의 포즈 벡터 추정과 다르다.
 
@@ -95,7 +95,7 @@ $$
 
 $$
 \begin{equation}
-\hat{T}_i = \underset{\hat{T}_i \in \textrm{SE}(3)}{\arg \min} \| \hat{T}_i \textbf{X}_i - \hat{\textbf{X}}_i (0) \|_F
+\hat{T}_i = \underset{T_i \in \textrm{SE}(3)}{\arg \min} \| T_i \textbf{X}_i - \hat{\textbf{X}}_i (0) \|_F
 \end{equation}
 $$
 

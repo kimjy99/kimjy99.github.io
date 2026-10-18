@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> SIGGRAPH Asia 2024. [[Paper](https://arxiv.org/abs/2406.16864)] [[Page](https://stable-x.github.io/StableNormal/)] [[Github](https://github.com/Hhhhhhao/continuous_tokenizer)]  
+> SIGGRAPH Asia 2024. [[Paper](https://arxiv.org/abs/2406.16864)] [[Page](https://stable-x.github.io/StableNormal/)] [[Github](https://github.com/Stable-X/StableNormal)]  
 > Chongjie Ye, Lingteng Qiu, Xiaodong Gu, Qi Zuo, Yushuang Wu, Zilong Dong, Liefeng Bo, Yuliang Xiu, Xiaoguang Han  
 > The Chinese University of Hongkong | Alibaba Group | Max Planck Institute for Intelligent Systems  
 > 24 Jun 2024  
@@ -28,9 +28,9 @@ Image-to-normal task는 여러 연구에서 활발히 연구되어 왔다. 최�
 이러한 현상은 두 가지 요인에 기인한다. 
 
 1. 극단적인 조명, 극적인 카메라 움직임, 모션 블러, 저화질 이미지와 같은 불안정한 이미징 조건.
-2. Diffusion process의 stocasticity는 가능한 한 deterministic해야 하는 추정 과정의 본질과 모순된다.
+2. Diffusion process의 stochasticity는 가능한 한 deterministic해야 하는 추정 과정의 본질과 모순된다.
 
-Normal 추정은 depth 추정보다 더 deterministic하기 때문에 diffusion process의 내재적 확률성을 완하하는 것이 더 중요하다. 그러나 diffusion process에서 stocasticity를 제거하면 고주파 디테일의 복원력이 저하되고 지나치게 매끄러운 normal이 생성될 수 있다. 따라서 안정성과 선명도 사이의 균형을 찾는 것이 필요하다.
+Normal 추정은 depth 추정보다 더 deterministic하기 때문에 diffusion process의 내재적 확률성을 완화하는 것이 더 중요하다. 그러나 diffusion process에서 stochasticity를 제거하면 고주파 디테일의 복원력이 저하되고 지나치게 매끄러운 normal이 생성될 수 있다. 따라서 안정성과 선명도 사이의 균형을 찾는 것이 필요하다.
 
 본 논문은 이러한 상충 관계를 해결하기 위한 **StableNormal**을 제시하였다. StableNormal은 안정적인 초기화와 안정적인 정제가 정확하고 안정적인 normal 추정값을 생성하는 데 필수적임을 보여준다. StableNormal은 coarse-to-fine 체계를 따른다. 
 
@@ -52,7 +52,7 @@ $$
 
 ($I$는 입력 이미지, $x_t = q(\textrm{En}(N_\textrm{gt}))$는 GT normal map $N_\textrm{gt}$에서 인코딩된 timestep $t$에서의 latent feature)
 
-Inference 시에는 학습된 diffusion model에 대해 샘플링 알고리즘을 실행하여 주어진 RGB 이미지의 normal map을 간단하게 추정할 수 있다. 추정된 normal map은 보기에는 선명해 보이지만, stocastic하게 생성된다. 추정된 normal map의 높은 분산은 일반적으로 해당 입력 이미지와 정렬되지 않는다. 여러 결과의 평균화을 취하는 앙상블 방식을 사용할 수 있지만, 결과는 여전히 만족스럽지 않으며 전체 앙상블 과정에 상당한 시간이 소요된다.
+Inference 시에는 학습된 diffusion model에 대해 샘플링 알고리즘을 실행하여 주어진 RGB 이미지의 normal map을 간단하게 추정할 수 있다. 추정된 normal map은 보기에는 선명해 보이지만, stochastic하게 생성된다. 추정된 normal map의 높은 분산은 일반적으로 해당 입력 이미지와 정렬되지 않는다. 여러 결과의 평균화를 취하는 앙상블 방식을 사용할 수 있지만, 결과는 여전히 만족스럽지 않으며 전체 앙상블 과정에 상당한 시간이 소요된다.
 
 ##### The Variance from the Diffusion Model
 Diffusion 기반 normal 추정의 주요 문제는 inference 절차의 높은 분산이다. Diffusion 샘플링 알고리즘의 무작위성 원인은 대부분 초기 Gaussian noise와 중간에 주입된 모든 Gaussian noise이다. 본 논문은 2단계 inference 방식을 통해 분산을 완화할 것을 제안하였다. 초기 단계에서는 높은 확실성을 가진 신뢰할 수 있는 초기 추정값이 생성된다. 이후, 제한된 수의 diffusion 샘플링 step을 사용하여 결과를 조정하고, Gaussian noise 주입을 최소화한다.
@@ -69,7 +69,7 @@ L_{\theta, \phi} = \mathbb{E}_{x_{t^{+}}, c, I, t^{+}} \| x_{t^{+}} - \mu_\theta
 \end{equation}
 $$
 
-($x_\infty$ $t$가 무한대에 접근하는 forward diffusion process를 실행하여 생성된 Gaussian 분포의 noise 샘플)
+($x_\infty$는 $t$가 무한대에 접근하는 forward diffusion process를 실행하여 생성된 Gaussian 분포의 noise 샘플)
 
 여기서는 시간 $t = 0$이 아닌 시간 $t^{+} \in (0,T)$에 해당하는 Gaussian 일대일 분포를 매핑하는 데 관심이 있다. 이러한 one-step 추정을 **You-Only-Sample-Once (YOSO)**라고 부른다. 안타깝게도 Gaussian 분포에서 $x_{t^{+}}$를 단순하게 추정하는 것은 다대일 매핑을 학습하는 것을 의미하며, 이는 어렵다. 이 문제를 해결하기 위해 Shrinkage Regularizer를 사용한다.
 
@@ -95,7 +95,7 @@ $$
 효율성을 위해 U-Net에 semantic feature를 입력하는 경량 네트워크를 사용한다. 구체적으로, 이 네트워크는 조건 인코더와 유사한 4개의 conv layer를 사용하여 DINOv2 feature의 공간 해상도를 noise가 더해진 latent feature의 공간 해상도와 일치시킨다. DINOv2 feature는 일반적으로 diffusion latent feature보다 해상도가 낮기 때문에, 해상도 일치를 위해 [FeatUp](https://arxiv.org/abs/2403.10516)과 bi-linear interpolation을 사용하여 DINOv2 feature를 업샘플링한다. Noise가 더해진 latent feature는 정렬된 DINOv2 feature와 더해진 후, denoising U-Net에 입력된다. 학습 과정에서 네트워크 가중치는 Gaussian 분포를 사용하여 초기화되지만, 최종 projection layer는 zero convolution으로 초기화된다.
 
 ##### Loss function
-[I2VGen-XL](https://arxiv.org/abs/2311.04145)을 따라 $$\mu_\zeta$$에 $x_0$-reparameterization를 적용한다. $$\mu_\zeta$$의 loss function은 다음과 같이 정의할 수 있다.
+[I2VGen-XL](https://arxiv.org/abs/2311.04145)을 따라 $$\mu_\zeta$$에 $x_0$-reparameterization을 적용한다. $$\mu_\zeta$$의 loss function은 다음과 같이 정의할 수 있다.
 
 $$
 \begin{equation}

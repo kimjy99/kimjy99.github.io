@@ -10,12 +10,12 @@ tags:
   - Image Generation
   - Computer Vision
   - ICML
-excerpt: "Stable Diffusion 3 논문 리뷰 (ICML 2024)"
+excerpt: "Stable Diffusion 3 논문 리뷰 (ICML 2024 Best Paper)"
 use_math: true
 classes: wide
 ---
 
-> ICML 2024. [[Paper](https://arxiv.org/abs/2403.03206)] [[Page](https://stability.ai/news/stable-diffusion-3-research-paper)]  
+> ICML 2024 (Best Paper). [[Paper](https://arxiv.org/abs/2403.03206)] [[Page](https://stability.ai/news/stable-diffusion-3-research-paper)]  
 > Patrick Esser, Sumith Kulal, Andreas Blattmann, Rahim Entezari, Jonas Müller, Harry Saini, Yam Levi, Dominik Lorenz, Axel Sauer, Frederic Boesel, Dustin Podell, Tim Dockhorn, Zion English, Kyle Lacey, Alex Goodwin, Yannik Marek, Robin Rombach  
 > Stability AI  
 > 5 Mar 2024  

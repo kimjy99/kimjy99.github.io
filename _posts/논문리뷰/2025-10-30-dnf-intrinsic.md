@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> ICCV 2025. [[Paper](https://arxiv.org/abs/2507.03924)] [[Page](https://wangrc.site/MoGePage/)] [[Github](https://github.com/OnlyZZZZ/DNF-Intrinsic)]  
+> ICCV 2025. [[Paper](https://arxiv.org/abs/2507.03924)] [[Github](https://github.com/OnlyZZZZ/DNF-Intrinsic)]  
 > Rongjia Zheng, Qing Zhang, Chengjiang Long, Wei-Shi Zheng  
 > Sun Yat-sen University | Meta Reality Labs  
 > 5 Jul 2025  
@@ -21,10 +21,10 @@ classes: wide
 <center><img src='{{"/assets/img/dnf-intrinsic/dnf-intrinsic-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
-최근 사전 학습된 diffusion model 모델의 강력한 이미지 prior를 활용하여 noise-to-intrinsic 방식으로 deterministic하지 않은 inverse rendering을 달성하는 방법들이 주목을 받고 있다. 이 패러다임에 따라 일부 방법은 합성 데이터를 사용하여 사전 학습된 diffusion model을 fine-tuning하여 inverse rendering을 해결하는 것을 제안하였다. 그러나 기본적으로 다음 세 가지 한계가 있다. 
+최근 사전 학습된 diffusion model의 강력한 이미지 prior를 활용하여 noise-to-intrinsic 방식으로 deterministic하지 않은 inverse rendering을 달성하는 방법들이 주목을 받고 있다. 이 패러다임에 따라 일부 방법은 합성 데이터를 사용하여 사전 학습된 diffusion model을 fine-tuning하여 inverse rendering을 해결하는 것을 제안하였다. 그러나 기본적으로 다음 세 가지 한계가 있다. 
 
-2. 일반적으로 랜덤 noise를 intrinsic에 매핑하기 위해 많은 수의 denoising step이 필요하기 때문에 inference 속도가 일반적으로 느리다.
 1. Noise-to-intrinsic 패러다임을 사용하면 intrinsic 예측을 위해 완전한 이미지 구조와 외형 정보를 활용할 수 없기 때문에 고품질 결과를 robust하게 생성할 수 없다. 
+2. 일반적으로 랜덤 noise를 intrinsic에 매핑하기 위해 많은 수의 denoising step이 필요하기 때문에 inference 속도가 일반적으로 느리다.
 3. 예측된 intrinsic에서 이미지를 재구성하는 데 대한 명시적 제약이 없기 때문에 물리적으로 설득력 있는 inverse rendering을 달성하지 못할 수 있다.
 
 이러한 한계를 해결하기 위해, 본 논문에서는 실내 장면의 robust하고 효율적이며 물리적으로 설득력 있는 diffusion 기반 inverse rendering 방식인 **DNF-Intrinsic**을 제시하였다. 기존 방식처럼 이미지 조건부 noise-to-intrinsic 매핑을 학습하는 대신, 본 논문에서는 Gaussian noise 대신 원본 이미지를 입력으로 사용하여 flow matching을 통해 deterministic한 방식으로 intrinsic을 예측하는 image-to-intrinsic 매핑을 제안하였다. 이를 통해 원본 이미지의 비전 정보를 최대한 활용하여 더 나은 intrinsic 예측 성능을 얻을 수 있을 뿐만 아니라, 많은 denoising step에서 발생하는 높은 계산 비용을 피할 수 있다. Generative renderer는 예측된 intrinsic으로부터 원본 이미지를 재구성할 수 있도록 명시적으로 제한함으로써 물리적으로 의미 있는 inverse rendering을 달성하도록 추가로 설계되었다.
@@ -35,9 +35,9 @@ classes: wide
 본 논문의 목표는 단일 RGB 실내 이미지가 주어졌을 때 사전 학습된 diffusion model로부터 fine-tuning된 단일 모델을 통해 albedo, metallic, roughness, normal, depth를 복구하는 것이다.
 
 ### 1. Problem Formulation
-Text-to-image 생성과 달리 inverse rendering은 deterministic한 image-to-image task이다. 강력한 diffusionp prior를 활용하기 위해, 대부분의 기존 diffusion 기반 inverse rendering 방법은 입력 이미지를 조건으로 하는 noise-to-intrinsic diffusion 문제로 task를 정의하는 text-to-image 방법을 따른다. 
+Text-to-image 생성과 달리 inverse rendering은 deterministic한 image-to-image task이다. 강력한 diffusion prior를 활용하기 위해, 대부분의 기존 diffusion 기반 inverse rendering 방법은 입력 이미지를 조건으로 하는 noise-to-intrinsic diffusion 문제로 task를 정의하는 text-to-image 방법을 따른다. 
 
-Albedo 추정을 예로 들면, 사전 학습된 diffusion model은 일반적으로 albedo $A \sim \mathbb{R}^{W \times H \times 3}$에 대한 조건부 분포 $D(A \vert I)$를 배우도록 학습된다. 여기서 조건 $I \sim \mathbb{R}^{W \times H \times 3}$은 입력 이미지이다. Diffusion model $$\epsilon_\theta$$의 학습 objective는 다음과 같다.
+Albedo 추정을 예로 들면, 사전 학습된 diffusion model은 일반적으로 albedo $A \in \mathbb{R}^{W \times H \times 3}$에 대한 조건부 분포 $D(A \vert I)$를 배우도록 학습된다. 여기서 조건 $I \in \mathbb{R}^{W \times H \times 3}$은 입력 이미지이다. Diffusion model $$\epsilon_\theta$$의 학습 objective는 다음과 같다.
 
 $$
 \begin{equation}

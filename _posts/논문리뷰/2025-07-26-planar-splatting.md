@@ -14,7 +14,7 @@ use_math: true
 classes: wide
 ---
 
-> CVPR 2025 (Highlight). [[Paper](https://arxiv.org/abs/2412.03451)] [[Page](https://icetttb.github.io/PlanarSplatting/)]  
+> CVPR 2025 (Highlight). [[Paper](https://arxiv.org/abs/2412.03451)] [[Page](https://icetttb.github.io/PlanarSplatting/)] [[Github](https://github.com/ant-research/PlanarSplatting)]  
 > Bin Tan, Rui Yu, Yujun Shen, Nan Xue  
 > Ant Group | University of Louisville  
 > 4 Dec 2024  
@@ -24,7 +24,7 @@ classes: wide
 ## Introduction
 이미지 기반 평면 3D 재구성은 대부분 키포인트 기반 3D 재구성 파이프라인을 따르며, 평면을 특수한 유형의 visual feature로 처리한다. 그러나 이미지 공간에서 로컬 point feature와 평면 마스크 간의 본질적인 차이로 인해 기존 접근법은 평면 표현의 장점을 충분히 활용하지 못하며, 일반적으로 매우 대략적이고 장면의 많은 디테일을 잃는다.
 
-본 논문의 주요 아이디어는 멀티뷰 입력 이미지로부터 얻은 3D planar primitive들을 이용하여 실내 장면을 근사하고, 이를 통해 일관된 3D 평면을 갖도록 직접 최적화하는 것이다. 본 논문에서는 3D 공간에서 직사각형 planar primitive를 2.5D depth map과 normal map으로 미분 가능하게 splatting하여 명시적으로 최적화하는 **PlanarSplatting**을 도입하였다. 잘 설계된 평면 splatting 함수 덕분에, PlanarSplatting은 monocular depth와 monocular normal 효과적으로 활용하여 정확한 평면 최적화를 구현하였다. 평면 주석 없이 유사한 3D planar primitive들을 병합하여 최종 고품질 평면 표면을 재구성할 수 있다.
+본 논문의 주요 아이디어는 멀티뷰 입력 이미지로부터 얻은 3D planar primitive들을 이용하여 실내 장면을 근사하고, 이를 통해 일관된 3D 평면을 갖도록 직접 최적화하는 것이다. 본 논문에서는 3D 공간에서 직사각형 planar primitive를 2.5D depth map과 normal map으로 미분 가능하게 splatting하여 명시적으로 최적화하는 **PlanarSplatting**을 도입하였다. 잘 설계된 평면 splatting 함수 덕분에, PlanarSplatting은 monocular depth와 monocular normal을 효과적으로 활용하여 정확한 평면 최적화를 구현하였다. 평면 주석 없이 유사한 3D planar primitive들을 병합하여 최종 고품질 평면 표면을 재구성할 수 있다.
 
 PlanarSplatting은 3D planar primitive를 기반으로 직접 설계되고 CUDA를 통해 효율적으로 구현되므로, 최신 [Gaussian Splatting (GS)](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting) 기법과 완벽하게 통합되어 고품질의 실내 novel view synthesis (NVS)를 구현할 수 있다. 빠르고 정확한 장면 재구성을 통해 GS 기반 기법은 densification 없이도 효과적으로 초기화 및 최적화될 수 있으며, 이를 통해 더 나은 렌더링 결과와 현저히 단축된 학습 시간을 얻을 수 있다. 
 
@@ -59,7 +59,7 @@ $$
 
 $$
 \begin{equation}
-\textbf{n}_\pi = \textbf{R}(\textbf{q})[0,0,1]^\top
+\textbf{n}_\pi = \textbf{R}(\textbf{q}_\pi)[0,0,1]^\top
 \end{equation}
 $$
 
@@ -87,7 +87,7 @@ Gaussian 기반 splatting 함수는 planar primitive의 경계를 모호하게 �
 
 $$
 \begin{equation}
-\mathcal{P}_X = (\textbf{x}_\pi^\textbf{r} - \textbf{p}_\pi) \cdot \textbf{v}_\pi^x, \quad \mathcal{P}_X = (\textbf{x}_\pi^\textbf{r} - \textbf{p}_\pi) \cdot \textbf{v}_\pi^y
+\mathcal{P}_X = (\textbf{x}_\pi^\textbf{r} - \textbf{p}_\pi) \cdot \textbf{v}_\pi^x, \quad \mathcal{P}_Y = (\textbf{x}_\pi^\textbf{r} - \textbf{p}_\pi) \cdot \textbf{v}_\pi^y
 \end{equation}
 $$
 
@@ -121,18 +121,18 @@ $$
 ($\textrm{ite}$는 최적화 과정의 iteration 번호)
 
 ##### 블렌딩
-모든 광선-평면 교점에 대해 splatting 가중치가 0.0001보다 낮은 평면을 필터링한 후, 나머지 교점을 깊이에 따라 가까운 교점에서 먼 교점 순으로 정렬한다. 그런 다음, 각 광선의 가장 가까운 교점 $M$를 선택하여 렌더링한다 (본 논문에서는 $M = 30$). 특정 이미지 $\textbf{I}$의 depth map과 normal map을 다음과 같이 렌더링한다.
+모든 광선-평면 교점에 대해 splatting 가중치가 0.0001보다 낮은 평면을 필터링한 후, 나머지 교점을 깊이에 따라 가까운 교점에서 먼 교점 순으로 정렬한다. 그런 다음, 각 광선의 가장 가까운 교점 $M$개를 선택하여 렌더링한다 (본 논문에서는 $M = 30$). 특정 이미지 $\textbf{I}$의 depth map과 normal map을 다음과 같이 렌더링한다.
 
 $$
 \begin{equation}
-\textbf{D}_\textrm{render}^\Pi (\textbf{r}) = \sum_{j=1}^M T_j w (\textbf{x}_{\pi_{\tau(j)}}^\textrm{r}) t_j, \quad \textbf{N}_\textrm{render}^\Pi (\textbf{r}) = \sum_{j=1}^M T_j w (\textbf{x}_{\pi_{\tau(j)}}^\textrm{r}) \textbf{n}_{\pi_{\tau(j)}} \\
-\textrm{where} \quad T_j = \prod_{i=1}^{j-1} (1 - w (\textbf{x}_{\pi_{\tau(i)}}^\textrm{r}) )
+\textbf{D}_\textrm{render}^\Pi (\textbf{r}) = \sum_{j=1}^M T_j w (\textbf{x}_{\pi_{\tau(j)}}^\textbf{r}) t_j, \quad \textbf{N}_\textrm{render}^\Pi (\textbf{r}) = \sum_{j=1}^M T_j w (\textbf{x}_{\pi_{\tau(j)}}^\textbf{r}) \textbf{n}_{\pi_{\tau(j)}} \\
+\textrm{where} \quad T_j = \prod_{i=1}^{j-1} (1 - w (\textbf{x}_{\pi_{\tau(i)}}^\textbf{r}) )
 \end{equation}
 $$
 
 ($\tau (j)$는 평면의 인덱스, $t_j$는 교점의 depth)
 
-Metric3Dv2로 예측한 depth map $$\textbf{D}_\textrm{pre}$$과 Omnidata로 예측한 normal map $$\textbf{N}_\textrm{pre}$$로 각각 렌더링된 depth map과 normal map을 학습시킨다. 렌더링 loss는 다음과 같다.
+Metric3Dv2로 예측한 depth map $$\textbf{D}_\textrm{pre}$$와 Omnidata로 예측한 normal map $$\textbf{N}_\textrm{pre}$$로 각각 렌더링된 depth map과 normal map을 학습시킨다. 렌더링 loss는 다음과 같다.
 
 $$
 \begin{aligned}
@@ -143,10 +143,10 @@ $$
 $$
 
 ### 3. Optimization
-###### 평면 분할
+##### 평면 분할
 저자들은 최적화 과정에서 장면 형상에 더 잘 맞도록 평면의 반지름 기울기에 따라 분할 연산을 도입하였다. 평면의 X축에 대한 평균 반지름 기울기($r^{x+}$, $r^{x-}$)가 0.2보다 크면 Y축을 따라 평면을 분할한다. 마찬가지로, Y축에 대한 평균 반지름 기울기($r^{y+}$, $r^{y-}$)가 0.2보다 크면 X축을 따라 평면을 분할한다. 분할 연산은 1,000 iteration마다 수행된다.
 
-###### 평면 병합
+##### 평면 병합
 최적화 후, normal 각도 오차가 25° 미만이고 offset 거리 차이가 0.1cm 미만인 학습된 3D planar primitive들을 병합한다. 여기서 offset은 장면 중심에서 평면 표면까지의 projection 거리를 의미한다.
 
 ## Experiments

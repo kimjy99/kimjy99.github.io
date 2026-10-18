@@ -179,6 +179,6 @@ $$
 
 <center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig10.webp" | relative_url}}' width="100%"></center>
 <br>
-다음은 글로벌한 feature를 사용하였을 떄와 세밀한 feature를 사용하였을 떄의 결과를 비교한 것이다. 
+다음은 글로벌한 feature를 사용하였을 때와 세밀한 feature를 사용하였을 때의 결과를 비교한 것이다. 
 
 <center><img src='{{"/assets/img/ip-adapter/ip-adapter-fig11.webp" | relative_url}}' width="100%"></center>

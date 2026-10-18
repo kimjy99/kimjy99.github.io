@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> ICCV 2025 Oral. [[Paper](https://arxiv.org/abs/2503.21732)] [[Page](https://xianglonghe.github.io/TripoSF/)] [[Github](https://github.com/VAST-AI-Research/TripoSF)]  
+> ICCV 2025 (Oral). [[Paper](https://arxiv.org/abs/2503.21732)] [[Page](https://xianglonghe.github.io/TripoSF/)] [[Github](https://github.com/VAST-AI-Research/TripoSF)]  
 > Xianglong He, Zi-Xin Zou, Chia-Hao Chen, Yuan-Chen Guo, Ding Liang, Chun Yuan, Wanli Ouyang, Yan-Pei Cao, Yangguang Li  
 > Tsinghua University | VAST | The Chinese University of Hong Kong  
 > 27 Mar 2025  
@@ -41,7 +41,7 @@ SparseFlex의 핵심 설계는 sparse voxel 구조를 도입하여 고해상도 
 1. Dense grid보다 훨씬 높은 해상도를 얻을 수 있다.
 2. 빈 영역의 voxel을 생략함으로써 열린 표면을 자연스럽게 표현할 수 있다.
 
-구체적으로, SparseFlex는 $N_v$개의 voxel들의 집합 $$\mathcal{V} = \{v_i = (x_i, y_i, z-i)\}$$로 정의되며, $v_i$는 $i$번째 voxel 중심의 3D 좌표를 나타낸다. 각 voxel은 interpolation 가중치
+구체적으로, SparseFlex는 $N_v$개의 voxel들의 집합 $$\mathcal{V} = \{v_i = (x_i, y_i, z_i)\}$$로 정의되며, $v_i$는 $i$번째 voxel 중심의 3D 좌표를 나타낸다. 각 voxel은 interpolation 가중치
 
 $$
 \begin{equation}
@@ -111,7 +111,7 @@ $$
 \end{equation}
 $$
 
-$$\mathcal{L}_\textrm{render}$$는 렌더링 loss이다. 미분 가능한 렌더링에서 일반적으로 사용되는 loss들을 조합하여 사용한다.
+$$\mathcal{L}_\textrm{render}$$는 렌더링 loss가다. 미분 가능한 렌더링에서 일반적으로 사용되는 loss들을 조합하여 사용한다.
 
 $$
 \begin{equation}
@@ -121,7 +121,7 @@ $$
 
 ($$\mathcal{L}_d$$, $$\mathcal{L}_n$$, $$\mathcal{L}_m$$은 각각 depth map, normal map, mask map에 대한 L1 loss, $$\mathcal{L}_{ss}$$와 $$\mathcal{L}_{lp}$$는 normal map에만 적용한 SSIM loss와 LPIPS loss)
 
-$$\mathcal{L}_\textrm{prune}$$은 binary cross-entroypy (BCE) loss로 구현된 구조에 대한 loss로, sparse voxel의 구성을 학습시킨다.
+$$\mathcal{L}_\textrm{prune}$$은 binary cross-entropy (BCE) loss로 구현된 구조에 대한 loss로, sparse voxel의 구성을 학습시킨다.
 
 $$
 \begin{equation}
@@ -168,7 +168,7 @@ Inference 시에는 입력 이미지가 주어지면, 먼저 structure flow mode
 
 <center><img src='{{"/assets/img/sparse-flex/sparse-flex-table2.webp" | relative_url}}' width="40%"></center>
 
-### 2. Image to 3D Genration
+### 2. Image to 3D Generation
 다음은 image-to-3D 생성 품질을 비교한 결과이다.
 
 <center><img src='{{"/assets/img/sparse-flex/sparse-flex-fig6.webp" | relative_url}}' width="80%"></center>

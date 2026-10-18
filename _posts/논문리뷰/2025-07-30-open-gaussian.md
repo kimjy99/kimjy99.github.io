@@ -57,7 +57,7 @@ $$
 
 $$
 \begin{equation}
-\mathcal{L}_s = \sum_{i=1}^m \sum_{h=1}^H \sum_{w=1}^W \textbf{B}_{i,j,w} \cdot \| \textbf{M}_{:,h,w} - \bar{\textbf{M}}_i \|^2
+\mathcal{L}_s = \sum_{i=1}^m \sum_{h=1}^H \sum_{w=1}^W \textbf{B}_{i,h,w} \cdot \| \textbf{M}_{:,h,w} - \bar{\textbf{M}}_i \|^2
 \end{equation}
 $$
 
@@ -79,7 +79,7 @@ $$
 1. 유사한 feature를 선택하기 위한 보편적인 threshold를 설정하는 것이 어렵다.
 2. Feature map은 가중치를 누적하는 알파 블렌딩을 사용하여 렌더링되므로, 동일한 물체의 Gaussian이 서로 다른 feature를 보이거나, 서로 다른 물체의 Gaussian이 유사한 feature를 공유할 수 있다. 
 
-Instance feature의 고유성을 높이고 상호작용성을 향상시키기 위해, 동일한 인스턴스의 Gaussian을 discrete하여 단순히 유사한 것이 아닌 동일한 feature를 갖도록 한다. 이를 위해 저자들은 codebook discretization을 도입하였다. 
+Instance feature의 고유성을 높이고 상호작용성을 향상시키기 위해, 동일한 인스턴스의 Gaussian을 discretize하여 단순히 유사한 것이 아닌 동일한 feature를 갖도록 한다. 이를 위해 저자들은 codebook discretization을 도입하였다. 
 
 <center><img src='{{"/assets/img/open-gaussian/open-gaussian-fig3.webp" | relative_url}}' width="100%"></center>
 <span style="display: block; margin: 1px 0;"></span>
@@ -101,7 +101,7 @@ Instance feature의 고유성을 높이고 상호작용성을 향상시키기 �
 2. 대규모 시나리오에서 $k$ 값 64는 모든 물체를 구별하기에 충분하지 않아 instance feature의 고유성이 감소한다. 그러나 단순히 $k$ 값을 높이는 것만으로는 성능이 향상되지 않는다.
 
 ##### Two-Level Codebook
-저자들은 위의 문제들을 해결하기 위해 두 단계의 coarse-to-fine codebook discretization을 제안하였다. 먼저, codebook을 생성하기 위해 instance feature $\textbf{F}$를 Gaussian의 3D 좌표 $\textbf{X} \in \mathbb{R}^{n \times 3}$과 연결하여 위치 의존적 클러스터링을 구현한다. 이후, instance feature만을 기반으로 각 coarse 클러스터 내에서 추가로 discrete한다. 따라서 이 접근법은 멀리 떨어져 있고 서로 보이지 않는 물체들이 같은 클러스터에 할당되는 문제를 방지할 뿐만 아니라, 큰 장면을 분할하여 최적화의 복잡성을 줄인다. 
+저자들은 위의 문제들을 해결하기 위해 두 단계의 coarse-to-fine codebook discretization을 제안하였다. 먼저, codebook을 생성하기 위해 instance feature $\textbf{F}$를 Gaussian의 3D 좌표 $\textbf{X} \in \mathbb{R}^{n \times 3}$과 연결하여 위치 의존적 클러스터링을 구현한다. 이후, instance feature만을 기반으로 각 coarse 클러스터 내에서 추가로 discretize한다. 따라서 이 접근법은 멀리 떨어져 있고 서로 보이지 않는 물체들이 같은 클러스터에 할당되는 문제를 방지할 뿐만 아니라, 큰 장면을 분할하여 최적화의 복잡성을 줄인다. 
 
 $$
 \begin{aligned}
@@ -117,7 +117,7 @@ Instance feature 학습 단계에서 supervision은 바이너리 SAM 마스크�
 
 $$
 \begin{equation}
-\mathcal{L}_p = \| \textbf{M}_p - \textbf{M}_c \|^1
+\mathcal{L}_p = \| \textbf{M}_p - \textbf{M}_c \|_1
 \end{equation}
 $$
 
@@ -128,13 +128,13 @@ $$
 <br>
 위에서 설명한 codebook discretization 프로세스를 통해 클릭과 같은 프롬프트로 3D 물체를 선택하는 능력이 향상된다. 보다 자연스럽고 open-vocabulary 기반 상호작용을 더욱 활성화하려면 3D Gaussian을 language feature와 효과적으로 연관시키는 것이 필수적이다. 
 
-저자들은 깊이 기반 occlusion 테스트의 필요성을 피하면서 고차원의 무손실 language feature를 유지하는 효율적인 인스턴스 레벨 3D-2D 연관 방법을 제안하였다. 구체적으로, 먼저 단일 3D 인스턴스의 feature를 현재 뷰에 렌더링하여 single-instance map $$\textbf{M}_i \in \mathbb{R}^{6 \times H \times W}$$로 렌더링한 다음 ($i \in [1, \ldots, k_1 \cdot k_2$]), 현재 뷰의 SAM 마스크 $$\textbf{B}_j \in \{0, 1\}^{1 \times H \times W}$$와 IoU를 계산한다 ($j$는 마스크 인덱스). 직관적으로, 가장 높은 IoU를 갖는 SAM 마스크가 이 3D 인스턴스와 연관된다. 
+저자들은 깊이 기반 occlusion 테스트의 필요성을 피하면서 고차원의 무손실 language feature를 유지하는 효율적인 인스턴스 레벨 3D-2D 연관 방법을 제안하였다. 구체적으로, 먼저 단일 3D 인스턴스의 feature를 현재 뷰에 렌더링하여 single-instance map $$\textbf{M}_i \in \mathbb{R}^{6 \times H \times W}$$로 렌더링한 다음 ($i \in [1, \ldots, k_1 \cdot k_2]$), 현재 뷰의 SAM 마스크 $$\textbf{B}_j \in \{0, 1\}^{1 \times H \times W}$$와 IoU를 계산한다 ($j$는 마스크 인덱스). 직관적으로, 가장 높은 IoU를 갖는 SAM 마스크가 이 3D 인스턴스와 연관된다. 
 
-그러나 occlusion으로 인해 하나의 SAM 마스크가 여러 3D 인스턴스에서 렌더링된 single-instance map과 교차할 수 있다. 따라서 바이너리 SAM 마스크 $$\textbf{B}_j$$에 pseudo GT feature를 채워 feature-filled mask $$\textbf{P}_j \in \mathbb{R}^{6 \times H \times W}$$를 만든 다음, $$\textbf{P}_j$$와 $$\textbf{M}_j$$ 사이의 feature 거리를 계산하여 IoU가 높지만 feature가 동일한 물체에 해당하지 않는 상황을 방지한다. 
+그러나 occlusion으로 인해 하나의 SAM 마스크가 여러 3D 인스턴스에서 렌더링된 single-instance map과 교차할 수 있다. 따라서 바이너리 SAM 마스크 $$\textbf{B}_j$$에 pseudo GT feature를 채워 feature-filled mask $$\textbf{P}_j \in \mathbb{R}^{6 \times H \times W}$$를 만든 다음, $$\textbf{P}_j$$와 $$\textbf{M}_i$$ 사이의 feature 거리를 계산하여 IoU가 높지만 feature가 동일한 물체에 해당하지 않는 상황을 방지한다. 
 
 $$
 \begin{equation}
-\mathcal{S}_{ij} = \textrm{IoU} (\pi (\textbf{M}_i), \textbf{B}_j) \cdot (1 - \| \textbf{M}_i - \textbf{P}_j \|^1)
+\mathcal{S}_{ij} = \textrm{IoU} (\pi (\textbf{M}_i), \textbf{B}_j) \cdot (1 - \| \textbf{M}_i - \textbf{P}_j \|_1)
 \end{equation}
 $$
 

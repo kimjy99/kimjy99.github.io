@@ -33,7 +33,7 @@ classes: wide
 
 위의 내용을 고려하여, 본 논문은 메쉬를 생성하는 고급 모델인 **MeshAnything V2**를 소개한다. 이 모델은 성능과 효율성을 모두 향상시키기 위한 몇 가지 주요 개선 사항을 포함하고 있다. MeshAnything V2의 핵심은 혁신적인 **Adjacent Mesh Tokenization (AMT)**이다. AMT는 각 면을 기존의 세 개의 vertex 대신 하나의 vertex로 표현하여 tokenization 프로세스를 최적화한다. AMT는 인접한 면을 단 하나의 vertex만 사용하여 인코딩하여 시퀀스 길이를 크게 줄인다. 인접한 면을 식별할 수 없는 경우, 특수 토큰 '&'를 사용하여 이러한 중단을 표시하고, 모델은 인코딩되지 않은 면부터 다시 시작할 수 있다.
 
-이전 메쉬 생성 방법에서는 사용자가 모델에서 생성되는 면의 개수를 제어할 수 없어 요구 사항을 충족하지 못하는 메쉬가 생성되는 경우가 많았다. 이 문제를 해결하기 위해, 사용자가 대략적인 면의 개수를 지정할 수 있도록 하는 면 개수 조건을 도입하여 생성된 메쉬가 원하는 사양에 부합하도록 보장하엿다. 또한, inference 중 AMT의 robustness를 향상시키기 위해, 모델이 '&' 토큰 바로 뒤에 또 다른 '&' 토큰을 생성하는 등 유효하지 않은 토큰을 생성하는 것을 방지하는 [Masking Invalid Predictions](https://arxiv.org/abs/2002.10880) 기능을 통합했다.
+이전 메쉬 생성 방법에서는 사용자가 모델에서 생성되는 면의 개수를 제어할 수 없어 요구 사항을 충족하지 못하는 메쉬가 생성되는 경우가 많았다. 이 문제를 해결하기 위해, 사용자가 대략적인 면의 개수를 지정할 수 있도록 하는 면 개수 조건을 도입하여 생성된 메쉬가 원하는 사양에 부합하도록 보장하였다. 또한, inference 중 AMT의 robustness를 향상시키기 위해, 모델이 '&' 토큰 바로 뒤에 또 다른 '&' 토큰을 생성하는 등 유효하지 않은 토큰을 생성하는 것을 방지하는 [Masking Invalid Predictions](https://arxiv.org/abs/2002.10880) 기능을 통합했다.
 
 ## Method
 ### 1. Adjacent Mesh Tokenization (AMT)
@@ -97,7 +97,7 @@ VQ-VAE를 사용하든 사용하지 않든 AMT의 효과에 영향을 미치지 
 ### 2. MeshAnything V2
 [MeshAnything](https://kimjy99.github.io/논문리뷰/mesh-anything)을 따라, MeshAnything V2 또한 주어진 shape $\mathcal{S}$에 맞춰 정렬된 메쉬 $\mathcal{M}$을 생성하는 것을 목표로 하며, 다양한 3D 에셋 제작 파이프라인과 통합하여 고도로 제어 가능한 메쉬 생성을 달성할 수 있다. 즉, $p(\mathcal{M} \vert \mathcal{S})$ 분포를 학습하는 것을 목표로 한다.
 
-MeshAnything에서와 같이 V2는 포인트 클라우드를 조건 입력 $\mathcal{S}$로 사용한다. 또한 MeshAnything에서 수집한 동일한 포인트 클라우드-메쉬 데이터 쌍 $(\mathcal{M}, \mathcal{S})$를 사용하였다. 대상 분포 $p(\mathcal{M} \vert \mathcal{S})$는 MeshAnything에서와 동일한 크기와 아키텍처를 가진 decoder-only transformer로 학습되었다. $\mathcal{S}$를 transformer에 주입하려면 먼저 사전 학습된 포인트 클라우드 인코더로 고정 길이 토큰 시퀀스 $$\mathcal{T}_S$$로 인코딩한 다음 transformer의 토큰 시퀀스 prefix로 설정한다. 그런 다음 $\mathcal{M}$을 메쉬 토큰 시퀀스 $$\mathcal{T}_M$$으로 처리한다. 이것은 transformer의 GT 시퀀스로 포인트 클라우드 토큰 시퀀스에 concat된다. Cross-entropy loss로 transformer를 학습시킨 후, $$\mathcal{T}_S$$를 입력하고 transformer가 해당 $$\mathcal{T}_M$$을 autoregressive하게 생성하도록 한 다음, 이를 $$\mathcal{M}$$으로 detokenizea한다.
+MeshAnything에서와 같이 V2는 포인트 클라우드를 조건 입력 $\mathcal{S}$로 사용한다. 또한 MeshAnything에서 수집한 동일한 포인트 클라우드-메쉬 데이터 쌍 $(\mathcal{M}, \mathcal{S})$를 사용하였다. 대상 분포 $p(\mathcal{M} \vert \mathcal{S})$는 MeshAnything에서와 동일한 크기와 아키텍처를 가진 decoder-only transformer로 학습되었다. $\mathcal{S}$를 transformer에 주입하려면 먼저 사전 학습된 포인트 클라우드 인코더로 고정 길이 토큰 시퀀스 $$\mathcal{T}_S$$로 인코딩한 다음 transformer의 토큰 시퀀스 prefix로 설정한다. 그런 다음 $\mathcal{M}$을 메쉬 토큰 시퀀스 $$\mathcal{T}_M$$으로 처리한다. 이것은 transformer의 GT 시퀀스로 포인트 클라우드 토큰 시퀀스에 concat된다. Cross-entropy loss로 transformer를 학습시킨 후, $$\mathcal{T}_S$$를 입력하고 transformer가 해당 $$\mathcal{T}_M$$을 autoregressive하게 생성하도록 한 다음, 이를 $$\mathcal{M}$$으로 detokenize한다.
 
 MeshAnything과 V2의 주요 차이점은 $$\mathcal{T}_M$$을 얻는 방법이다. MeshAnything에서 사용된 단순한 메쉬 tokenization 방법 대신 새로 제안된 AMT로 $$\mathcal{M}$$을 처리하고 더 컴팩트하고 효율적인 시퀀스 $$\textrm{Seq}_V$$를 얻는다. MeshXL를 따라 VQ-VAE를 버리고 $$\textrm{Seq}_V$$에서 discretize된 좌표를 토큰 인덱스로 직접 사용한다. 그런 다음 AMT 시퀀스에서 "&"를 나타내기 위해 새로 초기화된 codebook entry를 추가한다. 마지막으로 좌표 토큰 시퀀스와 "&"에 대한 특수 토큰을 순차적으로 결합하여 transformer 입력에 대한 메쉬 토큰 시퀀스 $$\mathcal{T}_M$$을 얻는다.
 
@@ -108,10 +108,10 @@ Transformer가 AMT 시퀀스 패턴을 쉽게 학습할 수 있도록, MeshAnyth
 - "&" 토큰에 대한 별도의 임베딩을 사용한다.
 
 ##### 면 개수 조건
-일부 애플리케이션에서는 대략적인 면 개수 제어가 필요하다는 점을 고려하여 메쉬 생성 시 면 개수 조건을 추가하였다. 구체적으로, 최대 허용 면 개수와 동일한 크기의 embedding book을 초기화했다. 메쉬의 현재 면 개수를 기반으로 이 embedding book에서 해당 임베딩을 검색하여 포인트 클라우드 prefix 뒤에 배치하여 면 개수를 나타낸다. 학습 과정에서 면 개수에 확률 변수를 추가하여 변동성을 높이고 정확한 조건에 대한 overfitting을 방지한. 또한, 조건의 robustness를 더욱 향상시키기 위해 10% 확률로 이 조건을 삭제한다.
+일부 애플리케이션에서는 대략적인 면 개수 제어가 필요하다는 점을 고려하여 메쉬 생성 시 면 개수 조건을 추가하였다. 구체적으로, 최대 허용 면 개수와 동일한 크기의 embedding book을 초기화했다. 메쉬의 현재 면 개수를 기반으로 이 embedding book에서 해당 임베딩을 검색하여 포인트 클라우드 prefix 뒤에 배치하여 면 개수를 나타낸다. 학습 과정에서 면 개수에 확률 변수를 추가하여 변동성을 높이고 정확한 조건에 대한 overfitting을 방지한다. 또한, 조건의 robustness를 더욱 향상시키기 위해 10% 확률로 이 조건을 삭제한다.
 
 ##### Masking Invalid Predictions
-[PolyGen]((https://arxiv.org/abs/2002.10880))은 inference 과정에서 Masking Invalid Predictions 기능을 도입했다. PolyGen에서는 vertex를 먼저 생성한 후 면을 생성하고, vertex와 면을 모두 정렬한다. Inference 과정에서 제약 조건을 적용하지 않으면 생성 모델이 시퀀스 구조를 따르지 않는 결과를 생성할 수 있다. 예를 들어 모든 vertex를 완료하기 전에 면을 생성하거나 정렬된 좌표 순서를 위반하는 vertex를 생성할 수 있다. PolyGen은 inference 단계에서 유효하지 않은 logit을 마스킹하여 유효한 결과만 생성되도록 함으로써 이 문제를 해결하였다.
+[PolyGen](https://arxiv.org/abs/2002.10880)은 inference 과정에서 Masking Invalid Predictions 기능을 도입했다. PolyGen에서는 vertex를 먼저 생성한 후 면을 생성하고, vertex와 면을 모두 정렬한다. Inference 과정에서 제약 조건을 적용하지 않으면 생성 모델이 시퀀스 구조를 따르지 않는 결과를 생성할 수 있다. 예를 들어 모든 vertex를 완료하기 전에 면을 생성하거나 정렬된 좌표 순서를 위반하는 vertex를 생성할 수 있다. PolyGen은 inference 단계에서 유효하지 않은 logit을 마스킹하여 유효한 결과만 생성되도록 함으로써 이 문제를 해결하였다.
 
 메쉬에서 좌표 정렬이 널리 사용되기 때문에 이 설계는 다른 tokenization 방법에도 적용될 수 있다. 저자들은 AMT 실험에서도 이 방법을 적용했다. 예를 들어, AMT에서는 새 strip을 시작할 때 중단을 허용하기 전에 최소 세 개의 vertex를 생성해야 한다는 규칙을 적용했다.
 

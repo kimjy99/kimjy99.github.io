@@ -96,7 +96,7 @@ $$
 \end{equation}
 $$
 
-여기서 첫 번째 항은 원래 diffusion model에서 파생된 geometry SDS loss이고, 두 번째 항은 AGP에서 파생된 SDS loss이다. 여기서 $\lambda^\textrm{ori}$와 $\lambda^\textrm{align}$은 두 항의 균형을 맞추기 위한 가중치이다. 이 통합은 대략적인 형상 모델링 단계와 세밀한 형상 모델링 단계에서만 구현되고 외형 모델링 단계는 그대로 유지된다.
+여기서 첫 번째 항은 원래 diffusion model에서 파생된 geometry SDS loss가고, 두 번째 항은 AGP에서 파생된 SDS loss가다. 여기서 $\lambda^\textrm{ori}$와 $\lambda^\textrm{align}$은 두 항의 균형을 맞추기 위한 가중치이다. 이 통합은 대략적인 형상 모델링 단계와 세밀한 형상 모델링 단계에서만 구현되고 외형 모델링 단계는 그대로 유지된다.
 
 #### NeRF-based Pipeline
 <center><img src='{{"/assets/img/sweatdreamer/sweatdreamer-fig3b.webp" | relative_url}}' width="60%"></center>

@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> CVPR 2025. [[Paper](https://arxiv.org/abs/2405.14701)] [[Page](https://codegoat24.github.io/DreamText/)]  
+> CVPR 2025. [[Paper](https://arxiv.org/abs/2405.14701)] [[Page](https://codegoat24.github.io/DreamText/)] [[Github](https://github.com/CodeGoat24/DreamText)]  
 > Yibin Wang, Weizhong Zhang, Honghui Xu, Cheng Jin  
 > Fudan University | Zhejiang University of Technology  
 > 23 May 2024  
@@ -95,11 +95,11 @@ $$
 
 $$
 \begin{equation}
-\mathcal{L}_\textrm{attn} = \mathbb{E}_{\textbf{z}, c, t} \| C_\textrm{attn} (\textbf{z}_t, \psi_vartheta (c)_i) - \textbf{M}_i \|_2^2
+\mathcal{L}_\textrm{attn} = \mathbb{E}_{\textbf{z}, c, t} \| C_\textrm{attn} (\textbf{z}_t, \psi_\vartheta (c)_i) - \textbf{M}_i \|_2^2
 \end{equation}
 $$
 
-($$C_\textrm{attn}$$은 cross-attention map, $$\textbf{M}_i$$는 $$\psi_vartheta (c)_i$$의 latent character mask)
+($$C_\textrm{attn}$$은 cross-attention map, $$\textbf{M}_i$$는 $$\psi_\vartheta (c)_i$$의 latent character mask)
 
 그러나 위에서 언급한 loss만으로는 최적의 문자 표현을 달성하기에 충분하지 않다. 이는 주로 latent character mask에 내재된 노이즈 때문이며, 이는 학습 과정에서 이상적인 문자 영역에 대한 잘못된 분할을 초래한다. 저자들은 노이즈의 영향을 완화하고 문자 표현의 왜곡된 학습을 방지하기 위해 추가적인 loss를 도입하였다.
 

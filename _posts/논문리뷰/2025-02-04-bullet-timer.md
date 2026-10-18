@@ -9,12 +9,13 @@ tags:
   - Novel View Synthesis
   - 3D Vision
   - NVIDIA
-excerpt: "BulletTimer (BTimer) 논문 리뷰"
+  - NeurIPS
+excerpt: "BulletTimer (BTimer) 논문 리뷰 (NeurIPS 2025)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2024. [[Paper](https://arxiv.org/abs/2412.03526)] [[Page](https://research.nvidia.com/labs/toronto-ai/bullet-timer/)]  
+> NeurIPS 2025. [[Paper](https://arxiv.org/abs/2412.03526)] [[Page](https://research.nvidia.com/labs/toronto-ai/bullet-timer/)]  
 > Hanxue Liang, Jiawei Ren, Ashkan Mirzaei, Antonio Torralba, Ziwei Liu, Igor Gilitschenski, Sanja Fidler, Cengiz Oztireli, Huan Ling, Zan Gojcic, Jiahui Huang  
 > NVIDIA | University of Cambridge | Nanyang Technological University | University of Toronto | MIT | Vector Institute  
 > 4 Dec 2024  
@@ -56,7 +57,7 @@ classes: wide
 ##### 모델 디자인
 [GS-LRM](https://kimjy99.github.io/논문리뷰/gs-lrm)에서 영감을 얻은 BTimer 모델은 ViT 기반 네트워크를 backbone으로 사용하며, 모델의 시작과 끝에 모두 LayerNorm이 적용된 24개의 self-attention block으로 구성된다. 
 
-각 입력 컨텍스트 프레임 $$\mathbf{I}_i \in \mathcal{I}_c$$를 8$\times$8 패치로 나누고, linear embedding layer를 사용하여 feature space $$\{\mathbf{f}_{ij}^\textrm{rgb}\}_{j=1}^{HW/64}$$로 projection한다. 카메라 포즈 $$\mathbf{P}_i \in \mathcal{P}_c$$에서 얻은 카메라 Plucker embedding과 시간 임베딩은 각각 컨텍스트 프레임과 비슷한 방법으로 카메라 포즈 feature $$\{\mathbf{f}_{ij}^\textrm{pos}\}$$와 시간 feature $$\{\mathbf{f}_i^\textrm{time}\}$$를 형성한다. 이러한 feature를 모두 더해 컨텍스트 프레임의 패치에 대한 입력 토큰을 형성한다. 
+각 입력 컨텍스트 프레임 $$\mathbf{I}_i \in \mathcal{I}_c$$를 8$\times$8 패치로 나누고, linear embedding layer를 사용하여 feature space $$\{\mathbf{f}_{ij}^\textrm{rgb}\}_{j=1}^{HW/64}$$로 projection한다. 카메라 포즈 $$\mathbf{P}_i \in \mathcal{P}_c$$에서 얻은 카메라 Plücker embedding과 시간 임베딩은 각각 컨텍스트 프레임과 비슷한 방법으로 카메라 포즈 feature $$\{\mathbf{f}_{ij}^\textrm{pose}\}$$와 시간 feature $$\{\mathbf{f}_i^\textrm{time}\}$$를 형성한다. 이러한 feature를 모두 더해 컨텍스트 프레임의 패치에 대한 입력 토큰을 형성한다. 
 
 $$
 \begin{equation}
@@ -77,7 +78,7 @@ $$
 각 Gaussian의 3D 위치는 $$\boldsymbol{\mu} = \mathbf{o} + \tau \mathbf{d}$$로 계산되며, 광선의 원점과 방향 $\mathbf{o}$와 $\mathbf{d}$는 카메라 포즈 $$\mathbf{P}_i$$에서 계산된다. 
 
 ##### 시간 임베딩
-입력으로 주어지는 시간 feature $$\mathbf{f}_i^\textrm{time}$$은 각 컨텍스트 프레임 $$\mathbf{I}_i$$에 대해 별도의 컨텍스트 타임스탬프 $t_i$와, 모든 컨텍스트 프레임에서 공유되는 bullet 타임스탬프 $t_b$에서 얻어진다. 두 타임스탬프는 각각표준 Positional Encoding (PE)을 사용하여 인코딩된 다음 각각 두 개의 linear layer를 통과하여 feature $$\mathbf{f}_i^\textrm{ctx}$$와 $$\mathbf{f}_i^\textrm{bullet}$$이 된다. 마지막으로 두 feature를 더해 시간 feature를 계산한다. 
+입력으로 주어지는 시간 feature $$\mathbf{f}_i^\textrm{time}$$은 각 컨텍스트 프레임 $$\mathbf{I}_i$$에 대해 별도의 컨텍스트 타임스탬프 $t_i$와, 모든 컨텍스트 프레임에서 공유되는 bullet 타임스탬프 $t_b$에서 얻어진다. 두 타임스탬프는 각각 표준 Positional Encoding (PE)을 사용하여 인코딩된 다음 각각 두 개의 linear layer를 통과하여 feature $$\mathbf{f}_i^\textrm{ctx}$$와 $$\mathbf{f}_i^\textrm{bullet}$$이 된다. 마지막으로 두 feature를 더해 시간 feature를 계산한다. 
 
 $$
 \begin{equation}

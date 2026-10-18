@@ -108,7 +108,7 @@ $$
 \end{equation}
 $$
 
-사실, 위 식은 확률적 그래픽 모델 논문에서 factor node와 variable node에 대해 정의된 주변 분포에 의해 공동 분포 $q(u)$를 근사화하는 중요한 Bethe approximation로 알려져 있다. Factor graph가 비순환 그래프일 때 근사값은 정확하며 $p(u) = q(u)$이다. 순환이 있는 일반 그래프의 경우 Bethe approximation가 실제로 널리 사용되며 좋은 성능을 얻는다.
+사실, 위 식은 확률적 그래픽 모델 논문에서 factor node와 variable node에 대해 정의된 주변 분포에 의해 공동 분포 $q(u)$를 근사화하는 중요한 Bethe approximation로 알려져 있다. Factor graph가 비순환 그래프일 때 근사값은 정확하며 $p(u) = q(u)$이다. 순환이 있는 일반 그래프의 경우 Bethe approximation이 실제로 널리 사용되며 좋은 성능을 얻는다.
 
 <center><img src='{{"/assets/img/diffcollage/diffcollage-fig2.webp" | relative_url}}' width="50%"></center>
 <br>

@@ -145,7 +145,7 @@ Batched multi-positive contrastive learning 알고리즘의 PyTorch-like pseudo-
 
 <center><img src='{{"/assets/img/stable-rep/stable-rep-table5a.webp" | relative_url}}' width="40%"></center>
 <br>
-다음은 batch size가 $C$일 떄 $C/m$개의 캡션과 캡션당 $m$개의 이미지를 샘플링하여 각 batch를 구성하였을 때의 결과이다. $m = 1$이면 SimCLR이다. 
+다음은 batch size가 $C$일 때 $C/m$개의 캡션과 캡션당 $m$개의 이미지를 샘플링하여 각 batch를 구성하였을 때의 결과이다. $m = 1$이면 SimCLR이다. 
 
 <center><img src='{{"/assets/img/stable-rep/stable-rep-table5b.webp" | relative_url}}' width="40%"></center>
 <br>
@@ -162,7 +162,7 @@ Batched multi-positive contrastive learning 알고리즘의 PyTorch-like pseudo-
 <br>
 이러한 차이는 위 그림에 표시된 것처럼 생성된 이미지와 입력 텍스트 간의 정렬 불량으로 설명될 수 있다. 이는 특히 세분화된 클래스의 경우에 해당된다.
 
-StableRep loss에 $$0.5 \times (\mathcal{L}_\textrm{i2t} + \mathcal{L}_\textrm{t2j})$$를 추가하여 StableRep에 언어 supervision을 추가할 수 있다. 여기서 $$\mathcal{L}_\textrm{i2t}$$, $$\mathcal{L}_\textrm{t2i}$$는 image-to-text 및 text-to-image contrastive loss이다. Supervision을 추가하면 ImageNet linear probing의 경우 CC12M에서는 StableRep이 72.8%에서 74.4%로, RedCaps에서는 73.7%에서 75.4%로 향상된다. 이를 **StableRep+**라고 부른다. 
+StableRep loss에 $$0.5 \times (\mathcal{L}_\textrm{i2t} + \mathcal{L}_\textrm{t2j})$$를 추가하여 StableRep에 언어 supervision을 추가할 수 있다. 여기서 $$\mathcal{L}_\textrm{i2t}$$, $$\mathcal{L}_\textrm{t2i}$$는 image-to-text 및 text-to-image contrastive loss가다. Supervision을 추가하면 ImageNet linear probing의 경우 CC12M에서는 StableRep이 72.8%에서 74.4%로, RedCaps에서는 73.7%에서 75.4%로 향상된다. 이를 **StableRep+**라고 부른다. 
 
 <center><img src='{{"/assets/img/stable-rep/stable-rep-fig6.webp" | relative_url}}' width="50%"></center>
 <br>

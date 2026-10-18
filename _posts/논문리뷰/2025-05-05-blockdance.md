@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> CVPR 2025. [[Paper](https://arxiv.org/abs/2503.15927)] [[Page](https://evansh666.github.io/EvoGen_Page/)] [[Github](https://github.com/evansh666/EvoGen)]  
+> CVPR 2025. [[Paper](https://arxiv.org/abs/2503.15927)]  
 > Hui Zhang, Tingwei Gao, Jie Shao, Zuxuan Wu  
 > Fudan University | ByteDance Intelligent Creation  
 > 20 Mar 2025  
@@ -62,11 +62,11 @@ DiT-XL/2, PixArt-α, Open-Sora를 포함한 다양한 DiT 모델에서 denoising
 <br>
 본 논문은 denoising process의 step 간의 feature 유사성을 활용하여 DiT를 가속화하는 간단하면서도 효과적인 방법인 **BlockDance**를 소개한다. 매우 유사한 구조적 feature를 전략적으로 캐싱하고 후속 step에서 재사용함으로써 중복된 계산을 줄일 수 있다.
 
-구체적으로, denoising step을 **cache step**과 **reuse step**의 두 가지 유형으로 설계하였다. 연속적인 timestep 동안, cache step는 먼저 $$\textbf{z}_{t+1}$$에 기반하여 전체 네트워크 forward를 수행하여 $$\textbf{z}_t$$를 출력하고, $i$번째 블록의 feature $F_t^i$를 저장한다. 그 다음 timestep인 reuse step에서는 전체 네트워크 forward를 수행하지 않고, cache step의 캐싱된 feature $F_t^i$를 reuse step의 $(i + 1)$번째 블록에 대한 입력으로 재사용한다. 따라서 reuse step의 처음 $i$개 블록의 계산은 저장될 수 있으며, $i$보다 더 깊은 블록만 재계산이 필요하다.
+구체적으로, denoising step을 **cache step**과 **reuse step**의 두 가지 유형으로 설계하였다. 연속적인 timestep 동안, cache step은 먼저 $$\textbf{z}_{t+1}$$에 기반하여 전체 네트워크 forward를 수행하여 $$\textbf{z}_t$$를 출력하고, $i$번째 블록의 feature $F_t^i$를 저장한다. 그 다음 timestep인 reuse step에서는 전체 네트워크 forward를 수행하지 않고, cache step의 캐싱된 feature $F_t^i$를 reuse step의 $(i + 1)$번째 블록에 대한 입력으로 재사용한다. 따라서 reuse step의 처음 $i$개 블록의 계산은 저장될 수 있으며, $i$보다 더 깊은 블록만 재계산이 필요하다.
 
 이를 위해 최적의 블록 인덱스와 재사용을 집중해야 하는 denoising process의 step을 결정하는 것이 중요하다. 저자들은 앞에서의 분석들을 기반으로 인덱스를 20으로 설정하고 구조가 안정화된 후 denoising process의 후반 60%에 재사용을 집중하였다. 이러한 설정을 통해 feature 재사용을 분리하고 특히 구조적으로 유사한 시공간적 feature를 재사용할 수 있다. 
 
-구체적으로, denoising step의 처음 40%를 cache step로 설정하고 나머지 60%를 각각 $N$개의 step으로 구성된 여러 그룹으로 균등하게 나눈다. 각 그룹의 첫 번째 step은 cache step이고, 이후 $N-1$개의 step은 reuse step이다. 새로운 그룹이 도착하면 새로운 cache step이 캐싱된 feature를 업데이트한 다음, 해당 그룹 내의 reuse step에 활용한다. 이 프로세스는 denoising process가 완료될 때까지 반복된다. $N$이 클수록 재사용 빈도가 높아진다. 이러한 전략을 **BlockDance-N**이라고 부른다. 이 전략은 학습이 필요 없으며 생성된 콘텐츠의 품질을 유지하면서도 여러 유형의 DiT를 효과적으로 가속화할 수 있다.
+구체적으로, denoising step의 처음 40%를 cache step으로 설정하고 나머지 60%를 각각 $N$개의 step으로 구성된 여러 그룹으로 균등하게 나눈다. 각 그룹의 첫 번째 step은 cache step이고, 이후 $N-1$개의 step은 reuse step이다. 새로운 그룹이 도착하면 새로운 cache step이 캐싱된 feature를 업데이트한 다음, 해당 그룹 내의 reuse step에 활용한다. 이 프로세스는 denoising process가 완료될 때까지 반복된다. $N$이 클수록 재사용 빈도가 높아진다. 이러한 전략을 **BlockDance-N**이라고 부른다. 이 전략은 학습이 필요 없으며 생성된 콘텐츠의 품질을 유지하면서도 여러 유형의 DiT를 효과적으로 가속화할 수 있다.
 
 ### 3. Instance-specific acceleration approach
 <center><img src='{{"/assets/img/blockdance/blockdance-fig6.webp" | relative_url}}' width="85%"></center>
@@ -85,7 +85,7 @@ $$
 \end{equation}
 $$
 
-여기서 $m$의 각 entry는 [0, 1] 범위 내에 있도록 정규화되어 cache step를 수행할 가능성을 나타낸다. 저자들은 다음과 같이 $(s - \rho)$차원 베르누이 분포를 갖는 reuse policy $\pi^f (\textbf{u} \vert \textbf{z}_\rho, \textbf{c})$를 정의하였다.
+여기서 $\textbf{m}$의 각 entry는 [0, 1] 범위 내에 있도록 정규화되어 cache step을 수행할 가능성을 나타낸다. 저자들은 다음과 같이 $(s - \rho)$차원 베르누이 분포를 갖는 reuse policy $\pi^f (\textbf{u} \vert \textbf{z}_\rho, \textbf{c})$를 정의하였다.
 
 $$
 \begin{equation}
@@ -93,7 +93,7 @@ $$
 \end{equation}
 $$
 
-($$\textbf{u} \in \{0, 1\}^{(s-\rho)}$$는 $m$에 기반한 action, $$\textbf{u}_t = 1$$과 $$\textbf{u}_t = 0$$은 $t$번째 step이 각각 cache step과 reuse step임을 나타냄)
+($$\textbf{u} \in \{0, 1\}^{(s-\rho)}$$는 $\textbf{m}$에 기반한 action, $$\textbf{u}_t = 1$$과 $$\textbf{u}_t = 0$$은 $t$번째 step이 각각 cache step과 reuse step임을 나타냄)
 
 학습 중에 $\textbf{u}$는 해당 policy에서 샘플링하여 생성되고, 테스트 시에는 greedy 방식이 사용된다. DiT는 reuse policy에 따라 latent $$\textbf{z}_0$$을 생성하고, 디코더 $\mathcal{D}$가 latent를 이미지 $\textbf{x}$로 디코딩한다. 
 
@@ -172,7 +172,7 @@ $$
 <span style="display: block; margin: 1px 0;"></span>
 <center><img src='{{"/assets/img/blockdance/blockdance-table1.webp" | relative_url}}' width="65%"></center>
 <br>
-다음은 DiT/XL-2에 대한 클래스 조건부 이미지 생성 결과를 비교한 표이다. 
+다음은 DiT-XL/2에 대한 클래스 조건부 이미지 생성 결과를 비교한 표이다. 
 
 <center><img src='{{"/assets/img/blockdance/blockdance-table2.webp" | relative_url}}' width="57%"></center>
 <br>

@@ -8,12 +8,13 @@ tags:
   - Gaussian Splatting
   - 3D Vision
   - NVIDIA
-excerpt: "Radiance Surfaces 논문 리뷰 (3DV 2025 Oral)"
+  - SIGGRAPH
+excerpt: "Radiance Surfaces 논문 리뷰 (SIGGRAPH 2025)"
 use_math: true
 classes: wide
 ---
 
-> 3DV 2025 (Oral). [[Paper](https://arxiv.org/abs/2501.18627)] [[Page](https://rgl.epfl.ch/publications/Zhang2025Radiance)] [[Github](https://github.com/ziyi-zhang/INGP-RFL)]  
+> SIGGRAPH 2025. [[Paper](https://arxiv.org/abs/2501.18627)] [[Page](https://rgl.epfl.ch/publications/Zhang2025Radiance)] [[Github](https://github.com/ziyi-zhang/INGP-RFL)]  
 > Ziyi Zhang, Nicolas Roussel, Thomas Müller, Tizian Zeltner, Merlin Nimier-David, Fabrice Rousselle, Wenzel Jakob  
 > EPFL | NVIDIA  
 > 20 Jan 2025  
@@ -60,7 +61,7 @@ $$
 ##### 하나의 표면 후보
 <center><img src='{{"/assets/img/radiance-surfaces/radiance-surfaces-fig3.webp" | relative_url}}' width="57%"></center>
 <br>
-Non-local perturbation의 개념을 설명하기 위해 먼저 광선을 따라 하나의 후보 표면 패치가 존재하는 경우를 살펴보자. 위 그림은 이러한 셋업을 보여준다다. 여기서 색상이 $$L_\textbf{p}$$이고 occupancy가 $$\alpha_\textbf{p}$$인 위치 $\textbf{p}$의 후보 패치가 색상이 $$L_\textbf{b}$$인 배경보다 앞에 있다. $$L_\textbf{p}$$가 주어졌고 색상 값 $$L_\textbf{p}$$와 $$L_\textbf{b}$$는 고정되어 있다고 가정한다.
+Non-local perturbation의 개념을 설명하기 위해 먼저 광선을 따라 하나의 후보 표면 패치가 존재하는 경우를 살펴보자. 위 그림은 이러한 셋업을 보여준다. 여기서 색상이 $$L_\textbf{p}$$이고 occupancy가 $$\alpha_\textbf{p}$$인 위치 $\textbf{p}$의 후보 패치가 색상이 $$L_\textbf{b}$$인 배경보다 앞에 있다. $$L_\textbf{p}$$가 주어졌고 색상 값 $$L_\textbf{p}$$와 $$L_\textbf{b}$$는 고정되어 있다고 가정한다.
 
 이 경우, 최적의 재구성은 간단하다. 타겟 색상 $$L_\textrm{target}$$과 관련하여 일치도가 향상되면 후보를 생성해야 하고, 그렇지 않으면 후보를 삭제해야 한다.
 
@@ -68,11 +69,11 @@ $$\alpha_\textbf{p}$$는 이러한 결과를 달성하는 수단을 제공한다
 
 $$
 \begin{equation}
-\ell (\alpha_\textbf{p} L_\textbf{p} + (1 - \alpha_\textbf{p}) L_\textbf{p}, L_\textrm{target})
+\ell (\alpha_\textbf{p} L_\textbf{p} + (1 - \alpha_\textbf{p}) L_\textbf{b}, L_\textrm{target})
 \end{equation}
 $$
 
-이 접근법의 근본적인 한계는 binary한 occupancy 값을 유도할 수 없다는 것이다. 최적 매칭이 $$L_\textbf{p}$$와 $$L_\textbf{b}$$의 혼합으로 주어지면, loss는 뚜렷한 표면을 형성하지 못하고 0에 도달한다. 일반적인 해결책은 이러한 동작에 페널티를 주기 위해 추가적인 loss 항을 추가하는 것이지만, 이는 원칙적인 이론적 기반이 부족하고 hyperparamter 형태로 복잡성을 가중시킨다.
+이 접근법의 근본적인 한계는 binary한 occupancy 값을 유도할 수 없다는 것이다. 최적 매칭이 $$L_\textbf{p}$$와 $$L_\textbf{b}$$의 혼합으로 주어지면, loss는 뚜렷한 표면을 형성하지 못하고 0에 도달한다. 일반적인 해결책은 이러한 동작에 페널티를 주기 위해 추가적인 loss 항을 추가하는 것이지만, 이는 원칙적인 이론적 기반이 부족하고 hyperparameter 형태로 복잡성을 가중시킨다.
 
 대신 non-local perturbation을 이진 선택으로 해석한다. 즉, 후보 표면은 존재하거나 존재하지 않는다. 따라서 광선과 연관된 최종 색상 값은 후보 표면 $$L_\textbf{p}$$ 또는 배경 표면 $$L_\textbf{b}$$의 색상 값이다. $\ell$을 통해 각 가능성의 품질을 정량화하고, 다음을 최소화하는 occupancy 값 $$\alpha_\textbf{p}$$를 구한다.
 
@@ -145,7 +146,7 @@ Loss function의 구현은 [NeRF](https://kimjy99.github.io/논문리뷰/nerf)�
 
 저자들의 아이디어는 대부분의 장면을 표면(loss가 낮은 영역)으로 재구성하고, 나머지 어려운 영역에만 volumetric 표현을 사용하도록 본 방법을 완화하는 것이다. 이를 위해 먼저 20,000 iteration의 학습을 통해 초기 표면 표현을 얻는다. 그런 다음, local loss가 높은 영역을 평가하여 어려운 영역을 식별한다. 이후 학습 단계에서는 표면 가정을 완화하여 이러한 영역에서 volumetric 알파 블렌딩을 허용한다.
 
-학습 후에는 표면을 추출하는 대신, 표면 영역을 완전히 불투명한 "volume"으로 처리하여 장면을 volumetric하게 렌더링한다. NeRF로 최적화된 장면과 비교했을 때, 본 논문의 방법은 표면 영역의 컴팩트한 표현이라는 이점을 여전히 제공한다. 광선을 따라 색상을 누적할 때 투과율이 1이 되는데 필요한 샘플 수가 매우 적어 inference 속도가 빨라지고 학습 중 계산 리소스가 절감된다.
+학습 후에는 표면을 추출하는 대신, 표면 영역을 완전히 불투명한 "volume"으로 처리하여 장면을 volumetric하게 렌더링한다. NeRF로 최적화된 장면과 비교했을 때, 본 논문의 방법은 표면 영역의 컴팩트한 표현이라는 이점을 여전히 제공한다. 광선을 따라 색상을 누적할 때 투과율이 0이 되는 데 필요한 샘플 수가 매우 적어 inference 속도가 빨라지고 학습 중 계산 리소스가 절감된다.
 
 명시적으로 언급되지 않은 경우, 본 논문의 모든 결과는 volume relaxation 없이 학습되었다.
 

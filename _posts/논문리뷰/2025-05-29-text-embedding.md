@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> CVPR 2025. [[Paper](https://arxiv.org/abs/2411.15236)]  
+> CVPR 2025. [[Paper](https://arxiv.org/abs/2411.15236)] [[Page](https://t-sam-diffusion.github.io/)] [[Github](https://github.com/t-sam-diffusion/code)]  
 > Jeeyung Kim, Erfan Esmaeili, Qiang Qiu  
 > Purdue University  
 > 21 Nov 2024  
@@ -66,7 +66,7 @@ T_{ij} = \frac{T_{ij}^\prime}{\sum_{m=2}^i T_{im}^\prime}
 \end{equation}
 $$
 
-텍스트 인코더의 최종 출력 $k_i \in \mathbb{R}^{H_e D_e}$ ($i = 1, \cdots, s$)는 T2I diffusion model 모델의 조건 입력으로 사용된다. $k_i$를 **텍스트 임베딩**이라고 부른다.
+텍스트 인코더의 최종 출력 $k_i \in \mathbb{R}^{H_e D_e}$ ($i = 1, \cdots, s$)는 T2I diffusion model의 조건 입력으로 사용된다. $k_i$를 **텍스트 임베딩**이라고 부른다.
 
 ##### Cross-attention 모듈
 Cross-attention layer $\ell$에서, query를 $$q_a^{(\ell)} \in \mathbb{R}^{H_c D_c}$$로 정의하자 ($a = 1, \cdots, N_c$). 여기서 $N_c$는 query 시퀀스 길이, $D_c$는 head당 hidden dimension, $H_c$는 cross-attention layer의 head 수이다. Head $h$에서 cross-attention map $$A^{(\ell, h)} \in \mathbb{R}^{N_c \times s}$$는 다음과 같이 정의된다.
@@ -143,7 +143,7 @@ Stable Diffusion에 사용되는 CLIP 임베딩은 단어 관계를 무시하는
 텍스트 임베딩만으로는 의미적으로 정렬된 이미지를 생성하는 데 충분하지 않다. 반면, 텍스트 self-attention map에서 간과되었던 구문 정보를 cross-attention map으로 전달하여 T2I 의미적 정렬을 향상시킬 수 있는 잠재력이 있다.
 
 ### 2. Text Self-Attention Maps (T-SAM) Guidance
-본 논문에서는 텍스트 인코더 내의 self-attention map을 활용하여 cross-attention map을 향상시키는 방안을 제안하였다. Cross-attention map의 유사도 행렬과 텍스트 self-attention 행렬 간의 거리를 최소화함으로써, 임베딩된 구문 관계가 cross-attention로 효과적으로 전달되도록 보장한다.
+본 논문에서는 텍스트 인코더 내의 self-attention map을 활용하여 cross-attention map을 향상시키는 방안을 제안하였다. Cross-attention map의 유사도 행렬과 텍스트 self-attention 행렬 간의 거리를 최소화함으로써, 임베딩된 구문 관계가 cross-attention으로 효과적으로 전달되도록 보장한다.
 
 Inference 과정에서 cross-attention map을 최적화하고, 유사도 행렬을 조정하여 텍스트 self-attention 행렬 $T$에 맞춘다. 정규화된 코사인 유사도 행렬 $S$가 cross-attention 유사도 행렬로 사용된다. Loss function은 다음과 같다.
 

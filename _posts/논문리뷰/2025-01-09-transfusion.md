@@ -25,11 +25,11 @@ classes: wide
 ## Introduction
 본 논문에서는 하나의 모델을 학습시켜 discrete한 텍스트 토큰을 예측하고 continuous한 이미지를 diffuse함으로써 정보 손실 없이 두 모달리티를 완전히 통합할 수 있음을 보여주며, discrete하고 continuous한 모달리티를 원활하게 생성할 수 있는 모델을 학습하기 위한 레시피인 **Transfusion**을 소개한다. 
 
-각 모달리티에 대해 다른 목적, 즉 텍스트의 next token prediction과 이미지의 diffusion을 사용하여 50% 텍스트 데이터와 50% 이미지 데이터에 대한 Transformer 모델을 사전 학습시킨다. 모델은 학습 시 두 모달리티와 loss function에 모두 노출된다. 텍스트 토큰은 임베딩 행렬을 통해 벡터로 변환되며, 각 이미지는 패치 벡터들의 시퀀스로 나타낸다. 저자들은 텍스트 토큰에 casual attention을 적용하고 이미지 패치에 bidirectional attention을 적용하였다. Inference의 경우, 언어 모델에서 텍스트를 생성하고 diffusion model에서 이미지를 생성하는 표준 관행을 결합하는 디코딩 알고리즘을 도입하였다.
+각 모달리티에 대해 다른 목적, 즉 텍스트의 next token prediction과 이미지의 diffusion을 사용하여 50% 텍스트 데이터와 50% 이미지 데이터에 대한 Transformer 모델을 사전 학습시킨다. 모델은 학습 시 두 모달리티와 loss function에 모두 노출된다. 텍스트 토큰은 임베딩 행렬을 통해 벡터로 변환되며, 각 이미지는 패치 벡터들의 시퀀스로 나타낸다. 저자들은 텍스트 토큰에 causal attention을 적용하고 이미지 패치에 bidirectional attention을 적용하였다. Inference의 경우, 언어 모델에서 텍스트를 생성하고 diffusion model에서 이미지를 생성하는 표준 관행을 결합하는 디코딩 알고리즘을 도입하였다.
 
-[Chameleon](https://arxiv.org/abs/2405.09818)과 비교했을 떄, Transfusion은 모든 모달리티 조합에서 더 나은 확장성을 보였으며, text-to-image 생성에서는 1/3 미만의 계산량으로 FID와 CLIP score를 능가하였다. Transfusion은 동일한 FLOP에서 Chameleon 모델보다 약 2배 낮은 FID를 달성하였다. Image-to-text 생성의 경우, Transfusion은 Chameleon의 21.8%에 해당하는 FLOP으로 동일한 성능을 보였다. Text-to-text 예측의 경우, Chameleon의 약 50%~60%에 해당하는 FLOP으로 동일한 perplexity parity를 달성하였다.
+[Chameleon](https://arxiv.org/abs/2405.09818)과 비교했을 때, Transfusion은 모든 모달리티 조합에서 더 나은 확장성을 보였으며, text-to-image 생성에서는 1/3 미만의 계산량으로 FID와 CLIP score를 능가하였다. Transfusion은 동일한 FLOP에서 Chameleon 모델보다 약 2배 낮은 FID를 달성하였다. Image-to-text 생성의 경우, Transfusion은 Chameleon의 21.8%에 해당하는 FLOP으로 동일한 성능을 보였다. Text-to-text 예측의 경우, Chameleon의 약 50%~60%에 해당하는 FLOP으로 동일한 perplexity parity를 달성하였다.
 
-Transfusion에서 이미지 내 bidirectional attention을 casual attention으로 대체하면 text-to-image 생성에 해가 된다. 또한 U-Net up/down block을 추가하여 이미지를 디코딩/인코딩하면 성능에 대한 적은 손실로 더 큰 이미지 패치를 압축하여 비용을 최대 64배까지 줄일 수 있다.
+Transfusion에서 이미지 내 bidirectional attention을 causal attention으로 대체하면 text-to-image 생성에 해가 된다. 또한 U-Net up/down block을 추가하여 이미지를 디코딩/인코딩하면 성능에 대한 적은 손실로 더 큰 이미지 패치를 압축하여 비용을 최대 64배까지 줄일 수 있다.
 
 Transfusion 7B 모델은 DALL-E 2나 SDXL과 같은 다른 인기 모델보다 성능이 뛰어나며, 텍스트 벤치마크에서 Llama 1과 동일한 수준의 텍스트 벤치마크 성능을 달성하였다. 
 
@@ -49,14 +49,14 @@ Transfusion은 discrete하고 continuous한 모달리티를 모두 이해하고 
 데이터를 이 공간으로 변환하기 위해, 가벼운 모달리티별 구성 요소를 사용한다. 텍스트의 경우, 임베딩 행렬을 통해 각 입력 정수를 벡터 공간으로 변환하고 각 출력 벡터를 vocabulary에 대한 discrete한 분포로 변환한다. 이미지의 경우, $k \times k$ 패치 벡터들의 local window를 하나의 transformer 벡터로 압축하기 위한 두 가지 옵션을 실험하였다. 
 
 1. 단순한 linear layer (timestep의 임베딩을 모든 패치 벡터에 더한 후 입력)
-2. U-Net의 up/down block (AdaLayerNorm를 일반적인 layer norm으로 교체)
+2. U-Net의 up/down block (AdaLayerNorm을 일반적인 layer norm으로 교체)
 
 ### 3. Transfusion Attention
-언어 모델은 일반적으로 casual attention을 사용하여 미래 토큰의 정보를 누출하지 않고 전체 시퀀스에 대한 loss와 gradient를 효율적으로 계산한다. 반면, 이미지는 일반적으로 제한 없는 bidirectional attention으로 모델링된다. 
+언어 모델은 일반적으로 causal attention을 사용하여 미래 토큰의 정보를 누출하지 않고 전체 시퀀스에 대한 loss와 gradient를 효율적으로 계산한다. 반면, 이미지는 일반적으로 제한 없는 bidirectional attention으로 모델링된다. 
 
 <center><img src='{{"/assets/img/transfusion/transfusion-fig4.webp" | relative_url}}' width="40%"></center>
 <br>
-Transfusion은 두 attention 패턴을 결합하기 위해 시퀀스의 모든 요소에 casual attention을 적용하고 각 개별 이미지의 요소 내에서 bidirectional attention을 적용한다. 이를 통해 모든 이미지 패치는 동일한 이미지 내의 다른 모든 패치에 attention할 수 있지만 시퀀스에 이전에 나타난 다른 이미지의 텍스트나 패치에만 attention할 수 있다. 이미지 내 attention을 사용하면 모델 성능이 크게 향상된다. 
+Transfusion은 두 attention 패턴을 결합하기 위해 시퀀스의 모든 요소에 causal attention을 적용하고 각 개별 이미지의 요소 내에서 bidirectional attention을 적용한다. 이를 통해 모든 이미지 패치는 동일한 이미지 내의 다른 모든 패치에 attention할 수 있지만 시퀀스에 이전에 나타난 다른 이미지의 텍스트나 패치에만 attention할 수 있다. 이미지 내 attention을 사용하면 모델 성능이 크게 향상된다. 
 
 ### 4. Training Objective
 모델을 학습시키기 위해, 언어 모델링 loss $$\mathcal{L}_\textrm{LM}$$을 텍스트 토큰의 예측에 적용하고 diffusion loss $$\mathcal{L}_\textrm{DDPM}$$을 이미지 패치의 예측에 적용한다. LM loss는 토큰별로 계산되고, diffusion loss는 이미지별로 계산된다. 구체적으로, diffusion process에 따라 각 입력 latent 이미지 $x_0$에 noise $\epsilon$을 추가하여 patchification 전에 $x_t$를 생성한 다음, 이미지 레벨의 diffusion loss를 계산한다. 전체 loss는 다음과 같다. 

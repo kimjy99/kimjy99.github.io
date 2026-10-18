@@ -35,7 +35,7 @@ classes: wide
 
 위의 기술을 갖춘 **StyleSwin**이라고 하는 네트워크는 256$\times$256 해상도에서 유리한 생성 품질을 보여준다.
 
-그럼에도 불구하고 저자들은 고해상도 이미지를 합성할 때 블로킹 아티팩트를 관찰하였다. 블록 방식으로 attention을 독립적으로 계산하면 공간적 일관성이 깨지기 때문에 이러한 아티팩트가 발생한다. 즉, 합성 네트워크에 적용될 때 block-wise attention는 특별한 처리가 필요하다. 저자들은 이러한 블로킹 아티팩트를 해결하기 위해 다양한 솔루션을 경험적으로 조사하여 스펙트럼 도메인에서 아티팩트를 검사하는 wavelet discriminator가 아티팩트를 효과적으로 억제하여 transformer 기반 GAN이 시각적으로 만족스러운 출력을 생성할 수 있음을 발견했다.
+그럼에도 불구하고 저자들은 고해상도 이미지를 합성할 때 블로킹 아티팩트를 관찰하였다. 블록 방식으로 attention을 독립적으로 계산하면 공간적 일관성이 깨지기 때문에 이러한 아티팩트가 발생한다. 즉, 합성 네트워크에 적용될 때 block-wise attention은 특별한 처리가 필요하다. 저자들은 이러한 블로킹 아티팩트를 해결하기 위해 다양한 솔루션을 경험적으로 조사하여 스펙트럼 도메인에서 아티팩트를 검사하는 wavelet discriminator가 아티팩트를 효과적으로 억제하여 transformer 기반 GAN이 시각적으로 만족스러운 출력을 생성할 수 있음을 발견했다.
 
 ## Method
 ### 1. Transformer-based GAN architecture
@@ -54,7 +54,7 @@ x^{l+2} &= \textrm{MLP} (\textrm{LN} (\hat{x}^{l+1})) + \hat{x}^{l+1}
 \end{aligned}
 $$
 
-여기서 W-MSA와 SW-MSA는 각각 일반 window와 shifted window 분할 하에서의 window 기반 MSA를 나타내고 LN은 layer normalization을 나타낸다. 이러한 block-wise attention는 이미지 크기에 대한 선형 계산 복잡도를 유도하기 때문에 네트워크는 미세 구조가 이러한 유능한 transformer로 모델링될 수 있는 고해상도 생성으로 확장 가능하다.
+여기서 W-MSA와 SW-MSA는 각각 일반 window와 shifted window 분할 하에서의 window 기반 MSA를 나타내고 LN은 layer normalization을 나타낸다. 이러한 block-wise attention은 이미지 크기에 대한 선형 계산 복잡도를 유도하기 때문에 네트워크는 미세 구조가 이러한 유능한 transformer로 모델링될 수 있는 고해상도 생성으로 확장 가능하다.
 
 Discriminator는 adversarial training의 안정성에 심각한 영향을 미치기 때문에 convolution 기반 discriminator를 직접 사용한다. 실험에서 저자들은 이 기본 아키텍처에서 단순히 convolution을 transformer 블록으로 교체하면 향상된 모델 용량으로 인해 보다 안정적인 학습을 얻을 수 있음을 발견했다. 그러나 이러한 순진한 아키텍처는 transformer 기반 GAN을 SOTA와 경쟁하게 만들 수 없다. 
 

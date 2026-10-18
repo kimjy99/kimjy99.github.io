@@ -149,7 +149,7 @@ $$
 저자들은 각 방법마다 10개의 동영상을 샘플링하고 실제 동영상 10개와 섞은 뒤 총 30개의 동영상을 140명에게 보여주었다. 동영상이 실제 동영상 같은 지 아닌지 투표하도록 하였다고 한다. 
 
 ### 3. Ablation study
-다음은 motion frame에 대한 ablation study 결과로, motion frame을 사용하지 않을 떄(위)와 2개의 motion frame을 사용할 때(아래)의 optical flow의 평균 magnitude와 연속 프레임이다. 
+다음은 motion frame에 대한 ablation study 결과로, motion frame을 사용하지 않을 때(위)와 2개의 motion frame을 사용할 때(아래)의 optical flow의 평균 magnitude와 연속 프레임이다. 
 
 <center><img src='{{"/assets/img/diffused-heads/diffused-heads-fig5.webp" | relative_url}}' width="60%"></center>
 <br>

@@ -60,7 +60,7 @@ $$
 \end{equation}
 $$
 
-여기서 $$\mathcal{L}_\textrm{face}$$는 얼굴 identity loss이고, $$\lambda_\textrm{L1} \ge 0$$와 $$\lambda_\textrm{face} \ge 0$$는 각 loss에 대한 가중치 파라미터이다. Identity loss의 필요성은 제어의 유형에 따라 다르다. 일부 제어의 경우 픽셀 유사도와 사람의 identity (ex. 표정, 머리 색깔)의 보존이 중요한 반면 다른 제어에서는 모양과 색상 변경을 선호한다.
+여기서 $$\mathcal{L}_\textrm{face}$$는 얼굴 identity loss가고, $$\lambda_\textrm{L1} \ge 0$$와 $$\lambda_\textrm{face} \ge 0$$는 각 loss에 대한 가중치 파라미터이다. Identity loss의 필요성은 제어의 유형에 따라 다르다. 일부 제어의 경우 픽셀 유사도와 사람의 identity (ex. 표정, 머리 색깔)의 보존이 중요한 반면 다른 제어에서는 모양과 색상 변경을 선호한다.
 
 <center><img src='{{"/assets/img/diffusionclip/diffusionclip-fig3.webp" | relative_url}}' width="60%"></center>
 <br>

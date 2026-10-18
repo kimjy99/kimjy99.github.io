@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> ICCV 2023. [[Paper](https://arxiv.org/abs/2303.16203)] [[Page](https://diffusion-classifier.github.io/)]  
+> ICCV 2023. [[Paper](https://arxiv.org/abs/2303.16203)] [[Page](https://diffusion-classifier.github.io/)] [[Github](https://github.com/diffusion-classifier/diffusion-classifier)]  
 > Alexander C. Li, Mihir Prabhudesai, Shivam Duggal, Ellis Brown, Deepak Pathak  
 > Carnegie Mellon University  
 > 28 Mar 2023  
@@ -84,7 +84,7 @@ $$
 
 ## Practical Considerations
 ### 1. Effect of timestep
-$$p_\theta (\textbf{c}_i \, \vert \, \textbf{x})$$를 추정하기 위한 이론적 원칙적인 방법인 Diffusion Classifier는 $\epsilon$-prediction error를 추정하기 위해 timestep $t$에 대한 균일 분포를 사용한다. 여기서 저자들은 $t$에 대한 다른 분포가 더 정확한 결과를 산출하는지 확인하였다. 
+$$p_\theta (\textbf{c}_i \, \vert \, \textbf{x})$$를 추정하기 위한 이론적으로 원칙적인 방법인 Diffusion Classifier는 $\epsilon$-prediction error를 추정하기 위해 timestep $t$에 대한 균일 분포를 사용한다. 여기서 저자들은 $t$에 대한 다른 분포가 더 정확한 결과를 산출하는지 확인하였다. 
 
 <center><img src='{{"/assets/img/diffusion-classifier/diffusion-classifier-fig3.webp" | relative_url}}' width="40%"></center>
 <br>
@@ -101,7 +101,7 @@ $$p_\theta (\textbf{c}_i \, \vert \, \textbf{x})$$를 추정하기 위한 이론
 ### 2. Efficient Classification
 Naive한 구현은 주어진 이미지를 분류하기 위해 $C \times N$ 번의 시행이 필요하다. 여기서 $C$는 클래스 수이고 $N$은 각 조건부 ELBO를 추정하기 위해 평가할 $(t, \epsilon)$ 샘플 수이다. 그러나 더 나은 방법을 사용할 수 있다. 
 
-$$\arg \max_\textbf{c} \, p (\textbf{c} \, \vert \, \textbf{x}$$만 고려하므로 자신 있게 거부할 수 있는 클래스에 대한 ELBO 계산을 중단할 수 있다. 따라서 이미지를 분류하는 한 가지 옵션은 Upper Confidence Bound (UCB) 알고리즘을 사용하여 대부분의 계산을 최상위 후보에 할당하는 것이다. 그러나 이를 위해서는 $$\| \epsilon - \epsilon_\theta (\textbf{x}_t, \textbf{c}_j) \|^2$$의 분포가 timestep $t$에서 동일하다고 가정해야 하며 이는 성립하지 않는다. 
+$$\arg \max_\textbf{c} \, p (\textbf{c} \, \vert \, \textbf{x})$$만 고려하므로 자신 있게 거부할 수 있는 클래스에 대한 ELBO 계산을 중단할 수 있다. 따라서 이미지를 분류하는 한 가지 옵션은 Upper Confidence Bound (UCB) 알고리즘을 사용하여 대부분의 계산을 최상위 후보에 할당하는 것이다. 그러나 이를 위해서는 $$\| \epsilon - \epsilon_\theta (\textbf{x}_t, \textbf{c}_j) \|^2$$의 분포가 timestep $t$에서 동일하다고 가정해야 하며 이는 성립하지 않는다. 
 
 저자들은 더 간단한 방법이 똑같이 잘 작동한다는 것을 발견했다. 평가를 일련의 단계로 나누었고, 각 단계에서 남은 각 $\textbf{c}_i$를 여러 번 시도한 다음 가장 높은 평균 오차를 갖는 것을 제거한다. 이를 통해 거의 확실히 최종 출력이 아닌 클래스를 효율적으로 제거하고 합리적인 클래스에 더 많은 컴퓨팅을 할당할 수 있다. 
 

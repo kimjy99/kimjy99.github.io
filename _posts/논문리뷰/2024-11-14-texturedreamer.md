@@ -68,7 +68,7 @@ $$
 \end{equation}
 $$
 
-VSD는 생성된 3D 콘텐츠의 시각적 품질과 다양성을 크게 개선하지만, 3D 지식의 본질적인 부족으로 인해 3D 일관성 문제를 해결할 수 없어 Janus problem 및 형상과 텍스처 간의 불일치가 발생한다. 본 논문은 형상 정보를 명시적으로 주입하여 diffusion model가 형상을 인식하도록 함으로써 이 문제를 해결하였다. 
+VSD는 생성된 3D 콘텐츠의 시각적 품질과 다양성을 크게 개선하지만, 3D 지식의 본질적인 부족으로 인해 3D 일관성 문제를 해결할 수 없어 Janus problem 및 형상과 텍스처 간의 불일치가 발생한다. 본 논문은 형상 정보를 명시적으로 주입하여 diffusion model이 형상을 인식하도록 함으로써 이 문제를 해결하였다. 
 
 ### 2. Personalized Geometry-aware Score Distillation (PGSD)
 <center><div style="overflow-x: auto; width: 90%;">
@@ -99,7 +99,7 @@ $$
 ##### Geometry-aware score distillation
 Dreambooth로 텍스처 정보 추출을 마치면 fine-tuning된 Dreambooth 모델을 VSD를 위한 denoising network $\epsilon_\psi$로 채택하여 메쉬 $\mathcal{M}$으로 정보를 전송한다. 매우 사실적이고 다양한 외형을 생성하는 뛰어난 능력 때문에 SDS 대신 VSD를 사용한다. 이미지 $x$를 렌더링하기 위해 [Fantasia3D](https://arxiv.org/abs/2303.13873)를 따라 고정된 HDR environment map $E$를 조명으로 미리 선택하고 Nvdiffrast를 미분 가능한 렌더러로 사용한다. Dreambooth 학습을 위해 입력 이미지와 일치하도록 배경을 흰색으로 설정한다. 이렇게 하면 랜덤 색상이나 중립적 배경에 비해 더 나은 색상 충실도를 얻는 데 도움이 된다. 
 
-그러나 단순히 SDS를 VSD로 대체하는 것만으로는 2D diffusion model에서 3D 지식이 부족하다는 한계를 해결할 수 없다. 따라서 메쉬 $\mathcal{M}$에서 렌더링된 normal map $k$로 컨디셔닝된 사전 학습된 ControlNet을 통해 개인화된 diffusion model $\epsilon_\psi$에 형상 정보를 주입하는 geometry-aware score distillation를 사용한다. 이 augmentation은 생성된 텍스처의 3D 일관성을 크게 향상시킨다. 
+그러나 단순히 SDS를 VSD로 대체하는 것만으로는 2D diffusion model에서 3D 지식이 부족하다는 한계를 해결할 수 없다. 따라서 메쉬 $\mathcal{M}$에서 렌더링된 normal map $k$로 컨디셔닝된 사전 학습된 ControlNet을 통해 개인화된 diffusion model $\epsilon_\psi$에 형상 정보를 주입하는 geometry-aware score distillation을 사용한다. 이 augmentation은 생성된 텍스처의 3D 일관성을 크게 향상시킨다. 
 
 $x = g(\theta, c)$를 카메라 포즈 $c$에서 추출된 BRDF 맵 $a_\theta$, $r_\theta$, $m_\theta$를 갖는 고정된 환경 맵에서 렌더링된 이미지라고 하자. BRDF field의 MLP 파라미터 $\theta$를 최적화하기 위해 제안된 Personalized Geometry-aware Score Distillation (PGSD)의 gradient는 다음과 같다.
 

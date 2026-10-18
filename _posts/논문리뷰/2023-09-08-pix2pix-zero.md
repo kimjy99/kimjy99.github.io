@@ -66,7 +66,7 @@ DDIM process를 사용하여 초기 latent code $x_0$에 점진적으로 noise�
 DDIM inversion $\epsilon_\theta (z_t, t, c) \in \mathbb{R}^{S \times S \times 4}$에 의해 생성된 반전된 noise map은 종종 상관관계가 없는 Gaussian noise의 통계적 속성을 따르지 않아 편집 가능성이 떨어진다. Gaussian noise map은 다음 두 가지 속성을 만족해야 한다.
 
 1. 임의의 위치 쌍 사이에 상관 관계 없음
-2. 각 공간 위치에서 평균이 0이고 단위 분산 (자기 상관 함수이 Kronecker delta function가 됨)
+2. 각 공간 위치에서 평균이 0이고 단위 분산 (자기 상관 함수이 Kronecker delta function이 됨)
 
 이를 만족하면 개별 픽셀 위치에서 쌍별 항 $$\mathcal{L}_\textrm{pair}$$와 KL divergence 항 $$\mathcal{L}_\textrm{KL}$$로 구성된 자기 상관 목적 함수를 사용하여 inversion process를 가이드한다.
 

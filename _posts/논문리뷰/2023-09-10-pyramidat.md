@@ -81,7 +81,7 @@ $$
 여기서 $$C_{\mathcal{B}_1}$$는 정상 범위 내에서 이미지를 유지하는 클리핑 함수, $S$는 스케일의 집합, $m_s$는 스케일 $s$에 대한 곱셈 상수, $\delta_s$는 $x$와 동일한 모양의 학습된 섭동이다. 스케일 $s$의 경우 $\delta_s$의 가중치는 모든 $i \in [0, \textrm{width}/s]$와 $j \in [0, \textrm{height}/s]$에 대해 왼쪽 상단 모서리가 $[s \cdot i, s \cdot j]$인 $s \times s$의 정사각형 영역에 있는 픽셀에 대해 공유된다. 픽셀 adversarial training과 유사하게 각 채널 이미지가 독립적으로 섭동된다.
 
 #### 공격 설정
-픽셀 공격과 피라미드 공격 모두에 대해 여러 step을 사용하여 임의 레이블에 Projected Gradient Descent (PGD)를 사용한다. Loss과 관련하여 ViT의 경우 실제 레이블의 negative loss을 최대화하면 공격적인 레이블 누출이 발생한다. 이를 방지하기 위해 임의 레이블을 선택한 다음 해당 임의 레이블에 대한 softmax cross-entropy loss를 최소화한다.
+픽셀 공격과 피라미드 공격 모두에 대해 여러 step을 사용하여 임의 레이블에 Projected Gradient Descent (PGD)를 사용한다. Loss과 관련하여 ViT의 경우 실제 레이블의 negative loss를 최대화하면 공격적인 레이블 누출이 발생한다. 이를 방지하기 위해 임의 레이블을 선택한 다음 해당 임의 레이블에 대한 softmax cross-entropy loss를 최소화한다.
 
 ### 3. "Matched" Dropout and Stochastic Depth
 ViT 모델에 대한 표준 학습은 dropout과 stochastic depth를 모두 regularizer로 사용한다. Adversarial training 동안 깨끗한 샘플과 적대적 샘플을 모두 mini-batch로 가지고 있다. 이는 adversarial training 중 dropout 처리에 대한 질문을 제기한다. Adversarial training 논문들의 일반적인 전략은 dropout 또는 stochastic depth를 사용하지 않고 적대적 샘플을 생성하는 것이다. 그러나 이로 인해 dropout으로 학습된 깨끗한 샘플과 dropout이 없는 적대적 샘플을 사용하여 둘 다 loss에 사용될 때 깨끗한 학습 경로와 적대적 학습 경로 사이에 학습 불일치가 발생한다. Mini-batch의 각 학습 인스턴스에 대해 깨끗한 분기는 네트워크의 부분 집합만 업데이트하고 적대적 분기는 전체 네트워크를 업데이트한다. 따라서 적대적 분기 업데이트는 평가 중에 모델 성능과 더 밀접하게 정렬되므로 clean accuracy를 희생시키면서 robust accuracy가 향상된다. 이 목적 함수는 다음과 같다.

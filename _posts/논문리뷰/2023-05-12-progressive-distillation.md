@@ -114,7 +114,7 @@ Progressive distillation의 주요 차이점은 denoising model의 목적 함수
 
 $N$개의 샘플링 step을 통해 student model을 학습하기 위해 distillation을 실행한 후 $N/2$ step으로 절차를 반복할 수 있다. 그러면 student model이 새 teacher가 되고 새 student model이 이 모델의 복사본을 만들어 초기화된다.
 
-원래 모델을 학습하는 절차와 달리 항상 discrete time에 progressive distillation을 실행한다. 이 discrete time을 샘플링하여 가장 높은 시간 인덱스가 0의 SNR, 즉 $\alpha_1 = 0$에 해당하도록 샘플링한다. 저자들은 이것이 0이 아닌 SNR에서 시작하는 것보다 약간 더 잘 작동한다는 것을 발견했다. 원본 모델을 학습하고 progressive distillation를 수행할 때 모두 사용한다.
+원래 모델을 학습하는 절차와 달리 항상 discrete time에 progressive distillation을 실행한다. 이 discrete time을 샘플링하여 가장 높은 시간 인덱스가 0의 SNR, 즉 $\alpha_1 = 0$에 해당하도록 샘플링한다. 저자들은 이것이 0이 아닌 SNR에서 시작하는 것보다 약간 더 잘 작동한다는 것을 발견했다. 원본 모델을 학습하고 progressive distillation을 수행할 때 모두 사용한다.
 
 ## Diffusion Model Parameterization and Training Loss
 $\sigma_t^2 = 1 - \alpha_t^2$인 표준 variance-preserving diffusion process를 가정하며, 이는 variance-exploding과 같은 다른 diffusion process에서도 동등하게 고려될 수 있다. Cosine schedule $\alpha_t = \cos (0.5 \pi t)$를 사용한다.

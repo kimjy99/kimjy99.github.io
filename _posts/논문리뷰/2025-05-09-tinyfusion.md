@@ -8,12 +8,12 @@ tags:
   - Diffusion
   - Computer Vision
   - CVPR
-excerpt: "TinyFusion 논문 리뷰 (CVPR 2025)"
+excerpt: "TinyFusion 논문 리뷰 (CVPR 2025 Highlight)"
 use_math: true
 classes: wide
 ---
 
-> CVPR 2025. [[Paper](https://arxiv.org/abs/2412.01199)] [[Github](https://github.com/VainF/TinyFusion)]  
+> CVPR 2025 (Highlight). [[Paper](https://arxiv.org/abs/2412.01199)] [[Github](https://github.com/VainF/TinyFusion)]  
 > Gongfan Fang, Kunjun Li, Xinyin Ma, Xinchao Wang  
 > National University of Singapore  
 > 2 Dec 2024  
@@ -73,7 +73,7 @@ $$
 이러한 문제를 극복하기 위해, 본 논문에서는 평가 결과를 피드백으로 사용하여 마스크 분포를 반복적으로 개선할 수 있는 학습 알고리즘을 도입하였다. 기본 아이디어는 특정 마스크가 긍정적인 결과를 보일 경우, 유사한 패턴을 가진 다른 마스크도 잠재적인 해결책이 될 수 있으며, 따라서 후속 평가에서 샘플링될 가능성이 더 높아져 유망한 해에 대한 더욱 집중적인 탐색이 가능해진다는 것이다. 
 
 ##### 로컬 구조 샘플링
-<center><img src='{{"/assets/img/tinyfusion/tinyfusion-fig2.webp" | relative_url}}' width="950%"></center>
+<center><img src='{{"/assets/img/tinyfusion/tinyfusion-fig2.webp" | relative_url}}' width="95%"></center>
 <br>
 본 논문에서는 로컬 구조가 서로 다른 마스크 간의 관계를 모델링하는 효과적인 앵커 역할을 할 수 있음을 보여준다. Pruning 마스크가 특정 로컬 구조를 유도하고 fine-tuning 후 경쟁력 있는 결과를 도출한다면, 동일한 로컬 패턴을 생성하는 다른 마스크들도 긍정적인 해를 도출할 가능성이 높다. 이는 원래 모델을 $K$개의 겹치지 않는 블록 $$\Phi = [\Phi_1, \cdots, \Phi_K]^\top$$로 나누어 달성할 수 있다. 단순화를 위해 각 블록 $$\Phi_k = [\phi_{k1}, \cdots, \phi_{kM}]^\top$$은 정확히 $M$개의 레이어를 포함하지만, 각 레이어의 길이는 다를 수 있다고 가정한다. 
 
@@ -88,7 +88,7 @@ $$
 일부 로컬 분포 $$p(\textbf{m}_k)$$가 해당 블록에서 높은 신뢰도를 보이는 경우, 시스템은 해당 긍정적 패턴을 자주 샘플링하고 다른 로컬 블록에서 활발한 탐색을 유지하는 경향이 있다. 이러한 개념을 바탕으로, 본 논문에서는 미분 가능한 샘플링을 도입하여 위 과정을 학습 가능하게 만들었다.
 
 ##### 미분 가능한 샘플링
-로컬 블록 $$\phi_k$$에 대응하고 카테고리 분포 $$p(\textbf{m}_k)$$로 모델링되는 로컬 마스크 $$\textbf{m}_k$$의 샘플링 프로세스를 고려하자. $N:M$ 방식을 사용하면 $\binom{M}{N}$개의 가능한 마스크가 있다. 가능한 모든 마스크를 열거하기 위해 특수 행렬 $$\hat{\textbf{m}}^{N:M}$$을 구성한다. 예를 들어, 2:3 layer pruning은 후보 행렬 $$\hat{\textbf{m}^{2:3}} = [[1, 1, 0], [1, 0, 1], [0, 1, 1]]$$을 생성한다. 이 경우 각 블록은 세 가지 확률 $$p(\textbf{m}_k) = [p_{k1}, p_{k2}, p_{k3}]$$을 갖는다. 단순화를 위해 $k$를 생략하고, $$\hat{\textbf{m}}^{N:M}$$의 $i$번째 element를 샘플링할 확률 $p_i$로 나타내자. 샘플링 프로세스를 미분 가능하게 만드는 널리 사용되는 방법은 Gumbel-Softmax이다.
+로컬 블록 $$\Phi_k$$에 대응하고 카테고리 분포 $$p(\textbf{m}_k)$$로 모델링되는 로컬 마스크 $$\textbf{m}_k$$의 샘플링 프로세스를 고려하자. $N:M$ 방식을 사용하면 $\binom{M}{N}$개의 가능한 마스크가 있다. 가능한 모든 마스크를 열거하기 위해 특수 행렬 $$\hat{\textbf{m}}^{N:M}$$을 구성한다. 예를 들어, 2:3 layer pruning은 후보 행렬 $$\hat{\textbf{m}}^{2:3} = [[1, 1, 0], [1, 0, 1], [0, 1, 1]]$$을 생성한다. 이 경우 각 블록은 세 가지 확률 $$p(\textbf{m}_k) = [p_{k1}, p_{k2}, p_{k3}]$$을 갖는다. 단순화를 위해 $k$를 생략하고, $$\hat{\textbf{m}}^{N:M}$$의 $i$번째 element를 샘플링할 확률 $p_i$로 나타내자. 샘플링 프로세스를 미분 가능하게 만드는 널리 사용되는 방법은 Gumbel-Softmax이다.
 
 $$
 \begin{equation}
@@ -163,7 +163,7 @@ LoRA를 사용하면 파라미터 수가 크게 줄어들어 다양한 pruning �
 
 <center><img src='{{"/assets/img/tinyfusion/tinyfusion-table4.webp" | relative_url}}' width="50%"></center>
 <br>
-다음은 2:4 방식에서 어떤 레이어가 각 블록에서 선택되는 지를 시각화한 그래프이다. (투명도: 신뢰도 수준)
+다음은 2:4 방식에서 어떤 레이어가 각 블록에서 선택되는지를 시각화한 그래프이다. (투명도: 신뢰도 수준)
 
 <center><img src='{{"/assets/img/tinyfusion/tinyfusion-fig6.webp" | relative_url}}' width="70%"></center>
 

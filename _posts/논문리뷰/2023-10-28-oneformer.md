@@ -66,7 +66,7 @@ $Q$를 얻기 위해 먼저 task 토큰 $Q_\textrm{task}$의 $N -1$번 반복으
 ### 3. Task Guided Contrastive Queries
 세 가지 segmentation task 모두에 대한 하나의 모델을 개발하는 것은 세 가지 task 간의 본질적인 차이로 인해 어렵다. Object query $Q$의 semantic은 task에 따라 다르다. Instance segmentation의 경우 query는 "thing" 클래스만 집중해야 하고, semantic segmentation의 경우 query는 하나의 비정형 객체만 예측해야 하고, panoptic segmentation의 경우 두 가지의 혼합을 예측해야 한다. 기존 query 기반 아키텍처는 이러한 차이점을 고려하지 않으므로 세 가지 task 모두에서 하나의 모델을 효과적으로 학습하는 데 실패한다.
 
-이를 위해 $Q$와 $Q_\textrm{text}$를 사용하여 query-text contrastive loss을 계산한다. $T_\textrm{pad}$를 사용하여 text query 표현인 $Q_\textrm{text}$를 얻는다. 여기서 $T_\textrm{pad}$는 주어진 이미지에서 감지될 각 마스크에 대한 텍스트 표현 목록이며, 객체 없음을 나타내는 "a/an {task} photo"가 포함된다. 따라서 text query는 이미지에 존재하는 객체/세그먼트를 나타내는 object query의 목적과 일치한다. 따라서 ground truth에서 파생된 text query와 object query 간의 contrastive loss를 사용하여 query 표현의 task 간 구별을 성공적으로 학습할 수 있다. 또한 query에 대한 contrastive learning을 통해 클래스 간 차이에 주의를 기울이고 카테고리 오분류를 줄일 수 있다.
+이를 위해 $Q$와 $Q_\textrm{text}$를 사용하여 query-text contrastive loss를 계산한다. $T_\textrm{pad}$를 사용하여 text query 표현인 $Q_\textrm{text}$를 얻는다. 여기서 $T_\textrm{pad}$는 주어진 이미지에서 감지될 각 마스크에 대한 텍스트 표현 목록이며, 객체 없음을 나타내는 "a/an {task} photo"가 포함된다. 따라서 text query는 이미지에 존재하는 객체/세그먼트를 나타내는 object query의 목적과 일치한다. 따라서 ground truth에서 파생된 text query와 object query 간의 contrastive loss를 사용하여 query 표현의 task 간 구별을 성공적으로 학습할 수 있다. 또한 query에 대한 contrastive learning을 통해 클래스 간 차이에 주의를 기울이고 카테고리 오분류를 줄일 수 있다.
 
 $$
 \begin{aligned}

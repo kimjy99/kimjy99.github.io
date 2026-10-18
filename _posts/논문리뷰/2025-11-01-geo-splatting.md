@@ -20,7 +20,7 @@ classes: wide
 <center><img src='{{"/assets/img/geo-splatting/geo-splatting-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
-[3D Gaussian Splatting (3DGS)](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)은 명확한 geometry 경계와 명확하게 정의된 표면 normal이 부족하여 light transport를 정확하게 모델링하지 못하고, 결과적으로 효과적인 material-조명 분리를 방해한다. 기존 방법은 geometry를 향상시키기 위해 3D Gaussian을 surfel로 압축하고, depth-normal regularization과 같은 implicit한 geometry 제약 조건을 통해 표면 normal을 근사하였다. 그럼에도 불구하고 light transport를 정확하게 모델링하려면 정확한 normal 방향과 불투명 표면이 모두 필요하며, 이는 각각 빛 전파 방향과 빛-표면 교차점을 정의한다. 결과적으로, 근사화된 normal과 Gaussian의 본질적으로 반투명한 특성에 의존하는 기존의 3DGS 기반 inverse Rendering 방법은 일반적으로 light transport 모델링에 어려움을 겪어 노이즈가 많은 material 분해와 잘못된 relighting으로 이어진다.
+[3D Gaussian Splatting (3DGS)](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)은 명확한 geometry 경계와 명확하게 정의된 표면 normal이 부족하여 light transport를 정확하게 모델링하지 못하고, 결과적으로 효과적인 material-조명 분리를 방해한다. 기존 방법은 geometry를 향상시키기 위해 3D Gaussian을 surfel로 압축하고, depth-normal regularization과 같은 implicit한 geometry 제약 조건을 통해 표면 normal을 근사하였다. 그럼에도 불구하고 light transport를 정확하게 모델링하려면 정확한 normal 방향과 불투명 표면이 모두 필요하며, 이는 각각 빛 전파 방향과 빛-표면 교차점을 정의한다. 결과적으로, 근사화된 normal과 Gaussian의 본질적으로 반투명한 특성에 의존하는 기존의 3DGS 기반 inverse rendering 방법은 일반적으로 light transport 모델링에 어려움을 겪어 노이즈가 많은 material 분해와 잘못된 relighting으로 이어진다.
 
 본 논문은 명시적인 geometry guidance를 통해 3DGS를 보완하는 **GeoSplatting**을 제안하였다. GeoSplatting은 implicit한 geometry 제약 조건에 의존하지 않고 최적화 가능한 명시적 메쉬로부터 표면에 정렬된 Gaussian들을 미분 가능하게 생성한다. 결과적으로, GeoSplatting은 명확하게 정의된 메쉬 normal과 불투명한 메쉬 표면을 활용하여 더욱 정확한 light transport 모델링을 구현하여, 뛰어난 material-조명 분리 및 향상된 relighting 품질을 제공한다.
 
@@ -95,7 +95,7 @@ $$
 
 ($$\mathcal{L}_\textrm{mask}$$는 렌더링된 alpha map과 GT object mask 사이의 MSE loss)
 
-또한 [DMTet](https://arxiv.org/abs/2111.04276)과 [FlexiCubes](https://arxiv.org/abs/2308.05371)를 따라 entropy loss $$\mathcal{L}_\textrm{entropy}$$를 추가하여 모양을 제한한다. 더 나은 분해를 위해 [NVdiffrecmc](https://arxiv.org/abs/2206.03380)와 [R3DG](https://kimjy99.github.io/논문리뷰/relightable-3d-gaussian)에 따라 조명 정규화 $$\mathcal{L}_\textrm{light}$$와 함께 $$\textbf{k}_d$$와 $$\textbf{k}_s$$에 smoothness 정규화 $$\mathcal{L}_\textrm{smooth}$$를 적용한다.
+또한 [DMTet](https://arxiv.org/abs/2111.04276)과 [FlexiCubes](https://arxiv.org/abs/2308.05371)를 따라 entropy loss $$\mathcal{L}_\textrm{entropy}$$를 추가하여 모양을 제한한다. 더 나은 분해를 위해 [NVdiffrecmc](https://arxiv.org/abs/2206.03380)와 [R3DG](https://kimjy99.github.io/논문리뷰/relightable-3d-gaussian)를 따라 조명 정규화 $$\mathcal{L}_\textrm{light}$$와 함께 $$\textbf{k}_d$$와 $$\textbf{k}_s$$에 smoothness 정규화 $$\mathcal{L}_\textrm{smooth}$$를 적용한다.
 
 최종 loss $\mathcal{L}$은 photometric loss와 정규화 loss의 조합이다.
 

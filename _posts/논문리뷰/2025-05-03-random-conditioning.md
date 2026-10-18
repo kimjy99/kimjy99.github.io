@@ -28,7 +28,7 @@ Knowledge distillation은 teacher라고 불리는 복잡한 모델에서 student
 
 결과적으로 student model이 distillation을 통해 처음 보는 개념을 효과적으로 추론하는 것이 어려워지고 teacher model의 생성 용량을 완전히 distillation하기 위해 많은 조건-이미지 쌍으로 전체 조건 공간을 탐색해야 한다. 그러나 이러한 대규모 텍스트-이미지 쌍을 얻는 것은 복잡하고 어려우며, teacher model을 사용하여 텍스트만 있는 데이터셋에서 이미지를 생성하는 경우에도 가능한 모든 텍스트 프롬프트에 대해 이미지를 합성하는 것은 계산 리소스와 시간 측면에서 엄청나게 비용이 많이 들 수 있다.
 
-이러한 문제를 해결하기 위해, 본 논문은 **random conditioning**이라는 새로운 테크닉을 제안하였다. 여기서 noise가 추가된 이미지는 학습 중에 랜덤하게 선택된, 잠재적으로 관련이 없는 텍스트 조건과 쌍을 이룬다. 이 방법을 사용하면 모델은 데이터셋의 모든 텍스트 프롬프트에 대해 이미지를 생성할 필요 없이 일반화 가능한 패턴을 학습할 수 있어 효율적인으로 이미지 없이 distillation이 가능하다. Random conditioning은 전체 이미지-텍스트 매핑과 관련된 계산 및 저장 요구 사항을 줄임으로써 리소스 요구 사항을 크게 낮추는 동시에 강력한 성능을 유지한다. 결과적으로, student는 distillation 프로세스 중에 처음 보는 개념의 이미지가 전혀 제공되지 않더라도 이러한 이미지를 생성하는 법을 배운다.
+이러한 문제를 해결하기 위해, 본 논문은 **random conditioning**이라는 새로운 테크닉을 제안하였다. 여기서 noise가 추가된 이미지는 학습 중에 랜덤하게 선택된, 잠재적으로 관련이 없는 텍스트 조건과 쌍을 이룬다. 이 방법을 사용하면 모델은 데이터셋의 모든 텍스트 프롬프트에 대해 이미지를 생성할 필요 없이 일반화 가능한 패턴을 학습할 수 있어 효율적으로 이미지 없이 distillation이 가능하다. Random conditioning은 전체 이미지-텍스트 매핑과 관련된 계산 및 저장 요구 사항을 줄임으로써 리소스 요구 사항을 크게 낮추는 동시에 강력한 성능을 유지한다. 결과적으로, student는 distillation 프로세스 중에 처음 보는 개념의 이미지가 전혀 제공되지 않더라도 이러한 이미지를 생성하는 법을 배운다.
 
 ## Method
 ### 1. Distilling Diffusion Models for Compression
@@ -36,7 +36,7 @@ Knowledge distillation은 teacher라고 불리는 복잡한 모델에서 student
 
 본 논문은 이미지가 없는 설정에서 이 문제에 접근하였으며, 텍스트 프롬프트만 사용할 수 있다. 이 구성이 유용한 이유는 대규모 이미지-텍스트 쌍을 수집하는 것이 비용이 많이 들고 노동 집약적이며 라이선스 제한으로 인해 복잡하고 어렵기 때문이다. 특정 도메인에서는 이러한 문제가 더욱 두드러지는데, 데이터가 부족하거나 개인정보 보호에 대한 우려가 커져서 주석이 잘 달린 이미지-텍스트 쌍을 얻는 것이 특히 어렵다.
 
-이미지 없이 diffusion model에 knowledge distillation을 적용하면 denoising process의 반복적 특성으로 인해 추가적인 문제가 발생한다. 텍스트 조건 $c$가 주어지면 teacher model은 각 timestep $t ∈ [0, T]$에서 $$\textbf{x}_t$$에서 제거될 noise $$\epsilon_\mathcal{T} (\textbf{x}_t, t, c)$$를 예측한다. 따라서 teacher model에서 student model로의 지식 전달은 각 timestep $t$에서 발생해야 한다. 그러나 이미지가 없으면 $$\textbf{x}_t$$를 생성할 수 없다. 이러한 제한으로 인해 중간 timestep에서 필요한 입력 이미지가 없기 때문에 $t \ne T$에 대해 knowledge distillation을 수행할 수 없다.
+이미지 없이 diffusion model에 knowledge distillation을 적용하면 denoising process의 반복적 특성으로 인해 추가적인 문제가 발생한다. 텍스트 조건 $c$가 주어지면 teacher model은 각 timestep $t \in [0, T]$에서 $$\textbf{x}_t$$에서 제거될 noise $$\epsilon_\mathcal{T} (\textbf{x}_t, t, c)$$를 예측한다. 따라서 teacher model에서 student model로의 지식 전달은 각 timestep $t$에서 발생해야 한다. 그러나 이미지가 없으면 $$\textbf{x}_t$$를 생성할 수 없다. 이러한 제한으로 인해 중간 timestep에서 필요한 입력 이미지가 없기 때문에 $t \ne T$에 대해 knowledge distillation을 수행할 수 없다.
 
 ### 2. Naive Baseline Approach
 이미지 없이 distillation하기 위한 단순한 접근 방식은 사용 가능한 모든 텍스트 프롬프트에 대한 이미지를 생성하여 쌍 데이터셋 $$\mathcal{D} = \{(\textbf{x}^n, c^n)\}_{n=1}^N$$을 구성하는 것이다. 여기서 $\textbf{x}^n$은 텍스트 조건 $c^n$에 대한 원본 이미지 $$\textbf{x}_0$$ 역할을 하는 생성된 이미지로, 이를 통해 모든 timestep $t$와 조건 $c^n$에 대해 noise가 있는 입력 이미지 $$\textbf{x}_t$$를 구성할 수 있다. Diffusion model은 이미지 생성에 시간이 많이 걸리므로 데이터셋을 구축하기 위해 이러한 이미지를 미리 생성하고 캐싱해야 한다. 
@@ -67,20 +67,20 @@ $\mathcal{T}$와 $\mathcal{S}$는 동일한 아키텍처를 가질 필요가 없
 
 <center><img src='{{"/assets/img/random-conditioning/random-conditioning-fig2.webp" | relative_url}}' width="65%"></center>
 <br>
-위 그림의 MNIST에 대한 예비 실험은 조건 공간을 포괄하는 것의 중요성을 보여준다. Teacher model은 숫자 3을 생성할 수 있지만, student model은 distillation 중에 3에 노출되지 않으면 3을 생성하지 못한다. 텍스트 조건 공간은 MNIST의 조건 공간 보다 매우 크기 때문에 가능한 모든 프롬프트에 대해 $$\textbf{x}_0$$를 합성하면 계산, 시간, 저장 측면에서 엄청나게 비용이 많이 든다. 
+위 그림의 MNIST에 대한 예비 실험은 조건 공간을 포괄하는 것의 중요성을 보여준다. Teacher model은 숫자 3을 생성할 수 있지만, student model은 distillation 중에 3에 노출되지 않으면 3을 생성하지 못한다. 텍스트 조건 공간은 MNIST의 조건 공간보다 매우 크기 때문에 가능한 모든 프롬프트에 대해 $$\textbf{x}_0$$를 합성하면 계산, 시간, 저장 측면에서 엄청나게 비용이 많이 든다. 
 
 ### 3. Random Conditioning
 <center><img src='{{"/assets/img/random-conditioning/random-conditioning-fig4.webp" | relative_url}}' width="75%"></center>
 <br>
 본 논문은 위의 한계점을 해결하기 위해 random conditioning을 제안하였다. 이는 텍스트 프롬프트의 부분집합(파란 박스)에서만 생성된 이미지를 캐싱할 수 있게 해준다. 구체적으로, 광범위한 $M$개의 텍스트 프롬프트 집합 $\mathcal{C}$가 주어지면, $M$보다 훨씬 작은 $N$개의 이미지-텍스트 쌍 $$\mathcal{D} = \{(\textbf{x}^n, c^n)\}$$의 데이터셋을 구성한다. 앞서 논의했듯이, $\mathcal{D}$에서 student model을 학습시키면 $\mathcal{C}$의 텍스트 조건 공간을 모두 커버하지 못하기 때문에 distillation에서 지식 전달이 제한된다. 이러한 제한은 일반적으로 이미지 $$\textbf{x}_0$$에서 구성되는 noise가 추가된 이미지 $$\textbf{x}_t$$가 없기 때문에 발생한다. 
 
-본 논문의 접근 방식에서는 $\mathcal{D}$ 뿐만 아니라 $\mathcal{C}$도 활용하여 student model이 $\mathcal{D}$의 모든 텍스트 조건을 탐색할 수 있도록 한다. 이 접근 방식은 distillation된 지식을 향상시켜 모델이 전체 조건 공간에서 일반화할 수 있게 한다.
+본 논문의 접근 방식에서는 $\mathcal{D}$ 뿐만 아니라 $\mathcal{C}$도 활용하여 student model이 $\mathcal{C}$의 모든 텍스트 조건을 탐색할 수 있도록 한다. 이 접근 방식은 distillation된 지식을 향상시켜 모델이 전체 조건 공간에서 일반화할 수 있게 한다.
 
 먼저 $\mathcal{D}$에서 $$(\textbf{x}^n, c^n)$$을 샘플링하고 $\textbf{x}^n$에서 $$\textbf{x}_t$$를 구성한다. 그런 다음 distillation을 수행하기 전에 미리 정의된 random conditioning 확률 $p(t)$를 적용하여 $\mathcal{C}$에서 랜덤한 텍스트를 샘플링한다. 구체적으로, 텍스트 조건 $\hat{c}$는 다음에 의해 결정된다.
 
 $$
 \begin{equation}
-\hat{c} = \begin{cases} c^n & \textrm{with probability} \; 1 - p(t) \\ \tilde{c} \in \mathcal{C} \textrm{with probability} \; p(t) \end{cases}
+\hat{c} = \begin{cases} c^n & \textrm{with probability} \; 1 - p(t) \\ \tilde{c} \in \mathcal{C} & \textrm{with probability} \; p(t) \end{cases}
 \end{equation}
 $$
 
@@ -117,7 +117,7 @@ Student model은 distillation 중에 $\mathcal{D}$에서 명시적으로 다루�
   - learning rate: $5 \times 10^{-5}$
 
 ### Results
-다음은 random conditioning 유무에 따른 효과를 비교한 표이다. "T init"은 student를 teacher로부터 초기화한 것이고, "Real image"는 실제 이미지를 학습 사용하는 지를 나타낸 것이다. 3행은 BK-SDM과 동일하다. 
+다음은 random conditioning 유무에 따른 효과를 비교한 표이다. "T init"은 student를 teacher로부터 초기화한 것이고, "Real image"는 실제 이미지를 학습에 사용하는지를 나타낸 것이다. 3행은 BK-SDM과 동일하다. 
 
 <center><img src='{{"/assets/img/random-conditioning/random-conditioning-table1.webp" | relative_url}}' width="50%"></center>
 <br>

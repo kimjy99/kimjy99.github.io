@@ -71,7 +71,7 @@ SDSA를 사용하면 프롬프트가 정렬되고 배경 붕괴가 방지된다.
 본 논문은 결과의 다양성을 향상시키기 위해 두 가지 전략을 제안하였다. 
 
 1. 일관성이 없는 vanilla 샘플링 step의 feature를 통합한다. 
-2. Dropout 메커니즘을 통해 주체 중심의 공유 attention를 더욱 약화시킨다. 
+2. Dropout 메커니즘을 통해 주체 중심의 공유 attention을 더욱 약화시킨다. 
 
 #### Vanilla query feature 사용
 최근 연구에서는 외형 이미지에서 self-attention key와 value를 주입하고 구조 이미지에서 query를 주입하여 한 이미지의 외형을 다른 이미지의 구조와 결합할 수 있음을 보여주었다. 이에 영감을 받아 저자들은 보다 다양한 vanilla forward pass에 의해 예측된 구조와 더 밀접하게 정렬하여 포즈 변형을 향상시키는 것을 목표로 한다. 

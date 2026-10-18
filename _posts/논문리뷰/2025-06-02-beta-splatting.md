@@ -29,7 +29,7 @@ classes: wide
 
 저자들은 색상 표현을 위해 **Spherical Beta (SB)** 함수를 도입했다. SB는 난반사(diffuse) 성분과 정반사(specular) 성분을 분리하여, 날카로운 specular highlight와 고주파 조명 효과를 효과적으로 모델링할 수 있다. 차수가 3인 SH와 비교할 때, SB는 파라미터 수를 31% 수준으로 줄이면서도 더 뛰어난 성능을 보인다. 
 
-또한, 저자들은 [3DGS-MCMC](https://arxiv.org/abs/2404.09591)의 Markov Chain Monte Carlo (MCMC) 원리를 DBS 프레임워크에 맞게 재정의하고 확장하였다. 기존 3DGS의 밀도 제어 및 3DGS-MCMC의 확률 보존 밀도화 전략은 Gaussian 커널을 기반으로 설계되어, 베타 커널에 직접 적용하기 어려운 문제가 있다. 이를 해결하기 위해, 저자들은 수학적으로 opacity만 조절하면 커널 종류나 densification 횟수와 관계없이 분포를 보존할 수 있음을 증명하였다. 이로써 커널에 구애받지 않는 MCMC 전략이 가능해지며, 복잡한 휴리스틱이나 스케일 재계산 없이 최적화 및 densification 과정을 간소화할 수 있다. 추가로, opacity 제약 조건과의 수학적 일관성을 유지하기 위해 MCMC에서 사용하는 noise function도 베타 커널에 맞게 새롭게 정의하였다.
+또한, 저자들은 [3DGS-MCMC](https://kimjy99.github.io/논문리뷰/3dgs-mcmc)의 Markov Chain Monte Carlo (MCMC) 원리를 DBS 프레임워크에 맞게 재정의하고 확장하였다. 기존 3DGS의 밀도 제어 및 3DGS-MCMC의 확률 보존 밀도화 전략은 Gaussian 커널을 기반으로 설계되어, 베타 커널에 직접 적용하기 어려운 문제가 있다. 이를 해결하기 위해, 저자들은 수학적으로 opacity만 조절하면 커널 종류나 densification 횟수와 관계없이 분포를 보존할 수 있음을 증명하였다. 이로써 커널에 구애받지 않는 MCMC 전략이 가능해지며, 복잡한 휴리스틱이나 스케일 재계산 없이 최적화 및 densification 과정을 간소화할 수 있다. 추가로, opacity 제약 조건과의 수학적 일관성을 유지하기 위해 MCMC에서 사용하는 noise function도 베타 커널에 맞게 새롭게 정의하였다.
 
 DBS는 모든 벤치마크에서 3DGS 기반 및 NeRF 기반 방식보다 일관되게 우수한 성능을 보여주었다. 또한, DBS는 3DGS에 필요한 파라미터의 45%만 사용하면서도 3DGS-MCMC보다 1.5배 빠르게 렌더링할 수 있다.
 
@@ -57,13 +57,13 @@ $\beta$를 직접 최적화하면 커널이 저주파 표현 쪽으로 편향될
 
 $$
 \begin{equation}
-\int_0^1 (1 - x)^{ce^b} dx \approx \int_0^1 e^{-\frac{9x}{2}}
+\int_0^1 (1 - x)^{ce^b} dx \approx \int_0^1 e^{-\frac{9x}{2}} dx
 \end{equation}
 $$
 
 가 되는 상수 $c = 4$를 사용한다. 이렇게 하면 $b$가 0으로 초기화될 때 커널이 Gaussian과 유사해진다.
 
-결과적으로, 베타 커널을 다음과 같이 정의된다.
+결과적으로, 베타 커널은 다음과 같이 정의된다.
 
 $$
 \begin{equation}
@@ -88,7 +88,7 @@ $$
 <br>
 파라미터 $b \in \mathbb{R}$를 변경하면 커널 모양이 변형되며, $b = 0$일 때 Gaussian 함수와 거의 동일한 함수가 생성된다. 최적화가 진행됨에 따라 커널이 Gaussian 함수와 유사한 모양에서 더 날카로운 모서리와 평평한 표면을 포착할 수 있는 모양으로 동적으로 조정될 수 있도록 한다.
 
-외관 모델링을 위해 각 primitive는 시점에 따라 달라지는 색상 정보를 인코딩하는 feature 벡터 $f \in \mathbb{R}^d$를 갖는다. 이 벡터는 복잡한 조명 상호작용을 표현하는 데 필수적이다.
+외관 모델링을 위해 각 primitive는 시점에 따라 달라지는 색상 정보를 인코딩하는 feature 벡터 $\textbf{f} \in \mathbb{R}^d$를 갖는다. 이 벡터는 복잡한 조명 상호작용을 표현하는 데 필수적이다.
 
 픽셀 $\textbf{x} \in \mathbb{R}^2$의 렌더링 과정은 다음과 같다. 각 primitive는 viewing transformation $\textbf{W}$를 사용하여 2D 이미지 평면에 projection된다. 그 결과 2D projection 중심 $$\boldsymbol{\mu}^\prime \in \mathbb{R}^2$$와 이에 대응하는 2D 공분산 행렬
 
@@ -98,7 +98,7 @@ $$
 \end{equation}
 $$
 
-그런 다음 픽셀과 각 primitive 중심 사이의 거리를 계산한다.
+를 얻는다. 그런 다음 픽셀과 각 primitive 중심 사이의 거리를 계산한다.
 
 $$
 \begin{equation}
@@ -133,16 +133,16 @@ c(\hat{V}) = c_0 + \sum_{m \in \mathcal{M}} \mathcal{B} (1 - \hat{R}_m \cdot \ha
 \end{equation}
 $$
 
-각 primitive에 대해, 반사되어 나가는 radiance를 모델링하는 $M = \vert \mathcal{M} \vert$개의 SB lobe를 도입한다. 각 SB lobe는 반사 방향 $$\hat{R}_m$$, 색상 $c_m$, 광택도 $b_m$로 paramertize되기 때문에, feature $\textbf{f}$의 차원은 $3 + 6M$이며, specular lobe 수에 따라 선형적으로 증가하여 SH보다 효율적이다.
+각 primitive에 대해, 반사되어 나가는 radiance를 모델링하는 $M = \vert \mathcal{M} \vert$개의 SB lobe를 도입한다. 각 SB lobe는 반사 방향 $$\hat{R}_m$$, 색상 $c_m$, 광택도 $b_m$로 parameterize되기 때문에, feature $\textbf{f}$의 차원은 $3 + 6M$이며, specular lobe 수에 따라 선형적으로 증가하여 SH보다 효율적이다.
 
-SB는 반사도 모델링 측면에서 Spherical Gaussian (SG)과 유사하지만, SG와 달리 $$\hat{R}_m \cdot \hat{V} = 0$$일 때 radiance의 불연속성이 발생하며 radiance가 0이 된다. 이를 통해 cutoff와 관련된 아티팩트를 제거하면서 radiance의 연속성을 유지한다.
+SB는 반사도 모델링 측면에서 Spherical Gaussian (SG)과 유사하지만, SG와 달리 $$\hat{R}_m \cdot \hat{V} = 0$$일 때 radiance의 불연속성 없이 radiance가 0이 된다. 이를 통해 cutoff와 관련된 아티팩트를 제거하면서 radiance의 연속성을 유지한다.
 
 <center><img src='{{"/assets/img/beta-splatting/beta-splatting-fig3.webp" | relative_url}}' width="52%"></center>
 <br>
 위 그림은 다양한 $b_m$ 값에 대한 specular highlight와 그에 해당하는 specular lobe를 보여준다. SB는 고주파 및 저주파 반사도를 모두 모델링할 수 있으며, 더 적은 파라미터로 복잡한 조명 상호작용과 반사 효과를 모델링할 수 있다.
 
 ### 4. Kernel-Agnostic Markov Chain Monte Carlo
-[3DGS-MCMC](https://arxiv.org/abs/2404.09591)는 각 primitive의 불투명도를 확률로 처리하여 3DGS의 최적화를 Markov Chain Monte Carlo (MCMC) 과정으로 재정의하였다. 불투명도가 pruning threshold 미만인 죽은 Gaussian을 식별하고, 불투명도 값을 기반으로 multinomial sampling을 통해 죽지 않은 Gaussian으로 재배치하여 다시 생성한다. 불투명도와 scale을 모두 조정함으로써, densification 과정에서 기본 확률 분포를 보존하여 프로세스를 안정화한다. 또한, 위치 noise를 도입하여 탐색을 촉진하고 overfitting을 방지하였다.
+[3DGS-MCMC](https://kimjy99.github.io/논문리뷰/3dgs-mcmc)는 각 primitive의 불투명도를 확률로 처리하여 3DGS의 최적화를 Markov Chain Monte Carlo (MCMC) 과정으로 재정의하였다. 불투명도가 pruning threshold 미만인 죽은 Gaussian을 식별하고, 불투명도 값을 기반으로 multinomial sampling을 통해 죽지 않은 Gaussian으로 재배치하여 다시 생성한다. 불투명도와 scale을 모두 조정함으로써, densification 과정에서 기본 확률 분포를 보존하여 프로세스를 안정화한다. 또한, 위치 noise를 도입하여 탐색을 촉진하고 overfitting을 방지하였다.
 
 그러나 이러한 휴리스틱 전략과 scale 조정은 본질적으로 Gaussian 함수의 속성과 연결되어 있어 임의의 커널에 직접 적용하기 어렵다. 이러한 한계를 해결하기 위해, 본 논문은 3DGS-MCMC에서 구축된 프레임워크를 기반으로 **Kernel-Agnostic MCMC**를 제안하였다.
 

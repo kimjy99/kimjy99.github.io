@@ -155,6 +155,6 @@ $$
 <center><img src='{{"/assets/img/diffusion-sfm/diffusion-sfm-table4.webp" | relative_url}}' width="45%"></center>
 
 ### 4. Multi-modality from Multiple Sampling
-다음은 동일한 입력 이미지에 대하여 다른 랜덤 noise으로 샘플링한 결과를 비교한 것이다.
+다음은 동일한 입력 이미지에 대하여 다른 랜덤 noise로 샘플링한 결과를 비교한 것이다.
 
 <center><img src='{{"/assets/img/diffusion-sfm/diffusion-sfm-fig5.webp" | relative_url}}' width="77%"></center>

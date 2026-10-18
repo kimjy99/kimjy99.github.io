@@ -47,7 +47,7 @@ classes: wide
 Promptable segmentation task는 각 학습 샘플에 대한 일련의 프롬프트(ex. 점, 박스, 마스크)를 시뮬레이션하고 모델의 마스크 예측을 ground-truth와 비교하는 자연스러운 사전 학습 알고리즘을 제안한다. 충분한 사용자 입력 후에 결국 유효한 마스크를 예측하는 것이 목표인 interactive segmentation과 달리 이 방법을 적용한다. 프롬프트가 모호한 경우에도 모든 프롬프트에 대해 항상 유효한 마스크를 예측하는 것이 목표이다. 이를 통해 데이터 엔진에서 요구하는 자동 주석을 포함하여 모호성이 포함된 use case에서 사전 학습된 모델이 효과적임을 보장한다. 저자들은 이 task를 잘 수행하는 것이 어렵고 전문적인 모델링 및 학습 loss 선택이 필요하다는 점에 주목하였다.
 
 #### Zero-shot transfer
-직관적으로 사전 학습 task는 모델이 inference 시간에 모든 프롬프트에 적절하게 응답할 수 있는 능력을 부여하므로 하위 task는 적절한 프롬프트를 엔지니어링하여 해결할 수 있다. 예를 들어 고양이에 대한 boundary box detector가 있는 경우 detector의 box 출력을 모델에 프롬프트로 제공하여 고양이 instance segmentation를 해결할 수 있다. 일반적으로 다양한 실용적인 segmentation task는 프롬프트로 캐스팅될 수 있다. 
+직관적으로 사전 학습 task는 모델이 inference 시간에 모든 프롬프트에 적절하게 응답할 수 있는 능력을 부여하므로 하위 task는 적절한 프롬프트를 엔지니어링하여 해결할 수 있다. 예를 들어 고양이에 대한 boundary box detector가 있는 경우 detector의 box 출력을 모델에 프롬프트로 제공하여 고양이 instance segmentation을 해결할 수 있다. 일반적으로 다양한 실용적인 segmentation task는 프롬프트로 캐스팅될 수 있다. 
 
 #### Discussion
 Prompting과 composition은 단일 모델을 확장 가능한 방식으로 사용하여 잠재적으로 모델 설계 시 알려지지 않은 task를 수행할 수 있도록 하는 강력한 도구이다. 이 접근 방식은 다른 foundation model이 사용되는 방식과 유사하다. 저자들은 프롬프트 엔지니어링과 같은 기술로 구동되는 composition 가능한 시스템 설계가 고정된 일련의 task를 위해 특별히 학습된 시스템보다 더 다양한 애플리케이션을 가능하게 할 것으로 예상하였다. Ccomposition의 관점에서 promptable segmentation과 interactive segmentation을 비교하는 것도 흥미롭다. interactive segmentation model은 인간 사용자를 염두에 두고 설계되었지만 promptable segmentation을 위해 학습된 모델은 더 큰 알고리즘 시스템으로 구성될 수 있다.

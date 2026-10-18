@@ -94,10 +94,10 @@ v_t := \alpha_t \epsilon - \sigma_t x
 \end{equation}
 $$
 
-를 사용한다. $v$-parameterization은 diffusion process 전반에 걸쳐 수치적 안정성에 특히 유용하여 모델의 progressive distillation을 가능하게 한다. 파이프라인에서 높은 해상도로 작동하는 모델의 경우 $v$-parameterization가 고해상도 diffusion model에서 발생하는 color shifting 아티팩트를 피하고 동영상 생성 시 $\epsilon$-prediction을 사용할 때 나타나는 일시적인 color shifting을 피한다. $v$-parameterization를 사용하면 샘플 품질 지표를 더 빠르게 수렴할 수 있다는 이점도 있다. 
+를 사용한다. $v$-parameterization은 diffusion process 전반에 걸쳐 수치적 안정성에 특히 유용하여 모델의 progressive distillation을 가능하게 한다. 파이프라인에서 높은 해상도로 작동하는 모델의 경우 $v$-parameterization이 고해상도 diffusion model에서 발생하는 color shifting 아티팩트를 피하고 동영상 생성 시 $\epsilon$-prediction을 사용할 때 나타나는 일시적인 color shifting을 피한다. $v$-parameterization을 사용하면 샘플 품질 지표를 더 빠르게 수렴할 수 있다는 이점도 있다. 
 
 ### 5. Conditioning Augmentation
-모든 TSR과 SSR 모델에 noise conditioning augmentation을 사용한다. Noise conditioning augmentation는 클래스 조건부 생성과 text-to-image 모델을 위한 cascaded diffusion model에 중요하다. 특히, 계단식 모델에서 한 단계의 출력과 다음 단계 학습에 사용되는 입력 사이의 도메인 차이에 대한 민감도를 줄임으로써 계단식 모델에서 서로 다른 모델의 병렬 학습을 용이하게 한다.
+모든 TSR과 SSR 모델에 noise conditioning augmentation을 사용한다. Noise conditioning augmentation은 클래스 조건부 생성과 text-to-image 모델을 위한 cascaded diffusion model에 중요하다. 특히, 계단식 모델에서 한 단계의 출력과 다음 단계 학습에 사용되는 입력 사이의 도메인 차이에 대한 민감도를 줄임으로써 계단식 모델에서 서로 다른 모델의 병렬 학습을 용이하게 한다.
 
 Cascaded diffusion model을 따라 학습 중 컨디셔닝 입력 동영상에 임의의 신호 대 잡음비(SNR)로 Gaussian noise augmentation을 적용하고 이 샘플링된 SNR을 모델에도 제공한다. 샘플링 시 3 또는 5와 같은 고정된 SNR을 사용하여 대부분의 구조를 보존하면서 이전 단계에서 샘플의 아티팩트를 제거하는 데 도움이 되는 소량의 augmentation을 나타낸다. 
 

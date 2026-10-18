@@ -7,12 +7,12 @@ tags:
   - Transformer
   - 3D Vision
   - Meta
-excerpt: "MapAnything 논문 리뷰"
+excerpt: "MapAnything 논문 리뷰 (3DV 2026)"
 use_math: true
 classes: wide
 ---
 
-> arXiv 2025. [[Paper](https://arxiv.org/abs/2509.13414)] [[Page](https://map-anything.github.io/)] [[Github](https://github.com/facebookresearch/map-anything)]   
+> 3DV 2026. [[Paper](https://arxiv.org/abs/2509.13414)] [[Page](https://map-anything.github.io/)] [[Github](https://github.com/facebookresearch/map-anything)]   
 > Nikhil Keetha, Norman Müller, Johannes Schönberger, Lorenzo Porzi, Yuchen Zhang, Tobias Fischer, Arno Knapitsch, Duncan Zauss, Ethan Weber, Nelson Antunes, Jonathon Luiten, Manuel Lopez-Antequera, Samuel Rota Bulò, Christian Richardt, Deva Ramanan, Sebastian Scherer, Peter Kontschieder  
 > Meta | Carnegie Mellon University  
 > 16 Sep 2025  
@@ -41,11 +41,11 @@ MapAnything은 이러한 입력을 $N$-view metric 3D 출력에 매핑한다.
 
 $$
 \begin{equation}
-f_\textrm{MapAnything} (\hat{\mathcal{I}}, [\hat{\mathcal{R}}, \hat{\mathcal{Q}}, \hat{\mathcal{T}}, \hat{\mathcal{D}}]) = \{m, (R_i, \tilde{D}_i, \tilde{P}_i)_{i=1}^N \} \text {,} (1) 
+f_\textrm{MapAnything} (\hat{\mathcal{I}}, [\hat{\mathcal{R}}, \hat{\mathcal{Q}}, \hat{\mathcal{T}}, \hat{\mathcal{D}}]) = \{m, (R_i, \tilde{D}_i, \tilde{P}_i)_{i=1}^N \}
 \end{equation}
 $$
 
-($m \in \mathbb{R}$은 global metric scaling factor, $R_i \in \mathbb{R}^{3 \times H \times W}$는 예측된 로컬 광선 방향, $$\tilde{D}_i \in \mathbb{R}^{1 \times H \times W}$$는 up-to-scale space의 광선 깊이, $$\tilde{P}_i \in \mathbb{R}^{4 \times 4}$$는 $$\hat{I}_1$$의 프레임에서의 $$\hat{I}_i$$의 포즈 (quaternion $Q_i \in \textrm{SU}(2)$와 up-to-scale translation $$\tilde{T}_i \in \mathbb{R}^3$$으로 표현)
+($m \in \mathbb{R}$은 global metric scaling factor, $R_i \in \mathbb{R}^{3 \times H \times W}$는 예측된 로컬 광선 방향, $$\tilde{D}_i \in \mathbb{R}^{1 \times H \times W}$$는 up-to-scale space의 광선 깊이, $$\tilde{P}_i \in \mathbb{R}^{4 \times 4}$$는 $$\hat{I}_1$$의 프레임에서의 $$\hat{I}_i$$의 포즈 (quaternion $Q_i \in \textrm{SU}(2)$와 up-to-scale translation $$\tilde{T}_i \in \mathbb{R}^3$$으로 표현))
 
 이 분해된 출력을 사용하여 up-to-scale 로컬 pointmap을 다음과 같이 얻을 수 있다. 
 
@@ -149,7 +149,7 @@ Scaling factor를 사용하여 scale-invariant translation loss를 계산할 수
 
 $$
 \begin{equation}
-\mathcal{L}_\textrm{translation} = \sum_{i=1} \| \frac{\hat{T}_i}{\hat{z}} - \frac{\tilde{T}_i}{\tilde{z}} \|
+\mathcal{L}_\textrm{translation} = \sum_{i=1}^N \| \frac{\hat{T}_i}{\hat{z}} - \frac{\tilde{T}_i}{\tilde{z}} \|
 \end{equation}
 $$
 

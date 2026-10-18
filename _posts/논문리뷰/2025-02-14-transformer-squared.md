@@ -32,13 +32,13 @@ Self-adaptive LLM은 AI에서 상당한 진전을 나타내며, 모델이 다양
 
 1. 여러 expert 모듈을 만들기 위해 LLM을 fine-tuning하면 학습해야 하는 파라미터 수가 크게 늘어난다. 
 2. Expert 모듈은 종종 overfitting되기 쉽다. 특히 작은 데이터셋이나 좁은 task 도메인에서 학습할 때 흔히 나타나는 현상이다. 
-3. Expert 모듈의 유연하게 조합하는 것은 현재 거의 해결되지 않은 문제이다. 
+3. Expert 모듈을 유연하게 조합하는 것은 현재 거의 해결되지 않은 문제이다. 
 
-이러한 한계를 극복하기 위해, 저자들은 먼저 self-adaptation을 위한 새로운 parameter-efficient fine-tuning (PEFT) 방법인 **Singular Value Fine-tuning (SVF)**을 제안하였다. SVF는 모델의 가중치 행렬 내에서 특이값(singular value)만 추출하고 튜닝한다. 이를 통해 overfitting의 위험을 완화하고, 계산량을 요구 사항을 크게 줄이며, 내재적인 compositionality을 허용한다. 이러한 속성을 통해 RL로 좁은 데이터셋에서 학습하여 효과적인 도메인별 expert 벡터들을 저렴하게 얻을 수 있으며, 개별 주제에 대한 task 성능을 직접 최적화한다.
+이러한 한계를 극복하기 위해, 저자들은 먼저 self-adaptation을 위한 새로운 parameter-efficient fine-tuning (PEFT) 방법인 **Singular Value Fine-tuning (SVF)**을 제안하였다. SVF는 모델의 가중치 행렬 내에서 특이값(singular value)만 추출하고 튜닝한다. 이를 통해 overfitting의 위험을 완화하고, 계산 요구 사항을 크게 줄이며, 내재적인 compositionality를 허용한다. 이러한 속성을 통해 RL로 좁은 데이터셋에서 학습하여 효과적인 도메인별 expert 벡터들을 저렴하게 얻을 수 있으며, 개별 주제에 대한 task 성능을 직접 최적화한다.
 
 그런 다음 저자들은 LLM이 self-adaptation의 기본 원칙을 통해 힘을 얻을 수 있도록 **Transformer²** 프레임워크를 소개하였다. 모르는 task에서 프롬프트가 주어지면 Transformer²는 2단계 inference 메커니즘을 사용한다. 첫 번째 단계에서 Transformer²는 모델을 실행하고 test-time 동작을 관찰하여 관련 정보를 수집하여 현재 문제를 해결하는 데 필요한 기술을 이해한다. 두 번째 단계에서는 이 정보를 사용하여 사용 가능한 expert 벡터를 결합하고 test-time 조건에 맞게 특별히 튜닝된 LLM의 기본 가중치에 대한 새로운 수정을 제공한다. 저자들은 Transformer² 내에서 사용할 수 있는 세 가지 다른 적응 전략을 설계하여 test-time 조건에 대한 접근성을 높이면서 성능적인 이점을 제공하였다.
 
-SVF는 도메인별 데이터셋에서 학습했을 때 LoRA와 같은 기존 fine-tuning 전략보다 지속적으로 성능이 뛰어나며, 동시에 파라미터가 수십 배 더 적다. Transformer²는 VQA와 같은 완전히 out-of-distribution인 task에서도 기본 모델의 가중치를 효과적으로 조정하여 성능을 훨씬 더 높다. 또한, 저자들은 현재 test-time 조건에 대한 추가 액세스를 제공하고 모델 아키텍처 전반에 걸쳐 사전 학습된 SVF expert들을 재활용할 수 있도록 하여 이점을 증가시켰다.
+SVF는 도메인별 데이터셋에서 학습했을 때 LoRA와 같은 기존 fine-tuning 전략보다 지속적으로 성능이 뛰어나며, 동시에 파라미터가 수십 배 더 적다. Transformer²는 VQA와 같은 완전히 out-of-distribution인 task에서도 기본 모델의 가중치를 효과적으로 조정하여 성능을 훨씬 더 높인다. 또한, 저자들은 현재 test-time 조건에 대한 추가 액세스를 제공하고 모델 아키텍처 전반에 걸쳐 사전 학습된 SVF expert들을 재활용할 수 있도록 하여 이점을 증가시켰다.
 
 ## Method
 <center><img src='{{"/assets/img/transformer-squared/transformer-squared-fig2.webp" | relative_url}}' width="100%"></center>
@@ -50,7 +50,7 @@ SVF는 Transformer²의 핵심 구성 요소이며, fine-tuning을 위한 매우
 
 $$
 \begin{equation}
-W = U \Sigma^\prime V^\top, \quad \textrm{where} \; \Sigma^\prime = \Sigma \otimes \textrm{diag}(z)
+W^\prime = U \Sigma^\prime V^\top, \quad \textrm{where} \; \Sigma^\prime = \Sigma \otimes \textrm{diag}(z)
 \end{equation}
 $$
 

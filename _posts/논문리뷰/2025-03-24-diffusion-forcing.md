@@ -14,7 +14,7 @@ use_math: true
 classes: wide
 ---
 
-> NeurIPS 2024. [[Paper](https://arxiv.org/abs/2407.01392)] [[Page](https://boyuan.space/diffusion-forcing/)] [[Github](https://github.com/convergence-ai/lm2)]  
+> NeurIPS 2024. [[Paper](https://arxiv.org/abs/2407.01392)] [[Page](https://boyuan.space/diffusion-forcing/)] [[Github](https://github.com/buoyancy99/diffusion-forcing)]  
 > Boyuan Chen, Diego Marti Monso, Yilun Du, Max Simchowitz, Russ Tedrake, Vincent Sitzmann  
 > MIT  
 > 1 Jul 2024  
@@ -29,7 +29,7 @@ classes: wide
 
 예를 들어, 동영상을 autoregressive하게 생성하려고 할 때 프레임 간 예측의 사소한 오차가 누적되고 모델이 발산한다.
 
-Full-sequence diffusion은 토큰을 concat한 후 diffuse하여 고정된 수의 토큰의 공동 분포를 직접 모델링한다. 여기서 noise level은 모든 토큰에서 동일한다. 원하는 시퀀스로 샘플링을 가이드하는 [diffusion guidance](https://kimjy99.github.io/논문리뷰/cfdg)를 사용할 수 있으며, 이는 planning에서 매우 중요하다. 또한 동영상과 같은 연속적인 신호를 생성하는 데 탁월하다. 
+Full-sequence diffusion은 토큰을 concat한 후 diffuse하여 고정된 수의 토큰의 공동 분포를 직접 모델링한다. 여기서 noise level은 모든 토큰에서 동일하다. 원하는 시퀀스로 샘플링을 가이드하는 [diffusion guidance](https://kimjy99.github.io/논문리뷰/cfdg)를 사용할 수 있으며, 이는 planning에서 매우 중요하다. 또한 동영상과 같은 연속적인 신호를 생성하는 데 탁월하다. 
 
 그러나 full-sequence diffusion은 비인과적이고 마스킹되지 않은 아키텍처를 통해 parameterize되며, 이것은 guidance와 부분 시퀀스 생성의 가능성을 제한한다. 또한 full-sequence diffusion을 위한 next-token prediction model을 학습시켜 두 모델의 장점을 단순히 결합하면, 초기 토큰의 작은 불확실성이 이후 토큰의 높은 불확실성을 필요로 한다는 사실을 모델링하지 않기 때문에 직관적으로 생성이 좋지 않다.
 
@@ -81,7 +81,7 @@ Diffusion Forcing 샘플링은 2D 그리드 $$\mathcal{K} \in [K]^{M \times T}$$
 
 길이가 $T$인 전체 시퀀스를 생성하기 위해, 먼저 토큰 $$\textbf{x}_{1:T}$$를 noise level $k = K$에 해당하는 순수한 noise로 초기화한다. 행별로 열을 따라 왼쪽에서 오른쪽으로 noise를 제거하여 $\mathcal{K}$로 규정된 noise level을 만든다. 마지막 행 $m = 0$에서 토큰은 noise가 모두 제거된 깨끗한 버전이다 ($$\mathcal{K}_{0,t} = 0$$).
 
-Hyperparameter $$(\alpha_k, \bar{\alpha}_k), \sigma_k$$는 [DDPM](https://kimjy99.github.io/논문리뷰/ddpm)과 동일하다. Diffusion Forcing은 모든 noise level 시퀀스의 토큰에 대한 noise를 제거하도록 학습되므로, 모델을 다시 학습시키지 않고도 다양한 동작을 유연하게 달성하도록 행렬 $\mathcal{K}$를 설계할 수 있다.
+Hyperparameter $$(\alpha_k, \bar{\alpha}_k, \sigma_k)$$는 [DDPM](https://kimjy99.github.io/논문리뷰/ddpm)과 동일하다. Diffusion Forcing은 모든 noise level 시퀀스의 토큰에 대한 noise를 제거하도록 학습되므로, 모델을 다시 학습시키지 않고도 다양한 동작을 유연하게 달성하도록 행렬 $\mathcal{K}$를 설계할 수 있다.
 
 <center><img src='{{"/assets/img/diffusion-forcing/diffusion-forcing-algo2.webp" | relative_url}}' width="40%"></center>
 
@@ -89,7 +89,7 @@ Hyperparameter $$(\alpha_k, \bar{\alpha}_k), \sigma_k$$는 [DDPM](https://kimjy9
 <center><img src='{{"/assets/img/diffusion-forcing/diffusion-forcing-fig.webp" | relative_url}}' width="90%"></center>
 
 ##### Autoregressive한 생성의 안정화
-동영상와 같은 고차원 연속 시퀀스의 경우, 특히 학습에 사용된 horizon을 넘어 샘플링할 때 autoregressive 아키텍처가 발산하는 것으로 알려져 있다. 반면, Diffusion Forcing은 작은 noise level $0 < k \ll K$의 약간의 noise가 추가된 토큰과 관련된 이전 latent를 사용하여 latent들을 업데이트함으로써 학습 시퀀스 길이를 넘어 긴 시퀀스를 안정적으로 rollout할 수 있다. 
+동영상과 같은 고차원 연속 시퀀스의 경우, 특히 학습에 사용된 horizon을 넘어 샘플링할 때 autoregressive 아키텍처가 발산하는 것으로 알려져 있다. 반면, Diffusion Forcing은 작은 noise level $0 < k \ll K$의 약간의 noise가 추가된 토큰과 관련된 이전 latent를 사용하여 latent들을 업데이트함으로써 학습 시퀀스 길이를 넘어 긴 시퀀스를 안정적으로 rollout할 수 있다. 
 
 ##### 미래의 불확실성을 유지 (zig-zag schedule)
 일련의 순수한 noise 토큰 $$[\textbf{x}_1^K, \textbf{x}_2^K, \textbf{x}_3^K]^\top$$에서 시작하여 첫 번째 토큰을 완전히, 두 번째 토큰을 부분적으로 denoising하여 $$[\textbf{x}_1^0, \textbf{x}_2^{K/2}, \textbf{x}_3^K]^\top$$를 생성한 다음, $$[\textbf{x}_1^0, \textbf{x}_2^0, \textbf{x}_3^{K/2}]^\top$$를 생성하고 마지막으로 모든 토큰을 완전히 denoising하여 $$[\textbf{x}_1^0, \textbf{x}_2^0, \textbf{x}_3^0]^\top$$을 생성할 수 있다. 
@@ -117,7 +117,7 @@ Diffusion Forcing은 각 새로운 action이 순차적으로 선택되기 때문
 Diffusion Forcing은 미래 step들에 대해 특정한 reward를 사용하여 guidance를 통해 계획할 수 있다. 예를 들어, 다음과 같은 reward를 모두 사용할 수 있다. 
 
 - 전체 궤적에 대한 dense reward: $$\sum_{t=1}^T \textbf{r}_t$$
-- 미래 lookahead에 대한 dense reward: $$\sum_{t^\prime = t}^{t+H} \textbf{r}_t$$
+- 미래 lookahead에 대한 dense reward: $$\sum_{t^\prime = t}^{t+H} \textbf{r}_{t^\prime}$$
 - 목표 완료를 나타내는 sparse reward: $$- \| \textbf{o}_T - \textbf{g} \|^2$$
 
 ##### Monte Carlo Guidance (MCG), future uncertainty

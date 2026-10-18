@@ -96,7 +96,7 @@ $$\mathcal{L}_\textrm{expand}$$를 최적화하면 단일 generator 내에서 �
 이를 방지하기 위해 정규화를 통해 $$\mathcal{Z}_\textrm{base}$$에 대한 $$G_\textrm{src}$$의 동작 보존을 명시적으로 시행한다. 두 가지 성공적인 정규화 기술을 채택한다. 
 
 1. 망각을 완화하는 것으로 알려진 $L_\textrm{src}$에서 원래 학습된 loss로 generator를 계속 최적화한다. 
-2. [Replay alignment](https://arxiv.org/abs/1809.02058)를 적용한다. 이는 소스 generator의 고정된 복사본 출력과 생성기가 생성한 출력을 비교하는 재구성 loss이다. $L_2$ pixel loss와 LPIPS의 가중치 조합을 사용한다.
+2. [Replay alignment](https://arxiv.org/abs/1809.02058)를 적용한다. 이는 소스 generator의 고정된 복사본 출력과 생성기가 생성한 출력을 비교하는 재구성 loss가다. $L_2$ pixel loss와 LPIPS의 가중치 조합을 사용한다.
 
 $$
 \begin{equation}

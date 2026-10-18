@@ -38,7 +38,7 @@ classes: wide
 
 저자들은 주로 장면 표현으로서 SceneScript 언어의 효율성을 테스트하기 위해 아키텍처 레이아웃 추정 및 object detection 문제에 중점을 두었다. 벽, 문, 창문과 같은 건축 개체는 고도로 구조화된 개체이므로 이상적이다. 그러나 언어 모델의 한 가지 주목할만한 단점은 학습을 위해 방대한 양의 데이터가 필요하다는 것이다. 
 
-장면 탐색 및 구조화된 언어 커맨드에 대한 기존 데이터셋이 없기 때문에 저자들은 10만 개의 고유한 내부 장면에 대한 합성 데이터셋인 **Aria Synthetic Environments (ASE)**를 공개적으로 출시했다. 각 장면에 대해 Project Aria의 전체 센서 데이터셋을 사용하여 궤적을 시뮬레이션하였다. 또한 깊이 및 instance segmentation를 포함한 다양한 ground-truth 소스를 공개하였다. 또한 렌더링된 각 시퀀스에 대해 제안된 SceneScript 언어에 아키텍처 레이아웃 ground-truth 정보가 제공된다. 
+장면 탐색 및 구조화된 언어 커맨드에 대한 기존 데이터셋이 없기 때문에 저자들은 10만 개의 고유한 내부 장면에 대한 합성 데이터셋인 **Aria Synthetic Environments (ASE)**를 공개적으로 출시했다. 각 장면에 대해 Project Aria의 전체 센서 데이터셋을 사용하여 궤적을 시뮬레이션하였다. 또한 깊이 및 instance segmentation을 포함한 다양한 ground-truth 소스를 공개하였다. 또한 렌더링된 각 시퀀스에 대해 제안된 SceneScript 언어에 아키텍처 레이아웃 ground-truth 정보가 제공된다. 
 
 저자들은 시각적 입력과 네트워크 아키텍처를 모두 고정한 상태로 유지하면서 SceneScript 언어에 대한 간단한 확장을 통해 SceneScript 방법을 새로운 task로 쉽게 확장할 수 있음을 보여주었다. 이를 통해 아키텍처 레이아웃과 3D bounding box를 공동으로 추론하는 방법이 탄생하였다. 
 

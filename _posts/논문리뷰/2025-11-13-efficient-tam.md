@@ -25,7 +25,7 @@ classes: wide
 
 저자들은 video object segmentation (VOS)와 track anything을 위해 일반적이고 계층적이지 않은 이미지 인코더를 재검토하였다. 구체적으로, [EfficientSAM](https://arxiv.org/abs/2312.00863)처럼 가벼운 일반 ViT 이미지 인코더 (ex. ViT-Tiny/-Small)를 사용하여 SAM 2의 복잡도를 줄이면서도 적절한 성능을 유지하는 방안을 제안하였다. 또한, 메모리 모듈 가속을 위한 효율적인 cross-attention 기법을 제안하였다. 이 기법은 메모리 공간 토큰의 기본 구조를 활용하여 구현된다. 메모리 공간 토큰은 강력한 locality를 가지며, 메모리 공간 토큰의 더 coarse한 표현이 cross-attention 수행을 위한 좋은 대안이 될 수 있다.
 
-**EfficientTAM**은 강력한 semi-supervised VOS 방법보다 성능이 뛰어나면서도 효율성이 더 높다. SAM 2와 비교했을 때, EfficientTAM은 SA-V 테스트 데이터셋에서 비슷한 성능을 보이며, FPS는 약 2배 감소했다. Image segmentation 벤치마크인 SA-23에서 EfficientTAM은 60.7%의 정확도를 달성했으며, SAM은 59.1%, SAM 2는 61.9%의 정확도를 보였다. 또한, iPhone 15 Pro Max에서 약 10 FPS의 속도로 합리적인 video segmentation 성능을 구현하였다.
+**EfficientTAM**은 강력한 semi-supervised VOS 방법보다 성능이 뛰어나면서도 효율성이 더 높다. SAM 2와 비교했을 때, EfficientTAM은 SA-V 테스트 데이터셋에서 비슷한 성능을 보이며, 속도는 약 2배 빠르다. Image segmentation 벤치마크인 SA-23에서 EfficientTAM은 60.7%의 정확도를 달성했으며, SAM은 59.1%, SAM 2는 61.9%의 정확도를 보였다. 또한, iPhone 15 Pro Max에서 약 10 FPS의 속도로 합리적인 video segmentation 성능을 구현하였다.
 
 ## Method
 ### 1. SAM 2
@@ -53,7 +53,7 @@ $$
 <center><img src='{{"/assets/img/efficient-tam/efficient-tam-fig2.webp" | relative_url}}' width="100%"></center>
 
 ##### 효율적인 이미지 인코더
-이미지 인코더의 역할은 각 고해상도 프레임에 대한 feature 임베딩을 생성하는 것이다. 저자들은 [EfficientSAM](https://arxiv.org/abs/2312.00863)의 사전 학습된 기본 ViT 이미지 인코더를 사용하여 프레임 feature를 추출하였다. SAM 2의 이미지 인코더와 달리, 이 이미지 인코더는 단일 스케일 feature map을 제공하며, 디코딩 과정에서 마스크 디코더의 feature가 upsampling layer에 더해지지지 않는다.
+이미지 인코더의 역할은 각 고해상도 프레임에 대한 feature 임베딩을 생성하는 것이다. 저자들은 [EfficientSAM](https://arxiv.org/abs/2312.00863)의 사전 학습된 기본 ViT 이미지 인코더를 사용하여 프레임 feature를 추출하였다. SAM 2의 이미지 인코더와 달리, 이 이미지 인코더는 단일 스케일 feature map을 제공하며, 디코딩 과정에서 마스크 디코더의 feature가 upsampling layer에 더해지지 않는다.
 
 구체적으로, 저자들은 16$\times$16 패치 크기를 갖는 ViT-Small과 ViT-Tiny를 이미지 인코더로 채택하였다. 고해상도 프레임에서 효율적으로 feature를 추출하기 위해, 14$\times$14 non-overlapping windowed attention을 사용하고, 4개의 block마다 global attention block을 사용한다. 이미지 인코더는 16배 감소된 64$\times$64 해상도의 feature 임베딩을 출력한다.
 

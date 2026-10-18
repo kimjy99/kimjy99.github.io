@@ -13,7 +13,7 @@ use_math: true
 classes: wide
 ---
 
-> ICML 2025. [[Paper](https://arxiv.org/abs/2501.16975)] [[Github](https://github.com/s3anwu/pbrnerf)]  
+> ICML 2025. [[Paper](https://arxiv.org/abs/2501.16975)]  
 > Sean Wu, Shamik Basu, Tim Broedermann, Luc Van Gool, Christos Sakaridis  
 > ETH Zurich | University Of Bologna | INSAIT  
 > 28 Jan 2025  
@@ -23,22 +23,22 @@ classes: wide
 ## Introduction
 최근 LLM의 tokenization은 scaling law와 관련이 있는 것으로 밝혀졌다. 즉, 더 큰 모델일수록 더 많은 vocabulary를 필요로 하며 동일한 학습 비용에서 더 나은 성능을 달성할 수 있다. 실제로 입력 vocabulary를 확장해도 추가적인 계산 비용은 거의 발생하지 않지만, 출력 vocabulary를 확장하면 작은 모델의 학습 오버헤드가 크게 증가한다. 따라서 입력 vocabulary와 출력 vocabulary를 분리하여 별도의 연구를 수행하는 것이 자연스러우며, 본 논문은 근본적으로 이러한 아이디어에 기반한다.
 
-저자들은 Context-Free Grammar(CFG)에 대한 실험을 통해 다양한 규모의 모델에 대한 토큰 세분성과 vocabulary 크기의 영향을 체계적으로 분석했다. 
+저자들은 Context-Free Grammar (CFG)에 대한 실험을 통해 다양한 규모의 모델에 대한 토큰 세분성과 vocabulary 크기의 영향을 체계적으로 분석했다. 
 
 1. Tokenizer의 크기가 클수록 더 큰 모델의 성능이 향상되는 반면, 작은 모델에서는 어려움을 겪는다. 
 2. 입력 vocabulary와 출력 vocabulary가 분리된 후에는 입력 vocabulary만 확장하는 것이 모델 개선에 도움이 되는 반면, 출력 vocabulary가 커지면 작은 모델에 해로울 수 있다.
 
 이러한 통찰력은 인코딩 vocabulary와 디코딩 vocabulary를 분리하여 유연성과 성능 향상을 달성하는 Over-Tokenized Transformers 개발의 동기가 되었다.
 
-구체적으로, 대규모 계층적 $n$-gram 입력 vocabulary를 활용하는 Over-Encoding(OE)을 도입한다. 본 방법은 모델 scalability를 크게 향상시킨다. 입력 vocabulary 크기를 128배 증가시키면, 400M 모델이 추가 학습 비용 없이 1B 기준선의 학습 loss와 일치한다. 더욱 흥미로운 점은 입력 vocabulary 크기를 지수적으로 증가시키면 loss가 선형적으로 감소한다는 것이다. 이러한 결과는 scaling law의 새로운 차원을 제시하며, 임베딩 파라미터가 새로운 scaling 가능한 차원임을 시사한다.
+구체적으로, 대규모 계층적 $n$-gram 입력 vocabulary를 활용하는 Over-Encoding (OE)을 도입한다. 본 방법은 모델 scalability를 크게 향상시킨다. 입력 vocabulary 크기를 128배 증가시키면, 400M 모델이 추가 학습 비용 없이 1B 기준선의 학습 loss와 일치한다. 더욱 흥미로운 점은 입력 vocabulary 크기를 지수적으로 증가시키면 loss가 선형적으로 감소한다는 것이다. 이러한 결과는 scaling law의 새로운 차원을 제시하며, 임베딩 파라미터가 새로운 scaling 가능한 차원임을 시사한다.
 
 또한, 저자들은 더 큰 출력 vocabulary를 활용하여 더욱 세밀한 감독을 제공하는 Over-Decoding (OD) 개념을 제안하였다. 본 논문에서는 일반적으로 multi-token prediction 방법을 OD의 근사로 취급한다. 저자들은 over-encoding과 over-decoding을 결합하여 Over-Tokenized Transformer를 구축했는데, 이는 둘 중 하나만 적용하는 것보다 더 큰 잠재력을 보여주었다.
 
-Over-encoding에 많은 양의 임베딩 파라미터를 도입했지만, 임베딩 파라미터가 매우 sparse하게 사용되기 때문에 학습 및 inference 비용은 거의 증가하지 않는다. 저자들은 대규모 vocabulary로 인해 발생하는 계산 및 메모리 문제를 완화하는 효율적인 엔지니어링 솔루션을 제안하였며, 그 결과 추가 학습 오버헤드가 5% 미만으로 감소하였다.
+Over-encoding에 많은 양의 임베딩 파라미터를 도입했지만, 임베딩 파라미터가 매우 sparse하게 사용되기 때문에 학습 및 inference 비용은 거의 증가하지 않는다. 저자들은 대규모 vocabulary로 인해 발생하는 계산 및 메모리 문제를 완화하는 효율적인 엔지니어링 솔루션을 제안하였으며, 그 결과 추가 학습 오버헤드가 5% 미만으로 감소하였다.
 
 ## Method
 ### 1. Insights from Synthetic Experiments
-저자들은 Context-Free Grammar (CFG)을 대상 언어로 사용하여 최대 729자 길이의 3개의 서로 다른 문자로 구성된 시퀀스를 생성했다. 이 설정을 통해 실제 언어 분포를 완전히 파악할 수 있으므로 언어 모델을 정확하게 평가할 수 있다. 저자들은 CFG에서 생성된 샘플에 대해 next-token prediction loss를 사용하여 다양한 크기의 GPT-2 모델을 학습시키고, 유효 생성 비율을 측정하는 모델 생성 시퀀스의 정확도를 기반으로 모델을 평가했다.
+저자들은 Context-Free Grammar (CFG)를 대상 언어로 사용하여 최대 729자 길이의 3개의 서로 다른 문자로 구성된 시퀀스를 생성했다. 이 설정을 통해 실제 언어 분포를 완전히 파악할 수 있으므로 언어 모델을 정확하게 평가할 수 있다. 저자들은 CFG에서 생성된 샘플에 대해 next-token prediction loss를 사용하여 다양한 크기의 GPT-2 모델을 학습시키고, 유효 생성 비율을 측정하는 모델 생성 시퀀스의 정확도를 기반으로 모델을 평가했다.
 
 첫 번째 실험은 다양한 세분성 수준의 tokenizer를 사용하는 언어 모델의 성능을 비교하는 것을 목표로 하였다. Baseline tokenizer는 CFG에서 정의한 3개의 문자를 사용하여 vocabulary를 구성하고, 문장을 문자 단위로 tokenize하는데, 이를 1-gram tokenizer라고 한다. 또한, n개의 연속된 문자의 가능한 조합 $3^n$개로 구성된 vocabulary를 갖는 $n$-gram tokenizer를 정의한다. 두 tokenizer를 각각 사용하여 크고 작은 GPT-2 모델을 모두 학습시켰다.
 
@@ -80,7 +80,7 @@ $$
 여기서 $p \ge V$이면 $f$는 전단사 함수이다. 일반적으로 $f$의 범위를 최대한 작게 유지하기 위해 $p$를 $V$로 설정한다. $x_i^{(-1)} = x_i$는 표준 transformer 입력에 해당한다.
 
 ##### 일반적인 $n$-gram embedder
-유연한 $n$-gram embedder 모듈을 설계하는 핵심은 vocabulary 크기 $m$을 설정 가능하도록 만드는 것이다. 저자들은 간단한 tiled matrix parameterization 방식을 사용하여 이를 효율적으로 달성하였다. 구체적으로, tiled matrix parameterization은 $m \times d$ 크기의 임베딩 테이블을 타일링을 통해 $V^n \times d$ 크기의 임베딩 테이블로 확장한다. 실제로 lookup 과정은 간단하다. 입력 토큰 $x^{(n)}$은 m에 대한 나머지 연산으로 매핑된다.
+유연한 $n$-gram embedder 모듈을 설계하는 핵심은 vocabulary 크기 $m$을 설정 가능하도록 만드는 것이다. 저자들은 간단한 tiled matrix parameterization 방식을 사용하여 이를 효율적으로 달성하였다. 구체적으로, tiled matrix parameterization은 $m \times d$ 크기의 임베딩 테이블을 타일링을 통해 $V^n \times d$ 크기의 임베딩 테이블로 확장한다. 실제로 lookup 과정은 간단하다. 입력 토큰 $x^{(n)}$은 $m$에 대한 나머지 연산으로 매핑된다.
 
 $$
 \begin{equation}

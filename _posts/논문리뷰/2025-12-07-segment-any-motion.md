@@ -45,7 +45,7 @@ classes: wide
 
 좌표에서 인접한 샘플링 포인트는 공간적으로 가까운 feature의 oversmoothing을 초래할 수 있으므로, [NeRF](https://kimjy99.github.io/논문리뷰/nerf)와 비슷하게 위치 인코딩에 주파수 변환을 적용하여 세밀한 공간적 디테일을 더욱 효과적으로 포착한다.
 
-최종 궤적은 두 개의 MLP를 통과하여 중간 feature를 생성한 다음, 이 feature들을 transformer 인코더 $\mathcal{E}$에 공급한다. 입력 데이터의 장기적인 특성을 고려하여, 인코더 $\mathcal{E}$를 위한 **Spatio-Temporal Trajectory Attention**을 제안하였다. 이 attention은 track과 시간 차원을 번갈아 가며 작동하는 attention layer를 끼어넣은 디자인이다. 이 디자인을 통해 모델은 각 궤적 내의 시간적 역학과 여러 궤적 간의 공간적 관계를 모두 포착할 수 있다. 마지막으로, 개별 포인트가 아닌 각 전체 궤적에 대한 feature 표현을 얻기 위해 시간 차원을 따라 max-pooling을 수행한다. 이 프로세스는 각 궤적에 대해 하나의 feature 벡터를 생성하여 자연스럽게 각 궤적의 고유한 모션 패턴을 암시적으로 포착하는 고차원 feature track을 형성한다.
+최종 궤적은 두 개의 MLP를 통과하여 중간 feature를 생성한 다음, 이 feature들을 transformer 인코더 $\mathcal{E}$에 공급한다. 입력 데이터의 장기적인 특성을 고려하여, 인코더 $\mathcal{E}$를 위한 **Spatio-Temporal Trajectory Attention**을 제안하였다. 이 attention은 track과 시간 차원을 번갈아 가며 작동하는 attention layer를 끼워 넣은 디자인이다. 이 디자인을 통해 모델은 각 궤적 내의 시간적 역학과 여러 궤적 간의 공간적 관계를 모두 포착할 수 있다. 마지막으로, 개별 포인트가 아닌 각 전체 궤적에 대한 feature 표현을 얻기 위해 시간 차원을 따라 max-pooling을 수행한다. 이 프로세스는 각 궤적에 대해 하나의 feature 벡터를 생성하여 자연스럽게 각 궤적의 고유한 모션 패턴을 암시적으로 포착하는 고차원 feature track을 형성한다.
 
 ### 2. Per-trajectory Motion Prediction
 모션 패턴을 인코딩했지만 모션 단서만으로 움직이는 물체를 구분하는 것은 여전히 어렵다. 이는 고도로 추상화된 궤적에서 물체의 움직임과 카메라 모션을 구분하는 학습이 모델에 어렵기 때문이다. 본 논문에서는 self-supervised 모델인 [DINO v2](https://kimjy99.github.io/논문리뷰/dinov2)에서 예측한 DINO feature를 통합하여 외형 정보를 일반화하는 데 도움을 주었다. 그러나 단순히 DINO feature를 입력으로 도입하면 모델이 semantic에 지나치게 의존하게 되어, 동일한 semantic 카테고리 내에서 움직이는 물체와 정적 물체를 구분하는 능력이 저하된다. 이 문제를 해결하기 위해, 저자들은 transformer 디코더 $\mathcal{D}$가 semantic 단서를 고려하면서도 모션 정보의 우선순위를 정할 수 있도록 하는 **Motion-Semantic Decoupled Embedding**을 제안하였다.
@@ -110,5 +110,5 @@ Transformer 디코더 $\mathcal{D}$의 인코더 레이어는 모션 정보만�
 1. Tracking 모델에 대한 의존한다.
 2. 잠깐 나타나는 빠르게 움직이는 물체에 실패할 가능성이 높다.
 3. 더 뚜렷한 움직임을 보이는 물체가 있는 경우, 덜 역동적인 물체가 간과될 수 있다.
-4. SAM2에 제공된 프롬프트애 따라 전체 물체에 대한 결과가 아닌 부분적이거나 단편적인 결과를 초래할 수 있다.
+4. SAM2에 제공된 프롬프트에 따라 전체 물체에 대한 결과가 아닌 부분적이거나 단편적인 결과를 초래할 수 있다.
 5. 대부분의 물체가 유사한 동작 상태를 공유하는 경우, 개별 물체를 효과적으로 구분하지 못한다.

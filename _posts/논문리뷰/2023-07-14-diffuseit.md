@@ -31,7 +31,7 @@ Image translation은 모델이 입력 이미지를 받아 타겟 도메인으로
 
 실제로 diffusion model에 의한 image translation에서 가장 중요한 질문 중 하나는 입력 이미지의 구조 정보(또는 내용)를 유지하면서 semantic 정보(또는 스타일)만 변환하는 것이다. 일치하는 입력과 타겟 도메인 이미지로 학습된 조건부 diffusion model에서는 문제가 될 수 없지만 이러한 학습은 많은 image translation task에서 실용적이지 않다. 반면 unconditional diffusion model을 사용하는 기존의 방법은 semantic과 콘텐츠가 동시에 변하는 얽힘 문제 (entanglement problem)로 인해 콘텐츠 정보를 보존하지 못하는 경우가 많다. DiffusionCLIP은 DDIM과 pixel-wise loss를 사용하여 이 문제를 해결하려고 시도했지만 계산 비용이 많이 드는 새로운 타겟 도메인에 대해 score function을 fine-tuning해야 한다.
 
-입력 이미지의 콘텐츠를 유지하면서 동시에 타겟 텍스트 또는 이미지의 semantic을 따르는 출력을 생성하는 방식으로 diffusion process를 제어하기 위해 사전 학습된 Vision Transformer (ViT)를 사용하여 loss function을 도입한다. 구체적으로, DINO ViT 모델에서 multi-head self-attention layer의 중간 key와 마지막 레이어의 classification 토큰을 추출하여 각각 콘텐츠 및 스타일 정규화로 사용한다. 구조적 정보를 보존하기 위해 샘플링 중에 입력의 중간 key와 denoise된 이미지 간의 similarity loss와 contrastive loss을 사용한다. 그런 다음 denoise된 샘플과 타겟 도메인 간의 토큰을 일치시켜 image guided style transfer가 수행되는 반면 텍스트 기반 style transfer에는 추가 CLIP loss가 사용된다. 샘플링 속도를 더욱 향상시키기 위해 새로운 semantic divergence loss와 리샘플링 전략을 사용한다.
+입력 이미지의 콘텐츠를 유지하면서 동시에 타겟 텍스트 또는 이미지의 semantic을 따르는 출력을 생성하는 방식으로 diffusion process를 제어하기 위해 사전 학습된 Vision Transformer (ViT)를 사용하여 loss function을 도입한다. 구체적으로, DINO ViT 모델에서 multi-head self-attention layer의 중간 key와 마지막 레이어의 classification 토큰을 추출하여 각각 콘텐츠 및 스타일 정규화로 사용한다. 구조적 정보를 보존하기 위해 샘플링 중에 입력의 중간 key와 denoise된 이미지 간의 similarity loss와 contrastive loss를 사용한다. 그런 다음 denoise된 샘플과 타겟 도메인 간의 토큰을 일치시켜 image guided style transfer가 수행되는 반면 텍스트 기반 style transfer에는 추가 CLIP loss가 사용된다. 샘플링 속도를 더욱 향상시키기 위해 새로운 semantic divergence loss와 리샘플링 전략을 사용한다.
 
 ## Proposed Method
 <center><img src='{{"/assets/img/diffuseit/diffuseit-fig2.webp" | relative_url}}' width="90%"></center>
@@ -167,7 +167,7 @@ $$
 
 여기서 $d_\textrm{trg}$는 타겟 텍스트 프롬프트이고, $E_I$와 $E_T$는 각각 CLIP의 이미지 인코더와 텍스트 인코더를 뜻한다. 이 loss가 diffusion model에게 텍스트 guidance를 줄 수 있음에도 불구하고 결과 이미지의 품질이 좋지 않다.
 
-대신 $d_\textrm{trg}$, $d_\textrm{src}$, $x_\textrm{src}$ 측면에서 출력 이미지의 CLIP 임베딩을 타겟 벡터와 일치시키는 input-aware directional CLIP loss를 사용할 것을 제안한다. 보다 구체적으로 CLIP 기반 semantic loss은 다음과 같이 설명된다.
+대신 $d_\textrm{trg}$, $d_\textrm{src}$, $x_\textrm{src}$ 측면에서 출력 이미지의 CLIP 임베딩을 타겟 벡터와 일치시키는 input-aware directional CLIP loss를 사용할 것을 제안한다. 보다 구체적으로 CLIP 기반 semantic loss는 다음과 같이 설명된다.
 
 $$
 \begin{equation}
@@ -224,7 +224,7 @@ $$
 \end{equation}
 $$
 
-여기서 $$\lambda_\textrm{rng}$$는 reverse process의 불규칙한 step을 방지하기 위한 정규화 loss이다. 텍스트 조건 $d_\textrm{src}$와 $d_\textrm{trg}$ 대신 타겟 스타일 이미지 $x_\textrm{trg}$가 제공된 경우 $\ell_\textrm{CLIP}$은 단순히 $\ell_\textrm{sty}$를 대체한다.
+여기서 $$\lambda_\textrm{rng}$$는 reverse process의 불규칙한 step을 방지하기 위한 정규화 loss가다. 텍스트 조건 $d_\textrm{src}$와 $d_\textrm{trg}$ 대신 타겟 스타일 이미지 $x_\textrm{trg}$가 제공된 경우 $\ell_\textrm{CLIP}$은 단순히 $\ell_\textrm{sty}$를 대체한다.
 
 ## Experiment
 - 구현 디테일

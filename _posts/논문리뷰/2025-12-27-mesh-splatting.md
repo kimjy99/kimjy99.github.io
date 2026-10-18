@@ -21,9 +21,9 @@ classes: wide
 <center><img src='{{"/assets/img/mesh-splatting/mesh-splatting-fig1.webp" | relative_url}}' width="100%"></center>
 
 ## Introduction
-최근 [Triangle Splatting](https://arxiv.org/abs/2505.19175)은 볼륨 렌더링을 통해 삼각형을 최적화하여 [3DGS](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)의 Gaussian을 삼각형으로 대체하는 방법을 제안했다. 그러나 삼각형을 게임 엔진에서 렌더링할 경우, 게임 엔진이 삼각형을 불투명하게 가정하기 때문에 시각적 품질이 눈에 띄게 저하된다. 또한, 물리 기반 시뮬레이션에 종종 필요한 연결된 다각형 메쉬가 아닌, 삼각형들이 뒤섞인 형태를 이룬다.
+최근 [Triangle Splatting](https://kimjy99.github.io/논문리뷰/triangle-splatting)은 볼륨 렌더링을 통해 삼각형을 최적화하여 [3DGS](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)의 Gaussian을 삼각형으로 대체하는 방법을 제안했다. 그러나 삼각형을 게임 엔진에서 렌더링할 경우, 게임 엔진이 삼각형을 불투명하게 가정하기 때문에 시각적 품질이 눈에 띄게 저하된다. 또한, 물리 기반 시뮬레이션에 종종 필요한 연결된 다각형 메쉬가 아닌, 삼각형들이 뒤섞인 형태를 이룬다.
 
-본 논문에서는 앞서 언급한 모든 한계를 해결하기 위해 **MeshSplatting**을 소개한다. MeshSplatting은 현재 SOTA 방법보다 2배 빠른 학습 속도를 유지하면서 시각적 품질을 보존하는 메쉬 기반 장면 표현의 end-to-end 최적화를 제공한다. 제한된 Delaunay triangulation으로 traingle soup에서 연결된 메쉬를 생성한다. 삼각형들은 자연스럽게 서로 연결되며, vertex에 저장된 값들은 각 삼각형에 걸쳐 부드럽게 interpolation된다. 최적화 과정은 삼각형이 불투명해야 한다는 점을 고려하여 게임 엔진에서 고품질 렌더링을 직접 구현할 수 있도록 하였다. 이를 통해 depth buffer나 occlusion culling과 같은 기존 기술을 활용할 수 있다.
+본 논문에서는 앞서 언급한 모든 한계를 해결하기 위해 **MeshSplatting**을 소개한다. MeshSplatting은 현재 SOTA 방법보다 2배 빠른 학습 속도를 유지하면서 시각적 품질을 보존하는 메쉬 기반 장면 표현의 end-to-end 최적화를 제공한다. 제한된 Delaunay triangulation으로 triangle soup에서 연결된 메쉬를 생성한다. 삼각형들은 자연스럽게 서로 연결되며, vertex에 저장된 값들은 각 삼각형에 걸쳐 부드럽게 interpolation된다. 최적화 과정은 삼각형이 불투명해야 한다는 점을 고려하여 게임 엔진에서 고품질 렌더링을 직접 구현할 수 있도록 하였다. 이를 통해 depth buffer나 occlusion culling과 같은 기존 기술을 활용할 수 있다.
 
 MeshSplatting은 기존의 메쉬 기반 novel view synthesis 방식보다 더 높은 시각적 충실도를 달성하고 더 세밀한 기하학적 디테일을 포착한다. 또한, MeshSplatting은 메쉬를 end-to-end로 재구성하여 메쉬 추출 과정 없이 연결되고 불투명하며 색상이 있는 삼각형 메쉬를 직접 생성하는 최초의 방법이다. MeshSplatting의 표현 방식은 게임 엔진에 직접 가져올 수 있어 다양한 응용 분야에 활용될 수 있다.
 
@@ -31,7 +31,7 @@ MeshSplatting은 기존의 메쉬 기반 novel view synthesis 방식보다 더 �
 ### 1. Background
 <center><img src='{{"/assets/img/mesh-splatting/mesh-splatting-fig2.webp" | relative_url}}' width="55%"></center>
 <br>
-[Triangle Splatting](https://arxiv.org/abs/2505.19175)에서 각 삼각형 $$\textbf{T}_m$$은 세 개의 vertex $$\textbf{v}_i \in \mathbb{R}^3$$, 색상 $$\textbf{c}_m$$, smoothness 파라미터 $$\sigma_m$$, 불투명도 $o_m$으로 정의된다. Rasterization은 핀홀 카메라 모델을 사용하여 삼각형 $$\textbf{T}_m$$의 각 vertex $$\textbf{v}_i$$를 이미지 평면에 projection하는 것으로 시작된다. 삼각형이 픽셀 $\textbf{p}$에 미치는 영향을 파악하고 splatting 과정을 미분 가능하게 하기 위해 이미지 공간에서 2D 삼각형의 SDF $\phi$는 다음과 같이 정의된다.
+[Triangle Splatting](https://kimjy99.github.io/논문리뷰/triangle-splatting)에서 각 삼각형 $$\textbf{T}_m$$은 세 개의 vertex $$\textbf{v}_i \in \mathbb{R}^3$$, 색상 $$\textbf{c}_m$$, smoothness 파라미터 $$\sigma_m$$, 불투명도 $o_m$으로 정의된다. Rasterization은 핀홀 카메라 모델을 사용하여 삼각형 $$\textbf{T}_m$$의 각 vertex $$\textbf{v}_i$$를 이미지 평면에 projection하는 것으로 시작된다. 삼각형이 픽셀 $\textbf{p}$에 미치는 영향을 파악하고 splatting 과정을 미분 가능하게 하기 위해 이미지 공간에서 2D 삼각형의 SDF $\phi$는 다음과 같이 정의된다.
 
 $$
 \begin{equation}
@@ -105,15 +105,15 @@ Window 파라미터 $\sigma$는 1.0으로 초기화되는데, 이는 삼각형�
 
 ### 5. Optimization details
 ##### Densification
-초기 삼각형 집합이 충분히 dense하지 않을 수 있으므로, [3DGS-MCMC](https://kimjy99.github.io/논문리뷰/3dgs-mcmc)의 아이디어를 적용하여 추가적인 삼각형을 생성한다. 각 densification 단계에서, 후보 삼각형은 베르누이 샘플링을 사용하여 삼각형의 불투명도 $o$로부터 직접 구성된 확률 분포에서 샘플링하여 선택된다. [Triangle Splatting](https://arxiv.org/abs/2505.19175)과 마찬가지로 새로운 삼각형은 중점 분할을 통해 생성된다. 선택된 삼각형의 세 변의 중점을 연결하여 네 개의 작은 삼각형으로 분할한다. 새로운 중점들은 vertex 집합 $\mathcal{V}$에 추가되고, 인접한 두 vertex의 평균 색상과 불투명도가 할당된다.
+초기 삼각형 집합이 충분히 dense하지 않을 수 있으므로, [3DGS-MCMC](https://kimjy99.github.io/논문리뷰/3dgs-mcmc)의 아이디어를 적용하여 추가적인 삼각형을 생성한다. 각 densification 단계에서, 후보 삼각형은 베르누이 샘플링을 사용하여 삼각형의 불투명도 $o$로부터 직접 구성된 확률 분포에서 샘플링하여 선택된다. [Triangle Splatting](https://kimjy99.github.io/논문리뷰/triangle-splatting)과 마찬가지로 새로운 삼각형은 중점 분할을 통해 생성된다. 선택된 삼각형의 세 변의 중점을 연결하여 네 개의 작은 삼각형으로 분할한다. 새로운 중점들은 vertex 집합 $\mathcal{V}$에 추가되고, 인접한 두 vertex의 평균 색상과 불투명도가 할당된다.
 
 초기 단계에서 connectivity를 활용함으로써 새로 생성되는 vertex의 수를 크게 줄일 수 있다. 연결된 상태에서 분할하면 분할 후 6개의 새로운 vertex만 생성되는 반면, 삼각형 집합이 있는 초기 설정에서는 12개의 새로운 vertex가 생성된다.
 
 ##### Pruning
-5000 iteration (Stage 1, 불투명도 스케줄링 시작 직전)에서 불투명도 $o$가 0.2보다 작은 모든 삼각형을 제거하여 약 70%를 제거한다. 1단계의 나머지 과정에서는 모든 뷰에서 최대 볼륨 렌더링 블렌딩 가중치 $w = T \cdot o$를 모니터링하고 $w < O_t$일 때마다 pruning를 수행하여 표현이 더 불투명해짐에 따라 가려진 삼각형을 제거한다. Stage 2에서는 pruning이 비활성화되지만, 학습이 끝날 때 모든 학습 뷰에 대해 최종 pruning을 수행하여 렌더링되지 않은 삼각형을 제거한다.
+5000 iteration (Stage 1, 불투명도 스케줄링 시작 직전)에서 불투명도 $o$가 0.2보다 작은 모든 삼각형을 제거하여 약 70%를 제거한다. 1단계의 나머지 과정에서는 모든 뷰에서 최대 볼륨 렌더링 블렌딩 가중치 $w = T \cdot o$를 모니터링하고 $w < O_t$일 때마다 pruning을 수행하여 표현이 더 불투명해짐에 따라 가려진 삼각형을 제거한다. Stage 2에서는 pruning이 비활성화되지만, 학습이 끝날 때 모든 학습 뷰에 대해 최종 pruning을 수행하여 렌더링되지 않은 삼각형을 제거한다.
 
 ##### Training losses
-모든 vertex의 3D 위치 $$\textbf{v}_i$$ vi, 불투명도 $o_i$, 그리고 spherical harmonics 색상 계수 $$\textbf{c}_i$$를 최적화한다. 학습 loss는 [3DGS](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)의 photometric loss $$\mathcal{L}_\textrm{3DGS}$$, [3DGS-MCMC](https://kimjy99.github.io/논문리뷰/3dgs-mcmc)의 opacity loss $$\mathcal{L}_o$$, 뒤에서 설명할 depth alignment loss $$\mathcal{L}_z$$, [2DGS](https://kimjy99.github.io/논문리뷰/2d-gaussian-splatting)의 normal loss $$\mathcal{L}_n$$, [Hierarchical 3DGS](https://arxiv.org/abs/2406.12080)의 depth loss $$\mathcal{L}_d$$를 결합한다.
+모든 vertex의 3D 위치 $$\textbf{v}_i$$, 불투명도 $o_i$, 그리고 spherical harmonics 색상 계수 $$\textbf{c}_i$$를 최적화한다. 학습 loss는 [3DGS](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)의 photometric loss $$\mathcal{L}_\textrm{3DGS}$$, [3DGS-MCMC](https://kimjy99.github.io/논문리뷰/3dgs-mcmc)의 opacity loss $$\mathcal{L}_o$$, 뒤에서 설명할 depth alignment loss $$\mathcal{L}_z$$, [2DGS](https://kimjy99.github.io/논문리뷰/2d-gaussian-splatting)의 normal loss $$\mathcal{L}_n$$, [Hierarchical 3DGS](https://arxiv.org/abs/2406.12080)의 depth loss $$\mathcal{L}_d$$를 결합한다.
 
 $$
 \begin{equation}

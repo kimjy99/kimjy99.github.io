@@ -155,7 +155,7 @@ Animate Anyone은 캐릭터 모션을 포착하기 위해 스켈레톤 표현을
 #### Depth-wise Pose Modulation
 저자들은 스켈레톤 신호를 유지하면서, 구조화된 깊이(structured depth)를 추가하여 팔다리 사이의 공간적 관계 표현을 강화하였다. 이 접근 방식을 depth-wise pose modulation이라고 한다. 
 
-모션 신호의 경우 [Sapien](https://arxiv.org/abs/2408.12569)을 활용하여 소스 동영상에서 스켈레톤과 깊이 정보를 추출한다. 원본 depth map에는 형태 누출의 발생할 가능성이 있으므로, 이를 완화하기 위해 스켈레톤을 활용하여 다음과 같이 깊이 정보를 구조화한다. 
+모션 신호의 경우 [Sapien](https://arxiv.org/abs/2408.12569)을 활용하여 소스 동영상에서 스켈레톤과 깊이 정보를 추출한다. 원본 depth map에는 형태 누출이 발생할 가능성이 있으므로, 이를 완화하기 위해 스켈레톤을 활용하여 다음과 같이 깊이 정보를 구조화한다. 
 
 1. 스켈레톤 이미지를 이진화하여 스켈레톤 마스크를 얻은 다음, 이 마스크 영역 내에서 깊이 정보를 추출한다. 
 2. Pose guider와 동일한 아키텍처의 Conv2D를 사용하여 스켈레톤 맵과 구조화된 depth map을 처리한다. 
@@ -173,7 +173,7 @@ Animate Anyone은 캐릭터 모션을 포착하기 위해 스켈레톤 표현을
   - 레퍼런스 이미지는 전체 동영상 시퀀스에서 랜덤하게 샘플링됨
 
 ### 1. Qualitative Results
-다음은 Animate Anyone 2이 생성한 동영상의 예시들이다. 
+다음은 Animate Anyone 2가 생성한 동영상의 예시들이다. 
 
 <center><img src='{{"/assets/img/animate-anyone-2/animate-anyone-2-fig4.webp" | relative_url}}' width="100%"></center>
 

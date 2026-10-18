@@ -151,7 +151,7 @@ $$
 
 ### 4. Training
 ##### Loss Functions
-3D Gaussian을 예측한 후 새로운 뷰에서 렌더링한다. [MVSplat](https://arxiv.org/abs/2403.14627)이나 [pixelSplat](https://arxiv.org/abs/2312.12337)과 유사하게, MSE loss와 LPIPS loss을 사용하며, 가중치는 각각 1과 0.05이다. 
+3D Gaussian을 예측한 후 새로운 뷰에서 렌더링한다. [MVSplat](https://arxiv.org/abs/2403.14627)이나 [pixelSplat](https://arxiv.org/abs/2312.12337)과 유사하게, MSE loss와 LPIPS loss를 사용하며, 가중치는 각각 1과 0.05이다. 
 
 ##### Free-View Training
 저자들은 3D Gaussian의 localization에 더 많은 기하학적 제약을 추가하고 특정 수의 입력 뷰를 가진 generalizable 3DGS의 성능을 풀어내기 위해 **Free-View Training (FVT)** 전략을 제안하였다. 이를 위해 무작위로 $T$개의 컨텍스트 뷰를 샘플링하고 (2 ~ 8) 더 넓은 뷰 보간에서 학습시킨다. 긴 시퀀스 학습은 효율적인 feature 추출 및 집계로 인해 실현 가능하다. FVT는 새로운 뷰에서 깊이 추정에 상당히 기여한다.

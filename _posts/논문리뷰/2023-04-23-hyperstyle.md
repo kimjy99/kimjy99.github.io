@@ -50,7 +50,7 @@ $$
 \end{equation}
 $$
 
-여기서 $G(w; \theta)$는 사전 학습된 generator $G$에 의해 latent $w$로 생성된 이미지이다. $\mathcal{L}$은 loss이며, 일반적으로 $L_2$나 LPIPS를 사용한다. 위 식을 최적화로 푸는 것은 일반적으로 이미지당 몇 분이 소요된다. Inference 시간을 줄이기 위해서는 인코더 $E$를 대규모 이미지셋 $$\{x^i\}_{i=1}^N$$에서
+여기서 $G(w; \theta)$는 사전 학습된 generator $G$에 의해 latent $w$로 생성된 이미지이다. $\mathcal{L}$은 loss가며, 일반적으로 $L_2$나 LPIPS를 사용한다. 위 식을 최적화로 푸는 것은 일반적으로 이미지당 몇 분이 소요된다. Inference 시간을 줄이기 위해서는 인코더 $E$를 대규모 이미지셋 $$\{x^i\}_{i=1}^N$$에서
 
 $$
 \begin{equation}
@@ -135,7 +135,7 @@ $$
 Refinement step 수는 학습 중에 $T = 5$로 설정된다. 각 refinement step에서 loss를 계산한다. $$\hat{w}_{init}$$은 반복 프로세스 중에 고정된 상태로 유지된다. 최종 반전 $\hat{y}$는 마지막 step에서 얻은 재구성이다. 
 
 ### 5. Training Losses
-인코더 기반 방법과 유사하게 학습은 이미지 space 재구성 목적 함수에 따라 진행된다. 픽셀별 $L_2$ loss와 LPIPS perceptual loss의 가중합을 사용한다. 얼굴 도메인의 경우 얼굴 신원을 보존하기 위해 사전 학습된 얼굴 인식 네트워크를 사용하여 신원 기반 유사성 loss을 추가로 적용한다. 얼굴이 아닌 도메인에 대해 MoCo 기반 유사성 loss를 적용한다. 최종 loss는 다음과 같다.
+인코더 기반 방법과 유사하게 학습은 이미지 space 재구성 목적 함수에 따라 진행된다. 픽셀별 $L_2$ loss와 LPIPS perceptual loss의 가중합을 사용한다. 얼굴 도메인의 경우 얼굴 신원을 보존하기 위해 사전 학습된 얼굴 인식 네트워크를 사용하여 신원 기반 유사성 loss를 추가로 적용한다. 얼굴이 아닌 도메인에 대해 MoCo 기반 유사성 loss를 적용한다. 최종 loss는 다음과 같다.
 
 $$
 \begin{equation}

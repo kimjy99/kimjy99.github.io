@@ -24,7 +24,7 @@ classes: wide
 
 텍스트 이미지를 만드는 기존 솔루션에는 Photoshop과 같은 이미지 처리 도구를 사용하여 이미지에 텍스트를 직접 추가하는 것이 포함된다. 그러나 배경의 복잡한 텍스처나 조명 변화로 인해 종종 부자연스러운 아티팩트가 발생한다. 최근에는 전통적인 방법의 한계를 극복하고 텍스트 렌더링 품질을 향상시키기 위해 diffusion model을 사용했다. 예를 들어 Imagen, eDiff-I, DeepFloyd은 diffusion model이 CLIP 텍스트 인코더보다 T5 시리즈 텍스트 인코더로 텍스트를 더 잘 생성함을 보여주었다. 일부 성공에도 불구하고 이러한 모델은 생성 프로세스에 대한 제어가 부족한 텍스트 인코더에만 초점을 맞춘다. 
 
-본 논문에서는 diffusion model 기반의 유연하고 제어 가능한 프레임워크인 **TextDiffuser**를 제안한다. 프레임워크는 두 단계로 구성된다. 첫 번째 단계에서는 Layout Transformer를 사용하여 텍스트 프롬프트에서 각 키워드의 좌표를 찾고 문자 레벨 segmentation mask를 얻는다. 두 번째 단계에서는 생성된 segmentation mask를 텍스트 프롬프트와 함께 diffusion process의 조건으로 활용하여 latent diffusion model을 fine-tuning한다. 생성된 텍스트 영역의 품질을 더욱 향상시키기 위해 latent space에서 character-aware loss을 도입한다. 
+본 논문에서는 diffusion model 기반의 유연하고 제어 가능한 프레임워크인 **TextDiffuser**를 제안한다. 프레임워크는 두 단계로 구성된다. 첫 번째 단계에서는 Layout Transformer를 사용하여 텍스트 프롬프트에서 각 키워드의 좌표를 찾고 문자 레벨 segmentation mask를 얻는다. 두 번째 단계에서는 생성된 segmentation mask를 텍스트 프롬프트와 함께 diffusion process의 조건으로 활용하여 latent diffusion model을 fine-tuning한다. 생성된 텍스트 영역의 품질을 더욱 향상시키기 위해 latent space에서 character-aware loss를 도입한다. 
 
 <center><img src='{{"/assets/img/textdiffuser/textdiffuser-fig1.webp" | relative_url}}' width="90%"></center>
 <br>

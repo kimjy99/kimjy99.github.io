@@ -184,10 +184,10 @@ L_\textrm{line}^\textrm{row} = \sum_{i=1}^Q [L_\textrm{cls} (c_i, c_{\hat{\sigma
 \end{equation}
 $$
 
-여기서 $$L_\textrm{cls}$$는 focal loss이고 $$L_\textrm{reg}$$는 L1 loss이다.
+여기서 $$L_\textrm{cls}$$는 focal loss가고 $$L_\textrm{reg}$$는 L1 loss가다.
 
 #### Auxiliary segmentation loss
-행 구분자의 보조 segmentation loss는 binary cross-entropy loss이다.
+행 구분자의 보조 segmentation loss는 binary cross-entropy loss가다.
 
 $$
 \begin{equation}
@@ -198,7 +198,7 @@ $$
 여기서 $$S_\textrm{row}$$는 $$M_\textrm{row}$$에서 샘플링된 픽셀 집합이며, $$M_\textrm{row} (x, y)$$와 $$M_\textrm{row}^\ast (x, y)$$는 픽셀 $(x, y)$의 예측된 레이블과 ground-truth 레이블이다. $$M_\textrm{row}^\ast (x, y)$$는 이 픽셀이 행 구분자 내에 있는 경우에만 1이고 그렇지 않으면 0이다.
 
 #### Cell merging
-셀 병합 모듈의 loss는 binary cross-entropy loss이다.
+셀 병합 모듈의 loss는 binary cross-entropy loss가다.
 
 $$
 \begin{equation}

@@ -224,7 +224,7 @@ $$
 \end{equation}
 $$
 
-가중치 $\lambda_C$, $\lambda_P$, $\lambda_{FM}$은 각각 100, 10, 1로 설정하였다. Color loss는 생성된 이미지 $y$와 ground-truth 이미지 $\hat{y}$의 $L_1$ per-pixel loss이다.
+가중치 $\lambda_C$, $\lambda_P$, $\lambda_{FM}$은 각각 100, 10, 1로 설정하였다. Color loss는 생성된 이미지 $y$와 ground-truth 이미지 $\hat{y}$의 $L_1$ per-pixel loss가다.
 
 $$
 \begin{equation}

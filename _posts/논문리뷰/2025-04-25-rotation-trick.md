@@ -8,12 +8,12 @@ tags:
   - Computer Vision
   - Google
   - ICLR
-excerpt: "Rotation Trick 논문 리뷰 (ICLR 2025)"
+excerpt: "Rotation Trick 논문 리뷰 (ICLR 2025 Oral)"
 use_math: true
 classes: wide
 ---
 
-> ICLR 2025. [[Paper](https://arxiv.org/abs/2410.06424)] [[Github](https://github.com/cfifty/rotation_trick)]  
+> ICLR 2025 (Oral). [[Paper](https://arxiv.org/abs/2410.06424)] [[Github](https://github.com/cfifty/rotation_trick)]  
 > Christopher Fifty, Ronald G. Junkins, Dennis Duan, Aniketh Iyengar, Jerry W. Liu, Ehsan Amid, Sebastian Thrun, Christopher Ré  
 > Stanford University | Google DeepMind  
 > 8 Oct 2024  
@@ -47,7 +47,7 @@ $$
 
 디코더는 재구성에 대한 조건부 분포 $$p_\mathcal{D} (\tilde{x} \vert q)$$를 parameterize하는 deterministic mapping으로 정의된다. VAE에서와 같이 loss function은 ELBO에서 따르며, $$p_\mathcal{E} (e \vert x)$$가 deterministic하고 codebook 벡터에 대한 활용이 균일하다고 가정하기 때문에 KL-divergence 항은 0이 된다. 
 
-VQ-VAE에서는 codebook 벡터를 학습하기 위해 codebook loss 항 $$\| \textrm{sg} (e) - q \|_2^2$$를 추가하고 인코더의 출력을 codebook 벡터 쪽으로 끌어오기 위해 commitment loss 항 $$\beta \| e - \textrm{sg} (q) \|_2^2$$를 추가하였다 ($\textrm{sg}$는 stop-gradient). 따라서 예측된 재구성 $\hat{x}$에 대한 전체 loss는 다음과 같다. 
+VQ-VAE에서는 codebook 벡터를 학습하기 위해 codebook loss 항 $$\| \textrm{sg} (e) - q \|_2^2$$를 추가하고 인코더의 출력을 codebook 벡터 쪽으로 끌어오기 위해 commitment loss 항 $$\beta \| e - \textrm{sg} (q) \|_2^2$$를 추가하였다 ($\textrm{sg}$는 stop-gradient). 따라서 예측된 재구성 $\tilde{x}$에 대한 전체 loss는 다음과 같다. 
 
 $$
 \begin{equation}
@@ -55,7 +55,7 @@ $$
 \end{equation}
 $$
 
-$$\| x - \tilde{x} \|_2^2$$ 항만 디코더의 함수이기 때문에 이 항에만 초점을 맞추자. Backpropagation을 하는 동안 모델은 VQ layer 함수 Q(·)를 통해 미분해야 합니다. Backward pass를 세 항으로 나눌 수 있다.
+$$\| x - \tilde{x} \|_2^2$$ 항만 디코더의 함수이기 때문에 이 항에만 초점을 맞추자. Backpropagation을 하는 동안 모델은 VQ layer 함수 $\mathcal{Q}(\cdot)$를 통해 미분해야 한다. Backward pass를 세 항으로 나눌 수 있다.
 
 $$
 \begin{equation}
@@ -86,7 +86,7 @@ STE를 Hessian 근사나 이중 forward pass로 대체하여 $\frac{\partial \ma
 ## The Rotation Trick
 <center><img src='{{"/assets/img/rotation-trick/rotation-trick-algo1.webp" | relative_url}}' width="32%"></center>
 <br>
-STE에서 qauntize된 영역 내에서 $e$의 위치는 $q$에 가깝든 멀리 떨어져 있든 인코더에 대한 gradient 업데이트에 영향을 미치지 않으며, 이는 정보를 잃는 것이다. 이 정보를 캡처하는 것, 즉 $q$에 대한 $e$의 위치를 사용하여 gradient를 $\frac{\partial q}{\partial e}$를 통해 변환하는 것은 인코더의 gradient 업데이트에 유익할 수 있으며 STE보다 개선될 수 있다.
+STE에서 quantize된 영역 내에서 $e$의 위치는 $q$에 가깝든 멀리 떨어져 있든 인코더에 대한 gradient 업데이트에 영향을 미치지 않으며, 이는 정보를 잃는 것이다. 이 정보를 캡처하는 것, 즉 $q$에 대한 $e$의 위치를 사용하여 gradient를 $\frac{\partial q}{\partial e}$를 통해 변환하는 것은 인코더의 gradient 업데이트에 유익할 수 있으며 STE보다 개선될 수 있다.
 
 기하학적으로 볼 때, gradient $$\nabla_q \mathcal{L}$$을 $q$에서 $e$로 어떻게 움직일지, 그리고 이 움직임 동안 $$\nabla_q \mathcal{L}$$과 $q$의 어떤 특성을 보존해야 하는지가 중요하다. STE는 gradient를 $q$에서 $e$로 옮겨 방향과 크기가 보존되도록 한다. 그러나 본 논문은 $$\nabla_q \mathcal{L}$$을 $e$로 이동시킬 때 $$\nabla_q \mathcal{L}$$과 $q$ 사이의 각도가 보존되도록 한다. 이 접근 방식을 **rotation trick**이라 부른다.
 
@@ -103,11 +103,11 @@ $$
 
 $$
 \begin{equation}
-\tilde{q} = \underbrace{\left[ \frac{\| q \|}{\| e \|} R \right]}_{\textrm{constant}}
+\tilde{q} = \underbrace{\left[ \frac{\| q \|}{\| e \|} R \right]}_{\textrm{constant}} e
 \end{equation}
 $$
 
-$R$은 $e$를 $q$에 맞추는 회전 변환이고, $\frac{\| q \|}{\| e \|}$는 $e$를 $q$와 같은 크기로 rescaling한다. $R$과 $\frac{\| q \|}{\| e \|}$는 모두 $e$의 함수이다. 이 종속성을 통한 미분을 피하기 위해 미분할 때 $R$와 $\frac{\| q \|}{\| e \|}$를 상수로 취급한다. 
+$R$은 $e$를 $q$에 맞추는 회전 변환이고, $\frac{\| q \|}{\| e \|}$는 $e$를 $q$와 같은 크기로 rescaling한다. $R$과 $\frac{\| q \|}{\| e \|}$는 모두 $e$의 함수이다. 이 종속성을 통한 미분을 피하기 위해 미분할 때 $R$과 $\frac{\| q \|}{\| e \|}$를 상수로 취급한다. 
 
 Rotation trick은 forward pass의 출력을 변경하지 않지만 backward pass는 변경한다. STE에서처럼 $\frac{\partial q}{\partial e} = I$로 설정하는 대신, rotation trick은 $\frac{\partial q}{\partial e}$를 rotation 및 rescaling 변환으로 설정한다.
 

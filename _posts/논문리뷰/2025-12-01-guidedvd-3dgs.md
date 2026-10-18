@@ -124,8 +124,7 @@ $$
 \end{equation}
 $$
 
-($$\textbf{X}_{0 \vert t}$$는 latent $$\textbf{x}_{0 \vert t}$$를 VAE로 디코딩한 시퀀스, $$\mathcal{L}_\textrm{spec}$$은 perceptual
-loss)
+($$\textbf{X}_{0 \vert t}$$는 latent $$\textbf{x}_{0 \vert t}$$를 VAE로 디코딩한 시퀀스, $$\mathcal{L}_\textrm{spec}$$은 perceptual loss)
 
 위 식의 guidance에 따라, denoising process는 일관성 제약 조건과 diffusion model의 prior를 균형 있게 조정하여 이를 타당한 생성 결과로 통합한다. 이 guidance는 diffusion model의 fine-tuning을 포함하지 않으므로, 생성 성능을 그대로 유지한다.
 
@@ -140,7 +139,7 @@ loss)
 
 $$
 \begin{equation}
-\{\hat{S}_c^{(i)}, \hat{M}_c^{(i)}\}_{c=1}^m = \textrm{rasterize}(\{\phi_c^{i}\}_{c=1}^m, \mathcal{R})
+\{\hat{S}_c^{(i)}, \hat{M}_c^{(i)}\}_{c=1}^m = \textrm{rasterize}(\{\hat{\phi}_c^{(i)}\}_{c=1}^m, \mathcal{R})
 \end{equation}
 $$
 

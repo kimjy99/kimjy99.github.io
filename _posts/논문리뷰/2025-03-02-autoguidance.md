@@ -19,7 +19,7 @@ classes: wide
 > 4 Jun 2024  
 
 ## Introduction
-Diffusion model의 학습 목표는 전체 데이터 분포를 포괄하는 것이다. 이는 확률이 낮은 영역에서 문제를 일으킨다. 모델은 이를 표현하지 못한다는 이유로 엄청난 처벌을 받지만, 이에 상응하는 좋은 이미지를 생성하는 데 필요한 데이터가 충분하지 않습니다. [Classifier-free guidance (CFG)](https://kimjy99.github.io/논문리뷰/cfdg)는 잘 학습된 높은 확률 영역에 생성을 집중하는 표준 방법이 되었다. Conditional과 unconditional 모두에서 작동하도록 denoiser를 학습시킴으로써 샘플링 프로세스는 unconditional한 결과에서 벗어날 수 있으며, 사실상 unconditional은 피해야 할 결과를 지정한다. 이는 더 나은 프롬프트 정렬과 향상된 이미지 품질을 가져오는데, 전자의 효과는 CFG가 확률 밀도의 조건부 부분을 암시적으로 높이기 때문이다.
+Diffusion model의 학습 목표는 전체 데이터 분포를 포괄하는 것이다. 이는 확률이 낮은 영역에서 문제를 일으킨다. 모델은 이를 표현하지 못한다는 이유로 엄청난 처벌을 받지만, 이에 상응하는 좋은 이미지를 생성하는 데 필요한 데이터가 충분하지 않다. [Classifier-free guidance (CFG)](https://kimjy99.github.io/논문리뷰/cfdg)는 잘 학습된 높은 확률 영역에 생성을 집중하는 표준 방법이 되었다. Conditional과 unconditional 모두에서 작동하도록 denoiser를 학습시킴으로써 샘플링 프로세스는 unconditional한 결과에서 벗어날 수 있으며, 사실상 unconditional은 피해야 할 결과를 지정한다. 이는 더 나은 프롬프트 정렬과 향상된 이미지 품질을 가져오는데, 전자의 효과는 CFG가 확률 밀도의 조건부 부분을 암시적으로 높이기 때문이다.
 
 그러나 CFG는 일반적인 방법으로서의 사용을 제한하는 단점이 있다. 
 
@@ -85,7 +85,7 @@ $$
 1. 가이드되지 않은 diffusion model이 종종 만족스럽지 못한 이미지를 생성하는 이유는 무엇인가?
 2. CFG는 이 문제를 어떻게 해결하는가?
 
-저자들은 작은 denoiser가 합성 데이터셋에서 조건부 diffusion을 수행하도록 학습된 2D toy example에서 실험을 진행하였다. 이 데이터셋은 낮은 local dimensionality와 noise가 제거됨에 따라 계층적인 로컬 디테일이 나타내도록 설계되었다. 이 두 가지 속성은 모두 사실적인 이미지의 실제 manifold에서 예상할 수 있는 속성이다.
+저자들은 작은 denoiser가 합성 데이터셋에서 조건부 diffusion을 수행하도록 학습된 2D toy example에서 실험을 진행하였다. 이 데이터셋은 낮은 local dimensionality와 noise가 제거됨에 따라 계층적인 로컬 디테일이 나타나도록 설계되었다. 이 두 가지 속성은 모두 사실적인 이미지의 실제 manifold에서 예상할 수 있는 속성이다.
 
 실험 결과는 아래와 같다. (c)에서 CFG weight은 $w = 4$를 적용하였다. 
 
@@ -98,7 +98,7 @@ $$
 ##### Score matching으로 인해 outlier가 발생한다.
 기본 분포에서 직접 샘플링하는 것과 비교했을 때, 가이드되지 않은 diffusion은 대부분 분포 밖에서 매우 확률이 낮은 샘플을 대량으로 생성한다. 이미지 생성에서 이는 비현실적이고 망가진 이미지에 해당한다.
 
-저자들은 이 outlier가 score network의 제한된 역량과 score matching 목적 함수의 결합에서 비롯된다고 주장하였다. Maximum likelihood estimation (MLE)는 모델이 모든 학습 샘플을 포함하려고 시도한다는 의미에서 데이터 분포를 보수적으로 fitting한다. 이는 모델이 모든 학습 샘플의 likelihood를 심각하게 과소평가할 경우 KL divergence가 큰 페널티를 주기 때문이다. Score matching은 일반적으로 MLE와 같지 않지만, 둘은 밀접한 관련이 있으며 광범위하게 유사한 동작을 보인다. 
+저자들은 이 outlier가 score network의 제한된 역량과 score matching 목적 함수의 결합에서 비롯된다고 주장하였다. Maximum likelihood estimation (MLE)은 모델이 모든 학습 샘플을 포함하려고 시도한다는 의미에서 데이터 분포를 보수적으로 fitting한다. 이는 모델이 모든 학습 샘플의 likelihood를 심각하게 과소평가할 경우 KL divergence가 큰 페널티를 주기 때문이다. Score matching은 일반적으로 MLE와 같지 않지만, 둘은 밀접한 관련이 있으며 광범위하게 유사한 동작을 보인다. 
 
 두 번째 그림의 (a)와 (b)는 서로 다른 용량의 두 모델에 대한 toy example에서 학습된 score field와 확률 밀도를 보여준다. 더 강한 모델은 데이터를 더 단단히 포괄하는 반면, 더 약한 모델의 확률 밀도는 더 퍼져 있다.
 
@@ -107,7 +107,7 @@ $$
 ##### CFG는 outlier를 제거한다.
 CFG를 적용한 경우, 예상대로 샘플은 클래스 경계를 피하고 (즉, 회색 영역 근처에 샘플이 없음) 분포의 전체 분기가 제거된다. 또한 샘플이 manifold의 핵심 쪽으로 당겨지고 낮은 확률의 중간 영역에서 멀어지는 현상을 관찰할 수 있다. 이를 통해 확률이 낮은 outlier 샘플을 제거하여 이미지 품질이 향상된다. 그러나 클래스 likelihood의 단순한 증가만으로는 이러한 농도 증가를 설명할 수 없다.
 
-저자들은 이 현상이 conditional denoiser와 unconditional denoiser 사이의 품질 차이에서 비롯된다고 주장하였다. Denoiser $D_0$는 모든 클래스에서 한 번에 생성해야 하는 더 어려운 task에 직면하는 반면, D1은 특정 샘플에 대해 하나의 클래스에 집중할 수 있다. 따라서 네트워크 $D_0$는 데이터에 더 좋지 못한 fitting을 얻는다. 
+저자들은 이 현상이 conditional denoiser와 unconditional denoiser 사이의 품질 차이에서 비롯된다고 주장하였다. Denoiser $D_0$는 모든 클래스에서 한 번에 생성해야 하는 더 어려운 task에 직면하는 반면, $D_1$은 특정 샘플에 대해 하나의 클래스에 집중할 수 있다. 따라서 네트워크 $D_0$는 데이터에 더 좋지 못한 fitting을 얻는다. 
 
 CFG는 샘플이 클래스 $\textbf{c}$에서 나올 likelihood를 높일 뿐만 아니라 더 높은 품질의 분포에서 나올 likelihood도 높인다. Guidance는 샘플을 더 높은 $\log (p_1 / p_0)$ 값으로 끌어당기는 추가적인 힘으로 작용한다. 두 번째 그림의 (c)에서 볼 수 있듯이, 분모 $p_0$가 더 퍼진 분포를 나타내기 때문에 manifold와의 거리에 따라 비율이 일반적으로 감소하고 분자 $p_1$보다 더 느리게 감소하는 것을 알 수 있다. 결과적으로 기울기는 데이터 manifold의 안쪽을 가리킨다. 
 
@@ -125,12 +125,12 @@ CFG는 샘플이 클래스 $\textbf{c}$에서 나올 likelihood를 높일 뿐만
 
 **그러나 동일한 모델의 약한 버전은 동일한 영역에서 광범위하게 유사한 오차를 만들면서 더 강한 오차를 만들 것으로 예상할 수 있다. Autoguidance는 약한 모델의 예측과의 차이를 측정하고 이를 부스트하여 더 강한 모델이 만든 오차를 식별하고 줄이려고 한다. 두 모델이 일치할 때는 중요하지 않지만, 일치하지 않을 때 차이는 더 나은 샘플을 향한 일반적인 방향을 나타낸다.**
 
-따라서 두 모델이 서로 동일한 어려움을 겪는다면 autoguidance가 작동할 것으로 기대할 수 있다. 모든 $D_1$는 어느 정도의 어려움을 겪을 것으로 예상되므로 이러한 측면을 더욱 악화시키도록 $D_0$를 선택하는 것이 합리적이다.
+따라서 두 모델이 서로 동일한 어려움을 겪는다면 autoguidance가 작동할 것으로 기대할 수 있다. 모든 $D_1$은 어느 정도의 어려움을 겪을 것으로 예상되므로 이러한 측면을 더욱 악화시키도록 $D_0$를 선택하는 것이 합리적이다.
 
 실제로, 별도로 학습되거나 다른 iteration 수로 학습된 모델은 fitting 정확도뿐만 아니라, 가중치의 랜덤 초기화나 학습 데이터 셔플링 등의 측면에서도 차이가 있다. 효과적인 guidance를 위해서는 품질 차이가 충분히 커야 하며, 그래야만 확률 밀도의 체계적인 확장이 이러한 랜덤 효과를 압도할 수 있다.
 
 ##### Degradation에 대한 연구
-저자들은 두 모델이 동일한 종류의 어려움을 겪어야 한다는 가설을 검증하기 위해, 잘 학습된 이미지 diffusion model을 의도적으로 손상시켜 통제된 실험을 수행하였다. Base model에 다양한 정도의 손상을 적용하여 main model $D_1$과 guiding model $D_0$를 만든다. 이 구성을 통해 $D_1$와 $D_0$에 적용된 다양한 손상 조합의 FID 효과를 측정할 때 손상되지 않은 base model을 기준으로 사용할 수 있다. 
+저자들은 두 모델이 동일한 종류의 어려움을 겪어야 한다는 가설을 검증하기 위해, 잘 학습된 이미지 diffusion model을 의도적으로 손상시켜 통제된 실험을 수행하였다. Base model에 다양한 정도의 손상을 적용하여 main model $D_1$과 guiding model $D_0$를 만든다. 이 구성을 통해 $D_1$과 $D_0$에 적용된 다양한 손상 조합의 FID 효과를 측정할 때 손상되지 않은 base model을 기준으로 사용할 수 있다. 
 
 - **Base model**: ImageNet-512에서 학습된 EDM2-S (FID 2.56).
 - **Dropout**: Base model에 dropout을 각각 5%와 10% 적용한 $D_1$과 $D_0$를 구성 (각각 FID는 4.98, 15.00). Autoguidance를 적용한 후, FID 2.55를 달성 ($w$ = 2.25).
@@ -138,7 +138,7 @@ CFG는 샘플이 클래스 $\textbf{c}$에서 나올 likelihood를 높일 뿐만
 - **Mismatched degradations**: $D_1$을 dropout으로 손상시키고 $D_0$를 입력 noise로 손상시키거나 그 반대로 손상시키는 경우, autoguidance는 결과를 전혀 개선하지 못함. $w = 1$로 설정하여 $D_1$만 사용하였을 때 가장 좋은 FID를 얻음.
 
 ## Results
-다음은 ImageNet-512과 ImageNet-64에서의 결과를 비교한 표이다. Autoguidance의 파라미터는 guiding model $D_0$의 모델 용량과 학습량을 나타낸다 ($T$는 메인 모델의 학습량). EMA<sub>m</sub>과 EMA<sub>g</sub>는 각각 main model과 guiding model의 [사후 EMA 기법](https://arxiv.org/abs/2312.02696)에 대한 길이 파라미터이다. 
+다음은 ImageNet-512와 ImageNet-64에서의 결과를 비교한 표이다. Autoguidance의 파라미터는 guiding model $D_0$의 모델 용량과 학습량을 나타낸다 ($T$는 메인 모델의 학습량). EMA<sub>m</sub>과 EMA<sub>g</sub>는 각각 main model과 guiding model의 [사후 EMA 기법](https://arxiv.org/abs/2312.02696)에 대한 길이 파라미터이다. 
 
 <center><img src='{{"/assets/img/autoguidance/autoguidance-table1.webp" | relative_url}}' width="82%"></center>
 <br>

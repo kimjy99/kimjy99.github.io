@@ -71,7 +71,7 @@ $$
 ### 3. Training Text-to-LoRA via Supervised Fine-Tuning
 또는, T2L을 fine-tuning 데이터셋에서 직접 최적화할 수 있다. Supervised fine-tuning (SFT)으로 T2L을 학습시키면 타겟 LoRA 어댑터가 필요 없고 end-to-end 학습이 가능하다. 이 학습 방식은 기존에 학습된 LoRA가 기능이나 다운스트림 task에 의해 자연스럽게 클러스터링되지 않은 경우에 더 좋다. 
 
-예를 들어, task $t^1$과 $t^2$이 유사한 LLM 능력이 필요할 수 있지만 $\Delta W^1$과 $\Delta W^2$는 다를 수 있다. 따라서 reconstruction을 통해 학습된 T2L은 다른 $\Delta W^1$과 $\Delta W^2$를 압축해야 하므로 일반화 가능성이 낮다. 실제로 reconstruction을 통해 학습된 T2L은 처음 보는 task로 일반화하지 못한다. 반면, SFT로 학습된 T2L은 task를 클러스터링하는 것을 암시적으로 학습할 수 있으며, 이는 zero-shot LoRA 라우팅 성능을 향상시킨다. 
+예를 들어, task $t^1$과 $t^2$가 유사한 LLM 능력이 필요할 수 있지만 $\Delta W^1$과 $\Delta W^2$는 다를 수 있다. 따라서 reconstruction을 통해 학습된 T2L은 다른 $\Delta W^1$과 $\Delta W^2$를 압축해야 하므로 일반화 가능성이 낮다. 실제로 reconstruction을 통해 학습된 T2L은 처음 보는 task로 일반화하지 못한다. 반면, SFT로 학습된 T2L은 task를 클러스터링하는 것을 암시적으로 학습할 수 있으며, 이는 zero-shot LoRA 라우팅 성능을 향상시킨다. 
 
 T2L의 SFT loss는 다음과 같다. 
 

@@ -118,7 +118,7 @@ $$
 이렇게 하면 각 주파수 디테일에 대해 더 동일한 가중치를 갖는다. 
 
 ### 2. Multiscale training loss
-앞서 기본 해상도에서 SNR이 일정하게 유지되도록 고해상도 이미지를 학습할 때 diffusion model의 noise schedule을 조정해야 한다고 했다. 그러나 이러한 방식으로 noise schedule을 조정하더라도 해상도가 점점 높아지는 이미지의 학습 loss은 고주파수 디테일에 의해 지배된다. 이를 수정하기 위해 downsampling된 해상도에서 표준 학습 loss를 평가하는 multiscale loss로 표준 학습 loss를 대체하고 더 낮은 해상도에 대해 증가하는 가중 요소를 제안한다. 저자들은 multiscale loss가 특히 256$\times$256보다 큰 해상도에서 더 빠른 수렴을 가능하게 한다는 것을 발견했다. $d \times d$ 해상도에서의 학습 loss는 다음과 같이 쓸 수 있다.
+앞서 기본 해상도에서 SNR이 일정하게 유지되도록 고해상도 이미지를 학습할 때 diffusion model의 noise schedule을 조정해야 한다고 했다. 그러나 이러한 방식으로 noise schedule을 조정하더라도 해상도가 점점 높아지는 이미지의 학습 loss는 고주파수 디테일에 의해 지배된다. 이를 수정하기 위해 downsampling된 해상도에서 표준 학습 loss를 평가하는 multiscale loss로 표준 학습 loss를 대체하고 더 낮은 해상도에 대해 증가하는 가중 요소를 제안한다. 저자들은 multiscale loss가 특히 256$\times$256보다 큰 해상도에서 더 빠른 수렴을 가능하게 한다는 것을 발견했다. $d \times d$ 해상도에서의 학습 loss는 다음과 같이 쓸 수 있다.
 
 $$
 \begin{equation}

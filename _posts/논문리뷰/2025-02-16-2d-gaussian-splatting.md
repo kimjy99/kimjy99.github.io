@@ -67,7 +67,7 @@ $$
 $$\textbf{p}_k$$, $(s_u, s_v)$, $$(\textbf{t}_u, \textbf{t}_v)$$는 모두 학습 가능한 파라미터이다. 3DGS를 따라, 각 2D Gaussian은 불투명도 $\alpha$와 spherical harmonics로 parameterize된 뷰에 따른 색상 $\textbf{c}$를 갖는다.
 
 ### 2. Splatting
-2D splat을 image plane에 projection하는 것은 homogeneous coordinate에서 일반적인 2D-2D 매핑으로 설명할 수 있다. $\textbf{W} \in \mathbb{R}^{4 \times 4}$를 world space에서 screen space으로의 변환 행렬이라고 하자. 그러면 screen space에서의 점은 다음과 같이 얻을 수 있다.
+2D splat을 image plane에 projection하는 것은 homogeneous coordinate에서 일반적인 2D-2D 매핑으로 설명할 수 있다. $\textbf{W} \in \mathbb{R}^{4 \times 4}$를 world space에서 screen space로의 변환 행렬이라고 하자. 그러면 screen space에서의 점은 다음과 같이 얻을 수 있다.
 
 $$
 \begin{equation}
@@ -93,7 +93,7 @@ $$
 \end{aligned}
 $$
 
-2D Gaussian 평면의 점은 $(u,v,1,1)$로 표현된다. 동시에, 교점점은 변환된 $x$ 평면과 $y$ 평면에 있어야 한다. 따라서 다음 식이 성립한다. 
+2D Gaussian 평면의 점은 $(u,v,1,1)$로 표현된다. 동시에, 교차점은 변환된 $x$ 평면과 $y$ 평면에 있어야 한다. 따라서 다음 식이 성립한다. 
 
 $$
 \begin{equation}
@@ -151,7 +151,7 @@ $$
 Mip-NeRF360의 distortion loss는 $z_i$가 샘플링된 포인트 사이의 거리이고 최적화되지 않는 반면, $$\mathcal{L}_d$$는 $z_i$를 조정하여 splat의 집중을 직접적으로 촉진한다. 
 
 ##### Normal Consistency
-2DGS의 표현은 2D Gaussian surfel에 기반을 두고 있으므로 모든 2D splat이 실제 표면과 로컬하게 정렬되도록 해야 한다. 여러 개의 반투명 surfel이 광선을 따라 존재할 수 있는 볼륨 렌더링의 맥락에서, 누적 불투명도가 0.5에 도달하는 중간 교차점 $$\textbf{p}_s$$를 실제 표면을 고려한다. 그런 다음 splat의 normal을 다음과 같이 depth map의 gradient와 정렬한다.
+2DGS의 표현은 2D Gaussian surfel에 기반을 두고 있으므로 모든 2D splat이 실제 표면과 로컬하게 정렬되도록 해야 한다. 여러 개의 반투명 surfel이 광선을 따라 존재할 수 있는 볼륨 렌더링의 맥락에서, 누적 불투명도가 0.5에 도달하는 중간 교차점 $$\textbf{p}_s$$를 실제 표면으로 간주한다. 그런 다음 splat의 normal을 다음과 같이 depth map의 gradient와 정렬한다.
 
 $$
 \begin{equation}
@@ -187,7 +187,7 @@ $$
   - 3DGS와 동일한 adaptive control 전략을 사용하여 Gaussian의 수를 조절
   - Projection된 2D 중심의 gradient에 직접적으로 의존하지 않기 때문에, 대신 3D 중심 $$\textbf{p}_k$$의 gradient를 screen space에 projection하여 근사값으로 사용
   - gradient threshold: 0.0002
-  - 3,000 step 마다 0.05보다 불투명도가 작은 splat을 제거
+  - 3,000 step마다 0.05보다 불투명도가 작은 splat을 제거
   - GPU: RTX3090 GPU 1개
   - $\alpha$: bounded scene은 1000, unbounded scene은 100
   - $\beta$: 0.05

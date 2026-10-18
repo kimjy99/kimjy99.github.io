@@ -116,7 +116,7 @@ L_{overall} = L_{det} + \lambda L_{dice} (m, m^{gt})
 \end{equation}
 $$
 
-$L_{det}$는 DiffusionDet의 loss이고 $\lambda = 5$로 두어 두 loss의 균형을 맞춘다. DiffusionDet을 따라 여러 디코더 단계에서 여러 supervision을 수행한다. 
+$L_{det}$는 DiffusionDet의 loss가고 $\lambda = 5$로 두어 두 loss의 균형을 맞춘다. DiffusionDet을 따라 여러 디코더 단계에서 여러 supervision을 수행한다. 
 
 #### Inference
 DiffusionDet의 inference 파이프라인은 noise에서 instance 필터로의 denoising sampling process이다. 가우시안 분포에서 샘플링한 $b_T$에서 시작하여 모델은 점진적으로 예측을 정제한다. 

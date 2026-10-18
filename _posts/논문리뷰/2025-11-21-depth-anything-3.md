@@ -39,7 +39,7 @@ Depth Anything 3는 기하학적 재구성 타겟을 dense prediction task로 �
 
 ## Depth Anything 3
 ### 1. Formulation
-입력으로 $$\mathcal{I} = \{\textbf{I}_i \in \mathbb{R}^{H \times W \times 3}\}_{i=1}^{N_v}$$가 주어진다. $N_v = 1$인 경우 monocular 이미지이고 $N_v > 1$인 경우 동영상 또는 멀티뷰 세트이다. 각 이미지는 깊이 $$\textbf{D}_i \in \mathbb{R}^{H \times W}$$, 카메라 extrinsic $$[\textbf{R}_i \vert \textbf{t}_i]$$, intrisic $$\textbf{K}_i$$를 갖는다. 카메라는 $$\textbf{v}_i \in \mathbb{R}^9$$로 표현할 수도 있으며, 이때 translation $$\textbf{t}_i \in \mathbb{R}^3$$, rotation quaternion $$\textbf{q}_i \in \mathbb{R}^4$$, FOV 파라미터 $$\textbf{f}_i \in \mathbb{R}^2$$이다. 픽셀 $\textbf{p} = (u, v, 1)^\top$는 3D 포인트 $\textbf{P} = (X, Y, Z, 1)^\top$로 projection된다.
+입력으로 $$\mathcal{I} = \{\textbf{I}_i \in \mathbb{R}^{H \times W \times 3}\}_{i=1}^{N_v}$$가 주어진다. $N_v = 1$인 경우 monocular 이미지이고 $N_v > 1$인 경우 동영상 또는 멀티뷰 세트이다. 각 이미지는 깊이 $$\textbf{D}_i \in \mathbb{R}^{H \times W}$$, 카메라 extrinsic $$[\textbf{R}_i \vert \textbf{t}_i]$$, intrinsic $$\textbf{K}_i$$를 갖는다. 카메라는 $$\textbf{v}_i \in \mathbb{R}^9$$로 표현할 수도 있으며, 이때 translation $$\textbf{t}_i \in \mathbb{R}^3$$, rotation quaternion $$\textbf{q}_i \in \mathbb{R}^4$$, FOV 파라미터 $$\textbf{f}_i \in \mathbb{R}^2$$이다. 픽셀 $\textbf{p} = (u, v, 1)^\top$는 3D 포인트 $\textbf{P} = (X, Y, Z, 1)^\top$로 projection된다.
 
 $$
 \begin{equation}
@@ -77,7 +77,7 @@ $$
 \end{equation}
 $$
 
-Rotation $\textbf{R}$과 intrisic $\textbf{K}$를 추정하기 위해 문제를 homography $\textbf{H}$를 찾는 것으로 구성한다. 먼저 intrisic이 항등 행렬 $\textbf{K}_I = \textbf{I}$인 identity 카메라를 정의한다. 주어진 픽셀 $\textbf{p}$에 대해, 이 표준 카메라 좌표계에서 광선 방향은 간단히 $$\textbf{d}_I = \textbf{p}$$이다. 이 표준 광선 $$\textbf{d}_I$$에서 타겟 카메라 좌표계에서의 광선 방향 $$\textbf{d}_\textrm{cam}$$으로의 변환은 $$\textbf{d}_\textrm{cam} = \textbf{K} \textbf{R} \textbf{d}_I$$로 주어진다. 이는 두 광선 집합 사이에 직접적인 homography 관계 $\textbf{H} = \textbf{K}\textbf{R}$을 설정한다. 그런 다음 변환된 표준 광선과 미리 계산된 타겟 광선 집합 $\textbf{M}(h, w, 3 :)$ 사이의 기하학적 오차를 최소화하여 이 homography를 구할 수 있다. 이는 다음과 같은 최적화 문제로 이어진다.
+Rotation $\textbf{R}$과 intrinsic $\textbf{K}$를 추정하기 위해 문제를 homography $\textbf{H}$를 찾는 것으로 구성한다. 먼저 intrinsic이 항등 행렬 $\textbf{K}_I = \textbf{I}$인 identity 카메라를 정의한다. 주어진 픽셀 $\textbf{p}$에 대해, 이 표준 카메라 좌표계에서 광선 방향은 간단히 $$\textbf{d}_I = \textbf{p}$$이다. 이 표준 광선 $$\textbf{d}_I$$에서 타겟 카메라 좌표계에서의 광선 방향 $$\textbf{d}_\textrm{cam}$$으로의 변환은 $$\textbf{d}_\textrm{cam} = \textbf{K} \textbf{R} \textbf{d}_I$$로 주어진다. 이는 두 광선 집합 사이에 직접적인 homography 관계 $\textbf{H} = \textbf{K}\textbf{R}$을 설정한다. 그런 다음 변환된 표준 광선과 미리 계산된 타겟 광선 집합 $\textbf{M}(h, w, 3 :)$ 사이의 기하학적 오차를 최소화하여 이 homography를 구할 수 있다. 이는 다음과 같은 최적화 문제로 이어진다.
 
 $$
 \begin{equation}
@@ -127,7 +127,7 @@ $$
 
 $$
 \begin{equation}
-\mathcal{F}_\theta = \mathcal{I} \mapsto \{ \hat{\textbf{D}}, \hat{\textbf{R}}, \hat{\textbf{c}} \}
+\mathcal{F}_\theta : \mathcal{I} \mapsto \{ \hat{\textbf{D}}, \hat{\textbf{R}}, \hat{\textbf{c}} \}
 \end{equation}
 $$
 
@@ -244,7 +244,7 @@ $$
 저자들은 feed-forward novel view synthesis (FF-NVS)를 위하여 [3DGS](https://kimjy99.github.io/논문리뷰/3d-gaussian-splatting)를 활용하였다. 최소 모델링 전략을 고수하며, 픽셀 정렬된 3D Gaussian을 추론하기 위해 DPT head (GS-DPT)를 추가하여 fine-tuning하는 방식으로 FF-NVS를 수행하였다.
 
 ##### GS-DPT head
-Transformer backbone을 통해 추출된 각 뷰에 대한 비주얼 토큰이 주어지면, GS-DPT는 카메라 공간에서의 3D Gaussian 파라미터 $$\{\sigma_i, \textbf{q}_i, \textbf{s}_i, \textbf{c}_i\}_{i=1}^{H \times W}$$를 예측한다. 이 중 $$\sigma_i$$는 confidence head에서 예측하고 다른 것은 메인 GS-DPT head에서 예측한다. 추정된 깊이를 월드 프레임에 unprojection하여 3D Gaussian의 위치 $$\textbf{P}_i \in \mathbb{R}^3$$을 얻는다. 그런 다음, 주어진 카메라 포즈에서 새로운 뷰를 합성하기 위해 rasterizion된다.
+Transformer backbone을 통해 추출된 각 뷰에 대한 비주얼 토큰이 주어지면, GS-DPT는 카메라 공간에서의 3D Gaussian 파라미터 $$\{\sigma_i, \textbf{q}_i, \textbf{s}_i, \textbf{c}_i\}_{i=1}^{H \times W}$$를 예측한다. 이 중 $$\sigma_i$$는 confidence head에서 예측하고 다른 것은 메인 GS-DPT head에서 예측한다. 추정된 깊이를 월드 프레임에 unprojection하여 3D Gaussian의 위치 $$\textbf{P}_i \in \mathbb{R}^3$$을 얻는다. 그런 다음, 주어진 카메라 포즈에서 새로운 뷰를 합성하기 위해 rasterization된다.
 
 ##### 학습 loss
 NVS 모델은 렌더링된 새로운 뷰에 대한 photometric loss, 즉 $$\mathcal{L}_\textrm{MSE}$$, $$\mathcal{L}_\textrm{LPIPS}$$와 관찰된 뷰의 추정 깊이에 대한 scale-shift-invariant depth loss $$\mathcal{L}_D$$로 fine-tuning되며 teacher–student 학습 패러다임을 따른다.
@@ -284,8 +284,6 @@ DA3 backbone은 두 가지 요구 사항을 모두 충족한다. 포즈를 사�
 <center><img src='{{"/assets/img/depth-anything-3/depth-anything-3-fig7.webp" | relative_url}}' width="100%"></center>
 <span style="display: block; margin: 1px 0;"></span>
 <center><img src='{{"/assets/img/depth-anything-3/depth-anything-3-table4.webp" | relative_url}}' width="55%"></center>
-<br>
-
 
 ### 2. Analysis for Depth Anything 3
 다음은 예측 타겟에 대한 ablation 결과이다.
@@ -309,7 +307,7 @@ DA3 backbone은 두 가지 요구 사항을 모두 충족한다. 포즈를 사�
 
 <center><img src='{{"/assets/img/depth-anything-3/depth-anything-3-table9.webp" | relative_url}}' width="100%"></center>
 <br>
-다음은 monocular student의 DA2와 비교한 결과이다.
+다음은 monocular student를 DA2와 비교한 결과이다.
 
 <center><img src='{{"/assets/img/depth-anything-3/depth-anything-3-table10.webp" | relative_url}}' width="55%"></center>
 
