@@ -11,7 +11,7 @@ excerpt: "Castlevania: Belmont's Curse - 진행도 100%"
 classes: wide
 ---
 
-<center><img src='{{"/assets/img/game/castlevania-belmonts-curse/castlevania-belmonts-curse-1.jpg" | relative_url}}' width="95%"></center>
+<center><img src='{{"/assets/img/game/castlevania-belmonts-curse/castlevania-belmonts-curse-1.jpg" | relative_url}}' width="100%"></center>
 <span style="display: block; margin: 1px 0;"></span>
-<center><img src='{{"/assets/img/game/castlevania-belmonts-curse/castlevania-belmonts-curse-2.webp" | relative_url}}' width="90%"></center>
-<center><img src='{{"/assets/img/game/castlevania-belmonts-curse/castlevania-belmonts-curse-3.webp" | relative_url}}' width="90%"></center>
+<center><img src='{{"/assets/img/game/castlevania-belmonts-curse/castlevania-belmonts-curse-2.webp" | relative_url}}' width="85%"></center>
+<center><img src='{{"/assets/img/game/castlevania-belmonts-curse/castlevania-belmonts-curse-3.webp" | relative_url}}' width="85%"></center>
