@@ -4,7 +4,7 @@ last_modified_at: 2024-11-08
 categories:
   - 논문리뷰
 tags:
-  - Large Multimodal Model
+  - MLLM
   - NLP
   - RAG
 excerpt: "Wiki-LLaVA 논문 리뷰 (CVPRW 2024)"

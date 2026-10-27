@@ -8,7 +8,7 @@ tags:
   - Image-to-Video
   - Inpainting
   - NLP
-  - Large Multimodal Model
+  - MLLM
   - Computer Vision
   - Google
   - ICML
