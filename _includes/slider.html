@@ -7,7 +7,7 @@
   <div class="slider-wrapper" style="width:{{ include.width | default: '95%' }}; overflow:hidden;">
     <div class="slider" style="display:flex; transition:transform 0.3s ease;">
       {% for image in include.slider_images %}
-      <div style="min-width:100%; box-sizing:border-box; text-align:center;">
+      <div style="min-width:100%; box-sizing:border-box; display:flex; align-items:center; justify-content:center;">
         <img src="{{ image | relative_url }}" style="width:100%;">
       </div>
       {% endfor %}
